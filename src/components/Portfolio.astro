@@ -1,0 +1,23 @@
+---
+/**
+ * Portfolio Wrapper Component
+ * Dynamically switches between different portfolio section versions.
+ */
+import PortfolioV1 from './PortfolioV1.astro';
+import PortfolioV2 from './PortfolioV2.astro';
+import PortfolioV3 from './PortfolioV3.astro';
+import PortfolioV4 from './PortfolioV4.astro';
+import PortfolioV5 from './PortfolioV5.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <PortfolioV1 /> : 
+ version === 2 ? <PortfolioV2 /> : 
+ version === 3 ? <PortfolioV3 /> :
+ version === 4 ? <PortfolioV4 /> :
+ <PortfolioV5 />}

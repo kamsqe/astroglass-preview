@@ -1,0 +1,32 @@
+---
+title: "Hero Components"
+description: "High-impact hero sections for landing pages."
+order: 1
+layout: v2
+---
+
+# Hero Components
+
+We provide 5 distinct hero variations.
+
+## Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `title` | `string` | - | Main headline |
+| `subtitle` | `string` | - | Subtext below headline |
+| `image` | `ImageMetadata` | - | Hero image (if applicable) |
+| `primaryCta` | `string` | "Get Started" | Primary button text |
+
+## Usage
+
+```astro
+---
+import HeroV1 from '../components/HeroV1.astro';
+---
+
+<HeroV1 
+  title="Build Faster"
+  subtitle="The ultimate Astro theme."
+/>
+```

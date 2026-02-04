@@ -1,0 +1,120 @@
+---
+import { getLocaleFromUrl } from '../utils/i18n';
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import HeaderV2 from '../components/HeaderV2.astro';
+import HeaderV3 from '../components/HeaderV3.astro';
+import HeaderV4 from '../components/HeaderV4.astro';
+import HeaderV5 from '../components/HeaderV5.astro';
+import ShowcaseControls from '../components/ShowcaseControls.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  showHeader?: boolean;
+  showControls?: boolean;
+  headerVersion?: 1 | 2 | 3 | 4 | 5;
+  heroVersion?: 1 | 2 | 3;
+  aboutVersion?: 1 | 2 | 3;
+  featuresVersion?: 1 | 2 | 3;
+  portfolioVersion?: 1 | 2 | 3 | 4 | 5;
+  pricingVersion?: 1 | 2 | 3 | 4 | 5;
+  testimonialVersion?: 1 | 2 | 3 | 4 | 5;
+  faqVersion?: 1 | 2 | 3 | 4 | 5;
+  ctaVersion?: 1 | 2 | 3 | 4 | 5;
+  contactVersion?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { 
+  title, 
+  description, 
+  showHeader = true, 
+  showControls = true,
+  headerVersion, 
+  heroVersion, 
+  aboutVersion,
+  featuresVersion,
+  portfolioVersion,
+  pricingVersion,
+  testimonialVersion,
+  faqVersion,
+  ctaVersion,
+  contactVersion
+} = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+
+// Determine versions (prefer prop, fallback to URL, fallback to 1)
+const url = new URL(Astro.request.url);
+let currentHeader = headerVersion || parseInt(url.searchParams.get('header') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentHero = heroVersion || parseInt(url.searchParams.get('hero') || '1') as 1 | 2 | 3;
+const currentAbout = aboutVersion || parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3;
+const currentFeatures = featuresVersion || parseInt(url.searchParams.get('features') || '1') as 1 | 2 | 3;
+const currentPortfolio = portfolioVersion || parseInt(url.searchParams.get('portfolio') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentPricing = pricingVersion || parseInt(url.searchParams.get('pricing') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentTestimonial = testimonialVersion || parseInt(url.searchParams.get('testimonial') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentFaq = faqVersion || parseInt(url.searchParams.get('faq') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentCta = ctaVersion || parseInt(url.searchParams.get('cta') || '1') as 1 | 2 | 3 | 4 | 5;
+const currentContact = contactVersion || parseInt(url.searchParams.get('contact') || '1') as 1 | 2 | 3 | 4 | 5;
+
+// If Header V2 is active, force the 'nordic' theme
+const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
+---
+
+<!doctype html>
+<html lang={locale} data-theme={activeTheme} data-header={currentHeader}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+    <script is:inline define:vars={{ isV2: currentHeader === 2 }}>
+      const setSelectionTheme = () => {
+        if (isV2) {
+          document.documentElement.setAttribute('data-theme', 'nordic');
+        } else {
+          const stored = localStorage.getItem('theme');
+          if (stored) document.documentElement.setAttribute('data-theme', stored);
+        }
+        // Emit custom event so ThemeSwitchers can update their UI
+        window.dispatchEvent(new CustomEvent('theme-changed', { 
+            detail: { theme: document.documentElement.getAttribute('data-theme') } 
+        }));
+      };
+      setSelectionTheme();
+      document.addEventListener('astro:after-swap', setSelectionTheme);
+    </script>
+  </head>
+  <body class="bg-base-100 text-base-content min-h-screen">
+    {showHeader && (
+      currentHeader === 1 ? <Header /> :
+      currentHeader === 2 ? <HeaderV2 /> :
+      currentHeader === 3 ? <HeaderV3 /> :
+      currentHeader === 4 ? <HeaderV4 /> :
+      <HeaderV5 />
+    )}
+    
+    <div>
+      <slot />
+    </div>
+
+    {showControls && (
+      <ShowcaseControls 
+        headerVer={currentHeader} 
+        heroVer={currentHero} 
+        aboutVer={currentAbout} 
+        featuresVer={currentFeatures}
+        portfolioVer={currentPortfolio}
+        pricingVer={currentPricing}
+        testimonialVer={currentTestimonial}
+        faqVer={currentFaq}
+        ctaVer={currentCta}
+        contactVer={currentContact}
+      />
+    )}
+  </body>
+</html>

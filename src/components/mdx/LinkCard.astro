@@ -1,0 +1,24 @@
+---
+/**
+ * Link Card Component
+ * Visual navigation link.
+ */
+interface Props {
+  title: string;
+  href: string;
+  icon?: string;
+  description?: string;
+}
+
+const { title, href, icon, description } = Astro.props;
+---
+
+<a href={href} class="group block p-6 rounded-xl border border-base-content/10 bg-base-content/[0.02] hover:bg-base-content/[0.05] hover:border-accent/30 transition-all duration-300 no-underline">
+  <div class="flex items-start gap-4">
+    {icon && <div class="text-2xl group-hover:scale-110 transition-transform duration-300">{icon}</div>}
+    <div>
+      <h3 class="text-base font-bold text-base-content group-hover:text-accent transition-colors m-0">{title}</h3>
+      {description && <p class="text-sm text-base-content/60 mt-1 mb-0 leading-relaxed">{description}</p>}
+    </div>
+  </div>
+</a>

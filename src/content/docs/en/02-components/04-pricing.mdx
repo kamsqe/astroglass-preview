@@ -1,0 +1,29 @@
+---
+title: "Pricing"
+description: "Clear and effective pricing tables."
+order: 4
+layout: v2
+---
+
+# Pricing Tables
+
+Convert visitors into customers with clear pricing options.
+
+## Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `plans` | `Plan[]` | - | Array of pricing tiers |
+| `currency` | `string` | "$" | Currency symbol |
+| `period` | `string` | "month" | Billing period |
+
+## Usage
+
+```astro
+<PricingV1 
+  plans={[
+    { name: 'Starter', price: 0, features: ['Basic support'] },
+    { name: 'Pro', price: 29, features: ['Priority support', 'Analytics'], popular: true }
+  ]}
+/>
+```

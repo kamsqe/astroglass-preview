@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ slug }) => slug.startsWith('en/'));
+  const tags = new Set();
+  posts.forEach(post => post.data.tags.forEach((tag: string) => tags.add(tag)));
+  
+  return [...tags].map(tag => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const locale = 'en';
+
+const posts = await getCollection('blog', ({ slug, data }) => {
+  return slug.startsWith('en/') && data.tags.includes(tag);
+});
+---
+
+<BaseLayout title={`Tag: ${tag}`}>
+  <div class="max-w-6xl mx-auto py-20 px-4">
+    <div class="mb-12">
+      <a href="/blog" class="text-sm font-bold uppercase tracking-wider text-base-content/50 hover:text-accent transition-colors">← Back to Blog</a>
+      <h1 class="text-5xl font-black mt-4">#{tag}</h1>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map(post => <BlogCard post={post} locale={locale} />)}
+    </div>
+  </div>
+</BaseLayout>

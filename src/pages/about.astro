@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import About from '../components/About.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const url = new URL(Astro.request.url);
+const aboutVer = parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3;
+---
+
+<BaseLayout title={`About - ${t('siteName')}`} description={t('about.description')}>
+  <main class="min-h-screen">
+    <About version={aboutVer} isFirst={true} />
+  </main>
+</BaseLayout>

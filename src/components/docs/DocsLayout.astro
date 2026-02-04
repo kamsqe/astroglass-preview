@@ -1,0 +1,240 @@
+---
+/**
+ * Docs Layout Component (Phase 2 Refinement)
+ * Supports V1 (Sidebar Guide) and V2 (API Reference).
+ * Includes Scrollspy, Mobile Drawer, and Glassmorphism polish.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildDocsNav } from '../../utils/docs-nav';
+import { useTranslations } from '../../utils/i18n';
+import DocsSearch from './DocsSearch.astro';
+
+interface Props {
+  doc: any;
+  Content: any;
+  headings: any[];
+  locale: 'en' | 'ru';
+  isFallback?: boolean;
+}
+
+const { doc, Content, headings, locale, isFallback = false } = Astro.props;
+const t = useTranslations(locale);
+const sections = await buildDocsNav(locale);
+
+const layout = doc.data.layout || 'v1';
+const isV2 = layout === 'v2';
+---
+
+<BaseLayout title={`${doc.data.title} | Docs`} description={doc.data.description}>
+  <div class="docs-container min-h-screen pt-[calc(60px+var(--nav-offset))]">
+    
+    {/* Mobile Controls */}
+    <div class="lg:hidden sticky top-[var(--header-height)] z-40 bg-base-100/80 backdrop-blur-md border-b border-base-content/5 px-4 py-3 flex items-center justify-between">
+      <button id="mobile-menu-btn" class="flex items-center gap-2 text-sm font-bold text-base-content/80">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        Menu
+      </button>
+      <div class="text-xs font-bold opacity-50">{isV2 ? 'API Ref' : 'Guide'}</div>
+    </div>
+
+    {/* Mobile Drawer (Hidden by default) */}
+    <div id="mobile-drawer" class="fixed inset-0 z-50 bg-base-100 transform -translate-x-full transition-transform duration-300 lg:hidden flex flex-col">
+      <div class="p-4 border-b border-base-content/5 flex items-center justify-between">
+        <span class="font-bold">Navigation</span>
+        <button id="close-drawer-btn" class="p-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-4 space-y-8">
+        <DocsSearch locale={locale} />
+        {sections.map(section => (
+          <div>
+            <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-3">{section.title}</h3>
+            <ul class="space-y-1">
+              {section.items.map(item => (
+                <li>
+                  <a href={item.href} class={`block py-2 px-3 rounded-lg text-sm ${Astro.url.pathname.includes(item.href) ? 'bg-accent/10 text-accent font-medium' : 'text-base-content/70'}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class={isV2 ? "max-w-[1600px] mx-auto px-4 sm:px-6" : "max-w-[1400px] mx-auto px-4 sm:px-6"}>
+      <div class={isV2 ? "lg:grid lg:grid-cols-[1fr_240px] lg:gap-12" : "lg:grid lg:grid-cols-[260px_1fr_240px] lg:gap-12"}>
+        
+        {/* Desktop Sidebar (V1 Only) */}
+        {!isV2 && (
+          <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto no-scrollbar">
+            <div class="mb-6"><DocsSearch locale={locale} /></div>
+            <nav class="space-y-8">
+              {sections.map(section => (
+                <div>
+                  <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-3 px-3">
+                    {section.title}
+                  </h3>
+                  <ul class="space-y-0.5">
+                    {section.items.map(item => {
+                      const isActive = Astro.url.pathname === item.href || Astro.url.pathname === item.href + '/';
+                      return (
+                        <li>
+                          <a 
+                            href={item.href}
+                            class:list={[
+                              "block px-3 py-1.5 rounded-lg text-sm transition-all duration-200",
+                              isActive
+                                ? "bg-accent/10 text-accent font-medium translate-x-1"
+                                : "text-base-content/60 hover:text-base-content hover:bg-base-content/5 hover:translate-x-1"
+                            ]}
+                          >
+                            {item.title}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          </aside>
+        )}
+
+        {/* Main Content */}
+        <main class="py-10 min-w-0">
+          {isFallback && (
+            <div class="mb-8 p-4 rounded-xl bg-warning/10 border border-warning/20 text-warning flex items-center gap-3">
+              <span class="text-xl">⚠️</span>
+              <div>
+                <p class="font-bold text-sm">Translation Missing</p>
+                <p class="text-xs opacity-80">Showing English version.</p>
+              </div>
+            </div>
+          )}
+
+          <header class="mb-10 border-b border-base-content/5 pb-10">
+            <div class="text-xs font-bold text-accent uppercase tracking-wider mb-3">{doc.data.order ? `Part ${doc.data.order}` : 'Guide'}</div>
+            <h1 class="text-4xl sm:text-5xl font-black text-base-content mb-4 tracking-tight">{doc.data.title}</h1>
+            {doc.data.description && (
+              <p class="text-xl text-base-content/60 leading-relaxed">{doc.data.description}</p>
+            )}
+          </header>
+
+          <article class="prose prose-lg prose-glass max-w-none">
+            <slot />
+          </article>
+          
+          <div class="mt-16 pt-8 border-t border-base-content/5 flex justify-between text-sm text-base-content/40">
+            {doc.data.lastUpdated && <span>Updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}</span>}
+            <a href="#" class="hover:text-accent">Edit this page</a>
+          </div>
+        </main>
+
+        {/* Desktop TOC (V1 & V2) */}
+        <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto">
+          <h4 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-4 px-2">On this page</h4>
+          <ul class="space-y-1 text-sm text-base-content/50" id="toc-list">
+            {headings.map(h => (
+              <li style={`padding-left: ${(h.depth - 2) * 0.75}rem`}>
+                <a 
+                  href={`#${h.slug}`} 
+                  class="toc-link block py-1 px-2 rounded hover:text-accent hover:bg-base-content/5 transition-colors border-l-2 border-transparent"
+                  data-slug={h.slug}
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Mobile Drawer Logic
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const closeBtn = document.getElementById('close-drawer-btn');
+  const drawer = document.getElementById('mobile-drawer');
+
+  function openDrawer() {
+    drawer?.classList.remove('-translate-x-full');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer?.classList.add('-translate-x-full');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+
+  // TOC Scrollspy Logic
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = document.querySelector(`.toc-link[data-slug="${id}"]`);
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.toc-link').forEach(l => {
+          l.classList.remove('text-accent', 'border-accent', 'bg-accent/5');
+        });
+        link?.classList.add('text-accent', 'border-accent', 'bg-accent/5');
+      }
+    });
+  }, { rootMargin: '-100px 0px -66% 0px' });
+
+  document.querySelectorAll('h2[id], h3[id]').forEach((h) => {
+    observer.observe(h);
+  });
+
+  // Copy Code Logic
+  document.querySelectorAll('pre').forEach(pre => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'relative group';
+    
+    // Create button
+    const btn = document.createElement('button');
+    btn.className = 'absolute top-3 right-3 p-2 rounded-lg bg-base-100/10 backdrop-blur-md border border-white/10 text-white/50 hover:text-white hover:bg-base-100/20 transition-all opacity-0 group-hover:opacity-100';
+    btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>`;
+    
+    // Copy action
+    btn.addEventListener('click', async () => {
+      const code = pre.querySelector('code')?.innerText || '';
+      await navigator.clipboard.writeText(code);
+      btn.innerHTML = `<svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>`;
+      setTimeout(() => {
+        btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>`;
+      }, 2000);
+    });
+
+    // Wrap pre
+    pre.parentNode?.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    wrapper.appendChild(btn);
+  });
+</script>
+
+<style is:global>
+  /* Scrollbar hiding */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Premium Prose Styling */
+  .prose-glass { color: hsl(var(--bc) / 0.8); }
+  .prose-glass h1, .prose-glass h2, .prose-glass h3 { color: hsl(var(--bc)); scroll-margin-top: 6rem; }
+  .prose-glass h2 { margin-top: 3rem; margin-bottom: 1rem; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.02em; }
+  .prose-glass p { margin-bottom: 1.5rem; line-height: 1.75; }
+  .prose-glass a { color: hsl(var(--a)); text-decoration: none; border-bottom: 1px solid hsl(var(--a) / 0.3); transition: border-color 0.2s; }
+  .prose-glass a:hover { border-bottom-color: hsl(var(--a)); }
+  .prose-glass code { background: hsl(var(--bc) / 0.05); padding: 0.2em 0.4em; border-radius: 0.25em; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; color: hsl(var(--a)); }
+  .prose-glass pre { padding: 1.5rem; border-radius: 1rem; background: hsl(var(--bc) / 0.03); border: 1px solid hsl(var(--bc) / 0.1); }
+  .prose-glass blockquote { border-left: 4px solid hsl(var(--a)); padding-left: 1.5rem; font-style: italic; color: hsl(var(--bc) / 0.6); }
+  .prose-glass ul { list-style-type: disc; padding-left: 1.5rem; }
+  .prose-glass li { margin-bottom: 0.5rem; }
+</style>

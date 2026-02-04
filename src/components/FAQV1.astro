@@ -1,0 +1,496 @@
+---
+/**
+ * FAQ V1 - The Guided Journey
+ * Step-by-step progressive disclosure with breadcrumb navigation.
+ * Mobile: Full-screen steps. Desktop: Split view with navigation tree.
+ */
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const categories = [
+  {
+    id: 'getting-started',
+    icon: '🚀',
+    title: t('faq.cat_getting_started'),
+    description: t('faq.cat_getting_started_desc'),
+    questions: [
+      { q: t('faq.q_create_project'), a: t('faq.a_create_project') },
+      { q: t('faq.q_sys_req'), a: t('faq.a_sys_req') },
+      { q: t('faq.q2'), a: t('faq.a2') },
+    ]
+  },
+  {
+    id: 'billing',
+    icon: '💳',
+    title: t('faq.cat_billing'),
+    description: t('faq.cat_billing_desc'),
+    questions: [
+      { q: t('faq.q_billing'), a: t('faq.a_billing') },
+      { q: t('faq.q_refund'), a: t('faq.a_refund') },
+      { q: t('faq.q_team_discount'), a: t('faq.a_team_discount') },
+    ]
+  },
+  {
+    id: 'technical',
+    icon: '⚙️',
+    title: t('faq.cat_technical'),
+    description: t('faq.cat_technical_desc'),
+    questions: [
+      { q: t('faq.q5'), a: t('faq.a5') },
+      { q: t('faq.q9'), a: t('faq.a9') },
+      { q: t('faq.q6'), a: t('faq.a6') },
+    ]
+  },
+  {
+    id: 'account',
+    icon: '👤',
+    title: t('faq.cat_account'),
+    description: t('faq.cat_account_desc'),
+    questions: [
+      { q: t('faq.q8'), a: t('faq.a8') },
+      { q: t('faq.q7'), a: t('faq.a7') },
+      { q: t('faq.q_delete_account'), a: t('faq.a_delete_account') },
+    ]
+  },
+];
+
+const categoriesJson = JSON.stringify(categories);
+---
+
+<section class="relative py-24 lg:py-32 px-6 overflow-hidden bg-base-100">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12 lg:mb-16">
+       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('faq.support')}</span>
+       <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.title')}</h2>
+       <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
+    </div>
+
+    <!-- Mobile: Step-by-step Journey -->
+    <div class="lg:hidden">
+       <div class="faq-v1-journey" data-step="categories" data-categories={categoriesJson} data-i18n={JSON.stringify({ topics: t('faq.topics'), answer: t('faq.answer') })}>
+          <!-- Breadcrumb -->
+          <div class="faq-v1-breadcrumb flex items-center gap-2 mb-6 text-sm">
+             <button class="faq-v1-home text-accent font-bold">{t('faq.topics')}</button>
+          </div>
+
+          <!-- Categories View -->
+          <div class="faq-v1-categories-view grid grid-cols-2 gap-4">
+             {categories.map(cat => (
+                <button 
+                  class="faq-v1-category-btn p-6 rounded-2xl bg-base-content/[0.03] border border-base-content/10 text-left hover:bg-base-content/[0.06] hover:border-base-content/20 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  data-category={cat.id}
+                >
+                   <span class="text-2xl mb-3 block">{cat.icon}</span>
+                   <p class="text-sm font-bold text-base-content mb-1">{cat.title}</p>
+                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length)}</p>
+                </button>
+             ))}
+          </div>
+
+          <!-- Questions View (hidden by default) -->
+          <div class="faq-v1-questions-view hidden">
+             <div class="space-y-3" id="mobile-v1-questions-list"></div>
+          </div>
+
+          <!-- Answer View (hidden by default) -->
+          <div class="faq-v1-answer-view hidden">
+             <div class="p-6 rounded-2xl bg-base-content/[0.03] border border-base-content/10">
+                <p id="mobile-v1-answer-text" class="text-base text-base-content/70 leading-relaxed"></p>
+             </div>
+             <div class="mt-6 pt-6 border-t border-base-content/5">
+                <p class="text-xs text-base-content/30 mb-3">{t('faq.wasHelpful')}</p>
+                <div class="flex gap-3 faq-v1-feedback-btns">
+                   <button class="faq-v1-feedback-btn faq-v1-feedback-yes px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-bold hover:bg-accent/20 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="yes">👍 {t('faq.yes')}</button>
+                   <button class="faq-v1-feedback-btn faq-v1-feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/50 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
+                </div>
+                <p class="faq-v1-feedback-thanks hidden text-xs text-accent mt-3">{t('faq.feedbackThanks')}</p>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <!-- Desktop: Split View -->
+    <div class="hidden lg:grid grid-cols-12 gap-8">
+       <!-- Navigation Tree -->
+       <div class="col-span-4">
+          <div class="sticky top-8 space-y-2">
+             {categories.map(cat => (
+                <div class="faq-v1-tree-category" data-category={cat.id}>
+                   <button class="faq-v1-tree-toggle w-full flex items-center gap-3 p-4 rounded-xl bg-base-content/[0.02] border border-base-content/5 hover:bg-base-content/[0.05] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] text-left">
+                      <span class="text-lg">{cat.icon}</span>
+                      <span class="text-sm font-bold text-base-content">{cat.title}</span>
+                      <svg class="w-4 h-4 ml-auto text-base-content/30 transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] faq-v1-tree-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                   </button>
+                   <div class="faq-v1-tree-questions hidden pl-4 mt-2 space-y-1">
+                      {cat.questions.map((q, i) => (
+                         <button 
+                           class="faq-v1-tree-question w-full text-left px-4 py-3 rounded-lg text-sm text-base-content/50 hover:text-base-content hover:bg-base-content/[0.03] transition-all duration-500"
+                           data-category={cat.id}
+                           data-index={i}
+                         >
+                            {q.q}
+                         </button>
+                      ))}
+                   </div>
+                </div>
+             ))}
+          </div>
+       </div>
+
+       <!-- Content Area -->
+       <div class="col-span-8">
+          <div class="faq-v1-content-area p-8 rounded-[2rem] bg-base-content/[0.02] border border-base-content/10 min-h-[400px]">
+             <div class="faq-v1-content-placeholder text-center py-16">
+                <span class="text-4xl mb-4 block">💡</span>
+                <p class="text-base text-base-content/40">{t('faq.selectQuestion')}</p>
+             </div>
+             <div class="faq-v1-content-answer hidden">
+                <p class="text-xs text-accent font-bold uppercase tracking-widest mb-4" id="desktop-v1-category-label"></p>
+                <h3 class="text-xl font-bold text-base-content mb-6" id="desktop-v1-question-text"></h3>
+                <p class="text-base text-base-content/70 leading-relaxed" id="desktop-v1-answer-text"></p>
+                
+                <div class="mt-8 pt-8 border-t border-base-content/5 flex items-center justify-between">
+                   <div>
+                      <p class="text-xs text-base-content/30 mb-2">{t('faq.wasHelpful')}</p>
+                      <div class="flex gap-2 faq-v1-feedback-btns">
+                         <button class="faq-v1-feedback-btn faq-v1-feedback-yes px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-bold hover:bg-accent/20 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="yes">👍 {t('faq.yes')}</button>
+                         <button class="faq-v1-feedback-btn faq-v1-feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/50 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
+                      </div>
+                      <p class="faq-v1-feedback-thanks hidden text-xs text-accent mt-2">{t('faq.feedbackThanks')}</p>
+                   </div>
+                   <a href="#" class="text-sm text-accent hover:underline">{t('faq.stillNeedHelp')}</a>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Desktop tree navigation */
+  .faq-v1-tree-category {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .faq-v1-tree-toggle {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-v1-tree-toggle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsl(var(--a) / 0.1), transparent);
+    opacity: 0;
+    transition: opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-tree-category.active .faq-v1-tree-toggle::before {
+    opacity: 1;
+  }
+
+  .faq-v1-tree-category.active .faq-v1-tree-toggle {
+    background: hsl(var(--a) / 0.1);
+    border-color: hsl(var(--a) / 0.2);
+  }
+
+  .faq-v1-tree-category.active .faq-v1-tree-arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-v1-tree-questions {
+    animation: treeQuestionsExpand 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes treeQuestionsExpand {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-v1-tree-question {
+    position: relative;
+    overflow: hidden;
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-tree-question::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: hsl(var(--a));
+    border-radius: 2px;
+    transition: height 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-tree-question:hover::before,
+  .faq-v1-tree-question.active::before {
+    height: 60%;
+  }
+
+  .faq-v1-tree-question.active {
+    background: hsl(var(--a) / 0.1);
+    color: hsl(var(--a));
+    font-weight: 700;
+    padding-left: 1.25rem;
+  }
+
+  /* Content area smooth transitions */
+  .faq-v1-content-area {
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-content-placeholder,
+  .faq-v1-content-answer {
+    transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-content-answer:not(.hidden) {
+    animation: contentFadeIn 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes contentFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile journey */
+  .faq-v1-journey {
+    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v1-questions-view,
+  .faq-v1-answer-view {
+    animation: fadeSlideIn 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<script>
+  let faqV1Controller: AbortController | null = null;
+
+  function initFAQV1Journey() {
+    // Abort previous listeners
+    faqV1Controller?.abort();
+    faqV1Controller = new AbortController();
+    const signal = faqV1Controller.signal;
+
+    // Mobile functionality
+    const journey = document.querySelector('.faq-v1-journey') as HTMLElement;
+    if (!journey) return;
+
+    const categories = JSON.parse(journey.dataset.categories || '[]');
+    const i18n = JSON.parse(journey.dataset.i18n || '{"topics":"Topics","answer":"Answer"}');
+    const breadcrumb = journey.querySelector('.faq-v1-breadcrumb');
+    const categoriesView = journey.querySelector('.faq-v1-categories-view');
+    const questionsView = journey.querySelector('.faq-v1-questions-view');
+    const answerView = journey.querySelector('.faq-v1-answer-view');
+    const questionsList = document.getElementById('mobile-v1-questions-list');
+    const answerText = document.getElementById('mobile-v1-answer-text');
+    
+    let currentCategory: any = null;
+
+    function showCategories() {
+      categoriesView?.classList.remove('hidden');
+      questionsView?.classList.add('hidden');
+      answerView?.classList.add('hidden');
+      if (breadcrumb) breadcrumb.innerHTML = `<button class="faq-v1-home text-accent font-bold">${i18n.topics}</button>`;
+      currentCategory = null;
+    }
+
+    function showQuestions(categoryId: string) {
+      const cat = categories.find((c: any) => c.id === categoryId);
+      if (!cat || !questionsList) return;
+      
+      currentCategory = cat;
+      categoriesView?.classList.add('hidden');
+      questionsView?.classList.remove('hidden');
+      answerView?.classList.add('hidden');
+      
+      if (breadcrumb) {
+        breadcrumb.innerHTML = `
+          <button class="faq-v1-home text-base-content/40 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
+          <span class="text-base-content/20">→</span>
+          <span class="text-accent font-bold">${cat.title}</span>
+        `;
+      }
+      
+      questionsList.innerHTML = cat.questions.map((q: any, i: number) => `
+        <button class="faq-v1-question-btn w-full text-left p-5 rounded-xl bg-base-content/[0.03] border border-base-content/10 hover:bg-base-content/[0.06] transition-all duration-500" data-index="${i}">
+          <p class="text-sm font-medium text-base-content">${q.q}</p>
+        </button>
+      `).join('');
+      
+      questionsList.querySelectorAll('.faq-v1-question-btn').forEach((btn: Element) => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt((btn as HTMLElement).dataset.index || '0');
+          showAnswer(idx);
+        }, { signal });
+      });
+    }
+
+    function showAnswer(index: number) {
+      if (!currentCategory || !answerText) return;
+      const q = currentCategory.questions[index];
+      
+      questionsView?.classList.add('hidden');
+      answerView?.classList.remove('hidden');
+      answerText.textContent = q.a;
+      
+      if (breadcrumb) {
+        breadcrumb.innerHTML = `
+          <button class="faq-v1-home text-base-content/40 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
+          <span class="text-base-content/20">→</span>
+          <button class="faq-v1-back-cat text-base-content/40 hover:text-accent transition-colors duration-500">${currentCategory.title}</button>
+          <span class="text-base-content/20">→</span>
+          <span class="text-accent font-bold">${i18n.answer}</span>
+        `;
+        breadcrumb.querySelector('.faq-v1-back-cat')?.addEventListener('click', () => showQuestions(currentCategory.id), { signal });
+      }
+    }
+
+    // Category button clicks
+    document.querySelectorAll('.faq-v1-category-btn').forEach(btn => {
+      btn.addEventListener('click', () => showQuestions((btn as HTMLElement).dataset.category || ''), { signal });
+    });
+
+    // Home/Topics click
+    document.addEventListener('click', (e) => {
+      if ((e.target as Element).classList?.contains('faq-v1-home')) showCategories();
+    }, { signal });
+
+    // Desktop functionality
+    document.querySelectorAll('.faq-v1-tree-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.faq-v1-tree-category');
+        const questions = parent?.querySelector('.faq-v1-tree-questions');
+        const isActive = parent?.classList.contains('active');
+        
+        // Close all
+        document.querySelectorAll('.faq-v1-tree-category').forEach(c => {
+          c.classList.remove('active');
+          c.querySelector('.faq-v1-tree-questions')?.classList.add('hidden');
+        });
+        
+        // Open this one if wasn't active
+        if (!isActive) {
+          parent?.classList.add('active');
+          questions?.classList.remove('hidden');
+        }
+      }, { signal });
+    });
+
+    document.querySelectorAll('.faq-v1-tree-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const catId = (btn as HTMLElement).dataset.category;
+        const idx = parseInt((btn as HTMLElement).dataset.index || '0');
+        const cat = categories.find((c: any) => c.id === catId);
+        if (!cat) return;
+        
+        const q = cat.questions[idx];
+        
+        // Update active state
+        document.querySelectorAll('.faq-v1-tree-question').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Show answer
+        document.querySelector('.faq-v1-content-placeholder')?.classList.add('hidden');
+        document.querySelector('.faq-v1-content-answer')?.classList.remove('hidden');
+        
+        const categoryLabel = document.getElementById('desktop-v1-category-label');
+        const questionText = document.getElementById('desktop-v1-question-text');
+        const answerTextEl = document.getElementById('desktop-v1-answer-text');
+        
+        if (categoryLabel) categoryLabel.textContent = cat.title;
+        if (questionText) questionText.textContent = q.q;
+        if (answerTextEl) answerTextEl.textContent = q.a;
+
+        // Reset feedback buttons state
+        resetFeedbackButtons();
+      }, { signal });
+    });
+
+    // Feedback button functionality
+    function resetFeedbackButtons() {
+      document.querySelectorAll('.faq-v1-feedback-btns').forEach(container => {
+        container.classList.remove('hidden');
+        container.querySelectorAll('.faq-v1-feedback-btn').forEach(btn => {
+          btn.classList.remove('opacity-30', 'pointer-events-none', 'chosen', 'text-accent', 'font-bold', 'scale-105');
+          btn.classList.add('text-accent', 'bg-accent/10'); // Reset to default styling
+        });
+        // Reset No button styling
+        container.querySelectorAll('.faq-v1-feedback-no').forEach(btn => {
+          btn.classList.remove('text-accent');
+          btn.classList.add('text-base-content/50', 'bg-base-content/5');
+        });
+      });
+      document.querySelectorAll('.faq-v1-feedback-thanks').forEach(el => el.classList.add('hidden'));
+    }
+
+    document.querySelectorAll('.faq-v1-feedback-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const button = e.currentTarget as HTMLElement;
+        const container = button.closest('.faq-v1-feedback-btns') || button.parentElement;
+        const thanksMsg = container?.parentElement?.querySelector('.faq-v1-feedback-thanks');
+        const isYes = button.dataset.vote === 'yes';
+        
+        // Style buttons based on selection
+        container?.querySelectorAll('.faq-v1-feedback-btn').forEach(b => {
+          if (b === button) {
+            // Chosen one: bold, bright, slightly scaled
+            b.classList.add('chosen', 'font-bold', 'scale-105', 'pointer-events-none');
+            if (isYes) {
+              b.classList.add('text-accent', 'bg-accent/20');
+            } else {
+              b.classList.add('text-base-content', 'bg-base-content/10');
+            }
+          } else {
+            // Not chosen: faded out
+            b.classList.add('opacity-30', 'pointer-events-none');
+          }
+        });
+        
+        // Show thanks message
+        setTimeout(() => {
+          thanksMsg?.classList.remove('hidden');
+        }, 300);
+      }, { signal });
+    });
+  }
+
+  initFAQV1Journey();
+  document.addEventListener('astro:after-swap', initFAQV1Journey);
+</script>

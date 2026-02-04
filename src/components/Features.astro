@@ -1,0 +1,23 @@
+---
+/**
+ * Features Wrapper Component
+ * Dynamically switches between different features section versions.
+ */
+import FeaturesV1 from './FeaturesV1.astro';
+import FeaturesV2 from './FeaturesV2.astro';
+import FeaturesV3 from './FeaturesV3.astro';
+import FeaturesV4 from './FeaturesV4.astro';
+import FeaturesV5 from './FeaturesV5.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <FeaturesV1 /> : 
+ version === 2 ? <FeaturesV2 /> : 
+ version === 3 ? <FeaturesV3 /> : 
+ version === 4 ? <FeaturesV4 /> : 
+ <FeaturesV5 />}

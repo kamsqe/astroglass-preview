@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Features from '../components/Features.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Pricing from '../components/Pricing.astro';
+import Testimonial from '../components/Testimonial.astro';
+import FAQ from '../components/FAQ.astro';
+import CTA from '../components/CTA.astro';
+import Contact from '../components/Contact.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Get versions from URL to pass to components
+const url = new URL(Astro.request.url);
+const heroVer = parseInt(url.searchParams.get('hero') || '1') as 1 | 2 | 3 | 4 | 5;
+const aboutVer = parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const featuresVer = parseInt(url.searchParams.get('features') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const portfolioVer = parseInt(url.searchParams.get('portfolio') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const pricingVer = parseInt(url.searchParams.get('pricing') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const testimonialVer = parseInt(url.searchParams.get('testimonial') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const faqVer = parseInt(url.searchParams.get('faq') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const ctaVer = parseInt(url.searchParams.get('cta') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const contactVer = parseInt(url.searchParams.get('contact') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+---
+
+<BaseLayout title={t('title')} description={t('description')}>
+  <Hero version={heroVer} />
+  <About version={aboutVer} />
+  <Features version={featuresVer} />
+  <Portfolio version={portfolioVer} />
+  <Pricing version={pricingVer} />
+  <Testimonial version={testimonialVer} />
+  <FAQ version={faqVer} />
+  <CTA version={ctaVer} />
+  <Contact version={contactVer} />
+
+  <main class="py-32 px-6 max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-8">Universal Adaptation</h2>
+    <p class="text-xl text-neutral leading-relaxed mb-12">
+      Liquid Glass is not just a theme; it's a living design system. Every component is built to react to your theme, 
+      your language, and your device.
+    </p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
+          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🚀</div>
+          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature1Title')}</div>
+          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature1Desc')}</div>
+       </div>
+       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
+          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🎨</div>
+          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature2Title')}</div>
+          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature2Desc')}</div>
+       </div>
+       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
+          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🌍</div>
+          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature3Title')}</div>
+          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature3Desc')}</div>
+       </div>
+    </div>
+  </main>
+</BaseLayout>

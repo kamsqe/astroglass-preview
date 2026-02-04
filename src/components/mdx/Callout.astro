@@ -1,0 +1,37 @@
+---
+/**
+ * Callout Component
+ * Rich alert boxes for documentation.
+ */
+interface Props {
+  type?: 'info' | 'warning' | 'error' | 'success';
+  title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const variants = {
+  info: { icon: 'ℹ️', color: 'bg-accent/10 border-accent/20 text-accent' },
+  warning: { icon: '⚠️', color: 'bg-yellow-500/10 border-yellow-500/20 text-yellow-500' },
+  error: { icon: '🚫', color: 'bg-red-500/10 border-red-500/20 text-red-500' },
+  success: { icon: '✅', color: 'bg-green-500/10 border-green-500/20 text-green-500' },
+};
+
+const variant = variants[type];
+---
+
+<div class={`my-6 p-4 rounded-xl border flex gap-4 ${variant.color}`}>
+  <div class="text-xl flex-shrink-0 select-none">{variant.icon}</div>
+  <div class="flex-1 min-w-0">
+    {title && <div class="font-bold mb-1 opacity-90">{title}</div>}
+    <div class="text-sm opacity-80 leading-relaxed callout-content">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Ensure content inside callout respects formatting but overrides colors */
+  .callout-content :global(p) { margin: 0; }
+  .callout-content :global(a) { text-decoration: underline; font-weight: 600; }
+</style>

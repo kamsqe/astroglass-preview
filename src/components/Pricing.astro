@@ -1,0 +1,23 @@
+---
+/**
+ * Pricing Wrapper Component
+ * Dynamically switches between different pricing section versions.
+ */
+import PricingV1 from './PricingV1.astro';
+import PricingV2 from './PricingV2.astro';
+import PricingV3 from './PricingV3.astro';
+import PricingV4 from './PricingV4.astro';
+import PricingV5 from './PricingV5.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <PricingV1 /> : 
+ version === 2 ? <PricingV2 /> : 
+ version === 3 ? <PricingV3 /> :
+ version === 4 ? <PricingV4 /> :
+ <PricingV5 />}

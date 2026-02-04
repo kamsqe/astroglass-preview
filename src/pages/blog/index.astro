@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { useTranslations } from '../../utils/i18n';
+
+export const prerender = true;
+
+const locale = 'en';
+const t = useTranslations(locale);
+
+const posts = await getCollection('blog', ({ slug, data }) => {
+  return slug.startsWith('en/') && !data.draft;
+});
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Blog" description="Latest updates">
+  <div class="max-w-6xl mx-auto py-20 px-4">
+    <h1 class="text-5xl font-black mb-12">Blog</h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedPosts.map(post => <BlogCard post={post} locale={locale} />)}
+    </div>
+  </div>
+</BaseLayout>

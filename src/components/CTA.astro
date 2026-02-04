@@ -1,0 +1,23 @@
+---
+/**
+ * CTA - Version Switcher Wrapper
+ * Renders the selected CTA banner version based on prop.
+ */
+import CTAV1 from './CTAV1.astro';
+import CTAV2 from './CTAV2.astro';
+import CTAV3 from './CTAV3.astro';
+import CTAV4 from './CTAV4.astro';
+import CTAV5 from './CTAV5.astro';
+
+interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 && <CTAV1 />}
+{version === 2 && <CTAV2 />}
+{version === 3 && <CTAV3 />}
+{version === 4 && <CTAV4 />}
+{version === 5 && <CTAV5 />}

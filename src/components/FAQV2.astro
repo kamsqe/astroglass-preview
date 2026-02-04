@@ -1,0 +1,399 @@
+---
+/**
+ * FAQ V2 - The Conversational Thread
+ * Chat-style interface with message bubbles and suggested questions.
+ * Mobile: Native chat feel. Desktop: Centered chat with category sidebar.
+ */
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const faqs = [
+  { q: t('faq.q1'), a: t('faq.a1'), category: "basics" },
+  { q: t('faq.q2'), a: t('faq.a2'), category: "basics" },
+  { q: t('faq.q3'), a: t('faq.a3'), category: "billing" },
+  { q: t('faq.q4'), a: t('faq.a4'), category: "billing" },
+  { q: t('faq.q5'), a: t('faq.a5'), category: "technical" },
+  { q: t('faq.q6'), a: t('faq.a6'), category: "technical" },
+  { q: t('faq.q7'), a: t('faq.a7'), category: "account" },
+  { q: t('faq.q8'), a: t('faq.a8'), category: "account" },
+];
+
+const i18nData = JSON.stringify({
+  faqs,
+  botFallback: t('faq.botFallback'),
+  justNow: t('testimonial.justNow'),
+  helpful: t('faq.helpful'),
+  thanks: t('faq.thanks')
+});
+---
+
+<section class="relative py-24 lg:py-32 px-6 overflow-hidden bg-base-100">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12">
+       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+          <span class="text-sm">💬</span>
+          <span class="text-xs font-bold text-accent">{t('faq.ask')}</span>
+       </div>
+       <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.title')}</h2>
+       <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="faq-v2-chat relative max-w-2xl mx-auto" data-i18n={i18nData}>
+       <!-- Messages Area -->
+       <div class="faq-v2-messages space-y-4 mb-6 min-h-[200px] max-h-[400px] overflow-y-auto custom-scrollbar py-3 px-1" id="faq-v2-messages">
+          <!-- Welcome message -->
+          <div class="faq-v2-msg faq-v2-msg-bot flex gap-3 items-start">
+             <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
+                <span class="text-xl leading-none">🤖</span>
+             </div>
+             <div class="flex-1">
+                <div class="inline-block p-4 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5 backdrop-blur-sm">
+                   <p class="text-sm text-base-content/70">{t('faq.botWelcome')}</p>
+                </div>
+                <p class="text-[10px] text-base-content/20 mt-1 ml-2">{t('testimonial.justNow')}</p>
+             </div>
+          </div>
+       </div>
+
+       <!-- Suggested Questions -->
+       <div class="faq-v2-suggestions mb-6" id="faq-v2-suggestions">
+          <p class="text-xs text-base-content/30 mb-3">{t('faq.popularQuestions')}</p>
+          <div class="flex flex-wrap gap-2">
+             {faqs.slice(0, 6).map(faq => (
+                <button 
+                  class="faq-v2-suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/60 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  data-question={faq.q}
+                  data-answer={faq.a}
+                >
+                   {faq.q}
+                </button>
+             ))}
+          </div>
+       </div>
+
+       <!-- Input Area -->
+       <div class="faq-v2-input-area flex gap-3 p-4 rounded-2xl bg-base-content/[0.02] border border-base-content/10 focus-within:border-accent/30 focus-within:bg-base-content/[0.04] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <input 
+            type="text" 
+            id="faq-v2-input"
+            placeholder={t('faq.typeQuestion')} 
+            class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-sm"
+          />
+          <button id="faq-v2-send" class="faq-v2-ask-btn px-5 py-2.5 rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
+             <span class="relative z-10">{t('faq.ask')}</span>
+             <div class="faq-v2-ask-shine absolute inset-0 pointer-events-none"></div>
+          </button>
+       </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .typing-dot {
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(1) { animation-delay: 0ms; }
+  .typing-dot:nth-child(2) { animation-delay: 200ms; }
+  .typing-dot:nth-child(3) { animation-delay: 400ms; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+  }
+
+  .faq-v2-msg {
+    animation: msgSlideInV2 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes msgSlideInV2 {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .faq-v2-suggest-btn {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  .faq-v2-suggest-btn:hover {
+    transform: translateY(-3px) translateZ(0);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  /* Ask button shine effect */
+  .faq-v2-ask-btn {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .faq-v2-ask-shine {
+    background: linear-gradient(
+      105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.4) 40%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.4) 60%,
+      transparent 80%
+    );
+    transform: translateX(-100%);
+    animation: askButtonShine 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  @keyframes askButtonShine {
+    0%, 100% {
+      transform: translateX(-100%);
+    }
+    15%, 85% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Pause shine on hover */
+  .faq-v2-ask-btn:hover .faq-v2-ask-shine {
+    animation-play-state: paused;
+    opacity: 0;
+  }
+
+  /* Input - remove all focus styles */
+  #faq-v2-input,
+  #faq-v2-input:focus,
+  #faq-v2-input:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+  }
+
+  /* Helpful feedback buttons */
+  .faq-v2-helpful-btn {
+    transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v2-helpful-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .faq-v2-helpful-btn.chosen {
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .faq-v2-helpful-btn.not-chosen {
+    pointer-events: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--bc) / 0.1);
+    border-radius: 10px;
+  }
+</style>
+
+<script>
+  let faqV2Controller: AbortController | null = null;
+
+  function initFAQV2Chat() {
+    // Abort previous listeners
+    faqV2Controller?.abort();
+    faqV2Controller = new AbortController();
+    const signal = faqV2Controller.signal;
+
+    const chatContainer = document.querySelector('.faq-v2-chat') as HTMLElement;
+    if (!chatContainer) return;
+
+    const i18nData = JSON.parse(chatContainer.dataset.i18n || '{}');
+    const faqs = i18nData.faqs || [];
+    const botFallback = i18nData.botFallback || "I'm not sure about that one.";
+    const justNow = i18nData.justNow || "Just now";
+    const helpful = i18nData.helpful || "Helpful";
+    const thanks = i18nData.thanks || "Thanks!";
+    
+    const messagesContainer = document.getElementById('faq-v2-messages');
+    const suggestionsContainer = document.getElementById('faq-v2-suggestions');
+    const input = document.getElementById('faq-v2-input') as HTMLInputElement;
+    const sendBtn = document.getElementById('faq-v2-send');
+
+    function showTypingIndicator() {
+      // Create typing indicator dynamically at the bottom
+      const typing = document.createElement('div');
+      typing.className = 'faq-v2-typing faq-v2-msg flex gap-3 items-start';
+      typing.innerHTML = `
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+          <span class="text-xl leading-none">🤖</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5">
+          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+        </div>
+      `;
+      messagesContainer?.appendChild(typing);
+      messagesContainer?.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
+    }
+
+    function hideTypingIndicator() {
+      const typing = messagesContainer?.querySelector('.faq-v2-typing');
+      typing?.remove();
+    }
+
+    function addUserMessage(text: string) {
+      const msg = document.createElement('div');
+      msg.className = 'faq-v2-msg faq-v2-msg-user flex gap-3 justify-end items-start';
+      msg.innerHTML = `
+        <div class="flex-1 text-right">
+          <div class="inline-block p-4 rounded-2xl rounded-tr-md bg-accent text-base-100">
+            <p class="text-sm">${text}</p>
+          </div>
+          <p class="text-[10px] text-base-content/20 mt-1 mr-2">${justNow}</p>
+        </div>
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-base-content/10 flex items-center justify-center flex-shrink-0">
+          <span class="text-xl leading-none">👤</span>
+        </div>
+      `;
+      messagesContainer?.appendChild(msg);
+      messagesContainer?.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
+    }
+
+    function addBotMessage(text: string, showFeedback = true) {
+      const msgId = 'msg-' + Date.now();
+      const msg = document.createElement('div');
+      msg.className = 'faq-v2-msg faq-v2-msg-bot flex gap-3 items-start';
+      msg.innerHTML = `
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
+          <span class="text-xl leading-none">🤖</span>
+        </div>
+        <div class="flex-1">
+          <div class="inline-block p-4 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5 backdrop-blur-sm">
+            <p class="text-sm text-base-content/70">${text}</p>
+          </div>
+          ${showFeedback ? `
+            <div class="faq-v2-feedback flex gap-3 mt-2 ml-2 items-center" data-msg="${msgId}">
+              <button class="faq-v2-helpful-btn faq-v2-helpful-yes text-xs text-base-content/40 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
+              <button class="faq-v2-helpful-btn faq-v2-helpful-no text-xs text-base-content/40 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
+              <span class="faq-v2-thanks hidden text-xs text-accent ml-1">${thanks}</span>
+            </div>
+          ` : ''}
+          <p class="text-[10px] text-base-content/20 mt-1 ml-2">${justNow}</p>
+        </div>
+      `;
+      messagesContainer?.appendChild(msg);
+      
+      // Bind helpful button clicks
+      const feedback = msg.querySelector('.faq-v2-feedback');
+      feedback?.querySelectorAll('.faq-v2-helpful-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const vote = (btn as HTMLElement).dataset.vote;
+          const thanksEl = feedback.querySelector('.faq-v2-thanks');
+          
+          feedback.querySelectorAll('.faq-v2-helpful-btn').forEach(b => {
+            if (b === btn) {
+              // Chosen one: bright and bold
+              b.classList.add('chosen');
+              b.classList.remove('text-base-content/40');
+              if (vote === 'yes') {
+                b.classList.add('text-accent', 'font-bold');
+              } else {
+                b.classList.add('text-base-content', 'font-bold');
+              }
+            } else {
+              // Not chosen: faded
+              b.classList.add('not-chosen', 'opacity-30', 'pointer-events-none');
+            }
+          });
+          
+          thanksEl?.classList.remove('hidden');
+        }, { signal });
+      });
+      messagesContainer?.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
+    }
+
+    function findAnswer(question: string) {
+      const q = question.toLowerCase();
+      const match = faqs.find((faq: any) => 
+        faq.q.toLowerCase().includes(q) || 
+        q.includes(faq.q.toLowerCase().split(' ').slice(0, 3).join(' '))
+      );
+      return match?.a || botFallback;
+    }
+
+    function handleQuestion(question: string, answer: string | null = null) {
+      addUserMessage(question);
+      showTypingIndicator();
+      
+      setTimeout(() => {
+        hideTypingIndicator();
+        addBotMessage(answer || findAnswer(question));
+        updateSuggestions(question);
+      }, 800 + Math.random() * 400);
+    }
+
+    function updateSuggestions(askedQuestion: string) {
+      const remaining = faqs.filter((f: any) => f.q !== askedQuestion).slice(0, 4);
+      const suggestionsDiv = suggestionsContainer?.querySelector('.flex.flex-wrap');
+      if (suggestionsDiv && remaining.length > 0) {
+        suggestionsDiv.innerHTML = remaining.map((faq: any) => `
+          <button 
+            class="faq-v2-suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/60 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms]"
+            data-question="${faq.q}"
+            data-answer="${faq.a}"
+          >
+            ${faq.q}
+          </button>
+        `).join('');
+        bindSuggestionClicks();
+      }
+    }
+
+    function bindSuggestionClicks() {
+      document.querySelectorAll('.faq-v2-suggest-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const q = (btn as HTMLElement).dataset.question || '';
+          const a = (btn as HTMLElement).dataset.answer || '';
+          handleQuestion(q, a);
+        }, { signal });
+      });
+    }
+
+    // Initial binding
+    bindSuggestionClicks();
+
+    // Send button
+    sendBtn?.addEventListener('click', () => {
+      const q = input?.value.trim();
+      if (q) {
+        handleQuestion(q);
+        input.value = '';
+      }
+    }, { signal });
+
+    // Enter key
+    input?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const q = input.value.trim();
+        if (q) {
+          handleQuestion(q);
+          input.value = '';
+        }
+      }
+    }, { signal });
+  }
+
+  initFAQV2Chat();
+  document.addEventListener('astro:after-swap', initFAQV2Chat);
+</script>

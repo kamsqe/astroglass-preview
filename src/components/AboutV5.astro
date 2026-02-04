@@ -1,0 +1,145 @@
+---
+/**
+ * About V5 - The Values Grid
+ * Human-centered, values-first layout with proof points.
+ */
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+export interface Props {
+  isFirst?: boolean;
+}
+
+const { isFirst = false } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const values = [
+  { 
+    icon: '⚡', 
+    value: t('about.values.speed'), 
+    statement: t('about.values.speedStatement'), 
+    proof: t('about.values.speedProof'),
+    featured: true 
+  },
+  { 
+    icon: '✨', 
+    value: t('about.values.craft'), 
+    statement: t('about.values.craftStatement'), 
+    proof: t('about.values.craftProof') 
+  },
+  { 
+    icon: '🤝', 
+    value: t('about.values.honesty'), 
+    statement: t('about.values.honestyStatement'), 
+    proof: t('about.values.honestyProof') 
+  },
+  { 
+    icon: '🌱', 
+    value: t('about.values.growth'), 
+    statement: t('about.values.growthStatement'), 
+    proof: t('about.values.growthProof') 
+  },
+];
+---
+
+<section class:list={["relative px-4 sm:px-6 overflow-hidden bg-base-content/[0.01]", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-16 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-16 md:py-32"]}>
+  <div class="max-w-6xl mx-auto">
+    <!-- Header with manifesto -->
+    <div class="text-center mb-12 lg:mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+        {t('about.whatWeBelieve')}
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black text-base-content tracking-tight mb-6 max-w-4xl mx-auto leading-tight">
+        {t('about.manifesto')}
+      </h2>
+      <p class="text-lg text-base-content/50 max-w-2xl mx-auto">
+        {t('about.manifestoSub')}
+      </p>
+    </div>
+
+    <!-- Values Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      {values.map((v, i) => (
+        <div 
+          class={`value-card group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-sm transition-all duration-700 ${v.featured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2 bg-accent/5 border-accent/20' : 'bg-base-content/[0.02] border-base-content/5'}`}
+          style={`animation-delay: ${i * 100}ms`}
+        >
+          <!-- Icon -->
+          <div class={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-2xl mb-5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${v.featured ? 'bg-accent/20' : 'bg-base-content/5'}`}>
+            {v.icon}
+          </div>
+
+          <!-- Value word -->
+          <h3 class={`text-xl sm:text-2xl font-black mb-3 ${v.featured ? 'text-accent' : 'text-base-content'}`}>
+            {v.value}
+          </h3>
+
+          <!-- Statement -->
+          <p class="text-base text-base-content/60 leading-relaxed mb-4">
+            {v.statement}
+          </p>
+
+          <!-- Proof point -->
+          <div class={`proof-point inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-500 ${v.featured ? 'bg-accent/10 text-accent' : 'bg-base-content/[0.03] text-base-content/50 group-hover:bg-accent/10 group-hover:text-accent'}`}>
+            <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+            {v.proof}
+          </div>
+
+          {/* Featured card extra content */}
+          {v.featured && (
+            <div class="mt-6 pt-6 border-t border-accent/10">
+              <p class="text-sm text-base-content/40 italic mb-4">"{t('about.values.featuredQuote')}"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm">👤</div>
+                <div>
+                  <p class="text-xs font-bold text-base-content">{t('about.values.featuredAuthor')}</p>
+                  <p class="text-[10px] text-base-content/40">{t('about.values.featuredRole')}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-12 lg:mt-16">
+      <a href="#" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-base-content text-base-100 font-bold hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl group">
+        {t('about.cta')}
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .value-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes card-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .value-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15);
+  }
+
+  .value-card:not(.featured):hover {
+    background-color: hsl(var(--bc) / 0.04);
+    border-color: hsl(var(--bc) / 0.1);
+  }
+
+  .value-card.featured:hover {
+    background-color: hsl(var(--a) / 0.08);
+    border-color: hsl(var(--a) / 0.3);
+  }
+</style>

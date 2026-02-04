@@ -1,0 +1,39 @@
+---
+title: "Features"
+description: "Display product features in grids, lists, or alternating layouts."
+order: 3
+layout: v2
+---
+
+# Feature Components
+
+Showcase your product's capabilities with our versatile feature sections.
+
+## Components
+
+We provide 5 variants suited for different content densities.
+
+| Component | Style | Best For |
+| :--- | :--- | :--- |
+| `FeaturesV1` | 3-Column Grid | High-level overview of many features |
+| `FeaturesV2` | Alternating Side-by-Side | Detailed breakdown with images |
+| `FeaturesV3` | Bento Grid | Modern, asymmetric layouts |
+| `FeaturesV4` | List with Icons | Technical specs or checklist |
+| `FeaturesV5` | Tabs / Accordion | Grouping complex features |
+
+## Usage
+
+```astro
+---
+import FeaturesV1 from '../components/FeaturesV1.astro';
+---
+
+<FeaturesV1 
+  title="Everything you need"
+  subtitle="Batteries included."
+  features={[
+    { title: 'Speed', desc: 'Blazing fast', icon: 'zap' },
+    { title: 'Secure', desc: 'Bank-grade encryption', icon: 'lock' }
+  ]}
+/>
+```

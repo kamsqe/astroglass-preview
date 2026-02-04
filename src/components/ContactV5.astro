@@ -1,0 +1,414 @@
+---
+/**
+ * Contact V5 - The Contextual Wizard
+ * First question determines the flow.
+ * Different paths for Sales, Support, Partnerships.
+ */
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+import en from '../locales/en.json';
+import ru from '../locales/ru.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const localeData = locale === 'ru' ? ru : en;
+
+const intents = [
+  { id: 'sales', icon: '💼', label: t('contact.intents.sales'), desc: t('contact.intents.salesDesc') },
+  { id: 'support', icon: '🛠', label: t('contact.intents.support'), desc: t('contact.intents.supportDesc') },
+  { id: 'partnership', icon: '🤝', label: t('contact.intents.partnership'), desc: t('contact.intents.partnershipDesc') },
+  { id: 'other', icon: '💬', label: t('contact.intents.other'), desc: t('contact.intents.otherDesc') },
+];
+
+const i18nData = {
+  fields: localeData.contact.wizard.fields,
+  placeholders: localeData.contact.wizard.placeholders,
+  teams: localeData.contact.wizard.teams,
+  successMsg: localeData.contact.wizard.successMsg
+};
+---
+
+<section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
+  <!-- Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[400px] bg-accent/5 rounded-full blur-[150px]"></div>
+  </div>
+
+  <div class="max-w-xl mx-auto relative">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.contactUs')}</span>
+      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.howCanWeHelp')}</h2>
+    </div>
+
+    <!-- Wizard Container -->
+    <div class="contact-v5-wizard" data-intents={JSON.stringify(intents)} data-i18n={JSON.stringify(i18nData)}>
+      
+      <!-- Progress Steps -->
+      <div class="flex items-center justify-center gap-2 mb-8">
+        <div class="contact-v5-step flex items-center gap-2 text-accent" data-step="1">
+          <div class="w-6 h-6 rounded-full bg-accent text-base-100 flex items-center justify-center text-xs font-bold">1</div>
+          <span class="text-xs font-medium hidden sm:block">{t('contact.wizard.steps.topic')}</span>
+        </div>
+        <div class="w-8 h-px bg-base-content/10 contact-v5-connector"></div>
+        <div class="contact-v5-step flex items-center gap-2 text-base-content/30" data-step="2">
+          <div class="w-6 h-6 rounded-full bg-base-content/10 flex items-center justify-center text-xs font-bold">2</div>
+          <span class="text-xs font-medium hidden sm:block">{t('contact.wizard.steps.details')}</span>
+        </div>
+        <div class="w-8 h-px bg-base-content/10 contact-v5-connector"></div>
+        <div class="contact-v5-step flex items-center gap-2 text-base-content/30" data-step="3">
+          <div class="w-6 h-6 rounded-full bg-base-content/10 flex items-center justify-center text-xs font-bold">3</div>
+          <span class="text-xs font-medium hidden sm:block">{t('contact.wizard.steps.send')}</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Intent Selection -->
+      <div class="contact-v5-panel" data-panel="1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          {intents.map(intent => (
+            <button 
+              class="contact-v5-intent group p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-base-content/[0.02] border border-base-content/10 text-left hover:bg-accent/5 hover:border-accent/30 transition-all duration-500"
+              data-intent={intent.id}
+            >
+              <div class="flex items-start gap-4">
+                <span class="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-500">{intent.icon}</span>
+                <div>
+                  <p class="text-sm sm:text-base font-bold text-base-content">{intent.label}</p>
+                  <p class="text-xs text-base-content/40 mt-0.5">{intent.desc}</p>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Step 2: Dynamic Fields (hidden initially) -->
+      <div class="contact-v5-panel hidden" data-panel="2">
+        <div class="p-6 sm:p-8 rounded-2xl bg-base-content/[0.02] border border-base-content/10">
+          
+          <!-- Intent badge -->
+          <div class="flex items-center gap-2 mb-6">
+            <span class="contact-v5-intent-icon text-xl">💼</span>
+            <span class="contact-v5-intent-label text-sm font-bold text-base-content">Talk to Sales</span>
+            <button class="contact-v5-change-intent ml-auto text-xs text-accent hover:underline">{t('contact.wizard.actions.change')}</button>
+          </div>
+
+          <!-- Dynamic form fields container -->
+          <div class="contact-v5-fields space-y-4">
+            <!-- Fields will be injected based on intent -->
+          </div>
+
+          <!-- Continue button -->
+          <button class="contact-v5-continue w-full mt-6 px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+            <span>{t('contact.wizard.actions.continue')}</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Contact Info & Message (hidden initially) -->
+      <div class="contact-v5-panel hidden" data-panel="3">
+        <div class="p-6 sm:p-8 rounded-2xl bg-base-content/[0.02] border border-base-content/10">
+          <form class="contact-v5-form space-y-4">
+            <!-- Name -->
+            <div>
+              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+              <input 
+                type="text" 
+                name="name"
+                required
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300"
+                placeholder={t('contact.placeholders.johnSmith')}
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
+              <input 
+                type="email" 
+                name="email"
+                required
+                inputmode="email"
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300"
+                placeholder={t('contact.placeholders.yourEmail')}
+              />
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
+              <textarea 
+                name="message"
+                required
+                rows="4"
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300 resize-none"
+                placeholder={t('contact.placeholders.tellUs')}
+              ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button 
+              type="submit"
+              class="contact-v5-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+            >
+              <span>{t('contact.form.send')}</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Back link -->
+          <button class="contact-v5-back w-full mt-4 text-xs text-base-content/40 hover:text-accent transition-colors">
+            {t('contact.wizard.actions.back')}
+          </button>
+        </div>
+      </div>
+
+      <!-- Success Panel (hidden) -->
+      <div class="contact-v5-panel hidden" data-panel="success">
+        <div class="p-8 sm:p-12 rounded-2xl bg-accent/5 border border-accent/20 text-center">
+          <div class="text-5xl mb-4">🎉</div>
+          <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
+          <p class="text-sm text-base-content/60 mb-6" id="contact-v5-success-text"></p>
+          <button class="contact-v5-restart text-sm text-accent hover:underline">
+            {t('contact.wizard.actions.restart')}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-v5-panel {
+    animation: panelSlide 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes panelSlide {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .contact-v5-intent {
+    transform: translateZ(0);
+  }
+
+  .contact-v5-intent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  .contact-v5-step.active > div:first-child {
+    background: hsl(var(--a));
+    color: hsl(var(--b1));
+  }
+
+  .contact-v5-step.active {
+    color: hsl(var(--a));
+  }
+
+  .contact-v5-step.completed > div:first-child {
+    background: hsl(var(--su));
+    color: hsl(var(--b1));
+  }
+
+  .contact-v5-connector.active {
+    background: hsl(var(--a) / 0.5);
+  }
+</style>
+
+<script>
+  let contactV5Controller: AbortController | null = null;
+
+  function initContactV5() {
+    // Abort previous listeners
+    contactV5Controller?.abort();
+    contactV5Controller = new AbortController();
+    const signal = contactV5Controller.signal;
+
+    const wizard = document.querySelector('.contact-v5-wizard') as HTMLElement;
+    if (!wizard) return;
+
+    const i18n = JSON.parse(wizard.dataset.i18n || '{}');
+
+    const panels = wizard.querySelectorAll('.contact-v5-panel');
+    const steps = wizard.querySelectorAll('.contact-v5-step');
+    const connectors = wizard.querySelectorAll('.contact-v5-connector');
+
+    let currentStep = 1;
+    let selectedIntent = '';
+    let formData: Record<string, string> = {};
+
+    const intentFields: Record<string, { label: string; type: string; placeholder: string; name: string }[]> = {
+      sales: [
+        { label: i18n.fields.companyName, type: 'text', placeholder: i18n.placeholders.acme, name: 'company' },
+        { label: i18n.fields.teamSize, type: 'select', placeholder: i18n.placeholders.teamSize, name: 'team_size' },
+        { label: i18n.fields.budget, type: 'select', placeholder: i18n.placeholders.budget, name: 'budget' },
+      ],
+      support: [
+        { label: i18n.fields.issueType, type: 'select', placeholder: i18n.placeholders.issueType, name: 'issue_type' },
+        { label: i18n.fields.severity, type: 'select', placeholder: i18n.placeholders.severity, name: 'severity' },
+        { label: i18n.fields.accountEmail, type: 'email', placeholder: i18n.placeholders.accountEmail, name: 'account_email' },
+      ],
+      partnership: [
+        { label: i18n.fields.companyName, type: 'text', placeholder: i18n.placeholders.partnerCorp, name: 'company' },
+        { label: i18n.fields.yourRole, type: 'text', placeholder: i18n.placeholders.role, name: 'role' },
+        { label: i18n.fields.partnershipType, type: 'select', placeholder: i18n.placeholders.partnershipType, name: 'partnership_type' },
+      ],
+      other: [
+        { label: i18n.fields.topic, type: 'text', placeholder: i18n.placeholders.topic, name: 'topic' },
+      ],
+    };
+
+    function showPanel(panelNum: number | string) {
+      panels.forEach(p => {
+        p.classList.add('hidden');
+        if (p.getAttribute('data-panel') === String(panelNum)) {
+          p.classList.remove('hidden');
+        }
+      });
+
+      // Update step indicators
+      steps.forEach((step, i) => {
+        const stepNum = i + 1;
+        step.classList.remove('active', 'completed');
+        
+        if (typeof panelNum === 'number') {
+          if (stepNum < panelNum) {
+            step.classList.add('completed');
+          } else if (stepNum === panelNum) {
+            step.classList.add('active');
+          }
+        }
+      });
+
+      connectors.forEach((conn, i) => {
+        conn.classList.toggle('active', typeof panelNum === 'number' && i < panelNum - 1);
+      });
+    }
+
+    function buildFields(intent: string) {
+      const container = wizard.querySelector('.contact-v5-fields');
+      if (!container) return;
+
+      const fields = intentFields[intent] || intentFields.other;
+      container.innerHTML = '';
+
+      fields.forEach(field => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">${field.label}</label>
+          ${field.type === 'select' ? `
+            <select name="${field.name}" class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-300">
+              <option value="">${i18n.placeholders.select}</option>
+              ${field.placeholder.split('|').map(opt => `<option value="${opt.toLowerCase()}">${opt}</option>`).join('')}
+            </select>
+          ` : `
+            <input 
+              type="${field.type}" 
+              name="${field.name}"
+              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300"
+              placeholder="${field.placeholder}"
+              ${field.type === 'email' ? 'inputmode="email"' : ''}
+            />
+          `}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Intent selection
+    wizard.querySelectorAll('.contact-v5-intent').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedIntent = (btn as HTMLElement).dataset.intent || '';
+        formData['intent'] = selectedIntent;
+
+        // Update intent badge
+        const intents = JSON.parse(wizard.dataset.intents || '[]');
+        const selected = intents.find((i: any) => i.id === selectedIntent);
+        if (selected) {
+          const iconEl = wizard.querySelector('.contact-v5-intent-icon');
+          const labelEl = wizard.querySelector('.contact-v5-intent-label');
+          if (iconEl) iconEl.textContent = selected.icon;
+          if (labelEl) labelEl.textContent = selected.label;
+        }
+
+        buildFields(selectedIntent);
+        currentStep = 2;
+        showPanel(2);
+      }, { signal });
+    });
+
+    // Change intent
+    wizard.querySelector('.contact-v5-change-intent')?.addEventListener('click', () => {
+      currentStep = 1;
+      showPanel(1);
+    }, { signal });
+
+    // Continue to step 3
+    wizard.querySelector('.contact-v5-continue')?.addEventListener('click', () => {
+      // Gather step 2 data
+      const fields = wizard.querySelectorAll('.contact-v5-fields input, .contact-v5-fields select');
+      fields.forEach(field => {
+        const name = (field as HTMLInputElement).name;
+        const value = (field as HTMLInputElement).value;
+        if (name && value) formData[name] = value;
+      });
+
+      currentStep = 3;
+      showPanel(3);
+    }, { signal });
+
+    // Back to step 2
+    wizard.querySelector('.contact-v5-back')?.addEventListener('click', () => {
+      currentStep = 2;
+      showPanel(2);
+    }, { signal });
+
+    // Form submission
+    const form = wizard.querySelector('.contact-v5-form');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formDataObj = new FormData(form as HTMLFormElement);
+      formDataObj.forEach((value, key) => {
+        formData[key] = value as string;
+      });
+
+      console.log('Form data:', formData);
+
+      // Update success message text
+      const teamNames: Record<string, string> = i18n.teams;
+      const teamName = teamNames[selectedIntent] || teamNames.default;
+      const successTextEl = document.getElementById('contact-v5-success-text');
+      if (successTextEl) {
+        successTextEl.textContent = i18n.successMsg.replace('{team}', teamName);
+      }
+
+      showPanel('success');
+    }, { signal });
+
+    // Restart
+    wizard.querySelector('.contact-v5-restart')?.addEventListener('click', () => {
+      formData = {};
+      selectedIntent = '';
+      currentStep = 1;
+      showPanel(1);
+    }, { signal });
+
+    // Initialize
+    showPanel(1);
+  }
+
+  initContactV5();
+  document.addEventListener('astro:after-swap', initContactV5);
+</script>

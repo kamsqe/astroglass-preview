@@ -111,10 +111,10 @@ export function calculateReadingTime(content: string): number {
  * Mobile bottom bar items
  */
 export const mobileBottomBarItems = [
-  { id: 'home', label: 'Home', icon: '🏠', href: '/docs' },
   { id: 'menu', label: 'Menu', icon: '☰', action: 'openDrawer' },
-  { id: 'search', label: 'Search', icon: '🔍', action: 'openSearch' },
   { id: 'toc', label: 'Contents', icon: '📑', action: 'openTOC' },
+  { id: 'search', label: 'Search', icon: '🔍', action: 'openSearch' },
+  { id: 'home', label: 'Home', icon: '🏠', href: '/docs' },
 ];
 
 /**

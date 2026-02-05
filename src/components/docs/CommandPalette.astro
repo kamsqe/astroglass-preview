@@ -451,35 +451,35 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   .recent-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 12px; /* Thinner padding */
+    gap: 12px !important;
+    padding: 8px 12px !important;
     border-radius: 8px;
     cursor: pointer;
     color: hsl(var(--bc) / 0.7);
-    font-size: 13px; /* Slightly smaller font */
+    font-size: 13px !important;
     font-weight: 500;
-    background: transparent;
-    border: none;
+    background: transparent !important;
+    border: none !important;
     width: 100%;
     text-align: left;
     transition: all 0.2s ease;
   }
 
   .recent-item:hover {
-    background: hsl(var(--bc) / 0.04);
+    background: hsl(var(--bc) / 0.04) !important;
     color: hsl(var(--bc));
   }
 
   .recent-icon {
-    width: 16px; /* Smaller icon */
-    height: 16px;
-    opacity: 0.3; /* More subtle */
+    width: 16px !important;
+    height: 16px !important;
+    opacity: 0.3 !important;
     flex-shrink: 0;
     transition: opacity 0.2s;
   }
   
   .recent-item:hover .recent-icon {
-    opacity: 0.7;
+    opacity: 0.7 !important;
   }
   
   .recent-text {
@@ -651,19 +651,19 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     transform: scale(1.1);
   }
 
-  /* Result item */
+  /* Result item - Force transparency and no border initially */
   .search-item {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 6px;
-    background: transparent;
-    border: 1px solid transparent;
+    background: transparent !important;
+    border: 1px solid transparent !important;
     opacity: 0;
     transform: translateY(8px);
     animation: staggerFadeIn 0.3s ease forwards;
@@ -679,15 +679,15 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
   .search-item:hover,
   .search-item.selected {
-    background: hsl(var(--bc) / 0.03);
-    border-color: hsl(var(--bc) / 0.05); /* Lighter border */
-    transform: translateY(0); /* Removed lift to feel grounded */
-    box-shadow: none; /* Removed shadow for cleaner look */
+    background: hsl(var(--bc) / 0.03) !important;
+    border-color: hsl(var(--bc) / 0.05) !important;
+    transform: translateY(0) !important;
+    box-shadow: none !important;
   }
 
   .search-item.selected {
-    background: hsl(var(--a) / 0.04);
-    border-color: hsl(var(--a) / 0.15);
+    background: hsl(var(--a) / 0.04) !important;
+    border-color: hsl(var(--a) / 0.15) !important;
   }
 
   /* Stagger animation delays (set via JS style attribute) */

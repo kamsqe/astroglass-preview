@@ -201,18 +201,9 @@ const sections = await buildDocsNav(locale);
       });
     });
 
-    // Mobile Search Button
-    const mobileSearchBtn = document.getElementById('mobile-search-btn');
-    const backdrop = document.getElementById('command-palette-backdrop');
-    const palette = document.getElementById('command-palette');
-    const input = document.getElementById('command-palette-input') as HTMLInputElement;
-
-    mobileSearchBtn?.addEventListener('click', () => {
-      backdrop?.classList.add('is-open');
-      palette?.classList.add('is-open');
-      input?.focus();
-      document.body.style.overflow = 'hidden';
-    });
+    // Mobile Search Button (Removed from top bar, logic handled in BottomBar)
+    // const mobileSearchBtn = document.getElementById('mobile-search-btn');
+    // ... logic moved to DocsBottomBar
 
     // TOC Scrollspy Logic
     const observer = new IntersectionObserver((entries) => {

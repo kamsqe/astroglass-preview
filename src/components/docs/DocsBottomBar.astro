@@ -71,10 +71,10 @@ const prefix = locale === 'en' ? '' : `/${locale}`;
             break;
           case 'openSearch':
             // Trigger command palette or search
-            document.getElementById('command-palette')?.classList.add('is-open');
-            document.getElementById('command-palette-backdrop')?.classList.add('is-open');
-            // document.getElementById('command-palette-input')?.focus(); // Focus in a timeout ideally
-            setTimeout(() => document.getElementById('command-palette-input')?.focus(), 50);
+            document.getElementById('search-dialog')?.classList.add('is-open');
+            document.getElementById('search-overlay')?.classList.add('is-open');
+            // document.getElementById('search-input')?.focus(); // Focus in a timeout ideally
+            setTimeout(() => document.getElementById('search-input')?.focus(), 50);
             break;
           case 'openTOC':
             // Toggle mobile TOC

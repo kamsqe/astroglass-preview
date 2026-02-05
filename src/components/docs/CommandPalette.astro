@@ -478,7 +478,7 @@ const t = useTranslations(locale as 'en' | 'ru');
     });
   }
 
-  // Highlight search terms on page load
+  // Highlight search terms on page load with animation
   function highlightSearchTerms() {
     const urlParams = new URLSearchParams(window.location.search);
     const highlight = urlParams.get('highlight');
@@ -487,7 +487,7 @@ const t = useTranslations(locale as 'en' | 'ru');
       const terms = highlight.toLowerCase().split(/\s+/).filter(t => t.length > 2);
       const mainContent = document.querySelector('[data-pagefind-body]');
       
-      if (mainContent) {
+      if (mainContent && terms.length > 0) {
         const walker = document.createTreeWalker(mainContent, NodeFilter.SHOW_TEXT);
         const textNodes: Text[] = [];
         
@@ -498,27 +498,55 @@ const t = useTranslations(locale as 'en' | 'ru');
           }
         }
         
+        let firstHighlight: Element | null = null;
+        
         textNodes.forEach(node => {
           let html = node.textContent || '';
+          let hasMatch = false;
+          
           terms.forEach(term => {
-            const regex = new RegExp(`(${term})`, 'gi');
-            html = html.replace(regex, '<mark>$1</mark>');
+            const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            if (regex.test(html)) {
+              hasMatch = true;
+              html = html.replace(regex, '<mark class="search-highlight-pulse">$1</mark>');
+            }
           });
           
-          if (html !== node.textContent) {
+          if (hasMatch) {
             const span = document.createElement('span');
             span.innerHTML = html;
             node.parentNode?.replaceChild(span, node);
+            
+            if (!firstHighlight) {
+              firstHighlight = span.querySelector('mark');
+            }
           }
         });
         
-        // Scroll to first highlight
-        setTimeout(() => {
-          const firstMark = document.querySelector('mark');
-          if (firstMark) {
-            firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
+        // Smooth scroll to first highlight with offset
+        if (firstHighlight) {
+          setTimeout(() => {
+            const rect = firstHighlight!.getBoundingClientRect();
+            const scrollTop = window.pageYOffset + rect.top - (window.innerHeight / 3);
+            
+            window.scrollTo({
+              top: scrollTop,
+              behavior: 'smooth'
+            });
+          }, 200);
+          
+          // Remove pulse animation after it completes
+          setTimeout(() => {
+            document.querySelectorAll('.search-highlight-pulse').forEach(el => {
+              el.classList.remove('search-highlight-pulse');
+              el.classList.add('search-highlight');
+            });
+          }, 2500);
+        }
+        
+        // Clean URL without reloading (remove ?highlight param)
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, '', cleanUrl);
       }
     }
   }

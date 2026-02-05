@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && pnpm run index:content",
-    "index:content": "pagefind --site dist",
+    "index:content": "node scripts/generate-search-index.mjs",
     "preview": "wrangler pages dev dist",
     "preview:cloudflare": "wrangler pages dev dist",
     "preview:vercel": "vercel dev",
@@ -23,9 +23,9 @@
     "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.9",
+    "fuse.js": "^7.0.0",
     "tailwindcss": "^4.1.18"
   },
-  "devDependencies": {
-    "pagefind": "^1.4.0"
-  }
+  "devDependencies": {}
 }
+

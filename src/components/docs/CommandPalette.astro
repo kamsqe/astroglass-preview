@@ -1,7 +1,7 @@
 ---
 /**
- * Command Palette - Premium Documentation Search
- * Fixed: Locale filtering, cache invalidation, improved visuals
+ * Command Palette - Premium Documentation Search with Fuse.js
+ * Features: Fuzzy search, match highlighting, grouped results, mobile-first
  */
 import { useTranslations } from '../../utils/i18n';
 
@@ -11,8 +11,6 @@ export interface Props {
 
 const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'ru');
-
-// Generate proper base path for links
 const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 ---
 
@@ -21,10 +19,15 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
 <!-- Search Dialog -->
 <div id="search-dialog" class="search-dialog" role="dialog" aria-label="Search documentation" data-locale={locale}>
+  <!-- Mobile swipe handle -->
+  <div class="swipe-handle mobile-only">
+    <div class="swipe-handle-bar"></div>
+  </div>
+  
   <!-- Input Section -->
   <div class="search-header">
     <div class="search-input-wrapper">
-      <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor">
+      <svg class="search-icon" style="width:18px;height:18px" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
       </svg>
       <div class="search-spinner"></div>
@@ -36,12 +39,18 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         spellcheck="false"
       />
       <button id="search-clear" class="search-clear" type="button" aria-label="Clear search">
-        <svg viewBox="0 0 20 20" fill="currentColor">
+        <svg style="width:20px;height:20px" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
         </svg>
       </button>
-      <kbd class="search-kbd">ESC</kbd>
+      <kbd class="search-kbd desktop-only">ESC</kbd>
     </div>
+    <!-- Mobile close button -->
+    <button id="mobile-close" class="mobile-close mobile-only">
+      <svg style="width:24px;height:24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
   </div>
 
   <!-- Results Container -->
@@ -64,43 +73,32 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         </div>
         <div class="search-quick-links">
           <a href={`${docsBase}/getting-started`} class="search-quick-link" data-quick-link>
-            <svg class="quick-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
+            <span class="quick-link-icon">⚡</span>
             <span>{t('docs.gettingStarted') || 'Getting Started'}</span>
           </a>
           <a href={docsBase} class="search-quick-link" data-quick-link>
-            <svg class="quick-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7" rx="1"/>
-              <rect x="14" y="3" width="7" height="7" rx="1"/>
-              <rect x="3" y="14" width="7" height="7" rx="1"/>
-              <rect x="14" y="14" width="7" height="7" rx="1"/>
-            </svg>
+            <span class="quick-link-icon">🧩</span>
             <span>{t('docs.components') || 'Components'}</span>
           </a>
           <a href={`${docsBase}/themes`} class="search-quick-link" data-quick-link>
-            <svg class="quick-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
+            <span class="quick-link-icon">🎨</span>
             <span>{t('docs.themes') || 'Themes'}</span>
           </a>
         </div>
       </div>
 
-      <!-- Keyboard hints -->
-      <div class="search-hints">
+      <!-- Keyboard hints (desktop only) -->
+      <div class="search-hints desktop-only">
         <span><kbd>↑↓</kbd> {t('docs.navigate') || 'Navigate'}</span>
         <span><kbd>↵</kbd> {t('docs.open') || 'Open'}</span>
         <span><kbd>esc</kbd> {t('docs.close') || 'Close'}</span>
       </div>
     </div>
 
-    <!-- Loading Skeleton -->
+    <!-- Loading State -->
     <div class="search-loading" id="search-loading">
-      <div class="skeleton-item"><div class="skeleton-icon"></div><div class="skeleton-content"><div class="skeleton-title"></div><div class="skeleton-meta"></div></div></div>
-      <div class="skeleton-item"><div class="skeleton-icon"></div><div class="skeleton-content"><div class="skeleton-title"></div><div class="skeleton-meta"></div></div></div>
-      <div class="skeleton-item"><div class="skeleton-icon"></div><div class="skeleton-content"><div class="skeleton-title"></div><div class="skeleton-meta"></div></div></div>
+      <div class="loading-text">Loading search index...</div>
+      <div class="loading-bar"><div class="loading-progress"></div></div>
     </div>
 
     <!-- Search Results List -->
@@ -108,28 +106,50 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
     <!-- Empty State -->
     <div class="search-empty" id="search-empty">
-      <svg class="empty-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="26" cy="26" r="16" opacity="0.3"/>
-        <path d="M38 38l14 14" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
-        <path d="M26 20v12M20 26h12" stroke-linecap="round"/>
-      </svg>
+      <div class="empty-icon">🔍</div>
       <p class="empty-title">{t('docs.noResults') || 'No results found'}</p>
-      <p class="empty-hint">{t('docs.tryDifferent') || 'Try different keywords or check spelling'}</p>
+      <p class="empty-hint">{t('docs.tryDifferent') || 'Try different keywords'}</p>
+      
+      <!-- Did you mean? suggestions -->
+      <div class="did-you-mean" id="did-you-mean">
+        <span class="did-you-mean-label">{t('docs.didYouMean') || 'Did you mean?'}</span>
+        <div class="did-you-mean-list" id="did-you-mean-list"></div>
+      </div>
+      
+      <div class="empty-suggestions">
+        <span>Try:</span>
+        <button class="suggestion-btn" data-suggestion="hero">hero</button>
+        <button class="suggestion-btn" data-suggestion="pricing">pricing</button>
+        <button class="suggestion-btn" data-suggestion="theme">theme</button>
+      </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="search-footer">
     <span class="result-count" id="result-count"></span>
+    <div class="search-hints-inline desktop-only">
+      <span><kbd>↑↓</kbd> Navigate</span>
+      <span><kbd>↵</kbd> Open</span>
+    </div>
   </div>
 </div>
 
 <style>
+  /* ========== RESPONSIVE HELPERS ========== */
+  .desktop-only { display: flex; }
+  .mobile-only { display: none; }
+  
+  @media (max-width: 640px) {
+    .desktop-only { display: none !important; }
+    .mobile-only { display: flex !important; }
+  }
+
   /* ========== OVERLAY ========== */
   .search-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 9998;
@@ -142,19 +162,19 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     visibility: visible;
   }
 
-  /* ========== DIALOG ========== */
+  /* ========== DIALOG - Desktop ========== */
   .search-dialog {
     position: fixed;
     top: 12%;
     left: 50%;
     transform: translateX(-50%) translateY(-10px) scale(0.98);
-    width: min(560px, calc(100vw - 32px));
+    width: min(580px, calc(100vw - 32px));
     max-height: 70vh;
     background: hsl(var(--b1));
     border: 1px solid hsl(var(--bc) / 0.1);
     border-radius: 16px;
     box-shadow: 
-      0 20px 50px -10px rgba(0, 0, 0, 0.4),
+      0 25px 60px -12px rgba(0, 0, 0, 0.5),
       inset 0 1px 0 hsl(var(--bc) / 0.05);
     z-index: 9999;
     opacity: 0;
@@ -173,22 +193,86 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     transform: translateX(-50%) translateY(0) scale(1);
   }
 
+  /* ========== DIALOG - Mobile (Full Screen Bottom Sheet) ========== */
+  @media (max-width: 640px) {
+    .search-dialog {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(100%);
+      width: 100%;
+      max-height: 90vh;
+      border-radius: 20px 20px 0 0;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .search-dialog.is-open {
+      transform: translateY(0);
+    }
+    
+    /* Larger touch targets on mobile */
+    .search-item {
+      padding: 14px 16px;
+      margin-bottom: 6px;
+    }
+    
+    .search-quick-link {
+      padding: 18px 14px;
+    }
+    
+    .recent-item {
+      padding: 12px 14px;
+    }
+    
+    .suggestion-btn {
+      padding: 8px 14px;
+      min-height: 36px;
+    }
+  }
+
+  /* ========== SWIPE HANDLE ========== */
+  .swipe-handle {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 6px;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .swipe-handle:active {
+    cursor: grabbing;
+  }
+
+  .swipe-handle-bar {
+    width: 40px;
+    height: 5px;
+    background: hsl(var(--bc) / 0.15);
+    border-radius: 3px;
+    transition: background 0.15s ease;
+  }
+
+  .swipe-handle:active .swipe-handle-bar {
+    background: hsl(var(--bc) / 0.3);
+  }
+
   /* ========== INPUT ========== */
   .search-header {
     padding: 16px 18px;
     border-bottom: 1px solid hsl(var(--bc) / 0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .search-input-wrapper {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex: 1;
     position: relative;
   }
 
   .search-icon {
-    width: 18px;
-    height: 18px;
     color: hsl(var(--bc) / 0.4);
     flex-shrink: 0;
     transition: opacity 0.15s;
@@ -235,9 +319,25 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     font-weight: 400;
   }
 
+  /* Typing glow effect */
+  .search-input-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, hsl(var(--a) / 0.15), hsl(var(--a) / 0.05));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  #search-input:focus + .search-clear ~ .search-kbd ~ .search-input-wrapper::after,
+  .search-dialog.has-query .search-input-wrapper::after {
+    opacity: 1;
+  }
+
   .search-clear {
-    width: 20px;
-    height: 20px;
     padding: 0;
     background: none;
     border: none;
@@ -255,11 +355,6 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     color: hsl(var(--bc) / 0.6);
   }
 
-  .search-clear svg {
-    width: 100%;
-    height: 100%;
-  }
-
   .search-kbd {
     font-size: 10px;
     font-family: system-ui, -apple-system, sans-serif;
@@ -273,18 +368,33 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     flex-shrink: 0;
   }
 
+  .mobile-close {
+    background: none;
+    border: none;
+    color: hsl(var(--bc) / 0.5);
+    padding: 8px;
+    margin: -8px;
+    cursor: pointer;
+  }
+
   /* ========== RESULTS AREA ========== */
   .search-results {
     flex: 1;
     overflow-y: auto;
     overscroll-behavior: contain;
     min-height: 180px;
-    max-height: 380px;
+    max-height: 400px;
+  }
+
+  @media (max-width: 640px) {
+    .search-results {
+      max-height: calc(90vh - 140px);
+    }
   }
 
   /* Initial state */
   .search-initial {
-    padding: 14px 18px;
+    padding: 16px 18px;
   }
 
   .search-initial.hidden {
@@ -292,7 +402,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   }
 
   .search-section {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   .search-section:last-of-type {
@@ -303,14 +413,14 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .search-section-title {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: hsl(var(--bc) / 0.4);
   }
 
@@ -342,7 +452,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 10px;
+    padding: 10px 12px;
     border-radius: 8px;
     cursor: pointer;
     color: hsl(var(--bc) / 0.7);
@@ -360,9 +470,8 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   }
 
   .recent-icon {
-    width: 14px;
-    height: 14px;
-    opacity: 0.4;
+    font-size: 14px;
+    opacity: 0.5;
   }
 
   /* Quick links */
@@ -372,17 +481,23 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     gap: 8px;
   }
 
+  @media (max-width: 640px) {
+    .search-quick-links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   .search-quick-link {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 14px 10px;
+    padding: 16px 12px;
     background: hsl(var(--bc) / 0.03);
     border: 1px solid hsl(var(--bc) / 0.06);
-    border-radius: 10px;
+    border-radius: 12px;
     text-decoration: none;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     color: hsl(var(--bc) / 0.6);
     transition: all 0.15s ease;
@@ -392,16 +507,11 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     background: hsl(var(--a) / 0.08);
     border-color: hsl(var(--a) / 0.15);
     color: hsl(var(--a));
+    transform: translateY(-2px);
   }
 
-  .quick-link-svg {
-    width: 22px;
-    height: 22px;
-    opacity: 0.7;
-  }
-
-  .search-quick-link:hover .quick-link-svg {
-    opacity: 1;
+  .quick-link-icon {
+    font-size: 22px;
   }
 
   /* Keyboard hints */
@@ -409,7 +519,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 14px 0 6px;
+    padding: 16px 0 8px;
     font-size: 11px;
     color: hsl(var(--bc) / 0.35);
   }
@@ -434,81 +544,117 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   /* ========== LOADING ========== */
   .search-loading {
     display: none;
-    padding: 10px 14px;
+    padding: 40px 18px;
+    text-align: center;
   }
 
   .search-loading.visible {
     display: block;
   }
 
-  .skeleton-item {
-    display: flex;
-    gap: 12px;
-    padding: 12px;
-    margin-bottom: 4px;
+  .loading-text {
+    font-size: 13px;
+    color: hsl(var(--bc) / 0.5);
+    margin-bottom: 12px;
   }
 
-  .skeleton-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, hsl(var(--bc) / 0.06) 25%, hsl(var(--bc) / 0.1) 50%, hsl(var(--bc) / 0.06) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.2s infinite;
+  .loading-bar {
+    height: 4px;
+    background: hsl(var(--bc) / 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 200px;
+    margin: 0 auto;
   }
 
-  .skeleton-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    justify-content: center;
+  .loading-progress {
+    height: 100%;
+    width: 40%;
+    background: hsl(var(--a));
+    border-radius: 2px;
+    animation: loadingSlide 1s ease infinite;
   }
 
-  .skeleton-title {
-    height: 12px;
-    width: 55%;
-    border-radius: 4px;
-    background: linear-gradient(90deg, hsl(var(--bc) / 0.06) 25%, hsl(var(--bc) / 0.1) 50%, hsl(var(--bc) / 0.06) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.2s infinite;
-  }
-
-  .skeleton-meta {
-    height: 10px;
-    width: 35%;
-    border-radius: 4px;
-    background: linear-gradient(90deg, hsl(var(--bc) / 0.04) 25%, hsl(var(--bc) / 0.08) 50%, hsl(var(--bc) / 0.04) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.2s infinite;
-  }
-
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  @keyframes loadingSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
   }
 
   /* ========== RESULTS LIST ========== */
   .search-list {
     display: none;
-    padding: 8px 10px;
+    padding: 8px 12px;
   }
 
   .search-list.visible {
     display: block;
   }
 
-  .search-item {
+  /* Section groups */
+  .result-group {
+    margin-bottom: 16px;
+    animation: groupFadeIn 0.25s ease forwards;
+  }
+
+  @keyframes groupFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .result-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .result-group-header {
     display: flex;
     align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: hsl(var(--bc) / 0.4);
+  }
+
+  .result-group-icon {
+    font-size: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .result-group:hover .result-group-icon {
+    transform: scale(1.1);
+  }
+
+  /* Result item */
+  .search-item {
+    display: flex;
+    align-items: flex-start;
     gap: 12px;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.1s ease;
-    margin-bottom: 2px;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 4px;
     border-left: 3px solid transparent;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: staggerFadeIn 0.3s ease forwards;
+  }
+
+  /* Stagger animation delays (set via JS style attribute) */
+  @keyframes staggerFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .search-item:hover,
@@ -517,33 +663,27 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     border-left-color: hsl(var(--a));
   }
 
+  .search-item.selected {
+    box-shadow: 0 0 0 1px hsl(var(--a) / 0.15), 0 2px 8px hsl(var(--a) / 0.1);
+  }
+
+
   .search-item-icon {
-    width: 36px;
-    height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: hsl(var(--bc) / 0.05);
     border-radius: 8px;
-    flex-shrink: 0;
-    color: hsl(var(--bc) / 0.5);
     transition: all 0.1s ease;
-  }
-
-  .search-item-icon svg {
-    width: 18px;
-    height: 18px;
-    min-width: 18px;
-    max-width: 18px;
-    min-height: 18px;
-    max-height: 18px;
-    flex-shrink: 0;
   }
 
   .search-item:hover .search-item-icon,
   .search-item.selected .search-item-icon {
     background: hsl(var(--a) / 0.12);
-    color: hsl(var(--a));
   }
 
   .search-item-content {
@@ -553,10 +693,10 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
   .search-item-title {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: hsl(var(--bc));
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -567,22 +707,29 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     color: hsl(var(--a));
   }
 
-  .search-item-meta {
-    font-size: 11px;
-    color: hsl(var(--bc) / 0.45);
-    white-space: nowrap;
+  .search-item-snippet {
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.55);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+  }
+
+  .search-item-breadcrumb {
+    font-size: 11px;
+    color: hsl(var(--bc) / 0.35);
+    margin-top: 4px;
   }
 
   .search-item-arrow {
-    width: 16px;
-    height: 16px;
     color: hsl(var(--bc) / 0.2);
     flex-shrink: 0;
     opacity: 0;
     transform: translateX(-4px);
     transition: all 0.1s ease;
+    align-self: center;
   }
 
   .search-item:hover .search-item-arrow,
@@ -590,6 +737,28 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     opacity: 1;
     transform: translateX(0);
     color: hsl(var(--a));
+  }
+
+  /* Match highlight */
+  .search-item-snippet :global(mark) {
+    background: hsl(var(--a) / 0.2);
+    color: hsl(var(--a));
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  /* Relevance badge */
+  .search-item-badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: hsl(var(--a) / 0.12);
+    color: hsl(var(--a));
+    flex-shrink: 0;
   }
 
   /* ========== EMPTY STATE ========== */
@@ -604,22 +773,96 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   }
 
   .empty-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 14px;
-    color: hsl(var(--bc) / 0.2);
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
   }
 
   .empty-title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: hsl(var(--bc) / 0.6);
     margin-bottom: 4px;
   }
 
   .empty-hint {
+    font-size: 13px;
+    color: hsl(var(--bc) / 0.4);
+    margin-bottom: 16px;
+  }
+
+  /* Did you mean? */
+  .did-you-mean {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: hsl(var(--a) / 0.05);
+    border: 1px solid hsl(var(--a) / 0.1);
+    border-radius: 10px;
+  }
+
+  .did-you-mean.visible {
+    display: flex;
+  }
+
+  .did-you-mean-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: hsl(var(--a) / 0.8);
+  }
+
+  .did-you-mean-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .did-you-mean-btn {
+    background: hsl(var(--b1));
+    border: 1px solid hsl(var(--a) / 0.2);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: hsl(var(--a));
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .did-you-mean-btn:hover {
+    background: hsl(var(--a) / 0.1);
+    border-color: hsl(var(--a) / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .empty-suggestions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     font-size: 12px;
     color: hsl(var(--bc) / 0.4);
+  }
+
+  .suggestion-btn {
+    background: hsl(var(--bc) / 0.05);
+    border: 1px solid hsl(var(--bc) / 0.1);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.7);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .suggestion-btn:hover {
+    background: hsl(var(--a) / 0.1);
+    border-color: hsl(var(--a) / 0.2);
+    color: hsl(var(--a));
   }
 
   /* ========== FOOTER ========== */
@@ -628,11 +871,38 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     border-top: 1px solid hsl(var(--bc) / 0.06);
     font-size: 11px;
     color: hsl(var(--bc) / 0.4);
-    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
   }
 
   .result-count {
     font-weight: 500;
+  }
+
+  .search-hints-inline {
+    display: flex;
+    gap: 16px;
+    font-size: 10px;
+    color: hsl(var(--bc) / 0.35);
+  }
+
+  .search-hints-inline span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .search-hints-inline kbd {
+    font-size: 9px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    padding: 2px 4px;
+    background: hsl(var(--bc) / 0.05);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    border-radius: 3px;
+    color: hsl(var(--bc) / 0.4);
   }
 
   /* ========== HIDDEN STATES ========== */
@@ -643,11 +913,12 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
 <script is:inline>
 (function() {
-  var pagefind = null;
+  var Fuse = null;
+  var searchIndex = null;
+  var fuse = null;
   var results = [];
   var selected = 0;
   var debounceTimer = null;
-  var resultsCache = {};
 
   var STORAGE_KEY = 'docs-recent-searches';
   var MAX_RECENT = 5;
@@ -683,30 +954,44 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     localStorage.removeItem(STORAGE_KEY);
   }
 
-  function getResultIcon(url) {
-    if (url.includes('/components') || url.includes('/02-components')) {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>';
+  // Extract snippet around matched text
+  function extractSnippet(content, query, maxLength) {
+    maxLength = maxLength || 80;
+    var lowerContent = content.toLowerCase();
+    var lowerQuery = query.toLowerCase();
+    var words = lowerQuery.split(/\s+/);
+    
+    // Find first matching word position
+    var matchPos = -1;
+    for (var i = 0; i < words.length; i++) {
+      var pos = lowerContent.indexOf(words[i]);
+      if (pos !== -1) {
+        matchPos = pos;
+        break;
+      }
     }
-    if (url.includes('/themes') || url.includes('/03-themes')) {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    
+    if (matchPos === -1) {
+      return content.slice(0, maxLength) + '...';
     }
-    if (url.includes('/getting-started') || url.includes('/installation') || url.includes('/01-getting-started')) {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
-    }
-    if (url.includes('/deployment') || url.includes('/04-deployment')) {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 004 14.5V5a2 2 0 012-2h14a2 2 0 012 2v9.5a2.5 2.5 0 00-2.5 2.5M4 19.5v.5a2.5 2.5 0 005 0V17h11"/></svg>';
-    }
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>';
-  }
-
-  function getBreadcrumb(url) {
-    var parts = url.replace(/\.html$/, '').split('/').filter(Boolean);
-    var docsIdx = parts.indexOf('docs');
-    if (docsIdx === -1) return '';
-    var relevantParts = parts.slice(docsIdx + 1);
-    return relevantParts.map(function(p) {
-      return p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ').replace(/^\d+-/, '');
-    }).join(' / ');
+    
+    // Extract snippet around match
+    var start = Math.max(0, matchPos - 30);
+    var end = Math.min(content.length, matchPos + maxLength - 30);
+    var snippet = content.slice(start, end);
+    
+    // Add ellipsis
+    if (start > 0) snippet = '...' + snippet;
+    if (end < content.length) snippet = snippet + '...';
+    
+    // Highlight matching words
+    words.forEach(function(word) {
+      if (word.length < 2) return;
+      var regex = new RegExp('(' + word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+      snippet = snippet.replace(regex, '<mark>$1</mark>');
+    });
+    
+    return snippet;
   }
 
   function init() {
@@ -714,6 +999,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     var dialog = document.getElementById('search-dialog');
     var input = document.getElementById('search-input');
     var clearBtn = document.getElementById('search-clear');
+    var mobileCloseBtn = document.getElementById('mobile-close');
     var searchList = document.getElementById('search-list');
     var searchLoading = document.getElementById('search-loading');
     var searchEmpty = document.getElementById('search-empty');
@@ -725,25 +1011,39 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
     if (!overlay || !dialog || !input) return;
 
-    // Clear cache on init (handles page navigation)
-    resultsCache = {};
-
-    // Preload Pagefind immediately
-    loadPagefind();
-
-    function loadPagefind() {
-      if (pagefind) return Promise.resolve();
-      return new Promise(function(resolve) {
-        (new Function('return import("/pagefind/pagefind.js")'))()
-          .then(function(pf) {
-            pagefind = pf;
-            return pagefind.init();
-          })
-          .then(resolve)
-          .catch(function(e) {
-            console.warn('Pagefind not available:', e);
-            resolve();
-          });
+    // Load Fuse.js and search index
+    function loadSearch() {
+      if (Fuse && searchIndex) return Promise.resolve();
+      
+      showLoading();
+      var locale = getCurrentLocale();
+      
+      return Promise.all([
+        import('https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs'),
+        fetch('/search/' + locale + '.json').then(function(r) { return r.json(); })
+      ]).then(function(results) {
+        Fuse = results[0].default;
+        searchIndex = results[1];
+        
+        fuse = new Fuse(searchIndex, {
+          keys: [
+            { name: 'title', weight: 0.5 },
+            { name: 'headings', weight: 0.25 },
+            { name: 'description', weight: 0.15 },
+            { name: 'content', weight: 0.1 }
+          ],
+          threshold: 0.35,
+          distance: 1000,
+          ignoreLocation: true,
+          includeScore: true,
+          includeMatches: true,
+          minMatchCharLength: 2
+        });
+        
+        hideLoading();
+      }).catch(function(e) {
+        console.error('Error loading search:', e);
+        hideLoading();
       });
     }
 
@@ -759,9 +1059,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       recentSection.classList.remove('hidden');
       recentList.innerHTML = recent.map(function(q) {
         return '<button class="recent-item" data-query="' + q + '">' +
-          '<svg class="recent-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">' +
-          '<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
-          '</svg>' + q + '</button>';
+          '<span class="recent-icon">🕐</span>' + q + '</button>';
       }).join('');
 
       recentList.querySelectorAll('.recent-item').forEach(function(btn) {
@@ -778,8 +1076,10 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       if (clearBtn) {
         if (input.value.length > 0) {
           clearBtn.classList.add('visible');
+          dialog.classList.add('has-query');
         } else {
           clearBtn.classList.remove('visible');
+          dialog.classList.remove('has-query');
         }
       }
     }
@@ -800,14 +1100,59 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       if (searchLoading) searchLoading.classList.add('visible');
       if (searchEmpty) searchEmpty.classList.remove('visible');
     }
+    
+    function hideLoading() {
+      dialog.classList.remove('is-searching');
+      if (searchLoading) searchLoading.classList.remove('visible');
+    }
 
-    function showEmpty() {
+    function showEmpty(query) {
       dialog.classList.remove('is-searching');
       if (searchInitial) searchInitial.classList.add('hidden');
       if (searchList) searchList.classList.remove('visible');
       if (searchLoading) searchLoading.classList.remove('visible');
       if (searchEmpty) searchEmpty.classList.add('visible');
       if (resultCount) resultCount.textContent = '0 results';
+      
+      // Generate "Did you mean?" suggestions with looser matching
+      var didYouMean = document.getElementById('did-you-mean');
+      var didYouMeanList = document.getElementById('did-you-mean-list');
+      
+      if (didYouMean && didYouMeanList && fuse && query) {
+        // Search with much higher threshold (looser matching)
+        var looseFuse = new Fuse(searchIndex, {
+          keys: ['title'],
+          threshold: 0.6,
+          distance: 200,
+          includeScore: true
+        });
+        
+        var suggestions = looseFuse.search(query)
+          .filter(function(r) { return r.score > 0.3; }) // Only show suggestions that aren't too close (those would have matched)
+          .slice(0, 3)
+          .map(function(r) { return r.item.title; });
+        
+        if (suggestions.length > 0) {
+          didYouMean.classList.add('visible');
+          didYouMeanList.innerHTML = suggestions.map(function(title) {
+            return '<button class="did-you-mean-btn" data-suggestion="' + title + '">' + title + '</button>';
+          }).join('');
+          
+          // Add click handlers
+          didYouMeanList.querySelectorAll('.did-you-mean-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var suggestion = btn.getAttribute('data-suggestion') || '';
+              input.value = suggestion;
+              updateClearButton();
+              performSearch(suggestion);
+            });
+          });
+        } else {
+          didYouMean.classList.remove('visible');
+        }
+      } else if (didYouMean) {
+        didYouMean.classList.remove('visible');
+      }
     }
 
     function showResults() {
@@ -818,28 +1163,63 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       if (searchEmpty) searchEmpty.classList.remove('visible');
     }
 
-    function renderResults() {
+    function renderResults(query) {
       if (!searchList) return;
       
-      var query = encodeURIComponent(input.value.trim());
-      var docsBase = getDocsBase();
+      // Group results by section
+      var groups = {};
+      results.forEach(function(r, i) {
+        var section = r.item.section;
+        if (!groups[section]) {
+          groups[section] = {
+            icon: r.item.sectionIcon,
+            order: r.item.sectionOrder,
+            items: []
+          };
+        }
+        groups[section].items.push({ result: r, index: i });
+      });
       
-      searchList.innerHTML = results.map(function(r, i) {
-        var title = (r.meta && r.meta.title) || 'Untitled';
-        var icon = getResultIcon(r.url);
-        var breadcrumb = getBreadcrumb(r.url);
-        var url = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
+      // Sort groups by order
+      var sortedSections = Object.keys(groups).sort(function(a, b) {
+        return groups[a].order - groups[b].order;
+      });
+      
+      var html = '';
+      var globalIndex = 0;
+      
+      sortedSections.forEach(function(section) {
+        var group = groups[section];
+        html += '<div class="result-group">';
+        html += '<div class="result-group-header">';
+        html += '<span class="result-group-icon">' + group.icon + '</span>';
+        html += '<span>' + section + '</span>';
+        html += '</div>';
         
-        return '<a href="' + url + '?q=' + query + '" class="search-item ' + (i === selected ? 'selected' : '') + '" data-idx="' + i + '">' +
-          '<div class="search-item-icon">' + icon + '</div>' +
-          '<div class="search-item-content">' +
-          '<span class="search-item-title">' + title + '</span>' +
-          '<span class="search-item-meta">' + breadcrumb + '</span>' +
-          '</div>' +
-          '<svg class="search-item-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">' +
-          '<path d="M9 5l7 7-7 7"/>' +
-          '</svg></a>';
-      }).join('');
+        group.items.forEach(function(item) {
+          var r = item.result;
+          var isSelected = globalIndex === selected;
+          var score = r.score || 0;
+          var badge = score < 0.15 ? '<span class="search-item-badge">Best Match</span>' : '';
+          var snippet = extractSnippet(r.item.content || r.item.description, query);
+          
+          html += '<a href="' + r.item.url + '?q=' + encodeURIComponent(query) + '" class="search-item ' + (isSelected ? 'selected' : '') + '" data-idx="' + globalIndex + '" style="animation-delay: ' + (globalIndex * 40) + 'ms">';
+          html += '<div class="search-item-icon">' + r.item.sectionIcon + '</div>';
+          html += '<div class="search-item-content">';
+          html += '<span class="search-item-title">' + r.item.title + '</span>';
+          html += '<div class="search-item-snippet">' + snippet + '</div>';
+          html += '</div>';
+          html += badge;
+          html += '<svg class="search-item-arrow" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>';
+          html += '</a>';
+          
+          globalIndex++;
+        });
+        
+        html += '</div>';
+      });
+      
+      searchList.innerHTML = html;
 
       if (resultCount) {
         resultCount.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
@@ -861,23 +1241,9 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         return;
       }
 
-      var currentLocale = getCurrentLocale();
-      var cacheKey = query + '-' + currentLocale;
-      
-      if (resultsCache[cacheKey]) {
-        results = resultsCache[cacheKey];
-        selected = 0;
-        if (results.length === 0) {
-          showEmpty();
-        } else {
-          renderResults();
-        }
-        return;
-      }
-
-      if (!pagefind) {
-        loadPagefind().then(function() {
-          if (pagefind) doSearch();
+      if (!fuse) {
+        loadSearch().then(function() {
+          if (fuse) doSearch();
         });
         return;
       }
@@ -885,39 +1251,14 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       doSearch();
 
       function doSearch() {
-        showLoading();
+        results = fuse.search(query).slice(0, 10);
+        selected = 0;
 
-        pagefind.search(query)
-          .then(function(res) {
-            return Promise.all(res.results.slice(0, 12).map(function(r) { return r.data(); }));
-          })
-          .then(function(data) {
-            // Filter by locale - more flexible matching
-            results = data.filter(function(r) {
-              var url = r.url || '';
-              
-              if (currentLocale === 'en') {
-                // English: include docs URLs that don't have /ru/ prefix
-                return url.includes('/docs/') && !url.startsWith('/ru/');
-              } else {
-                // Russian or other locales: URL should start with /{locale}/
-                return url.startsWith('/' + currentLocale + '/');
-              }
-            }).slice(0, 8);
-            
-            resultsCache[cacheKey] = results;
-            selected = 0;
-
-            if (results.length === 0) {
-              showEmpty();
-            } else {
-              renderResults();
-            }
-          })
-          .catch(function(e) {
-            console.error('Search error:', e);
-            showEmpty();
-          });
+        if (results.length === 0) {
+          showEmpty(query);
+        } else {
+          renderResults(query);
+        }
       }
     }
 
@@ -929,6 +1270,9 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       input.focus();
       showInitial();
       document.body.style.overflow = 'hidden';
+      
+      // Preload search index
+      loadSearch();
     }
 
     function close() {
@@ -951,7 +1295,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         return;
       }
 
-      debounceTimer = setTimeout(function() { performSearch(q); }, 120);
+      debounceTimer = setTimeout(function() { performSearch(q); }, 100);
     });
 
     // Clear button
@@ -964,23 +1308,32 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       });
     }
 
+    // Mobile close button
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', close);
+    }
+
     // Keyboard navigation
     input.addEventListener('keydown', function(e) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         selected = Math.min(selected + 1, results.length - 1);
-        renderResults();
+        renderResults(input.value.trim());
         scrollSelectedIntoView();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         selected = Math.max(selected - 1, 0);
-        renderResults();
+        renderResults(input.value.trim());
         scrollSelectedIntoView();
       } else if (e.key === 'Enter' && results[selected]) {
         e.preventDefault();
         saveRecentSearch(input.value.trim());
-        var url = results[selected].url.replace(/\.html$/, '').replace(/\/index$/, '');
-        window.location.href = url + '?q=' + encodeURIComponent(input.value.trim());
+        var url = results[selected].item.url + '?q=' + encodeURIComponent(input.value.trim());
+        if (e.shiftKey) {
+          window.open(url, '_blank');
+        } else {
+          window.location.href = url;
+        }
         close();
       } else if (e.key === 'Escape') {
         close();
@@ -999,6 +1352,16 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         renderRecentSearches();
       });
     }
+
+    // Suggestion buttons
+    document.querySelectorAll('.suggestion-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var suggestion = btn.getAttribute('data-suggestion') || '';
+        input.value = suggestion;
+        updateClearButton();
+        performSearch(suggestion);
+      });
+    });
 
     // Quick links
     document.querySelectorAll('[data-quick-link]').forEach(function(link) {
@@ -1020,59 +1383,161 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       }
     });
 
+    // ========== MOBILE SWIPE-TO-CLOSE ==========
+    var touchStartY = 0;
+    var touchCurrentY = 0;
+    var isDragging = false;
+    var dragThreshold = 80; // Pixels to swipe down to close
+
+    function handleTouchStart(e) {
+      if (window.innerWidth > 640) return; // Only on mobile
+      var header = dialog.querySelector('.search-header');
+      var swipeHandle = dialog.querySelector('.swipe-handle');
+      var isValidTarget = (header && header.contains(e.target)) || (swipeHandle && swipeHandle.contains(e.target));
+      if (!isValidTarget) return; // Only drag from header or swipe handle
+      
+      touchStartY = e.touches[0].clientY;
+      isDragging = true;
+      dialog.style.transition = 'none';
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging || window.innerWidth > 640) return;
+      
+      touchCurrentY = e.touches[0].clientY;
+      var deltaY = touchCurrentY - touchStartY;
+      
+      if (deltaY > 0) {
+        // Swiping down - translate dialog
+        dialog.style.transform = 'translateY(' + deltaY + 'px)';
+        
+        // Update opacity based on drag distance
+        var opacity = Math.max(0.3, 1 - (deltaY / 300));
+        overlay.style.opacity = opacity;
+      }
+    }
+
+    function handleTouchEnd() {
+      if (!isDragging || window.innerWidth > 640) return;
+      isDragging = false;
+      
+      var deltaY = touchCurrentY - touchStartY;
+      dialog.style.transition = '';
+      overlay.style.transition = '';
+      
+      if (deltaY > dragThreshold) {
+        // Close the dialog
+        close();
+      } else {
+        // Snap back
+        dialog.style.transform = '';
+        overlay.style.opacity = '';
+      }
+      
+      touchStartY = 0;
+      touchCurrentY = 0;
+    }
+
+    dialog.addEventListener('touchstart', handleTouchStart, { passive: true });
+    dialog.addEventListener('touchmove', handleTouchMove, { passive: true });
+    dialog.addEventListener('touchend', handleTouchEnd, { passive: true });
+
     showInitial();
   }
 
-  // Highlight on page load
+  // Highlight on page load with improved section detection
   function highlightOnLoad() {
     var params = new URLSearchParams(window.location.search);
     var query = params.get('q') || params.get('highlight');
     if (!query || query.length < 2) return;
 
-    var article = document.querySelector('article') || document.querySelector('.prose');
-    if (!article) return;
+    setTimeout(function() {
+      var article = document.querySelector('article') || document.querySelector('.prose') || document.querySelector('main');
+      if (!article) return;
 
-    var searchTerm = query.toLowerCase();
-    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
-    var matchNode = null;
+      var words = query.toLowerCase().split(/\s+/).filter(function(w) { return w.length >= 2; });
+      var queryLower = query.toLowerCase();
+      var matchEl = null;
+      var matchType = 'none'; // 'heading-exact', 'heading-words', 'content'
 
-    while (walker.nextNode()) {
-      var text = (walker.currentNode.textContent || '').toLowerCase();
-      if (text.includes(searchTerm)) {
-        matchNode = walker.currentNode;
-        break;
+      // Strategy 1: Find exact match in headings (h1-h6)
+      var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      for (var i = 0; i < headings.length; i++) {
+        var h = headings[i];
+        var text = (h.textContent || '').toLowerCase();
+        if (text.includes(queryLower)) {
+          matchEl = h;
+          matchType = 'heading-exact';
+          break;
+        }
       }
-    }
 
-    if (matchNode && matchNode.parentElement) {
-      var el = matchNode.parentElement;
-      
-      // Scroll to the matched element
-      setTimeout(function() {
-        var rect = el.getBoundingClientRect();
-        var scrollY = window.scrollY + rect.top - 140;
-        window.scrollTo({ top: scrollY, behavior: 'smooth' });
-      }, 100);
+      // Strategy 2: Find word matches in headings
+      if (!matchEl) {
+        for (var i = 0; i < headings.length; i++) {
+          var h = headings[i];
+          var text = (h.textContent || '').toLowerCase();
+          var hasMatch = words.some(function(word) { return text.includes(word); });
+          if (hasMatch) {
+            matchEl = h;
+            matchType = 'heading-words';
+            break;
+          }
+        }
+      }
 
-      // Subtle highlight animation on the element
-      setTimeout(function() {
-        el.classList.add('search-match-highlight');
-      }, 400);
+      // Strategy 3: Find in any text content
+      if (!matchEl) {
+        var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          var text = (walker.currentNode.textContent || '').toLowerCase();
+          var hasMatch = words.some(function(word) { return text.includes(word); });
+          if (hasMatch) {
+            matchEl = walker.currentNode.parentElement;
+            matchType = 'content';
+            break;
+          }
+        }
+      }
 
-      setTimeout(function() {
-        el.classList.remove('search-match-highlight');
-      }, 2500);
+      if (matchEl) {
+        // Calculate scroll position with header offset
+        var headerHeight = 80;
+        var extraPadding = matchType.startsWith('heading') ? 40 : 100;
+        var rect = matchEl.getBoundingClientRect();
+        var scrollY = window.scrollY + rect.top - headerHeight - extraPadding;
+        
+        window.scrollTo({ top: Math.max(0, scrollY), behavior: 'smooth' });
 
-      // Clean URL
-      history.replaceState(null, '', window.location.pathname);
-    }
+        // Apply highlight with delay for scroll completion
+        setTimeout(function() {
+          matchEl.classList.add('search-match-highlight');
+          
+          // Also add a ring effect for headings
+          if (matchType.startsWith('heading')) {
+            matchEl.classList.add('search-match-heading');
+          }
+        }, 400);
+
+        // Remove highlight
+        setTimeout(function() {
+          matchEl.classList.remove('search-match-highlight');
+          matchEl.classList.remove('search-match-heading');
+        }, 3000);
+
+        // Clean up URL
+        history.replaceState(null, '', window.location.pathname);
+      }
+    }, 350);
   }
 
   init();
   highlightOnLoad();
 
   document.addEventListener('astro:after-swap', function() {
-    resultsCache = {}; // Clear cache on navigation
+    Fuse = null;
+    searchIndex = null;
+    fuse = null;
     init();
     highlightOnLoad();
   });
@@ -1081,16 +1546,18 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
 <style is:global>
   .search-match-highlight {
-    background: linear-gradient(90deg, transparent, hsl(var(--a) / 0.15), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--a) / 0.2), transparent);
     background-size: 200% 100%;
     animation: highlightSweep 1.5s ease-out;
     border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
   }
 
   @keyframes highlightSweep {
     0% { 
       background-position: 100% 0;
-      box-shadow: 0 0 0 2px hsl(var(--a) / 0.2);
+      box-shadow: 0 0 0 3px hsl(var(--a) / 0.2);
     }
     50% {
       background-position: 0% 0;
@@ -1104,7 +1571,41 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   @media (prefers-reduced-motion: reduce) {
     .search-match-highlight {
       animation: none;
-      background: hsl(var(--a) / 0.1);
+      background: hsl(var(--a) / 0.15);
+    }
+  }
+
+  /* Special highlight style for headings */
+  .search-match-heading {
+    position: relative;
+    display: inline-block;
+    padding-left: 12px !important;
+  }
+
+  .search-match-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: hsl(var(--a));
+    border-radius: 2px;
+    animation: headingPulse 1s ease-out;
+  }
+
+  @keyframes headingPulse {
+    0% {
+      opacity: 0;
+      transform: scaleY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
     }
   }
 </style>

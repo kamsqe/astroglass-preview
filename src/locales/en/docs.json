@@ -8,5 +8,15 @@
   "guide": "Guide",
   "editPage": "Edit this page",
   "translationMissing": "Translation Missing",
-  "showingEnglish": "Showing English version"
+  "showingEnglish": "Showing English version",
+  "recentSearches": "Recent",
+  "clear": "Clear",
+  "quickLinks": "Quick Links",
+  "gettingStarted": "Getting Started",
+  "components": "Components",
+  "themes": "Themes",
+  "navigate": "Navigate",
+  "open": "Open",
+  "close": "Close",
+  "tryDifferent": "Try different keywords or check spelling"
 }

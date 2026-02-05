@@ -8,5 +8,15 @@
   "guide": "Руководство",
   "editPage": "Редактировать страницу",
   "translationMissing": "Перевод отсутствует",
-  "showingEnglish": "Показана английская версия"
+  "showingEnglish": "Показана английская версия",
+  "recentSearches": "Недавние",
+  "clear": "Очистить",
+  "quickLinks": "Быстрые ссылки",
+  "gettingStarted": "Начало работы",
+  "components": "Компоненты",
+  "themes": "Темы",
+  "navigate": "Навигация",
+  "open": "Открыть",
+  "close": "Закрыть",
+  "tryDifferent": "Попробуйте другие ключевые слова"
 }

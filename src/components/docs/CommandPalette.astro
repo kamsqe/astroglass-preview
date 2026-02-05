@@ -533,6 +533,11 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   .search-item-icon svg {
     width: 18px;
     height: 18px;
+    min-width: 18px;
+    max-width: 18px;
+    min-height: 18px;
+    max-height: 18px;
+    flex-shrink: 0;
   }
 
   .search-item:hover .search-item-icon,
@@ -887,14 +892,16 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
             return Promise.all(res.results.slice(0, 12).map(function(r) { return r.data(); }));
           })
           .then(function(data) {
-            // Filter by locale
+            // Filter by locale - more flexible matching
             results = data.filter(function(r) {
+              var url = r.url || '';
+              
               if (currentLocale === 'en') {
-                // English: include /docs/ but exclude /ru/docs/
-                return r.url.includes('/docs/') && !r.url.includes('/ru/');
+                // English: include docs URLs that don't have /ru/ prefix
+                return url.includes('/docs/') && !url.startsWith('/ru/');
               } else {
-                // Other locales: include /{locale}/docs/
-                return r.url.includes('/' + currentLocale + '/docs/');
+                // Russian or other locales: URL should start with /{locale}/
+                return url.startsWith('/' + currentLocale + '/');
               }
             }).slice(0, 8);
             

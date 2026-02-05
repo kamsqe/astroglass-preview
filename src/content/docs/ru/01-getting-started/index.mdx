@@ -1,0 +1,130 @@
+---
+title: "Начало работы с шаблоном"
+description: "Узнайте, как настроить и персонализировать ваш проект на Astro с поддержкой тем, интернационализации и облачного развертывания."
+order: 1
+layout: v1
+category: guide
+tags: ["начало работы", "настройка", "для новичков"]
+---
+
+import Callout from '../../../components/mdx/Callout.astro';
+import Steps from '../../../components/mdx/Steps.astro';
+import CodeTabs from '../../../components/mdx/CodeTabs.astro';
+import FileTree from '../../../components/mdx/FileTree.astro';
+
+Добро пожаловать в шаблон **Liquid Glass**! Это руководство поможет вам настроить среду разработки и адаптировать шаблон под ваши нужды.
+
+## Предварительные требования
+
+Прежде чем начать, убедитесь, что у вас установлено следующее:
+
+- **Node.js** версии 18 или выше
+- **pnpm** (рекомендуется) или npm
+- Редактор кода (рекомендуется VS Code)
+
+<Callout type="tip" title="Совет">
+  Мы рекомендуем использовать [pnpm](https://pnpm.io/) для быстрой и эффективной работы с пакетами.
+</Callout>
+
+## Установка
+
+<Steps>
+
+### Клонируйте репозиторий
+
+Сначала клонируйте репозиторий шаблона на свой локальный компьютер:
+
+```bash
+git clone https://github.com/your-username/liquid-glass-astro-cloudflare.git
+cd liquid-glass-astro-cloudflare
+```
+
+### Установите зависимости
+
+Установите зависимости проекта, используя ваш любимый менеджер пакетов:
+
+<CodeTabs labels={['pnpm', 'npm', 'yarn']}>
+```bash
+pnpm install
+```
+```bash
+npm install
+```
+```bash
+yarn install
+```
+</CodeTabs>
+
+### Запустите сервер разработки
+
+Запустите сервер разработки, чтобы увидеть шаблон в действии:
+
+<CodeTabs labels={['pnpm', 'npm', 'yarn']}>
+```bash
+pnpm dev
+```
+```bash
+npm run dev
+```
+```bash
+yarn dev
+```
+</CodeTabs>
+
+</Steps>
+
+Ваш сайт теперь должен быть доступен по адресу `http://localhost:4321` 🎉
+
+## Структура проекта
+
+Обзор структуры папок проекта:
+
+<FileTree>
+- src/
+  - components/
+    - Hero.astro
+    - About.astro
+    - Pricing.astro
+  - config/
+    - themes.ts
+    - locales.ts
+    - docs.ts
+  - content/
+    - docs/
+      - en/
+      - ru/
+  - pages/
+    - index.astro
+    - [theme].astro
+  - styles/
+    - global.css
+- public/
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## Выбор темы
+
+Шаблон поставляется с **5 великолепными темами**:
+
+| Тема | Описание |
+|-------|-------------|
+| **Liquid** | Плавные анимации, градиентные фоны |
+| **Glass** | Эффекты стекломорфизма, полупрозрачные панели |
+| **Neo** | Смелая типографика, сильный контраст |
+| **Luxury** | Элегантные золотые акценты, премиальный вид |
+| **Minimal** | Чистый, сфокусированный дизайн без лишних деталей |
+
+Чтобы переключить тему, просто воспользуйтесь переключателем в шапке сайта или посетите демонстрационные страницы тем напрямую.
+
+## Следующие шаги
+
+Теперь, когда ваша среда разработки настроена:
+
+1. [Обзор тем](/ru/docs/themes) — Узнайте об уникальных особенностях каждой темы
+2. [Руководство по локализации](/ru/docs/i18n) — Добавьте поддержку новых языков
+3. [Развертывание](/ru/docs/deployment) — Разверните проект на Cloudflare, Vercel или Netlify
+
+<Callout type="info" title="Нужна помощь?">
+  Ознакомьтесь с разделом [FAQ](/ru/docs/faq) или [создайте тикет](https://github.com/your-repo/issues), если у вас возникли проблемы.
+</Callout>

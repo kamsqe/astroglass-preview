@@ -14,288 +14,220 @@ export interface Props {
 
 const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'ru');
+const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation...';
 ---
 
 <!-- Backdrop -->
-<div id="command-palette-backdrop" class="command-palette-backdrop"></div>
+<div id="command-palette-backdrop" class="cp-backdrop"></div>
 
 <!-- Palette -->
-<div id="command-palette" class="command-palette" role="dialog" aria-label="Search documentation">
-  <div class="command-palette-header">
-    <div class="command-palette-input-wrapper">
-      <svg class="command-palette-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-      <input 
-        type="text" 
-        id="command-palette-input"
-        class="command-palette-input" 
-        placeholder={t('docs.searchPlaceholder') || 'Search documentation...'}
-        autocomplete="off"
-        aria-label="Search"
-      />
-      <kbd class="command-palette-shortcut">ESC</kbd>
-    </div>
+<div id="command-palette" class="cp-modal" role="dialog" aria-label="Search documentation">
+  <div class="cp-header">
+    <svg class="cp-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+    <input 
+      type="text" 
+      id="command-palette-input"
+      class="cp-input" 
+      placeholder={searchPlaceholder}
+      autocomplete="off"
+      aria-label="Search"
+    />
+    <kbd class="cp-esc">ESC</kbd>
   </div>
   
-  <div id="command-palette-results" class="command-palette-results">
-    <div class="command-palette-empty">
-      <div class="command-palette-empty-icon">🔍</div>
-      <p class="command-palette-empty-text">{t('docs.typeToSearch') || 'Type to search the docs'}</p>
-      <div class="command-palette-hints">
-        <div class="hint"><kbd>⌘K</kbd> open</div>
-        <div class="hint"><kbd>↑↓</kbd> navigate</div>
-        <div class="hint"><kbd>↵</kbd> go</div>
-      </div>
-    </div>
-  </div>
+  <div id="command-palette-results" class="cp-results"></div>
 </div>
 
 <style>
-  .command-palette-backdrop {
+  /* ===== BACKDROP ===== */
+  .cp-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
   }
 
-  .command-palette-backdrop.is-open {
+  .cp-backdrop.is-open {
     opacity: 1;
     visibility: visible;
   }
 
-  .command-palette {
+  /* ===== MODAL ===== */
+  .cp-modal {
     position: fixed;
-    top: 10%;
+    top: 12%;
     left: 50%;
-    transform: translateX(-50%) translateY(-20px) scale(0.95);
-    width: calc(100% - 24px);
-    max-width: 600px;
+    transform: translateX(-50%) translateY(-10px) scale(0.98);
+    width: calc(100% - 20px);
+    max-width: 560px;
     background: hsl(var(--b1));
-    border: 1px solid hsl(var(--bc) / 0.15);
+    border: 1px solid hsl(var(--bc) / 0.12);
     border-radius: 16px;
-    box-shadow: 
-      0 25px 50px -12px rgba(0, 0, 0, 0.4),
-      0 0 0 1px hsl(var(--a) / 0.05);
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.35);
     z-index: 9999;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  @media (min-width: 640px) {
-    .command-palette {
-      top: 15%;
-      width: calc(100% - 32px);
-      border-radius: 20px;
-    }
-  }
-
-  .command-palette.is-open {
+  .cp-modal.is-open {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0) scale(1);
   }
 
-  .command-palette-header {
-    border-bottom: 1px solid hsl(var(--bc) / 0.1);
-    background: hsl(var(--bc) / 0.02);
-  }
-
-  .command-palette-input-wrapper {
+  /* ===== HEADER ===== */
+  .cp-header {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 14px 16px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.08);
   }
 
-  @media (min-width: 640px) {
-    .command-palette-input-wrapper {
-      padding: 16px 20px;
-      gap: 14px;
-    }
-  }
-
-  .command-palette-icon {
+  .cp-search-icon {
     width: 20px;
     height: 20px;
     color: hsl(var(--a));
-    opacity: 0.6;
+    opacity: 0.7;
     flex-shrink: 0;
   }
 
-  .command-palette-input {
+  .cp-input {
     flex: 1;
     border: none;
     background: transparent;
-    font-size: 1rem;
+    font-size: 16px; /* Prevents iOS zoom */
     font-weight: 500;
     outline: none;
     color: hsl(var(--bc));
+    min-width: 0;
   }
 
-  @media (min-width: 640px) {
-    .command-palette-input {
-      font-size: 1.125rem;
-    }
-  }
-
-  .command-palette-input::placeholder {
+  .cp-input::placeholder {
     color: hsl(var(--bc) / 0.4);
   }
 
-  .command-palette-shortcut {
-    font-size: 0.65rem;
+  .cp-esc {
+    font-size: 10px;
     padding: 4px 8px;
-    background: hsl(var(--bc) / 0.08);
-    border: 1px solid hsl(var(--bc) / 0.1);
-    border-radius: 6px;
+    background: hsl(var(--bc) / 0.06);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    border-radius: 5px;
     font-family: ui-monospace, monospace;
     font-weight: 600;
-    color: hsl(var(--bc) / 0.5);
+    color: hsl(var(--bc) / 0.45);
+    flex-shrink: 0;
   }
 
-  .command-palette-results {
-    max-height: 60vh;
+  /* ===== RESULTS ===== */
+  .cp-results {
+    max-height: 55vh;
     overflow-y: auto;
     padding: 8px;
   }
 
-  @media (min-width: 640px) {
-    .command-palette-results {
-      max-height: 420px;
-      padding: 12px;
-    }
-  }
-
-  .command-palette-empty {
-    padding: 40px 20px;
+  /* Empty state */
+  .cp-empty {
+    padding: 32px 16px;
     text-align: center;
+    color: hsl(var(--bc) / 0.45);
   }
 
-  .command-palette-empty-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    opacity: 0.6;
-  }
-
-  .command-palette-empty-text {
-    font-size: 0.95rem;
+  .cp-empty-text {
+    font-size: 14px;
     font-weight: 500;
-    margin-bottom: 20px;
-    color: hsl(var(--bc) / 0.5);
+    margin-bottom: 16px;
   }
 
-  .command-palette-hints {
+  .cp-hints {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
-    font-size: 0.75rem;
+    font-size: 11px;
   }
 
-  .hint {
+  .cp-hint {
     display: flex;
     align-items: center;
-    gap: 5px;
-    color: hsl(var(--bc) / 0.4);
+    gap: 4px;
   }
 
-  .hint kbd {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    background: hsl(var(--bc) / 0.08);
-    border: 1px solid hsl(var(--bc) / 0.1);
+  .cp-hint kbd {
+    font-size: 10px;
+    padding: 2px 5px;
+    background: hsl(var(--bc) / 0.06);
+    border: 1px solid hsl(var(--bc) / 0.08);
     border-radius: 4px;
     font-family: ui-monospace, monospace;
     font-weight: 600;
   }
 
-  .command-palette-item {
+  /* Result items */
+  .cp-item {
     display: block;
-    padding: 12px 14px;
-    border-radius: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: background 0.15s ease;
     text-decoration: none;
-    border: 1px solid transparent;
-    margin-bottom: 4px;
-    background: transparent;
+    margin-bottom: 2px;
   }
 
-  .command-palette-item:hover,
-  .command-palette-item.is-selected {
+  .cp-item:hover,
+  .cp-item.selected {
     background: hsl(var(--a) / 0.08);
-    border-color: hsl(var(--a) / 0.15);
   }
 
-  .command-palette-item.is-selected {
+  .cp-item.selected {
     background: hsl(var(--a) / 0.12);
   }
 
-  .command-palette-item-title {
+  .cp-item-title {
     display: block;
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 14px;
     color: hsl(var(--bc));
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
-  .command-palette-item.is-selected .command-palette-item-title,
-  .command-palette-item:hover .command-palette-item-title {
+  .cp-item:hover .cp-item-title,
+  .cp-item.selected .cp-item-title {
     color: hsl(var(--a));
   }
 
-  .command-palette-item-excerpt {
+  .cp-item-excerpt {
     display: block;
-    font-size: 0.8rem;
-    color: hsl(var(--bc) / 0.6);
-    line-height: 1.5;
-    margin-bottom: 6px;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.55);
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .command-palette-item-excerpt mark {
+  .cp-item-excerpt mark {
     background: hsl(var(--a) / 0.2);
     color: hsl(var(--a));
-    padding: 0.1em 0.2em;
-    border-radius: 3px;
-    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
   }
 
-  .command-palette-item-path {
-    display: block;
-    font-size: 0.7rem;
-    color: hsl(var(--bc) / 0.35);
-    font-family: ui-monospace, monospace;
-  }
-
-  .command-palette-loading {
-    padding: 40px;
+  /* Loading & no results */
+  .cp-loading, .cp-no-results {
+    padding: 32px 16px;
     text-align: center;
-    color: hsl(var(--bc) / 0.5);
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-
-  .command-palette-no-results {
-    padding: 40px 20px;
-    text-align: center;
-    color: hsl(var(--bc) / 0.5);
-  }
-
-  .command-palette-no-results-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    opacity: 0.6;
-  }
-
-  .command-palette-no-results-text {
-    font-size: 0.9rem;
+    color: hsl(var(--bc) / 0.45);
+    font-size: 13px;
     font-weight: 500;
   }
 </style>
@@ -305,95 +237,88 @@ const t = useTranslations(locale as 'en' | 'ru');
   let selectedIndex = 0;
   let results: any[] = [];
 
-  async function initCommandPalette() {
+  function initCommandPalette() {
     const backdrop = document.getElementById('command-palette-backdrop');
-    const palette = document.getElementById('command-palette');
+    const modal = document.getElementById('command-palette');
     const input = document.getElementById('command-palette-input') as HTMLInputElement;
-    const resultsContainer = document.getElementById('command-palette-results');
+    const resultsEl = document.getElementById('command-palette-results');
 
-    if (!backdrop || !palette || !input || !resultsContainer) return;
+    if (!backdrop || !modal || !input || !resultsEl) return;
 
-    // Load Pagefind dynamically at runtime
-    try {
-      const pagefindUrl = '/pagefind/pagefind.js';
-      pagefind = await import(/* @vite-ignore */ pagefindUrl);
-      await pagefind.init();
-    } catch (e) {
-      console.warn('Pagefind not available, search disabled');
-    }
+    // Load Pagefind at runtime only (not bundled)
+    (async () => {
+      try {
+        const pagefindPath = '/pagefind/pagefind.js';
+        pagefind = await (new Function(`return import("${pagefindPath}")`))();
+        await pagefind.init();
+      } catch (e) {
+        console.warn('Pagefind not loaded');
+      }
+    })();
 
-    function openPalette() {
+    function open() {
       backdrop.classList.add('is-open');
-      palette.classList.add('is-open');
+      modal.classList.add('is-open');
       input.focus();
       document.body.style.overflow = 'hidden';
+      renderEmpty();
     }
 
-    function closePalette() {
+    function close() {
       backdrop.classList.remove('is-open');
-      palette.classList.remove('is-open');
+      modal.classList.remove('is-open');
       input.value = '';
       selectedIndex = 0;
       results = [];
       document.body.style.overflow = '';
-      renderEmpty();
     }
 
     function renderEmpty() {
-      resultsContainer.innerHTML = `
-        <div class="command-palette-empty">
-          <div class="command-palette-empty-icon">🔍</div>
-          <p class="command-palette-empty-text">Type to search the docs</p>
-          <div class="command-palette-hints">
-            <div class="hint"><kbd>⌘K</kbd> open</div>
-            <div class="hint"><kbd>↑↓</kbd> navigate</div>
-            <div class="hint"><kbd>↵</kbd> go</div>
+      resultsEl.innerHTML = `
+        <div class="cp-empty">
+          <p class="cp-empty-text">Type to search the docs</p>
+          <div class="cp-hints">
+            <span class="cp-hint"><kbd>⌘K</kbd> open</span>
+            <span class="cp-hint"><kbd>↑↓</kbd> navigate</span>
+            <span class="cp-hint"><kbd>↵</kbd> go</span>
           </div>
         </div>
       `;
     }
 
-    function renderResults(items: any[]) {
-      if (items.length === 0) {
-        renderEmpty();
+    function renderResults() {
+      if (results.length === 0) {
+        resultsEl.innerHTML = `<div class="cp-no-results">No results found</div>`;
         return;
       }
 
-      resultsContainer.innerHTML = items.map((item, i) => {
-        // Clean up the URL path for display
-        const displayPath = item.url
-          .replace(/\/index\.html$/, '/')
-          .replace(/\.html$/, '');
-        
-        // Format the title nicely
-        const title = item.meta?.title || item.url.split('/').filter(Boolean).pop() || 'Untitled';
+      resultsEl.innerHTML = results.map((r, i) => {
+        const title = r.meta?.title || 'Untitled';
+        const excerpt = r.excerpt || '';
+        const url = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
         
         return `
-          <a 
-            href="${item.url}${window.location.search ? '?highlight=' + encodeURIComponent(input.value) : ''}" 
-            class="command-palette-item ${i === selectedIndex ? 'is-selected' : ''}"
-            data-index="${i}"
-          >
-            <span class="command-palette-item-title">${title}</span>
-            ${item.excerpt ? `<span class="command-palette-item-excerpt">${item.excerpt}</span>` : ''}
-            <span class="command-palette-item-path">${displayPath}</span>
+          <a href="${url}?q=${encodeURIComponent(input.value)}" 
+             class="cp-item ${i === selectedIndex ? 'selected' : ''}" 
+             data-idx="${i}">
+            <span class="cp-item-title">${title}</span>
+            ${excerpt ? `<span class="cp-item-excerpt">${excerpt}</span>` : ''}
           </a>
         `;
       }).join('');
 
-      // Click handlers
-      resultsContainer.querySelectorAll('.command-palette-item').forEach((el) => {
-        el.addEventListener('click', () => closePalette());
+      resultsEl.querySelectorAll('.cp-item').forEach(el => {
+        el.addEventListener('click', close);
       });
     }
 
-    // Search handler with docs-only filtering
-    let searchTimeout: ReturnType<typeof setTimeout>;
-    input.addEventListener('input', async () => {
-      clearTimeout(searchTimeout);
-      const query = input.value.trim();
-
-      if (!query) {
+    // Search
+    let timeout: any;
+    input.addEventListener('input', () => {
+      clearTimeout(timeout);
+      const q = input.value.trim();
+      
+      if (!q || q.length < 2) {
         results = [];
         renderEmpty();
         return;
@@ -401,160 +326,163 @@ const t = useTranslations(locale as 'en' | 'ru');
 
       if (!pagefind) return;
 
-      searchTimeout = setTimeout(async () => {
-        resultsContainer.innerHTML = '<div class="command-palette-loading">Searching...</div>';
+      timeout = setTimeout(async () => {
+        resultsEl.innerHTML = `<div class="cp-loading">Searching...</div>`;
         
         try {
-          const search = await pagefind.search(query);
+          const search = await pagefind.search(q);
+          const all = await Promise.all(search.results.slice(0, 12).map((r: any) => r.data()));
           
-          // Filter results to only include docs pages
-          const allResults = await Promise.all(
-            search.results.slice(0, 15).map((r: any) => r.data())
-          );
-          
-          // Filter to docs-only (pages with /docs/ in URL)
-          results = allResults.filter((r: any) => 
-            r.url.includes('/docs/')
-          ).slice(0, 8);
-          
+          // Filter to docs only
+          results = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 6);
           selectedIndex = 0;
-          
-          if (results.length === 0) {
-            resultsContainer.innerHTML = `
-              <div class="command-palette-no-results">
-                <div class="command-palette-no-results-icon">😕</div>
-                <p class="command-palette-no-results-text">No results found in docs</p>
-              </div>
-            `;
-          } else {
-            renderResults(results);
-          }
+          renderResults();
         } catch (e) {
-          resultsContainer.innerHTML = `
-            <div class="command-palette-no-results">
-              <div class="command-palette-no-results-icon">⚠️</div>
-              <p class="command-palette-no-results-text">Search error</p>
-            </div>
-          `;
+          resultsEl.innerHTML = `<div class="cp-no-results">Search error</div>`;
         }
-      }, 150);
+      }, 120);
     });
 
-    // Keyboard navigation
+    // Keyboard nav
     input.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
-        renderResults(results);
+        renderResults();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         selectedIndex = Math.max(selectedIndex - 1, 0);
-        renderResults(results);
+        renderResults();
       } else if (e.key === 'Enter' && results[selectedIndex]) {
         e.preventDefault();
-        const url = results[selectedIndex].url;
-        window.location.href = url + '?highlight=' + encodeURIComponent(input.value);
-        closePalette();
+        const url = results[selectedIndex].url.replace(/\.html$/, '').replace(/\/index$/, '');
+        window.location.href = `${url}?q=${encodeURIComponent(input.value)}`;
+        close();
       } else if (e.key === 'Escape') {
-        closePalette();
+        close();
       }
     });
 
-    // Close on backdrop click
-    backdrop.addEventListener('click', closePalette);
+    backdrop.addEventListener('click', close);
 
-    // Global keyboard shortcuts
+    // Global shortcuts
     document.addEventListener('keydown', (e) => {
-      // ⌘K or Ctrl+K
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        openPalette();
+        open();
       }
-      // / key when not in input
-      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((document.activeElement?.tagName || ''))) {
         e.preventDefault();
-        openPalette();
+        open();
       }
     });
+
+    renderEmpty();
   }
 
-  // Highlight search terms on page load with animation
-  function highlightSearchTerms() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const highlight = urlParams.get('highlight');
+  // Highlight search terms on page load
+  function highlightTerms() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
     
-    if (highlight && highlight.length > 2) {
-      const terms = highlight.toLowerCase().split(/\s+/).filter(t => t.length > 2);
-      const mainContent = document.querySelector('[data-pagefind-body]');
-      
-      if (mainContent && terms.length > 0) {
-        const walker = document.createTreeWalker(mainContent, NodeFilter.SHOW_TEXT);
-        const textNodes: Text[] = [];
-        
-        while (walker.nextNode()) {
-          const node = walker.currentNode as Text;
-          if (node.textContent && terms.some(t => node.textContent!.toLowerCase().includes(t))) {
-            textNodes.push(node);
-          }
-        }
-        
-        let firstHighlight: Element | null = null;
-        
-        textNodes.forEach(node => {
-          let html = node.textContent || '';
-          let hasMatch = false;
-          
-          terms.forEach(term => {
-            const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            if (regex.test(html)) {
-              hasMatch = true;
-              html = html.replace(regex, '<mark class="search-highlight-pulse">$1</mark>');
-            }
-          });
-          
-          if (hasMatch) {
-            const span = document.createElement('span');
-            span.innerHTML = html;
-            node.parentNode?.replaceChild(span, node);
-            
-            if (!firstHighlight) {
-              firstHighlight = span.querySelector('mark');
-            }
-          }
-        });
-        
-        // Smooth scroll to first highlight with offset
-        if (firstHighlight) {
-          setTimeout(() => {
-            const rect = firstHighlight!.getBoundingClientRect();
-            const scrollTop = window.pageYOffset + rect.top - (window.innerHeight / 3);
-            
-            window.scrollTo({
-              top: scrollTop,
-              behavior: 'smooth'
-            });
-          }, 200);
-          
-          // Remove pulse animation after it completes
-          setTimeout(() => {
-            document.querySelectorAll('.search-highlight-pulse').forEach(el => {
-              el.classList.remove('search-highlight-pulse');
-              el.classList.add('search-highlight');
-            });
-          }, 2500);
-        }
-        
-        // Clean URL without reloading (remove ?highlight param)
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, '', cleanUrl);
+    if (!q || q.length < 2) return;
+    
+    const terms = q.toLowerCase().split(/\s+/).filter(t => t.length >= 2);
+    if (terms.length === 0) return;
+    
+    const content = document.querySelector('[data-pagefind-body]');
+    if (!content) return;
+    
+    // Find and highlight text
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode as Text;
+      const text = node.textContent?.toLowerCase() || '';
+      if (terms.some(t => text.includes(t))) {
+        nodes.push(node);
       }
     }
+    
+    let firstMark: HTMLElement | null = null;
+    
+    nodes.forEach(node => {
+      let html = node.textContent || '';
+      let matched = false;
+      
+      terms.forEach(term => {
+        const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(${escaped})`, 'gi');
+        if (re.test(html)) {
+          matched = true;
+          html = html.replace(re, '<mark class="search-hl">$1</mark>');
+        }
+      });
+      
+      if (matched) {
+        const span = document.createElement('span');
+        span.innerHTML = html;
+        node.parentNode?.replaceChild(span, node);
+        if (!firstMark) firstMark = span.querySelector('mark');
+      }
+    });
+    
+    // Scroll to first match
+    if (firstMark) {
+      setTimeout(() => {
+        const y = firstMark!.getBoundingClientRect().top + window.scrollY - 150;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        
+        // Pulse animation
+        document.querySelectorAll('.search-hl').forEach(el => {
+          el.classList.add('search-hl-pulse');
+        });
+        
+        // Remove pulse after animation
+        setTimeout(() => {
+          document.querySelectorAll('.search-hl-pulse').forEach(el => {
+            el.classList.remove('search-hl-pulse');
+          });
+        }, 2000);
+      }, 150);
+    }
+    
+    // Clean URL
+    window.history.replaceState({}, '', window.location.pathname);
   }
 
   initCommandPalette();
-  highlightSearchTerms();
+  highlightTerms();
+  
   document.addEventListener('astro:after-swap', () => {
     initCommandPalette();
-    highlightSearchTerms();
+    highlightTerms();
   });
 </script>
+
+<style is:global>
+  /* Search highlight styles */
+  .search-hl {
+    background: hsl(var(--a) / 0.2);
+    color: hsl(var(--a));
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  
+  .search-hl-pulse {
+    animation: searchPulse 2s ease-out;
+  }
+  
+  @keyframes searchPulse {
+    0% { 
+      background: hsl(var(--a) / 0.5);
+      box-shadow: 0 0 0 4px hsl(var(--a) / 0.3);
+    }
+    100% { 
+      background: hsl(var(--a) / 0.2);
+      box-shadow: 0 0 0 0 hsl(var(--a) / 0);
+    }
+  }
+</style>

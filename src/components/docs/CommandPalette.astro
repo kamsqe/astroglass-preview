@@ -615,12 +615,16 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 10px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: hsl(var(--bc) / 0.4);
+    color: hsl(var(--bc) / 0.5);
+    background: hsl(var(--bc) / 0.03);
+    border-radius: 8px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.05);
   }
 
   .result-group-icon {
@@ -638,12 +642,13 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     align-items: flex-start;
     gap: 12px;
     padding: 12px 14px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 4px;
-    border-left: 3px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 6px;
+    background: hsl(var(--bc) / 0.02);
+    border: 1px solid hsl(var(--bc) / 0.06);
     opacity: 0;
     transform: translateY(8px);
     animation: staggerFadeIn 0.3s ease forwards;
@@ -659,12 +664,15 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
   .search-item:hover,
   .search-item.selected {
-    background: hsl(var(--a) / 0.08);
-    border-left-color: hsl(var(--a));
+    background: hsl(var(--a) / 0.06);
+    border-color: hsl(var(--a) / 0.2);
+    transform: translateY(-1px);
   }
 
   .search-item.selected {
-    box-shadow: 0 0 0 1px hsl(var(--a) / 0.15), 0 2px 8px hsl(var(--a) / 0.1);
+    background: hsl(var(--a) / 0.08);
+    border-color: hsl(var(--a) / 0.3);
+    box-shadow: 0 4px 12px hsl(var(--a) / 0.12);
   }
 
 
@@ -1368,6 +1376,24 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       link.addEventListener('click', function() { close(); });
     });
 
+    // Search trigger buttons (desktop + mobile)
+    var desktopTrigger = document.getElementById('docs-search-trigger');
+    var mobileTrigger = document.getElementById('mobile-search-btn');
+    
+    if (desktopTrigger) {
+      desktopTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        open();
+      });
+    }
+    
+    if (mobileTrigger) {
+      mobileTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        open();
+      });
+    }
+
     // Close handlers
     overlay.addEventListener('click', close);
 
@@ -1545,26 +1571,30 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 </script>
 
 <style is:global>
+  /* ========== SEARCH RESULT HIGHLIGHT ========== */
   .search-match-highlight {
-    background: linear-gradient(90deg, transparent, hsl(var(--a) / 0.2), transparent);
-    background-size: 200% 100%;
-    animation: highlightSweep 1.5s ease-out;
-    border-radius: 4px;
-    padding: 2px 4px;
-    margin: -2px -4px;
+    position: relative;
+    background: hsl(var(--a) / 0.12);
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin: -4px -8px;
+    animation: highlightPulse 0.6s ease-out 3;
+    box-shadow: 
+      0 0 0 2px hsl(var(--a) / 0.3),
+      0 0 20px hsl(var(--a) / 0.2),
+      inset 0 0 12px hsl(var(--a) / 0.05);
   }
 
-  @keyframes highlightSweep {
-    0% { 
-      background-position: 100% 0;
-      box-shadow: 0 0 0 3px hsl(var(--a) / 0.2);
+  @keyframes highlightPulse {
+    0%, 100% { 
+      box-shadow: 
+        0 0 0 2px hsl(var(--a) / 0.2),
+        0 0 10px hsl(var(--a) / 0.1);
     }
-    50% {
-      background-position: 0% 0;
-    }
-    100% { 
-      background-position: -100% 0;
-      box-shadow: 0 0 0 0 transparent;
+    50% { 
+      box-shadow: 
+        0 0 0 4px hsl(var(--a) / 0.4),
+        0 0 30px hsl(var(--a) / 0.3);
     }
   }
 
@@ -1579,33 +1609,24 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   .search-match-heading {
     position: relative;
     display: inline-block;
-    padding-left: 12px !important;
+    padding-left: 16px !important;
+    border-left: 4px solid hsl(var(--a));
+    background: linear-gradient(90deg, hsl(var(--a) / 0.1), transparent);
   }
 
   .search-match-heading::before {
-    content: '';
+    content: '→';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: hsl(var(--a));
-    border-radius: 2px;
-    animation: headingPulse 1s ease-out;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: hsl(var(--a));
+    animation: bounceArrow 0.5s ease-out 3;
   }
 
-  @keyframes headingPulse {
-    0% {
-      opacity: 0;
-      transform: scaleY(0);
-    }
-    50% {
-      opacity: 1;
-      transform: scaleY(1.1);
-    }
-    100% {
-      opacity: 1;
-      transform: scaleY(1);
-    }
+  @keyframes bounceArrow {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(6px); }
   }
 </style>

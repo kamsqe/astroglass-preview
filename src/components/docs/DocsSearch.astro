@@ -100,25 +100,5 @@ const t = useTranslations(locale);
   }
 </style>
 
-<script is:inline>
-  (function() {
-    function init() {
-      var trigger = document.getElementById('docs-search-trigger');
-      var overlay = document.getElementById('search-overlay');
-      var dialog = document.getElementById('search-dialog');
-      var input = document.getElementById('search-input');
-      
-      if (!trigger || !dialog) return;
+<!-- Note: Click handler is in CommandPalette.astro to avoid duplicate event listeners -->
 
-      trigger.addEventListener('click', function() {
-        if (overlay) overlay.classList.add('is-open');
-        dialog.classList.add('is-open');
-        if (input) input.focus();
-        document.body.style.overflow = 'hidden';
-      });
-    }
-
-    init();
-    document.addEventListener('astro:after-swap', init);
-  })();
-</script>

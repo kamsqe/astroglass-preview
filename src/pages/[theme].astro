@@ -1,0 +1,190 @@
+---
+/**
+ * Dynamic Theme Page
+ * 
+ * This dynamic route handles all theme demo pages.
+ * Uses getStaticPaths() to generate pages for each enabled theme.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+import { getEnabledThemes, getThemeById } from '../config/themes';
+
+// Import all theme components
+// Headers
+import HeaderLiquid from '../components/header/HeaderLiquid.astro';
+import HeaderGlass from '../components/header/HeaderGlass.astro';
+import HeaderNeo from '../components/header/HeaderNeo.astro';
+import HeaderLuxury from '../components/header/HeaderLuxury.astro';
+import HeaderMinimal from '../components/header/HeaderMinimal.astro';
+
+// Heroes
+import HeroLiquid from '../components/hero/HeroLiquid.astro';
+import HeroGlass from '../components/hero/HeroGlass.astro';
+import HeroNeo from '../components/hero/HeroNeo.astro';
+import HeroLuxury from '../components/hero/HeroLuxury.astro';
+import HeroMinimal from '../components/hero/HeroMinimal.astro';
+
+// About
+import AboutLiquid from '../components/about/AboutLiquid.astro';
+import AboutGlass from '../components/about/AboutGlass.astro';
+import AboutNeo from '../components/about/AboutNeo.astro';
+import AboutLuxury from '../components/about/AboutLuxury.astro';
+import AboutMinimal from '../components/about/AboutMinimal.astro';
+
+// Features
+import FeaturesLiquid from '../components/features/FeaturesLiquid.astro';
+import FeaturesGlass from '../components/features/FeaturesGlass.astro';
+import FeaturesNeo from '../components/features/FeaturesNeo.astro';
+import FeaturesLuxury from '../components/features/FeaturesLuxury.astro';
+import FeaturesMinimal from '../components/features/FeaturesMinimal.astro';
+
+// Portfolio
+import PortfolioLiquid from '../components/portfolio/PortfolioLiquid.astro';
+import PortfolioGlass from '../components/portfolio/PortfolioGlass.astro';
+import PortfolioNeo from '../components/portfolio/PortfolioNeo.astro';
+import PortfolioLuxury from '../components/portfolio/PortfolioLuxury.astro';
+import PortfolioMinimal from '../components/portfolio/PortfolioMinimal.astro';
+
+// Pricing
+import PricingLiquid from '../components/pricing/PricingLiquid.astro';
+import PricingGlass from '../components/pricing/PricingGlass.astro';
+import PricingNeo from '../components/pricing/PricingNeo.astro';
+import PricingLuxury from '../components/pricing/PricingLuxury.astro';
+import PricingMinimal from '../components/pricing/PricingMinimal.astro';
+
+// Testimonial
+import TestimonialLiquid from '../components/testimonial/TestimonialLiquid.astro';
+import TestimonialGlass from '../components/testimonial/TestimonialGlass.astro';
+import TestimonialNeo from '../components/testimonial/TestimonialNeo.astro';
+import TestimonialLuxury from '../components/testimonial/TestimonialLuxury.astro';
+import TestimonialMinimal from '../components/testimonial/TestimonialMinimal.astro';
+
+// FAQ
+import FAQLiquid from '../components/faq/FAQLiquid.astro';
+import FAQGlass from '../components/faq/FAQGlass.astro';
+import FAQNeo from '../components/faq/FAQNeo.astro';
+import FAQLuxury from '../components/faq/FAQLuxury.astro';
+import FAQMinimal from '../components/faq/FAQMinimal.astro';
+
+// CTA
+import CTALiquid from '../components/cta/CTALiquid.astro';
+import CTAGlass from '../components/cta/CTAGlass.astro';
+import CTANeo from '../components/cta/CTANeo.astro';
+import CTALuxury from '../components/cta/CTALuxury.astro';
+import CTAMinimal from '../components/cta/CTAMinimal.astro';
+
+// Contact
+import ContactLiquid from '../components/contact/ContactLiquid.astro';
+import ContactGlass from '../components/contact/ContactGlass.astro';
+import ContactNeo from '../components/contact/ContactNeo.astro';
+import ContactLuxury from '../components/contact/ContactLuxury.astro';
+import ContactMinimal from '../components/contact/ContactMinimal.astro';
+
+// Component maps for dynamic rendering
+const componentMap = {
+  liquid: {
+    Header: HeaderLiquid,
+    Hero: HeroLiquid,
+    About: AboutLiquid,
+    Features: FeaturesLiquid,
+    Portfolio: PortfolioLiquid,
+    Pricing: PricingLiquid,
+    Testimonial: TestimonialLiquid,
+    FAQ: FAQLiquid,
+    CTA: CTALiquid,
+    Contact: ContactLiquid,
+  },
+  glass: {
+    Header: HeaderGlass,
+    Hero: HeroGlass,
+    About: AboutGlass,
+    Features: FeaturesGlass,
+    Portfolio: PortfolioGlass,
+    Pricing: PricingGlass,
+    Testimonial: TestimonialGlass,
+    FAQ: FAQGlass,
+    CTA: CTAGlass,
+    Contact: ContactGlass,
+  },
+  neo: {
+    Header: HeaderNeo,
+    Hero: HeroNeo,
+    About: AboutNeo,
+    Features: FeaturesNeo,
+    Portfolio: PortfolioNeo,
+    Pricing: PricingNeo,
+    Testimonial: TestimonialNeo,
+    FAQ: FAQNeo,
+    CTA: CTANeo,
+    Contact: ContactNeo,
+  },
+  luxury: {
+    Header: HeaderLuxury,
+    Hero: HeroLuxury,
+    About: AboutLuxury,
+    Features: FeaturesLuxury,
+    Portfolio: PortfolioLuxury,
+    Pricing: PricingLuxury,
+    Testimonial: TestimonialLuxury,
+    FAQ: FAQLuxury,
+    CTA: CTALuxury,
+    Contact: ContactLuxury,
+  },
+  minimal: {
+    Header: HeaderMinimal,
+    Hero: HeroMinimal,
+    About: AboutMinimal,
+    Features: FeaturesMinimal,
+    Portfolio: PortfolioMinimal,
+    Pricing: PricingMinimal,
+    Testimonial: TestimonialMinimal,
+    FAQ: FAQMinimal,
+    CTA: CTAMinimal,
+    Contact: ContactMinimal,
+  },
+};
+
+export function getStaticPaths() {
+  return getEnabledThemes().map((theme) => ({
+    params: { theme: theme.id },
+    props: { themeId: theme.id },
+  }));
+}
+
+interface Props {
+  themeId: string;
+}
+
+const { themeId } = Astro.props;
+const theme = getThemeById(themeId);
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Get components for this theme
+const components = componentMap[themeId as keyof typeof componentMap];
+const Header = components.Header;
+const Hero = components.Hero;
+const About = components.About;
+const Features = components.Features;
+const Portfolio = components.Portfolio;
+const Pricing = components.Pricing;
+const Testimonial = components.Testimonial;
+const FAQ = components.FAQ;
+const CTA = components.CTA;
+const Contact = components.Contact;
+---
+
+<BaseLayout title={`${theme?.name} Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+  <Header />
+  <main>
+    <Hero />
+    <About />
+    <Features />
+    <Portfolio />
+    <Pricing />
+    <Testimonial />
+    <FAQ />
+    <CTA />
+    <Contact />
+  </main>
+</BaseLayout>

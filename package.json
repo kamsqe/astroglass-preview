@@ -7,7 +7,13 @@
     "build": "astro build && pnpm run index:content",
     "index:content": "pagefind --site dist",
     "preview": "wrangler pages dev dist",
+    "preview:cloudflare": "wrangler pages dev dist",
+    "preview:vercel": "vercel dev",
+    "preview:netlify": "netlify dev",
     "deploy": "astro build && pnpm run index:content && wrangler pages deploy dist",
+    "deploy:cloudflare": "pnpm run deploy",
+    "deploy:vercel": "pnpm run build && vercel deploy",
+    "deploy:netlify": "pnpm run build && netlify deploy --prod",
     "astro": "astro"
   },
   "dependencies": {

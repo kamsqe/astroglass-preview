@@ -1,87 +1,86 @@
-// Modular locale files - English
-import enCommon from '../locales/en/common.json';
-import enNav from '../locales/en/nav.json';
-import enLanding from '../locales/en/landing.json';
-import enUi from '../locales/en/ui.json';
-import enBlog from '../locales/en/blog.json';
-import enHero from '../locales/en/hero.json';
-import enAbout from '../locales/en/about.json';
-import enFeatures from '../locales/en/features.json';
-import enPortfolio from '../locales/en/portfolio.json';
-import enPricing from '../locales/en/pricing.json';
-import enTestimonial from '../locales/en/testimonial.json';
-import enFaq from '../locales/en/faq.json';
-import enCta from '../locales/en/cta.json';
-import enContact from '../locales/en/contact.json';
-import enShowcase from '../locales/en/showcase.json';
+/**
+ * Internationalization (i18n) Utilities
+ * 
+ * This module provides utilities for handling translations and locale detection.
+ * Uses Vite's import.meta.glob for automatic locale file discovery.
+ */
 
-// Modular locale files - Russian
-import ruCommon from '../locales/ru/common.json';
-import ruNav from '../locales/ru/nav.json';
-import ruLanding from '../locales/ru/landing.json';
-import ruUi from '../locales/ru/ui.json';
-import ruBlog from '../locales/ru/blog.json';
-import ruHero from '../locales/ru/hero.json';
-import ruAbout from '../locales/ru/about.json';
-import ruFeatures from '../locales/ru/features.json';
-import ruPortfolio from '../locales/ru/portfolio.json';
-import ruPricing from '../locales/ru/pricing.json';
-import ruTestimonial from '../locales/ru/testimonial.json';
-import ruFaq from '../locales/ru/faq.json';
-import ruCta from '../locales/ru/cta.json';
-import ruContact from '../locales/ru/contact.json';
-import ruShowcase from '../locales/ru/showcase.json';
+import { 
+  localesConfig, 
+  defaultLocale, 
+  getEnabledLocaleCodes,
+  type Locale 
+} from '../config/locales';
 
-// Assemble complete translation objects
-const en = {
-  ...enCommon,
-  siteName: enCommon.siteName,
-  nav: enNav,
-  landing: enLanding,
-  themeSwitcher: enUi,
-  languageSwitcher: { label: 'Language', hint: 'Choose language' },
-  blog: enBlog,
-  hero: enHero,
-  about: enAbout,
-  features: enFeatures,
-  portfolio: enPortfolio,
-  pricing: enPricing,
-  testimonial: enTestimonial,
-  faq: enFaq,
-  cta: enCta,
-  contact: enContact,
-  showcase: enShowcase,
-};
+// ============================================
+// Automatic Locale Loading via Glob
+// ============================================
 
-const ru = {
-  ...ruCommon,
-  siteName: ruCommon.siteName,
-  nav: ruNav,
-  landing: ruLanding,
-  themeSwitcher: ruUi,
-  languageSwitcher: { label: 'Язык', hint: 'Выберите язык' },
-  blog: ruBlog,
-  hero: ruHero,
-  about: ruAbout,
-  features: ruFeatures,
-  portfolio: ruPortfolio,
-  pricing: ruPricing,
-  testimonial: ruTestimonial,
-  faq: ruFaq,
-  cta: ruCta,
-  contact: ruContact,
-  showcase: ruShowcase,
-};
+/**
+ * Load all locale JSON files using Vite's glob import.
+ * This eliminates the need for explicit imports for each locale file.
+ */
+const localeModules = import.meta.glob('../locales/**/*.json', { eager: true });
 
-const translations: Record<string, typeof en> = {
-  en,
-  ru,
-};
+/**
+ * Build translations object for a specific locale
+ */
+function loadLocaleTranslations(lang: string): Record<string, unknown> {
+  const translations: Record<string, unknown> = {};
+  
+  for (const [path, module] of Object.entries(localeModules)) {
+    // Check if this file belongs to the requested locale
+    if (path.includes(`/${lang}/`)) {
+      // Extract section name from path (e.g., '../locales/en/hero.json' → 'hero')
+      const sectionMatch = path.match(/\/(\w+)\.json$/);
+      if (sectionMatch) {
+        const section = sectionMatch[1];
+        const content = (module as { default: unknown }).default;
+        
+        // Special handling for 'common' - spread at root level
+        if (section === 'common') {
+          Object.assign(translations, content);
+        } else {
+          translations[section] = content;
+        }
+      }
+    }
+  }
+  
+  // Add languageSwitcher metadata (not from JSON files)
+  const localeConfig = localesConfig.find(l => l.code === lang);
+  if (localeConfig) {
+    translations.languageSwitcher = {
+      label: lang === 'en' ? 'Language' : 'Язык',
+      hint: lang === 'en' ? 'Choose language' : 'Выберите язык',
+    };
+  }
+  
+  return translations;
+}
 
-export const defaultLocale = 'en';
-export const locales = ['en', 'ru'] as const;
+// ============================================
+// Pre-built Translation Objects
+// ============================================
 
-export type Locale = (typeof locales)[number];
+/**
+ * Cache of loaded translations for all enabled locales
+ */
+const translations: Record<string, Record<string, unknown>> = {};
+
+// Load translations for all enabled locales
+for (const code of getEnabledLocaleCodes()) {
+  translations[code] = loadLocaleTranslations(code);
+}
+
+// ============================================
+// Exports
+// ============================================
+
+export { defaultLocale };
+export const locales = getEnabledLocaleCodes() as unknown as readonly Locale[];
+
+export type { Locale };
 
 /**
  * Get the locale from a URL pathname
@@ -91,7 +90,7 @@ export function getLocaleFromUrl(url: URL): Locale {
   if (locales.includes(lang as Locale)) {
     return lang as Locale;
   }
-  return defaultLocale;
+  return defaultLocale as Locale;
 }
 
 /**
@@ -108,6 +107,10 @@ export function useTranslations(locale: Locale) {
       if (value && typeof value === 'object' && k in value) {
         value = (value as Record<string, unknown>)[k];
       } else {
+        // Log warning in development mode
+        if (import.meta.env.DEV) {
+          console.warn(`[i18n] Missing translation: "${key}" for locale "${locale}"`);
+        }
         return key; // Return key if translation not found
       }
     }

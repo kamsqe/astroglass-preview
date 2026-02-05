@@ -3,7 +3,8 @@
  * LanguageSwitcher Component
  * Emoji flag switcher - inline buttons on mobile, dropdown on desktop
  */
-import { getLocaleFromUrl, getLocalePath, locales, type Locale } from '../utils/i18n';
+import { getLocaleFromUrl, getLocalePath, type Locale } from '../utils/i18n';
+import { getEnabledLocales } from '../config/locales';
 
 export interface Props {
   class?: string;
@@ -13,11 +14,18 @@ export interface Props {
 const { class: className, variant = 'default' } = Astro.props;
 
 const currentLocale = getLocaleFromUrl(Astro.url);
+const enabledLocales = getEnabledLocales();
 
-const localeData: Record<Locale, { flag: string; label: string; short: string }> = {
-  en: { flag: '🇺🇸', label: 'English', short: 'EN' },
-  ru: { flag: '🇷🇺', label: 'Русский', short: 'RU' },
-};
+// Build locale data from config
+const localeData = Object.fromEntries(
+  enabledLocales.map((l) => [
+    l.code,
+    { flag: l.flag, label: l.nativeName, short: l.code.toUpperCase() },
+  ])
+) as Record<Locale, { flag: string; label: string; short: string }>;
+
+// Get locale codes for iteration
+const locales = enabledLocales.map((l) => l.code) as Locale[];
 ---
 
 {variant === 'mobile' ? (

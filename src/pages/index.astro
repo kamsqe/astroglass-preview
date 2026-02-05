@@ -2,25 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderLiquid from '../components/header/HeaderLiquid.astro';
 import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+import { getEnabledThemes, themeIcons } from '../config/themes';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const demos = [
-  { id: 'liquid', color: 'from-blue-500 to-cyan-400' },
-  { id: 'glass', color: 'from-purple-500 to-pink-400' },
-  { id: 'neo', color: 'from-green-500 to-emerald-400' },
-  { id: 'luxury', color: 'from-amber-500 to-orange-400' },
-  { id: 'minimal', color: 'from-gray-500 to-slate-400' },
-];
-
-const demoIcons: Record<string, string> = {
-  liquid: '💧',
-  glass: '🔮',
-  neo: '⚡',
-  luxury: '✨',
-  minimal: '○',
-};
+// Get themes from config
+const demos = getEnabledThemes().map((theme) => ({
+  id: theme.id,
+  color: theme.color,
+  icon: theme.icon,
+}));
 
 // Build localized href for demos
 const getLocalizedHref = (demoId: string) => {
@@ -71,7 +63,7 @@ const getLocalizedHref = (demoId: string) => {
               <div class="p-8">
                 <div class="h-48 mb-6 rounded-2xl bg-base-content/5 flex items-center justify-center overflow-hidden">
                   <span class="text-6xl opacity-30 group-hover:scale-110 transition-transform duration-500">
-                    {demoIcons[demo.id]}
+                    {demo.icon}
                   </span>
                 </div>
                 <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">{t(`landing.demos.${demo.id}.name`)}</h3>

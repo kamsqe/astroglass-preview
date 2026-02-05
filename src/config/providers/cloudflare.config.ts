@@ -1,0 +1,29 @@
+/**
+ * Cloudflare Provider Configuration
+ * 
+ * Astro adapter configuration for Cloudflare Pages deployment.
+ * 
+ * @see https://docs.astro.build/en/guides/deploy/cloudflare/
+ */
+
+import cloudflare from '@astrojs/cloudflare';
+
+/** Cloudflare adapter with image service */
+export const adapter = cloudflare({
+  imageService: 'cloudflare',
+});
+
+/** Output mode for Cloudflare */
+export const output = 'static' as const;
+
+/** Provider name for display */
+export const providerName = 'Cloudflare Pages';
+
+/** Provider-specific build notes */
+export const buildNotes = `
+  Deploy to Cloudflare Pages using:
+    pnpm run deploy
+  
+  Or manually:
+    wrangler pages deploy dist
+`;

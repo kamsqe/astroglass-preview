@@ -14,374 +14,392 @@ export interface Props {
 
 const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'ru');
-const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation...';
 ---
 
 <!-- Backdrop -->
-<div id="command-palette-backdrop" class="cp-backdrop"></div>
+<div id="command-palette-backdrop" class="cmd-backdrop"></div>
 
 <!-- Palette -->
-<div id="command-palette" class="cp-modal" role="dialog" aria-label="Search documentation">
-  <div class="cp-header">
-    <svg class="cp-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-    <input 
-      type="text" 
-      id="command-palette-input"
-      class="cp-input" 
-      placeholder={searchPlaceholder}
-      autocomplete="off"
-      aria-label="Search"
-    />
-    <kbd class="cp-esc">ESC</kbd>
+<div id="command-palette" class="cmd-palette" role="dialog" aria-modal="true" aria-label="Search documentation">
+  <div class="cmd-header">
+    <div class="cmd-search-row">
+      <svg class="cmd-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <input 
+        type="text" 
+        id="command-palette-input"
+        class="cmd-input" 
+        placeholder={t('docs.searchPlaceholder') || 'Search documentation...'}
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+      <kbd class="cmd-kbd">ESC</kbd>
+    </div>
   </div>
   
-  <div id="command-palette-results" class="cp-results"></div>
+  <div id="command-palette-results" class="cmd-body">
+    <div class="cmd-empty">
+      <p class="cmd-empty-text">{t('docs.typeToSearch') || 'Type to search documentation'}</p>
+      <div class="cmd-shortcuts">
+        <span><kbd>⌘K</kbd> to open</span>
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> select</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-  /* ===== BACKDROP ===== */
-  .cp-backdrop {
+  /* Backdrop */
+  .cmd-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition: all 0.2s ease;
   }
-
-  .cp-backdrop.is-open {
+  .cmd-backdrop.is-open {
     opacity: 1;
     visibility: visible;
   }
 
-  /* ===== MODAL ===== */
-  .cp-modal {
+  /* Modal */
+  .cmd-palette {
     position: fixed;
-    top: 12%;
+    top: 15%;
     left: 50%;
-    transform: translateX(-50%) translateY(-10px) scale(0.98);
-    width: calc(100% - 20px);
-    max-width: 560px;
+    transform: translateX(-50%) translateY(-12px) scale(0.96);
+    width: calc(100% - 32px);
+    max-width: 580px;
     background: hsl(var(--b1));
-    border: 1px solid hsl(var(--bc) / 0.12);
-    border-radius: 16px;
-    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.35);
+    border: 1px solid hsl(var(--bc) / 0.1);
+    border-radius: 20px;
+    box-shadow: 
+      0 24px 48px -12px rgba(0, 0, 0, 0.35),
+      0 0 0 1px hsl(var(--bc) / 0.05);
     z-index: 9999;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
   }
-
-  .cp-modal.is-open {
+  .cmd-palette.is-open {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0) scale(1);
   }
 
-  /* ===== HEADER ===== */
-  .cp-header {
+  /* Header */
+  .cmd-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.08);
+    background: hsl(var(--bc) / 0.02);
+  }
+  .cmd-search-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border-bottom: 1px solid hsl(var(--bc) / 0.08);
+    gap: 14px;
   }
-
-  .cp-search-icon {
-    width: 20px;
-    height: 20px;
+  .cmd-icon {
+    width: 22px;
+    height: 22px;
     color: hsl(var(--a));
-    opacity: 0.7;
+    opacity: 0.65;
     flex-shrink: 0;
   }
-
-  .cp-input {
+  .cmd-input {
     flex: 1;
     border: none;
     background: transparent;
-    font-size: 16px; /* Prevents iOS zoom */
+    font-size: 17px;
     font-weight: 500;
     outline: none;
     color: hsl(var(--bc));
     min-width: 0;
   }
-
-  .cp-input::placeholder {
+  .cmd-input::placeholder {
+    color: hsl(var(--bc) / 0.35);
+  }
+  .cmd-kbd {
+    font-size: 11px;
+    padding: 5px 10px;
+    background: hsl(var(--bc) / 0.06);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    border-radius: 6px;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
     color: hsl(var(--bc) / 0.4);
+    flex-shrink: 0;
   }
 
-  .cp-esc {
+  /* Body */
+  .cmd-body {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 12px;
+  }
+
+  /* Empty state */
+  .cmd-empty {
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .cmd-empty-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: hsl(var(--bc) / 0.45);
+    margin-bottom: 20px;
+  }
+  .cmd-shortcuts {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.35);
+  }
+  .cmd-shortcuts span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cmd-shortcuts kbd {
     font-size: 10px;
-    padding: 4px 8px;
-    background: hsl(var(--bc) / 0.06);
+    padding: 3px 7px;
+    background: hsl(var(--bc) / 0.05);
     border: 1px solid hsl(var(--bc) / 0.08);
     border-radius: 5px;
     font-family: ui-monospace, monospace;
     font-weight: 600;
-    color: hsl(var(--bc) / 0.45);
-    flex-shrink: 0;
   }
 
-  /* ===== RESULTS ===== */
-  .cp-results {
-    max-height: 55vh;
-    overflow-y: auto;
-    padding: 8px;
-  }
-
-  /* Empty state */
-  .cp-empty {
-    padding: 32px 16px;
+  /* Loading */
+  .cmd-loading {
+    padding: 48px 24px;
     text-align: center;
-    color: hsl(var(--bc) / 0.45);
-  }
-
-  .cp-empty-text {
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 16px;
+    color: hsl(var(--bc) / 0.4);
   }
 
-  .cp-hints {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    font-size: 11px;
-  }
-
-  .cp-hint {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .cp-hint kbd {
-    font-size: 10px;
-    padding: 2px 5px;
-    background: hsl(var(--bc) / 0.06);
-    border: 1px solid hsl(var(--bc) / 0.08);
-    border-radius: 4px;
-    font-family: ui-monospace, monospace;
-    font-weight: 600;
+  /* No results */
+  .cmd-no-results {
+    padding: 48px 24px;
+    text-align: center;
+    font-size: 14px;
+    color: hsl(var(--bc) / 0.4);
   }
 
   /* Result items */
-  .cp-item {
+  .cmd-item {
     display: block;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 14px 16px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: all 0.15s ease;
     text-decoration: none;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
   }
-
-  .cp-item:hover,
-  .cp-item.selected {
-    background: hsl(var(--a) / 0.08);
+  .cmd-item:hover,
+  .cmd-item.is-active {
+    background: hsl(var(--a) / 0.06);
+    border-color: hsl(var(--a) / 0.12);
   }
-
-  .cp-item.selected {
-    background: hsl(var(--a) / 0.12);
+  .cmd-item.is-active {
+    background: hsl(var(--a) / 0.1);
   }
-
-  .cp-item-title {
+  .cmd-item-title {
     display: block;
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 15px;
     color: hsl(var(--bc));
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
-
-  .cp-item:hover .cp-item-title,
-  .cp-item.selected .cp-item-title {
+  .cmd-item:hover .cmd-item-title,
+  .cmd-item.is-active .cmd-item-title {
     color: hsl(var(--a));
   }
-
-  .cp-item-excerpt {
+  .cmd-item-excerpt {
     display: block;
-    font-size: 12px;
-    color: hsl(var(--bc) / 0.55);
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .cp-item-excerpt mark {
-    background: hsl(var(--a) / 0.2);
-    color: hsl(var(--a));
-    padding: 0 2px;
-    border-radius: 2px;
-  }
-
-  /* Loading & no results */
-  .cp-loading, .cp-no-results {
-    padding: 32px 16px;
-    text-align: center;
-    color: hsl(var(--bc) / 0.45);
     font-size: 13px;
-    font-weight: 500;
+    color: hsl(var(--bc) / 0.55);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cmd-item-excerpt mark {
+    background: hsl(var(--a) / 0.15);
+    color: hsl(var(--a));
+    padding: 0 3px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .cmd-item-path {
+    display: block;
+    font-size: 11px;
+    color: hsl(var(--bc) / 0.3);
+    font-family: ui-monospace, monospace;
+    margin-top: 6px;
   }
 </style>
 
 <script>
   let pagefind: any = null;
-  let selectedIndex = 0;
-  let results: any[] = [];
+  let selectedIdx = 0;
+  let searchResults: any[] = [];
 
   function initCommandPalette() {
     const backdrop = document.getElementById('command-palette-backdrop');
     const modal = document.getElementById('command-palette');
     const input = document.getElementById('command-palette-input') as HTMLInputElement;
-    const resultsEl = document.getElementById('command-palette-results');
+    const body = document.getElementById('command-palette-results');
 
-    if (!backdrop || !modal || !input || !resultsEl) return;
+    if (!backdrop || !modal || !input || !body) return;
 
-    // Load Pagefind at runtime only (not bundled)
+    // Load Pagefind at runtime
     (async () => {
       try {
-        const pagefindPath = '/pagefind/pagefind.js';
-        pagefind = await (new Function(`return import("${pagefindPath}")`))();
+        const path = '/pagefind/pagefind.js';
+        pagefind = await (new Function(`return import("${path}")`))();
         await pagefind.init();
       } catch (e) {
-        console.warn('Pagefind not loaded');
+        console.warn('Pagefind unavailable');
       }
     })();
 
-    function open() {
-      backdrop.classList.add('is-open');
-      modal.classList.add('is-open');
-      input.focus();
-      document.body.style.overflow = 'hidden';
-      renderEmpty();
-    }
-
-    function close() {
-      backdrop.classList.remove('is-open');
-      modal.classList.remove('is-open');
-      input.value = '';
-      selectedIndex = 0;
-      results = [];
-      document.body.style.overflow = '';
-    }
-
-    function renderEmpty() {
-      resultsEl.innerHTML = `
-        <div class="cp-empty">
-          <p class="cp-empty-text">Type to search the docs</p>
-          <div class="cp-hints">
-            <span class="cp-hint"><kbd>⌘K</kbd> open</span>
-            <span class="cp-hint"><kbd>↑↓</kbd> navigate</span>
-            <span class="cp-hint"><kbd>↵</kbd> go</span>
+    function showEmpty() {
+      body.innerHTML = `
+        <div class="cmd-empty">
+          <p class="cmd-empty-text">Type to search documentation</p>
+          <div class="cmd-shortcuts">
+            <span><kbd>⌘K</kbd> to open</span>
+            <span><kbd>↑↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> select</span>
           </div>
         </div>
       `;
     }
 
+    function openModal() {
+      backdrop.classList.add('is-open');
+      modal.classList.add('is-open');
+      input.focus();
+      document.body.style.overflow = 'hidden';
+      showEmpty();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('is-open');
+      modal.classList.remove('is-open');
+      input.value = '';
+      selectedIdx = 0;
+      searchResults = [];
+      document.body.style.overflow = '';
+    }
+
     function renderResults() {
-      if (results.length === 0) {
-        resultsEl.innerHTML = `<div class="cp-no-results">No results found</div>`;
+      if (searchResults.length === 0) {
+        body.innerHTML = `<div class="cmd-no-results">No results found</div>`;
         return;
       }
 
-      resultsEl.innerHTML = results.map((r, i) => {
+      body.innerHTML = searchResults.map((r, i) => {
         const title = r.meta?.title || 'Untitled';
         const excerpt = r.excerpt || '';
-        const url = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
+        const path = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
         
         return `
-          <a href="${url}?q=${encodeURIComponent(input.value)}" 
-             class="cp-item ${i === selectedIndex ? 'selected' : ''}" 
-             data-idx="${i}">
-            <span class="cp-item-title">${title}</span>
-            ${excerpt ? `<span class="cp-item-excerpt">${excerpt}</span>` : ''}
+          <a href="${path}?q=${encodeURIComponent(input.value)}" 
+             class="cmd-item ${i === selectedIdx ? 'is-active' : ''}" 
+             data-i="${i}">
+            <span class="cmd-item-title">${title}</span>
+            ${excerpt ? `<span class="cmd-item-excerpt">${excerpt}</span>` : ''}
+            <span class="cmd-item-path">${path}</span>
           </a>
         `;
       }).join('');
 
-      resultsEl.querySelectorAll('.cp-item').forEach(el => {
-        el.addEventListener('click', close);
+      body.querySelectorAll('.cmd-item').forEach(el => {
+        el.addEventListener('click', closeModal);
       });
     }
 
-    // Search
-    let timeout: any;
+    // Search handler
+    let t: any;
     input.addEventListener('input', () => {
-      clearTimeout(timeout);
+      clearTimeout(t);
       const q = input.value.trim();
       
       if (!q || q.length < 2) {
-        results = [];
-        renderEmpty();
+        searchResults = [];
+        showEmpty();
         return;
       }
 
       if (!pagefind) return;
 
-      timeout = setTimeout(async () => {
-        resultsEl.innerHTML = `<div class="cp-loading">Searching...</div>`;
+      t = setTimeout(async () => {
+        body.innerHTML = `<div class="cmd-loading">Searching...</div>`;
         
         try {
           const search = await pagefind.search(q);
-          const all = await Promise.all(search.results.slice(0, 12).map((r: any) => r.data()));
-          
-          // Filter to docs only
-          results = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 6);
-          selectedIndex = 0;
+          const all = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
+          searchResults = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 6);
+          selectedIdx = 0;
           renderResults();
         } catch (e) {
-          resultsEl.innerHTML = `<div class="cp-no-results">Search error</div>`;
+          body.innerHTML = `<div class="cmd-no-results">Search error</div>`;
         }
-      }, 120);
+      }, 100);
     });
 
-    // Keyboard nav
+    // Keyboard
     input.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+        selectedIdx = Math.min(selectedIdx + 1, searchResults.length - 1);
         renderResults();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        selectedIndex = Math.max(selectedIndex - 1, 0);
+        selectedIdx = Math.max(selectedIdx - 1, 0);
         renderResults();
-      } else if (e.key === 'Enter' && results[selectedIndex]) {
+      } else if (e.key === 'Enter' && searchResults[selectedIdx]) {
         e.preventDefault();
-        const url = results[selectedIndex].url.replace(/\.html$/, '').replace(/\/index$/, '');
-        window.location.href = `${url}?q=${encodeURIComponent(input.value)}`;
-        close();
+        const path = searchResults[selectedIdx].url.replace(/\.html$/, '').replace(/\/index$/, '');
+        window.location.href = `${path}?q=${encodeURIComponent(input.value)}`;
+        closeModal();
       } else if (e.key === 'Escape') {
-        close();
+        closeModal();
       }
     });
 
-    backdrop.addEventListener('click', close);
+    backdrop.addEventListener('click', closeModal);
 
     // Global shortcuts
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        open();
+        openModal();
       }
-      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((document.activeElement?.tagName || ''))) {
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
         e.preventDefault();
-        open();
+        openModal();
       }
     });
 
-    renderEmpty();
+    showEmpty();
   }
 
-  // Highlight search terms on page load
-  function highlightTerms() {
+  // Highlight search terms with animation on page load
+  function highlightSearchTerms() {
     const params = new URLSearchParams(window.location.search);
     const q = params.get('q');
     
@@ -393,14 +411,13 @@ const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation..
     const content = document.querySelector('[data-pagefind-body]');
     if (!content) return;
     
-    // Find and highlight text
     const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
     const nodes: Text[] = [];
     
     while (walker.nextNode()) {
       const node = walker.currentNode as Text;
-      const text = node.textContent?.toLowerCase() || '';
-      if (terms.some(t => text.includes(t))) {
+      const txt = node.textContent?.toLowerCase() || '';
+      if (terms.some(t => txt.includes(t))) {
         nodes.push(node);
       }
     }
@@ -416,7 +433,7 @@ const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation..
         const re = new RegExp(`(${escaped})`, 'gi');
         if (re.test(html)) {
           matched = true;
-          html = html.replace(re, '<mark class="search-hl">$1</mark>');
+          html = html.replace(re, '<mark class="search-match">$1</mark>');
         }
       });
       
@@ -428,24 +445,26 @@ const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation..
       }
     });
     
-    // Scroll to first match
+    // Scroll and animate
     if (firstMark) {
       setTimeout(() => {
-        const y = firstMark!.getBoundingClientRect().top + window.scrollY - 150;
+        const y = firstMark!.getBoundingClientRect().top + window.scrollY - 120;
         window.scrollTo({ top: y, behavior: 'smooth' });
-        
-        // Pulse animation
-        document.querySelectorAll('.search-hl').forEach(el => {
-          el.classList.add('search-hl-pulse');
+      }, 100);
+      
+      // Add pulse animation
+      setTimeout(() => {
+        document.querySelectorAll('.search-match').forEach(el => {
+          el.classList.add('search-match-pulse');
         });
-        
-        // Remove pulse after animation
-        setTimeout(() => {
-          document.querySelectorAll('.search-hl-pulse').forEach(el => {
-            el.classList.remove('search-hl-pulse');
-          });
-        }, 2000);
-      }, 150);
+      }, 400);
+      
+      // Remove pulse after animation
+      setTimeout(() => {
+        document.querySelectorAll('.search-match-pulse').forEach(el => {
+          el.classList.remove('search-match-pulse');
+        });
+      }, 2500);
     }
     
     // Clean URL
@@ -453,32 +472,32 @@ const searchPlaceholder = t('docs.searchPlaceholder') || 'Search documentation..
   }
 
   initCommandPalette();
-  highlightTerms();
+  highlightSearchTerms();
   
   document.addEventListener('astro:after-swap', () => {
     initCommandPalette();
-    highlightTerms();
+    highlightSearchTerms();
   });
 </script>
 
 <style is:global>
-  /* Search highlight styles */
-  .search-hl {
+  /* Search highlight on page */
+  .search-match {
     background: hsl(var(--a) / 0.2);
     color: hsl(var(--a));
-    padding: 1px 4px;
-    border-radius: 3px;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-weight: 600;
   }
   
-  .search-hl-pulse {
-    animation: searchPulse 2s ease-out;
+  .search-match-pulse {
+    animation: matchPulse 2s ease-out;
   }
   
-  @keyframes searchPulse {
+  @keyframes matchPulse {
     0% { 
-      background: hsl(var(--a) / 0.5);
-      box-shadow: 0 0 0 4px hsl(var(--a) / 0.3);
+      background: hsl(var(--a) / 0.6);
+      box-shadow: 0 0 0 6px hsl(var(--a) / 0.25);
     }
     100% { 
       background: hsl(var(--a) / 0.2);

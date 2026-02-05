@@ -1,23 +1,19 @@
 ---
-/**
- * Contact - Version Switcher Wrapper
- * Renders the selected contact form version based on prop.
- */
-import ContactV1 from './ContactV1.astro';
-import ContactV2 from './ContactV2.astro';
-import ContactV3 from './ContactV3.astro';
-import ContactV4 from './ContactV4.astro';
-import ContactV5 from './ContactV5.astro';
+import ContactLiquid from './contact/ContactLiquid.astro';
+import ContactGlass from './contact/ContactGlass.astro';
+import ContactNeo from './contact/ContactNeo.astro';
+import ContactLuxury from './contact/ContactLuxury.astro';
+import ContactMinimal from './contact/ContactMinimal.astro';
 
-interface Props {
+export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
 }
 
 const { version = 1 } = Astro.props;
 ---
 
-{version === 1 && <ContactV1 />}
-{version === 2 && <ContactV2 />}
-{version === 3 && <ContactV3 />}
-{version === 4 && <ContactV4 />}
-{version === 5 && <ContactV5 />}
+{version === 1 ? <ContactLiquid /> : 
+ version === 2 ? <ContactGlass /> : 
+ version === 3 ? <ContactNeo /> : 
+ version === 4 ? <ContactLuxury /> : 
+ <ContactMinimal />}

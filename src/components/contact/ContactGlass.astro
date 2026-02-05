@@ -1,0 +1,193 @@
+---
+/**
+ * Contact V2 - The Simple Form
+ * Clean, straightforward contact form with topic selection.
+ * Mobile-first, no gimmicks, just works.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const topics = [
+  { id: 'sales', icon: '💼', label: t('contact.intents.sales') },
+  { id: 'support', icon: '🛠', label: t('contact.intents.support') },
+  { id: 'partnership', icon: '🤝', label: t('contact.intents.partnership') },
+  { id: 'other', icon: '💬', label: t('contact.intents.other') },
+];
+---
+
+<section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
+  <!-- Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[150px]"></div>
+  </div>
+
+  <div class="max-w-lg mx-auto relative">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.eyebrow')}</span>
+      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.title')}</h2>
+      <p class="text-sm text-base-content/50 mt-2">{t('contact.subtitle')}</p>
+    </div>
+
+    <!-- Form Container -->
+    <div class="contact-v2-form-container p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/10 backdrop-blur-sm">
+      
+      <form class="contact-v2-form space-y-5">
+        <!-- Topic Selection -->
+        <div>
+          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-3">{t('contact.form.topic')}</label>
+          <div class="grid grid-cols-2 gap-2">
+            {topics.map((topic, i) => (
+              <label class="contact-v2-topic-label cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="topic" 
+                  value={topic.id} 
+                  class="sr-only peer"
+                  checked={i === 0}
+                />
+                <div class="p-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-center transition-all duration-300 peer-checked:bg-accent/10 peer-checked:border-accent/30 peer-checked:text-accent hover:bg-base-content/[0.05]">
+                  <span class="text-lg block mb-1">{topic.icon}</span>
+                  <span class="text-xs font-medium">{topic.label}</span>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div>
+          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+          <input 
+            type="text" 
+            name="name"
+            required
+            class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300"
+            placeholder={t('contact.placeholders.johnSmith')}
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
+          <input 
+            type="email" 
+            name="email"
+            required
+            inputmode="email"
+            class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300"
+            placeholder={t('contact.placeholders.yourEmail')}
+          />
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
+          <textarea 
+            name="message"
+            required
+            rows="4"
+            class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-300 resize-none"
+            placeholder={t('contact.placeholders.tellUs')}
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button 
+          type="submit"
+          class="contact-v2-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+        >
+          <span>{t('contact.form.send')}</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Success State (hidden) -->
+      <div class="contact-v2-success hidden text-center py-8">
+        <div class="text-5xl mb-4">🎉</div>
+        <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
+        <p class="text-sm text-base-content/60 mb-6">{t('contact.form.success')}</p>
+        <button class="contact-v2-reset text-sm text-accent hover:underline">
+          {t('contact.wizard.actions.restart')}
+        </button>
+      </div>
+    </div>
+
+    <!-- Trust line -->
+    <p class="text-center text-xs text-base-content/30 mt-4">
+      {t('contact.secureInfo')}
+    </p>
+  </div>
+</section>
+
+<style>
+  .contact-v2-form-container {
+    transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .contact-v2-topic-label input:focus-visible + div {
+    outline: 2px solid hsl(var(--a) / 0.5);
+    outline-offset: 2px;
+  }
+
+  .contact-v2-success {
+    animation: successFade 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes successFade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  let contactV2Controller: AbortController | null = null;
+
+  function initContactV2() {
+    contactV2Controller?.abort();
+    contactV2Controller = new AbortController();
+    const signal = contactV2Controller.signal;
+
+    const container = document.querySelector('.contact-v2-form-container');
+    if (!container) return;
+
+    const form = container.querySelector('.contact-v2-form') as HTMLFormElement;
+    const successEl = container.querySelector('.contact-v2-success');
+    const resetBtn = container.querySelector('.contact-v2-reset');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        data[key] = value as string;
+      });
+
+      console.log('Form submitted:', data);
+
+      // Show success
+      form.classList.add('hidden');
+      successEl?.classList.remove('hidden');
+    }, { signal });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      form.classList.remove('hidden');
+      successEl?.classList.add('hidden');
+    }, { signal });
+  }
+
+  initContactV2();
+  document.addEventListener('astro:after-swap', initContactV2);
+</script>

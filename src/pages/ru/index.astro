@@ -1,66 +1,116 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import About from '../../components/About.astro';
-import Features from '../../components/Features.astro';
-import Portfolio from '../../components/Portfolio.astro';
-import Pricing from '../../components/Pricing.astro';
-import Testimonial from '../../components/Testimonial.astro';
-import FAQ from '../../components/FAQ.astro';
-import CTA from '../../components/CTA.astro';
-import Contact from '../../components/Contact.astro';
+import HeaderLiquid from '../../components/header/HeaderLiquid.astro';
 import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Get versions from URL to pass to components
-const url = new URL(Astro.request.url);
-const heroVer = parseInt(url.searchParams.get('hero') || '1') as 1 | 2 | 3 | 4 | 5;
-const aboutVer = parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const featuresVer = parseInt(url.searchParams.get('features') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const portfolioVer = parseInt(url.searchParams.get('portfolio') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const pricingVer = parseInt(url.searchParams.get('pricing') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const testimonialVer = parseInt(url.searchParams.get('testimonial') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const faqVer = parseInt(url.searchParams.get('faq') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const ctaVer = parseInt(url.searchParams.get('cta') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
-const contactVer = parseInt(url.searchParams.get('contact') || '1') as 1 | 2 | 3 | 4 | 5 | 4 | 5;
+const demos = [
+  { id: 'liquid', color: 'from-blue-500 to-cyan-400' },
+  { id: 'glass', color: 'from-purple-500 to-pink-400' },
+  { id: 'neo', color: 'from-green-500 to-emerald-400' },
+  { id: 'luxury', color: 'from-amber-500 to-orange-400' },
+  { id: 'minimal', color: 'from-gray-500 to-slate-400' },
+];
+
+const demoIcons: Record<string, string> = {
+  liquid: '💧',
+  glass: '🔮',
+  neo: '⚡',
+  luxury: '✨',
+  minimal: '○',
+};
+
+// Build localized href for demos
+const getLocalizedHref = (demoId: string) => {
+  return locale === 'en' ? `/${demoId}` : `/${locale}/${demoId}`;
+};
 ---
 
-<BaseLayout title={t('title')} description={t('description')}>
-  <Hero version={heroVer} />
-  <About version={aboutVer} />
-  <Features version={featuresVer} />
-  <Portfolio version={portfolioVer} />
-  <Pricing version={pricingVer} />
-  <Testimonial version={testimonialVer} />
-  <FAQ version={faqVer} />
-  <CTA version={ctaVer} />
-  <Contact version={contactVer} />
+<BaseLayout title={t('title')} description={t('description')} showHeader={false} showControls={false}>
+  <HeaderLiquid />
+  
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative py-32 px-6 text-center overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent"></div>
+      <div class="relative z-10 max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+          {t('landing.headline')}
+        </h1>
+        <p class="text-xl md:text-2xl text-base-content/60 mb-12 max-w-2xl mx-auto">
+          {t('landing.tagline')}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href={getLocalizedHref('liquid')} class="px-8 py-4 bg-accent text-accent-content rounded-full font-bold hover:scale-105 transition-transform">
+            {t('landing.viewDemos')}
+          </a>
+          <a href={locale === 'en' ? '/docs' : `/${locale}/docs`} class="px-8 py-4 bg-base-content/10 rounded-full font-bold hover:bg-base-content/20 transition-colors">
+            {t('landing.documentation')}
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <main class="py-32 px-6 max-w-4xl mx-auto text-center">
-    <h2 class="text-4xl font-bold mb-8">Универсальная Адаптация</h2>
-    <p class="text-xl text-neutral leading-relaxed mb-12">
-      Liquid Glass — это не просто тема, а живая система дизайна. Каждый компонент реагирует на вашу тему, 
-      язык и устройство.
-    </p>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
-          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🚀</div>
-          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature1Title')}</div>
-          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature1Desc')}</div>
-       </div>
-       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
-          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🎨</div>
-          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature2Title')}</div>
-          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature2Desc')}</div>
-       </div>
-       <div class="p-8 rounded-[2rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-3xl hover:bg-base-content/[0.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group">
-          <div class="text-3xl mb-6 group-hover:scale-110 transition-transform duration-700">🌍</div>
-          <div class="font-black mb-3 text-accent uppercase text-[10px] tracking-[0.2em] break-words">{t('about.feature3Title')}</div>
-          <div class="text-sm text-base-content/60 leading-relaxed group-hover:text-base-content/80 transition-colors">{t('about.feature3Desc')}</div>
-       </div>
-    </div>
+    <!-- Demo Previews -->
+    <section class="py-20 px-6">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">{t('landing.chooseStyle')}</h2>
+        <p class="text-center text-base-content/60 mb-16 max-w-xl mx-auto">
+          {t('landing.chooseStyleDesc')}
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {demos.map((demo) => (
+            <a 
+              href={getLocalizedHref(demo.id)}
+              class="group relative rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10"
+            >
+              <div class={`absolute inset-0 bg-gradient-to-br ${demo.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+              <div class="p-8">
+                <div class="h-48 mb-6 rounded-2xl bg-base-content/5 flex items-center justify-center overflow-hidden">
+                  <span class="text-6xl opacity-30 group-hover:scale-110 transition-transform duration-500">
+                    {demoIcons[demo.id]}
+                  </span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">{t(`landing.demos.${demo.id}.name`)}</h3>
+                <p class="text-sm text-base-content/50">{t(`landing.demos.${demo.id}.description`)}</p>
+                <div class="mt-4 flex items-center gap-2 text-sm font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>{t('landing.viewDemo')}</span>
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6 bg-base-content/[0.02]">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">{t('landing.builtForModern')}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
+            <div class="text-3xl mb-4">🚀</div>
+            <h3 class="font-bold mb-2">{t('about.feature1Title')}</h3>
+            <p class="text-sm text-base-content/60">{t('about.feature1Desc')}</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
+            <div class="text-3xl mb-4">🎨</div>
+            <h3 class="font-bold mb-2">{t('about.feature2Title')}</h3>
+            <p class="text-sm text-base-content/60">{t('about.feature2Desc')}</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
+            <div class="text-3xl mb-4">🌍</div>
+            <h3 class="font-bold mb-2">{t('about.feature3Title')}</h3>
+            <p class="text-sm text-base-content/60">{t('about.feature3Desc')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>

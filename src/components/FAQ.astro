@@ -1,23 +1,19 @@
 ---
-/**
- * FAQ - Version Switcher Wrapper
- * Renders the selected FAQ version based on prop.
- */
-import FAQV1 from './FAQV1.astro';
-import FAQV2 from './FAQV2.astro';
-import FAQV3 from './FAQV3.astro';
-import FAQV4 from './FAQV4.astro';
-import FAQV5 from './FAQV5.astro';
+import FAQLiquid from './faq/FAQLiquid.astro';
+import FAQGlass from './faq/FAQGlass.astro';
+import FAQNeo from './faq/FAQNeo.astro';
+import FAQLuxury from './faq/FAQLuxury.astro';
+import FAQMinimal from './faq/FAQMinimal.astro';
 
-interface Props {
+export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
 }
 
 const { version = 1 } = Astro.props;
 ---
 
-{version === 1 && <FAQV1 />}
-{version === 2 && <FAQV2 />}
-{version === 3 && <FAQV3 />}
-{version === 4 && <FAQV4 />}
-{version === 5 && <FAQV5 />}
+{version === 1 ? <FAQLiquid /> : 
+ version === 2 ? <FAQGlass /> : 
+ version === 3 ? <FAQNeo /> : 
+ version === 4 ? <FAQLuxury /> : 
+ <FAQMinimal />}

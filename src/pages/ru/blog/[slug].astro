@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  // Get all blog posts
+  const allPosts = await getCollection('blog');
+  
+  // Get Russian posts, or fall back to English posts for Russian routes
+  const ruPosts = allPosts.filter(post => post.slug.startsWith('ru/'));
+  const enPosts = allPosts.filter(post => post.slug.startsWith('en/'));
+  
+  // If we have Russian posts, use them; otherwise map English posts to Russian routes
+  const postsToUse = ruPosts.length > 0 ? ruPosts : enPosts;
+  
+  return postsToUse.map(post => ({
+    params: { slug: post.slug.replace(/^(en|ru)\//, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <div class="py-20 px-4 max-w-2xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+    <Content />
+  </div>
+</BaseLayout>

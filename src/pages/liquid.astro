@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderLiquid from '../components/header/HeaderLiquid.astro';
+import HeroLiquid from '../components/hero/HeroLiquid.astro';
+import AboutLiquid from '../components/about/AboutLiquid.astro';
+import FeaturesLiquid from '../components/features/FeaturesLiquid.astro';
+import PortfolioLiquid from '../components/portfolio/PortfolioLiquid.astro';
+import PricingLiquid from '../components/pricing/PricingLiquid.astro';
+import TestimonialLiquid from '../components/testimonial/TestimonialLiquid.astro';
+import FAQLiquid from '../components/faq/FAQLiquid.astro';
+import CTALiquid from '../components/cta/CTALiquid.astro';
+import ContactLiquid from '../components/contact/ContactLiquid.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={`Liquid Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+  <HeaderLiquid />
+  <main>
+    <HeroLiquid />
+    <AboutLiquid />
+    <FeaturesLiquid />
+    <PortfolioLiquid />
+    <PricingLiquid />
+    <TestimonialLiquid />
+    <FAQLiquid />
+    <CTALiquid />
+    <ContactLiquid />
+  </main>
+</BaseLayout>

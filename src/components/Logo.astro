@@ -27,7 +27,10 @@ const {
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const href = customHref ?? `/${locale}/`;
+
+// Use custom href if provided, otherwise route to locale-aware homepage
+const defaultHome = locale === 'en' ? '/' : `/${locale}/`;
+const href = customHref ?? defaultHome;
 
 // Size configurations
 const sizes = {

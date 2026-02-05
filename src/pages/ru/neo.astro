@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeaderNeo from '../../components/header/HeaderNeo.astro';
+import HeroNeo from '../../components/hero/HeroNeo.astro';
+import AboutNeo from '../../components/about/AboutNeo.astro';
+import FeaturesNeo from '../../components/features/FeaturesNeo.astro';
+import PortfolioNeo from '../../components/portfolio/PortfolioNeo.astro';
+import PricingNeo from '../../components/pricing/PricingNeo.astro';
+import TestimonialNeo from '../../components/testimonial/TestimonialNeo.astro';
+import FAQNeo from '../../components/faq/FAQNeo.astro';
+import CTANeo from '../../components/cta/CTANeo.astro';
+import ContactNeo from '../../components/contact/ContactNeo.astro';
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={`Neo Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+  <HeaderNeo />
+  <main>
+    <HeroNeo />
+    <AboutNeo />
+    <FeaturesNeo />
+    <PortfolioNeo />
+    <PricingNeo />
+    <TestimonialNeo />
+    <FAQNeo />
+    <CTANeo />
+    <ContactNeo />
+  </main>
+</BaseLayout>

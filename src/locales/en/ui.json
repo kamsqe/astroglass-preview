@@ -1,0 +1,21 @@
+{
+  "label": "Theme",
+  "hint": "Swipe to explore",
+  "categories": {
+    "light": "Light",
+    "dark": "Dark",
+    "colorful": "Colorful"
+  },
+  "themes": {
+    "tahoe": "Tahoe",
+    "nordic": "Nordic",
+    "solaris": "Solaris",
+    "abyss": "Abyss",
+    "neonoir": "Neonoir",
+    "synthwave": "Synthwave",
+    "evergreen": "Evergreen",
+    "rose": "Rosé",
+    "aquatica": "Aquatica",
+    "monochrome": "Mono"
+  }
+}

@@ -3,11 +3,11 @@
  * Hero Wrapper Component
  * Dynamically switches between different hero versions.
  */
-import HeroV1 from './HeroV1.astro';
-import HeroV2 from './HeroV2.astro';
-import HeroV3 from './HeroV3.astro';
-import HeroV4 from './HeroV4.astro';
-import HeroV5 from './HeroV5.astro';
+import HeroLiquid from './hero/HeroLiquid.astro';
+import HeroGlass from './hero/HeroGlass.astro';
+import HeroNeo from './hero/HeroNeo.astro';
+import HeroLuxury from './hero/HeroLuxury.astro';
+import HeroMinimal from './hero/HeroMinimal.astro';
 
 export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
@@ -16,8 +16,8 @@ export interface Props {
 const { version = 1 } = Astro.props;
 ---
 
-{version === 1 ? <HeroV1 /> : 
- version === 2 ? <HeroV2 /> : 
- version === 3 ? <HeroV3 /> : 
- version === 4 ? <HeroV4 /> : 
- <HeroV5 />}
+{version === 1 ? <HeroLiquid /> : 
+ version === 2 ? <HeroGlass /> : 
+ version === 3 ? <HeroNeo /> : 
+ version === 4 ? <HeroLuxury /> : 
+ <HeroMinimal />}

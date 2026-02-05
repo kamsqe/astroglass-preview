@@ -87,7 +87,7 @@
     0 10px 20px -5px hsl(var(--shadow-color, 0 0% 0%) / 0.12),
     0 24px 40px -8px hsl(var(--shadow-color, 0 0% 0%) / 0.16),
     inset 0 1px 0 0 rgb(var(--glass-border, 255 255 255 / 0.1));
-  z-index: 50;
+  z-index: 150; /* Higher than overlay panels (z-index: 100) */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px) scale(0.97);

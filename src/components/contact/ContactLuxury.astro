@@ -1,0 +1,256 @@
+---
+/**
+ * Contact V4 - The Floating Glass
+ * Minimal glassmorphic card with essential fields only.
+ * Pure liquid-glass aesthetic.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<section class="relative py-20 lg:py-32 px-4 sm:px-6 overflow-hidden bg-base-100">
+  <!-- Background elements -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"></div>
+    <div class="absolute bottom-0 right-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px]"></div>
+    <div class="absolute top-0 left-0 w-[200px] h-[200px] bg-secondary/5 rounded-full blur-[80px]"></div>
+  </div>
+
+  <div class="max-w-lg mx-auto relative">
+    <!-- Floating Glass Card -->
+    <div class="contact-v4-card relative p-6 sm:p-8 lg:p-10 rounded-[1.5rem] sm:rounded-[2rem] bg-base-100/60 backdrop-blur-[40px] border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.12)]">
+      
+      <!-- Glass shimmer -->
+      <div class="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] pointer-events-none overflow-hidden">
+        <div class="absolute inset-[-1px] rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-60"></div>
+      </div>
+
+      <div class="relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-6 sm:mb-8">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-2xl mx-auto mb-4">
+            ✉️
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-base-content tracking-tight">{t('contact.eyebrow')}</h2>
+          <p class="text-sm text-base-content/50 mt-2">{t('contact.subtitleV4')}</p>
+        </div>
+
+        <!-- Form -->
+        <form class="contact-v4-form space-y-4">
+          <!-- Name & Email row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="contact-v4-field">
+              <input 
+                type="text" 
+                required
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
+                placeholder={t('contact.form.name')}
+              />
+              <div class="contact-v4-valid hidden absolute right-3 top-1/2 -translate-y-1/2 text-success text-sm">✓</div>
+            </div>
+            
+            <div class="contact-v4-field">
+              <input 
+                type="email" 
+                required
+                inputmode="email"
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
+                placeholder={t('contact.placeholders.emailAddress')}
+              />
+              <div class="contact-v4-valid hidden absolute right-3 top-1/2 -translate-y-1/2 text-success text-sm">✓</div>
+            </div>
+          </div>
+
+          <!-- Subject dropdown -->
+          <div class="contact-v4-field">
+            <select 
+              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-500 appearance-none cursor-pointer"
+            >
+              <option value="" class="text-base-content/30">{t('contact.placeholders.selectTopic')}</option>
+              <option value="general">{t('contact.topics.general')}</option>
+              <option value="sales">{t('contact.topics.salesQuestion')}</option>
+              <option value="support">{t('contact.topics.support')}</option>
+              <option value="partnership">{t('contact.topics.partnership')}</option>
+            </select>
+            <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-base-content/30 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+
+          <!-- Message -->
+          <div class="contact-v4-field">
+            <textarea 
+              required
+              rows="4"
+              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500 resize-none"
+              placeholder={t('contact.placeholders.yourMessage')}
+            ></textarea>
+            <div class="contact-v4-counter absolute right-3 bottom-3 text-[10px] text-base-content/30">0/500</div>
+          </div>
+
+          <!-- Submit -->
+          <button 
+            type="submit"
+            class="contact-v4-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-500 shadow-[0_8px_30px_rgba(var(--a),0.25)]"
+          >
+            <span>{t('contact.form.send')}</span>
+            <svg class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Success State -->
+        <div class="contact-v4-success hidden text-center py-8">
+          <div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+            🎉
+          </div>
+          <h3 class="text-lg font-bold text-base-content mb-2">{t('contact.successTitleV4')}</h3>
+          <p class="text-sm text-base-content/50">{t('contact.successDescV4')}</p>
+        </div>
+
+        <!-- Privacy & Security -->
+        <div class="flex items-center justify-center gap-4 mt-6 text-[10px] text-base-content/30">
+          <span class="flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+            </svg>
+            {t('contact.secure')}
+          </span>
+          <span class="flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            {t('contact.noSpam')}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ambient glow -->
+    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-accent/15 blur-[40px] rounded-full pointer-events-none"></div>
+  </div>
+</section>
+
+<style>
+  .contact-v4-card {
+    animation: cardFloat 6s ease-in-out infinite;
+    transform: translateZ(0);
+  }
+
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-v4-card { animation: none; }
+  }
+
+  .contact-v4-field {
+    position: relative;
+  }
+
+  .contact-v4-form input:focus,
+  .contact-v4-form textarea:focus,
+  .contact-v4-form select:focus {
+    box-shadow: 0 0 0 3px hsl(var(--a) / 0.08);
+    background: hsl(var(--bc) / 0.05);
+  }
+
+  .contact-v4-submit {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-v4-submit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 800ms;
+  }
+
+  .contact-v4-submit:hover::after {
+    left: 100%;
+  }
+
+  .contact-v4-success {
+    animation: successPop 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes successPop {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  let contactV4Controller: AbortController | null = null;
+
+  function initContactV4() {
+    // Abort previous listeners
+    contactV4Controller?.abort();
+    contactV4Controller = new AbortController();
+    const signal = contactV4Controller.signal;
+
+    const form = document.querySelector('.contact-v4-form') as HTMLFormElement;
+    const success = document.querySelector('.contact-v4-success');
+
+    if (!form) return;
+
+    // Character counter for textarea
+    const textarea = form.querySelector('textarea');
+    const counter = form.querySelector('.contact-v4-counter');
+    
+    textarea?.addEventListener('input', () => {
+      const len = textarea.value.length;
+      if (counter) counter.textContent = `${len}/500`;
+      
+      if (len > 500) {
+        textarea.value = textarea.value.slice(0, 500);
+      }
+    }, { signal });
+
+    // Form submission
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      console.log('Form submitted:', Object.fromEntries(formData));
+      
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+    }, { signal });
+
+    // Inline validation feedback
+    form.querySelectorAll('input[required]').forEach(input => {
+      input.addEventListener('blur', () => {
+        const field = input.closest('.contact-v4-field');
+        const valid = field?.querySelector('.contact-v4-valid');
+        
+        if ((input as HTMLInputElement).checkValidity() && (input as HTMLInputElement).value) {
+          valid?.classList.remove('hidden');
+          (input as HTMLElement).classList.add('border-success/30');
+        } else {
+          valid?.classList.add('hidden');
+          (input as HTMLElement).classList.remove('border-success/30');
+        }
+      }, { signal });
+    });
+  }
+
+  initContactV4();
+  document.addEventListener('astro:after-swap', initContactV4);
+</script>

@@ -1,0 +1,17 @@
+{
+  "greeting": "Привет, мир!",
+  "title": "Мой Astro шаблон",
+  "description": "Современный Astro шаблон с дизайном liquid-glass",
+  "siteName": "LiquidGlass",
+  "learnMore": "Узнать больше",
+  "back": "Назад",
+  "next": "Далее",
+  "submit": "Отправить",
+  "cancel": "Отмена",
+  "close": "Закрыть",
+  "loading": "Загрузка...",
+  "error": "Ошибка",
+  "success": "Успешно",
+  "required": "Обязательно",
+  "optional": "Необязательно"
+}

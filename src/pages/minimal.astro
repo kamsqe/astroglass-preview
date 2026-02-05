@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderMinimal from '../components/header/HeaderMinimal.astro';
+import HeroMinimal from '../components/hero/HeroMinimal.astro';
+import AboutMinimal from '../components/about/AboutMinimal.astro';
+import FeaturesMinimal from '../components/features/FeaturesMinimal.astro';
+import PortfolioMinimal from '../components/portfolio/PortfolioMinimal.astro';
+import PricingMinimal from '../components/pricing/PricingMinimal.astro';
+import TestimonialMinimal from '../components/testimonial/TestimonialMinimal.astro';
+import FAQMinimal from '../components/faq/FAQMinimal.astro';
+import CTAMinimal from '../components/cta/CTAMinimal.astro';
+import ContactMinimal from '../components/contact/ContactMinimal.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={`Minimal Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+  <HeaderMinimal />
+  <main>
+    <HeroMinimal />
+    <AboutMinimal />
+    <FeaturesMinimal />
+    <PortfolioMinimal />
+    <PricingMinimal />
+    <TestimonialMinimal />
+    <FAQMinimal />
+    <CTAMinimal />
+    <ContactMinimal />
+  </main>
+</BaseLayout>

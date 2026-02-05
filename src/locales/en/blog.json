@@ -1,0 +1,11 @@
+{
+  "title": "Blog",
+  "description": "Latest updates",
+  "readMore": "Read More",
+  "backToBlog": "← Back to Blog",
+  "publishedOn": "Published on",
+  "author": "Author",
+  "tags": "Tags",
+  "noPosts": "No posts found",
+  "relatedPosts": "Related Posts"
+}

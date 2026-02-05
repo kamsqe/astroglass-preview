@@ -1,0 +1,25 @@
+{
+  "title": "Experience the Clarity of Liquid Glass",
+  "subtitle": "A premium Astro template designed with focus, depth, and fluid motion.",
+  "cta": "Explore Components",
+  "secondaryCta": "View on GitHub",
+  "liveBadge": "v5.0 is live",
+  "digitalExperience": "Digital Experience",
+  "watchReel": "See It In Action",
+  "glassCard": {
+    "title": "Liquid Components",
+    "desc": "Beautifully crafted blocks designed for high-end digital experiences."
+  },
+  "visionary": "Visionary Design",
+  "trustedBy": "Trusted by",
+  "scrollToExplore": "Scroll to explore",
+  "tryItNow": "Try it now",
+  "dontTakeOurWord": "Don't take our word for it.",
+  "startBuilding": "Start Building",
+  "viewFullDemo": "View Full Demo",
+  "faster": "FASTER.",
+  "buildFaster": "Build faster.",
+  "shippingVelocity": "10x shipping velocity",
+  "readyToBuild": "Ready to build?",
+  "askLeaders": "Ask Stripe, Linear, Vercel."
+}

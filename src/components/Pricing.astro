@@ -1,13 +1,9 @@
 ---
-/**
- * Pricing Wrapper Component
- * Dynamically switches between different pricing section versions.
- */
-import PricingV1 from './PricingV1.astro';
-import PricingV2 from './PricingV2.astro';
-import PricingV3 from './PricingV3.astro';
-import PricingV4 from './PricingV4.astro';
-import PricingV5 from './PricingV5.astro';
+import PricingLiquid from './pricing/PricingLiquid.astro';
+import PricingGlass from './pricing/PricingGlass.astro';
+import PricingNeo from './pricing/PricingNeo.astro';
+import PricingLuxury from './pricing/PricingLuxury.astro';
+import PricingMinimal from './pricing/PricingMinimal.astro';
 
 export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
@@ -16,8 +12,8 @@ export interface Props {
 const { version = 1 } = Astro.props;
 ---
 
-{version === 1 ? <PricingV1 /> : 
- version === 2 ? <PricingV2 /> : 
- version === 3 ? <PricingV3 /> :
- version === 4 ? <PricingV4 /> :
- <PricingV5 />}
+{version === 1 ? <PricingLiquid /> : 
+ version === 2 ? <PricingGlass /> : 
+ version === 3 ? <PricingNeo /> : 
+ version === 4 ? <PricingLuxury /> : 
+ <PricingMinimal />}

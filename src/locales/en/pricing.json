@@ -1,0 +1,76 @@
+{
+  "title": "Transparent Pricing",
+  "subtitle": "Choose the perfect plan for your project's scale.",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "save": "Save 20%",
+  "tier1Name": "Starter",
+  "tier2Name": "Pro",
+  "tier3Name": "Enterprise",
+  "cta": "Get Started",
+  "vesselLabel": "Slide to Scale",
+  "popular": "Popular",
+  "features": {
+    "projects": "Projects",
+    "teamMembers": "Team Members",
+    "storage": "Storage",
+    "support": "Support",
+    "customThemes": "Custom Themes",
+    "apiAccess": "API Access",
+    "analytics": "Analytics",
+    "whiteLabel": "White Label",
+    "dedicatedNodes": "Dedicated Nodes",
+    "customSla": "Custom SLA",
+    "securityAudit": "Security Audit",
+    "teamTraining": "Team Training",
+    "priorityPerformance": "Priority Performance",
+    "priorityPerformanceDesc": "Dedicated edge nodes for lightning fast deliveries.",
+    "securityPlus": "Security+",
+    "securityPlusDesc": "SSO and enterprise team permissions included.",
+    "apiAccessDesc": "Full REST and GraphQL endpoints for custom builds.",
+    "uptimeSla": "Uptime SLA",
+    "latency": "Latency"
+  },
+  "comparePlans": "Compare Plans",
+  "securityPlus": "Security+",
+  "securityPlusDesc": "SSO and enterprise team permissions included.",
+  "perMonth": "/ month",
+  "perMonthYearly": "/ month (billed yearly)",
+  "freeForever": "Free forever",
+  "selectScale": "Select Your Scale",
+  "simplePlans": "Simple Plans",
+  "choosePath": "Choose Your Path",
+  "mostPopular": "Most Popular",
+  "recommended": "Recommended",
+  "prevPlan": "Previous plan",
+  "nextPlan": "Next plan",
+  "viewPlan": "View {plan} plan",
+  "activeSystem": "Active System",
+  "values": {
+    "unlimited": "Unlimited",
+    "priorityEmail": "Priority Email",
+    "phone247": "24/7 Phone",
+    "basic": "Basic",
+    "advanced": "Advanced",
+    "community": "Community"
+  },
+  "plans": {
+    "starter": {
+      "tagline": "Begin Your Journey",
+      "desc": "Everything you need to start experimenting with powerful tools at zero cost.",
+      "cta": "Start Free"
+    },
+    "pro": {
+      "tagline": "Scale With Confidence",
+      "desc": "Unlock advanced features and priority support for growing teams and serious creators.",
+      "descV2": "Scaling creators and digital studios.",
+      "cta": "Go Pro"
+    },
+    "enterprise": {
+      "tagline": "Unlimited Power",
+      "desc": "Enterprise-grade infrastructure with dedicated support and custom solutions for your organization.",
+      "descV2": "High-performance enterprise solutions.",
+      "cta": "Contact Sales"
+    }
+  }
+}

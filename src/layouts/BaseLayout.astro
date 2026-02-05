@@ -2,11 +2,11 @@
 import { getLocaleFromUrl } from '../utils/i18n';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
-import Header from '../components/Header.astro';
-import HeaderV2 from '../components/HeaderV2.astro';
-import HeaderV3 from '../components/HeaderV3.astro';
-import HeaderV4 from '../components/HeaderV4.astro';
-import HeaderV5 from '../components/HeaderV5.astro';
+import Header from '../components/header/HeaderLiquid.astro';
+import HeaderV2 from '../components/header/HeaderGlass.astro';
+import HeaderV3 from '../components/header/HeaderNeo.astro';
+import HeaderV4 from '../components/header/HeaderLuxury.astro';
+import HeaderV5 from '../components/header/HeaderMinimal.astro';
 import ShowcaseControls from '../components/ShowcaseControls.astro';
 
 export interface Props {
@@ -116,5 +116,49 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
         contactVer={currentContact}
       />
     )}
+
+    <script is:inline>
+      // Apply stored locale preference to navigation links
+      function applyLocalePreference() {
+        const preferredLocale = localStorage.getItem('preferred-locale');
+        if (!preferredLocale || preferredLocale === 'en') return;
+        
+        // Check if we're on a demo page (no locale prefix needed)
+        const demoPages = ['/liquid', '/glass', '/neo', '/luxury', '/minimal'];
+        const pathname = window.location.pathname;
+        const isDemoPage = demoPages.some(demo => pathname === demo || pathname === demo + '/');
+        
+        // Only apply to navigation links on non-locale-prefixed pages
+        if (pathname.startsWith('/' + preferredLocale)) return;
+        
+        // Update navigation links to include locale prefix
+        document.querySelectorAll('nav a, .nav-v2 a, .panel-nav a, .mobile-nav a, .header-v3 a, [data-mobile-dropdown] a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          
+          // Skip external links, anchors, and already localized links
+          if (href.startsWith('http') || href.startsWith('#') || href.startsWith('/' + preferredLocale) || href.match(/^\/(en|ru)\//)) return;
+          
+          // Skip demo page links
+          if (demoPages.some(demo => href === demo || href.startsWith(demo + '/'))) return;
+          
+          // Skip home link on demo pages (keep users exploring demos)
+          if (isDemoPage && href === '/') {
+            link.setAttribute('href', '/' + preferredLocale + '/');
+            return;
+          }
+          
+          // Add locale prefix
+          if (href === '/') {
+            link.setAttribute('href', '/' + preferredLocale + '/');
+          } else if (href.startsWith('/')) {
+            link.setAttribute('href', '/' + preferredLocale + href);
+          }
+        });
+      }
+      
+      applyLocalePreference();
+      document.addEventListener('astro:after-swap', applyLocalePreference);
+    </script>
   </body>
 </html>

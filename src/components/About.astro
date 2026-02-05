@@ -1,24 +1,19 @@
 ---
-/**
- * About Wrapper Component
- * Dynamically switches between different about section versions.
- */
-import AboutV1 from './AboutV1.astro';
-import AboutV2 from './AboutV2.astro';
-import AboutV3 from './AboutV3.astro';
-import AboutV4 from './AboutV4.astro';
-import AboutV5 from './AboutV5.astro';
+import AboutLiquid from './about/AboutLiquid.astro';
+import AboutGlass from './about/AboutGlass.astro';
+import AboutNeo from './about/AboutNeo.astro';
+import AboutLuxury from './about/AboutLuxury.astro';
+import AboutMinimal from './about/AboutMinimal.astro';
 
 export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
-  isFirst?: boolean;
 }
 
-const { version = 1, isFirst = false } = Astro.props;
+const { version = 1 } = Astro.props;
 ---
 
-{version === 1 ? <AboutV1 isFirst={isFirst} /> : 
- version === 2 ? <AboutV2 isFirst={isFirst} /> : 
- version === 3 ? <AboutV3 isFirst={isFirst} /> : 
- version === 4 ? <AboutV4 isFirst={isFirst} /> : 
- <AboutV5 isFirst={isFirst} />}
+{version === 1 ? <AboutLiquid /> : 
+ version === 2 ? <AboutGlass /> : 
+ version === 3 ? <AboutNeo /> : 
+ version === 4 ? <AboutLuxury /> : 
+ <AboutMinimal />}

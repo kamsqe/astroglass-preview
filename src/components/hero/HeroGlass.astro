@@ -1,0 +1,163 @@
+---
+/**
+ * Hero V2 - Split Composition (Refined)
+ * High-contrast typography on the left, decorative glass composition on the right.
+ * Mobile: Shows a subtle glass accent behind content.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const titleParts = t('hero.title').split(' ');
+const lastTwo = titleParts.length > 2 ? titleParts.slice(-2).join(' ') : '';
+const remaining = titleParts.length > 2 ? titleParts.slice(0, -2).join(' ') : t('hero.title');
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 lg:px-16 pt-[calc(100px+var(--nav-offset))] pb-24 md:py-32">
+  <!-- Background glow -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute top-1/4 right-0 w-[60%] h-[70%] bg-[hsl(var(--glow-color))] opacity-[var(--glow-intensity,0.12)] blur-[160px] rounded-full translate-x-1/4 animate-pulse-slow"></div>
+  </div>
+
+  <!-- Mobile glass accent (visible on mobile only) -->
+  <div class="absolute top-20 right-4 w-32 h-32 bg-accent/[0.08] rounded-3xl backdrop-blur-xl border border-accent/10 rotate-12 lg:hidden animate-float"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20 items-center">
+    <!-- Content -->
+    <div class="lg:col-span-7 animate-reveal-left">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-accent/[0.08] border border-accent/10 text-accent font-black text-[10px] mb-8 lg:mb-10 tracking-[0.25em] uppercase shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        {t('hero.digitalExperience')}
+      </div>
+      
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-[6rem] xl:text-[7.5rem] font-black tracking-tight text-base-content mb-6 lg:mb-10 leading-[0.95] lg:leading-[0.88]">
+        {remaining}
+        {lastTwo && (
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent/40">{lastTwo}</span>
+        )}
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg lg:text-xl text-base-content/50 max-w-xl mb-8 lg:mb-12 leading-relaxed font-medium">
+        {t('hero.subtitle')}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 lg:gap-6">
+        <a href="#explore" class="btn-liquid-v2 group relative px-8 lg:px-10 py-4 lg:py-5 rounded-full bg-base-content text-base-100 font-black text-sm tracking-widest uppercase overflow-hidden flex items-center justify-center">
+          <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <span class="relative z-10">{t('hero.cta')}</span>
+        </a>
+        <a href="#" class="btn-liquid-secondary-v2 group px-8 lg:px-10 py-4 lg:py-5 rounded-full border border-base-content/10 bg-base-content/[0.03] backdrop-blur-2xl text-base-content font-bold flex items-center justify-center gap-3">
+          <span>{t('hero.watchReel')}</span>
+          <div class="play-icon w-9 h-9 rounded-full bg-base-content/5 flex items-center justify-center group-hover:bg-accent group-hover:text-base-100 transition-all duration-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Desktop glass composition -->
+    <div class="lg:col-span-5 relative hidden lg:block perspective-2000">
+       <!-- Large Glass Panel -->
+       <div class="hero-card relative w-full aspect-[4/5] bg-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 rounded-[4rem] shadow-2xl overflow-hidden group animate-float-slow">
+          <div class="absolute inset-0 bg-gradient-to-br from-base-content/[0.05] to-transparent opacity-50"></div>
+          
+          <!-- Animated Reflection Streak -->
+          <div class="reflection absolute top-0 left-0 w-full h-[200%] bg-gradient-to-b from-transparent via-white/[0.05] to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-[2000ms]"></div>
+
+          <!-- Inner glow -->
+          <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-accent/20 rounded-full blur-[100px] animate-pulse"></div>
+          
+          <!-- Inner card with testimonial -->
+          <div class="card-content absolute inset-x-8 bottom-8 p-8 lg:p-10 bg-base-content/[0.05] backdrop-blur-3xl rounded-[2.5rem] border border-base-content/10 transform translate-y-4 group-hover:translate-y-0 opacity-80 group-hover:opacity-100 shadow-xl transition-all duration-1000">
+             <div class="w-12 h-1 bg-accent rounded-full mb-6 group-hover:w-16 transition-all duration-700"></div>
+             <p class="text-base-content/70 text-sm leading-relaxed mb-4 italic">"{t('testimonial.q1')}"</p>
+             <div class="flex items-center gap-3">
+               <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-xs">⭐</div>
+               <div>
+                 <p class="text-base-content text-xs font-bold">{t('testimonial.name1')}</p>
+                 <p class="text-base-content/40 text-[10px]">{t('testimonial.roles.cto')}</p>
+               </div>
+             </div>
+          </div>
+       </div>
+
+       <!-- Floating accents with intentional positioning -->
+       <div class="accent-float absolute -top-8 -right-4 w-36 h-36 bg-base-content/[0.03] rounded-[2.5rem] backdrop-blur-2xl border border-base-content/10 -rotate-12 animate-float shadow-xl" style="animation-delay: -1s;"></div>
+       <div class="accent-float absolute -bottom-6 -left-8 w-28 h-28 bg-accent/[0.05] rounded-full backdrop-blur-xl border border-accent/10 animate-float shadow-xl" style="animation-delay: -4s;"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .btn-liquid-v2, .btn-liquid-secondary-v2, .hero-card, .accent-float, .play-icon, .card-content {
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .btn-liquid-v2:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
+  }
+
+  .btn-liquid-secondary-v2:hover {
+    background-color: hsl(var(--bc) / 0.08);
+    border-color: hsl(var(--bc) / 0.2);
+  }
+
+  .hero-card {
+    transform: rotateY(-8deg);
+  }
+
+  .hero-card:hover {
+    transform: rotateY(0deg) scale(1.02);
+  }
+
+  .accent-float:hover {
+    transform: scale(1.1) rotate(0deg);
+    border-color: hsl(var(--bc) / 0.3);
+  }
+
+  .perspective-2000 { perspective: 2000px; }
+
+  @keyframes reveal-left {
+    from { opacity: 0; transform: translateX(-30px); filter: blur(10px); }
+    to { opacity: 1; transform: translateX(0); filter: blur(0); }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotateY(-8deg); }
+    50% { transform: translateY(-20px) rotateY(-4deg); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-12deg); }
+    50% { transform: translateY(-15px) rotate(-8deg); }
+  }
+  
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.12; transform: scale(1); }
+    50% { opacity: 0.18; transform: scale(1.05); }
+  }
+
+  .animate-reveal-left {
+    animation: reveal-left 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 8s ease-in-out infinite;
+  }
+</style>

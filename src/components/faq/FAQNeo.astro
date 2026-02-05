@@ -1,0 +1,344 @@
+---
+/**
+ * FAQ V3 - The Category Grid
+ * Visual category cards that expand into accordion lists.
+ * Mobile: 2-column grid → full-screen accordion. Desktop: 3-column with inline expand.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const categories = [
+  {
+    id: 'getting-started',
+    icon: '🚀',
+    title: t('faq.cat_getting_started'),
+    color: 'from-violet-500/20 to-fuchsia-500/20',
+    questions: [
+      { q: t('faq.q_create_project'), a: t('faq.a_create_project') },
+      { q: t('faq.q_sys_req'), a: t('faq.a_sys_req') },
+      { q: t('faq.q2'), a: t('faq.a2') },
+    ]
+  },
+  {
+    id: 'billing',
+    icon: '💳',
+    title: t('faq.cat_billing'),
+    color: 'from-emerald-500/20 to-teal-500/20',
+    questions: [
+      { q: t('faq.q_billing'), a: t('faq.a_billing') },
+      { q: t('faq.q_refund'), a: t('faq.a_refund') },
+      { q: t('faq.q_team_discount'), a: t('faq.a_team_discount') },
+    ]
+  },
+  {
+    id: 'technical',
+    icon: '⚙️',
+    title: t('faq.cat_technical'),
+    color: 'from-cyan-500/20 to-blue-500/20',
+    questions: [
+      { q: t('faq.q5'), a: t('faq.a5') },
+      { q: t('faq.q9'), a: t('faq.a9') },
+      { q: t('faq.q6'), a: t('faq.a6') },
+    ]
+  },
+  {
+    id: 'account',
+    icon: '👤',
+    title: t('faq.cat_account'),
+    color: 'from-amber-500/20 to-orange-500/20',
+    questions: [
+      { q: t('faq.q8'), a: t('faq.a8') },
+      { q: t('faq.q7'), a: t('faq.a7') },
+      { q: t('faq.q_delete_account'), a: t('faq.a_delete_account') },
+    ]
+  },
+  {
+    id: 'features',
+    icon: '✨',
+    title: t('faq.cat_features'),
+    color: 'from-pink-500/20 to-rose-500/20',
+    questions: [
+      { q: t('faq.q_features'), a: t('faq.a_features') },
+      { q: t('faq.q_customize'), a: t('faq.a_customize') },
+      { q: t('faq.q_offline'), a: t('faq.a_offline') },
+    ]
+  },
+  {
+    id: 'support',
+    icon: '💬',
+    title: t('faq.cat_support'),
+    color: 'from-indigo-500/20 to-purple-500/20',
+    questions: [
+      { q: t('faq.q10'), a: t('faq.a10') },
+      { q: t('faq.q11'), a: t('faq.a11') },
+      { q: t('faq.q_training'), a: t('faq.a_training') },
+    ]
+  },
+];
+---
+
+<section class="relative py-24 lg:py-32 px-6 overflow-hidden bg-base-100">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12 lg:mb-16">
+       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('nav.resourcesFaq')}</span>
+       <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.findAnswer')}</h2>
+       <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
+    </div>
+
+    <!-- Category Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" id="faq-v3-grid">
+       {categories.map((cat, i) => (
+          <div class="faq-v3-category-card" data-category={cat.id} style={`animation-delay: ${i * 80}ms`}>
+             <button class="faq-v3-cat-trigger w-full p-6 lg:p-8 rounded-2xl lg:rounded-[1.5rem] bg-base-content/[0.02] border border-base-content/10 text-left group relative overflow-hidden">
+                <!-- Gradient overlay on hover -->
+                <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms] pointer-events-none", cat.color]}></div>
+                
+                <div class="relative z-10">
+                   <span class="text-2xl lg:text-3xl mb-4 block">{cat.icon}</span>
+                   <p class="text-sm lg:text-base font-bold text-base-content mb-1">{cat.title}</p>
+                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length)}</p>
+                </div>
+             </button>
+             
+             <!-- Expanded accordion (hidden by default) -->
+             <div class="faq-v3-cat-expanded hidden mt-4 space-y-2">
+                {cat.questions.map((q, qi) => (
+                   <div class="faq-v3-accordion-item">
+                      <button class="faq-v3-acc-trigger w-full flex items-center justify-between p-4 rounded-xl bg-base-content/[0.02] border border-base-content/5 text-left">
+                         <span class="text-sm text-base-content pr-4">{q.q}</span>
+                         <svg class="w-4 h-4 text-base-content/30 flex-shrink-0 faq-v3-acc-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                         </svg>
+                      </button>
+                      <div class="faq-v3-acc-content hidden px-4 pb-4">
+                         <p class="text-sm text-base-content/60 leading-relaxed pt-3">{q.a}</p>
+                      </div>
+                   </div>
+                ))}
+                
+                <button class="faq-v3-close-cat w-full p-3 rounded-xl border border-dashed border-base-content/10 text-xs text-base-content/40 hover:text-base-content/60 hover:border-base-content/20 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                   ← {t('faq.backToCategories')}
+                </button>
+             </div>
+          </div>
+       ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-v3-category-card {
+    opacity: 0;
+    animation: cardFadeInV3 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes cardFadeInV3 {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .faq-v3-cat-trigger {
+    position: relative;
+    transition: all 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Glow border effect on hover */
+  .faq-v3-cat-trigger::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      hsl(var(--a) / 0.3) 50%,
+      transparent 100%
+    );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .faq-v3-category-card:hover .faq-v3-cat-trigger::before {
+    opacity: 1;
+  }
+  
+  .faq-v3-category-card:hover .faq-v3-cat-trigger {
+    background: hsl(var(--bc) / 0.06);
+    border-color: transparent;
+  }
+
+  /* Subtle inner glow */
+  .faq-v3-cat-trigger::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      hsl(var(--a) / 0.08) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .faq-v3-category-card:hover .faq-v3-cat-trigger::after {
+    opacity: 1;
+  }
+
+  /* Content stays stable - no transforms on hover */
+  .faq-v3-cat-trigger > div {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .faq-v3-category-card.expanded .faq-v3-cat-trigger {
+    display: none;
+  }
+
+  /* Accordion items */
+  .faq-v3-accordion-item {
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .faq-v3-acc-trigger {
+    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-v3-acc-trigger:hover {
+    background: hsl(var(--bc) / 0.05);
+    border-color: hsl(var(--bc) / 0.1);
+  }
+
+  .faq-v3-acc-arrow {
+    transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1), color 500ms ease;
+  }
+
+  .faq-v3-accordion-item.open .faq-v3-acc-arrow {
+    transform: rotate(180deg);
+    color: hsl(var(--a));
+  }
+
+  .faq-v3-accordion-item.open .faq-v3-acc-trigger {
+    background: hsl(var(--a) / 0.05);
+    border-color: hsl(var(--a) / 0.15);
+  }
+
+  .faq-v3-acc-content {
+    animation: accordionExpandV3 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes accordionExpandV3 {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-v3-cat-expanded {
+    animation: expandedFadeIn 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes expandedFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  let faqV3Controller: AbortController | null = null;
+
+  function initFAQV3Grid() {
+    // Abort previous listeners
+    faqV3Controller?.abort();
+    faqV3Controller = new AbortController();
+    const signal = faqV3Controller.signal;
+
+    // Category card clicks
+    document.querySelectorAll('.faq-v3-cat-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.faq-v3-category-card');
+        const expanded = card?.querySelector('.faq-v3-cat-expanded');
+        
+        // Close all other categories
+        document.querySelectorAll('.faq-v3-category-card').forEach(c => {
+          if (c !== card) {
+            c.classList.remove('expanded');
+            c.querySelector('.faq-v3-cat-expanded')?.classList.add('hidden');
+          }
+        });
+        
+        // Toggle this one
+        card?.classList.toggle('expanded');
+        expanded?.classList.toggle('hidden');
+      }, { signal });
+    });
+
+    // Back button clicks
+    document.querySelectorAll('.faq-v3-close-cat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.faq-v3-category-card');
+        card?.classList.remove('expanded');
+        card?.querySelector('.faq-v3-cat-expanded')?.classList.add('hidden');
+      }, { signal });
+    });
+
+    // Accordion item clicks
+    document.querySelectorAll('.faq-v3-acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-v3-accordion-item');
+        const content = item?.querySelector('.faq-v3-acc-content');
+        const isOpen = item?.classList.contains('open');
+        
+        // Close siblings
+        item?.parentElement?.querySelectorAll('.faq-v3-accordion-item').forEach(i => {
+          if (i !== item) {
+            i.classList.remove('open');
+            i.querySelector('.faq-v3-acc-content')?.classList.add('hidden');
+          }
+        });
+        
+        // Toggle this
+        item?.classList.toggle('open', !isOpen);
+        content?.classList.toggle('hidden', isOpen);
+      }, { signal });
+    });
+  }
+
+  initFAQV3Grid();
+  document.addEventListener('astro:after-swap', initFAQV3Grid);
+</script>

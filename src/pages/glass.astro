@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderGlass from '../components/header/HeaderGlass.astro';
+import HeroGlass from '../components/hero/HeroGlass.astro';
+import AboutGlass from '../components/about/AboutGlass.astro';
+import FeaturesGlass from '../components/features/FeaturesGlass.astro';
+import PortfolioGlass from '../components/portfolio/PortfolioGlass.astro';
+import PricingGlass from '../components/pricing/PricingGlass.astro';
+import TestimonialGlass from '../components/testimonial/TestimonialGlass.astro';
+import FAQGlass from '../components/faq/FAQGlass.astro';
+import CTAGlass from '../components/cta/CTAGlass.astro';
+import ContactGlass from '../components/contact/ContactGlass.astro';
+import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={`Glass Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+  <HeaderGlass />
+  <main>
+    <HeroGlass />
+    <AboutGlass />
+    <FeaturesGlass />
+    <PortfolioGlass />
+    <PricingGlass />
+    <TestimonialGlass />
+    <FAQGlass />
+    <CTAGlass />
+    <ContactGlass />
+  </main>
+</BaseLayout>

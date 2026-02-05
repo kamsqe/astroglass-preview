@@ -1,0 +1,105 @@
+---
+/**
+ * Portfolio V2 - Kinetic Horizon (Refined)
+ * Horizontal scrolling with category tags and better hints.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const projects = [
+  { id: 1, title: t('portfolio.p1Title'), desc: t('portfolio.p1Desc'), category: t('portfolio.categories.webapp'), num: '01' },
+  { id: 2, title: t('portfolio.p2Title'), desc: t('portfolio.p2Desc'), category: t('portfolio.categories.dashboard'), num: '02' },
+  { id: 3, title: t('portfolio.p3Title'), desc: t('portfolio.p3Desc'), category: t('portfolio.categories.mobile'), num: '03' },
+  { id: 4, title: t('portfolio.p4Title'), desc: t('portfolio.p4Desc'), category: t('portfolio.categories.branding'), num: '04' },
+];
+---
+
+<section class="relative py-16 sm:py-24 md:py-32 bg-base-content/[0.01] overflow-hidden">
+  <!-- Header -->
+  <div class="px-4 sm:px-6 mb-10 sm:mb-14 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div>
+      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-3">{t('portfolio.gallery')}</span>
+      <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight leading-none">
+        {t('portfolio.title')}
+      </h2>
+    </div>
+    <p class="text-sm sm:text-base text-base-content/40 max-w-xs">
+      {t('portfolio.subtitle')}
+    </p>
+  </div>
+
+  <!-- Carousel -->
+  <div class="relative">
+    <div class="kinetic-container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pb-16 sm:pb-20 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+      {projects.map((p, i) => (
+        <div class="kinetic-item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+          <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
+            <div class="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+              <!-- Top -->
+              <div class="flex items-start justify-between">
+                <span class="px-3 py-1.5 rounded-lg bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider">
+                  {p.category}
+                </span>
+                <span class="text-4xl sm:text-5xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500">{p.num}</span>
+              </div>
+              
+              <!-- Bottom -->
+              <div>
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-base-content mb-3 tracking-tight group-hover:text-accent transition-colors duration-500">
+                  {p.title}
+                </h3>
+                <p class="text-sm sm:text-base text-base-content/40 font-medium max-w-md mb-6 group-hover:text-base-content/60 transition-colors duration-500">
+                  {p.desc}
+                </p>
+                <a href="#" class="inline-flex items-center gap-3 text-accent font-bold text-xs uppercase tracking-widest hover:gap-5 transition-all duration-300">
+                  {t('portfolio.viewProject')}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Scroll hint -->
+    <div class="flex items-center justify-center gap-3 text-base-content/30 animate-pulse">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      <span class="text-[10px] font-bold uppercase tracking-widest">{t('portfolio.scrollHint')}</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4-4m0 0l-4-4m4 4H3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .kinetic-container {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .kinetic-item {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slide-in {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

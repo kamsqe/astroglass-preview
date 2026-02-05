@@ -1,0 +1,17 @@
+{
+  "greeting": "Hello, World!",
+  "title": "My Astro Template",
+  "description": "A modern Astro template with liquid-glass design",
+  "siteName": "LiquidGlass",
+  "learnMore": "Learn more",
+  "back": "Back",
+  "next": "Next",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "close": "Close",
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "required": "Required",
+  "optional": "Optional"
+}

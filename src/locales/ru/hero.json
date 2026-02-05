@@ -1,0 +1,25 @@
+{
+  "title": "Ощутите чистоту Liquid Glass",
+  "subtitle": "Премиальный Astro шаблон, созданный с фокусом на глубине и плавности.",
+  "cta": "Исследовать компоненты",
+  "secondaryCta": "Посмотреть на GitHub",
+  "liveBadge": "v5.0 доступна",
+  "digitalExperience": "Цифровой Опыт",
+  "watchReel": "Смотреть в действии",
+  "glassCard": {
+    "title": "Liquid Компоненты",
+    "desc": "Прекрасно созданные блоки для премиальных цифровых интерфейсов."
+  },
+  "visionary": "Визионерский Дизайн",
+  "trustedBy": "Нам доверяют",
+  "scrollToExplore": "Листайте вниз",
+  "tryItNow": "Попробуйте сейчас",
+  "dontTakeOurWord": "Не верьте на слово.",
+  "startBuilding": "Начать",
+  "viewFullDemo": "Полное демо",
+  "faster": "БЫСТРЕЕ.",
+  "buildFaster": "Создавайте быстрее.",
+  "shippingVelocity": "В 10 раз быстрее",
+  "readyToBuild": "Готовы создавать?",
+  "askLeaders": "Спросите у Stripe, Linear, Vercel."
+}

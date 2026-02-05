@@ -1,23 +1,19 @@
 ---
-/**
- * Testimonial - Version Switcher Wrapper
- * Renders the selected testimonial version based on prop.
- */
-import TestimonialV1 from './TestimonialV1.astro';
-import TestimonialV2 from './TestimonialV2.astro';
-import TestimonialV3 from './TestimonialV3.astro';
-import TestimonialV4 from './TestimonialV4.astro';
-import TestimonialV5 from './TestimonialV5.astro';
+import TestimonialLiquid from './testimonial/TestimonialLiquid.astro';
+import TestimonialGlass from './testimonial/TestimonialGlass.astro';
+import TestimonialNeo from './testimonial/TestimonialNeo.astro';
+import TestimonialLuxury from './testimonial/TestimonialLuxury.astro';
+import TestimonialMinimal from './testimonial/TestimonialMinimal.astro';
 
-interface Props {
+export interface Props {
   version?: 1 | 2 | 3 | 4 | 5;
 }
 
 const { version = 1 } = Astro.props;
 ---
 
-{version === 1 && <TestimonialV1 />}
-{version === 2 && <TestimonialV2 />}
-{version === 3 && <TestimonialV3 />}
-{version === 4 && <TestimonialV4 />}
-{version === 5 && <TestimonialV5 />}
+{version === 1 ? <TestimonialLiquid /> : 
+ version === 2 ? <TestimonialGlass /> : 
+ version === 3 ? <TestimonialNeo /> : 
+ version === 4 ? <TestimonialLuxury /> : 
+ <TestimonialMinimal />}

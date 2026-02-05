@@ -33,15 +33,16 @@ const sections = await buildDocsNav(locale);
   <div class="docs-container min-h-screen pt-20">
     
     {/* Mobile Header Bar */}
-    <div class="lg:hidden sticky top-16 z-30 bg-base-100/95 backdrop-blur-lg border-b border-base-content/10">
-      <div class="flex items-center justify-between px-4 py-3">
-        <button id="mobile-menu-btn" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-base-content/5 text-sm font-medium">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-          <span>Menu</span>
+    {/* Mobile Header Bar */}
+    <div class="lg:hidden sticky top-16 z-30 bg-base-100/80 backdrop-blur-xl border-b border-base-content/5">
+      <div class="flex items-center justify-between px-4 py-3 gap-3">
+        <button id="mobile-menu-btn" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-base-content/[0.03] hover:bg-base-content/[0.06] active:scale-[0.98] transition-all text-sm font-medium border border-base-content/[0.05]">
+          <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          <span class="opacity-80">Menu</span>
         </button>
-        <button id="mobile-search-btn" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-base-content/5 text-sm">
-          <svg class="w-4 h-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          <span class="opacity-60">Search</span>
+        <button id="mobile-search-btn" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-base-content/[0.03] hover:bg-base-content/[0.06] active:scale-[0.98] transition-all text-sm font-medium border border-base-content/[0.05]">
+          <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <span class="opacity-80">Search</span>
         </button>
       </div>
     </div>

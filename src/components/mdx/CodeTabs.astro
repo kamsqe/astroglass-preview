@@ -24,7 +24,7 @@ export interface Props {
   defaultTab?: number;
 }
 
-const { labels, defaultTab = 0 } = Astro.props;
+const { labels = [], defaultTab = 0 } = Astro.props;
 const tabId = `codetabs-${Math.random().toString(36).slice(2, 9)}`;
 ---
 

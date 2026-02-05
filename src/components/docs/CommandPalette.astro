@@ -2,16 +2,17 @@
 /**
  * Command Palette Component
  * 
- * Keyboard-activated search overlay (⌘K / Ctrl+K).
+ * Premium keyboard-activated search overlay (⌘K / Ctrl+K).
  * Integrates with Pagefind for instant search results.
  */
-import { keyboardShortcuts } from '../../config/docs';
+import { useTranslations } from '../../utils/i18n';
 
 export interface Props {
   locale?: string;
 }
 
 const { locale = 'en' } = Astro.props;
+const t = useTranslations(locale as 'en' | 'ru');
 ---
 
 <!-- Backdrop -->
@@ -28,7 +29,7 @@ const { locale = 'en' } = Astro.props;
         type="text" 
         id="command-palette-input"
         class="command-palette-input" 
-        placeholder="Search documentation..."
+        placeholder={t('docs.searchPlaceholder') || 'Search documentation...'}
         autocomplete="off"
         aria-label="Search"
       />
@@ -38,125 +39,264 @@ const { locale = 'en' } = Astro.props;
   
   <div id="command-palette-results" class="command-palette-results">
     <div class="command-palette-empty">
-      <p>Type to search the documentation</p>
+      <div class="command-palette-empty-icon">🔍</div>
+      <p>{t('docs.typeToSearch') || 'Type to search'}</p>
       <div class="command-palette-hints">
-        <div class="hint"><kbd>/</kbd> or <kbd>⌘K</kbd> to open</div>
-        <div class="hint"><kbd>↑↓</kbd> to navigate</div>
-        <div class="hint"><kbd>↵</kbd> to select</div>
+        <div class="hint"><kbd>⌘K</kbd> open</div>
+        <div class="hint"><kbd>↑↓</kbd> navigate</div>
+        <div class="hint"><kbd>↵</kbd> go</div>
       </div>
     </div>
   </div>
 </div>
 
 <style>
+  .command-palette-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .command-palette-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .command-palette {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+    width: calc(100% - 32px);
+    max-width: 640px;
+    background: linear-gradient(
+      145deg,
+      rgba(var(--color-base-100-rgb, 255 255 255), 0.98),
+      rgba(var(--color-base-100-rgb, 255 255 255), 0.92)
+    );
+    border: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.1);
+    border-radius: 20px;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(var(--color-accent-rgb, 59 130 246), 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .command-palette.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
   .command-palette-header {
-    padding: 4px;
-    border-bottom: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.1);
+    border-bottom: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.02);
   }
 
   .command-palette-input-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 14px;
+    padding: 16px 20px;
   }
 
   .command-palette-icon {
-    width: 20px;
-    height: 20px;
-    opacity: 0.4;
+    width: 22px;
+    height: 22px;
+    opacity: 0.35;
     flex-shrink: 0;
+    color: hsl(var(--a));
   }
 
   .command-palette-input {
     flex: 1;
     border: none;
     background: transparent;
-    font-size: 1rem;
+    font-size: 1.125rem;
+    font-weight: 500;
     outline: none;
+    color: inherit;
+  }
+
+  .command-palette-input::placeholder {
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.35);
   }
 
   .command-palette-shortcut {
     font-size: 0.7rem;
-    padding: 4px 8px;
-    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
-    border-radius: 4px;
+    padding: 5px 10px;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.06);
+    border: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    border-radius: 6px;
     font-family: ui-monospace, monospace;
+    font-weight: 600;
   }
 
   .command-palette-results {
-    max-height: 400px;
+    max-height: 420px;
     overflow-y: auto;
-    padding: 8px;
+    padding: 12px;
   }
 
   .command-palette-empty {
-    padding: 32px 16px;
+    padding: 48px 24px;
     text-align: center;
-    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.5);
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.45);
+  }
+
+  .command-palette-empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  .command-palette-empty p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 20px;
   }
 
   .command-palette-hints {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    margin-top: 16px;
-    font-size: 0.75rem;
+    gap: 20px;
+    font-size: 0.8rem;
+  }
+
+  .hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.6;
   }
 
   .hint kbd {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    margin-right: 4px;
-    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
-    border-radius: 3px;
+    font-size: 0.7rem;
+    padding: 3px 7px;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.06);
+    border: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    border-radius: 5px;
     font-family: ui-monospace, monospace;
+    font-weight: 600;
   }
 
   .command-palette-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 12px;
-    border-radius: 8px;
+    gap: 6px;
+    padding: 14px 16px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background 0.1s;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
   }
 
   .command-palette-item:hover,
   .command-palette-item.is-selected {
-    background: rgba(var(--color-accent-rgb, 59 130 246), 0.1);
+    background: rgba(var(--color-accent-rgb, 59 130 246), 0.08);
+    border-color: rgba(var(--color-accent-rgb, 59 130 246), 0.15);
+    transform: translateX(4px);
+  }
+
+  .command-palette-item.is-selected {
+    background: rgba(var(--color-accent-rgb, 59 130 246), 0.12);
   }
 
   .command-palette-item-title {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: hsl(var(--bc));
+  }
+
+  .command-palette-item.is-selected .command-palette-item-title,
+  .command-palette-item:hover .command-palette-item-title {
+    color: hsl(var(--a));
   }
 
   .command-palette-item-excerpt {
     font-size: 0.85rem;
-    opacity: 0.7;
+    opacity: 0.65;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
   }
 
   .command-palette-item-path {
     font-size: 0.7rem;
-    opacity: 0.5;
+    opacity: 0.4;
     font-family: ui-monospace, monospace;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .command-palette-item-path::before {
+    content: '→';
+    opacity: 0.5;
   }
 
   .command-palette-loading {
-    padding: 32px;
+    padding: 48px;
     text-align: center;
-    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.5);
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.45);
+    font-weight: 500;
+  }
+
+  .command-palette-loading::before {
+    content: '⏳';
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 
   .command-palette-no-results {
-    padding: 32px 16px;
+    padding: 48px 24px;
     text-align: center;
-    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.5);
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.45);
+  }
+
+  .command-palette-no-results::before {
+    content: '😕';
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  /* Dark mode adjustments */
+  [data-theme="midnight"] .command-palette,
+  [data-theme="pacific"] .command-palette,
+  [data-theme="nordic"] .command-palette {
+    background: linear-gradient(
+      145deg,
+      rgba(20, 25, 35, 0.98),
+      rgba(15, 20, 30, 0.95)
+    );
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 </style>
 
@@ -203,11 +343,12 @@ const { locale = 'en' } = Astro.props;
       if (items.length === 0) {
         resultsContainer.innerHTML = `
           <div class="command-palette-empty">
-            <p>Type to search the documentation</p>
+            <div class="command-palette-empty-icon">🔍</div>
+            <p>Type to search</p>
             <div class="command-palette-hints">
-              <div class="hint"><kbd>/</kbd> or <kbd>⌘K</kbd> to open</div>
-              <div class="hint"><kbd>↑↓</kbd> to navigate</div>
-              <div class="hint"><kbd>↵</kbd> to select</div>
+              <div class="hint"><kbd>⌘K</kbd> open</div>
+              <div class="hint"><kbd>↑↓</kbd> navigate</div>
+              <div class="hint"><kbd>↵</kbd> go</div>
             </div>
           </div>
         `;

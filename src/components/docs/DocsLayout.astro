@@ -1,7 +1,7 @@
 ---
 /**
- * Docs Layout Component (Phase 2 Refinement)
- * Supports V1 (Sidebar Guide) and V2 (API Reference).
+ * Docs Layout Component
+ * Single unified layout (formerly V1 Guide style).
  * Includes Scrollspy, Mobile Drawer, and Glassmorphism polish.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -12,7 +12,6 @@ import DocsProgress from './DocsProgress.astro';
 import DocsBottomBar from './DocsBottomBar.astro';
 import DocsTOCMobile from './DocsTOCMobile.astro';
 import CommandPalette from './CommandPalette.astro';
-import DocsBreadcrumb from './DocsBreadcrumb.astro';
 
 interface Props {
   doc: any;
@@ -25,9 +24,6 @@ interface Props {
 const { doc, Content, headings, locale, isFallback = false } = Astro.props;
 const t = useTranslations(locale);
 const sections = await buildDocsNav(locale);
-
-const layout = doc.data.docsLayout || 'v1';
-const isV2 = layout === 'v2';
 ---
 
 <BaseLayout title={`${doc.data.title} | Docs`} description={doc.data.description}>
@@ -41,7 +37,7 @@ const isV2 = layout === 'v2';
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         Menu
       </button>
-      <div class="text-xs font-bold opacity-50">{isV2 ? 'API Ref' : 'Guide'}</div>
+      <DocsSearch locale={locale} />
     </div>
 
     {/* Mobile Drawer (Hidden by default) */}
@@ -53,7 +49,6 @@ const isV2 = layout === 'v2';
         </button>
       </div>
       <div class="flex-1 overflow-y-auto p-4 space-y-8">
-        <DocsSearch locale={locale} />
         {sections.map(section => (
           <div>
             <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-3">{section.title}</h3>
@@ -71,44 +66,42 @@ const isV2 = layout === 'v2';
       </div>
     </div>
 
-    <div class={isV2 ? "max-w-[1600px] mx-auto px-4 sm:px-6" : "max-w-[1400px] mx-auto px-4 sm:px-6"}>
-      <div class={isV2 ? "lg:grid lg:grid-cols-[1fr_240px] lg:gap-12" : "lg:grid lg:grid-cols-[260px_1fr_240px] lg:gap-12"}>
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="lg:grid lg:grid-cols-[260px_1fr_240px] lg:gap-12">
         
-        {/* Desktop Sidebar (V1 Only) */}
-        {!isV2 && (
-          <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto no-scrollbar">
-            <div class="mb-6"><DocsSearch locale={locale} /></div>
-            <nav class="space-y-8">
-              {sections.map(section => (
-                <div>
-                  <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-3 px-3">
-                    {section.title}
-                  </h3>
-                  <ul class="space-y-0.5">
-                    {section.items.map(item => {
-                      const isActive = Astro.url.pathname === item.href || Astro.url.pathname === item.href + '/';
-                      return (
-                        <li>
-                          <a 
-                            href={item.href}
-                            class:list={[
-                              "block px-3 py-1.5 rounded-lg text-sm transition-all duration-200",
-                              isActive
-                                ? "bg-accent/10 text-accent font-medium translate-x-1"
-                                : "text-base-content/60 hover:text-base-content hover:bg-base-content/5 hover:translate-x-1"
-                            ]}
-                          >
-                            {item.title}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </nav>
-          </aside>
-        )}
+        {/* Desktop Sidebar */}
+        <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto no-scrollbar">
+          <div class="mb-6"><DocsSearch locale={locale} /></div>
+          <nav class="space-y-8">
+            {sections.map(section => (
+              <div>
+                <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-3 px-3">
+                  {section.title}
+                </h3>
+                <ul class="space-y-0.5">
+                  {section.items.map(item => {
+                    const isActive = Astro.url.pathname === item.href || Astro.url.pathname === item.href + '/';
+                    return (
+                      <li>
+                        <a 
+                          href={item.href}
+                          class:list={[
+                            "block px-3 py-1.5 rounded-lg text-sm transition-all duration-200",
+                            isActive
+                              ? "bg-accent/10 text-accent font-medium translate-x-1"
+                              : "text-base-content/60 hover:text-base-content hover:bg-base-content/5 hover:translate-x-1"
+                          ]}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        </aside>
 
         {/* Main Content */}
         <main class="py-10 min-w-0">
@@ -140,7 +133,7 @@ const isV2 = layout === 'v2';
           </div>
         </main>
 
-        {/* Desktop TOC (V1 & V2) */}
+        {/* Desktop TOC */}
         <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto">
           <h4 class="font-bold text-xs uppercase tracking-wider text-base-content/40 mb-4 px-2">On this page</h4>
           <ul class="space-y-1 text-sm text-base-content/50" id="toc-list">

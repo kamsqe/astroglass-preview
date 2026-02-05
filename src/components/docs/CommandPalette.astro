@@ -1,8 +1,6 @@
 ---
 /**
- * Command Palette - Search Component
- * 
- * Clean, minimal search with proper scroll-to-section and pulse highlight.
+ * Command Palette - Search with proper scroll-to-section
  */
 import { useTranslations } from '../../utils/i18n';
 
@@ -14,410 +12,455 @@ const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'ru');
 ---
 
-<!-- Overlay -->
-<div id="cmd-overlay"></div>
+<div id="search-overlay" class="search-overlay"></div>
 
-<!-- Modal -->
-<div id="cmd-modal" aria-modal="true">
-  <div class="cmd-search-box">
-    <svg class="cmd-search-icon" viewBox="0 0 20 20" fill="currentColor">
-      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+<div id="search-dialog" class="search-dialog" role="dialog">
+  <div class="search-input-wrapper">
+    <svg class="search-input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
     </svg>
-    <input 
-      id="cmd-input"
+    <input
+      id="search-input"
       type="text"
-      placeholder="Search documentation..."
+      placeholder="Search..."
       autocomplete="off"
-      autocapitalize="off"
       spellcheck="false"
     />
-    <kbd class="cmd-esc">ESC</kbd>
+    <kbd class="search-kbd">ESC</kbd>
   </div>
-  <div id="cmd-content">
-    <div class="cmd-placeholder">
-      <p>Type to search</p>
-      <div class="cmd-keys">
-        <span><kbd>↑↓</kbd> Navigate</span>
-        <span><kbd>↵</kbd> Open</span>
+
+  <div id="search-results" class="search-results">
+    <div class="search-hint">
+      <span>Type to search documentation</span>
+      <div class="search-hint-keys">
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  #cmd-overlay {
+  .search-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    z-index: 9000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9998;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
   }
-  #cmd-overlay.open {
+  .search-overlay.is-open {
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
   }
 
-  #cmd-modal {
+  .search-dialog {
     position: fixed;
-    top: 15%;
+    top: 12%;
     left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    width: 500px;
-    max-width: calc(100vw - 32px);
+    transform: translateX(-50%) translateY(-8px) scale(0.98);
+    width: min(540px, 90vw);
     background: hsl(var(--b1));
-    border-radius: 14px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px hsl(var(--bc) / 0.1);
-    z-index: 9001;
+    border: 1px solid hsl(var(--bc) / 0.12);
+    border-radius: 16px;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 hsl(var(--bc) / 0.04);
+    z-index: 9999;
     opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s ease;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
   }
-  #cmd-modal.open {
+  .search-dialog.is-open {
     opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 
-  .cmd-search-box {
+  /* Input */
+  .search-input-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    border-bottom: 1px solid hsl(var(--bc) / 0.1);
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.08);
   }
-  .cmd-search-icon {
-    width: 16px;
-    height: 16px;
-    color: hsl(var(--bc) / 0.4);
+  .search-input-icon {
+    width: 18px;
+    height: 18px;
+    color: hsl(var(--bc) / 0.35);
     flex-shrink: 0;
   }
-  #cmd-input {
+  #search-input {
     flex: 1;
-    border: none;
     background: transparent;
-    font-size: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
     font-weight: 500;
     color: hsl(var(--bc));
-    outline: none;
+    caret-color: hsl(var(--a));
   }
-  #cmd-input::placeholder {
-    color: hsl(var(--bc) / 0.35);
+  #search-input::placeholder {
+    color: hsl(var(--bc) / 0.4);
     font-weight: 400;
   }
-  .cmd-esc {
+  .search-kbd {
     font-size: 10px;
-    padding: 4px 8px;
-    background: hsl(var(--bc) / 0.07);
-    border-radius: 5px;
-    color: hsl(var(--bc) / 0.4);
     font-family: system-ui, sans-serif;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: hsl(var(--bc) / 0.06);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    border-radius: 6px;
+    color: hsl(var(--bc) / 0.45);
+    text-transform: uppercase;
   }
 
-  #cmd-content {
-    max-height: 300px;
+  /* Results area */
+  .search-results {
+    max-height: 340px;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
-  .cmd-placeholder {
-    padding: 28px 16px;
+  /* Hint (empty state) */
+  .search-hint {
+    padding: 40px 24px;
     text-align: center;
   }
-  .cmd-placeholder p {
-    font-size: 13px;
-    color: hsl(var(--bc) / 0.4);
-    margin-bottom: 12px;
+  .search-hint > span {
+    display: block;
+    font-size: 14px;
+    color: hsl(var(--bc) / 0.45);
+    margin-bottom: 16px;
   }
-  .cmd-keys {
+  .search-hint-keys {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    font-size: 11px;
-    color: hsl(var(--bc) / 0.3);
+    gap: 20px;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.35);
   }
-  .cmd-keys span {
+  .search-hint-keys span {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
   }
-  .cmd-keys kbd {
+  .search-hint-keys kbd {
     font-size: 10px;
-    padding: 2px 5px;
+    font-family: system-ui, sans-serif;
+    font-weight: 600;
+    padding: 2px 6px;
     background: hsl(var(--bc) / 0.05);
-    border-radius: 3px;
-    font-family: system-ui;
-  }
-
-  .cmd-loading {
-    padding: 28px 16px;
-    text-align: center;
-    font-size: 13px;
+    border: 1px solid hsl(var(--bc) / 0.08);
+    border-radius: 4px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  .cmd-empty {
-    padding: 28px 16px;
+  /* Loading & no results */
+  .search-loading,
+  .search-empty {
+    padding: 40px 24px;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  .cmd-list {
-    padding: 6px;
+  /* Results list */
+  .search-list {
+    padding: 8px;
   }
-  .cmd-link {
+  .search-item {
     display: block;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border-radius: 10px;
     text-decoration: none;
-    margin-bottom: 2px;
-    transition: background 0.1s;
+    margin-bottom: 4px;
+    transition: background 0.12s ease;
+    cursor: pointer;
   }
-  .cmd-link:last-child {
+  .search-item:last-child {
     margin-bottom: 0;
   }
-  .cmd-link:hover,
-  .cmd-link.active {
-    background: hsl(var(--a) / 0.1);
+  .search-item:hover,
+  .search-item.selected {
+    background: hsl(var(--a) / 0.08);
   }
-  .cmd-link-title {
+  .search-item-title {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: hsl(var(--bc));
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    line-height: 1.3;
   }
-  .cmd-link:hover .cmd-link-title,
-  .cmd-link.active .cmd-link-title {
+  .search-item:hover .search-item-title,
+  .search-item.selected .search-item-title {
     color: hsl(var(--a));
   }
-  .cmd-link-excerpt {
+  .search-item-snippet {
     display: block;
-    font-size: 11px;
-    color: hsl(var(--bc) / 0.5);
-    white-space: nowrap;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.55);
+    line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .cmd-link-excerpt :global(mark) {
-    background: hsl(var(--wa) / 0.35);
+  .search-item-snippet :global(mark) {
+    background: hsl(var(--wa) / 0.25);
     color: inherit;
     padding: 0 2px;
     border-radius: 2px;
-    font-weight: 500;
+  }
+  .search-item-url {
+    display: block;
+    font-size: 11px;
+    color: hsl(var(--bc) / 0.3);
+    font-family: ui-monospace, monospace;
+    margin-top: 4px;
   }
 </style>
 
 <script>
-  let pf: any = null;
-  let data: any[] = [];
-  let idx = 0;
+  let pagefind: any = null;
+  let results: any[] = [];
+  let selected = 0;
 
-  function setup() {
-    const overlay = document.getElementById('cmd-overlay');
-    const modal = document.getElementById('cmd-modal');
-    const input = document.getElementById('cmd-input') as HTMLInputElement;
-    const content = document.getElementById('cmd-content');
-    if (!overlay || !modal || !input || !content) return;
+  function init() {
+    const overlay = document.getElementById('search-overlay');
+    const dialog = document.getElementById('search-dialog');
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const resultsEl = document.getElementById('search-results');
+    
+    if (!overlay || !dialog || !input || !resultsEl) return;
 
     // Load pagefind
     (async () => {
       try {
-        pf = await (new Function(`return import("/pagefind/pagefind.js")`))();
-        await pf.init();
+        pagefind = await (new Function(`return import("/pagefind/pagefind.js")`))();
+        await pagefind.init();
       } catch {}
     })();
 
-    const placeholder = () => {
-      content.innerHTML = `
-        <div class="cmd-placeholder">
-          <p>Type to search</p>
-          <div class="cmd-keys">
-            <span><kbd>↑↓</kbd> Navigate</span>
-            <span><kbd>↵</kbd> Open</span>
+    const showHint = () => {
+      resultsEl.innerHTML = `
+        <div class="search-hint">
+          <span>Type to search documentation</span>
+          <div class="search-hint-keys">
+            <span><kbd>↑↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> open</span>
           </div>
         </div>
       `;
     };
 
     const open = () => {
-      overlay.classList.add('open');
-      modal.classList.add('open');
+      overlay.classList.add('is-open');
+      dialog.classList.add('is-open');
       input.value = '';
       input.focus();
-      placeholder();
+      showHint();
       document.body.style.overflow = 'hidden';
     };
 
     const close = () => {
-      overlay.classList.remove('open');
-      modal.classList.remove('open');
-      data = [];
-      idx = 0;
+      overlay.classList.remove('is-open');
+      dialog.classList.remove('is-open');
+      results = [];
+      selected = 0;
       document.body.style.overflow = '';
     };
 
     const render = () => {
-      if (!data.length) {
-        content.innerHTML = `<div class="cmd-empty">No results</div>`;
+      if (!results.length) {
+        resultsEl.innerHTML = `<div class="search-empty">No results found</div>`;
         return;
       }
-      const q = encodeURIComponent(input.value.trim());
-      content.innerHTML = `<div class="cmd-list">${data.map((r, i) => {
+      
+      const query = encodeURIComponent(input.value.trim());
+      resultsEl.innerHTML = `<div class="search-list">${results.map((r, i) => {
         const title = r.meta?.title || 'Untitled';
-        const excerpt = (r.excerpt || '').replace(/<[^>]+>/g, '').slice(0, 80);
+        const snippet = (r.excerpt || '').replace(/<[^>]+>/g, '').slice(0, 100);
         const url = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
         return `
-          <a href="${url}?hl=${q}" class="cmd-link ${i === idx ? 'active' : ''}" data-i="${i}">
-            <span class="cmd-link-title">${title}</span>
-            <span class="cmd-link-excerpt">${excerpt}...</span>
+          <a href="${url}?highlight=${query}" class="search-item ${i === selected ? 'selected' : ''}" data-idx="${i}">
+            <span class="search-item-title">${title}</span>
+            ${snippet ? `<span class="search-item-snippet">${snippet}...</span>` : ''}
+            <span class="search-item-url">${url}</span>
           </a>
         `;
       }).join('')}</div>`;
-      content.querySelectorAll('.cmd-link').forEach(el => el.addEventListener('click', close));
+      
+      resultsEl.querySelectorAll('.search-item').forEach(el => {
+        el.addEventListener('click', close);
+      });
     };
 
-    let t: any;
+    // Search
+    let debounce: any;
     input.addEventListener('input', () => {
-      clearTimeout(t);
+      clearTimeout(debounce);
       const q = input.value.trim();
-      if (!q || q.length < 2) { data = []; placeholder(); return; }
-      if (!pf) return;
-      t = setTimeout(async () => {
-        content.innerHTML = `<div class="cmd-loading">Searching...</div>`;
+      if (!q || q.length < 2) { results = []; showHint(); return; }
+      if (!pagefind) return;
+      
+      debounce = setTimeout(async () => {
+        resultsEl.innerHTML = `<div class="search-loading">Searching...</div>`;
         try {
-          const res = await pf.search(q);
-          const all = await Promise.all(res.results.slice(0, 8).map((r: any) => r.data()));
-          data = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 5);
-          idx = 0;
+          const res = await pagefind.search(q);
+          const data = await Promise.all(res.results.slice(0, 10).map((r: any) => r.data()));
+          results = data.filter((r: any) => r.url.includes('/docs/')).slice(0, 6);
+          selected = 0;
           render();
         } catch {
-          content.innerHTML = `<div class="cmd-empty">Error</div>`;
+          resultsEl.innerHTML = `<div class="search-empty">Search error</div>`;
         }
       }, 100);
     });
 
+    // Keyboard
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') { e.preventDefault(); idx = Math.min(idx + 1, data.length - 1); render(); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); idx = Math.max(idx - 1, 0); render(); }
-      else if (e.key === 'Enter' && data[idx]) {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const url = data[idx].url.replace(/\.html$/, '').replace(/\/index$/, '');
-        window.location.href = `${url}?hl=${encodeURIComponent(input.value.trim())}`;
+        selected = Math.min(selected + 1, results.length - 1);
+        render();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selected = Math.max(selected - 1, 0);
+        render();
+      } else if (e.key === 'Enter' && results[selected]) {
+        e.preventDefault();
+        const url = results[selected].url.replace(/\.html$/, '').replace(/\/index$/, '');
+        window.location.href = `${url}?highlight=${encodeURIComponent(input.value.trim())}`;
+        close();
+      } else if (e.key === 'Escape') {
         close();
       }
-      else if (e.key === 'Escape') close();
     });
 
     overlay.addEventListener('click', close);
 
+    // Global shortcuts
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); open(); }
-      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) { e.preventDefault(); open(); }
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
+        e.preventDefault();
+        open();
+      }
     });
 
-    placeholder();
+    showHint();
   }
 
-  // Highlight & scroll to matched section
-  function highlight() {
+  // Highlight section on page load
+  function highlightOnLoad() {
     const params = new URLSearchParams(window.location.search);
-    const q = params.get('hl');
-    if (!q || q.length < 2) return;
+    const query = params.get('highlight');
+    if (!query || query.length < 2) return;
 
-    const body = document.querySelector('[data-pagefind-body]');
-    if (!body) return;
+    // Find article content only (skip header)
+    const article = document.querySelector('[data-pagefind-body] article') || 
+                    document.querySelector('[data-pagefind-body] .prose') ||
+                    document.querySelector('article');
+    if (!article) return;
 
-    // Find first text node containing the query
-    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
-    let target: Node | null = null;
-    const searchTerm = q.toLowerCase();
+    const searchTerm = query.toLowerCase();
+    
+    // Find all text nodes in article that contain the search term
+    const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+    let matchNode: Node | null = null;
     
     while (walker.nextNode()) {
       const text = walker.currentNode.textContent?.toLowerCase() || '';
       if (text.includes(searchTerm)) {
-        target = walker.currentNode;
+        matchNode = walker.currentNode;
         break;
       }
     }
 
-    if (!target) return;
+    if (!matchNode) return;
 
-    // Find the closest section (heading or first ancestor with an ID)
-    let section: HTMLElement | null = null;
-    let node = target.parentElement;
+    // Find the closest heading BEFORE this match
+    let current = matchNode.parentElement;
+    let targetSection: HTMLElement | null = null;
     
-    while (node && node !== body) {
-      // Check if this node itself is a heading
-      if (['H1', 'H2', 'H3', 'H4'].includes(node.tagName)) {
-        section = node;
+    // Walk up and look for headings
+    while (current && current !== article) {
+      // Check if this element itself is a heading
+      if (/^H[2-4]$/.test(current.tagName)) {
+        targetSection = current;
         break;
       }
-      // Check if this node has an ID (anchor point)
-      if (node.id) {
-        section = node;
-        break;
-      }
-      // Check if previous sibling is a heading
-      let prev = node.previousElementSibling;
-      while (prev) {
-        if (['H1', 'H2', 'H3', 'H4'].includes(prev.tagName)) {
-          section = prev as HTMLElement;
+      
+      // Look for a preceding sibling heading
+      let sibling = current.previousElementSibling;
+      while (sibling) {
+        if (/^H[2-4]$/.test(sibling.tagName)) {
+          targetSection = sibling as HTMLElement;
           break;
         }
-        prev = prev.previousElementSibling;
+        sibling = sibling.previousElementSibling;
       }
-      if (section) break;
-      node = node.parentElement;
+      if (targetSection) break;
+      
+      current = current.parentElement;
     }
 
-    // If no section found, use the target's parent
-    if (!section) {
-      section = target.parentElement;
+    // If no heading found, use the match's parent paragraph/div
+    if (!targetSection) {
+      targetSection = matchNode.parentElement;
     }
 
-    if (!section) return;
+    if (!targetSection) return;
 
     // Scroll to section
     setTimeout(() => {
-      const y = section!.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }, 100);
+      const rect = targetSection!.getBoundingClientRect();
+      const scrollY = window.scrollY + rect.top - 120;
+      window.scrollTo({ top: scrollY, behavior: 'smooth' });
+    }, 150);
 
     // Pulse animation
     setTimeout(() => {
-      section!.classList.add('hl-pulse');
-    }, 400);
+      targetSection!.classList.add('search-highlight-pulse');
+    }, 500);
 
     setTimeout(() => {
-      section!.classList.remove('hl-pulse');
-    }, 1800);
+      targetSection!.classList.remove('search-highlight-pulse');
+    }, 2000);
 
     // Clean URL
     history.replaceState(null, '', window.location.pathname);
   }
 
-  setup();
-  highlight();
-  document.addEventListener('astro:after-swap', () => { setup(); highlight(); });
+  init();
+  highlightOnLoad();
+  
+  document.addEventListener('astro:after-swap', () => {
+    init();
+    highlightOnLoad();
+  });
 </script>
 
 <style is:global>
-  .hl-pulse {
-    animation: hlPulse 1.2s ease-out;
-    border-radius: 6px;
+  .search-highlight-pulse {
+    animation: searchPulse 1.5s ease-out;
+    border-radius: 8px;
   }
-  @keyframes hlPulse {
+  
+  @keyframes searchPulse {
     0% {
-      background: hsl(var(--a) / 0.2);
-      box-shadow: 0 0 0 4px hsl(var(--a) / 0.15);
+      background-color: hsl(var(--a) / 0.25);
+      box-shadow: 0 0 0 4px hsl(var(--a) / 0.2);
     }
     100% {
-      background: transparent;
+      background-color: transparent;
       box-shadow: 0 0 0 0 transparent;
     }
   }

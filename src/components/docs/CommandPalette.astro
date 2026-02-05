@@ -88,10 +88,8 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       </div>
 
       <!-- Keyboard hints (desktop only) -->
-      <div class="search-hints desktop-only">
-        <span><kbd>↑↓</kbd> {t('docs.navigate') || 'Navigate'}</span>
-        <span><kbd>↵</kbd> {t('docs.open') || 'Open'}</span>
-        <span><kbd>esc</kbd> {t('docs.close') || 'Close'}</span>
+      <div class="search-hints desktop-only" style="display: none;">
+        <!-- Removed per user request -->
       </div>
     </div>
 
@@ -131,6 +129,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     <div class="search-hints-inline desktop-only">
       <span><kbd>↑↓</kbd> Navigate</span>
       <span><kbd>↵</kbd> Open</span>
+      <span><kbd>esc</kbd> Close</span>
     </div>
   </div>
 </div>

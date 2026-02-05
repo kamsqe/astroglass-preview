@@ -91,4 +91,4 @@ If search isn't working on your deployed site, ensure that the `post-build` inde
 Check the build logs. Common issues include TypeScript errors or missing dependencies.
 
 ### Search Not Working
-If search returns no results, check if the `dist/pagefind/` directory was created during build. Ensure `pnpm run index:content` is part of your build command.
+If search returns no results, check if the `public/search/` directory and `en.json`/`ru.json` files were created during build. Ensure `pnpm run index:content` ran successfully.

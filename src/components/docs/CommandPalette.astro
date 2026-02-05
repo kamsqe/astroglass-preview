@@ -1574,6 +1574,7 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   /* ========== SEARCH RESULT HIGHLIGHT ========== */
   .search-match-highlight {
     position: relative;
+    display: inline;
     background: linear-gradient(
       90deg, 
       transparent 0%,
@@ -1583,26 +1584,25 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
       transparent 100%
     );
     background-size: 200% 100%;
-    border-radius: 6px;
-    padding: 4px 8px;
-    margin: -4px -8px;
-    animation: highlightShimmer 2s ease-in-out;
-    box-shadow: 
-      0 0 0 2px hsl(var(--a) / 0.2),
-      0 0 20px hsl(var(--a) / 0.15);
+    border-radius: 4px;
+    animation: highlightShimmer 2s ease-in-out forwards;
+    outline: 2px solid hsl(var(--a) / 0.2);
+    outline-offset: 2px;
   }
 
   @keyframes highlightShimmer {
     0% { 
       background-position: 100% 0;
-      box-shadow: 0 0 0 0 transparent, 0 0 0 transparent;
+      outline-color: transparent;
     }
     20% {
-      box-shadow: 0 0 0 3px hsl(var(--a) / 0.3), 0 0 30px hsl(var(--a) / 0.2);
+      outline-color: hsl(var(--a) / 0.4);
+      outline-offset: 3px;
     }
     100% { 
       background-position: -100% 0;
-      box-shadow: 0 0 0 2px hsl(var(--a) / 0.15), 0 0 15px hsl(var(--a) / 0.1);
+      outline-color: hsl(var(--a) / 0.15);
+      outline-offset: 2px;
     }
   }
 

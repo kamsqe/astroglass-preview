@@ -41,7 +41,8 @@ You can deploy using GitHub integration (recommended) or via CLI.
    - **Build output directory**: `dist`
    
    <Callout type="warning" title="Important">
-     Make sure to set the build command to `pnpm run build`! This runs the build AND the post-build indexing script (`index:content`) required for search functionality.
+     Make sure to set the build command to   npm run build
+   # Note: Search indexing happens automatically during build via generate-search-index.mjs AND the post-build indexing script (`index:content`) required for search functionality.
    </Callout>
 
 5. **Save and Deploy**
@@ -71,14 +72,14 @@ You can also deploy directly from your terminal.
 
 ## Search Indexing
 
-The project uses **Pagefind** for search. This requires a post-build step to index your content.
+The project uses **Fuse.js** for search. This requires a build-time step to generate the content index.
 
 The `build` script in `package.json` handles this automatically:
 
 ```json
 "scripts": {
   "build": "astro build && pnpm run index:content",
-  "index:content": "pagefind --site dist"
+  "index:content": "node scripts/generate-search-index.mjs"
 }
 ```
 

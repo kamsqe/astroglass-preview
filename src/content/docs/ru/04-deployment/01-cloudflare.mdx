@@ -71,14 +71,14 @@ import Callout from '../../../../components/mdx/Callout.astro';
 
 ## Индексация поиска
 
-Проект использует **Pagefind** для поиска. Это требует этапа пост-сборки для индексации вашего контента.
+Проект использует **Fuse.js** для поиска. Это требует этапа генерации индекса контента во время сборки.
 
 Скрипт `build` в `package.json` обрабатывает это автоматически:
 
 ```json
 "scripts": {
   "build": "astro build && pnpm run index:content",
-  "index:content": "pagefind --site dist"
+  "index:content": "node scripts/generate-search-index.mjs"
 }
 ```
 

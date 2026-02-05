@@ -1102,9 +1102,9 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
       recentSection.classList.remove('hidden');
       recentList.innerHTML = recent.map(function(q) {
-        return '<button class="recent-item" data-query="' + q + '">' +
-          '<svg class="recent-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' + 
-          '<span class="recent-text">' + q + '</span>' +
+        return '<button class="recent-item" data-query="' + q + '" style="display:flex;align-items:center;gap:12px;padding:8px 12px;width:100%;background:transparent;border:none;cursor:pointer;text-align:left;">' +
+          '<svg class="recent-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16" style="width:16px;height:16px;opacity:0.5;flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' + 
+          '<span class="recent-text" style="font-size:13px;font-weight:500;color:currentColor;">' + q + '</span>' +
           '</button>';
       }).join('');
 
@@ -1251,8 +1251,8 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
           var badge = score < 0.15 ? '<span class="search-item-badge">Best Match</span>' : '';
           var snippet = extractSnippet(r.item.content || r.item.description, query);
           
-          html += '<a href="' + r.item.url + '?q=' + encodeURIComponent(query) + '" class="search-item ' + (isSelected ? 'selected' : '') + '" data-idx="' + globalIndex + '" style="animation-delay: ' + (globalIndex * 40) + 'ms">';
-          html += '<div class="search-item-icon">' + r.item.sectionIcon + '</div>';
+          html += '<a href="' + r.item.url + '?q=' + encodeURIComponent(query) + '" class="search-item ' + (isSelected ? 'selected' : '') + '" data-idx="' + globalIndex + '" style="animation-delay: ' + (globalIndex * 40) + 'ms; display:flex; gap:12px; padding:12px 14px; align-items:flex-start;">';
+          html += '<div class="search-item-icon" style="flex-shrink:0;">' + r.item.sectionIcon + '</div>';
           html += '<div class="search-item-content">';
           html += '<span class="search-item-title">' + r.item.title + '</span>';
           html += '<div class="search-item-snippet">' + snippet + '</div>';

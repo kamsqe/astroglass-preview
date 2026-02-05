@@ -1,8 +1,7 @@
 ---
 /**
  * Docs Search Trigger
- * Simple button that opens the CommandPalette.
- * The actual search is handled by CommandPalette.
+ * Button that opens the Command Palette search dialog
  */
 import { useTranslations } from '../../utils/i18n';
 
@@ -17,29 +16,103 @@ const t = useTranslations(locale);
 <button
   type="button"
   id="docs-search-trigger"
-  class="flex items-center gap-2 px-3 py-2 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-base-content/40 text-sm hover:border-accent/30 hover:text-accent transition-all duration-300 w-full"
+  class="search-trigger group"
   aria-label="Search documentation"
 >
-  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <svg class="search-trigger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
   </svg>
-  <span class="flex-1 text-left">{t('docs.searchDocs') || 'Search docs...'}</span>
-  <kbd class="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-base-content/5 text-[10px] font-mono">⌘K</kbd>
+  <span class="search-trigger-text">{t('docs.searchDocs') || 'Search...'}</span>
+  <kbd class="search-trigger-kbd">⌘K</kbd>
 </button>
+
+<style>
+  .search-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: hsl(var(--bc) / 0.03);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    color: hsl(var(--bc));
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .search-trigger:hover {
+    background: hsl(var(--bc) / 0.05);
+    border-color: hsl(var(--a) / 0.2);
+  }
+  
+  .search-trigger:focus-visible {
+    outline: none;
+    border-color: hsl(var(--a) / 0.5);
+    box-shadow: 0 0 0 3px hsl(var(--a) / 0.1);
+  }
+
+  .search-trigger-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.4;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+
+  .search-trigger:hover .search-trigger-icon {
+    opacity: 0.6;
+  }
+
+  .search-trigger-text {
+    flex: 1;
+    text-align: left;
+    font-size: 13px;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+
+  .search-trigger:hover .search-trigger-text {
+    opacity: 0.7;
+  }
+
+  .search-trigger-kbd {
+    font-size: 10px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: hsl(var(--bc) / 0.05);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    color: hsl(var(--bc) / 0.45);
+    opacity: 0.8;
+    transition: opacity 0.15s;
+  }
+
+  .search-trigger:hover .search-trigger-kbd {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .search-trigger-kbd {
+      display: none;
+    }
+  }
+</style>
 
 <script is:inline>
   (function() {
     function init() {
-      const trigger = document.getElementById('docs-search-trigger');
-      const backdrop = document.getElementById('command-palette-backdrop');
-      const palette = document.getElementById('command-palette');
-      const input = document.getElementById('command-palette-input');
+      var trigger = document.getElementById('docs-search-trigger');
+      var overlay = document.getElementById('search-overlay');
+      var dialog = document.getElementById('search-dialog');
+      var input = document.getElementById('search-input');
       
-      if (!trigger || !palette) return;
+      if (!trigger || !dialog) return;
 
-      trigger.addEventListener('click', () => {
-        if (backdrop) backdrop.classList.add('is-open');
-        palette.classList.add('is-open');
+      trigger.addEventListener('click', function() {
+        if (overlay) overlay.classList.add('is-open');
+        dialog.classList.add('is-open');
         if (input) input.focus();
         document.body.style.overflow = 'hidden';
       });

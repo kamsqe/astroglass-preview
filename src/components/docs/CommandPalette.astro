@@ -3,8 +3,7 @@
  * Command Palette Component
  * 
  * Premium keyboard-activated search overlay (⌘K / Ctrl+K).
- * Scoped to documentation content only via Pagefind filtering.
- * Theme-aware styling for all color modes.
+ * Clean, minimal design inspired by Spotlight/Raycast.
  */
 import { useTranslations } from '../../utils/i18n';
 
@@ -17,514 +16,420 @@ const t = useTranslations(locale as 'en' | 'ru');
 ---
 
 <!-- Backdrop -->
-<div id="command-palette-backdrop" class="cmd-backdrop"></div>
+<div id="search-backdrop" class="search-backdrop"></div>
 
-<!-- Palette -->
-<div id="command-palette" class="cmd-palette" role="dialog" aria-modal="true" aria-label="Search documentation">
-  <div class="cmd-header">
-    <div class="cmd-search-row">
-      <svg class="cmd-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-      <input 
-        type="text" 
-        id="command-palette-input"
-        class="cmd-input" 
-        placeholder={t('docs.searchPlaceholder') || 'Search documentation...'}
-        autocomplete="off"
-        autocapitalize="off"
-        spellcheck="false"
-      />
-      <kbd class="cmd-kbd">ESC</kbd>
+<!-- Search Modal -->
+<div id="search-modal" class="search-modal" role="dialog" aria-modal="true">
+  <!-- Search Input -->
+  <div class="search-header">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input 
+      type="text" 
+      id="search-input"
+      class="search-field" 
+      placeholder={t('docs.searchPlaceholder') || 'Search docs...'}
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div class="search-hint">
+      <kbd>esc</kbd>
     </div>
   </div>
   
-  <div id="command-palette-results" class="cmd-body">
-    <div class="cmd-empty-state">
-      <div class="cmd-empty-icon">🔍</div>
-      <p class="cmd-empty-title">{t('docs.typeToSearch') || 'Type to search documentation'}</p>
-      <div class="cmd-empty-shortcuts">
-        <span class="cmd-shortcut"><kbd>⌘K</kbd> open</span>
-        <span class="cmd-shortcut"><kbd>↑↓</kbd> navigate</span>
-        <span class="cmd-shortcut"><kbd>↵</kbd> select</span>
+  <!-- Results -->
+  <div id="search-body" class="search-body">
+    <div class="search-empty">
+      <span class="search-empty-hint">Start typing to search</span>
+      <div class="search-shortcuts">
+        <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* ===== BACKDROP ===== */
-  .cmd-backdrop {
+  /* Backdrop */
+  .search-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease;
+    transition: opacity 0.15s ease;
   }
-  .cmd-backdrop.is-open {
+  .search-backdrop.active {
     opacity: 1;
     visibility: visible;
   }
 
-  /* ===== MODAL ===== */
-  .cmd-palette {
+  /* Modal */
+  .search-modal {
     position: fixed;
-    top: 12%;
+    top: 20%;
     left: 50%;
-    transform: translateX(-50%) translateY(-12px) scale(0.96);
-    width: calc(100% - 32px);
-    max-width: 560px;
+    transform: translateX(-50%) scale(0.95);
+    width: min(520px, calc(100vw - 40px));
     background: hsl(var(--b1));
-    border: 1px solid hsl(var(--bc) / 0.12);
-    border-radius: 16px;
-    box-shadow: 
-      0 24px 48px -12px rgba(0, 0, 0, 0.4),
-      0 0 0 1px hsl(var(--bc) / 0.05);
+    border: 1px solid hsl(var(--bc) / 0.15);
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     z-index: 9999;
-    overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: all 0.15s ease;
+    overflow: hidden;
   }
-  .cmd-palette.is-open {
+  .search-modal.active {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateX(-50%) scale(1);
   }
 
-  /* ===== HEADER ===== */
-  .cmd-header {
-    padding: 14px 18px;
-    border-bottom: 1px solid hsl(var(--bc) / 0.1);
-  }
-  .cmd-search-row {
+  /* Header */
+  .search-header {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.1);
   }
-  .cmd-icon {
-    width: 20px;
-    height: 20px;
+  .search-icon {
+    width: 18px;
+    height: 18px;
     color: hsl(var(--bc) / 0.4);
     flex-shrink: 0;
   }
-  .cmd-input {
+  .search-field {
     flex: 1;
+    background: none;
     border: none;
-    background: transparent;
-    font-size: 16px;
-    font-weight: 500;
     outline: none;
+    font-size: 15px;
     color: hsl(var(--bc));
-    min-width: 0;
   }
-  .cmd-input::placeholder {
+  .search-field::placeholder {
     color: hsl(var(--bc) / 0.4);
-    font-weight: 400;
   }
-  .cmd-kbd {
-    font-size: 10px;
-    padding: 4px 8px;
+  .search-hint kbd {
+    font-size: 11px;
+    font-family: system-ui, sans-serif;
+    padding: 3px 8px;
     background: hsl(var(--bc) / 0.08);
-    border: 1px solid hsl(var(--bc) / 0.1);
-    border-radius: 5px;
-    font-family: ui-monospace, SFMono-Regular, monospace;
-    font-weight: 600;
+    border-radius: 4px;
     color: hsl(var(--bc) / 0.5);
-    flex-shrink: 0;
+    text-transform: uppercase;
+    font-weight: 500;
   }
 
-  /* ===== BODY ===== */
-  .cmd-body {
-    max-height: 380px;
+  /* Body */
+  .search-body {
+    max-height: 320px;
     overflow-y: auto;
   }
 
-  /* ===== EMPTY STATE ===== */
-  .cmd-empty-state {
-    padding: 40px 24px;
+  /* Empty State */
+  .search-empty {
+    padding: 32px 20px;
     text-align: center;
   }
-  .cmd-empty-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
-    opacity: 0.4;
-  }
-  .cmd-empty-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: hsl(var(--bc) / 0.5);
+  .search-empty-hint {
+    display: block;
+    font-size: 13px;
+    color: hsl(var(--bc) / 0.4);
     margin-bottom: 16px;
   }
-  .cmd-empty-shortcuts {
+  .search-shortcuts {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 12px;
+    color: hsl(var(--bc) / 0.35);
   }
-  .cmd-shortcut {
-    display: inline-flex;
+  .search-shortcuts span {
+    display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: hsl(var(--bc) / 0.4);
+    gap: 4px;
   }
-  .cmd-shortcut kbd {
+  .search-shortcuts kbd {
     font-size: 10px;
-    padding: 2px 6px;
+    padding: 2px 5px;
     background: hsl(var(--bc) / 0.06);
-    border: 1px solid hsl(var(--bc) / 0.1);
-    border-radius: 4px;
-    font-family: ui-monospace, SFMono-Regular, monospace;
-    font-weight: 600;
-    color: hsl(var(--bc) / 0.5);
+    border-radius: 3px;
+    font-family: system-ui;
   }
 
-  /* ===== LOADING ===== */
-  .cmd-loading {
-    padding: 40px 24px;
+  /* Loading */
+  .search-loading {
+    padding: 32px;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  /* ===== NO RESULTS ===== */
-  .cmd-no-results {
-    padding: 40px 24px;
+  /* No Results */
+  .search-no-results {
+    padding: 32px 20px;
     text-align: center;
-  }
-  .cmd-no-results-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-    opacity: 0.4;
-  }
-  .cmd-no-results-text {
-    font-size: 14px;
-    color: hsl(var(--bc) / 0.45);
+    font-size: 13px;
+    color: hsl(var(--bc) / 0.4);
   }
 
-  /* ===== RESULTS LIST ===== */
-  .cmd-results-list {
-    padding: 8px;
+  /* Results */
+  .search-results {
+    padding: 6px;
   }
-
-  /* ===== RESULT ITEM ===== */
-  .cmd-result {
-    display: block;
-    padding: 12px 14px;
-    margin-bottom: 4px;
-    border-radius: 10px;
+  .search-result {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    margin-bottom: 2px;
+    border-radius: 8px;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.15s ease;
-    border: 1px solid transparent;
+    transition: background 0.1s ease;
   }
-  .cmd-result:last-child {
-    margin-bottom: 0;
+  .search-result:hover,
+  .search-result[data-selected="true"] {
+    background: hsl(var(--a) / 0.1);
   }
-  .cmd-result:hover,
-  .cmd-result.is-selected {
-    background: hsl(var(--a) / 0.08);
-    border-color: hsl(var(--a) / 0.15);
-  }
-  .cmd-result-title {
-    display: block;
-    font-size: 14px;
+  .search-result-title {
+    font-size: 13px;
     font-weight: 600;
     color: hsl(var(--bc));
-    margin-bottom: 4px;
     line-height: 1.3;
   }
-  .cmd-result:hover .cmd-result-title,
-  .cmd-result.is-selected .cmd-result-title {
+  .search-result:hover .search-result-title,
+  .search-result[data-selected="true"] .search-result-title {
     color: hsl(var(--a));
   }
-  .cmd-result-excerpt {
-    display: block;
+  .search-result-snippet {
     font-size: 12px;
-    color: hsl(var(--bc) / 0.55);
-    line-height: 1.5;
+    color: hsl(var(--bc) / 0.5);
+    line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .cmd-result-excerpt :global(mark) {
-    background: hsl(var(--a) / 0.2);
-    color: hsl(var(--a));
-    padding: 1px 4px;
-    border-radius: 3px;
-    font-weight: 600;
+  .search-result-snippet :global(mark) {
+    background: hsl(var(--wa) / 0.3);
+    color: inherit;
+    padding: 0 2px;
+    border-radius: 2px;
   }
-  .cmd-result-path {
-    display: block;
+  .search-result-path {
     font-size: 10px;
-    color: hsl(var(--bc) / 0.35);
-    font-family: ui-monospace, SFMono-Regular, monospace;
-    margin-top: 6px;
+    color: hsl(var(--bc) / 0.3);
+    font-family: ui-monospace, monospace;
+    margin-top: 2px;
   }
 </style>
 
 <script>
   let pagefind: any = null;
-  let selectedIdx = 0;
-  let searchResults: any[] = [];
+  let results: any[] = [];
+  let selectedIndex = 0;
 
-  function initCommandPalette() {
-    const backdrop = document.getElementById('command-palette-backdrop');
-    const modal = document.getElementById('command-palette');
-    const input = document.getElementById('command-palette-input') as HTMLInputElement;
-    const body = document.getElementById('command-palette-results');
+  function init() {
+    const backdrop = document.getElementById('search-backdrop');
+    const modal = document.getElementById('search-modal');
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const body = document.getElementById('search-body');
 
     if (!backdrop || !modal || !input || !body) return;
 
-    // Load Pagefind at runtime
+    // Load Pagefind
     (async () => {
       try {
-        const path = '/pagefind/pagefind.js';
-        pagefind = await (new Function(`return import("${path}")`))();
+        pagefind = await (new Function(`return import("/pagefind/pagefind.js")`))();
         await pagefind.init();
       } catch (e) {
-        console.warn('Pagefind unavailable');
+        console.warn('Pagefind not available');
       }
     })();
 
-    function showEmpty() {
+    const showEmpty = () => {
       body.innerHTML = `
-        <div class="cmd-empty-state">
-          <div class="cmd-empty-icon">🔍</div>
-          <p class="cmd-empty-title">Type to search documentation</p>
-          <div class="cmd-empty-shortcuts">
-            <span class="cmd-shortcut"><kbd>⌘K</kbd> open</span>
-            <span class="cmd-shortcut"><kbd>↑↓</kbd> navigate</span>
-            <span class="cmd-shortcut"><kbd>↵</kbd> select</span>
+        <div class="search-empty">
+          <span class="search-empty-hint">Start typing to search</span>
+          <div class="search-shortcuts">
+            <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
+            <span><kbd>↵</kbd> to select</span>
           </div>
         </div>
       `;
-    }
+    };
 
-    function openModal() {
-      backdrop.classList.add('is-open');
-      modal.classList.add('is-open');
-      input.focus();
-      document.body.style.overflow = 'hidden';
-      showEmpty();
-    }
-
-    function closeModal() {
-      backdrop.classList.remove('is-open');
-      modal.classList.remove('is-open');
+    const open = () => {
+      backdrop.classList.add('active');
+      modal.classList.add('active');
       input.value = '';
-      selectedIdx = 0;
-      searchResults = [];
-      document.body.style.overflow = '';
-    }
+      input.focus();
+      showEmpty();
+      document.body.style.overflow = 'hidden';
+    };
 
-    function renderResults() {
-      if (searchResults.length === 0) {
-        body.innerHTML = `
-          <div class="cmd-no-results">
-            <div class="cmd-no-results-icon">😕</div>
-            <p class="cmd-no-results-text">No results found</p>
-          </div>
-        `;
+    const close = () => {
+      backdrop.classList.remove('active');
+      modal.classList.remove('active');
+      results = [];
+      selectedIndex = 0;
+      document.body.style.overflow = '';
+    };
+
+    const render = () => {
+      if (results.length === 0) {
+        body.innerHTML = `<div class="search-no-results">No results found</div>`;
         return;
       }
 
-      body.innerHTML = `<div class="cmd-results-list">` + searchResults.map((r, i) => {
+      body.innerHTML = `<div class="search-results">${results.map((r, i) => {
         const title = r.meta?.title || 'Untitled';
-        const excerpt = r.excerpt || '';
+        const snippet = r.excerpt || '';
         const path = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
-        
         return `
-          <a href="${path}?q=${encodeURIComponent(input.value)}" 
-             class="cmd-result ${i === selectedIdx ? 'is-selected' : ''}" 
-             data-i="${i}">
-            <span class="cmd-result-title">${title}</span>
-            ${excerpt ? `<span class="cmd-result-excerpt">${excerpt}</span>` : ''}
-            <span class="cmd-result-path">${path}</span>
+          <a href="${path}#search-target" 
+             class="search-result" 
+             data-selected="${i === selectedIndex}"
+             data-index="${i}">
+            <span class="search-result-title">${title}</span>
+            ${snippet ? `<span class="search-result-snippet">${snippet}</span>` : ''}
+            <span class="search-result-path">${path}</span>
           </a>
         `;
-      }).join('') + `</div>`;
+      }).join('')}</div>`;
 
-      body.querySelectorAll('.cmd-result').forEach(el => {
-        el.addEventListener('click', closeModal);
+      body.querySelectorAll('.search-result').forEach(el => {
+        el.addEventListener('click', (e) => {
+          close();
+        });
       });
-    }
+    };
 
-    // Search handler
-    let t: any;
+    // Search
+    let timeout: any;
     input.addEventListener('input', () => {
-      clearTimeout(t);
+      clearTimeout(timeout);
       const q = input.value.trim();
       
       if (!q || q.length < 2) {
-        searchResults = [];
+        results = [];
         showEmpty();
         return;
       }
 
       if (!pagefind) return;
 
-      t = setTimeout(async () => {
-        body.innerHTML = `<div class="cmd-loading">Searching...</div>`;
+      timeout = setTimeout(async () => {
+        body.innerHTML = `<div class="search-loading">Searching...</div>`;
         
         try {
           const search = await pagefind.search(q);
-          const all = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
-          searchResults = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 6);
-          selectedIdx = 0;
-          renderResults();
+          const data = await Promise.all(search.results.slice(0, 8).map((r: any) => r.data()));
+          results = data.filter((r: any) => r.url.includes('/docs/')).slice(0, 5);
+          selectedIndex = 0;
+          render();
         } catch (e) {
-          body.innerHTML = `<div class="cmd-no-results">Search error</div>`;
+          body.innerHTML = `<div class="search-no-results">Search error</div>`;
         }
-      }, 100);
+      }, 80);
     });
 
     // Keyboard
     input.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        selectedIdx = Math.min(selectedIdx + 1, searchResults.length - 1);
-        renderResults();
+        selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+        render();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        selectedIdx = Math.max(selectedIdx - 1, 0);
-        renderResults();
-      } else if (e.key === 'Enter' && searchResults[selectedIdx]) {
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        render();
+      } else if (e.key === 'Enter' && results[selectedIndex]) {
         e.preventDefault();
-        const path = searchResults[selectedIdx].url.replace(/\.html$/, '').replace(/\/index$/, '');
-        window.location.href = `${path}?q=${encodeURIComponent(input.value)}`;
-        closeModal();
+        const url = results[selectedIndex].url.replace(/\.html$/, '').replace(/\/index$/, '');
+        window.location.href = `${url}#search-target`;
+        close();
       } else if (e.key === 'Escape') {
-        closeModal();
+        close();
       }
     });
 
-    backdrop.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', close);
 
     // Global shortcuts
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        openModal();
+        open();
       }
       if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
         e.preventDefault();
-        openModal();
+        open();
       }
     });
 
     showEmpty();
   }
 
-  // Highlight search terms with animation on page load
-  function highlightSearchTerms() {
-    const params = new URLSearchParams(window.location.search);
-    const q = params.get('q');
+  // Section highlight on navigation
+  function highlightSection() {
+    if (window.location.hash !== '#search-target') return;
     
-    if (!q || q.length < 2) return;
-    
-    const terms = q.toLowerCase().split(/\s+/).filter(t => t.length >= 2);
-    if (terms.length === 0) return;
-    
+    // Find the main content area
     const content = document.querySelector('[data-pagefind-body]');
     if (!content) return;
     
-    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
-    const nodes: Text[] = [];
-    
-    while (walker.nextNode()) {
-      const node = walker.currentNode as Text;
-      const txt = node.textContent?.toLowerCase() || '';
-      if (terms.some(t => txt.includes(t))) {
-        nodes.push(node);
-      }
-    }
-    
-    let firstMark: HTMLElement | null = null;
-    
-    nodes.forEach(node => {
-      let html = node.textContent || '';
-      let matched = false;
+    // Pulse the article header (title area) as visual feedback
+    const header = content.querySelector('header');
+    if (header) {
+      header.classList.add('search-section-pulse');
       
-      terms.forEach(term => {
-        const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const re = new RegExp(`(${escaped})`, 'gi');
-        if (re.test(html)) {
-          matched = true;
-          html = html.replace(re, '<mark class="search-match">$1</mark>');
-        }
-      });
-      
-      if (matched) {
-        const span = document.createElement('span');
-        span.innerHTML = html;
-        node.parentNode?.replaceChild(span, node);
-        if (!firstMark) firstMark = span.querySelector('mark');
-      }
-    });
-    
-    // Scroll and animate
-    if (firstMark) {
+      // Scroll to top of content
       setTimeout(() => {
-        const y = firstMark!.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 100);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
       
-      // Add pulse animation
+      // Remove after animation
       setTimeout(() => {
-        document.querySelectorAll('.search-match').forEach(el => {
-          el.classList.add('search-match-pulse');
-        });
-      }, 400);
-      
-      // Remove pulse after animation
-      setTimeout(() => {
-        document.querySelectorAll('.search-match-pulse').forEach(el => {
-          el.classList.remove('search-match-pulse');
-        });
-      }, 2500);
+        header.classList.remove('search-section-pulse');
+      }, 1200);
     }
     
     // Clean URL
-    window.history.replaceState({}, '', window.location.pathname);
+    history.replaceState(null, '', window.location.pathname);
   }
 
-  initCommandPalette();
-  highlightSearchTerms();
+  init();
+  highlightSection();
   
   document.addEventListener('astro:after-swap', () => {
-    initCommandPalette();
-    highlightSearchTerms();
+    init();
+    highlightSection();
   });
 </script>
 
 <style is:global>
-  /* Search highlight on page */
-  .search-match {
-    background: hsl(var(--a) / 0.2);
-    color: hsl(var(--a));
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 600;
+  /* Section pulse animation */
+  .search-section-pulse {
+    animation: sectionPulse 1s ease-out;
+    border-radius: 12px;
   }
   
-  .search-match-pulse {
-    animation: matchPulse 2s ease-out;
-  }
-  
-  @keyframes matchPulse {
-    0% { 
-      background: hsl(var(--a) / 0.6);
-      box-shadow: 0 0 0 6px hsl(var(--a) / 0.25);
+  @keyframes sectionPulse {
+    0% {
+      background: hsl(var(--a) / 0.15);
+      box-shadow: 0 0 0 4px hsl(var(--a) / 0.2);
     }
-    100% { 
-      background: hsl(var(--a) / 0.2);
+    100% {
+      background: transparent;
       box-shadow: 0 0 0 0 hsl(var(--a) / 0);
     }
   }

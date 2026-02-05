@@ -4,13 +4,13 @@
   "cta": "Исследовать компоненты",
   "secondaryCta": "Посмотреть на GitHub",
   "liveBadge": "v5.0 доступна",
-  "digitalExperience": "Цифровой Опыт",
+  "digitalExperience": "Цифровое Впечатление",
   "watchReel": "Смотреть в действии",
   "glassCard": {
     "title": "Liquid Компоненты",
     "desc": "Прекрасно созданные блоки для премиальных цифровых интерфейсов."
   },
-  "visionary": "Визионерский Дизайн",
+  "visionary": "Инновационный Дизайн",
   "trustedBy": "Нам доверяют",
   "scrollToExplore": "Листайте вниз",
   "tryItNow": "Попробуйте сейчас",
@@ -19,7 +19,7 @@
   "viewFullDemo": "Полное демо",
   "faster": "БЫСТРЕЕ.",
   "buildFaster": "Создавайте быстрее.",
-  "shippingVelocity": "В 10 раз быстрее",
+  "shippingVelocity": "Ускорьте запуск в 10 раз",
   "readyToBuild": "Готовы создавать?",
   "askLeaders": "Спросите у Stripe, Linear, Vercel."
 }

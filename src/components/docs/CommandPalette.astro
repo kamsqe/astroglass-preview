@@ -1,9 +1,8 @@
 ---
 /**
- * Command Palette Component
+ * Command Palette - Search Component
  * 
- * Premium keyboard-activated search overlay (⌘K / Ctrl+K).
- * Clean, minimal design inspired by Spotlight/Raycast.
+ * Clean, minimal search with proper scroll-to-section and pulse highlight.
  */
 import { useTranslations } from '../../utils/i18n';
 
@@ -15,422 +14,411 @@ const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'ru');
 ---
 
-<!-- Backdrop -->
-<div id="search-backdrop" class="search-backdrop"></div>
+<!-- Overlay -->
+<div id="cmd-overlay"></div>
 
-<!-- Search Modal -->
-<div id="search-modal" class="search-modal" role="dialog" aria-modal="true">
-  <!-- Search Input -->
-  <div class="search-header">
-    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"/>
-      <path d="m21 21-4.35-4.35"/>
+<!-- Modal -->
+<div id="cmd-modal" aria-modal="true">
+  <div class="cmd-search-box">
+    <svg class="cmd-search-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
     </svg>
     <input 
-      type="text" 
-      id="search-input"
-      class="search-field" 
-      placeholder={t('docs.searchPlaceholder') || 'Search docs...'}
+      id="cmd-input"
+      type="text"
+      placeholder="Search documentation..."
       autocomplete="off"
+      autocapitalize="off"
       spellcheck="false"
     />
-    <div class="search-hint">
-      <kbd>esc</kbd>
-    </div>
+    <kbd class="cmd-esc">ESC</kbd>
   </div>
-  
-  <!-- Results -->
-  <div id="search-body" class="search-body">
-    <div class="search-empty">
-      <span class="search-empty-hint">Start typing to search</span>
-      <div class="search-shortcuts">
-        <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
-        <span><kbd>↵</kbd> to select</span>
+  <div id="cmd-content">
+    <div class="cmd-placeholder">
+      <p>Type to search</p>
+      <div class="cmd-keys">
+        <span><kbd>↑↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Open</span>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* Backdrop */
-  .search-backdrop {
+  #cmd-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 9998;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    z-index: 9000;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.15s ease;
+    pointer-events: none;
+    transition: opacity 0.2s;
   }
-  .search-backdrop.active {
+  #cmd-overlay.open {
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
   }
 
-  /* Modal */
-  .search-modal {
+  #cmd-modal {
     position: fixed;
-    top: 20%;
+    top: 15%;
     left: 50%;
-    transform: translateX(-50%) scale(0.95);
-    width: min(520px, calc(100vw - 40px));
+    transform: translateX(-50%) translateY(-10px);
+    width: 500px;
+    max-width: calc(100vw - 32px);
     background: hsl(var(--b1));
-    border: 1px solid hsl(var(--bc) / 0.15);
-    border-radius: 12px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px hsl(var(--bc) / 0.1);
+    z-index: 9001;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.15s ease;
+    pointer-events: none;
+    transition: all 0.2s ease;
     overflow: hidden;
   }
-  .search-modal.active {
+  #cmd-modal.open {
     opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
   }
 
-  /* Header */
-  .search-header {
+  .cmd-search-box {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px;
+    gap: 10px;
+    padding: 14px 16px;
     border-bottom: 1px solid hsl(var(--bc) / 0.1);
   }
-  .search-icon {
-    width: 18px;
-    height: 18px;
+  .cmd-search-icon {
+    width: 16px;
+    height: 16px;
     color: hsl(var(--bc) / 0.4);
     flex-shrink: 0;
   }
-  .search-field {
+  #cmd-input {
     flex: 1;
-    background: none;
     border: none;
-    outline: none;
+    background: transparent;
     font-size: 15px;
+    font-weight: 500;
     color: hsl(var(--bc));
+    outline: none;
   }
-  .search-field::placeholder {
+  #cmd-input::placeholder {
+    color: hsl(var(--bc) / 0.35);
+    font-weight: 400;
+  }
+  .cmd-esc {
+    font-size: 10px;
+    padding: 4px 8px;
+    background: hsl(var(--bc) / 0.07);
+    border-radius: 5px;
     color: hsl(var(--bc) / 0.4);
-  }
-  .search-hint kbd {
-    font-size: 11px;
     font-family: system-ui, sans-serif;
-    padding: 3px 8px;
-    background: hsl(var(--bc) / 0.08);
-    border-radius: 4px;
-    color: hsl(var(--bc) / 0.5);
-    text-transform: uppercase;
     font-weight: 500;
   }
 
-  /* Body */
-  .search-body {
-    max-height: 320px;
+  #cmd-content {
+    max-height: 300px;
     overflow-y: auto;
   }
 
-  /* Empty State */
-  .search-empty {
-    padding: 32px 20px;
+  .cmd-placeholder {
+    padding: 28px 16px;
     text-align: center;
   }
-  .search-empty-hint {
-    display: block;
+  .cmd-placeholder p {
     font-size: 13px;
     color: hsl(var(--bc) / 0.4);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
-  .search-shortcuts {
+  .cmd-keys {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    font-size: 12px;
-    color: hsl(var(--bc) / 0.35);
+    gap: 16px;
+    font-size: 11px;
+    color: hsl(var(--bc) / 0.3);
   }
-  .search-shortcuts span {
+  .cmd-keys span {
     display: flex;
     align-items: center;
     gap: 4px;
   }
-  .search-shortcuts kbd {
+  .cmd-keys kbd {
     font-size: 10px;
     padding: 2px 5px;
-    background: hsl(var(--bc) / 0.06);
+    background: hsl(var(--bc) / 0.05);
     border-radius: 3px;
     font-family: system-ui;
   }
 
-  /* Loading */
-  .search-loading {
-    padding: 32px;
+  .cmd-loading {
+    padding: 28px 16px;
     text-align: center;
     font-size: 13px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  /* No Results */
-  .search-no-results {
-    padding: 32px 20px;
+  .cmd-empty {
+    padding: 28px 16px;
     text-align: center;
     font-size: 13px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  /* Results */
-  .search-results {
+  .cmd-list {
     padding: 6px;
   }
-  .search-result {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  .cmd-link {
+    display: block;
     padding: 10px 12px;
-    margin-bottom: 2px;
     border-radius: 8px;
     text-decoration: none;
-    cursor: pointer;
-    transition: background 0.1s ease;
+    margin-bottom: 2px;
+    transition: background 0.1s;
   }
-  .search-result:hover,
-  .search-result[data-selected="true"] {
+  .cmd-link:last-child {
+    margin-bottom: 0;
+  }
+  .cmd-link:hover,
+  .cmd-link.active {
     background: hsl(var(--a) / 0.1);
   }
-  .search-result-title {
+  .cmd-link-title {
+    display: block;
     font-size: 13px;
     font-weight: 600;
     color: hsl(var(--bc));
-    line-height: 1.3;
+    margin-bottom: 2px;
   }
-  .search-result:hover .search-result-title,
-  .search-result[data-selected="true"] .search-result-title {
+  .cmd-link:hover .cmd-link-title,
+  .cmd-link.active .cmd-link-title {
     color: hsl(var(--a));
   }
-  .search-result-snippet {
-    font-size: 12px;
+  .cmd-link-excerpt {
+    display: block;
+    font-size: 11px;
     color: hsl(var(--bc) / 0.5);
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .search-result-snippet :global(mark) {
-    background: hsl(var(--wa) / 0.3);
+  .cmd-link-excerpt :global(mark) {
+    background: hsl(var(--wa) / 0.35);
     color: inherit;
     padding: 0 2px;
     border-radius: 2px;
-  }
-  .search-result-path {
-    font-size: 10px;
-    color: hsl(var(--bc) / 0.3);
-    font-family: ui-monospace, monospace;
-    margin-top: 2px;
+    font-weight: 500;
   }
 </style>
 
 <script>
-  let pagefind: any = null;
-  let results: any[] = [];
-  let selectedIndex = 0;
+  let pf: any = null;
+  let data: any[] = [];
+  let idx = 0;
 
-  function init() {
-    const backdrop = document.getElementById('search-backdrop');
-    const modal = document.getElementById('search-modal');
-    const input = document.getElementById('search-input') as HTMLInputElement;
-    const body = document.getElementById('search-body');
+  function setup() {
+    const overlay = document.getElementById('cmd-overlay');
+    const modal = document.getElementById('cmd-modal');
+    const input = document.getElementById('cmd-input') as HTMLInputElement;
+    const content = document.getElementById('cmd-content');
+    if (!overlay || !modal || !input || !content) return;
 
-    if (!backdrop || !modal || !input || !body) return;
-
-    // Load Pagefind
+    // Load pagefind
     (async () => {
       try {
-        pagefind = await (new Function(`return import("/pagefind/pagefind.js")`))();
-        await pagefind.init();
-      } catch (e) {
-        console.warn('Pagefind not available');
-      }
+        pf = await (new Function(`return import("/pagefind/pagefind.js")`))();
+        await pf.init();
+      } catch {}
     })();
 
-    const showEmpty = () => {
-      body.innerHTML = `
-        <div class="search-empty">
-          <span class="search-empty-hint">Start typing to search</span>
-          <div class="search-shortcuts">
-            <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
-            <span><kbd>↵</kbd> to select</span>
+    const placeholder = () => {
+      content.innerHTML = `
+        <div class="cmd-placeholder">
+          <p>Type to search</p>
+          <div class="cmd-keys">
+            <span><kbd>↑↓</kbd> Navigate</span>
+            <span><kbd>↵</kbd> Open</span>
           </div>
         </div>
       `;
     };
 
     const open = () => {
-      backdrop.classList.add('active');
-      modal.classList.add('active');
+      overlay.classList.add('open');
+      modal.classList.add('open');
       input.value = '';
       input.focus();
-      showEmpty();
+      placeholder();
       document.body.style.overflow = 'hidden';
     };
 
     const close = () => {
-      backdrop.classList.remove('active');
-      modal.classList.remove('active');
-      results = [];
-      selectedIndex = 0;
+      overlay.classList.remove('open');
+      modal.classList.remove('open');
+      data = [];
+      idx = 0;
       document.body.style.overflow = '';
     };
 
     const render = () => {
-      if (results.length === 0) {
-        body.innerHTML = `<div class="search-no-results">No results found</div>`;
+      if (!data.length) {
+        content.innerHTML = `<div class="cmd-empty">No results</div>`;
         return;
       }
-
-      body.innerHTML = `<div class="search-results">${results.map((r, i) => {
+      const q = encodeURIComponent(input.value.trim());
+      content.innerHTML = `<div class="cmd-list">${data.map((r, i) => {
         const title = r.meta?.title || 'Untitled';
-        const snippet = r.excerpt || '';
-        const path = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
+        const excerpt = (r.excerpt || '').replace(/<[^>]+>/g, '').slice(0, 80);
+        const url = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
         return `
-          <a href="${path}#search-target" 
-             class="search-result" 
-             data-selected="${i === selectedIndex}"
-             data-index="${i}">
-            <span class="search-result-title">${title}</span>
-            ${snippet ? `<span class="search-result-snippet">${snippet}</span>` : ''}
-            <span class="search-result-path">${path}</span>
+          <a href="${url}?hl=${q}" class="cmd-link ${i === idx ? 'active' : ''}" data-i="${i}">
+            <span class="cmd-link-title">${title}</span>
+            <span class="cmd-link-excerpt">${excerpt}...</span>
           </a>
         `;
       }).join('')}</div>`;
-
-      body.querySelectorAll('.search-result').forEach(el => {
-        el.addEventListener('click', (e) => {
-          close();
-        });
-      });
+      content.querySelectorAll('.cmd-link').forEach(el => el.addEventListener('click', close));
     };
 
-    // Search
-    let timeout: any;
+    let t: any;
     input.addEventListener('input', () => {
-      clearTimeout(timeout);
+      clearTimeout(t);
       const q = input.value.trim();
-      
-      if (!q || q.length < 2) {
-        results = [];
-        showEmpty();
-        return;
-      }
-
-      if (!pagefind) return;
-
-      timeout = setTimeout(async () => {
-        body.innerHTML = `<div class="search-loading">Searching...</div>`;
-        
+      if (!q || q.length < 2) { data = []; placeholder(); return; }
+      if (!pf) return;
+      t = setTimeout(async () => {
+        content.innerHTML = `<div class="cmd-loading">Searching...</div>`;
         try {
-          const search = await pagefind.search(q);
-          const data = await Promise.all(search.results.slice(0, 8).map((r: any) => r.data()));
-          results = data.filter((r: any) => r.url.includes('/docs/')).slice(0, 5);
-          selectedIndex = 0;
+          const res = await pf.search(q);
+          const all = await Promise.all(res.results.slice(0, 8).map((r: any) => r.data()));
+          data = all.filter((r: any) => r.url.includes('/docs/')).slice(0, 5);
+          idx = 0;
           render();
-        } catch (e) {
-          body.innerHTML = `<div class="search-no-results">Search error</div>`;
+        } catch {
+          content.innerHTML = `<div class="cmd-empty">Error</div>`;
         }
-      }, 80);
+      }, 100);
     });
 
-    // Keyboard
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown') { e.preventDefault(); idx = Math.min(idx + 1, data.length - 1); render(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); idx = Math.max(idx - 1, 0); render(); }
+      else if (e.key === 'Enter' && data[idx]) {
         e.preventDefault();
-        selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
-        render();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        selectedIndex = Math.max(selectedIndex - 1, 0);
-        render();
-      } else if (e.key === 'Enter' && results[selectedIndex]) {
-        e.preventDefault();
-        const url = results[selectedIndex].url.replace(/\.html$/, '').replace(/\/index$/, '');
-        window.location.href = `${url}#search-target`;
-        close();
-      } else if (e.key === 'Escape') {
+        const url = data[idx].url.replace(/\.html$/, '').replace(/\/index$/, '');
+        window.location.href = `${url}?hl=${encodeURIComponent(input.value.trim())}`;
         close();
       }
+      else if (e.key === 'Escape') close();
     });
 
-    backdrop.addEventListener('click', close);
+    overlay.addEventListener('click', close);
 
-    // Global shortcuts
     document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        open();
-      }
-      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
-        e.preventDefault();
-        open();
-      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); open(); }
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) { e.preventDefault(); open(); }
     });
 
-    showEmpty();
+    placeholder();
   }
 
-  // Section highlight on navigation
-  function highlightSection() {
-    if (window.location.hash !== '#search-target') return;
+  // Highlight & scroll to matched section
+  function highlight() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('hl');
+    if (!q || q.length < 2) return;
+
+    const body = document.querySelector('[data-pagefind-body]');
+    if (!body) return;
+
+    // Find first text node containing the query
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    let target: Node | null = null;
+    const searchTerm = q.toLowerCase();
     
-    // Find the main content area
-    const content = document.querySelector('[data-pagefind-body]');
-    if (!content) return;
-    
-    // Pulse the article header (title area) as visual feedback
-    const header = content.querySelector('header');
-    if (header) {
-      header.classList.add('search-section-pulse');
-      
-      // Scroll to top of content
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 50);
-      
-      // Remove after animation
-      setTimeout(() => {
-        header.classList.remove('search-section-pulse');
-      }, 1200);
+    while (walker.nextNode()) {
+      const text = walker.currentNode.textContent?.toLowerCase() || '';
+      if (text.includes(searchTerm)) {
+        target = walker.currentNode;
+        break;
+      }
     }
+
+    if (!target) return;
+
+    // Find the closest section (heading or first ancestor with an ID)
+    let section: HTMLElement | null = null;
+    let node = target.parentElement;
     
+    while (node && node !== body) {
+      // Check if this node itself is a heading
+      if (['H1', 'H2', 'H3', 'H4'].includes(node.tagName)) {
+        section = node;
+        break;
+      }
+      // Check if this node has an ID (anchor point)
+      if (node.id) {
+        section = node;
+        break;
+      }
+      // Check if previous sibling is a heading
+      let prev = node.previousElementSibling;
+      while (prev) {
+        if (['H1', 'H2', 'H3', 'H4'].includes(prev.tagName)) {
+          section = prev as HTMLElement;
+          break;
+        }
+        prev = prev.previousElementSibling;
+      }
+      if (section) break;
+      node = node.parentElement;
+    }
+
+    // If no section found, use the target's parent
+    if (!section) {
+      section = target.parentElement;
+    }
+
+    if (!section) return;
+
+    // Scroll to section
+    setTimeout(() => {
+      const y = section!.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 100);
+
+    // Pulse animation
+    setTimeout(() => {
+      section!.classList.add('hl-pulse');
+    }, 400);
+
+    setTimeout(() => {
+      section!.classList.remove('hl-pulse');
+    }, 1800);
+
     // Clean URL
     history.replaceState(null, '', window.location.pathname);
   }
 
-  init();
-  highlightSection();
-  
-  document.addEventListener('astro:after-swap', () => {
-    init();
-    highlightSection();
-  });
+  setup();
+  highlight();
+  document.addEventListener('astro:after-swap', () => { setup(); highlight(); });
 </script>
 
 <style is:global>
-  /* Section pulse animation */
-  .search-section-pulse {
-    animation: sectionPulse 1s ease-out;
-    border-radius: 12px;
+  .hl-pulse {
+    animation: hlPulse 1.2s ease-out;
+    border-radius: 6px;
   }
-  
-  @keyframes sectionPulse {
+  @keyframes hlPulse {
     0% {
-      background: hsl(var(--a) / 0.15);
-      box-shadow: 0 0 0 4px hsl(var(--a) / 0.2);
+      background: hsl(var(--a) / 0.2);
+      box-shadow: 0 0 0 4px hsl(var(--a) / 0.15);
     }
     100% {
       background: transparent;
-      box-shadow: 0 0 0 0 hsl(var(--a) / 0);
+      box-shadow: 0 0 0 0 transparent;
     }
   }
 </style>

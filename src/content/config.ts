@@ -21,6 +21,16 @@ const docsCollection = defineCollection({
     order: z.number().optional(),
     layout: z.enum(['v1', 'v2']).default('v1').optional(),
     draft: z.boolean().default(false),
+    // Version and category for scalable docs
+    version: z.string().optional(),
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    // Metadata
+    lastUpdated: z.coerce.date().optional(),
+    readingTime: z.number().optional(),
+    // Deprecation info
+    deprecated: z.boolean().default(false),
+    since: z.string().optional(),
   }),
 });
 

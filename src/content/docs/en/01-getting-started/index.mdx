@@ -1,0 +1,130 @@
+---
+title: "Getting Started with Templates"
+description: "Learn how to set up and customize your Astro template with themes, internationalization, and cloud deployment."
+order: 1
+layout: v1
+category: guide
+tags: ["getting-started", "setup", "beginner"]
+---
+
+import Callout from '../../../components/mdx/Callout.astro';
+import Steps from '../../../components/mdx/Steps.astro';
+import CodeTabs from '../../../components/mdx/CodeTabs.astro';
+import FileTree from '../../../components/mdx/FileTree.astro';
+
+Welcome to the **Liquid Glass Template**! This guide will walk you through setting up your development environment and customizing the template to fit your needs.
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js** v18 or higher
+- **pnpm** (recommended) or npm
+- A code editor (VS Code recommended)
+
+<Callout type="tip" title="Pro Tip">
+  We recommend using [pnpm](https://pnpm.io/) for faster, disk-efficient package management.
+</Callout>
+
+## Installation
+
+<Steps>
+
+### Clone the Repository
+
+First, clone the template repository to your local machine:
+
+```bash
+git clone https://github.com/your-username/liquid-glass-astro-cloudflare.git
+cd liquid-glass-astro-cloudflare
+```
+
+### Install Dependencies
+
+Install the project dependencies using your preferred package manager:
+
+<CodeTabs labels={['pnpm', 'npm', 'yarn']}>
+```bash
+pnpm install
+```
+```bash
+npm install
+```
+```bash
+yarn install
+```
+</CodeTabs>
+
+### Start the Development Server
+
+Run the development server to see your template in action:
+
+<CodeTabs labels={['pnpm', 'npm', 'yarn']}>
+```bash
+pnpm dev
+```
+```bash
+npm run dev
+```
+```bash
+yarn dev
+```
+</CodeTabs>
+
+</Steps>
+
+Your site should now be running at `http://localhost:4321` 🎉
+
+## Project Structure
+
+Here's an overview of the project's folder structure:
+
+<FileTree>
+- src/
+  - components/
+    - Hero.astro
+    - About.astro
+    - Pricing.astro
+  - config/
+    - themes.ts
+    - locales.ts
+    - docs.ts
+  - content/
+    - docs/
+      - en/
+      - ru/
+  - pages/
+    - index.astro
+    - [theme].astro
+  - styles/
+    - global.css
+- public/
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## Choosing a Theme
+
+The template comes with **5 beautiful themes** out of the box:
+
+| Theme | Description |
+|-------|-------------|
+| **Liquid** | Fluid animations, gradient backgrounds |
+| **Glass** | Glassmorphism effects, frosted panels |
+| **Neo** | Bold typography, strong contrast |
+| **Luxury** | Elegant gold accents, premium feel |
+| **Minimal** | Clean, focused, distraction-free |
+
+To switch themes, simply navigate to the theme switcher in the header or visit the theme demo pages directly.
+
+## Next Steps
+
+Now that you have your development environment set up:
+
+1. [Explore the Themes](/docs/themes) — Learn about each theme's unique features
+2. [Internationalization Guide](/docs/i18n) — Add support for more languages
+3. [Deployment Guide](/docs/deployment) — Deploy to Cloudflare, Vercel, or Netlify
+
+<Callout type="info" title="Need Help?">
+  Check out the [FAQ](/docs/faq) or [open an issue](https://github.com/your-repo/issues) if you run into any problems.
+</Callout>

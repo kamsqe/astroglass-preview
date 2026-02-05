@@ -1,0 +1,194 @@
+---
+title: "Component API Reference"
+description: "Complete API documentation for all template components including props, events, and usage examples."
+order: 1
+layout: v2
+category: api
+tags: ["api", "components", "reference"]
+---
+
+import ApiMethod from '../../../components/mdx/ApiMethod.astro';
+import Badge from '../../../components/mdx/Badge.astro';
+import CodeTabs from '../../../components/mdx/CodeTabs.astro';
+import Callout from '../../../components/mdx/Callout.astro';
+
+This reference documents the public API for all template components. Each component is fully typed with TypeScript and supports internationalization out of the box.
+
+---
+
+## Hero Component
+
+The `Hero` component displays the main hero section of the page with dynamic theming support.
+
+<ApiMethod
+  name="Hero"
+  signature="<Hero version={string} locale={Locale} />"
+  description="Renders a themed hero section with title, subtitle, and call-to-action buttons."
+  params={[
+    { name: 'version', type: 'ThemeId', description: 'Theme variant to render', required: true },
+    { name: 'locale', type: 'Locale', description: 'Current locale for i18n', required: false, default: '"en"' }
+  ]}
+  returns={{ type: 'AstroComponent', description: 'Rendered hero section' }}
+  since="v1.0.0"
+/>
+
+### Usage
+
+```astro
+---
+import Hero from '../components/Hero.astro';
+---
+
+<Hero version="glass" locale="en" />
+```
+
+### Available Versions
+
+| Version | Description |
+|---------|-------------|
+| `liquid` | Fluid gradient animations |
+| `glass` | Glassmorphism with blur effects |
+| `neo` | Bold, high-contrast design |
+| `luxury` | Gold accents, premium styling |
+| `minimal` | Clean, focused layout |
+
+---
+
+## Pricing Component
+
+The `Pricing` component displays pricing tiers with monthly/yearly toggle functionality.
+
+<ApiMethod
+  name="Pricing"
+  signature="<Pricing version={string} locale={Locale} />"
+  description="Renders a pricing section with configurable plans and billing toggle."
+  params={[
+    { name: 'version', type: 'ThemeId', description: 'Theme variant to render', required: true },
+    { name: 'locale', type: 'Locale', description: 'Current locale for i18n', required: false, default: '"en"' }
+  ]}
+  returns={{ type: 'AstroComponent', description: 'Rendered pricing section' }}
+  since="v1.0.0"
+/>
+
+### Usage
+
+```astro
+---
+import Pricing from '../components/Pricing.astro';
+---
+
+<Pricing version="luxury" locale="ru" />
+```
+
+---
+
+## useTranslations <Badge type="new">v1.1</Badge>
+
+The `useTranslations` function returns a translation function for the specified locale.
+
+<ApiMethod
+  name="useTranslations"
+  signature="useTranslations(locale: Locale): (key: string, params?: Record<string, string>) => string"
+  description="Returns a translation function that retrieves localized strings by key path."
+  params={[
+    { name: 'locale', type: 'Locale', description: 'Target locale code (e.g., "en", "ru")', required: true }
+  ]}
+  returns={{ type: '(key: string) => string', description: 'Translation function' }}
+  since="v1.0.0"
+/>
+
+### Usage
+
+```typescript
+import { useTranslations } from '../utils/i18n';
+
+const t = useTranslations('en');
+
+const title = t('hero.title');           // "Welcome"
+const cta = t('hero.primaryCta');         // "Get Started"
+```
+
+### Nested Keys
+
+Translation keys support dot notation for nested values:
+
+```typescript
+const t = useTranslations('ru');
+
+t('pricing.plans.pro.name');  // "Профессиональный"
+t('pricing.plans.pro.price'); // "1999"
+```
+
+---
+
+## buildNavLinks
+
+Builds localized navigation links from the navigation configuration.
+
+<ApiMethod
+  name="buildNavLinks"
+  signature="buildNavLinks(locale: string, t: TranslationFn): NavLink[]"
+  description="Generates navigation links with proper URL prefixes and translated labels."
+  params={[
+    { name: 'locale', type: 'string', description: 'Current locale code', required: true },
+    { name: 't', type: '(key: string) => string', description: 'Translation function', required: true }
+  ]}
+  returns={{ type: 'NavLink[]', description: 'Array of navigation link objects' }}
+  since="v1.0.0"
+/>
+
+### Usage
+
+```typescript
+import { buildNavLinks } from '../config/navigation';
+import { useTranslations } from '../utils/i18n';
+
+const t = useTranslations('ru');
+const navLinks = buildNavLinks('ru', t);
+
+// Result:
+// [
+//   { href: '/ru/', label: 'Главная', ... },
+//   { href: '/ru/about', label: 'О нас', ... },
+//   ...
+// ]
+```
+
+---
+
+## ThemeDefinition <Badge>Type</Badge>
+
+TypeScript interface for theme configuration objects.
+
+```typescript
+interface ThemeDefinition {
+  id: string;          // Unique theme identifier
+  name: string;        // Display name
+  color: string;       // Primary color (Tailwind class)
+  icon: string;        // Emoji icon
+  sections: string[];  // Available section components
+  enabled: boolean;    // Whether theme is enabled
+  premium: boolean;    // Premium-only flag
+}
+```
+
+<Callout type="info" title="Type Exports">
+  All types are exported from `src/config/themes.ts` and can be imported in your TypeScript files.
+</Callout>
+
+---
+
+## LocaleConfig <Badge>Type</Badge>
+
+TypeScript interface for locale configuration objects.
+
+```typescript
+interface LocaleConfig {
+  code: string;         // Locale code (e.g., "en", "ru")
+  name: string;         // English name
+  nativeName: string;   // Native language name
+  flag: string;         // Emoji flag
+  direction: 'ltr' | 'rtl';
+  enabled: boolean;
+}
+```

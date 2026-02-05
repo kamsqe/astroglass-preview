@@ -1,0 +1,137 @@
+---
+/**
+ * Steps Component
+ * 
+ * Numbered step-by-step instructions with visual indicators.
+ * 
+ * Usage in MDX:
+ * <Steps>
+ *   ### Install dependencies
+ *   Run the install command...
+ *   
+ *   ### Configure the project
+ *   Create a config file...
+ *   
+ *   ### Start development
+ *   Run the dev server...
+ * </Steps>
+ */
+
+export interface Props {
+  startFrom?: number;
+}
+
+const { startFrom = 1 } = Astro.props;
+---
+
+<div class="steps-container" data-steps data-start-from={startFrom}>
+  <slot />
+</div>
+
+<style>
+  .steps-container {
+    counter-reset: steps calc(var(--start-from, 1) - 1);
+  }
+
+  .steps-container :global(> h3),
+  .steps-container :global(> h4) {
+    position: relative;
+    padding-left: 3rem;
+    counter-increment: steps;
+  }
+
+  .steps-container :global(> h3::before),
+  .steps-container :global(> h4::before) {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-accent, #3b82f6);
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+  }
+
+  /* Connecting line between steps */
+  .steps-container :global(> h3:not(:last-of-type)::after),
+  .steps-container :global(> h4:not(:last-of-type)::after) {
+    content: '';
+    position: absolute;
+    left: calc(1rem - 1px);
+    top: 2.5rem;
+    width: 2px;
+    height: calc(100% + 1rem);
+    background: rgba(59, 130, 246, 0.2);
+  }
+
+  /* Content after headers */
+  .steps-container :global(> p),
+  .steps-container :global(> ul),
+  .steps-container :global(> ol),
+  .steps-container :global(> pre),
+  .steps-container :global(> div) {
+    margin-left: 3rem;
+    position: relative;
+  }
+
+  /* Add left border to content */
+  .steps-container :global(> p::before),
+  .steps-container :global(> ul::before),
+  .steps-container :global(> ol::before),
+  .steps-container :global(> pre::before),
+  .steps-container :global(> div::before) {
+    content: '';
+    position: absolute;
+    left: calc(-3rem + 1rem - 1px);
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(59, 130, 246, 0.2);
+  }
+
+  /* Last content item before next step */
+  .steps-container :global(> h3 ~ *:last-child::before),
+  .steps-container :global(> h4 ~ *:last-child::before) {
+    height: calc(100% + 1rem);
+  }
+
+  @media (max-width: 640px) {
+    .steps-container :global(> h3),
+    .steps-container :global(> h4) {
+      padding-left: 2.5rem;
+    }
+
+    .steps-container :global(> h3::before),
+    .steps-container :global(> h4::before) {
+      width: 1.75rem;
+      height: 1.75rem;
+      font-size: 0.75rem;
+    }
+
+    .steps-container :global(> p),
+    .steps-container :global(> ul),
+    .steps-container :global(> ol),
+    .steps-container :global(> pre),
+    .steps-container :global(> div) {
+      margin-left: 2.5rem;
+    }
+  }
+</style>
+
+<script>
+  function initSteps() {
+    document.querySelectorAll('[data-steps]').forEach((container) => {
+      const startFrom = parseInt((container as HTMLElement).dataset.startFrom || '1', 10);
+      (container as HTMLElement).style.setProperty('--start-from', String(startFrom));
+    });
+  }
+  
+  initSteps();
+  document.addEventListener('astro:after-swap', initSteps);
+</script>

@@ -1,0 +1,137 @@
+---
+/**
+ * CodeTabs Component
+ * 
+ * Tabbed code blocks for showing the same code in multiple languages
+ * or different implementation approaches.
+ * 
+ * Usage in MDX:
+ * <CodeTabs labels={['npm', 'pnpm', 'yarn']}>
+ *   ```bash
+ *   npm install @astrojs/tailwind
+ *   ```
+ *   ```bash
+ *   pnpm add @astrojs/tailwind
+ *   ```
+ *   ```bash
+ *   yarn add @astrojs/tailwind
+ *   ```
+ * </CodeTabs>
+ */
+
+export interface Props {
+  labels: string[];
+  defaultTab?: number;
+}
+
+const { labels, defaultTab = 0 } = Astro.props;
+const tabId = `codetabs-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class="code-tabs" data-code-tabs id={tabId}>
+  <div class="code-tabs-header" role="tablist">
+    {labels.map((label, index) => (
+      <button
+        type="button"
+        role="tab"
+        class:list={['code-tab', index === defaultTab && 'is-active']}
+        aria-selected={index === defaultTab}
+        aria-controls={`${tabId}-panel-${index}`}
+        data-tab-index={index}
+      >
+        {label}
+      </button>
+    ))}
+  </div>
+  
+  <div class="code-tabs-panels">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .code-tabs {
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--code-bg, #1e1e1e);
+  }
+
+  .code-tabs-header {
+    display: flex;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .code-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+    min-width: 44px; /* Touch target */
+  }
+
+  .code-tab:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .code-tab.is-active {
+    color: var(--color-accent, #3b82f6);
+    background: rgba(59, 130, 246, 0.1);
+    border-bottom: 2px solid var(--color-accent, #3b82f6);
+  }
+
+  .code-tabs-panels :global(pre) {
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .code-tabs-panels :global(> *:not(.is-active)) {
+    display: none;
+  }
+</style>
+
+<script>
+  function initCodeTabs() {
+    document.querySelectorAll('[data-code-tabs]').forEach((container) => {
+      const tabs = container.querySelectorAll('.code-tab');
+      const panels = container.querySelectorAll('.code-tabs-panels > *');
+      
+      // Set initial state
+      panels.forEach((panel, index) => {
+        if (index === 0) {
+          panel.classList.add('is-active');
+        }
+      });
+      
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const index = parseInt((tab as HTMLElement).dataset.tabIndex || '0', 10);
+          
+          // Update tabs
+          tabs.forEach((t, i) => {
+            t.classList.toggle('is-active', i === index);
+            t.setAttribute('aria-selected', String(i === index));
+          });
+          
+          // Update panels
+          panels.forEach((p, i) => {
+            p.classList.toggle('is-active', i === index);
+          });
+        });
+      });
+    });
+  }
+  
+  initCodeTabs();
+  document.addEventListener('astro:after-swap', initCodeTabs);
+</script>

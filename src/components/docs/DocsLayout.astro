@@ -8,6 +8,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildDocsNav } from '../../utils/docs-nav';
 import { useTranslations } from '../../utils/i18n';
 import DocsSearch from './DocsSearch.astro';
+import DocsProgress from './DocsProgress.astro';
+import DocsBottomBar from './DocsBottomBar.astro';
+import DocsTOCMobile from './DocsTOCMobile.astro';
+import CommandPalette from './CommandPalette.astro';
+import DocsBreadcrumb from './DocsBreadcrumb.astro';
 
 interface Props {
   doc: any;
@@ -26,6 +31,8 @@ const isV2 = layout === 'v2';
 ---
 
 <BaseLayout title={`${doc.data.title} | Docs`} description={doc.data.description}>
+  <DocsProgress />
+  <CommandPalette locale={locale} />
   <div class="docs-container min-h-screen pt-[calc(60px+var(--nav-offset))]">
     
     {/* Mobile Controls */}
@@ -153,6 +160,12 @@ const isV2 = layout === 'v2';
 
       </div>
     </div>
+    
+    <!-- Mobile TOC -->
+    <DocsTOCMobile headings={headings} />
+    
+    <!-- Mobile Bottom Bar -->
+    <DocsBottomBar currentPath={Astro.url.pathname} locale={locale} />
   </div>
 </BaseLayout>
 

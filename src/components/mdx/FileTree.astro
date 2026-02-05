@@ -1,0 +1,142 @@
+---
+/**
+ * FileTree Component
+ * 
+ * Display a directory tree structure with expand/collapse functionality.
+ * 
+ * Usage in MDX:
+ * <FileTree>
+ *   - src/
+ *     - components/
+ *       - Hero.astro
+ *       - About.astro
+ *     - pages/
+ *       - index.astro
+ *   - package.json
+ * </FileTree>
+ */
+---
+
+<div class="file-tree" data-file-tree>
+  <slot />
+</div>
+
+<style>
+  .file-tree {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    padding: 1rem 1.25rem;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.02);
+    border: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .file-tree :global(ul) {
+    list-style: none;
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .file-tree :global(> ul) {
+    padding-left: 0;
+  }
+
+  .file-tree :global(li) {
+    position: relative;
+  }
+
+  /* Folder icon for items ending with / */
+  .file-tree :global(li) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .file-tree :global(li::before) {
+    content: '📄';
+    flex-shrink: 0;
+    font-size: 0.875em;
+  }
+
+  /* Folder detection via text content handled by JS */
+  .file-tree :global(li.is-folder::before) {
+    content: '📁';
+  }
+
+  .file-tree :global(li.is-folder.is-open::before) {
+    content: '📂';
+  }
+
+  /* Highlight new/modified files */
+  .file-tree :global(.is-new) {
+    color: #22c55e;
+  }
+
+  .file-tree :global(.is-modified) {
+    color: #f59e0b;
+  }
+
+  .file-tree :global(.is-deleted) {
+    color: #ef4444;
+    text-decoration: line-through;
+  }
+
+  @media (max-width: 640px) {
+    .file-tree {
+      font-size: 0.8rem;
+      padding: 0.75rem 1rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+  }
+</style>
+
+<script>
+  function initFileTree() {
+    document.querySelectorAll('[data-file-tree]').forEach((tree) => {
+      // Find all list items and mark folders
+      tree.querySelectorAll('li').forEach((li) => {
+        const text = li.textContent?.trim() || '';
+        
+        // Check if it's a folder (ends with /)
+        if (text.endsWith('/') || li.querySelector('ul')) {
+          li.classList.add('is-folder');
+          
+          // If has children, make expandable
+          const nestedList = li.querySelector('ul');
+          if (nestedList) {
+            li.classList.add('is-open');
+            li.style.cursor = 'pointer';
+            
+            li.addEventListener('click', (e) => {
+              if (e.target === li || e.target === li.firstChild) {
+                e.stopPropagation();
+                li.classList.toggle('is-open');
+                const isOpen = li.classList.contains('is-open');
+                nestedList.style.display = isOpen ? 'block' : 'none';
+              }
+            });
+          }
+        }
+        
+        // Check for status markers
+        if (text.includes('[new]')) {
+          li.classList.add('is-new');
+        } else if (text.includes('[modified]')) {
+          li.classList.add('is-modified');
+        } else if (text.includes('[deleted]')) {
+          li.classList.add('is-deleted');
+        }
+      });
+    });
+  }
+  
+  initFileTree();
+  document.addEventListener('astro:after-swap', initFileTree);
+</script>

@@ -1,0 +1,270 @@
+---
+/**
+ * ApiMethod Component
+ * 
+ * Display API method/function documentation with signature,
+ * parameters, return type, and description.
+ * 
+ * Usage in MDX:
+ * <ApiMethod
+ *   name="useTranslations"
+ *   signature="useTranslations(locale: Locale): (key: string) => string"
+ *   params={[
+ *     { name: 'locale', type: 'Locale', description: 'Current locale code' }
+ *   ]}
+ *   returns={{ type: '(key: string) => string', description: 'Translation function' }}
+ *   since="v1.0.0"
+ * />
+ */
+
+export interface ApiParam {
+  name: string;
+  type: string;
+  description?: string;
+  required?: boolean;
+  default?: string;
+}
+
+export interface ApiReturn {
+  type: string;
+  description?: string;
+}
+
+export interface Props {
+  name: string;
+  signature?: string;
+  description?: string;
+  params?: ApiParam[];
+  returns?: ApiReturn;
+  since?: string;
+  deprecated?: boolean;
+  deprecatedMessage?: string;
+}
+
+const { 
+  name, 
+  signature, 
+  description,
+  params = [], 
+  returns, 
+  since,
+  deprecated = false,
+  deprecatedMessage
+} = Astro.props;
+---
+
+<div class:list={['api-method', deprecated && 'is-deprecated']}>
+  <div class="api-method-header">
+    <h3 class="api-method-name" id={name.toLowerCase()}>
+      <code>{name}</code>
+      {since && <span class="api-badge api-badge-since">{since}</span>}
+      {deprecated && <span class="api-badge api-badge-deprecated">Deprecated</span>}
+    </h3>
+  </div>
+  
+  {signature && (
+    <pre class="api-signature"><code>{signature}</code></pre>
+  )}
+  
+  {deprecated && deprecatedMessage && (
+    <div class="api-deprecation-notice">
+      ⚠️ {deprecatedMessage}
+    </div>
+  )}
+  
+  {description && <p class="api-description">{description}</p>}
+  
+  <slot />
+  
+  {params.length > 0 && (
+    <div class="api-section">
+      <h4 class="api-section-title">Parameters</h4>
+      <div class="api-params">
+        {params.map((param) => (
+          <div class="api-param">
+            <div class="api-param-header">
+              <code class="api-param-name">{param.name}</code>
+              <code class="api-param-type">{param.type}</code>
+              {param.required === false && <span class="api-badge">optional</span>}
+              {param.default && <span class="api-badge">default: {param.default}</span>}
+            </div>
+            {param.description && (
+              <p class="api-param-description">{param.description}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+  
+  {returns && (
+    <div class="api-section">
+      <h4 class="api-section-title">Returns</h4>
+      <div class="api-return">
+        <code class="api-return-type">{returns.type}</code>
+        {returns.description && (
+          <p class="api-return-description">{returns.description}</p>
+        )}
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .api-method {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.02);
+    border: 1px solid rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    border-radius: 1rem;
+  }
+
+  .api-method.is-deprecated {
+    opacity: 0.7;
+    background: rgba(234, 179, 8, 0.05);
+    border-color: rgba(234, 179, 8, 0.2);
+  }
+
+  .api-method-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .api-method-name {
+    font-size: 1.25rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .api-method-name code {
+    font-weight: 600;
+    color: var(--color-accent, #3b82f6);
+  }
+
+  .api-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2em 0.5em;
+    border-radius: 0.25rem;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.08);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .api-badge-since {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+
+  .api-badge-deprecated {
+    background: rgba(234, 179, 8, 0.2);
+    color: #ca8a04;
+  }
+
+  .api-signature {
+    margin: 1rem 0;
+    padding: 1rem;
+    font-size: 0.875rem;
+    background: var(--code-bg, #1e1e1e);
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .api-signature code {
+    color: #e5e7eb;
+  }
+
+  .api-deprecation-notice {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    background: rgba(234, 179, 8, 0.1);
+    border-left: 3px solid #ca8a04;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .api-description {
+    margin: 1rem 0;
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.8);
+  }
+
+  .api-section {
+    margin-top: 1.5rem;
+  }
+
+  .api-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.5);
+    margin-bottom: 0.75rem;
+  }
+
+  .api-params {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .api-param {
+    padding: 0.75rem;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.02);
+    border-radius: 0.5rem;
+  }
+
+  .api-param-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .api-param-name {
+    font-weight: 600;
+    color: var(--color-accent, #3b82f6);
+  }
+
+  .api-param-type {
+    font-size: 0.8rem;
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.6);
+  }
+
+  .api-param-description {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.7);
+  }
+
+  .api-return {
+    padding: 0.75rem;
+    background: rgba(var(--color-base-content-rgb, 0 0 0), 0.02);
+    border-radius: 0.5rem;
+  }
+
+  .api-return-type {
+    font-size: 0.875rem;
+    color: var(--color-accent, #3b82f6);
+  }
+
+  .api-return-description {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    color: rgba(var(--color-base-content-rgb, 0 0 0), 0.7);
+  }
+
+  @media (max-width: 640px) {
+    .api-method {
+      padding: 1rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+  }
+</style>

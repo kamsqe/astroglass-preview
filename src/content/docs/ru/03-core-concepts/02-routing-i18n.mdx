@@ -1,0 +1,88 @@
+---
+title: Роутинг и Интернационализация
+description: Поймите, как работают страницы и языки в Liquid Glass.
+---
+
+import FileTree from '../../../../components/mdx/FileTree.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+
+Liquid Glass использует файловую систему роутинга Astro в сочетании с кастомной стратегией интернационализации (i18n).
+
+## Роутинг страниц
+
+Страницы расположены в `src/pages/`. Структура папок определяет путь URL.
+
+Для локализованных страниц мы используем отдельные директории:
+
+<FileTree>
+- src/
+  - pages/
+    - **index.astro**      # Язык по умолчанию (Английский)
+    - about.astro          # /about
+    - ru/                  # Русская локализация
+      - **index.astro**    # /ru/ (Русская главная страница)
+      - about.astro        # /ru/about
+</FileTree>
+
+### Добавление новой страницы
+
+Чтобы добавить новую страницу (например, `services`):
+
+1.  Создайте `src/pages/services.astro` (для английского).
+2.  Создайте `src/pages/ru/services.astro` (для русского).
+
+## Роутинг документации
+
+Страницы документации находятся в `src/content/docs/[lang]/`.
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - en/
+        - getting-started/
+          - 01-introduction.mdx
+      - ru/
+        - getting-started/
+          - 01-introduction.mdx
+</FileTree>
+
+URL для документации генерируется автоматически на основе пути к файлу, например, `/docs/ru/getting-started/introduction`.
+
+## Интернационализация (i18n)
+
+Переводы обрабатываются двумя способами:
+1.  **Контент страниц**: Дублирование `.astro` файлов в `src/pages/[lang]/`.
+2.  **Строки UI**: Централизованные JSON файлы в `src/locales/`.
+
+### Переводы UI
+
+Общие строки (элементы навигации, кнопки и т.д.) хранятся в `src/locales/[lang]/common.json`.
+
+```json
+/* src/locales/ru/common.json */
+{
+  "nav": {
+    "home": "Главная",
+    "about": "О нас"
+  }
+}
+```
+
+Используйте вспомогательную функцию для перевода строк в компонентах:
+
+```astro
+---
+import { useTranslations } from '../utils/i18n';
+const t = useTranslations('ru');
+---
+<p>{t('nav.home')}</p>
+```
+
+<Callout type="info" title="Добавление языков">
+  Чтобы добавить новый язык (например, Испанский):
+  1. Создайте директорию `src/pages/es/`.
+  2. Создайте `src/locales/es/common.json`.
+  3. Создайте `src/content/docs/es/`.
+  4. Обновите `src/components/LanguageSwitcher.astro`, чтобы включить новую опцию.
+</Callout>

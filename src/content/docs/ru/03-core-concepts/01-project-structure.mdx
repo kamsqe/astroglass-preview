@@ -1,0 +1,59 @@
+---
+title: Структура проекта
+description: Обзор организации кодовой базы Liquid Glass.
+---
+
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+Liquid Glass следует стандартной структуре проекта Astro.
+
+<FileTree>
+- public/
+  - favicon.svg
+  - robots.txt
+- src/
+  - assets/
+  - components/
+    - docs/       # Компоненты для макетов документации
+    - hero/       # Реализации секции Hero
+    - mdx/        # Кастомные MDX компоненты
+    - shared/     # Повторно используемые UI компоненты
+    - [Wrapper Components].astro  # напр., Hero.astro, Pricing.astro
+  - content/
+    - docs/
+      - en/       # Документация на английском
+      - ru/       # Документация на русском
+    - config.ts   # Схема коллекций контента
+  - layouts/
+    - BaseLayout.astro  # Основной макет сайта
+    - Layout.astro      # Альтернативный макет
+  - pages/
+    - [lang]/     # Локализованные маршруты (напр., /ru/about)
+    - 404.astro
+    - index.astro # Перенаправление на язык по умолчанию
+  - styles/
+    - global.css  # Глобальные CSS переменные и стили
+  - utils/
+    - i18n.ts     # Логика переводов
+- astro.config.mjs
+- tailwind.config.mjs
+- package.json
+</FileTree>
+
+## Ключевые директории
+
+### `src/components`
+
+Содержит все переиспользуемые UI компоненты. Компоненты верхнего уровня (например, `Hero.astro`) являются обертками, которые переключают различные реализации дизайна, расположенные в поддиректориях (например, `hero/HeroLiquid.astro`).
+
+### `src/content`
+
+Содержит Markdown и MDX контент для документации. Структура внутри `docs/[lang]` определяет структуру URL вашего сайта документации.
+
+### `src/pages`
+
+Файловый роутинг. Динамический параметр `[lang]` обрабатывает интернационализацию для всех основных страниц.
+
+### `src/utils`
+
+Утилитарные функции, в основном для обработки логики i18n переводов и навигации.

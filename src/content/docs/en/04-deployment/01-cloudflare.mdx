@@ -1,0 +1,93 @@
+---
+title: Cloudflare Deployment
+description: Deploy your Liquid Glass site to Cloudflare Pages.
+---
+
+import Steps from '../../../../components/mdx/Steps.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+
+This project is optimized for deployment on **Cloudflare Pages**. It includes the necessary adapter and configuration out of the box.
+
+## Prerequisites
+
+- A [Cloudflare](https://dash.cloudflare.com/) account.
+- **Node.js** installed locally.
+- **Wrangler** CLI installed (`npm install -g wrangler`).
+
+## Deployment Methods
+
+You can deploy using GitHub integration (recommended) or via CLI.
+
+### Option 1: GitHub Integration
+
+<Steps>
+1. **Push your code to GitHub**
+   
+   Ensure your project is in a GitHub repository.
+
+2. **Connect to Cloudflare Pages**
+   
+   Go to the Cloudflare Dashboard > Workers & Pages > Create Application > Pages > Connect to Git.
+
+3. **Select Repository**
+   
+   Choose your repository and branch.
+
+4. **Configure Build Settings**
+   
+   Use the following settings:
+   - **Framework Preset**: Astro
+   - **Build command**: `pnpm run build`
+   - **Build output directory**: `dist`
+   
+   <Callout type="warning" title="Important">
+     Make sure to set the build command to `pnpm run build`! This runs the build AND the post-build indexing script (`index:content`) required for search functionality.
+   </Callout>
+
+5. **Save and Deploy**
+</Steps>
+
+### Option 2: Wrangler CLI
+
+You can also deploy directly from your terminal.
+
+<Steps>
+1. **Login to Wrangler**
+   
+   ```bash
+   npx wrangler login
+   ```
+
+2. **Build and Deploy**
+   
+   Run the deploy script defined in `package.json`:
+   
+   ```bash
+   pnpm run deploy
+   ```
+   
+   This command executes: `astro build && pnpm run index:content && wrangler pages deploy dist`.
+</Steps>
+
+## Search Indexing
+
+The project uses **Pagefind** for search. This requires a post-build step to index your content.
+
+The `build` script in `package.json` handles this automatically:
+
+```json
+"scripts": {
+  "build": "astro build && pnpm run index:content",
+  "index:content": "pagefind --site dist"
+}
+```
+
+If search isn't working on your deployed site, ensure that the `post-build` indexing step ran successfully.
+
+## Troubleshooting
+
+### Deployment Fails
+Check the build logs. Common issues include TypeScript errors or missing dependencies.
+
+### Search Not Working
+If search returns no results, check if the `dist/pagefind/` directory was created during build. Ensure `pnpm run index:content` is part of your build command.

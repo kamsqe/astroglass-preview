@@ -1,0 +1,93 @@
+---
+title: Развертывание на Cloudflare
+description: Разверните ваш сайт Liquid Glass на Cloudflare Pages.
+---
+
+import Steps from '../../../../components/mdx/Steps.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+
+Этот проект оптимизирован для развертывания на **Cloudflare Pages**. Он включает необходимый адаптер и конфигурацию "из коробки".
+
+## Предварительные требования
+
+- Аккаунт [Cloudflare](https://dash.cloudflare.com/).
+- **Node.js**, установленный локально.
+- **Wrangler** CLI, установленный (`npm install -g wrangler`).
+
+## Способы развертывания
+
+Вы можете развернуть проект, используя интеграцию с GitHub (рекомендуется) или через CLI.
+
+### Вариант 1: Интеграция с GitHub
+
+<Steps>
+1. **Запушьте ваш код на GitHub**
+   
+   Убедитесь, что ваш проект находится в репозитории GitHub.
+
+2. **Подключитесь к Cloudflare Pages**
+   
+   Перейдите в Cloudflare Dashboard > Workers & Pages > Create Application > Pages > Connect to Git.
+
+3. **Выберите репозиторий**
+   
+   Выберите ваш репозиторий и ветку.
+
+4. **Настройте параметры сборки**
+   
+   Используйте следующие настройки:
+   - **Framework Preset**: Astro
+   - **Build command**: `pnpm run build`
+   - **Build output directory**: `dist`
+   
+   <Callout type="warning" title="Важно">
+     Убедитесь, что команда сборки установлена на `pnpm run build`! Это запускает сборку И скрипт индексации после сборки (`index:content`), необходимый для работы поиска.
+   </Callout>
+
+5. **Сохраните и разверните**
+</Steps>
+
+### Вариант 2: Wrangler CLI
+
+Вы также можете развернуть проект напрямую из терминала.
+
+<Steps>
+1. **Войдите в Wrangler**
+   
+   ```bash
+   npx wrangler login
+   ```
+
+2. **Соберите и разверните**
+   
+   Запустите скрипт деплоя, определенный в `package.json`:
+   
+   ```bash
+   pnpm run deploy
+   ```
+   
+   Эта команда выполняет: `astro build && pnpm run index:content && wrangler pages deploy dist`.
+</Steps>
+
+## Индексация поиска
+
+Проект использует **Pagefind** для поиска. Это требует этапа пост-сборки для индексации вашего контента.
+
+Скрипт `build` в `package.json` обрабатывает это автоматически:
+
+```json
+"scripts": {
+  "build": "astro build && pnpm run index:content",
+  "index:content": "pagefind --site dist"
+}
+```
+
+Если поиск не работает на вашем развернутом сайте, убедитесь, что этап индексации `post-build` прошел успешно.
+
+## Устранение неполадок
+
+### Сбой развертывания
+Проверьте логи сборки. Частые проблемы включают ошибки TypeScript или отсутствующие зависимости.
+
+### Поиск не работает
+Если поиск не возвращает результатов, проверьте, была ли создана директория `dist/pagefind/` во время сборки. Убедитесь, что `pnpm run index:content` является частью вашей команды сборки.

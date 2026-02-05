@@ -1,0 +1,87 @@
+---
+title: Section Components
+description: Pre-built section wrappers for Hero, Features, Pricing, and more.
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Badge from '../../../../components/mdx/Badge.astro';
+
+Liquid Glass provides a set of "Wrapper Components" for major page sections. These components automatically handle theme switching based on the `version` prop.
+
+Each component supports 5 distinct design themes:
+1. **Liquid** (Default)
+2. **Glass**
+3. **Neo**
+4. **Luxury**
+5. **Minimal**
+
+## Hero
+
+The Hero component is the entry point of your landing page.
+
+```astro
+import Hero from '../../components/Hero.astro';
+
+<Hero version={1} /> <!-- Liquid Theme -->
+<Hero version={2} /> <!-- Glass Theme -->
+```
+
+## Features
+
+Display your product features in a grid or list layout.
+
+```astro
+import Features from '../../components/Features.astro';
+
+<Features version={3} /> <!-- Neo Theme -->
+```
+
+## Pricing
+
+Responsive pricing tables with monthly/yearly toggles.
+
+```astro
+import Pricing from '../../components/Pricing.astro';
+
+<Pricing version={4} /> <!-- Luxury Theme -->
+```
+
+## Testimonials
+
+Social proof sections to build trust.
+
+```astro
+import Testimonial from '../../components/Testimonial.astro';
+
+<Testimonial version={5} /> <!-- Minimal Theme -->
+```
+
+## FAQ
+
+Frequently Asked Questions accordion.
+
+```astro
+import FAQ from '../../components/FAQ.astro';
+
+<FAQ version={1} />
+```
+
+## CTA (Call to Action)
+
+Final conversion section at the bottom of pages.
+
+```astro
+import CTA from '../../components/CTA.astro';
+
+<CTA version={2} />
+```
+
+## How It Works
+
+Under the hood, these wrapper components dynamically import the specific implementation based on the version prop.
+
+For example, `<Hero version={1} />` renders `src/components/hero/HeroLiquid.astro`.
+
+<Callout type="tip" title="Customization">
+  To customize a specific section, you should edit the file in the subdirectory (e.g., `src/components/hero/HeroGlass.astro`) rather than the wrapper component itself.
+</Callout>

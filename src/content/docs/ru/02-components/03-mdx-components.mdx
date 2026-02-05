@@ -1,0 +1,204 @@
+---
+title: MDX Компоненты
+description: Используйте встроенные MDX компоненты для улучшения документации.
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Badge from '../../../../components/mdx/Badge.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+import CardGrid from '../../../../components/mdx/CardGrid.astro';
+import LinkCard from '../../../../components/mdx/LinkCard.astro';
+import CodeTabs from '../../../../components/mdx/CodeTabs.astro';
+
+Liquid Glass поставляется с набором пользовательских MDX компонентов, которые помогут вам писать красивую и эффективную документацию.
+
+## Callouts (Выноски)
+
+Используйте выноски для выделения важной информации.
+
+<Callout type="info" title="Примечание">
+  Это стандартная информационная выноска.
+</Callout>
+
+<Callout type="warning" title="Предупреждение">
+  Будьте осторожны при изменении конфигурационных файлов.
+</Callout>
+
+<Callout type="error" title="Опасность">
+  Это действие необратимо.
+</Callout>
+
+<Callout type="success" title="Успех">
+  Развертывание завершено успешно!
+</Callout>
+
+<Callout type="tip" title="Совет">
+  Вы можете использовать markdown внутри выносок.
+</Callout>
+
+```mdx
+import Callout from '../../components/mdx/Callout.astro';
+
+<Callout type="info" title="Примечание">
+  Это стандартная информационная выноска.
+</Callout>
+
+<Callout type="warning" title="Предупреждение">
+  Будьте осторожны при изменении конфигурационных файлов.
+</Callout>
+```
+
+## Badges (Бейджи)
+
+Используйте бейджи для отображения статуса версии или тегов функций.
+
+В настоящее время используется <Badge type="new">v2.0</Badge> фреймворка.
+Эта функция <Badge type="experimental">Экспериментальная</Badge>.
+Устаревший API <Badge type="deprecated">Устарело</Badge>.
+
+```mdx
+import Badge from '../../components/mdx/Badge.astro';
+
+<Badge type="new">Новое</Badge>
+<Badge type="experimental">Бета</Badge>
+<Badge type="deprecated">Устарело</Badge>
+<Badge type="required">Обязательно</Badge>
+<Badge type="optional">Опционально</Badge>
+```
+
+## Steps (Шаги)
+
+Используйте компонент Steps для документирования последовательных процедур.
+
+<Steps>
+1. **Установите зависимости**
+   
+   Запустите `npm install` в терминале.
+
+2. **Настройте проект**
+   
+   Отредактируйте `astro.config.mjs` для настройки интеграции.
+
+3. **Запустите сервер**
+   
+   Запустите `npm run dev` для запуска сервера разработки.
+</Steps>
+
+```mdx
+import Steps from '../../components/mdx/Steps.astro';
+
+<Steps>
+1. **Шаг Один**
+   Описание первого шага.
+
+2. **Шаг Два**
+   Описание второго шага.
+</Steps>
+```
+
+## File Tree (Дерево файлов)
+
+Визуализация структуры директорий.
+
+<FileTree>
+- src/
+  - components/
+    - **Header.astro**
+    - Footer.astro
+  - pages/
+    - **index.astro**
+- public/
+- package.json
+</FileTree>
+
+```mdx
+import FileTree from '../../components/mdx/FileTree.astro';
+
+<FileTree>
+- src/
+  - components/
+    - **Header.astro**
+    - Footer.astro
+  - pages/
+    - **index.astro**
+  - styles/
+    - global.css
+- public/
+- package.json
+</FileTree>
+```
+
+## Cards (Карточки)
+
+Визуальные ссылки на другие страницы.
+
+<CardGrid>
+  <LinkCard 
+    title="Начало работы" 
+    description="Узнайте, как установить и настроить проект." 
+    href="/docs/ru/getting-started/02-installation" 
+  />
+  <LinkCard 
+    title="Темизация" 
+    description="Настройте внешний вид." 
+    href="/docs/ru/03-core-concepts/03-theming" 
+  />
+</CardGrid>
+
+```mdx
+import CardGrid from '../../components/mdx/CardGrid.astro';
+import LinkCard from '../../components/mdx/LinkCard.astro';
+
+<CardGrid>
+  <LinkCard 
+    title="Начало работы" 
+    description="Описание здесь." 
+    href="/path/to/page" 
+  />
+  <LinkCard 
+    title="Справочник API" 
+    description="Смотреть документацию API." 
+    href="/path/to/api" 
+  />
+</CardGrid>
+```
+
+## Code Tabs (Вкладки кода)
+
+Отображение кода на нескольких языках или форматах.
+
+<CodeTabs>
+  <div slot="npm">
+  ```bash
+  npm install astro
+  ```
+  </div>
+  <div slot="pnpm">
+  ```bash
+  pnpm add astro
+  ```
+  </div>
+  <div slot="yarn">
+  ```bash
+  yarn add astro
+  ```
+  </div>
+</CodeTabs>
+````mdx
+import CodeTabs from '../../components/mdx/CodeTabs.astro';
+
+<CodeTabs>
+  <div slot="js">
+  ```js
+  console.log('Hello');
+  ```
+  </div>
+  <div slot="ts">
+  ```ts
+  const msg: string = 'Hello';
+  console.log(msg);
+  ```
+  </div>
+</CodeTabs>
+````

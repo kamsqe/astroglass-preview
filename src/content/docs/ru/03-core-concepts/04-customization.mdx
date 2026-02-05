@@ -1,0 +1,88 @@
+---
+title: Кастомизация
+description: Как настроить стили, темы и конфигурацию.
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+Liquid Glass использует **Tailwind CSS v4** для стилизации, что обеспечивает лучшую производительность и упрощенный опыт настройки.
+
+## Обзор стилей
+
+Глобальные стили и CSS переменные определены в `src/styles/global.css`. Этот файл обрабатывает:
+- Сброс стилей базового слоя
+- Кастомные шрифты (Inter и JetBrains Mono)
+- CSS переменные для темизации (значения цветов HSL)
+
+<FileTree>
+- src/
+  - styles/
+    - **global.css**
+- **tailwind.config.mjs**
+</FileTree>
+
+## Система темок
+
+Проект использует систему темизации на основе CSS переменных. Цвета определены как значения HSL (без функции `hsl()`), что позволяет модификатору прозрачности Tailwind работать корректно.
+
+```css
+/* src/styles/global.css */
+:root {
+  /* Значения HSL */
+  --p: 260 80% 60%; /* Primary (Основной) */
+  --s: 310 80% 60%; /* Secondary (Вторичный) */
+  --a: 190 90% 60%; /* Accent (Акцент) */
+  
+  --b1: 220 20% 10%; /* Base 1 (Фон) */
+  --bc: 220 20% 90%; /* Base Content (Текст) */
+}
+```
+
+Компоненты используют эти переменные через утилитарные классы Tailwind или кастомное использование `hsl()`.
+
+```html
+<div class="bg-[hsl(var(--p))] text-[hsl(var(--bc))]">
+  Основной фон с базовым цветом текста
+</div>
+```
+
+<Callout type="tip" title="Изменение цветов">
+  Чтобы изменить цветовую схему сайта, обновите значения HSL в `src/styles/global.css`. Вы можете определить разные значения для светлой/темной темы, используя селектор `[data-theme="light"]`, если это необходимо.
+</Callout>
+
+## Конфигурация Tailwind
+
+Tailwind v4 настроен в `src/styles/global.css` с использованием директивы `@theme`, но для обратной совместимости или сложных плагинов мы также включаем файл `tailwind.config.mjs`.
+
+Вы можете расширить тему, добавить плагины или изменить пути к контенту в `tailwind.config.mjs`.
+
+```javascript
+/* tailwind.config.mjs */
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
+        mono: ['JetBrains Mono Variable', 'monospace'],
+      },
+      // ...
+    },
+  },
+  plugins: [],
+}
+```
+
+## Добавление кастомных шрифтов
+
+1.  Поместите файлы шрифтов в `public/fonts/` или импортируйте из Google Fonts.
+2.  Определите font-face в `src/styles/global.css`.
+3.  Обновите семейство шрифтов в `tailwind.config.mjs`.
+
+## Кастомизация компонентов
+
+Большинство UI компонентов предоставляют пропсы для базовой настройки (например, `version` для Компонентов-оберток). Для более глубоких изменений вам следует изменить файлы компонентов напрямую в `src/components/`.
+
+Например, чтобы изменить макет шапки, отредактируйте `src/components/DesktopNav.astro` и `src/components/MobileNav.astro`.

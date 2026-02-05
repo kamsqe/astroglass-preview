@@ -1,0 +1,205 @@
+---
+title: MDX Components
+description: Use built-in MDX components to enhance your documentation.
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Badge from '../../../../components/mdx/Badge.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+import CardGrid from '../../../../components/mdx/CardGrid.astro';
+import LinkCard from '../../../../components/mdx/LinkCard.astro';
+import CodeTabs from '../../../../components/mdx/CodeTabs.astro';
+
+Liquid Glass comes with a set of custom MDX components to help you write beautiful and effective documentation.
+
+## Callouts
+
+Use callouts to highlight important information.
+
+<Callout type="info" title="Note">
+  This is a default info callout.
+</Callout>
+
+<Callout type="warning" title="Warning">
+  Be careful when modifying configuration files.
+</Callout>
+
+<Callout type="error" title="Danger">
+  This action is irreversible.
+</Callout>
+
+<Callout type="success" title="Success">
+  Deployment completed successfully!
+</Callout>
+
+<Callout type="tip" title="Pro Tip">
+  You can use markdown inside callouts.
+</Callout>
+
+```mdx
+import Callout from '../../components/mdx/Callout.astro';
+
+<Callout type="info" title="Note">
+  This is a default info callout.
+</Callout>
+
+<Callout type="warning" title="Warning">
+  Be careful when modifying configuration files.
+</Callout>
+```
+
+## Badges
+
+Use badges to show version status or feature tags.
+
+Currently using <Badge type="new">v2.0</Badge> of the framework.
+This feature is <Badge type="experimental">Experimental</Badge>.
+Legacy API is <Badge type="deprecated">Deprecated</Badge>.
+
+```mdx
+import Badge from '../../components/mdx/Badge.astro';
+
+<Badge type="new">New</Badge>
+<Badge type="experimental">Beta</Badge>
+<Badge type="deprecated">Legacy</Badge>
+<Badge type="required">Required</Badge>
+<Badge type="optional">Optional</Badge>
+```
+
+## Steps
+
+Use the Steps component to document sequential procedures.
+
+<Steps>
+1. **Install dependencies**
+   
+   Run `npm install` in your terminal.
+
+2. **Configure the project**
+   
+   Edit `astro.config.mjs` to set up your integration.
+
+3. **Start the server**
+   
+   Run `npm run dev` to start the development server.
+</Steps>
+
+```mdx
+import Steps from '../../components/mdx/Steps.astro';
+
+<Steps>
+1. **Step One**
+   Description of step one.
+
+2. **Step Two**
+   Description of step two.
+</Steps>
+```
+
+## File Tree
+
+Visualize directory structures.
+
+<FileTree>
+- src/
+  - components/
+    - **Header.astro**
+    - Footer.astro
+  - pages/
+    - **index.astro**
+- public/
+- package.json
+</FileTree>
+
+```mdx
+import FileTree from '../../components/mdx/FileTree.astro';
+
+<FileTree>
+- src/
+  - components/
+    - **Header.astro**
+    - Footer.astro
+  - pages/
+    - **index.astro**
+  - styles/
+    - global.css
+- public/
+- package.json
+</FileTree>
+```
+
+## Cards
+
+Link to other pages visually.
+
+<CardGrid>
+  <LinkCard 
+    title="Getting Started" 
+    description="Learn how to install and configure." 
+    href="/docs/en/getting-started/02-installation" 
+  />
+  <LinkCard 
+    title="Theming" 
+    description="Customize the look and feel." 
+    href="/docs/en/03-core-concepts/03-theming" 
+  />
+</CardGrid>
+
+```mdx
+import CardGrid from '../../components/mdx/CardGrid.astro';
+import LinkCard from '../../components/mdx/LinkCard.astro';
+
+<CardGrid>
+  <LinkCard 
+    title="Getting Started" 
+    description="Description here." 
+    href="/path/to/page" 
+  />
+  <LinkCard 
+    title="API Reference" 
+    description="See the API docs." 
+    href="/path/to/api" 
+  />
+</CardGrid>
+```
+
+## Code Tabs
+
+Display code in multiple languages or formats.
+
+<CodeTabs>
+  <div slot="npm">
+  ```bash
+  npm install astro
+  ```
+  </div>
+  <div slot="pnpm">
+  ```bash
+  pnpm add astro
+  ```
+  </div>
+  <div slot="yarn">
+  ```bash
+  yarn add astro
+  ```
+  </div>
+</CodeTabs>
+
+````mdx
+import CodeTabs from '../../components/mdx/CodeTabs.astro';
+
+<CodeTabs>
+  <div slot="js">
+  ```js
+  console.log('Hello');
+  ```
+  </div>
+  <div slot="ts">
+  ```ts
+  const msg: string = 'Hello';
+  console.log(msg);
+  ```
+  </div>
+</CodeTabs>
+````

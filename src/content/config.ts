@@ -19,7 +19,7 @@ const docsCollection = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     order: z.number().optional(),
-    layout: z.enum(['v1', 'v2']).default('v1').optional(),
+    docsLayout: z.enum(['v1', 'v2']).default('v1').optional(),
     draft: z.boolean().default(false),
     // Version and category for scalable docs
     version: z.string().optional(),

@@ -40,19 +40,20 @@ const t = useTranslations(locale as 'en' | 'ru');
   </div>
   
   <div id="command-palette-results" class="cmd-body">
-    <div class="cmd-empty">
-      <p class="cmd-empty-text">{t('docs.typeToSearch') || 'Type to search documentation'}</p>
-      <div class="cmd-shortcuts">
-        <span><kbd>⌘K</kbd> to open</span>
-        <span><kbd>↑↓</kbd> navigate</span>
-        <span><kbd>↵</kbd> select</span>
+    <div class="cmd-empty-state">
+      <div class="cmd-empty-icon">🔍</div>
+      <p class="cmd-empty-title">{t('docs.typeToSearch') || 'Type to search documentation'}</p>
+      <div class="cmd-empty-shortcuts">
+        <span class="cmd-shortcut"><kbd>⌘K</kbd> open</span>
+        <span class="cmd-shortcut"><kbd>↑↓</kbd> navigate</span>
+        <span class="cmd-shortcut"><kbd>↵</kbd> select</span>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* Backdrop */
+  /* ===== BACKDROP ===== */
   .cmd-backdrop {
     position: fixed;
     inset: 0;
@@ -69,19 +70,19 @@ const t = useTranslations(locale as 'en' | 'ru');
     visibility: visible;
   }
 
-  /* Modal */
+  /* ===== MODAL ===== */
   .cmd-palette {
     position: fixed;
-    top: 15%;
+    top: 12%;
     left: 50%;
     transform: translateX(-50%) translateY(-12px) scale(0.96);
     width: calc(100% - 32px);
-    max-width: 580px;
+    max-width: 560px;
     background: hsl(var(--b1));
-    border: 1px solid hsl(var(--bc) / 0.1);
-    border-radius: 20px;
+    border: 1px solid hsl(var(--bc) / 0.12);
+    border-radius: 16px;
     box-shadow: 
-      0 24px 48px -12px rgba(0, 0, 0, 0.35),
+      0 24px 48px -12px rgba(0, 0, 0, 0.4),
       0 0 0 1px hsl(var(--bc) / 0.05);
     z-index: 9999;
     overflow: hidden;
@@ -95,139 +96,156 @@ const t = useTranslations(locale as 'en' | 'ru');
     transform: translateX(-50%) translateY(0) scale(1);
   }
 
-  /* Header */
+  /* ===== HEADER ===== */
   .cmd-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid hsl(var(--bc) / 0.08);
-    background: hsl(var(--bc) / 0.02);
+    padding: 14px 18px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.1);
   }
   .cmd-search-row {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
   .cmd-icon {
-    width: 22px;
-    height: 22px;
-    color: hsl(var(--a));
-    opacity: 0.65;
+    width: 20px;
+    height: 20px;
+    color: hsl(var(--bc) / 0.4);
     flex-shrink: 0;
   }
   .cmd-input {
     flex: 1;
     border: none;
     background: transparent;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     outline: none;
     color: hsl(var(--bc));
     min-width: 0;
   }
   .cmd-input::placeholder {
-    color: hsl(var(--bc) / 0.35);
+    color: hsl(var(--bc) / 0.4);
+    font-weight: 400;
   }
   .cmd-kbd {
-    font-size: 11px;
-    padding: 5px 10px;
-    background: hsl(var(--bc) / 0.06);
-    border: 1px solid hsl(var(--bc) / 0.08);
-    border-radius: 6px;
-    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    padding: 4px 8px;
+    background: hsl(var(--bc) / 0.08);
+    border: 1px solid hsl(var(--bc) / 0.1);
+    border-radius: 5px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
     font-weight: 600;
-    color: hsl(var(--bc) / 0.4);
+    color: hsl(var(--bc) / 0.5);
     flex-shrink: 0;
   }
 
-  /* Body */
+  /* ===== BODY ===== */
   .cmd-body {
-    max-height: 400px;
+    max-height: 380px;
     overflow-y: auto;
-    padding: 12px;
   }
 
-  /* Empty state */
-  .cmd-empty {
-    padding: 48px 24px;
+  /* ===== EMPTY STATE ===== */
+  .cmd-empty-state {
+    padding: 40px 24px;
     text-align: center;
   }
-  .cmd-empty-text {
-    font-size: 15px;
-    font-weight: 500;
-    color: hsl(var(--bc) / 0.45);
-    margin-bottom: 20px;
+  .cmd-empty-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    opacity: 0.4;
   }
-  .cmd-shortcuts {
+  .cmd-empty-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--bc) / 0.5);
+    margin-bottom: 16px;
+  }
+  .cmd-empty-shortcuts {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     flex-wrap: wrap;
-    font-size: 12px;
-    color: hsl(var(--bc) / 0.35);
   }
-  .cmd-shortcuts span {
-    display: flex;
+  .cmd-shortcut {
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    font-size: 11px;
+    color: hsl(var(--bc) / 0.4);
   }
-  .cmd-shortcuts kbd {
+  .cmd-shortcut kbd {
     font-size: 10px;
-    padding: 3px 7px;
-    background: hsl(var(--bc) / 0.05);
-    border: 1px solid hsl(var(--bc) / 0.08);
-    border-radius: 5px;
-    font-family: ui-monospace, monospace;
+    padding: 2px 6px;
+    background: hsl(var(--bc) / 0.06);
+    border: 1px solid hsl(var(--bc) / 0.1);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
     font-weight: 600;
+    color: hsl(var(--bc) / 0.5);
   }
 
-  /* Loading */
+  /* ===== LOADING ===== */
   .cmd-loading {
-    padding: 48px 24px;
+    padding: 40px 24px;
     text-align: center;
     font-size: 14px;
     color: hsl(var(--bc) / 0.4);
   }
 
-  /* No results */
+  /* ===== NO RESULTS ===== */
   .cmd-no-results {
-    padding: 48px 24px;
+    padding: 40px 24px;
     text-align: center;
+  }
+  .cmd-no-results-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    opacity: 0.4;
+  }
+  .cmd-no-results-text {
     font-size: 14px;
-    color: hsl(var(--bc) / 0.4);
+    color: hsl(var(--bc) / 0.45);
   }
 
-  /* Result items */
-  .cmd-item {
+  /* ===== RESULTS LIST ===== */
+  .cmd-results-list {
+    padding: 8px;
+  }
+
+  /* ===== RESULT ITEM ===== */
+  .cmd-result {
     display: block;
-    padding: 14px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-decoration: none;
+    padding: 12px 14px;
     margin-bottom: 4px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
     border: 1px solid transparent;
   }
-  .cmd-item:hover,
-  .cmd-item.is-active {
-    background: hsl(var(--a) / 0.06);
-    border-color: hsl(var(--a) / 0.12);
+  .cmd-result:last-child {
+    margin-bottom: 0;
   }
-  .cmd-item.is-active {
-    background: hsl(var(--a) / 0.1);
+  .cmd-result:hover,
+  .cmd-result.is-selected {
+    background: hsl(var(--a) / 0.08);
+    border-color: hsl(var(--a) / 0.15);
   }
-  .cmd-item-title {
+  .cmd-result-title {
     display: block;
-    font-weight: 700;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 600;
     color: hsl(var(--bc));
     margin-bottom: 4px;
+    line-height: 1.3;
   }
-  .cmd-item:hover .cmd-item-title,
-  .cmd-item.is-active .cmd-item-title {
+  .cmd-result:hover .cmd-result-title,
+  .cmd-result.is-selected .cmd-result-title {
     color: hsl(var(--a));
   }
-  .cmd-item-excerpt {
+  .cmd-result-excerpt {
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     color: hsl(var(--bc) / 0.55);
     line-height: 1.5;
     display: -webkit-box;
@@ -235,18 +253,18 @@ const t = useTranslations(locale as 'en' | 'ru');
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .cmd-item-excerpt mark {
-    background: hsl(var(--a) / 0.15);
+  .cmd-result-excerpt :global(mark) {
+    background: hsl(var(--a) / 0.2);
     color: hsl(var(--a));
-    padding: 0 3px;
+    padding: 1px 4px;
     border-radius: 3px;
     font-weight: 600;
   }
-  .cmd-item-path {
+  .cmd-result-path {
     display: block;
-    font-size: 11px;
-    color: hsl(var(--bc) / 0.3);
-    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    color: hsl(var(--bc) / 0.35);
+    font-family: ui-monospace, SFMono-Regular, monospace;
     margin-top: 6px;
   }
 </style>
@@ -277,12 +295,13 @@ const t = useTranslations(locale as 'en' | 'ru');
 
     function showEmpty() {
       body.innerHTML = `
-        <div class="cmd-empty">
-          <p class="cmd-empty-text">Type to search documentation</p>
-          <div class="cmd-shortcuts">
-            <span><kbd>⌘K</kbd> to open</span>
-            <span><kbd>↑↓</kbd> navigate</span>
-            <span><kbd>↵</kbd> select</span>
+        <div class="cmd-empty-state">
+          <div class="cmd-empty-icon">🔍</div>
+          <p class="cmd-empty-title">Type to search documentation</p>
+          <div class="cmd-empty-shortcuts">
+            <span class="cmd-shortcut"><kbd>⌘K</kbd> open</span>
+            <span class="cmd-shortcut"><kbd>↑↓</kbd> navigate</span>
+            <span class="cmd-shortcut"><kbd>↵</kbd> select</span>
           </div>
         </div>
       `;
@@ -307,27 +326,32 @@ const t = useTranslations(locale as 'en' | 'ru');
 
     function renderResults() {
       if (searchResults.length === 0) {
-        body.innerHTML = `<div class="cmd-no-results">No results found</div>`;
+        body.innerHTML = `
+          <div class="cmd-no-results">
+            <div class="cmd-no-results-icon">😕</div>
+            <p class="cmd-no-results-text">No results found</p>
+          </div>
+        `;
         return;
       }
 
-      body.innerHTML = searchResults.map((r, i) => {
+      body.innerHTML = `<div class="cmd-results-list">` + searchResults.map((r, i) => {
         const title = r.meta?.title || 'Untitled';
         const excerpt = r.excerpt || '';
         const path = r.url.replace(/\.html$/, '').replace(/\/index$/, '');
         
         return `
           <a href="${path}?q=${encodeURIComponent(input.value)}" 
-             class="cmd-item ${i === selectedIdx ? 'is-active' : ''}" 
+             class="cmd-result ${i === selectedIdx ? 'is-selected' : ''}" 
              data-i="${i}">
-            <span class="cmd-item-title">${title}</span>
-            ${excerpt ? `<span class="cmd-item-excerpt">${excerpt}</span>` : ''}
-            <span class="cmd-item-path">${path}</span>
+            <span class="cmd-result-title">${title}</span>
+            ${excerpt ? `<span class="cmd-result-excerpt">${excerpt}</span>` : ''}
+            <span class="cmd-result-path">${path}</span>
           </a>
         `;
-      }).join('');
+      }).join('') + `</div>`;
 
-      body.querySelectorAll('.cmd-item').forEach(el => {
+      body.querySelectorAll('.cmd-result').forEach(el => {
         el.addEventListener('click', closeModal);
       });
     }

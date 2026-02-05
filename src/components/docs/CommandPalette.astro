@@ -452,35 +452,34 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 14px;
+    padding: 8px 12px; /* Thinner padding */
     border-radius: 8px;
     cursor: pointer;
     color: hsl(var(--bc) / 0.7);
-    font-size: 14px;
+    font-size: 13px; /* Slightly smaller font */
     font-weight: 500;
     background: transparent;
-    border: 1px solid transparent;
+    border: none;
     width: 100%;
     text-align: left;
     transition: all 0.2s ease;
   }
 
   .recent-item:hover {
-    background: hsl(var(--bc) / 0.03);
-    border-color: hsl(var(--bc) / 0.05);
+    background: hsl(var(--bc) / 0.04);
     color: hsl(var(--bc));
   }
 
   .recent-icon {
-    width: 18px;
-    height: 18px;
-    opacity: 0.4;
+    width: 16px; /* Smaller icon */
+    height: 16px;
+    opacity: 0.3; /* More subtle */
     flex-shrink: 0;
     transition: opacity 0.2s;
   }
   
   .recent-item:hover .recent-icon {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   
   .recent-text {
@@ -681,15 +680,14 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
   .search-item:hover,
   .search-item.selected {
     background: hsl(var(--bc) / 0.03);
-    border-color: hsl(var(--bc) / 0.08);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px hsl(var(--bc) / 0.05);
+    border-color: hsl(var(--bc) / 0.05); /* Lighter border */
+    transform: translateY(0); /* Removed lift to feel grounded */
+    box-shadow: none; /* Removed shadow for cleaner look */
   }
 
   .search-item.selected {
-    background: hsl(var(--a) / 0.05);
-    border-color: hsl(var(--a) / 0.2);
-    box-shadow: 0 4px 12px hsl(var(--a) / 0.1);
+    background: hsl(var(--a) / 0.04);
+    border-color: hsl(var(--a) / 0.15);
   }
 
   /* Stagger animation delays (set via JS style attribute) */
@@ -1614,50 +1612,56 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
 <style is:global>
   /* ========== SEARCH RESULT HIGHLIGHT ========== */
+  /* NO LAYOUT SHIFT: Use overlay instead of changing properties */
+  
   .search-match-highlight,
   .search-match-heading {
     position: relative;
-    display: inline;
+    /* Do NOT change display property here to avoid layout shifts */
+  }
+
+  /* The actual shimmer effect is an overlay */
+  .search-match-highlight::after,
+  .search-match-heading::after {
+    content: '';
+    position: absolute;
+    inset: -2px; /* Slight expansion */
     background: linear-gradient(
       90deg, 
       transparent 0%,
-      hsl(var(--a) / 0.1) 20%,
-      hsl(var(--a) / 0.2) 50%,
-      hsl(var(--a) / 0.1) 80%,
+      hsl(var(--a) / 0.05) 40%,
+      hsl(var(--a) / 0.1) 50%,
+      hsl(var(--a) / 0.05) 60%,
       transparent 100%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: highlightShimmer 3s ease-in-out forwards;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+    z-index: 10;
+    pointer-events: none;
+    animation: highlightShimmerOverlay 2.5s ease-in-out forwards;
+    opacity: 0; /* Start hidden */
   }
 
-  @keyframes highlightShimmer {
+  @keyframes highlightShimmerOverlay {
     0% { 
+      opacity: 0;
       background-position: 100% 0;
-      outline-color: transparent;
     }
     10% {
-      outline-color: hsl(var(--a) / 0.2);
-      outline-offset: 4px;
-    }
-    30% {
-      outline-color: hsl(var(--a) / 0.15);
-      outline-offset: 2px;
+      opacity: 1;
     }
     100% { 
+      opacity: 0;
       background-position: -100% 0;
-      outline-color: transparent;
-      outline-offset: 2px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .search-match-highlight,
-    .search-match-heading {
+    .search-match-highlight::after,
+    .search-match-heading::after {
       animation: none;
-      background: hsl(var(--a) / 0.15);
+      background: hsl(var(--a) / 0.1);
+      opacity: 1;
     }
   }
 </style>

@@ -55,18 +55,30 @@ const prefix = locale === 'en' ? '' : `/${locale}`;
         const action = (btn as HTMLElement).dataset.action;
         
         switch (action) {
+          case 'openDrawer':
+            // Logic handled in DocsLayout, but we can emit a custom event or trigger directly if buttons handle ids.
+            // But DocsLayout listens to 'mobile-menu-btn'.
+            // Better approach: Since this is inside BottomBar, let's emit a global event or find the function.
+            // Actually, DocsLayout manages the drawer state. We should trigger the same logic.
+            const drawer = document.getElementById('mobile-drawer');
+            const overlay = document.getElementById('mobile-drawer-overlay');
+            if (drawer && overlay) {
+              drawer.classList.remove('-translate-x-full');
+              overlay.classList.remove('opacity-0', 'invisible');
+              overlay.classList.add('opacity-100', 'visible');
+              document.body.style.overflow = 'hidden';
+            }
+            break;
           case 'openSearch':
             // Trigger command palette or search
             document.getElementById('command-palette')?.classList.add('is-open');
             document.getElementById('command-palette-backdrop')?.classList.add('is-open');
+            // document.getElementById('command-palette-input')?.focus(); // Focus in a timeout ideally
+            setTimeout(() => document.getElementById('command-palette-input')?.focus(), 50);
             break;
           case 'openTOC':
             // Toggle mobile TOC
             document.getElementById('mobile-toc')?.classList.toggle('is-open');
-            break;
-          case 'openSettings':
-            // Toggle settings panel (theme/lang switcher)
-            document.getElementById('mobile-settings')?.classList.toggle('is-open');
             break;
         }
       });

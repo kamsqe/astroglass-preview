@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../components/docs/DocsLayout.astro';
+import Callout from '../../components/mdx/Callout.astro';
+import CardGrid from '../../components/mdx/CardGrid.astro';
+import LinkCard from '../../components/mdx/LinkCard.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import CodeTabs from '../../components/mdx/CodeTabs.astro';
+import Steps from '../../components/mdx/Steps.astro';
+import ApiMethod from '../../components/mdx/ApiMethod.astro';
+import FileTree from '../../components/mdx/FileTree.astro';
+import Badge from '../../components/mdx/Badge.astro';
+
+export const prerender = true;
+
+// Get only V2 layout docs
+const docs = await getCollection('docs', ({ slug, data }) => 
+  slug.startsWith('en/') && data.docsLayout === 'v2'
+);
+
+// Pick the first V2 doc to showcase
+const doc = docs[0];
+const { Content, headings } = doc ? await doc.render() : { Content: null, headings: [] };
+const locale = 'en';
+
+const components = {
+  Callout,
+  CardGrid,
+  LinkCard,
+  PropsTable,
+  CodeTabs,
+  Steps,
+  ApiMethod,
+  FileTree,
+  Badge,
+};
+---
+
+{doc ? (
+  <DocsLayout doc={doc} headings={headings} locale={locale}>
+    <Content components={components} />
+  </DocsLayout>
+) : (
+  <DocsLayout 
+    doc={{ data: { title: 'V2 Demo', docsLayout: 'v2' }}} 
+    headings={[]} 
+    locale={locale}
+  >
+    <div class="prose max-w-none">
+      <h1>V2 Documentation Layout Demo</h1>
+      <p>This page demonstrates the V2 (API Reference) documentation layout.</p>
+      <p>V2 layout features a three-column design optimized for technical documentation:</p>
+      <ul>
+        <li>Left sidebar: Navigation</li>
+        <li>Center: Content area</li>
+        <li>Right sidebar: Table of contents</li>
+      </ul>
+      <p>
+        To see V2 in action, visit any component API reference page:
+        <a href="/docs/02-components/api-reference/">API Reference →</a>
+      </p>
+    </div>
+  </DocsLayout>
+)}

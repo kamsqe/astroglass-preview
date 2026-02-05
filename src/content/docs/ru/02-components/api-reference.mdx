@@ -7,10 +7,6 @@ category: api
 tags: ["api", "компоненты", "справочник"]
 ---
 
-import ApiMethod from '../../../components/mdx/ApiMethod.astro';
-import Badge from '../../../components/mdx/Badge.astro';
-import CodeTabs from '../../../components/mdx/CodeTabs.astro';
-import Callout from '../../../components/mdx/Callout.astro';
 
 Этот справочник документирует публичный API для всех компонентов шаблона. Каждый компонент полностью типизирован с помощью TypeScript и поддерживает интернационализацию из коробки.
 
@@ -36,7 +32,6 @@ import Callout from '../../../components/mdx/Callout.astro';
 
 ```astro
 ---
-import Hero from '../components/Hero.astro';
 ---
 
 <Hero version="glass" locale="ru" />
@@ -74,7 +69,6 @@ import Hero from '../components/Hero.astro';
 
 ```astro
 ---
-import Pricing from '../components/Pricing.astro';
 ---
 
 <Pricing version="luxury" locale="ru" />
@@ -100,7 +94,6 @@ import Pricing from '../components/Pricing.astro';
 ### Использование
 
 ```typescript
-import { useTranslations } from '../utils/i18n';
 
 const t = useTranslations('ru');
 

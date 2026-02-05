@@ -7,10 +7,6 @@ category: api
 tags: ["api", "components", "reference"]
 ---
 
-import ApiMethod from '../../../components/mdx/ApiMethod.astro';
-import Badge from '../../../components/mdx/Badge.astro';
-import CodeTabs from '../../../components/mdx/CodeTabs.astro';
-import Callout from '../../../components/mdx/Callout.astro';
 
 This reference documents the public API for all template components. Each component is fully typed with TypeScript and supports internationalization out of the box.
 
@@ -36,7 +32,6 @@ The `Hero` component displays the main hero section of the page with dynamic the
 
 ```astro
 ---
-import Hero from '../components/Hero.astro';
 ---
 
 <Hero version="glass" locale="en" />
@@ -74,7 +69,6 @@ The `Pricing` component displays pricing tiers with monthly/yearly toggle functi
 
 ```astro
 ---
-import Pricing from '../components/Pricing.astro';
 ---
 
 <Pricing version="luxury" locale="ru" />
@@ -100,7 +94,6 @@ The `useTranslations` function returns a translation function for the specified 
 ### Usage
 
 ```typescript
-import { useTranslations } from '../utils/i18n';
 
 const t = useTranslations('en');
 
@@ -140,8 +133,6 @@ Builds localized navigation links from the navigation configuration.
 ### Usage
 
 ```typescript
-import { buildNavLinks } from '../config/navigation';
-import { useTranslations } from '../utils/i18n';
 
 const t = useTranslations('ru');
 const navLinks = buildNavLinks('ru', t);

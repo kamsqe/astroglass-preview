@@ -1,0 +1,355 @@
+---
+/**
+ * Contact V1 - The Conversation Thread (REMARKABLE)
+ * Chat-style form with typing indicators, quick-reply chips.
+ * Feels like texting, not filling forms.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const chatData = JSON.stringify({
+  askName: t('contact.chat.askName'),
+  askEmail: t('contact.chat.askEmail'),
+  askMessage: t('contact.chat.askMessage'),
+  thanks: t('contact.chat.thanks')
+});
+---
+
+<section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
+  <!-- Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"></div>
+  </div>
+
+  <div class="max-w-lg mx-auto relative">
+    <!-- Header -->
+    <div class="text-center mb-6 sm:mb-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.eyebrow')}</span>
+      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.title')}</h2>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="contact-v1-chat relative bg-base-content/[0.02] border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm" data-chat={chatData}>
+      
+      <!-- Chat Header -->
+      <div class="flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-base-content/[0.03] border-b border-base-content/5">
+        <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-lg">💬</div>
+        <div>
+          <p class="text-sm font-bold text-base-content">{t('contact.supportTeam')}</p>
+          <p class="text-xs text-base-content/40 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
+            {t('contact.onlineNow')}
+          </p>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div class="contact-v1-messages p-4 sm:p-6 space-y-4 min-h-[300px] max-h-[400px] overflow-y-auto">
+        <!-- Initial bot message -->
+        <div class="contact-v1-msg bot flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+          <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
+            <p class="text-sm text-base-content">{t('contact.botWelcome')}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Replies / Input Area -->
+      <div class="contact-v1-input-area border-t border-base-content/5 p-4 sm:p-5 bg-base-content/[0.02]">
+        <!-- Quick Reply Chips (Step 0) -->
+        <div class="contact-v1-chips flex flex-wrap gap-2" data-step="0">
+          <button class="contact-v1-chip px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm font-medium text-accent hover:bg-accent hover:text-base-100 transition-all duration-500" data-value="sales">
+            💼 {t('contact.intents.sales')}
+          </button>
+          <button class="contact-v1-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="support">
+            🛠 {t('contact.intents.support')}
+          </button>
+          <button class="contact-v1-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="partnership">
+            🤝 {t('contact.intents.partnership')}
+          </button>
+          <button class="contact-v1-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="other">
+            💭 {t('contact.intents.other')}
+          </button>
+        </div>
+
+        <!-- Text Input (hidden initially) -->
+        <div class="contact-v1-text-input hidden">
+          <div class="flex gap-3">
+            <input 
+              type="text" 
+              class="contact-v1-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/30 transition-all duration-300"
+              placeholder={t('contact.placeholders.typeMessage')}
+            />
+            <button class="contact-v1-send w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Email Input (hidden) -->
+        <div class="contact-v1-email-input hidden">
+          <div class="flex gap-3">
+            <input 
+              type="email" 
+              class="contact-v1-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/30 transition-all duration-300"
+              placeholder={t('contact.placeholders.yourEmail')}
+              inputmode="email"
+            />
+            <button class="contact-v1-send-email w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Success State (hidden) -->
+        <div class="contact-v1-success hidden text-center py-4">
+          <div class="text-3xl mb-2">✨</div>
+          <p class="text-sm text-base-content/60">{t('contact.messageSent')}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust line -->
+    <p class="text-center text-xs text-base-content/30 mt-4">
+      {t('contact.secureInfo')}
+    </p>
+  </div>
+</section>
+
+<style>
+  .contact-v1-chat {
+    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .contact-v1-msg {
+    animation: msgSlideIn 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes msgSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-v1-msg.user {
+    justify-content: flex-end;
+  }
+
+  .contact-v1-msg.user > div:last-child {
+    background: hsl(var(--a));
+    color: hsl(var(--b1));
+    border-radius: 1rem 1rem 0.25rem 1rem;
+  }
+
+  .contact-v1-typing {
+    display: flex;
+    gap: 4px;
+    padding: 8px 16px;
+  }
+
+  .contact-v1-typing span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(var(--bc) / 0.3);
+    animation: typingBounce 1.4s ease-in-out infinite;
+  }
+
+  .contact-v1-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .contact-v1-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  .contact-v1-chip {
+    transform: translateZ(0);
+  }
+
+  .contact-v1-messages::-webkit-scrollbar {
+    width: 4px;
+  }
+  .contact-v1-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .contact-v1-messages::-webkit-scrollbar-thumb {
+    background: hsl(var(--bc) / 0.1);
+    border-radius: 10px;
+  }
+</style>
+
+<script>
+  let contactV1Controller: AbortController | null = null;
+
+  function initContactV1() {
+    // Abort previous listeners
+    contactV1Controller?.abort();
+    contactV1Controller = new AbortController();
+    const signal = contactV1Controller.signal;
+
+    const chat = document.querySelector('.contact-v1-chat') as HTMLElement;
+    if (!chat) return;
+
+    const chatData = chat.dataset.chat ? JSON.parse(chat.dataset.chat) : {};
+    const messages = chat.querySelector('.contact-v1-messages');
+    const chipsContainer = chat.querySelector('.contact-v1-chips');
+    const textInputContainer = chat.querySelector('.contact-v1-text-input');
+    const emailInputContainer = chat.querySelector('.contact-v1-email-input');
+    const successContainer = chat.querySelector('.contact-v1-success');
+
+    let step = 0;
+    let formData: Record<string, string> = {};
+
+    const questions = [
+      { key: 'intent', botMsg: null },
+      { key: 'name', botMsg: chatData.askName || "Nice! What's your name?" },
+      { key: 'email', botMsg: chatData.askEmail || "Great to meet you! What's the best email?" },
+      { key: 'message', botMsg: chatData.askMessage || "Perfect! Now tell me what you need help with." },
+    ];
+
+    function addMessage(text: string, isUser: boolean) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `contact-v1-msg ${isUser ? 'user' : 'bot'} flex gap-3`;
+      
+      if (isUser) {
+        msgDiv.innerHTML = `
+          <div class="bg-accent text-base-100 rounded-2xl rounded-tr-md px-4 py-3 max-w-[85%] ml-auto">
+            <p class="text-sm">${text}</p>
+          </div>
+        `;
+      } else {
+        msgDiv.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+          <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
+            <p class="text-sm text-base-content">${text}</p>
+          </div>
+        `;
+      }
+      
+      messages?.appendChild(msgDiv);
+      messages?.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
+    }
+
+    function showTyping() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'contact-v1-msg bot flex gap-3 typing-indicator';
+      typingDiv.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+        <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md">
+          <div class="contact-v1-typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      `;
+      messages?.appendChild(typingDiv);
+      messages?.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
+    }
+
+    function hideTyping() {
+      const typing = messages?.querySelector('.typing-indicator');
+      typing?.remove();
+    }
+
+    function nextStep() {
+      step++;
+      if (step >= questions.length) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage(chatData.thanks || "Thanks! We'll get back to you soon.", false);
+          textInputContainer?.classList.add('hidden');
+          emailInputContainer?.classList.add('hidden');
+          successContainer?.classList.remove('hidden');
+        }, 1000);
+        return;
+      }
+
+      const q = questions[step];
+      let msg = q.botMsg || '';
+      Object.keys(formData).forEach(key => {
+        msg = msg.replace(`{${key}}`, formData[key]);
+      });
+
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        addMessage(msg, false);
+
+        chipsContainer?.classList.add('hidden');
+        if (q.key === 'email') {
+          textInputContainer?.classList.add('hidden');
+          emailInputContainer?.classList.remove('hidden');
+          (emailInputContainer?.querySelector('input') as HTMLInputElement)?.focus();
+        } else {
+          emailInputContainer?.classList.add('hidden');
+          textInputContainer?.classList.remove('hidden');
+          (textInputContainer?.querySelector('input') as HTMLInputElement)?.focus();
+        }
+      }, 800);
+    }
+
+    // Chip click handler
+    chipsContainer?.querySelectorAll('.contact-v1-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const value = (chip as HTMLElement).dataset.value || '';
+        const label = chip.textContent?.trim() || value;
+        formData['intent'] = value;
+        addMessage(label, true);
+        nextStep();
+      }, { signal });
+    });
+
+    // Text input handler
+    const textInput = textInputContainer?.querySelector('input');
+    const textSend = textInputContainer?.querySelector('.contact-v1-send');
+    
+    function submitText() {
+      const value = textInput?.value.trim();
+      if (!value) return;
+      
+      formData[questions[step].key] = value;
+      addMessage(value, true);
+      if (textInput) textInput.value = '';
+      nextStep();
+    }
+
+    textSend?.addEventListener('click', submitText, { signal });
+    textInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitText();
+    }, { signal });
+
+    // Email input handler
+    const emailInput = emailInputContainer?.querySelector('input');
+    const emailSend = emailInputContainer?.querySelector('.contact-v1-send-email');
+    
+    function submitEmail() {
+      const value = emailInput?.value.trim();
+      if (!value || !value.includes('@')) return;
+      
+      formData['email'] = value;
+      addMessage(value, true);
+      if (emailInput) emailInput.value = '';
+      nextStep();
+    }
+
+    emailSend?.addEventListener('click', submitEmail, { signal });
+    emailInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitEmail();
+    }, { signal });
+  }
+
+  initContactV1();
+  document.addEventListener('astro:after-swap', initContactV1);
+</script>

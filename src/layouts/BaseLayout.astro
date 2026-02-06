@@ -2,12 +2,12 @@
 import { getLocaleFromUrl } from '../utils/i18n';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
-import Header from '../components/header/HeaderLiquid.astro';
-import HeaderV2 from '../components/header/HeaderGlass.astro';
-import HeaderV3 from '../components/header/HeaderNeo.astro';
-import HeaderV4 from '../components/header/HeaderLuxury.astro';
-import HeaderV5 from '../components/header/HeaderMinimal.astro';
-import ShowcaseControls from '../components/ShowcaseControls.astro';
+import Header from '../components/layout/header/HeaderLiquid.astro';
+import HeaderV2 from '../components/layout/header/HeaderGlass.astro';
+import HeaderV3 from '../components/layout/header/HeaderNeo.astro';
+import HeaderV4 from '../components/layout/header/HeaderLuxury.astro';
+import HeaderV5 from '../components/layout/header/HeaderMinimal.astro';
+import ShowcaseControls from '../components/ui/ShowcaseControls.astro';
 
 export interface Props {
   title: string;

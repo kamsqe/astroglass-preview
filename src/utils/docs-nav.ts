@@ -20,6 +20,11 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
     // If it's in a subfolder, use folder name. If root, use 'General'
     let sectionKey = parts.length > 1 ? parts[0] : 'General';
     
+    // granular components
+    if (sectionKey === 'components' && parts.length > 2) {
+      sectionKey = `components-${parts[1]}`;
+    }
+    
     if (!sections[sectionKey]) sections[sectionKey] = [];
     
     sections[sectionKey].push({
@@ -29,15 +34,30 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
     });
   });
 
+  // Explicit Section Ordering
+  const SECTION_ORDER: Record<string, number> = {
+    'getting-started': 1,
+    'components-sections': 2,
+    'components-ui': 3,
+    'components-reference': 4,
+    'core-concepts': 5,
+    'deployment': 6,
+    'General': 0
+  };
+
   // Convert to array and sort
   const nav = Object.entries(sections).map(([key, items]) => {
-    // Format title: "01-getting-started" -> "Getting Started"
-    const title = key === 'General' ? 'General' : 
-      key.replace(/^\d+-/, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    // Format title
+    let title = key === 'General' ? 'General' : 
+      key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+    // Custom titles
+    if (key === 'components-sections') title = 'Marketing Sections';
+    if (key === 'components-ui') title = 'UI Elements';
+    if (key === 'components-reference') title = 'Reference';
       
-    // Extract section order if present (e.g. 01-)
-    const match = key.match(/^(\d+)-/);
-    const sectionOrder = match ? parseInt(match[1]) : (key === 'General' ? 0 : 99);
+    // Get explicit order
+    const sectionOrder = SECTION_ORDER[key] || 99;
 
     return {
       title,

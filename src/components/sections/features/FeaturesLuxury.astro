@@ -1,0 +1,198 @@
+---
+/**
+ * Features V4 - Use-Case Driven Tabs
+ * Features organized by user intent with interactive tab switching.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const useCases = [
+  {
+    id: 'speed',
+    icon: '⚡',
+    label: t('features.useCases.speed'),
+    headline: t('features.useCases.speedHeadline'),
+    features: [
+      { icon: '🚀', title: t('features.f1Title'), desc: t('features.f1Desc') },
+      { icon: '📦', title: t('features.useCases.speedF2Title'), desc: t('features.useCases.speedF2Desc') },
+    ]
+  },
+  {
+    id: 'design',
+    icon: '✨',
+    label: t('features.useCases.design'),
+    headline: t('features.useCases.designHeadline'),
+    features: [
+      { icon: '💎', title: t('features.f2Title'), desc: t('features.f2Desc') },
+      { icon: '🎨', title: t('features.f4Title'), desc: t('features.f4Desc') },
+    ]
+  },
+  {
+    id: 'scale',
+    icon: '🌍',
+    label: t('features.useCases.scale'),
+    headline: t('features.useCases.scaleHeadline'),
+    features: [
+      { icon: '📱', title: t('features.f3Title'), desc: t('features.f3Desc') },
+      { icon: '🌐', title: t('features.useCases.scaleF2Title'), desc: t('features.useCases.scaleF2Desc') },
+    ]
+  },
+];
+---
+
+<section class="features-v4 relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-10 sm:mb-14">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+        {t('features.badge')}
+      </div>
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-base-content tracking-tight mb-4">
+        {t('features.v4Title')}
+      </h2>
+      <p class="text-base sm:text-lg text-base-content/50 max-w-xl mx-auto">
+        {t('features.v4Subtitle')}
+      </p>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar flex justify-center mb-10 sm:mb-14">
+      <div class="inline-flex gap-2 p-1.5 rounded-2xl bg-base-content/[0.03] border border-base-content/5 overflow-x-auto max-w-full">
+        {useCases.map((uc, i) => (
+          <button
+            type="button"
+            class:list={[
+              "tab-btn flex items-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all duration-500",
+              i === 0 ? "active bg-accent text-white shadow-lg shadow-accent/25" : "text-base-content/60 hover:text-base-content hover:bg-base-content/5"
+            ]}
+            data-tab={uc.id}
+          >
+            <span class="text-lg">{uc.icon}</span>
+            <span class="hidden sm:inline">{uc.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content-container relative">
+      {useCases.map((uc, i) => (
+        <div 
+          class:list={[
+            "tab-content",
+            i === 0 ? "active" : ""
+          ]}
+          data-content={uc.id}
+        >
+          <!-- Headline -->
+          <p class="text-center text-lg sm:text-xl text-base-content/60 font-medium mb-8 sm:mb-10 max-w-2xl mx-auto">
+            {uc.headline}
+          </p>
+
+          <!-- Feature Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {uc.features.map((f, fi) => (
+              <div class="feature-card group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/5 backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 transition-all duration-500">
+                <!-- Glow -->
+                <div class="absolute inset-0 bg-accent/5 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                
+                <div class="relative z-10 flex gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                    {f.icon}
+                  </div>
+                  <div>
+                    <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
+                      {f.title}
+                    </h3>
+                    <p class="text-sm sm:text-base text-base-content/50 leading-relaxed group-hover:text-base-content/70 transition-colors duration-300">
+                      {f.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12 sm:mt-16">
+      <a href="#" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-accent text-white font-bold shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 group">
+        {t('features.cta')}
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .tab-content.active {
+    display: block;
+    animation: content-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes content-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .feature-card {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .tab-content.active .feature-card:nth-child(1) { animation-delay: 0.1s; }
+  .tab-content.active .feature-card:nth-child(2) { animation-delay: 0.2s; }
+</style>
+
+<script>
+  function initFeaturesV4() {
+    const container = document.querySelector('.features-v4');
+    if (!container) return;
+
+    const tabs = container.querySelectorAll('.tab-btn');
+    const contents = container.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-tab');
+
+        // Update tabs
+        tabs.forEach(t => {
+          t.classList.remove('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+          t.classList.add('text-base-content/60');
+        });
+        tab.classList.add('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+        tab.classList.remove('text-base-content/60');
+
+        // Update content
+        contents.forEach(c => {
+          c.classList.remove('active');
+          if (c.getAttribute('data-content') === targetId) {
+            c.classList.add('active');
+          }
+        });
+      });
+    });
+  }
+
+  // Initialize
+  initFeaturesV4();
+
+  // Re-init on Astro navigation
+  document.addEventListener('astro:after-swap', initFeaturesV4);
+</script>

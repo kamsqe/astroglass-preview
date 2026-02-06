@@ -1,0 +1,19 @@
+---
+import TestimonialLiquid from './TestimonialLiquid.astro';
+import TestimonialGlass from './TestimonialGlass.astro';
+import TestimonialNeo from './TestimonialNeo.astro';
+import TestimonialLuxury from './TestimonialLuxury.astro';
+import TestimonialMinimal from './TestimonialMinimal.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <TestimonialLiquid /> : 
+ version === 2 ? <TestimonialGlass /> : 
+ version === 3 ? <TestimonialNeo /> : 
+ version === 4 ? <TestimonialLuxury /> : 
+ <TestimonialMinimal />}

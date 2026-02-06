@@ -1,0 +1,88 @@
+---
+title: Компоненты Секций
+description: Готовые компоненты-обертки для Hero, Features, Pricing и других секций.
+order: 0
+---
+
+import Callout from '../../../../../components/mdx/Callout.astro';
+import Badge from '../../../../../components/mdx/Badge.astro';
+
+Liquid Glass предоставляет набор "Компонентов-оберток" для основных секций страницы. Эти компоненты автоматически управляют переключением тем на основе пропса `version`.
+
+Каждый компонент поддерживает 5 различных тем дизайна:
+1. **Liquid** (По умолчанию)
+2. **Glass**
+3. **Neo**
+4. **Luxury**
+5. **Minimal**
+
+## Hero
+
+Компонент Hero - это точка входа на ваш лендинг.
+
+```astro
+import Hero from '../../components/sections/hero/index.astro';
+
+<Hero version={1} /> <!-- Тема Liquid -->
+<Hero version={2} /> <!-- Тема Glass -->
+```
+
+## Features (Преимущества)
+
+Отобразите преимущества вашего продукта в виде сетки или списка.
+
+```astro
+import Features from '../../components/sections/features/index.astro';
+
+<Features version={3} /> <!-- Тема Neo -->
+```
+
+## Pricing (Цены)
+
+Адаптивные таблицы цен с переключателем ежемесячно/ежегодно.
+
+```astro
+import Pricing from '../../components/sections/pricing/index.astro';
+
+<Pricing version={4} /> <!-- Тема Luxury -->
+```
+
+## Testimonials (Отзывы)
+
+Секции социальных доказательств для повышения доверия.
+
+```astro
+import Testimonial from '../../components/sections/testimonial/index.astro';
+
+<Testimonial version={5} /> <!-- Тема Minimal -->
+```
+
+## FAQ (Вопросы и ответы)
+
+Аккордеон часто задаваемых вопросов.
+
+```astro
+import FAQ from '../../components/sections/faq/index.astro';
+
+<FAQ version={1} />
+```
+
+## CTA (Призыв к действию)
+
+Финальная секция конверсии внизу страниц.
+
+```astro
+import CTA from '../../components/sections/cta/index.astro';
+
+<CTA version={2} />
+```
+
+## Как это работает
+
+Под капотом эти компоненты-обертки динамически импортируют конкретную реализацию на основе пропса версии.
+
+Например, `<Hero version={1} />` рендерит `src/components/sections/hero/HeroLiquid.astro`.
+
+<Callout type="tip" title="Кастомизация">
+  Чтобы настроить конкретную секцию, вам следует редактировать файл в подпапке (например, `src/components/sections/hero/HeroGlass.astro`), а не сам компонент-обертку.
+</Callout>

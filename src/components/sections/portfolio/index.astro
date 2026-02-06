@@ -1,0 +1,19 @@
+---
+import PortfolioLiquid from './PortfolioLiquid.astro';
+import PortfolioGlass from './PortfolioGlass.astro';
+import PortfolioNeo from './PortfolioNeo.astro';
+import PortfolioLuxury from './PortfolioLuxury.astro';
+import PortfolioMinimal from './PortfolioMinimal.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <PortfolioLiquid /> : 
+ version === 2 ? <PortfolioGlass /> : 
+ version === 3 ? <PortfolioNeo /> : 
+ version === 4 ? <PortfolioLuxury /> : 
+ <PortfolioMinimal />}

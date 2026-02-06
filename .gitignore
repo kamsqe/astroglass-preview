@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Pagefind search index (generated)
 public/pagefind/
+
+# Developer documentation
+developer-docs/

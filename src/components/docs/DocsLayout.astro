@@ -11,7 +11,8 @@ import DocsSearch from './DocsSearch.astro';
 import DocsProgress from './DocsProgress.astro';
 import DocsBottomBar from './DocsBottomBar.astro';
 import DocsTOCMobile from './DocsTOCMobile.astro';
-import CommandPalette from './CommandPalette.astro';
+import SearchDialog from '../ui/search/SearchDialog';
+import HighlightScript from '../ui/search/HighlightScript.astro';
 
 interface Props {
   doc: any;
@@ -24,11 +25,24 @@ interface Props {
 const { doc, Content, headings, locale, isFallback = false } = Astro.props;
 const t = useTranslations(locale);
 const sections = await buildDocsNav(locale);
+
+const searchLabels = {
+  placeholder: t('docs.searchPlaceholder') || 'Search documentation...',
+  noResults: t('docs.noResults') || 'No results found',
+  recentSearches: t('docs.recentSearches') || 'Recent',
+  quickLinks: t('docs.quickLinks') || 'Quick Links',
+  gettingStarted: t('docs.gettingStarted') || 'Getting Started',
+  components: t('docs.components') || 'Components',
+  themes: t('docs.themes') || 'Themes',
+  clear: t('docs.clear') || 'Clear',
+  didYouMean: t('docs.didYouMean') || 'Did you mean?',
+};
 ---
 
 <BaseLayout title={`${doc.data.title} | Docs`} description={doc.data.description}>
   <DocsProgress />
-  <CommandPalette locale={locale} />
+  <HighlightScript />
+  <SearchDialog client:load locale={locale} labels={searchLabels} />
   
   <div class="docs-container min-h-screen pt-16">
     

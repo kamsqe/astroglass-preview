@@ -1,0 +1,19 @@
+---
+import PricingLiquid from './PricingLiquid.astro';
+import PricingGlass from './PricingGlass.astro';
+import PricingNeo from './PricingNeo.astro';
+import PricingLuxury from './PricingLuxury.astro';
+import PricingMinimal from './PricingMinimal.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <PricingLiquid /> : 
+ version === 2 ? <PricingGlass /> : 
+ version === 3 ? <PricingNeo /> : 
+ version === 4 ? <PricingLuxury /> : 
+ <PricingMinimal />}

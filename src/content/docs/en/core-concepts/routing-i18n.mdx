@@ -1,0 +1,88 @@
+---
+title: Routing & Internationalization
+description: Understand how pages and languages work in Liquid Glass.
+---
+
+import FileTree from '../../../../components/mdx/FileTree.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+
+Liquid Glass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy.
+
+## Page Routing
+
+Pages are located in `src/pages/`. The folder structure determines the URL path.
+
+For localized pages, we use separate directories:
+
+<FileTree>
+- src/
+  - pages/
+    - **index.astro**      # Default language (English) Homepage
+    - about.astro          # /about
+    - ru/                  # Russian Localization
+      - **index.astro**    # /ru/ (Russian Homepage)
+      - about.astro        # /ru/about
+</FileTree>
+
+### Adding a New Page
+
+To add a new page (e.g., `services`):
+
+1.  Create `src/pages/services.astro` (for English).
+2.  Create `src/pages/ru/services.astro` (for Russian).
+
+## Documentation Routing
+
+Documentation pages live in `src/content/docs/[lang]/`.
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - en/
+        - getting-started/
+          - 01-introduction.mdx
+      - ru/
+        - getting-started/
+          - 01-introduction.mdx
+</FileTree>
+
+The URL for documentation is automatically generated based on the file path, e.g., `/docs/en/getting-started/introduction`.
+
+## Internationalization (i18n)
+
+Translations are handled in two ways:
+1.  **Page Content**: Duplicate `.astro` files in `src/pages/[lang]/`.
+2.  **UI Strings**: Centralized JSON files in `src/locales/`.
+
+### UI Translations
+
+Common strings (nav items, buttons, etc.) are stored in `src/locales/[lang]/common.json`.
+
+```json
+/* src/locales/en/common.json */
+{
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  }
+}
+```
+
+Use the helper function to translate strings in components:
+
+```astro
+---
+import { useTranslations } from '../utils/i18n';
+const t = useTranslations('en');
+---
+<p>{t('nav.home')}</p>
+```
+
+<Callout type="info" title="Adding Languages">
+  To add a new language (e.g., Spanish):
+  1. Create a `src/pages/es/` directory.
+  2. Create `src/locales/es/common.json`.
+  3. Create `src/content/docs/es/`.
+  4. Update `src/components/ui/LanguageSwitcher.astro` to include the new option.
+</Callout>

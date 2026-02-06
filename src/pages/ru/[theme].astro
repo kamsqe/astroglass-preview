@@ -11,74 +11,74 @@ import { getEnabledThemes, getThemeById } from '../../config/themes';
 
 // Import all theme components
 // Headers
-import HeaderLiquid from '../../components/header/HeaderLiquid.astro';
-import HeaderGlass from '../../components/header/HeaderGlass.astro';
-import HeaderNeo from '../../components/header/HeaderNeo.astro';
-import HeaderLuxury from '../../components/header/HeaderLuxury.astro';
-import HeaderMinimal from '../../components/header/HeaderMinimal.astro';
+import HeaderLiquid from '../../components/layout/header/HeaderLiquid.astro';
+import HeaderGlass from '../../components/layout/header/HeaderGlass.astro';
+import HeaderNeo from '../../components/layout/header/HeaderNeo.astro';
+import HeaderLuxury from '../../components/layout/header/HeaderLuxury.astro';
+import HeaderMinimal from '../../components/layout/header/HeaderMinimal.astro';
 
 // Heroes
-import HeroLiquid from '../../components/hero/HeroLiquid.astro';
-import HeroGlass from '../../components/hero/HeroGlass.astro';
-import HeroNeo from '../../components/hero/HeroNeo.astro';
-import HeroLuxury from '../../components/hero/HeroLuxury.astro';
-import HeroMinimal from '../../components/hero/HeroMinimal.astro';
+import HeroLiquid from '../../components/sections/hero/HeroLiquid.astro';
+import HeroGlass from '../../components/sections/hero/HeroGlass.astro';
+import HeroNeo from '../../components/sections/hero/HeroNeo.astro';
+import HeroLuxury from '../../components/sections/hero/HeroLuxury.astro';
+import HeroMinimal from '../../components/sections/hero/HeroMinimal.astro';
 
 // About
-import AboutLiquid from '../../components/about/AboutLiquid.astro';
-import AboutGlass from '../../components/about/AboutGlass.astro';
-import AboutNeo from '../../components/about/AboutNeo.astro';
-import AboutLuxury from '../../components/about/AboutLuxury.astro';
-import AboutMinimal from '../../components/about/AboutMinimal.astro';
+import AboutLiquid from '../../components/sections/about/AboutLiquid.astro';
+import AboutGlass from '../../components/sections/about/AboutGlass.astro';
+import AboutNeo from '../../components/sections/about/AboutNeo.astro';
+import AboutLuxury from '../../components/sections/about/AboutLuxury.astro';
+import AboutMinimal from '../../components/sections/about/AboutMinimal.astro';
 
 // Features
-import FeaturesLiquid from '../../components/features/FeaturesLiquid.astro';
-import FeaturesGlass from '../../components/features/FeaturesGlass.astro';
-import FeaturesNeo from '../../components/features/FeaturesNeo.astro';
-import FeaturesLuxury from '../../components/features/FeaturesLuxury.astro';
-import FeaturesMinimal from '../../components/features/FeaturesMinimal.astro';
+import FeaturesLiquid from '../../components/sections/features/FeaturesLiquid.astro';
+import FeaturesGlass from '../../components/sections/features/FeaturesGlass.astro';
+import FeaturesNeo from '../../components/sections/features/FeaturesNeo.astro';
+import FeaturesLuxury from '../../components/sections/features/FeaturesLuxury.astro';
+import FeaturesMinimal from '../../components/sections/features/FeaturesMinimal.astro';
 
 // Portfolio
-import PortfolioLiquid from '../../components/portfolio/PortfolioLiquid.astro';
-import PortfolioGlass from '../../components/portfolio/PortfolioGlass.astro';
-import PortfolioNeo from '../../components/portfolio/PortfolioNeo.astro';
-import PortfolioLuxury from '../../components/portfolio/PortfolioLuxury.astro';
-import PortfolioMinimal from '../../components/portfolio/PortfolioMinimal.astro';
+import PortfolioLiquid from '../../components/sections/portfolio/PortfolioLiquid.astro';
+import PortfolioGlass from '../../components/sections/portfolio/PortfolioGlass.astro';
+import PortfolioNeo from '../../components/sections/portfolio/PortfolioNeo.astro';
+import PortfolioLuxury from '../../components/sections/portfolio/PortfolioLuxury.astro';
+import PortfolioMinimal from '../../components/sections/portfolio/PortfolioMinimal.astro';
 
 // Pricing
-import PricingLiquid from '../../components/pricing/PricingLiquid.astro';
-import PricingGlass from '../../components/pricing/PricingGlass.astro';
-import PricingNeo from '../../components/pricing/PricingNeo.astro';
-import PricingLuxury from '../../components/pricing/PricingLuxury.astro';
-import PricingMinimal from '../../components/pricing/PricingMinimal.astro';
+import PricingLiquid from '../../components/sections/pricing/PricingLiquid.astro';
+import PricingGlass from '../../components/sections/pricing/PricingGlass.astro';
+import PricingNeo from '../../components/sections/pricing/PricingNeo.astro';
+import PricingLuxury from '../../components/sections/pricing/PricingLuxury.astro';
+import PricingMinimal from '../../components/sections/pricing/PricingMinimal.astro';
 
 // Testimonial
-import TestimonialLiquid from '../../components/testimonial/TestimonialLiquid.astro';
-import TestimonialGlass from '../../components/testimonial/TestimonialGlass.astro';
-import TestimonialNeo from '../../components/testimonial/TestimonialNeo.astro';
-import TestimonialLuxury from '../../components/testimonial/TestimonialLuxury.astro';
-import TestimonialMinimal from '../../components/testimonial/TestimonialMinimal.astro';
+import TestimonialLiquid from '../../components/sections/testimonial/TestimonialLiquid.astro';
+import TestimonialGlass from '../../components/sections/testimonial/TestimonialGlass.astro';
+import TestimonialNeo from '../../components/sections/testimonial/TestimonialNeo.astro';
+import TestimonialLuxury from '../../components/sections/testimonial/TestimonialLuxury.astro';
+import TestimonialMinimal from '../../components/sections/testimonial/TestimonialMinimal.astro';
 
 // FAQ
-import FAQLiquid from '../../components/faq/FAQLiquid.astro';
-import FAQGlass from '../../components/faq/FAQGlass.astro';
-import FAQNeo from '../../components/faq/FAQNeo.astro';
-import FAQLuxury from '../../components/faq/FAQLuxury.astro';
-import FAQMinimal from '../../components/faq/FAQMinimal.astro';
+import FAQLiquid from '../../components/sections/faq/FAQLiquid.astro';
+import FAQGlass from '../../components/sections/faq/FAQGlass.astro';
+import FAQNeo from '../../components/sections/faq/FAQNeo.astro';
+import FAQLuxury from '../../components/sections/faq/FAQLuxury.astro';
+import FAQMinimal from '../../components/sections/faq/FAQMinimal.astro';
 
 // CTA
-import CTALiquid from '../../components/cta/CTALiquid.astro';
-import CTAGlass from '../../components/cta/CTAGlass.astro';
-import CTANeo from '../../components/cta/CTANeo.astro';
-import CTALuxury from '../../components/cta/CTALuxury.astro';
-import CTAMinimal from '../../components/cta/CTAMinimal.astro';
+import CTALiquid from '../../components/sections/cta/CTALiquid.astro';
+import CTAGlass from '../../components/sections/cta/CTAGlass.astro';
+import CTANeo from '../../components/sections/cta/CTANeo.astro';
+import CTALuxury from '../../components/sections/cta/CTALuxury.astro';
+import CTAMinimal from '../../components/sections/cta/CTAMinimal.astro';
 
 // Contact
-import ContactLiquid from '../../components/contact/ContactLiquid.astro';
-import ContactGlass from '../../components/contact/ContactGlass.astro';
-import ContactNeo from '../../components/contact/ContactNeo.astro';
-import ContactLuxury from '../../components/contact/ContactLuxury.astro';
-import ContactMinimal from '../../components/contact/ContactMinimal.astro';
+import ContactLiquid from '../../components/sections/contact/ContactLiquid.astro';
+import ContactGlass from '../../components/sections/contact/ContactGlass.astro';
+import ContactNeo from '../../components/sections/contact/ContactNeo.astro';
+import ContactLuxury from '../../components/sections/contact/ContactLuxury.astro';
+import ContactMinimal from '../../components/sections/contact/ContactMinimal.astro';
 
 // Component maps for dynamic rendering
 const componentMap = {

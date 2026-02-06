@@ -1,0 +1,320 @@
+---
+/**
+ * Showcase Lab - V3
+ * A sophisticated, expandable Control Center for the theme.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
+export interface Props {
+  headerVer: number;
+  heroVer: number;
+  aboutVer: number;
+  featuresVer: number;
+  portfolioVer: number;
+  pricingVer: number;
+  testimonialVer: number;
+  faqVer: number;
+  ctaVer: number;
+  contactVer: number;
+}
+
+const { headerVer, heroVer, aboutVer, featuresVer, portfolioVer, pricingVer, testimonialVer, faqVer, ctaVer, contactVer } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const sections = [
+  {
+    id: 'layout',
+    label: t('showcase.navigation'),
+    icon: '🧭',
+    options: [
+      { v: 1, name: "V1" },
+      { v: 2, name: "V2" },
+      { v: 3, name: "V3" },
+      { v: 4, name: "V4" },
+      { v: 5, name: "V5" },
+    ],
+    active: headerVer,
+    param: 'header'
+  },
+  {
+    id: 'hero',
+    label: t('showcase.heroSection'),
+    icon: '⚡',
+    options: [
+      { v: 1, name: "H1" },
+      { v: 2, name: "H2" },
+      { v: 3, name: "H3" },
+      { v: 4, name: "H4" },
+      { v: 5, name: "H5" },
+    ],
+    active: heroVer,
+    param: 'hero'
+  },
+  {
+    id: 'about',
+    label: t('showcase.aboutSection'),
+    icon: '💎',
+    options: [
+      { v: 1, name: "A1" },
+      { v: 2, name: "A2" },
+      { v: 3, name: "A3" },
+      { v: 4, name: "A4" },
+      { v: 5, name: "A5" },
+    ],
+    active: aboutVer,
+    param: 'about'
+  },
+  {
+    id: 'features',
+    label: t('showcase.features'),
+    icon: '🚀',
+    options: [
+      { v: 1, name: "F1" },
+      { v: 2, name: "F2" },
+      { v: 3, name: "F3" },
+      { v: 4, name: "F4" },
+      { v: 5, name: "F5" },
+    ],
+    active: featuresVer,
+    param: 'features'
+  },
+  {
+    id: 'portfolio',
+    label: t('showcase.portfolio'),
+    icon: '💼',
+    options: [
+      { v: 1, name: "P1" },
+      { v: 2, name: "P2" },
+      { v: 3, name: "P3" },
+      { v: 4, name: "P4" },
+      { v: 5, name: "P5" },
+    ],
+    active: portfolioVer,
+    param: 'portfolio'
+  },
+  {
+    id: 'pricing',
+    label: t('showcase.pricing'),
+    icon: '🏷️',
+    options: [
+      { v: 1, name: "T1" },
+      { v: 2, name: "T2" },
+      { v: 3, name: "T3" },
+      { v: 4, name: "T4" },
+      { v: 5, name: "T5" },
+    ],
+    active: pricingVer,
+    param: 'pricing'
+  },
+  {
+    id: 'testimonial',
+    label: t('showcase.testimonials'),
+    icon: '💬',
+    options: [
+      { v: 1, name: "S1" },
+      { v: 2, name: "S2" },
+      { v: 3, name: "S3" },
+      { v: 4, name: "S4" },
+      { v: 5, name: "S5" },
+    ],
+    active: testimonialVer,
+    param: 'testimonial'
+  },
+  {
+    id: 'faq',
+    label: t('showcase.faqSection'),
+    icon: '❓',
+    options: [
+      { v: 1, name: "Q1" },
+      { v: 2, name: "Q2" },
+      { v: 3, name: "Q3" },
+      { v: 4, name: "Q4" },
+      { v: 5, name: "Q5" },
+    ],
+    active: faqVer,
+    param: 'faq'
+  },
+  {
+    id: 'cta',
+    label: t('showcase.ctaBanner'),
+    icon: '🎯',
+    options: [
+      { v: 1, name: "C1" },
+      { v: 2, name: "C2" },
+      { v: 3, name: "C3" },
+      { v: 4, name: "C4" },
+      { v: 5, name: "C5" },
+    ],
+    active: ctaVer,
+    param: 'cta'
+  },
+  {
+    id: 'contact',
+    label: t('showcase.contactForm'),
+    icon: '📬',
+    options: [
+      { v: 1, name: "F1" },
+      { v: 2, name: "F2" },
+      { v: 3, name: "F3" },
+      { v: 4, name: "F4" },
+      { v: 5, name: "F5" },
+    ],
+    active: contactVer,
+    param: 'contact'
+  }
+];
+---
+
+<!-- Floating Trigger -->
+<button id="lab-trigger" class="fixed bottom-6 right-6 z-[250] w-14 h-14 rounded-2xl bg-base-content text-base-100 shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 group overflow-hidden border border-white/10">
+  <span class="relative z-10 text-xl group-hover:rotate-12 transition-transform">🧪</span>
+  <div class="absolute inset-0 bg-gradient-to-tr from-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+
+<!-- Main Modal Interface -->
+<div id="lab-modal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 pointer-events-none opacity-0 invisible transition-all duration-500">
+  <!-- Backdrop -->
+  <div id="lab-backdrop" class="absolute inset-0 bg-base-100/40 backdrop-blur-md pointer-events-auto cursor-pointer"></div>
+
+  <!-- Content -->
+  <div class="lab-content relative w-full max-w-xl bg-base-100/60 backdrop-blur-[40px] border border-base-content/10 rounded-[2.5rem] shadow-[0_40px_120px_rgba(0,0,0,0.5)] pointer-events-auto overflow-hidden transition-all duration-500 scale-95 blur-md">
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-base-content/5 flex items-center justify-between bg-base-content/[0.02]">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-xl">🧪</div>
+        <div>
+          <h2 class="text-sm font-black uppercase tracking-[0.2em] text-base-content">{t('showcase.lab')}</h2>
+          <p class="text-[10px] opacity-40 font-bold uppercase tracking-wider">{t('showcase.v5Config')}</p>
+        </div>
+      </div>
+      <button id="lab-close" class="w-10 h-10 rounded-xl bg-base-content/5 flex items-center justify-center text-xl hover:bg-base-content/10 transition-colors">&times;</button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
+      {sections.map(section => (
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="text-lg">{section.icon}</span>
+            <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-accent/80">{section.label}</h3>
+          </div>
+          <div class="grid grid-cols-4 md:grid-cols-5 gap-3">
+            {section.options.map(opt => (
+              <a 
+                href={`?header=${section.id === 'layout' ? opt.v : headerVer}&hero=${section.id === 'hero' ? opt.v : heroVer}&about=${section.id === 'about' ? opt.v : aboutVer}&features=${section.id === 'features' ? opt.v : featuresVer}&portfolio=${section.id === 'portfolio' ? opt.v : portfolioVer}&pricing=${section.id === 'pricing' ? opt.v : pricingVer}&testimonial=${section.id === 'testimonial' ? opt.v : testimonialVer}&faq=${section.id === 'faq' ? opt.v : faqVer}&cta=${section.id === 'cta' ? opt.v : ctaVer}&contact=${section.id === 'contact' ? opt.v : contactVer}`}
+                class={`group relative p-3 rounded-2xl border transition-all text-center ${section.active === opt.v ? 'bg-base-content border-base-content' : 'bg-base-content/[0.03] border-base-content/5 hover:border-base-content/20'}`}
+              >
+                <span class={`text-[10px] font-black tracking-widest ${section.active === opt.v ? 'text-base-100' : 'text-base-content/40 group-hover:text-base-content'}`}>
+                  {opt.name}
+                </span>
+                {section.active === opt.v && (
+                  <div class="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full border-2 border-base-100"></div>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- Global Settings -->
+      <div class="pt-6 border-t border-base-content/5 space-y-6">
+         <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+               <span class="text-lg">🎨</span>
+               <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-accent/80">{t('showcase.visualEffects')}</h3>
+            </div>
+         </div>
+         
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-3xl bg-base-content/[0.03] border border-base-content/5 flex items-center justify-between">
+               <span class="text-[11px] font-bold opacity-60">{t('showcase.glowIntensity')}</span>
+               <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                  <span class="text-[11px] font-black">{t('showcase.medium')}</span>
+               </div>
+            </div>
+            <div class="p-4 rounded-3xl bg-base-content/[0.03] border border-base-content/5 flex items-center justify-between">
+               <span class="text-[11px] font-bold opacity-60">{t('showcase.glassBlur')}</span>
+               <div class="flex items-center gap-3">
+                  <span class="text-[11px] font-black">40px</span>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-8 py-4 bg-base-content/[0.04] border-t border-base-content/5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+        <span class="text-[9px] font-black uppercase tracking-widest opacity-40">{t('showcase.systemReady')}</span>
+      </div>
+      <p class="text-[9px] font-medium opacity-30">Liquid Glass Theme v5.0.2</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  #lab-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  #lab-modal.is-open .lab-content {
+    transform: scale(1);
+    filter: blur(0);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--bc) / 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--bc) / 0.2);
+  }
+</style>
+
+<script>
+  function initLab() {
+    const trigger = document.getElementById('lab-trigger');
+    const modal = document.getElementById('lab-modal');
+    const close = document.getElementById('lab-close');
+    const backdrop = document.getElementById('lab-backdrop');
+
+    if (trigger && modal) {
+      const openLab = () => {
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeLab = () => {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
+      trigger.addEventListener('click', openLab);
+      close?.addEventListener('click', closeLab);
+      backdrop?.addEventListener('click', closeLab);
+
+      // Shortcut
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+          e.preventDefault();
+          modal.classList.contains('is-open') ? closeLab() : openLab();
+        }
+        if (e.key === 'Escape') closeLab();
+      });
+    }
+  }
+
+  initLab();
+  document.addEventListener('astro:after-swap', initLab);
+</script>

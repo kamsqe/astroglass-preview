@@ -1,0 +1,19 @@
+---
+import ContactLiquid from './ContactLiquid.astro';
+import ContactGlass from './ContactGlass.astro';
+import ContactNeo from './ContactNeo.astro';
+import ContactLuxury from './ContactLuxury.astro';
+import ContactMinimal from './ContactMinimal.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <ContactLiquid /> : 
+ version === 2 ? <ContactGlass /> : 
+ version === 3 ? <ContactNeo /> : 
+ version === 4 ? <ContactLuxury /> : 
+ <ContactMinimal />}

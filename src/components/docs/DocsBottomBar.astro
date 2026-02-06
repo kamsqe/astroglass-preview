@@ -70,11 +70,8 @@ const prefix = locale === 'en' ? '' : `/${locale}`;
             }
             break;
           case 'openSearch':
-            // Trigger command palette or search
-            document.getElementById('search-dialog')?.classList.add('is-open');
-            document.getElementById('search-overlay')?.classList.add('is-open');
-            // document.getElementById('search-input')?.focus(); // Focus in a timeout ideally
-            setTimeout(() => document.getElementById('search-input')?.focus(), 50);
+            window.__SEARCH_OPEN__ = true;
+            window.dispatchEvent(new CustomEvent('open-search'));
             break;
           case 'openTOC':
             // Toggle mobile TOC

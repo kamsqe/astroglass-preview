@@ -1,0 +1,19 @@
+---
+import AboutLiquid from './AboutLiquid.astro';
+import AboutGlass from './AboutGlass.astro';
+import AboutNeo from './AboutNeo.astro';
+import AboutLuxury from './AboutLuxury.astro';
+import AboutMinimal from './AboutMinimal.astro';
+
+export interface Props {
+  version?: 1 | 2 | 3 | 4 | 5;
+}
+
+const { version = 1 } = Astro.props;
+---
+
+{version === 1 ? <AboutLiquid /> : 
+ version === 2 ? <AboutGlass /> : 
+ version === 3 ? <AboutNeo /> : 
+ version === 4 ? <AboutLuxury /> : 
+ <AboutMinimal />}

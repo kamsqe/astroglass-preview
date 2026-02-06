@@ -134,7 +134,8 @@ const sections = await buildDocsNav(locale);
           
           <div class="mt-16 pt-8 border-t border-base-content/5 flex flex-col sm:flex-row justify-between gap-4 text-sm text-base-content/40">
             {doc.data.lastUpdated && <span>Updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}</span>}
-            <a href="#" class="hover:text-accent">{t('docs.editPage') || 'Edit this page'}</a>
+            {doc.data.lastUpdated && <span>Updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}</span>}
+            <!-- Edit link removed -->
           </div>
         </main>
 

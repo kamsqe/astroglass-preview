@@ -1325,12 +1325,20 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
     }
 
     function close() {
-      overlay.classList.remove('is-open');
+      overlay.classList.remove('is-open'); // This sets pointer-events: none via CSS
       dialog.classList.remove('is-open');
       dialog.classList.remove('is-searching');
       results = [];
       selected = 0;
-      document.body.style.overflow = '';
+      document.body.style.overflow = ''; // Restore scrolling
+      
+      // Force overlay hide if transition fails
+      setTimeout(() => {
+        if (!dialog.classList.contains('is-open')) {
+           overlay.style.visibility = 'hidden';
+           overlay.style.pointerEvents = 'none';
+        }
+      }, 300);
     }
 
     // Input handler
@@ -1364,21 +1372,21 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
 
     // Keyboard navigation
     // Keyboard navigation (Window level to trap events even if focus is lost)
-    function handleKeydown(e) {
-      if (!dialog.classList.contains('is-open')) return;
-      
+    // Keyboard navigation attached to INPUT
+    // This is more reliable than window listener because input has focus
+    input.addEventListener('keydown', function(e) {
       if (e.key === 'ArrowDown') {
-        e.preventDefault(); // Stop page scroll
+        e.preventDefault(); // CRITICAL: Stop page scroll
         if (results.length > 0) {
           selected = Math.min(selected + 1, results.length - 1);
           renderResults(input.value.trim()); // Re-render with new selection
           scrollSelectedIntoView();
         }
       } else if (e.key === 'ArrowUp') {
-        e.preventDefault(); // Stop page scroll
+        e.preventDefault(); // CRITICAL: Stop page scroll
         if (results.length > 0) {
           selected = Math.max(selected - 1, 0);
-          renderResults(input.value.trim());
+          renderResults(input.value.trim()); // Re-render with new selection
           scrollSelectedIntoView();
         }
       } else if (e.key === 'Enter') {
@@ -1397,13 +1405,22 @@ const docsBase = locale === 'en' ? '/docs' : `/${locale}/docs`;
         e.preventDefault();
         close();
       }
-    }
+    });
     
-    // Attach to window instead of input
-    window.addEventListener('keydown', handleKeydown);
+    // Window listener only for opening
+    window.addEventListener('keydown', function(e) {
+      // Open with Cmd+K or /
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        open();
+      } else if (e.key === '/' && !dialog.classList.contains('is-open') && document.activeElement !== input) {
+        e.preventDefault();
+        open();
+      }
+    });
 
-    // Clean up input listener (kept only for typing)
-    // input.addEventListener('keydown', ...) removed
+    // Remove old window listener if present (via function reference if we had one, but we'll just clear this block)
+    // window.removeEventListener('keydown', handleKeydown); // safely ignored if valid code structure
 
     function scrollSelectedIntoView() {
       var selectedEl = searchList && searchList.querySelector('.search-item.selected');

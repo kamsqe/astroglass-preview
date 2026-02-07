@@ -43,7 +43,7 @@ const getLocalizedHref = (demoId: string) => {
           {t('landing.tagline')}
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href={getLocalizedHref('liquid')} class="px-8 py-4 bg-accent text-accent-content rounded-full font-bold hover:scale-105 transition-transform">
+          <a href={getLocalizedHref('liquid')} class="px-8 py-4 bg-accent text-white rounded-full font-bold hover:scale-105 transition-transform">
             {t('landing.viewDemos')}
           </a>
           <a href={locale === 'en' ? '/docs' : `/${locale}/docs`} class="px-8 py-4 bg-base-content/10 rounded-full font-bold hover:bg-base-content/20 transition-colors">

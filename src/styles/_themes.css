@@ -2,6 +2,14 @@
    Theme Definitions
    Each theme has unique visual characteristics
    ============================================ */
+   
+:root {
+  /* Global Defaults (Fallback) */
+  --er: 0 72% 51%;   /* Red */
+  --su: 142 71% 45%; /* Green */
+  --wa: 42 100% 55%; /* Orange */
+  --in: 198 93% 60%; /* Blue */
+}
 
 /* Tahoe (Default Light) - Crisp, clean, modern
    Inspired by macOS Tahoe's clarity and depth */
@@ -204,6 +212,8 @@
   --glow-intensity: 0.08;
   --shadow-color: 0 0% 0%;
   --selection-bg: 0 0% 20% / 0.15;
+  --su: 0 0% 30%;
+  --er: 0 0% 30%;
   --scrollbar-thumb: 0 0% 70%;
   --scrollbar-track: 0 0% 94%;
 }

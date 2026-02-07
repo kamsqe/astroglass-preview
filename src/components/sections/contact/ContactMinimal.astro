@@ -25,6 +25,15 @@ const i18nData = {
   teams: contactData.wizard.teams,
   successMsg: contactData.wizard.successMsg
 };
+  // Validation config
+  const validationMessages = {
+    nameShort: t('contact.validation.nameShort'),
+    nameLong: t('contact.validation.nameLong'),
+    emailInvalid: t('contact.validation.emailInvalid'),
+    messageShort: t('contact.validation.messageShort'),
+    messageLong: t('contact.validation.messageLong'),
+    required: t('contact.validation.required')
+  };
 ---
 
 <section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -41,7 +50,12 @@ const i18nData = {
     </div>
 
     <!-- Wizard Container -->
-    <div class="contact-v5-wizard" data-intents={JSON.stringify(intents)} data-i18n={JSON.stringify(i18nData)}>
+    <div 
+      class="contact-v5-wizard" 
+      data-intents={JSON.stringify(intents)} 
+      data-i18n={JSON.stringify(i18nData)}
+      data-validation-messages={JSON.stringify(validationMessages)}
+    >
       
       <!-- Progress Steps -->
       <div class="flex items-center justify-center gap-2 mb-8">
@@ -110,9 +124,9 @@ const i18nData = {
       <!-- Step 3: Contact Info & Message (hidden initially) -->
       <div class="contact-v5-panel hidden" data-panel="3">
         <div class="p-6 sm:p-8 rounded-2xl bg-base-content/[0.02] border border-base-content/10">
-          <form class="contact-v5-form space-y-4">
+          <form class="contact-v5-form space-y-4" novalidate>
             <!-- Name -->
-            <div>
+            <div class="form-control">
               <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
               <input 
                 type="text" 
@@ -124,7 +138,7 @@ const i18nData = {
             </div>
 
             <!-- Email -->
-            <div>
+            <div class="form-control">
               <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
               <input 
                 type="email" 
@@ -137,7 +151,7 @@ const i18nData = {
             </div>
 
             <!-- Message -->
-            <div>
+            <div class="form-control">
               <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
               <textarea 
                 name="message"
@@ -217,8 +231,8 @@ const i18nData = {
   }
 
   .contact-v5-step.completed > div:first-child {
-    background: hsl(var(--su));
-    color: hsl(var(--b1));
+    background: hsl(var(--bc)); /* Use base-content (Solid text color) for completed steps */
+    color: hsl(var(--b1));  /* Use base-100 (Background color) for text */
   }
 
   .contact-v5-connector.active {
@@ -227,6 +241,9 @@ const i18nData = {
 </style>
 
 <script>
+  import { safeParse } from 'valibot';
+  import { createContactSchema } from '../../../lib/schemas/contact';
+
   let contactV5Controller: AbortController | null = null;
 
   function initContactV5() {
@@ -239,6 +256,9 @@ const i18nData = {
     if (!wizard) return;
 
     const i18n = JSON.parse(wizard.dataset.i18n || '{}');
+    const validationMessages = JSON.parse(wizard.dataset.validationMessages || '{}');
+    const t = (key: string) => validationMessages[key.split('.')[1]] || key;
+    const schema = createContactSchema(t);
 
     const panels = wizard.querySelectorAll('.contact-v5-panel');
     const steps = wizard.querySelectorAll('.contact-v5-step');
@@ -268,6 +288,48 @@ const i18nData = {
         { label: i18n.fields.topic, type: 'text', placeholder: i18n.placeholders.topic, name: 'topic' },
       ],
     };
+
+    function showError(input: HTMLInputElement | HTMLSelectElement, message: string) {
+       const parent = input.closest('div'); // Simple wrapper
+       // Clean up old
+       parent?.querySelector('.error-message')?.remove();
+       input.classList.add('input-error');
+       
+       const errorMsg = document.createElement('p');
+       errorMsg.className = 'error-message';
+       errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${message}`;
+       parent?.appendChild(errorMsg);
+    }
+
+    function clearError(input: HTMLInputElement | HTMLSelectElement) {
+       input.classList.remove('input-error');
+       input.closest('div')?.querySelector('.error-message')?.remove();
+    }
+
+    // Step 2 Validation (Dynamic Fields)
+    function validateStep2(): boolean {
+       // For these dynamic fields, we check simple required presence if they are selects,
+       // or if they match schema keys (like company).
+       // The shared schema handles 'company' and 'topic'. Others like 'budget' are optional in schema 
+       // but maybe required in UI. Let's enforce required just for basic validity.
+       
+       const container = wizard.querySelector('.contact-v5-fields');
+       if (!container) return true;
+       const inputs = container.querySelectorAll('input, select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+       let valid = true;
+       
+       inputs.forEach(input => {
+          // Check if empty
+          if (!input.value) {
+            valid = false;
+            showError(input, t('validation.required') || 'Required');
+          } else {
+            clearError(input);
+          }
+       });
+
+       return valid;
+    }
 
     function showPanel(panelNum: number | string) {
       panels.forEach(p => {
@@ -356,6 +418,15 @@ const i18nData = {
 
     // Continue to step 3
     wizard.querySelector('.contact-v5-continue')?.addEventListener('click', () => {
+      // Validate Step 2
+      if (!validateStep2()) {
+         // Shake
+         const panel = wizard.querySelector('[data-panel="2"] .rounded-2xl');
+         panel?.classList.add('animate-shake');
+         setTimeout(()=>panel?.classList.remove('animate-shake'), 300);
+         return;
+      }
+
       // Gather step 2 data
       const fields = wizard.querySelectorAll('.contact-v5-fields input, .contact-v5-fields select');
       fields.forEach(field => {
@@ -380,11 +451,40 @@ const i18nData = {
       e.preventDefault();
       
       const formDataObj = new FormData(form as HTMLFormElement);
+      const data: Record<string, any> = { ...formData }; // Start with existing data
       formDataObj.forEach((value, key) => {
-        formData[key] = value as string;
+        data[key] = value as string;
       });
 
-      console.log('Form data:', formData);
+      // Validate Final Step (Name/Email/Message) using Shared Schema
+      const result = safeParse(schema, data);
+      
+      // Clear errors first
+      form.querySelectorAll('.input-error').forEach(el => clearError(el as HTMLInputElement));
+
+      if (!result.success) {
+        // Find errors relevant to Step 3 fields
+        let hasStep3Errors = false;
+        result.issues.forEach(issue => {
+           const fieldName = issue.path?.[0].key as string;
+           const input = form.querySelector(`[name="${fieldName}"]`) as HTMLInputElement;
+           if (input) {
+              hasStep3Errors = true;
+              showError(input, issue.message);
+           }
+        });
+
+        if (hasStep3Errors) {
+           form.classList.add('animate-shake');
+           setTimeout(()=>form.classList.remove('animate-shake'), 300);
+           return;
+        }
+        // If checking only step 3 fields, and they are valid, we proceed.
+        // Or if there were Step 2 errors (unlikely if they passed gate), we technically can't go back easily.
+        // Assuming Step 2 is valid since we are here.
+      }
+
+      console.log('Form data:', data);
 
       // Update success message text
       const teamNames: Record<string, string> = i18n.teams;
@@ -402,6 +502,9 @@ const i18nData = {
       formData = {};
       selectedIntent = '';
       currentStep = 1;
+      // Reset forms
+      (form as HTMLFormElement).reset();
+      form?.querySelectorAll('.input-error').forEach(el=>clearError(el as HTMLInputElement));
       showPanel(1);
     }, { signal });
 

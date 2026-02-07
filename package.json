@@ -2,6 +2,11 @@
   "name": "liquid-glass-astro-theme",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && pnpm run index:content",
@@ -30,6 +35,7 @@
     "fuse.js": "^7.0.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "valibot": "^1.2.0"
   }
 }

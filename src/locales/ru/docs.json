@@ -1,12 +1,12 @@
 {
-  "searchDocs": "Искать...",
-  "searchPlaceholder": "Поиск по документации...",
+  "searchDocs": "Поиск...",
+  "searchPlaceholder": "Поиск в документации...",
   "onThisPage": "На этой странице",
   "navigation": "Навигация",
   "noResults": "Ничего не найдено",
   "typeToSearch": "Введите запрос",
   "guide": "Руководство",
-  "editPage": "Редактировать страницу",
+  "editPage": "Редактировать",
   "translationMissing": "Перевод отсутствует",
   "showingEnglish": "Показана английская версия",
   "recentSearches": "Недавние",
@@ -16,8 +16,15 @@
   "didYouMean": "Возможно, вы имели в виду?",
   "components": "Компоненты",
   "themes": "Темы",
-  "navigate": "Перейти",
+  "navigate": "Навигация",
   "open": "Открыть",
   "close": "Закрыть",
-  "tryDifferent": "Попробуйте другие ключевые слова или проверьте правописание"
+  "tryDifferent": "Попробуйте другие ключевые слова",
+  "loading": "Загрузка...",
+  "footerSearch": "Поиск",
+  "footerNavigate": "Навигация",
+  "footerSelect": "Выбрать",
+  "footerClose": "Закрыть",
+  "remove": "Удалить",
+  "esc": "Esc"
 }

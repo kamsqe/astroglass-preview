@@ -5,7 +5,7 @@
  * Includes Scrollspy, Mobile Drawer, and Glassmorphism polish.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildDocsNav } from '../../utils/docs-nav';
+import { buildDocsNav, SIDEBAR_LABELS } from '../../utils/docs-nav';
 import { useTranslations } from '../../utils/i18n';
 import DocsSearch from './DocsSearch.astro';
 import DocsProgress from './DocsProgress.astro';
@@ -26,6 +26,16 @@ const { doc, Content, headings, locale, isFallback = false } = Astro.props;
 const t = useTranslations(locale);
 const sections = await buildDocsNav(locale);
 
+// Generate generic section -> localized label map
+const sectionLabels: Record<string, string> = {};
+Object.entries(SIDEBAR_LABELS).forEach(([key, labels]) => {
+  // Map internal keys (e.g. 'components-ui')
+  sectionLabels[key] = labels[locale];
+  
+  // Also map display variants if needed or map fallback keys
+  // For now, simpler mapping in SearchDialog is to look up by sectionKey
+});
+
 const searchLabels = {
   placeholder: t('docs.searchPlaceholder') || 'Search documentation...',
   noResults: t('docs.noResults') || 'No results found',
@@ -36,13 +46,20 @@ const searchLabels = {
   themes: t('docs.themes') || 'Themes',
   clear: t('docs.clear') || 'Clear',
   didYouMean: t('docs.didYouMean') || 'Did you mean?',
+  loading: t('docs.loading') || 'Loading...',
+  footerSearch: t('docs.footerSearch') || 'Search docs',
+  footerNavigate: t('docs.footerNavigate') || 'Navigate',
+  footerSelect: t('docs.footerSelect') || 'Select',
+  footerClose: t('docs.footerClose') || 'Close',
+  remove: t('docs.remove') || 'Remove',
+  esc: t('docs.esc') || 'Esc',
 };
 ---
 
 <BaseLayout title={`${doc.data.title} | Docs`} description={doc.data.description}>
   <DocsProgress />
   <HighlightScript />
-  <SearchDialog client:load locale={locale} labels={searchLabels} />
+  <SearchDialog client:load locale={locale} labels={searchLabels} sectionLabels={sectionLabels} />
   
   <div class="docs-container min-h-screen pt-16">
     
@@ -558,5 +575,11 @@ const searchLabels = {
       margin-right: 0;
       padding: 0.875rem 1rem;
     }
+  }
+
+  /* ===== MONOCHROME THEME SEARCH OVERRIDE ===== */
+  /* Ensure highlights are visible in the dark search modal for Mono theme */
+  [data-theme='monochrome'] .search-dialog-root {
+    --a: 0 0% 100%; /* Pure white accent for search */
   }
 </style>

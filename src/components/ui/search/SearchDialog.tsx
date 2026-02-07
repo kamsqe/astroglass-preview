@@ -20,18 +20,53 @@ interface SearchLabels {
   themes: string;
   clear: string;
   didYouMean: string;
+  loading: string;
+  footerSearch: string;
+  footerNavigate: string;
+  footerSelect: string;
+  remove: string;
+  esc: string;
 }
+
+// ... imports
+
+// Helper to normalize section keys for lookup
+const normalizeSection = (section: string) => {
+  // e.g. "Marketing Sections" -> "components-sections" if possible, or just look up directly
+  // Actually the search index likely returns "components-ui" or the title "UI Elements"
+  // Let's try to map titles back or just use the passed map if the key matches
+  return section.toLowerCase().replace(/\s+/g, '-');
+};
 
 interface Props {
   locale: string;
   labels: SearchLabels;
+  sectionLabels?: Record<string, string>;
 }
 
-export default function SearchDialog({ locale, labels }: Props) {
+export default function SearchDialog({ locale, labels, sectionLabels = {} }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const { status, results, suggestions, search, initSearch } = useSearch({ locale });
-  const { recentSearches, addRecentSearch, clearRecentSearches } = useRecentSearches();
+  const { recentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } = useRecentSearches();
+
+  // Helper to get localized section label
+  const getSectionLabel = (original: string) => {
+    // Try exact match
+    if (sectionLabels[original]) return sectionLabels[original];
+    
+    // Try lowercased dashed (e.g. index returns "components-ui")
+    const key = original.toLowerCase();
+    if (sectionLabels[key]) return sectionLabels[key];
+    
+    // Fallback: Check if we can reverse-map "Marketing Sections" -> "components-sections" -> "Ru Label"
+    // (This is brittle, simplifying: Assume index returns recognizable keys OR English titles that match keys)
+    
+    // If original is "Marketing Sections" (English title), and we are in RU, 
+    // we might have a key "components-sections".
+    // For now, return original if no match.
+    return original;
+  };
 
   // Listen for Open Events
   useEffect(() => {
@@ -102,18 +137,17 @@ export default function SearchDialog({ locale, labels }: Props) {
   return (
     <div 
       className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-[15vh] sm:pt-[12%] bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
-      className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-[15vh] sm:pt-[12%] bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
       onClick={() => setOpen(false)} // Explicit click outside handler
     >
       <div 
-        className="relative w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-[#0f0f11] shadow-2xl ring-1 ring-white/5 animate-in fade-in zoom-in-95 duration-200"
+        className="relative w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-[#0f0f11] shadow-2xl ring-1 ring-white/5 animate-in fade-in zoom-in-95 duration-200 search-dialog-root"
         onClick={(e) => e.stopPropagation()} // Prevent close on content click
       >
         <Command shouldFilter={false} label="Global Search">
-          {/* Search Header */}
-          <div className="flex items-center border-b border-white/5 px-4 py-3">
-            <svg className="mr-3 h-4 w-4 text-white/40" viewBox="0 0 20 20" fill="currentColor">
-               <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
+          {/* Search Header - Polished Border & Focus State */}
+          <div className="flex items-center border-b border-white/5 px-4 py-3 bg-white/[0.02] transition-colors has-[:focus]:bg-white/[0.04] has-[:focus]:border-[hsl(var(--a)/0.3)]">
+            <svg className="mr-3 h-5 w-5 text-[hsl(var(--a))] opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <Command.Input
               value={query}
@@ -122,21 +156,21 @@ export default function SearchDialog({ locale, labels }: Props) {
                 search(q);
               }}
               placeholder={labels.placeholder}
-              className="flex-1 bg-transparent text-[15px] font-medium text-white placeholder-white/30 outline-none"
+              className="flex-1 bg-transparent text-[16px] font-medium text-white placeholder-white/30 outline-none focus:outline-none focus:ring-0 border-none ring-0 selection:bg-[hsl(var(--a)/0.3)]"
               autoFocus
             />
             <button 
               onClick={() => setOpen(false)}
-              className="ml-2 rounded px-1.5 py-0.5 text-xs font-semibold uppercase text-white/30 hover:text-white transition-colors"
+              className="ml-2 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-xs font-semibold uppercase text-white/50 hover:bg-white/10 hover:text-white transition-colors"
             >
-              Esc
+              {labels.esc}
             </button>
           </div>
 
           {/* Results List */}
-          <Command.List className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2 scroll-py-2">
+          <Command.List className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2 scroll-py-2 bg-[#0f0f11]">
             {status === 'loading' && (
-               <div className="py-12 text-center text-sm text-white/40">Loading...</div>
+               <div className="py-12 text-center text-sm text-white/40">{labels.loading}</div>
             )}
 
             {status === 'ready' && !query && (
@@ -144,17 +178,30 @@ export default function SearchDialog({ locale, labels }: Props) {
                 {recentSearches.length > 0 && (
                   <Command.Group heading={labels.recentSearches} className="px-2 py-1.5 text-xs font-semibold text-white/30">
                     <div className="mb-2 flex justify-end pr-2">
-                       <button onClick={clearRecentSearches} className="text-white/30 hover:text-red-400">Clear</button>
+                       <button onClick={clearRecentSearches} className="text-white/30 hover:text-red-400 transition-colors">{labels.clear}</button>
                     </div>
                     {recentSearches.map((q) => (
-                      <Command.Item
-                        key={q}
-                        onSelect={() => handleRecentSelect(q)}
-                        className="flex cursor-default select-none items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 aria-selected:bg-white/5 aria-selected:text-white"
-                      >
-                        <svg className="h-4 w-4 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        {q}
-                      </Command.Item>
+                      <div key={q} className="group relative flex items-center">
+                        <Command.Item
+                          onSelect={() => handleRecentSelect(q)}
+                          className="flex-1 flex cursor-default select-none items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 aria-selected:bg-white/5 aria-selected:text-white"
+                        >
+                          <span className="opacity-40">🕒</span>
+                          {q}
+                        </Command.Item>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeRecentSearch(q);
+                          }}
+                          className="absolute right-2 p-1 text-white/20 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white/5"
+                          title={labels.remove}
+                        >
+                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
                     ))}
                   </Command.Group>
                 )}
@@ -181,7 +228,7 @@ export default function SearchDialog({ locale, labels }: Props) {
                        <button 
                          key={s}
                          onClick={() => handleRecentSelect(s)}
-                         className="rounded bg-white/5 px-2 py-1 text-xs text-indigo-400 hover:bg-white/10"
+                         className="rounded bg-white/5 px-2 py-1 text-xs text-[hsl(var(--a))] hover:bg-white/10 transition-colors"
                        >
                          {s}
                        </button>
@@ -196,22 +243,24 @@ export default function SearchDialog({ locale, labels }: Props) {
                 key={item.url}
                 value={item.title + ' ' + item.description} 
                 onSelect={() => handleSelect(item)}
-                className="group relative flex cursor-default select-none items-start gap-3 rounded-xl p-3 text-sm text-white/70 aria-selected:bg-white/5 aria-selected:text-white aria-selected:shadow-xl transition-all"
+                className="group relative flex cursor-default select-none items-start gap-3 rounded-xl p-3 text-sm text-white/70 transition-all border border-transparent aria-selected:bg-[hsl(var(--a)/0.08)] aria-selected:text-white aria-selected:border-[hsl(var(--a)/0.2)]"
               >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-lg group-aria-selected:bg-indigo-500/20 group-aria-selected:text-indigo-400">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-lg transition-colors group-aria-selected:bg-[hsl(var(--a)/0.2)] group-aria-selected:text-[hsl(var(--a))]">
                   {item.sectionIcon}
                 </div>
                 <div className="flex-1 overflow-hidden">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="font-semibold text-white group-aria-selected:text-indigo-300">{item.title}</span>
-                    <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-white/30">{item.section}</span>
+                    <span className="font-semibold text-white group-aria-selected:text-[hsl(var(--a))] transition-colors">{item.title}</span>
+                    <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-white/30 border border-white/5 group-aria-selected:border-[hsl(var(--a)/0.3)] group-aria-selected:text-[hsl(var(--a)/0.7)] group-aria-selected:bg-[hsl(var(--a)/0.1)] transition-colors">
+                      {getSectionLabel(item.section)}
+                    </span>
                   </div>
                   <p 
-                    className="line-clamp-2 text-xs text-white/50 group-aria-selected:text-white/70"
+                    className="line-clamp-2 text-xs text-white/50 group-aria-selected:text-white/70 transition-colors"
                     dangerouslySetInnerHTML={{ __html: extractSnippet(item.content || item.description, query) }} 
                   />
                 </div>
-                <svg className="h-4 w-4 self-center text-indigo-400 opacity-0 transition-all -translate-x-2 group-aria-selected:opacity-100 group-aria-selected:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-4 w-4 self-center text-[hsl(var(--a))] opacity-0 transition-all -translate-x-2 group-aria-selected:opacity-100 group-aria-selected:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
               </Command.Item>
@@ -220,10 +269,10 @@ export default function SearchDialog({ locale, labels }: Props) {
           
           {/* Footer */}
           <div className="flex h-9 items-center justify-between border-t border-white/5 bg-white/[0.02] px-3 text-[10px] text-white/30">
-             <span>{results.length > 0 ? `${results.length} results` : 'Search docs'}</span>
-             <div className="flex gap-2">
-               <span className="flex items-center gap-1"><kbd className="rounded bg-white/5 px-1">↑↓</kbd> Navigate</span>
-               <span className="flex items-center gap-1"><kbd className="rounded bg-white/5 px-1">↵</kbd> Select</span>
+             <span>{results.length > 0 ? `${results.length} results` : labels.footerSearch}</span>
+             <div className="flex gap-4">
+               <span className="flex items-center gap-1.5"><kbd className="rounded border border-white/10 bg-white/5 px-1.5 font-sans">↑↓</kbd> {labels.footerNavigate}</span>
+               <span className="flex items-center gap-1.5"><kbd className="rounded border border-white/10 bg-white/5 px-1.5 font-sans">↵</kbd> {labels.footerSelect}</span>
              </div>
           </div>
         </Command>
@@ -234,7 +283,7 @@ export default function SearchDialog({ locale, labels }: Props) {
 
 function QuickLink({ href, icon, label }: { href: string, icon: string, label: string }) {
   return (
-    <a href={href} className="flex flex-col items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] p-4 text-center hover:border-indigo-500/30 hover:bg-indigo-500/10 hover:text-indigo-300 transition-all">
+    <a href={href} className="flex flex-col items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] p-4 text-center hover:border-[hsl(var(--a)/0.3)] hover:bg-[hsl(var(--a)/0.1)] hover:text-[hsl(var(--a))] transition-all">
        <span className="text-xl">{icon}</span>
        <span className="text-xs font-medium text-white/60">{label}</span>
     </a>

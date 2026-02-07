@@ -41,9 +41,22 @@ export function useRecentSearches() {
     localStorage.removeItem(STORAGE_KEY);
   };
 
+  const removeRecentSearch = (query: string) => {
+    setRecentSearches(prev => {
+      const updated = prev.filter(q => q !== query);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch (e) {
+        // Ignore
+      }
+      return updated;
+    });
+  };
+
   return {
     recentSearches,
     addRecentSearch,
+    removeRecentSearch,
     clearRecentSearches
   };
 }

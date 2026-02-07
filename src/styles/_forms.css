@@ -1,0 +1,97 @@
+/* ============================================
+   Form Validation & Inputs
+   Theme-aware styling for inputs and error states
+   ============================================ */
+
+/* 1. Base Input Styles (Shared) */
+input, textarea, select {
+  transition-property: border-color, background-color, box-shadow, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+/* 2. Validation States (Semantic) */
+
+/* Error State */
+.input-error {
+  border-color: hsl(var(--er) / 0.8) !important;
+  color: hsl(var(--er)) !important;
+  /* Subtle background tint for better visibility */
+  background-color: hsl(var(--er) / 0.05) !important;
+}
+
+.input-error::placeholder {
+  color: hsl(var(--er) / 0.6) !important;
+}
+
+.input-error:focus {
+  outline-color: hsl(var(--er)) !important;
+  box-shadow: 0 0 0 4px hsl(var(--er) / 0.15) !important;
+}
+
+/* Success State */
+.input-success {
+  border-color: hsl(var(--su) / 0.6) !important;
+}
+
+.input-success:focus {
+  outline-color: hsl(var(--su)) !important;
+}
+
+/* 3. Error Message Typography */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--er));
+  margin-top: 0.35rem;
+  opacity: 0;
+  transform: translateY(-5px);
+  animation: slideErrorIn 0.2s ease-out forwards;
+}
+
+@keyframes slideErrorIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 4. Motion: Shake on Invalid Submit */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* 5. Theme-Specific Overrides */
+
+/* "Glowing" Themes (Neonoir, Synthwave) */
+[data-theme="neonoir"] .input-error,
+[data-theme="synthwave"] .input-error {
+  box-shadow: 0 0 15px hsl(var(--er) / 0.4), inset 0 0 10px hsl(var(--er) / 0.1) !important;
+  text-shadow: 0 0 5px hsl(var(--er) / 0.3);
+  border-color: hsl(var(--er)) !important;
+  background-color: hsl(var(--er) / 0.1) !important;
+}
+
+/* "Corporate" Themes (Minimal, Tahoe, Nordic) */
+[data-theme="minimal"] .input-error,
+[data-theme="tahoe"] .input-error,
+[data-theme="nordic"] .input-error {
+  border-width: 2px !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* "Organic/Liquid" Themes */
+[data-theme="liquid"] .input-error {
+  background-color: hsl(var(--er) / 0.08) !important;
+  border-color: transparent !important;
+}

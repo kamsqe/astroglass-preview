@@ -19,5 +19,12 @@
   "navigate": "Navigate",
   "open": "Open",
   "close": "Close",
-  "tryDifferent": "Try different keywords or check spelling"
+  "tryDifferent": "Try different keywords or check spelling",
+  "loading": "Loading...",
+  "footerSearch": "Search docs",
+  "footerNavigate": "Navigate",
+  "footerSelect": "Select",
+  "footerClose": "Close",
+  "remove": "Remove",
+  "esc": "Esc"
 }

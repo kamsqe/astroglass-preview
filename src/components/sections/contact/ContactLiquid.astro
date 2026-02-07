@@ -9,12 +9,17 @@ import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const chatData = JSON.stringify({
-  askName: t('contact.chat.askName'),
-  askEmail: t('contact.chat.askEmail'),
-  askMessage: t('contact.chat.askMessage'),
-  thanks: t('contact.chat.thanks')
-});
+  const validationMessages = {
+    emailInvalid: t('contact.validation.emailInvalid'),
+    required: t('contact.validation.required')
+  };
+
+  const chatData = JSON.stringify({
+    askName: t('contact.chat.askName'),
+    askEmail: t('contact.chat.askEmail'),
+    askMessage: t('contact.chat.askMessage'),
+    thanks: t('contact.chat.thanks')
+  });
 ---
 
 <section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -31,7 +36,7 @@ const chatData = JSON.stringify({
     </div>
 
     <!-- Chat Container -->
-    <div class="contact-v1-chat relative bg-base-content/[0.02] border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm" data-chat={chatData}>
+    <div class="contact-v1-chat relative bg-base-content/[0.02] border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm" data-chat={chatData} data-validation-messages={JSON.stringify(validationMessages)}>
       
       <!-- Chat Header -->
       <div class="flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-base-content/[0.03] border-b border-base-content/5">
@@ -76,7 +81,7 @@ const chatData = JSON.stringify({
 
         <!-- Text Input (hidden initially) -->
         <div class="contact-v1-text-input hidden">
-          <div class="flex gap-3">
+          <div class="flex gap-3 relative">
             <input 
               type="text" 
               class="contact-v1-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/30 transition-all duration-300"
@@ -92,7 +97,7 @@ const chatData = JSON.stringify({
 
         <!-- Email Input (hidden) -->
         <div class="contact-v1-email-input hidden">
-          <div class="flex gap-3">
+          <div class="flex gap-3 relative">
             <input 
               type="email" 
               class="contact-v1-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/30 transition-all duration-300"
@@ -191,6 +196,8 @@ const chatData = JSON.stringify({
 </style>
 
 <script>
+  import { safeParse, email, string, pipe } from 'valibot';
+  
   let contactV1Controller: AbortController | null = null;
 
   function initContactV1() {
@@ -203,6 +210,8 @@ const chatData = JSON.stringify({
     if (!chat) return;
 
     const chatData = chat.dataset.chat ? JSON.parse(chat.dataset.chat) : {};
+    const validationMessages = JSON.parse(chat.dataset.validationMessages || '{}');
+
     const messages = chat.querySelector('.contact-v1-messages');
     const chipsContainer = chat.querySelector('.contact-v1-chips');
     const textInputContainer = chat.querySelector('.contact-v1-text-input');
@@ -218,6 +227,19 @@ const chatData = JSON.stringify({
       { key: 'email', botMsg: chatData.askEmail || "Great to meet you! What's the best email?" },
       { key: 'message', botMsg: chatData.askMessage || "Perfect! Now tell me what you need help with." },
     ];
+
+    function showError(input: HTMLInputElement, message?: string) {
+       input.classList.add('input-error');
+       input.parentElement?.classList.add('animate-shake');
+       setTimeout(() => input.parentElement?.classList.remove('animate-shake'), 300);
+       // Optional: Show toast or bot message?
+       // For chat, user expects bot to say it using chat bubble, but that interrupts flow.
+       // Red border + shake is enough feedback for "wrong format".
+    }
+
+    function clearError(input: HTMLInputElement) {
+       input.classList.remove('input-error');
+    }
 
     function addMessage(text: string, isUser: boolean) {
       const msgDiv = document.createElement('div');
@@ -317,7 +339,11 @@ const chatData = JSON.stringify({
     
     function submitText() {
       const value = textInput?.value.trim();
-      if (!value) return;
+      if (!value) {
+         showError(textInput as HTMLInputElement);
+         return;
+      }
+      clearError(textInput as HTMLInputElement);
       
       formData[questions[step].key] = value;
       addMessage(value, true);
@@ -327,6 +353,7 @@ const chatData = JSON.stringify({
 
     textSend?.addEventListener('click', submitText, { signal });
     textInput?.addEventListener('keydown', (e) => {
+      clearError(textInput as HTMLInputElement);
       if (e.key === 'Enter') submitText();
     }, { signal });
 
@@ -336,7 +363,16 @@ const chatData = JSON.stringify({
     
     function submitEmail() {
       const value = emailInput?.value.trim();
-      if (!value || !value.includes('@')) return;
+      
+      // Valibot Email Check
+      const EmailSchema = pipe(string(), email());
+      const result = safeParse(EmailSchema, value || '');
+      
+      if (!value || !result.success) {
+         showError(emailInput as HTMLInputElement);
+         return;
+      }
+      clearError(emailInput as HTMLInputElement);
       
       formData['email'] = value;
       addMessage(value, true);
@@ -346,6 +382,7 @@ const chatData = JSON.stringify({
 
     emailSend?.addEventListener('click', submitEmail, { signal });
     emailInput?.addEventListener('keydown', (e) => {
+      clearError(emailInput as HTMLInputElement);
       if (e.key === 'Enter') submitEmail();
     }, { signal });
   }

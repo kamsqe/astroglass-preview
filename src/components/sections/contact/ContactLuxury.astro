@@ -8,6 +8,15 @@ import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+  // Validation config
+  const validationMessages = {
+    nameShort: t('contact.validation.nameShort'),
+    nameLong: t('contact.validation.nameLong'),
+    emailInvalid: t('contact.validation.emailInvalid'),
+    messageShort: t('contact.validation.messageShort'),
+    messageLong: t('contact.validation.messageLong')
+  };
 ---
 
 <section class="relative py-20 lg:py-32 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -20,7 +29,7 @@ const t = useTranslations(locale);
 
   <div class="max-w-lg mx-auto relative">
     <!-- Floating Glass Card -->
-    <div class="contact-v4-card relative p-6 sm:p-8 lg:p-10 rounded-[1.5rem] sm:rounded-[2rem] bg-base-100/60 backdrop-blur-[40px] border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.12)]">
+    <div class="contact-v4-card relative p-6 sm:p-8 lg:p-10 rounded-[1.5rem] sm:rounded-[2rem] bg-base-100/60 backdrop-blur-[40px] border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.12)]" data-validation-messages={JSON.stringify(validationMessages)}>
       
       <!-- Glass shimmer -->
       <div class="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] pointer-events-none overflow-hidden">
@@ -38,12 +47,13 @@ const t = useTranslations(locale);
         </div>
 
         <!-- Form -->
-        <form class="contact-v4-form space-y-4">
+        <form class="contact-v4-form space-y-4" novalidate>
           <!-- Name & Email row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="contact-v4-field">
               <input 
                 type="text" 
+                name="name"
                 required
                 class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
                 placeholder={t('contact.form.name')}
@@ -54,6 +64,7 @@ const t = useTranslations(locale);
             <div class="contact-v4-field">
               <input 
                 type="email" 
+                name="email"
                 required
                 inputmode="email"
                 class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
@@ -66,6 +77,7 @@ const t = useTranslations(locale);
           <!-- Subject dropdown -->
           <div class="contact-v4-field">
             <select 
+              name="topic"
               class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-500 appearance-none cursor-pointer"
             >
               <option value="" class="text-base-content/30">{t('contact.placeholders.selectTopic')}</option>
@@ -82,6 +94,7 @@ const t = useTranslations(locale);
           <!-- Message -->
           <div class="contact-v4-field">
             <textarea 
+              name="message"
               required
               rows="4"
               class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500 resize-none"
@@ -197,58 +210,118 @@ const t = useTranslations(locale);
 </style>
 
 <script>
+  import { safeParse } from 'valibot';
+  import { createContactSchema } from '../../../lib/schemas/contact';
+
   let contactV4Controller: AbortController | null = null;
 
   function initContactV4() {
-    // Abort previous listeners
     contactV4Controller?.abort();
     contactV4Controller = new AbortController();
     const signal = contactV4Controller.signal;
 
-    const form = document.querySelector('.contact-v4-form') as HTMLFormElement;
-    const success = document.querySelector('.contact-v4-success');
+    const container = document.querySelector('.contact-v4-card') as HTMLElement;
+    if (!container) return;
 
-    if (!form) return;
+    const validationMessages = JSON.parse(container.dataset.validationMessages || '{}');
+    const t = (key: string) => validationMessages[key.split('.')[1]] || key;
+    const schema = createContactSchema(t);
 
-    // Character counter for textarea
-    const textarea = form.querySelector('textarea');
-    const counter = form.querySelector('.contact-v4-counter');
-    
-    textarea?.addEventListener('input', () => {
-      const len = textarea.value.length;
-      if (counter) counter.textContent = `${len}/500`;
+    const form = container.querySelector('.contact-v4-form') as HTMLFormElement;
+    const success = container.querySelector('.contact-v4-success');
+
+    // Field Validation Helper
+    const validateField = (input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
+      const fieldName = input.name;
+      const formData = new FormData(form);
+      const data: Record<string, any> = {};
+      formData.forEach((value, key) => data[key] = value);
       
-      if (len > 500) {
-        textarea.value = textarea.value.slice(0, 500);
-      }
-    }, { signal });
+      const result = safeParse(schema, data);
+      
+      const fieldContainer = input.closest('.contact-v4-field');
+      const validIndicator = fieldContainer?.querySelector('.contact-v4-valid');
+      const existingError = fieldContainer?.querySelector('.error-message');
+      
+      // Reset state
+      input.classList.remove('input-error');
+      existingError?.remove();
+      validIndicator?.classList.add('hidden');
+      (input as HTMLElement).classList.remove('border-success/30');
 
-    // Form submission
+      if (!result.success) {
+        const issue = result.issues.find(i => i.path?.[0].key === fieldName);
+        if (issue) {
+          input.classList.add('input-error');
+          // For luxury theme, maybe a subtler error or standard one?
+          // Let's use the standard one for consistency but styling handles it.
+          const errorMsg = document.createElement('p');
+          errorMsg.className = 'error-message';
+          errorMsg.innerHTML = `${issue.message}`;
+          fieldContainer?.appendChild(errorMsg);
+        } else {
+             // Valid state (if value exists)
+             if (input.value) {
+                validIndicator?.classList.remove('hidden');
+                (input as HTMLElement).classList.add('border-success/30');
+             }
+        }
+      } else {
+         // All valid
+         if (input.value) {
+            validIndicator?.classList.remove('hidden');
+            (input as HTMLElement).classList.add('border-success/30');
+         }
+      }
+    };
+
+    // Attach listeners
+    form.querySelectorAll('input, textarea, select').forEach(input => {
+      const el = input as HTMLInputElement;
+      el.addEventListener('blur', () => validateField(el), { signal });
+      el.addEventListener('input', () => {
+         // Update counter if it's the textarea
+         if (el.tagName === 'TEXTAREA') {
+            const counter = form.querySelector('.contact-v4-counter');
+            if (counter) counter.textContent = `${el.value.length}/500`;
+         }
+         
+         if (el.classList.contains('input-error')) validateField(el);
+      }, { signal });
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const formData = new FormData(form);
-      console.log('Form submitted:', Object.fromEntries(formData));
+      const data: Record<string, any> = {};
+      formData.forEach((value, key) => data[key] = value);
       
+      const result = safeParse(schema, data);
+
+      if (!result.success) {
+        // Shake animation on card
+        container.classList.add('animate-shake');
+        setTimeout(() => container.classList.remove('animate-shake'), 300);
+
+        let firstInvalid: HTMLElement | null = null;
+        result.issues.forEach(issue => {
+          const fieldName = issue.path?.[0].key as string;
+          const input = form.querySelector(`[name="${fieldName}"]`);
+          if (input) {
+             if (!firstInvalid) firstInvalid = input as HTMLElement;
+             validateField(input as HTMLInputElement);
+          }
+        });
+        
+        firstInvalid?.focus();
+        return;
+      }
+      
+      console.log('Form submitted:', data);
       form.classList.add('hidden');
       success?.classList.remove('hidden');
     }, { signal });
-
-    // Inline validation feedback
-    form.querySelectorAll('input[required]').forEach(input => {
-      input.addEventListener('blur', () => {
-        const field = input.closest('.contact-v4-field');
-        const valid = field?.querySelector('.contact-v4-valid');
-        
-        if ((input as HTMLInputElement).checkValidity() && (input as HTMLInputElement).value) {
-          valid?.classList.remove('hidden');
-          (input as HTMLElement).classList.add('border-success/30');
-        } else {
-          valid?.classList.add('hidden');
-          (input as HTMLElement).classList.remove('border-success/30');
-        }
-      }, { signal });
-    });
   }
 
   initContactV4();

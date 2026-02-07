@@ -13,7 +13,10 @@ export default defineConfig({
   adapter,
   integrations: [mdx(), react()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['valibot']
+    }
   },
   i18n: {
     defaultLocale,

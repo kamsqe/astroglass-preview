@@ -1,5 +1,45 @@
 import { getCollection } from 'astro:content';
 
+// Sidebar Labels (Localization)
+export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
+  'components-sections': {
+    en: 'Marketing Sections',
+    ru: 'Маркетинговые Секции'
+  },
+  'components-ui': {
+    en: 'UI Elements',
+    ru: 'UI Элементы'
+  },
+  'components-reference': {
+    en: 'Reference',
+    ru: 'Справочник'
+  },
+  'getting-started': {
+    en: 'Getting Started',
+    ru: 'Начало работы'
+  },
+  'core-concepts': {
+    en: 'Core Concepts',
+    ru: 'Основные Концепции'
+  },
+  'deployment': {
+    en: 'Deployment',
+    ru: 'Развертывание'
+  },
+  'components': {
+    en: 'Components',
+    ru: 'Компоненты'
+  },
+  'themes': {
+    en: 'Themes',
+    ru: 'Темы'
+  },
+  'guide': {
+    en: 'Guide',
+    ru: 'Руководство'
+  }
+};
+
 export async function buildDocsNav(locale: 'en' | 'ru') {
   // Fetch all docs
   const allDocs = await getCollection('docs');
@@ -47,14 +87,14 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
 
   // Convert to array and sort
   const nav = Object.entries(sections).map(([key, items]) => {
-    // Format title
+    // Default formatting
     let title = key === 'General' ? 'General' : 
       key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
-    // Custom titles
-    if (key === 'components-sections') title = 'Marketing Sections';
-    if (key === 'components-ui') title = 'UI Elements';
-    if (key === 'components-reference') title = 'Reference';
+    // Use localized override if available
+    if (SIDEBAR_LABELS[key] && SIDEBAR_LABELS[key][locale]) {
+      title = SIDEBAR_LABELS[key][locale];
+    }
       
     // Get explicit order
     const sectionOrder = SECTION_ORDER[key] || 99;

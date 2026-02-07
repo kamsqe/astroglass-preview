@@ -73,7 +73,7 @@ export const themes: ThemeDefinition[] = [
 
 Компоненты разделов, такие как `Hero.astro`, действуют как обертки. Они динамически импортируют правильный вариант темы на основе пропса `version`.
 
-```astro
+```astro title="Component.astro"
 ---
 // src/components/sections/hero
 const { version } = Astro.props;

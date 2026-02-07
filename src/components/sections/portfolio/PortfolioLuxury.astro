@@ -3,7 +3,9 @@
  * Portfolio V4 - Case Study Cards (Redesigned)
  * Metric-led narrative cards with impact focus.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/portfolio/PortfolioLuxury.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -65,7 +67,7 @@ const projects = [
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {projects.map((p, i) => (
         <div 
-          class="case-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 backdrop-blur-sm transition-all duration-700"
+          class="c-portfolio-luxury__card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 backdrop-blur-sm transition-all duration-700"
           style={`animation-delay: ${i * 100}ms`}
         >
           <!-- Background gradient -->
@@ -129,30 +131,3 @@ const projects = [
     </div>
   </div>
 </section>
-
-<style>
-  .case-card {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-    animation: card-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: hsl(var(--b1));
-  }
-
-  @keyframes card-in {
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .case-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-  }
-
-  @media (min-width: 640px) {
-    .case-card:hover {
-      transform: translateY(-6px) scale(1.02) perspective(1000px) rotateX(2deg);
-    }
-  }
-</style>

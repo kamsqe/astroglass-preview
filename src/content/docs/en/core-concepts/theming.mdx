@@ -73,7 +73,7 @@ We use standard CSS variables (custom properties) to handle theme-specific color
 
 Section components like `Hero.astro` act as wrappers. They dynamically import the correct theme variant based on the `version` prop.
 
-```astro
+```astro title="Component.astro"
 ---
 // src/components/sections/hero
 const { version } = Astro.props;

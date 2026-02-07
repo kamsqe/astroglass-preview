@@ -1,0 +1,53 @@
+/* -------------------------------------------------------------------------- */
+/*                               WIZARD PANELS                                */
+/* -------------------------------------------------------------------------- */
+
+.contact-v5-panel {
+  animation: contact-panel-slide 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes contact-panel-slide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               INTENT CARDS                                 */
+/* -------------------------------------------------------------------------- */
+
+.contact-v5-intent {
+  transform: translateZ(0);
+}
+
+.contact-v5-intent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               PROGRESS STEP                                */
+/* -------------------------------------------------------------------------- */
+
+.contact-v5-step.active > div:first-child {
+  background: hsl(var(--a));
+  color: hsl(var(--b1));
+}
+
+.contact-v5-step.active {
+  color: hsl(var(--a));
+}
+
+.contact-v5-step.completed > div:first-child {
+  background: hsl(var(--bc)); 
+  color: hsl(var(--b1));  
+}
+
+.contact-v5-connector.active {
+  background: hsl(var(--a) / 0.5);
+}

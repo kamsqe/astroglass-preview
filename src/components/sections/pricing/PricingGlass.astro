@@ -3,13 +3,18 @@
  * Pricing V2 - Refraction Toggle
  * Ultra-clean layout with dynamic discount highlighting.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/pricing/PricingGlass.css';
 ---
 
-<section class="relative py-32 px-6 overflow-hidden bg-base-100/50" id="pricing-v2" data-monthly={t('pricing.perMonth')} data-yearly={t('pricing.perMonthYearly')}>
+
+
+<section class="c-pricing-glass__section relative py-32 px-6 overflow-hidden bg-base-100/50" id="pricing-v2" data-monthly={t('pricing.perMonth')} data-yearly={t('pricing.perMonthYearly')}>
   <div class="max-w-6xl mx-auto">
     <div class="flex flex-col md:flex-row items-center justify-between gap-12 mb-24">
        <div class="animate-reveal">
@@ -19,20 +24,20 @@ const t = useTranslations(locale);
           <p class="text-base-content/40 font-bold uppercase tracking-[0.3em] text-[10px] text-center md:text-left">{t('pricing.subtitle')}</p>
        </div>
 
-       <div class="toggle-v2 p-1.5 rounded-2xl bg-base-content/[0.03] border border-base-content/10 flex items-center gap-1 backdrop-blur-3xl shadow-sm relative overflow-hidden group/toggle">
-          <button class="pricing-toggle-btn active px-10 py-3.5 rounded-xl text-base-content font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="monthly">
+       <div class="c-pricing-glass__toggle p-1.5 rounded-2xl bg-base-content/[0.03] border border-base-content/10 flex items-center gap-1 backdrop-blur-3xl shadow-sm relative overflow-hidden group/toggle">
+          <button class="c-pricing-glass__toggle-btn active px-10 py-3.5 rounded-xl text-base-content font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="monthly">
              {t('pricing.monthly')}
           </button>
-          <button class="pricing-toggle-btn px-10 py-3.5 rounded-xl text-base-content/40 font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="yearly">
+          <button class="c-pricing-glass__toggle-btn px-10 py-3.5 rounded-xl text-base-content/40 font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="yearly">
              {t('pricing.yearly')}
           </button>
-          <div class="toggle-glider absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-base-content rounded-xl transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"></div>
+          <div class="c-pricing-glass__toggle-glider absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-base-content rounded-xl transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"></div>
        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
        <!-- Pro Card -->
-       <div class="pricing-card-v2 group relative p-10 lg:p-16 bg-base-content/[0.02] border border-base-content/10 rounded-[3.5rem] backdrop-blur-3xl overflow-hidden shadow-xl hover:shadow-2xl">
+       <div class="c-pricing-glass__card group relative p-10 lg:p-16 bg-base-content/[0.02] border border-base-content/10 rounded-[3.5rem] backdrop-blur-3xl overflow-hidden shadow-xl hover:shadow-2xl">
           <div class="relative z-10 h-full flex flex-col">
              <div class="w-16 h-1 bg-accent mb-10 transform scale-x-50 group-hover:scale-x-100 origin-left transition-transform duration-1000"></div>
              <h3 class="text-3xl lg:text-5xl font-black text-base-content mb-3 tracking-tighter group-hover:translate-x-2 transition-transform duration-1200">{t('pricing.tier2Name')}</h3>
@@ -40,8 +45,8 @@ const t = useTranslations(locale);
              
              <div class="price-container flex flex-col mb-12 mt-auto">
                 <div class="flex items-center gap-3 h-8">
-                   <span class="original-price text-xl font-bold text-base-content/20 line-through opacity-0 transition-all duration-1000">$348</span>
-                   <div class="discount-pill px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-black text-[9px] uppercase tracking-widest opacity-0 transition-all duration-1000">{t('pricing.save')}</div>
+                   <span class="c-pricing-glass__original-price text-xl font-bold text-base-content/20 line-through opacity-0 transition-all duration-1000">$348</span>
+                   <div class="c-pricing-glass__discount-pill px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-black text-[9px] uppercase tracking-widest opacity-0 transition-all duration-1000">{t('pricing.save')}</div>
                 </div>
                 <div class="flex items-baseline gap-2">
                    <span class="text-7xl lg:text-[9rem] font-black text-accent tracking-tighter transition-transform duration-1200 group-hover:scale-110 origin-left" data-price-pro>$29</span>
@@ -59,7 +64,7 @@ const t = useTranslations(locale);
        </div>
 
        <!-- Enterprise Card -->
-       <div class="pricing-card-v2 group relative p-10 lg:p-16 bg-base-content/[0.04] border border-accent/20 rounded-[3.5rem] backdrop-blur-3xl overflow-hidden shadow-2xl">
+       <div class="c-pricing-glass__card group relative p-10 lg:p-16 bg-base-content/[0.04] border border-accent/20 rounded-[3.5rem] backdrop-blur-3xl overflow-hidden shadow-2xl">
           <div class="relative z-10 h-full flex flex-col">
              <div class="w-16 h-1 bg-base-content mb-10 transform scale-x-50 group-hover:scale-x-100 origin-left transition-transform duration-1000"></div>
              <h3 class="text-3xl lg:text-5xl font-black text-base-content mb-3 tracking-tighter group-hover:translate-x-2 transition-transform duration-1200">{t('pricing.tier3Name')}</h3>
@@ -67,8 +72,8 @@ const t = useTranslations(locale);
              
              <div class="price-container flex flex-col mb-12 mt-auto">
                 <div class="flex items-center gap-3 h-8">
-                   <span class="original-price text-xl font-bold text-base-content/20 line-through opacity-0 transition-all duration-1000">$1188</span>
-                   <div class="discount-pill px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-black text-[9px] uppercase tracking-widest opacity-0 transition-all duration-1000">{t('pricing.save')}</div>
+                   <span class="c-pricing-glass__original-price text-xl font-bold text-base-content/20 line-through opacity-0 transition-all duration-1000">$1188</span>
+                   <div class="c-pricing-glass__discount-pill px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-black text-[9px] uppercase tracking-widest opacity-0 transition-all duration-1000">{t('pricing.save')}</div>
                 </div>
                 <div class="flex items-baseline gap-2">
                    <span class="text-7xl lg:text-[9rem] font-black text-base-content tracking-tighter transition-transform duration-1200 group-hover:scale-110 origin-left" data-price-biz>$99</span>
@@ -88,39 +93,6 @@ const t = useTranslations(locale);
   </div>
 </section>
 
-<style>
-  .pricing-card-v2, .pricing-card-v2 *, .toggle-v2, .toggle-glider {
-    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .pricing-card-v2:hover {
-    transform: translateY(-12px) scale(1.02);
-    background-color: hsl(var(--bc) / 0.06);
-    border-color: hsl(var(--bc) / 0.3);
-  }
-
-  .pricing-toggle-btn.active { color: hsl(var(--b1)); }
-  .toggle-v2:has([data-period="yearly"].active) .toggle-glider {
-    transform: translateX(100%);
-  }
-
-  /* Discount Animation States */
-  section:has([data-period="yearly"].active) .original-price { 
-     opacity: 1; 
-     transform: translateY(0); 
-  }
-  section:has([data-period="yearly"].active) .discount-pill { 
-     opacity: 1; 
-     transform: scale(1);
-  }
-  
-  .original-price, .discount-pill {
-     transform: translateY(10px) scale(0.9);
-  }
-</style>
-
 <script>
   let pricingV2Controller: AbortController | null = null;
 
@@ -131,7 +103,7 @@ const t = useTranslations(locale);
     const signal = pricingV2Controller.signal;
 
     const section = document.getElementById('pricing-v2');
-    const btns = document.querySelectorAll('.pricing-toggle-btn');
+    const btns = document.querySelectorAll('.c-pricing-glass__toggle-btn');
     const proPrice = document.querySelector('[data-price-pro]');
     const bizPrice = document.querySelector('[data-price-biz]');
     const labels = document.querySelectorAll('.period-label');
@@ -148,6 +120,14 @@ const t = useTranslations(locale);
             if (b !== btn) b.classList.add('text-base-content/40');
             else b.classList.remove('text-base-content/40');
          });
+
+         const toggle = section?.querySelector('.c-pricing-glass__toggle');
+         // No manual toggle logic needed since CSS handles it via :has and .active on buttons?
+         // Actually the CSS uses .active on the button to drive the glider via :has selector on the PARENT toggle
+         // But the parent toggle doesn't have .active, the button inside it has .active.
+         // CSS: .toggle-v2:has([data-period="yearly"].active) .toggle-glider
+         
+         // So ensure the button has the 'active' class (done above) AND the data-period attribute is correct.
 
          if (proPrice && bizPrice) {
             if (period === 'yearly') {

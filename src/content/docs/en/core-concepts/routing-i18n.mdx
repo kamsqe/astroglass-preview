@@ -59,7 +59,7 @@ Translations are handled in two ways:
 
 Common strings (nav items, buttons, etc.) are stored in `src/locales/[lang]/common.json`.
 
-```json
+```json title="data.json"
 /* src/locales/en/common.json */
 {
   "nav": {
@@ -71,7 +71,7 @@ Common strings (nav items, buttons, etc.) are stored in `src/locales/[lang]/comm
 
 Use the helper function to translate strings in components:
 
-```astro
+```astro title="Component.astro"
 ---
 import { useTranslations } from '../utils/i18n';
 const t = useTranslations('en');

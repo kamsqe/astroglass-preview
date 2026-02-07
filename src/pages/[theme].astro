@@ -6,7 +6,8 @@
  * Uses getStaticPaths() to generate pages for each enabled theme.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLocaleFromUrl, useTranslations } from '../utils/i18n';
+import { useTranslations } from '../utils/i18n';
+import { getLocaleFromUrl } from '../utils/locale-utils';
 import { getEnabledThemes, getThemeById } from '../config/themes';
 
 // Import all theme components

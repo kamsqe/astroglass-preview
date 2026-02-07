@@ -4,7 +4,8 @@
  * Scroll-driven storytelling hero that reveals value proposition in stages.
  * Each stage fits within viewport. CTA locks as sticky on final stage.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);

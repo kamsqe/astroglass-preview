@@ -1,0 +1,13 @@
+/* PortfolioMinimal.css */
+
+.c-portfolio-minimal__row, 
+.c-portfolio-minimal__row span, 
+.c-portfolio-minimal__row h3, 
+.c-portfolio-minimal__row div {
+  transition: all 1500ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.c-portfolio-minimal__row:hover {
+  padding-left: 40px;
+  background: hsl(var(--bc) / 0.02);
+}

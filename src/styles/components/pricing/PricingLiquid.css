@@ -1,0 +1,24 @@
+/* PricingLiquid.css */
+
+.c-pricing-liquid__table,
+.c-pricing-liquid__header,
+.c-pricing-liquid__row,
+.c-pricing-liquid__cta {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-pricing-liquid__row:hover {
+  background: hsl(var(--bc) / 0.03);
+}
+
+.c-pricing-liquid__row:hover span {
+  color: hsl(var(--bc) / 0.9);
+}
+
+/* Mobile Cards */
+.c-pricing-liquid__mobile-card {
+  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.c-pricing-liquid__mobile-card:active {
+  transform: scale(0.98);
+}

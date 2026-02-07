@@ -3,7 +3,9 @@
  * Portfolio V1 - Featured Showcase (Redesigned)
  * Hero-style featured project + compact supporting grid.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/portfolio/PortfolioLiquid.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -41,7 +43,7 @@ const projects = [
     </div>
 
     <!-- Featured Project -->
-    <div class="featured-card group relative mb-6 sm:mb-8 rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] backdrop-blur-xl">
+    <div class="c-portfolio-liquid__featured-card group relative mb-6 sm:mb-8 rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] backdrop-blur-xl">
       <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]">
         <!-- Visual Side -->
         <div class="lg:col-span-3 relative overflow-hidden">
@@ -86,7 +88,7 @@ const projects = [
     <!-- Supporting Projects Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <div class="project-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/5 bg-base-content/[0.02] backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 transition-all duration-500" style={`animation-delay: ${i * 100}ms`}>
+        <div class="c-portfolio-liquid__project-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/5 bg-base-content/[0.02] backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 transition-all duration-500" style={`animation-delay: ${i * 100}ms`}>
           <!-- Gradient accent -->
           <div class={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${p.color} opacity-60 group-hover:opacity-100 transition-opacity duration-500`}></div>
           
@@ -117,32 +119,3 @@ const projects = [
     </div>
   </div>
 </section>
-
-<style>
-  .featured-card {
-    transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .featured-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-  }
-
-  .project-card {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes card-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-  }
-</style>

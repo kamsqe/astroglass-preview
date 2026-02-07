@@ -1,0 +1,26 @@
+/* FeaturesLuxury.css */
+
+/* .tab-content */
+.c-features-luxury__content {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.c-features-luxury__content.active {
+  display: block;
+  /* Use global animation or similar */
+  animation: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* .feature-card */
+.c-features-luxury__card {
+  opacity: 0;
+  transform: translateY(15px);
+  /* Use global animation */
+  animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered delays */
+.c-features-luxury__content.active .c-features-luxury__card:nth-child(1) { animation-delay: 0.1s; }
+.c-features-luxury__content.active .c-features-luxury__card:nth-child(2) { animation-delay: 0.2s; }

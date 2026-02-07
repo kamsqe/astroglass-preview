@@ -12,7 +12,7 @@
  */
 
 export interface NavIcon {
-  paths: string[];
+  readonly paths: string[] | readonly string[];
   strokeWidth?: number;
 }
 

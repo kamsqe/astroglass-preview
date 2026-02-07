@@ -1,0 +1,276 @@
+/* -------------------------------------------------------------------------- */
+/*                                HEADER COMPONENT                            */
+/* -------------------------------------------------------------------------- */
+
+.header-v5 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 110;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  transition: all 0.5s ease;
+}
+
+.logo-v5 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-decoration: none;
+  color: hsl(var(--bc));
+  letter-spacing: -0.04em;
+}
+
+.logo-v5 span { color: hsl(var(--a)); }
+
+/* -------------------------------------------------------------------------- */
+/*                                BURGER MENU                                 */
+/* -------------------------------------------------------------------------- */
+
+.burger-v5 {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--bc) / 0.05);
+  border: 1px solid hsl(var(--bc) / 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.burger-v5:hover {
+  background: hsl(var(--bc));
+  border-color: hsl(var(--bc));
+  transform: scale(1.05);
+}
+
+.burger-v5-box {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.burger-v5-inner,
+.burger-v5-inner::before,
+.burger-v5-inner::after {
+  width: 20px;
+  height: 2px;
+  background: hsl(var(--bc));
+  position: absolute;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.burger-v5-inner { top: 50%; transform: translateY(-50%); }
+.burger-v5-inner::before { content: ''; top: -6px; }
+.burger-v5-inner::after { content: ''; top: 6px; }
+
+.burger-v5:hover .burger-v5-inner,
+.burger-v5:hover .burger-v5-inner::before,
+.burger-v5:hover .burger-v5-inner::after {
+  background: hsl(var(--b1));
+}
+
+.is-active .burger-v5-inner { background: transparent !important; }
+.is-active .burger-v5-inner::before { transform: translateY(6px) rotate(45deg); }
+.is-active .burger-v5-inner::after { transform: translateY(-6px) rotate(-45deg); }
+
+/* -------------------------------------------------------------------------- */
+/*                                OVERLAY PANEL                               */
+/* -------------------------------------------------------------------------- */
+
+.panel-v5 {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: hsl(var(--b1));
+  display: block;
+  clip-path: circle(0% at 90% 5%);
+  transition: clip-path 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  visibility: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panel-v5.is-open {
+  clip-path: circle(150% at 90% 5%);
+  visibility: visible;
+}
+
+.panel-v5-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Background Blobs */
+.bg-blob {
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  background: radial-gradient(circle, hsl(var(--a) / 0.4) 0%, transparent 70%);
+  filter: blur(100px);
+  animation: blob-move 25s infinite alternate;
+}
+
+.bg-blob:nth-child(2) {
+  bottom: -10%;
+  right: -10%;
+  background: radial-gradient(circle, hsl(var(--p) / 0.4) 0%, transparent 70%);
+  animation-delay: -12s;
+}
+
+@keyframes blob-move {
+  from { transform: translate(-10%, -10%) rotate(0deg); }
+  to { transform: translate(10%, 10%) rotate(360deg); }
+}
+
+.panel-v5-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 120px 32px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                NAVIGATION LINKS                            */
+/* -------------------------------------------------------------------------- */
+
+.panel-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  margin: 60px 0;
+}
+
+.panel-link {
+  position: relative;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  color: transparent;
+  text-decoration: none;
+  line-height: 1.1;
+  -webkit-text-stroke: 1px hsl(var(--bc) / 0.15);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panel-link-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: hsl(var(--bc));
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panel-link:hover { -webkit-text-stroke: 1px transparent; transform: translateX(10px); }
+.panel-link:hover .panel-link-text { clip-path: inset(0 0 0 0); }
+
+/* -------------------------------------------------------------------------- */
+/*                                SETTINGS PANEL                              */
+/* -------------------------------------------------------------------------- */
+
+.panel-settings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+  padding-top: 32px;
+  border-top: 1px solid hsl(var(--bc) / 0.05);
+}
+
+@media (min-width: 768px) {
+  .panel-settings { grid-template-columns: 1fr 1fr; }
+}
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-label {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: hsl(var(--bc) / 0.3);
+}
+
+.theme-grid-v5 {
+  display: flex;
+  gap: 12px;
+}
+
+/* Theme Button */
+.t-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: hsl(var(--bc) / 0.04);
+  border: 1px solid hsl(var(--bc) / 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.t-btn:hover {
+  background: hsl(var(--a) / 0.15);
+  border-color: hsl(var(--a) / 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                FOOTER INFO                                 */
+/* -------------------------------------------------------------------------- */
+
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.footer-info {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: hsl(var(--bc) / 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-socials a {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: hsl(var(--bc) / 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-socials a:hover { color: hsl(var(--a)); }
+
+/* -------------------------------------------------------------------------- */
+/*                                GLOBAL TRANSITIONS                          */
+/* -------------------------------------------------------------------------- */
+
+.burger-v5, .burger-v5-inner, .panel-v5, .panel-link, .panel-link-text, .t-btn, .footer-socials a {
+  transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}

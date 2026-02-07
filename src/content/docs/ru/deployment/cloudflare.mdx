@@ -54,7 +54,7 @@ import Callout from '../../../../components/mdx/Callout.astro';
 <Steps>
 1. **Войдите в Wrangler**
    
-   ```bash
+   ```bash title="Terminal" frame="terminal"
    npx wrangler login
    ```
 
@@ -62,7 +62,7 @@ import Callout from '../../../../components/mdx/Callout.astro';
    
    Запустите скрипт деплоя, определенный в `package.json`:
    
-   ```bash
+   ```bash title="Terminal" frame="terminal"
    pnpm run deploy
    ```
    
@@ -75,7 +75,7 @@ import Callout from '../../../../components/mdx/Callout.astro';
 
 Скрипт `build` в `package.json` обрабатывает это автоматически:
 
-```json
+```json title="data.json"
 "scripts": {
   "build": "astro build && pnpm run index:content",
   "index:content": "node scripts/generate-search-index.mjs"

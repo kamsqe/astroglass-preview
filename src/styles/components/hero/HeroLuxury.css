@@ -1,0 +1,19 @@
+/* HeroLuxury.css */
+
+/* .perspective-2000 */
+.c-hero-luxury__perspective-2000 {
+  perspective: 2000px;
+}
+
+/* .hero-v4-theme-btn */
+.c-hero-luxury__theme-btn {
+  transform: translateZ(0);
+}
+
+.c-hero-luxury__theme-btn.active {
+  transform: scale(1.15);
+  border-color: hsl(var(--bc));
+  box-shadow: 0 8px 20px -4px currentColor;
+}
+
+/* Animations are now global: .animate-float, .animate-fade-in, .animate-reveal */

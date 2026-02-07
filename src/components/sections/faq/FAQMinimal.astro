@@ -4,10 +4,13 @@
  * Classic vertical accordion with refined animations and visual grouping.
  * Mobile: Full-width accordion. Desktop: Centered with sticky TOC.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/faq/FAQMinimal.css';
 
 const sections = [
   {
@@ -75,7 +78,7 @@ const sections = [
                 {sections.map(section => (
                    <a 
                      href={`#faq-v5-${section.id}`} 
-                     class="faq-v5-toc-link group flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-base-content/50 hover:text-base-content hover:bg-base-content/[0.03] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                     class="c-faq-minimal__toc-link group flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-base-content/50 hover:text-base-content hover:bg-base-content/[0.03] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                      data-section={section.id}
                    >
                       <span class="text-base opacity-50 group-hover:opacity-100 transition-opacity duration-500">{section.icon}</span>
@@ -94,7 +97,7 @@ const sections = [
        <!-- Accordion Content -->
        <div class="lg:col-span-9 space-y-12">
           {sections.map((section, si) => (
-             <div id={`faq-v5-${section.id}`} class="faq-v5-section scroll-mt-8" style={`animation-delay: ${si * 100}ms`}>
+             <div id={`faq-v5-${section.id}`} class="c-faq-minimal__section scroll-mt-8" style={`animation-delay: ${si * 100}ms`}>
                 <h3 class="text-lg font-bold text-base-content mb-6 flex items-center gap-3">
                    <span class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-lg">{section.icon}</span>
                    <span>{section.title}</span>
@@ -103,16 +106,16 @@ const sections = [
                 
                 <div class="space-y-3">
                    {section.questions.map((q, i) => (
-                      <div class="faq-v5-accordion-item rounded-xl border border-base-content/5 overflow-hidden bg-base-content/[0.01] hover:bg-base-content/[0.02] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style={`animation-delay: ${(si * 100) + (i * 50)}ms`}>
-                         <button class="faq-v5-acc-trigger w-full flex items-center justify-between p-5 text-left group">
+                      <div class="c-faq-minimal__accordion-item rounded-xl border border-base-content/5 overflow-hidden bg-base-content/[0.01] hover:bg-base-content/[0.02] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style={`animation-delay: ${(si * 100) + (i * 50)}ms`}>
+                         <button class="c-faq-minimal__acc-trigger w-full flex items-center justify-between p-5 text-left group">
                             <span class="text-sm lg:text-base text-base-content font-medium pr-4 group-hover:text-accent transition-colors duration-500">{q.q}</span>
                             <div class="w-8 h-8 rounded-full bg-base-content/5 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/10 transition-all duration-500">
-                               <svg class="w-4 h-4 text-base-content/30 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] faq-v5-acc-icon group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               <svg class="w-4 h-4 text-base-content/30 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] c-faq-minimal__acc-icon group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6" />
                                </svg>
                             </div>
                          </button>
-                         <div class="faq-v5-acc-content hidden">
+                         <div class="c-faq-minimal__acc-content hidden">
                             <div class="px-5 pb-5">
                                <div class="h-px bg-base-content/5 mb-4"></div>
                                <p class="text-sm text-base-content/60 leading-relaxed">{q.a}</p>
@@ -128,65 +131,6 @@ const sections = [
   </div>
 </section>
 
-<style>
-  .faq-v5-section {
-    opacity: 0;
-    animation: sectionFadeInV5 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes sectionFadeInV5 {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .faq-v5-toc-link.active {
-    background: hsl(var(--a) / 0.1);
-    color: hsl(var(--a));
-    font-weight: 600;
-  }
-
-  .faq-v5-toc-link.active span:first-child {
-    opacity: 1;
-  }
-
-  .faq-v5-accordion-item {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .faq-v5-accordion-item.open {
-    background: hsl(var(--bc) / 0.03);
-    border-color: hsl(var(--bc) / 0.1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-  }
-
-  .faq-v5-accordion-item.open .faq-v5-acc-icon {
-    transform: rotate(45deg);
-    color: hsl(var(--a));
-  }
-
-  .faq-v5-acc-content {
-    animation: accordionExpandV5 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @keyframes accordionExpandV5 {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-
 <script>
   let faqV5Controller: AbortController | null = null;
 
@@ -197,10 +141,10 @@ const sections = [
     const signal = faqV5Controller.signal;
 
     // Accordion functionality
-    document.querySelectorAll('.faq-v5-acc-trigger').forEach(btn => {
+    document.querySelectorAll('.c-faq-minimal__acc-trigger').forEach(btn => {
       btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-v5-accordion-item');
-        const content = item?.querySelector('.faq-v5-acc-content');
+        const item = btn.closest('.c-faq-minimal__accordion-item');
+        const content = item?.querySelector('.c-faq-minimal__acc-content');
         const isOpen = item?.classList.contains('open');
         
         // Toggle this item
@@ -210,8 +154,8 @@ const sections = [
     });
 
     // TOC scroll spy
-    const tocLinks = document.querySelectorAll('.faq-v5-toc-link');
-    const sections = document.querySelectorAll('.faq-v5-section');
+    const tocLinks = document.querySelectorAll('.c-faq-minimal__toc-link');
+    const sections = document.querySelectorAll('.c-faq-minimal__section');
     
     function updateTOC() {
       let currentSection = '';

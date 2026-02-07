@@ -3,7 +3,9 @@
  * Portfolio V2 - Kinetic Horizon (Refined)
  * Horizontal scrolling with category tags and better hints.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/portfolio/PortfolioGlass.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -32,9 +34,9 @@ const projects = [
 
   <!-- Carousel -->
   <div class="relative">
-    <div class="kinetic-container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+    <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
       {projects.map((p, i) => (
-        <div class="kinetic-item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+        <div class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
             <!-- Gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -81,25 +83,3 @@ const projects = [
     </div>
   </div>
 </section>
-
-<style>
-  .kinetic-container {
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-  .kinetic-item {
-    opacity: 0;
-    transform: translateX(30px);
-    animation: slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes slide-in {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-</style>

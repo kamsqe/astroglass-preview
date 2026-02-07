@@ -65,34 +65,7 @@
   opacity: 0.8;
 }
 
-/* ============================================
-   Code Blocks (Mobile-Optimized)
-   ============================================ */
-
-.docs-content pre {
-  margin: 1.5rem -1rem;
-  padding: 1rem;
-  border-radius: 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-@media (min-width: 640px) {
-  .docs-content pre {
-    margin-left: 0;
-    margin-right: 0;
-    border-radius: 0.75rem;
-  }
-}
-
-.docs-content code:not(pre code) {
-  background: rgba(var(--color-base-content-rgb, 0 0 0), 0.06);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
+/* Code block styles are handled by astro-expressive-code */
 
 /* ============================================
    Mobile Bottom Bar

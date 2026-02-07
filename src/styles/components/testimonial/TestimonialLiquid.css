@@ -1,0 +1,23 @@
+/* TestimonialLiquid.css */
+
+.c-testimonial-liquid__carousel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.c-testimonial-liquid__carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.c-testimonial-liquid__card-mobile {
+  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-testimonial-liquid__card {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-testimonial-liquid__card:hover {
+  transform: translateY(-8px);
+  border-color: hsl(var(--bc) / 0.2);
+}

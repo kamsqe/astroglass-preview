@@ -21,6 +21,7 @@ export interface Props {
 const { headerVer, heroVer, aboutVer, featuresVer, portfolioVer, pricingVer, testimonialVer, faqVer, ctaVer, contactVer } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+import '../../styles/components/ui/ShowcaseControls.css';
 
 const sections = [
   {
@@ -255,31 +256,6 @@ const sections = [
   </div>
 </div>
 
-<style>
-  #lab-modal.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  #lab-modal.is-open .lab-content {
-    transform: scale(1);
-    filter: blur(0);
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--bc) / 0.1);
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--bc) / 0.2);
-  }
 </style>
 
 <script>

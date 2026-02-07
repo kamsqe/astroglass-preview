@@ -4,7 +4,8 @@
  * Chat-style form with typing indicators, quick-reply chips.
  * Feels like texting, not filling forms.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -20,6 +21,7 @@ const t = useTranslations(locale);
     askMessage: t('contact.chat.askMessage'),
     thanks: t('contact.chat.thanks')
   });
+import '../../../styles/components/contact/ContactLiquid.css';
 ---
 
 <section class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -127,72 +129,6 @@ const t = useTranslations(locale);
   </div>
 </section>
 
-<style>
-  .contact-v1-chat {
-    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .contact-v1-msg {
-    animation: msgSlideIn 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @keyframes msgSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .contact-v1-msg.user {
-    justify-content: flex-end;
-  }
-
-  .contact-v1-msg.user > div:last-child {
-    background: hsl(var(--a));
-    color: hsl(var(--b1));
-    border-radius: 1rem 1rem 0.25rem 1rem;
-  }
-
-  .contact-v1-typing {
-    display: flex;
-    gap: 4px;
-    padding: 8px 16px;
-  }
-
-  .contact-v1-typing span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: hsl(var(--bc) / 0.3);
-    animation: typingBounce 1.4s ease-in-out infinite;
-  }
-
-  .contact-v1-typing span:nth-child(2) { animation-delay: 0.2s; }
-  .contact-v1-typing span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes typingBounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-6px); }
-  }
-
-  .contact-v1-chip {
-    transform: translateZ(0);
-  }
-
-  .contact-v1-messages::-webkit-scrollbar {
-    width: 4px;
-  }
-  .contact-v1-messages::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .contact-v1-messages::-webkit-scrollbar-thumb {
-    background: hsl(var(--bc) / 0.1);
-    border-radius: 10px;
-  }
 </style>
 
 <script>

@@ -3,7 +3,9 @@
  * Features V4 - Use-Case Driven Tabs
  * Features organized by user intent with interactive tab switching.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/features/FeaturesLuxury.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -41,6 +43,8 @@ const useCases = [
   },
 ];
 ---
+
+
 
 <section class="features-v4 relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
   <div class="max-w-6xl mx-auto">
@@ -81,7 +85,7 @@ const useCases = [
       {useCases.map((uc, i) => (
         <div 
           class:list={[
-            "tab-content",
+            "c-features-luxury__content",
             i === 0 ? "active" : ""
           ]}
           data-content={uc.id}
@@ -94,7 +98,7 @@ const useCases = [
           <!-- Feature Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {uc.features.map((f, fi) => (
-              <div class="feature-card group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/5 backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 transition-all duration-500">
+              <div class="c-features-luxury__card group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/5 backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 transition-all duration-500">
                 <!-- Glow -->
                 <div class="absolute inset-0 bg-accent/5 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                 
@@ -130,42 +134,13 @@ const useCases = [
   </div>
 </section>
 
-<style>
-  .tab-content {
-    display: none;
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  .tab-content.active {
-    display: block;
-    animation: content-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes content-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .feature-card {
-    opacity: 0;
-    transform: translateY(15px);
-    animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .tab-content.active .feature-card:nth-child(1) { animation-delay: 0.1s; }
-  .tab-content.active .feature-card:nth-child(2) { animation-delay: 0.2s; }
-</style>
-
 <script>
   function initFeaturesV4() {
     const container = document.querySelector('.features-v4');
     if (!container) return;
 
     const tabs = container.querySelectorAll('.tab-btn');
-    const contents = container.querySelectorAll('.tab-content');
+    const contents = container.querySelectorAll('.c-features-luxury__content');
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {

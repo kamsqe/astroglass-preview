@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderLiquid from '../../components/layout/header/HeaderLiquid.astro';
-import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+import { useTranslations } from '../../utils/i18n';
+import { getLocaleFromUrl } from '../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);

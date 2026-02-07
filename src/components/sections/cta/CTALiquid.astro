@@ -4,17 +4,20 @@
  * Story-driven, contextual CTA that adapts based on scroll journey.
  * Features progressive reveal animation and adaptive messaging.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
+import '../../../styles/components/cta/CTALiquid.css';
+
 const echoMessages = JSON.stringify([
   t('cta.echo1'),
   t('cta.echo2'),
-  t('cta.echo3')
 ]);
 ---
+
 
 <section class="relative py-20 lg:py-32 px-4 sm:px-6 overflow-hidden bg-base-100">
   <!-- Background gradient that shifts -->
@@ -93,91 +96,6 @@ const echoMessages = JSON.stringify([
   </div>
 </section>
 
-<style>
-  .cta-v1-bg {
-    transition: opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .cta-v1-card {
-    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateZ(0);
-  }
-
-  .cta-v1-card:hover {
-    border-color: hsl(var(--a) / 0.2);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  }
-
-  /* Progressive reveal animations */
-  .cta-v1-eyebrow.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0ms;
-  }
-
-  .cta-v1-message.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 100ms;
-  }
-
-  .cta-v1-proof.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 200ms;
-  }
-
-  .cta-v1-headline.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 150ms;
-  }
-
-  .cta-v1-subtext.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 250ms;
-  }
-
-  .cta-v1-buttons.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 350ms;
-  }
-
-  .cta-v1-trust.revealed {
-    animation: ctaReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 450ms;
-  }
-
-  @keyframes ctaReveal {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Handle pulse for mobile */
-  .cta-v1-handle {
-    animation: handlePulse 2s ease-in-out infinite;
-  }
-
-  @keyframes handlePulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-  }
-
-  /* Primary button shine */
-  .cta-v1-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1), transparent);
-    opacity: 0;
-    transition: opacity 500ms ease;
-  }
-
-  .cta-v1-primary:hover::before {
-    opacity: 1;
-  }
 </style>
 
 <script>

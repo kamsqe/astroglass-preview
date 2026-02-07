@@ -3,7 +3,10 @@
  * About V3 - The Editorial Split (Refined)
  * Elegant typography left, purposeful visual right.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+import '../../../styles/components/about/AboutNeo.css';
 
 export interface Props {
   isFirst?: boolean;
@@ -48,7 +51,7 @@ const remainingTitle = titleWords.join(' ');
         
         <!-- CTA -->
         <div class="pt-4">
-          <a href="#" class="about-cta inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-base-content font-bold text-sm hover:bg-accent/10 hover:border-accent/30 hover:text-accent transition-all duration-500 group">
+          <a href="#" class="c-about-neo__cta inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-base-content font-bold text-sm hover:bg-accent/10 hover:border-accent/30 hover:text-accent transition-all duration-500 group">
             {t('about.cta')}
             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -60,7 +63,7 @@ const remainingTitle = titleWords.join(' ');
 
     <!-- Visual Panel (Second on mobile, smaller) -->
     <div class="w-full lg:w-[45%] order-1 lg:order-1">
-      <div class="about-card relative aspect-square sm:aspect-[4/5] max-h-[300px] sm:max-h-none rounded-3xl lg:rounded-[3rem] overflow-hidden border border-base-content/10 group shadow-xl">
+      <div class="c-about-neo__card relative aspect-square sm:aspect-[4/5] max-h-[300px] sm:max-h-none rounded-3xl lg:rounded-[3rem] overflow-hidden border border-base-content/10 group shadow-xl">
         <!-- Gradient background -->
         <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-base-content/5"></div>
         
@@ -78,19 +81,3 @@ const remainingTitle = titleWords.join(' ');
 
   </div>
 </section>
-
-<style>
-  .about-card {
-    transition: all 1000ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .about-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3);
-    border-color: hsl(var(--bc) / 0.2);
-  }
-
-  .about-cta {
-    transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-</style>

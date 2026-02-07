@@ -12,6 +12,7 @@ import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
 import ThemeSwitcher from '../ui/ThemeSwitcher.astro';
 import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
 
+
 export interface NavChild {
   href: string;
   label: string;
@@ -60,7 +61,7 @@ const t = useTranslations(locale);
               <div class="mobile-dropdown" data-mobile-dropdown>
                 <button
                   type="button"
-                  class="mobile-dropdown-trigger mobile-nav-item group flex items-center justify-between w-full"
+                  class="mobile-dropdown-trigger mobile-nav-item group flex items-center justify-between w-full h-auto p-0 hover:bg-transparent"
                 >
                   <div class="flex items-center gap-3.5">
                     <span class="mobile-nav-icon">
@@ -91,7 +92,7 @@ const t = useTranslations(locale);
                         <div class="mobile-nested-dropdown" data-mobile-nested>
                           <button
                             type="button"
-                            class="mobile-nested-trigger mobile-subnav-item w-full justify-between"
+                            class="mobile-nested-trigger mobile-subnav-item w-full justify-between h-auto p-0 hover:bg-transparent"
                           >
                             <span class="flex items-center gap-2.5">
                               <span>{child.label}</span>
@@ -103,7 +104,7 @@ const t = useTranslations(locale);
                           <div class="mobile-nested-menu">
                             <div class="py-1 pl-6 space-y-0.5">
                               {child.children.map((subChild) => (
-                                <a href={subChild.href} class="mobile-subnav-item text-[13px]">
+                                <a href={subChild.href} class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                                   <span>{subChild.label}</span>
                                 </a>
                               ))}
@@ -111,7 +112,7 @@ const t = useTranslations(locale);
                           </div>
                         </div>
                       ) : (
-                        <a href={child.href} class="mobile-subnav-item">
+                        <a href={child.href} class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                           <span>{child.label}</span>
                         </a>
                       )
@@ -120,7 +121,7 @@ const t = useTranslations(locale);
                 </div>
               </div>
             ) : (
-              <a href={link.href} class="mobile-nav-item group">
+              <a href={link.href} class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                 <span class="mobile-nav-icon">
                   <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {link.icon.paths.map((path) => (

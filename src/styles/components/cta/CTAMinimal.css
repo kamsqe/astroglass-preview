@@ -1,0 +1,68 @@
+/* -------------------------------------------------------------------------- */
+/*                                CURSOR & SCANLINES                          */
+/* -------------------------------------------------------------------------- */
+
+/* Cursor blink */
+.cta-v5-cursor {
+  animation: cta-cursor-blink 1s ease-in-out infinite;
+}
+
+@keyframes cta-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Scanlines effect */
+.cta-v5-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                TERMINAL UI                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Terminal glow on hover */
+.cta-v5-terminal {
+  transition: box-shadow 1200ms cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.cta-v5-terminal:hover {
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.5),
+              0 0 80px rgba(var(--a), 0.1);
+  transform: translateY(-4px);
+}
+
+/* Option hover state */
+.cta-v5-option {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  margin-left: -0.75rem;
+  border-radius: 0.5rem;
+  transition: background 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-v5-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cta-v5-option[data-action="start"]:hover {
+  background: rgba(var(--a), 0.1);
+}
+
+/* Stats counter animation */
+.cta-v5-stats span {
+  transition: color 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-v5-terminal:hover .cta-v5-stats span {
+  color: rgba(255, 255, 255, 0.6);
+}

@@ -59,7 +59,7 @@ URL для документации генерируется автоматич�
 
 Общие строки (элементы навигации, кнопки и т.д.) хранятся в `src/locales/[lang]/common.json`.
 
-```json
+```json title="data.json"
 /* src/locales/ru/common.json */
 {
   "nav": {
@@ -71,7 +71,7 @@ URL для документации генерируется автоматич�
 
 Используйте вспомогательную функцию для перевода строк в компонентах:
 
-```astro
+```astro title="Component.astro"
 ---
 import { useTranslations } from '../utils/i18n';
 const t = useTranslations('ru');

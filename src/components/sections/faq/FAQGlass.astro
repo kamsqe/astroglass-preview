@@ -4,10 +4,16 @@
  * Chat-style interface with message bubbles and suggested questions.
  * Mobile: Native chat feel. Desktop: Centered chat with category sidebar.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/faq/FAQGlass.css';
+
+import { Input } from '../../ui/input';
+import { Button } from '../../ui/button';
 
 const faqs = [
   { q: t('faq.q1'), a: t('faq.a1'), category: "basics" },
@@ -42,11 +48,11 @@ const i18nData = JSON.stringify({
     </div>
 
     <!-- Chat Container -->
-    <div class="faq-v2-chat relative max-w-2xl mx-auto" data-i18n={i18nData}>
+    <div class="c-faq-glass__chat relative max-w-2xl mx-auto" data-i18n={i18nData}>
        <!-- Messages Area -->
-       <div class="faq-v2-messages space-y-4 mb-6 min-h-[200px] max-h-[400px] overflow-y-auto custom-scrollbar py-3 px-1" id="faq-v2-messages">
+       <div class="c-faq-glass__messages space-y-4 mb-6 min-h-[200px] max-h-[400px] overflow-y-auto c-faq-glass__scrollbar py-3 px-1" id="faq-v2-messages">
           <!-- Welcome message -->
-          <div class="faq-v2-msg faq-v2-msg-bot flex gap-3 items-start">
+          <div class="c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start">
              <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
                 <span class="text-xl leading-none">🤖</span>
              </div>
@@ -60,150 +66,39 @@ const i18nData = JSON.stringify({
        </div>
 
        <!-- Suggested Questions -->
-       <div class="faq-v2-suggestions mb-6" id="faq-v2-suggestions">
+       <div class="c-faq-glass__suggestions mb-6" id="faq-v2-suggestions">
           <p class="text-xs text-base-content/30 mb-3">{t('faq.popularQuestions')}</p>
           <div class="flex flex-wrap gap-2">
              {faqs.slice(0, 6).map(faq => (
-                <button 
-                  class="faq-v2-suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/60 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                <Button 
+                  variant="soft"
+                  size="sm"
+                  className="c-faq-glass__suggest-btn rounded-full border border-base-content/10 text-base-content/60 hover:text-base-content transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                   data-question={faq.q}
                   data-answer={faq.a}
                 >
                    {faq.q}
-                </button>
+                </Button>
              ))}
           </div>
        </div>
 
        <!-- Input Area -->
-       <div class="faq-v2-input-area flex gap-3 p-4 rounded-2xl bg-base-content/[0.02] border border-base-content/10 focus-within:border-accent/30 focus-within:bg-base-content/[0.04] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
-          <input 
+       <div class="c-faq-glass__input-area flex gap-3 p-4 rounded-2xl bg-base-content/[0.02] border border-base-content/10 focus-within:border-accent/30 focus-within:bg-base-content/[0.04] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <Input 
             type="text" 
             id="faq-v2-input"
             placeholder={t('faq.typeQuestion')} 
-            class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-sm"
+            className="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 border-none shadow-none focus-visible:ring-0 text-sm h-auto p-0"
           />
-          <button id="faq-v2-send" class="faq-v2-ask-btn px-5 py-2.5 rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
+          <Button id="faq-v2-send" className="c-faq-glass__ask-btn px-5 py-2.5 h-auto rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
              <span class="relative z-10">{t('faq.ask')}</span>
-             <div class="faq-v2-ask-shine absolute inset-0 pointer-events-none"></div>
-          </button>
+             <div class="c-faq-glass__ask-shine absolute inset-0 pointer-events-none"></div>
+          </Button>
        </div>
     </div>
   </div>
 </section>
-
-<style>
-  .typing-dot {
-    animation: typingBounce 1.4s infinite ease-in-out;
-  }
-  .typing-dot:nth-child(1) { animation-delay: 0ms; }
-  .typing-dot:nth-child(2) { animation-delay: 200ms; }
-  .typing-dot:nth-child(3) { animation-delay: 400ms; }
-
-  @keyframes typingBounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-4px); }
-  }
-
-  .faq-v2-msg {
-    animation: msgSlideInV2 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @keyframes msgSlideInV2 {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .faq-v2-suggest-btn {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-  
-  .faq-v2-suggest-btn:hover {
-    transform: translateY(-3px) translateZ(0);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  }
-
-  /* Ask button shine effect */
-  .faq-v2-ask-btn {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .faq-v2-ask-shine {
-    background: linear-gradient(
-      105deg,
-      transparent 20%,
-      rgba(255, 255, 255, 0.4) 40%,
-      rgba(255, 255, 255, 0.6) 50%,
-      rgba(255, 255, 255, 0.4) 60%,
-      transparent 80%
-    );
-    transform: translateX(-100%);
-    animation: askButtonShine 3s ease-in-out infinite;
-    animation-delay: 1s;
-  }
-
-  @keyframes askButtonShine {
-    0%, 100% {
-      transform: translateX(-100%);
-    }
-    15%, 85% {
-      transform: translateX(100%);
-    }
-  }
-
-  /* Pause shine on hover */
-  .faq-v2-ask-btn:hover .faq-v2-ask-shine {
-    animation-play-state: paused;
-    opacity: 0;
-  }
-
-  /* Input - remove all focus styles */
-  #faq-v2-input,
-  #faq-v2-input:focus,
-  #faq-v2-input:focus-visible {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-  }
-
-  /* Helpful feedback buttons */
-  .faq-v2-helpful-btn {
-    transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-v2-helpful-btn:hover {
-    transform: scale(1.1);
-  }
-
-  .faq-v2-helpful-btn.chosen {
-    transform: scale(1.05);
-    pointer-events: none;
-  }
-
-  .faq-v2-helpful-btn.not-chosen {
-    pointer-events: none;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--bc) / 0.1);
-    border-radius: 10px;
-  }
-</style>
 
 <script>
   let faqV2Controller: AbortController | null = null;
@@ -214,7 +109,7 @@ const i18nData = JSON.stringify({
     faqV2Controller = new AbortController();
     const signal = faqV2Controller.signal;
 
-    const chatContainer = document.querySelector('.faq-v2-chat') as HTMLElement;
+    const chatContainer = document.querySelector('.c-faq-glass__chat') as HTMLElement;
     if (!chatContainer) return;
 
     const i18nData = JSON.parse(chatContainer.dataset.i18n || '{}');
@@ -232,15 +127,15 @@ const i18nData = JSON.stringify({
     function showTypingIndicator() {
       // Create typing indicator dynamically at the bottom
       const typing = document.createElement('div');
-      typing.className = 'faq-v2-typing faq-v2-msg flex gap-3 items-start';
+      typing.className = 'faq-v2-typing c-faq-glass__msg flex gap-3 items-start';
       typing.innerHTML = `
         <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
           <span class="text-xl leading-none">🤖</span>
         </div>
         <div class="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5">
-          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
-          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
-          <div class="typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+          <div class="c-faq-glass__typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+          <div class="c-faq-glass__typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
+          <div class="c-faq-glass__typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
         </div>
       `;
       messagesContainer?.appendChild(typing);
@@ -254,7 +149,7 @@ const i18nData = JSON.stringify({
 
     function addUserMessage(text: string) {
       const msg = document.createElement('div');
-      msg.className = 'faq-v2-msg faq-v2-msg-user flex gap-3 justify-end items-start';
+      msg.className = 'c-faq-glass__msg c-faq-glass__msg-user flex gap-3 justify-end items-start';
       msg.innerHTML = `
         <div class="flex-1 text-right">
           <div class="inline-block p-4 rounded-2xl rounded-tr-md bg-accent text-base-100">
@@ -273,7 +168,7 @@ const i18nData = JSON.stringify({
     function addBotMessage(text: string, showFeedback = true) {
       const msgId = 'msg-' + Date.now();
       const msg = document.createElement('div');
-      msg.className = 'faq-v2-msg faq-v2-msg-bot flex gap-3 items-start';
+      msg.className = 'c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start';
       msg.innerHTML = `
         <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
           <span class="text-xl leading-none">🤖</span>
@@ -283,10 +178,10 @@ const i18nData = JSON.stringify({
             <p class="text-sm text-base-content/70">${text}</p>
           </div>
           ${showFeedback ? `
-            <div class="faq-v2-feedback flex gap-3 mt-2 ml-2 items-center" data-msg="${msgId}">
-              <button class="faq-v2-helpful-btn faq-v2-helpful-yes text-xs text-base-content/40 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
-              <button class="faq-v2-helpful-btn faq-v2-helpful-no text-xs text-base-content/40 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
-              <span class="faq-v2-thanks hidden text-xs text-accent ml-1">${thanks}</span>
+            <div class="c-faq-glass__feedback flex gap-3 mt-2 ml-2 items-center" data-msg="${msgId}">
+              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-yes text-xs text-base-content/40 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
+              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-no text-xs text-base-content/40 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
+              <span class="c-faq-glass__thanks hidden text-xs text-accent ml-1">${thanks}</span>
             </div>
           ` : ''}
           <p class="text-[10px] text-base-content/20 mt-1 ml-2">${justNow}</p>
@@ -295,13 +190,13 @@ const i18nData = JSON.stringify({
       messagesContainer?.appendChild(msg);
       
       // Bind helpful button clicks
-      const feedback = msg.querySelector('.faq-v2-feedback');
-      feedback?.querySelectorAll('.faq-v2-helpful-btn').forEach(btn => {
+      const feedback = msg.querySelector('.c-faq-glass__feedback');
+      feedback?.querySelectorAll('.c-faq-glass__helpful-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const vote = (btn as HTMLElement).dataset.vote;
-          const thanksEl = feedback.querySelector('.faq-v2-thanks');
+          const thanksEl = feedback.querySelector('.c-faq-glass__thanks');
           
-          feedback.querySelectorAll('.faq-v2-helpful-btn').forEach(b => {
+          feedback.querySelectorAll('.c-faq-glass__helpful-btn').forEach(b => {
             if (b === btn) {
               // Chosen one: bright and bold
               b.classList.add('chosen');
@@ -349,7 +244,7 @@ const i18nData = JSON.stringify({
       if (suggestionsDiv && remaining.length > 0) {
         suggestionsDiv.innerHTML = remaining.map((faq: any) => `
           <button 
-            class="faq-v2-suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/60 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms]"
+            class="c-faq-glass__suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/60 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms]"
             data-question="${faq.q}"
             data-answer="${faq.a}"
           >
@@ -361,7 +256,7 @@ const i18nData = JSON.stringify({
     }
 
     function bindSuggestionClicks() {
-      document.querySelectorAll('.faq-v2-suggest-btn').forEach(btn => {
+      document.querySelectorAll('.c-faq-glass__suggest-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const q = (btn as HTMLElement).dataset.question || '';
           const a = (btn as HTMLElement).dataset.answer || '';

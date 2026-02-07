@@ -4,10 +4,13 @@
  * Pinterest-style staggered grid with varied card heights.
  * Mobile: 2-column masonry. Desktop: 4-column with featured highlights.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/testimonial/TestimonialLuxury.css';
 
 const testimonials = [
   {
@@ -87,10 +90,10 @@ const testimonials = [
     </div>
 
     <!-- Masonry Grid -->
-    <div class="masonry-grid columns-2 lg:columns-3 xl:columns-4 gap-4 lg:gap-6">
+    <div class="c-testimonial-luxury__grid columns-2 lg:columns-3 xl:columns-4 gap-4 lg:gap-6">
        {testimonials.map((item, i) => (
           <div 
-            class="masonry-card break-inside-avoid mb-4 lg:mb-6 group"
+            class="c-testimonial-luxury__card break-inside-avoid mb-4 lg:mb-6 group"
             style={`animation-delay: ${i * 80}ms`}
           >
              <div class:list={[
@@ -169,37 +172,3 @@ const testimonials = [
     </div>
   </div>
 </section>
-
-<style>
-  .masonry-card {
-    opacity: 0;
-    animation: masonryFadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes masonryFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .masonry-card > div {
-    transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .masonry-card:hover > div {
-    transform: translateY(-4px) scale(1.01);
-  }
-
-  @media (min-width: 1024px) {
-    .masonry-card:hover > div {
-      transform: translateY(-6px) scale(1.02);
-    }
-  }
-</style>

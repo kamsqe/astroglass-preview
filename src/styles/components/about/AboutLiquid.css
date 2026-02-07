@@ -1,0 +1,44 @@
+/* AboutLiquid.css */
+
+.c-about-liquid__layer-front, 
+.c-about-liquid__layer-back {
+  transition: all 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+.c-about-liquid__layer-front {
+  animation: aboutLiquidFloatSlow 6s ease-in-out infinite;
+}
+
+.c-about-liquid__layer-back {
+  animation: aboutLiquidFloatSlowAlt 6s ease-in-out infinite;
+}
+
+@keyframes aboutLiquidFloatSlow {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+@keyframes aboutLiquidFloatSlowAlt {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  50% { transform: translateY(-8px) rotate(8deg); }
+}
+
+.c-about-liquid__stack:hover .c-about-liquid__layer-front {
+  transform: rotate(0deg) scale(1.03);
+  background-color: hsl(var(--bc) / 0.06);
+  animation-play-state: paused;
+}
+
+.c-about-liquid__stack:hover .c-about-liquid__layer-back {
+  transform: rotate(10deg) scale(1.05);
+  animation-play-state: paused;
+}
+
+.c-about-liquid__stat {
+  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-about-liquid__stat:hover {
+  transform: translateY(-2px);
+}

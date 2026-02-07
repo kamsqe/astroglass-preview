@@ -9,7 +9,7 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()).default([]),
     author: z.string().default('Team'),
     draft: z.boolean().default(false),
-    layout: z.number().min(1).max(3).default(1).optional(),
+    postLayout: z.number().min(1).max(3).default(1).optional(),
   }),
 });
 

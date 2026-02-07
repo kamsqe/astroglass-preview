@@ -1,0 +1,42 @@
+/* HeroLiquid.css */
+
+/* .btn-liquid */
+.c-hero-liquid__btn-primary {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-hero-liquid__btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+}
+
+.c-hero-liquid__btn-primary:active {
+  transform: translateY(0);
+}
+
+/* .btn-shimmer */
+.c-hero-liquid__btn-shimmer {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* .btn-liquid-secondary */
+.c-hero-liquid__btn-secondary {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-hero-liquid__btn-secondary:hover {
+  background-color: hsl(var(--bc) / 0.05);
+  border-color: hsl(var(--bc) / 0.15);
+}
+
+.c-hero-liquid__btn-secondary:hover .c-hero-liquid__arrow-icon {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* .arrow-icon */
+.c-hero-liquid__arrow-icon {
+  transition: all 0.3s ease;
+}
+
+/* Animations provided globally: .animate-pulse-slow, .animate-reveal, .animate-fade-in */

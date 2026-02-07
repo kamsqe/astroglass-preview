@@ -4,10 +4,13 @@
  * Large prominent search bar with instant filtering.
  * Mobile: Sticky search with filtered results. Desktop: Centered search with grid.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/faq/FAQLuxury.css';
 
 const faqs = [
   { q: t('faq.q1'), a: t('faq.a1'), tags: ["basics", "new"] },
@@ -36,7 +39,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
        
        <!-- Search Bar -->
        <div class="relative max-w-xl mx-auto">
-          <div class="faq-v4-search-wrapper flex items-center gap-3 p-4 lg:p-5 rounded-2xl bg-base-content/[0.03] border border-base-content/10 focus-within:border-accent/50 focus-within:bg-base-content/[0.05] focus-within:shadow-[0_0_40px_rgba(var(--a),0.1)] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <div class="c-faq-luxury__search-wrapper flex items-center gap-3 p-4 lg:p-5 rounded-2xl bg-base-content/[0.03] border border-base-content/10 focus-within:border-accent/50 focus-within:bg-base-content/[0.05] focus-within:shadow-[0_0_40px_rgba(var(--a),0.1)] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
              <svg class="w-5 h-5 text-base-content/30 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
              </svg>
@@ -55,7 +58,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
           <div class="flex flex-wrap justify-center gap-2 mt-4">
              {popularTags.map(tag => (
                 <button 
-                  class="faq-v4-tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/60 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] capitalize cursor-pointer"
+                  class="c-faq-luxury__tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/60 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] capitalize cursor-pointer"
                   data-tag={tag}
                 >
                    <span class="mr-1 opacity-50">#</span>{t(`faq.tags.${tag}`)}
@@ -66,28 +69,28 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     </div>
 
     <!-- Results -->
-    <div class="faq-v4-results space-y-3" id="faq-v4-results">
+    <div class="c-faq-luxury__results space-y-3" id="faq-v4-results">
        {faqs.map((faq, i) => (
           <div 
-            class="faq-v4-result-item" 
+            class="c-faq-luxury__result-item" 
             data-question={faq.q.toLowerCase()}
             data-answer={faq.a.toLowerCase()}
             data-tags={faq.tags.join(' ')}
             style={`animation-delay: ${i * 50}ms`}
           >
-             <button class="faq-v4-result-trigger w-full flex items-center justify-between p-5 lg:p-6 rounded-xl lg:rounded-2xl bg-base-content/[0.02] border border-base-content/5 hover:bg-base-content/[0.05] hover:border-base-content/10 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] text-left group">
+             <button class="c-faq-luxury__result-trigger w-full flex items-center justify-between p-5 lg:p-6 rounded-xl lg:rounded-2xl bg-base-content/[0.02] border border-base-content/5 hover:bg-base-content/[0.05] hover:border-base-content/10 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] text-left group">
                 <span class="text-sm lg:text-base text-base-content font-medium pr-4 group-hover:text-accent transition-colors duration-500">{faq.q}</span>
                 <div class="w-8 h-8 rounded-full bg-base-content/5 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/10 transition-all duration-500">
-                   <svg class="w-4 h-4 text-base-content/20 transition-all duration-500 group-hover:text-accent faq-v4-result-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <svg class="w-4 h-4 text-base-content/20 transition-all duration-500 group-hover:text-accent c-faq-luxury__result-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                    </svg>
                 </div>
              </button>
-             <div class="faq-v4-result-content hidden px-5 lg:px-6 pb-5 lg:pb-6">
+             <div class="c-faq-luxury__result-content hidden px-5 lg:px-6 pb-5 lg:pb-6">
                 <p class="text-sm text-base-content/60 leading-relaxed pt-2">{faq.a}</p>
                 <div class="flex gap-2 mt-4">
                    {faq.tags.map(tag => (
-                      <span class="faq-v4-label px-2 py-1 rounded-md bg-base-content/[0.02] text-[10px] text-base-content/25 capitalize italic">{t(`faq.tags.${tag}`)}</span>
+                      <span class="c-faq-luxury__label px-2 py-1 rounded-md bg-base-content/[0.02] text-[10px] text-base-content/25 capitalize italic">{t(`faq.tags.${tag}`)}</span>
                    ))}
                 </div>
              </div>
@@ -109,92 +112,6 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
   </div>
 </section>
 
-<style>
-  .faq-v4-result-item {
-    opacity: 0;
-    animation: resultFadeInV4 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes resultFadeInV4 {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .faq-v4-result-item.open .faq-v4-result-arrow {
-    transform: rotate(180deg);
-  }
-
-  .faq-v4-result-item.open .faq-v4-result-trigger {
-    background: hsl(var(--bc) / 0.04);
-    border-color: hsl(var(--bc) / 0.1);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .faq-v4-result-item.hidden-by-search {
-    display: none;
-  }
-
-  .faq-v4-result-content {
-    animation: contentExpandV4 600ms cubic-bezier(0.16, 1, 0.3, 1);
-    background: hsl(var(--bc) / 0.02);
-    border: 1px solid hsl(var(--bc) / 0.05);
-    border-top: none;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-  }
-
-  @keyframes contentExpandV4 {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .faq-v4-tag-btn {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-
-  .faq-v4-tag-btn.active {
-    background: hsl(var(--a) / 0.15);
-    border-color: hsl(var(--a) / 0.4);
-    color: hsl(var(--a));
-    font-weight: 600;
-    box-shadow: 0 0 12px hsl(var(--a) / 0.2);
-  }
-
-  /* Non-clickable labels in answers */
-  .faq-v4-label {
-    cursor: default;
-    user-select: none;
-  }
-
-  /* Input - remove all focus styles */
-  #faq-v4-search,
-  #faq-v4-search:focus,
-  #faq-v4-search:focus-visible {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-  }
-
-  .faq-v4-search-wrapper:focus-within svg {
-    color: hsl(var(--a));
-  }
-</style>
-
 <script>
   let faqV4Controller: AbortController | null = null;
 
@@ -206,10 +123,10 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
 
     const searchInput = document.getElementById('faq-v4-search') as HTMLInputElement;
     const clearBtn = document.getElementById('faq-v4-clear');
-    const results = document.querySelectorAll('.faq-v4-result-item');
+    const results = document.querySelectorAll('.c-faq-luxury__result-item');
     const noResults = document.querySelector('.faq-v4-no-results');
     const countEl = document.getElementById('faq-v4-count');
-    const tagBtns = document.querySelectorAll('.faq-v4-tag-btn');
+    const tagBtns = document.querySelectorAll('.c-faq-luxury__tag-btn');
     
     let activeTag = '';
 
@@ -276,17 +193,17 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     });
 
     // Accordion expand/collapse
-    document.querySelectorAll('.faq-v4-result-trigger').forEach(btn => {
+    document.querySelectorAll('.c-faq-luxury__result-trigger').forEach(btn => {
       btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-v4-result-item');
-        const content = item?.querySelector('.faq-v4-result-content');
+        const item = btn.closest('.c-faq-luxury__result-item');
+        const content = item?.querySelector('.c-faq-luxury__result-content');
         const isOpen = item?.classList.contains('open');
         
         // Close all others
         results.forEach(r => {
           if (r !== item) {
             r.classList.remove('open');
-            r.querySelector('.faq-v4-result-content')?.classList.add('hidden');
+            r.querySelector('.c-faq-luxury__result-content')?.classList.add('hidden');
           }
         });
         

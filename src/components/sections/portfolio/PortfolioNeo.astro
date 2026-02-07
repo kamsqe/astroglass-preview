@@ -3,7 +3,9 @@
  * Portfolio V3 - Stacked Cards
  * Overlapping card stack with depth and parallax-like hover effects.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/portfolio/PortfolioNeo.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -36,14 +38,14 @@ const projects = [
     </div>
 
     <!-- Stacked Cards -->
-    <div class="stack-container relative">
+    <div class="c-portfolio-neo__container relative">
       {projects.map((p, i) => (
         <div 
-          class="stack-card group"
-          style={`--index: ${i}; --total: ${projects.length};`}
+          class="c-portfolio-neo__card group"
+          style={`animation-delay: ${i * 100}ms`}
           data-index={i}
         >
-          <div class="card-inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
+          <div class="c-portfolio-neo__inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
             <!-- Gradient accent top -->
             <div class={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color}`}></div>
             
@@ -99,40 +101,3 @@ const projects = [
     </div>
   </div>
 </section>
-
-<style>
-  .stack-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .stack-card {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: stack-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--index) * 100ms);
-  }
-
-  @keyframes stack-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .card-inner {
-    transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .stack-card:hover .card-inner {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
-  }
-
-  @media (min-width: 1024px) {
-    .stack-container {
-      gap: 1.5rem;
-    }
-  }
-</style>

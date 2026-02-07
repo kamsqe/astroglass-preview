@@ -3,7 +3,8 @@
  * Features V5 - Progressive Reveal Stack
  * Scroll-driven cinematic feature presentation, one feature at a time.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);

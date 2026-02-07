@@ -3,7 +3,10 @@
  * About V5 - The Values Grid
  * Human-centered, values-first layout with proof points.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+import '../../../styles/components/about/AboutMinimal.css';
 
 export interface Props {
   isFirst?: boolean;
@@ -61,7 +64,7 @@ const values = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {values.map((v, i) => (
         <div 
-          class={`value-card group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-sm transition-all duration-700 ${v.featured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2 bg-accent/5 border-accent/20' : 'bg-base-content/[0.02] border-base-content/5'}`}
+          class={`c-about-minimal__card ${v.featured ? 'c-about-minimal__card--featured' : ''} group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-sm transition-all duration-700 ${v.featured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2 bg-accent/5 border-accent/20' : 'bg-base-content/[0.02] border-base-content/5'}`}
           style={`animation-delay: ${i * 100}ms`}
         >
           <!-- Icon -->
@@ -80,7 +83,7 @@ const values = [
           </p>
 
           <!-- Proof point -->
-          <div class={`proof-point inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-500 ${v.featured ? 'bg-accent/10 text-accent' : 'bg-base-content/[0.03] text-base-content/50 group-hover:bg-accent/10 group-hover:text-accent'}`}>
+          <div class={`c-about-minimal__proof inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-500 ${v.featured ? 'bg-accent/10 text-accent' : 'bg-base-content/[0.03] text-base-content/50 group-hover:bg-accent/10 group-hover:text-accent'}`}>
             <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
             {v.proof}
           </div>
@@ -113,33 +116,3 @@ const values = [
     </div>
   </div>
 </section>
-
-<style>
-  .value-card {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes card-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .value-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15);
-  }
-
-  .value-card:not(.featured):hover {
-    background-color: hsl(var(--bc) / 0.04);
-    border-color: hsl(var(--bc) / 0.1);
-  }
-
-  .value-card.featured:hover {
-    background-color: hsl(var(--a) / 0.08);
-    border-color: hsl(var(--a) / 0.3);
-  }
-</style>

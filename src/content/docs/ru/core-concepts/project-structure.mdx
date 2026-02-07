@@ -7,38 +7,9 @@ import FileTree from '../../../../components/mdx/FileTree.astro';
 
 Liquid Glass следует стандартной структуре проекта Astro.
 
-<FileTree>
-- public/
-  - favicon.svg
-  - robots.txt
-- src/
-  - assets/
-  - components/
-    - docs/       # Компоненты для макетов документации
-    - hero/       # Реализации секции Hero
-    - mdx/        # Кастомные MDX компоненты
-    - shared/     # Повторно используемые UI компоненты
-    - [Wrapper Components].astro  # напр., Hero.astro, Pricing.astro
-  - content/
-    - docs/
-      - en/       # Документация на английском
-      - ru/       # Документация на русском
-    - config.ts   # Схема коллекций контента
-  - layouts/
-    - BaseLayout.astro  # Основной макет сайта
-    - Layout.astro      # Альтернативный макет
-  - pages/
-    - [lang]/     # Локализованные маршруты (напр., /ru/about)
-    - 404.astro
-    - index.astro # Перенаправление на язык по умолчанию
-  - styles/
-    - global.css  # Глобальные CSS переменные и стили
-  - utils/
-    - i18n.ts     # Логика переводов
-- astro.config.mjs
-- tailwind.config.mjs
-- package.json
-</FileTree>
+import ProjectStructureGraph from '../../../../components/ui/diagrams/ProjectStructureGraph';
+
+<ProjectStructureGraph client:only="react" />
 
 ## Ключевые директории
 

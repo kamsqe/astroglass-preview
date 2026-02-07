@@ -24,6 +24,29 @@
   --color-base-100: hsl(var(--b1));
   --color-base-200: hsl(var(--b2));
   --color-base-content: hsl(var(--bc));
+
+  /* Tremor Color Palette (Mapped to our Glass Theme) */
+  --color-tremor-brand-faint: hsl(var(--p) / 0.1);
+  --color-tremor-brand-muted: hsl(var(--p) / 0.2);
+  --color-tremor-brand-subtle: hsl(var(--p) / 0.4);
+  --color-tremor-brand: hsl(var(--p));
+  --color-tremor-brand-emphasis: hsl(var(--p) / 0.8);
+  --color-tremor-brand-inverted: hsl(var(--b1));
+
+  --color-tremor-background-muted: hsl(var(--n) / 0.1);
+  --color-tremor-background-subtle: hsl(var(--n) / 0.15);
+  --color-tremor-background: transparent; /* Glass effect */
+  --color-tremor-background-emphasis: hsl(var(--n) / 0.2);
+
+  --color-tremor-border: hsl(var(--bc) / 0.1);
+  --color-tremor-ring: hsl(var(--bc) / 0.2);
+
+  --color-tremor-content-subtle: hsl(var(--bc) / 0.4);
+  --color-tremor-content-muted: hsl(var(--bc) / 0.6);
+  --color-tremor-content: hsl(var(--bc));
+  --color-tremor-content-emphasis: hsl(var(--bc));
+  --color-tremor-content-strong: hsl(var(--bc));
+  --color-tremor-content-inverted: hsl(var(--b1));
 }
 
 /* ============================================

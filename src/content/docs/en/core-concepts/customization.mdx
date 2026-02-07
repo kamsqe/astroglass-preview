@@ -26,7 +26,7 @@ Global styles and CSS variables are defined in `src/styles/global.css`. This fil
 
 The project uses a CSS variable-based theming system. Colors are defined as HSL values (without the `hsl()`) function, allowing Tailwind's opacity modifier to work correctly.
 
-```css
+```css title="styles.css"
 /* src/styles/global.css */
 :root {
   /* HSL values */
@@ -41,7 +41,7 @@ The project uses a CSS variable-based theming system. Colors are defined as HSL 
 
 Components consume these variables via Tailwind utility classes or custom `hsl()` usage.
 
-```html
+```html title="index.html"
 <div class="bg-[hsl(var(--p))] text-[hsl(var(--bc))]">
   Primary Background with Base Content Text
 </div>

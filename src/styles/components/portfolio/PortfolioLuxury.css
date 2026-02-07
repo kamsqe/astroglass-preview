@@ -1,0 +1,26 @@
+/* PortfolioLuxury.css */
+
+.c-portfolio-luxury__card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  animation: portfolioLuxuryCardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: hsl(var(--b1));
+}
+
+@keyframes portfolioLuxuryCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.c-portfolio-luxury__card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 640px) {
+  .c-portfolio-luxury__card:hover {
+    transform: translateY(-6px) scale(1.02) perspective(1000px) rotateX(2deg);
+  }
+}

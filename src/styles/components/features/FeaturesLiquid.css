@@ -1,0 +1,23 @@
+/* FeaturesLiquid.css */
+
+/* .feature-card-v1 */
+.c-features-liquid__card {
+  opacity: 0;
+  transform: translateY(20px);
+  /* Use global animation */
+  animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.c-features-liquid__card:hover {
+  z-index: 10;
+}
+
+.c-features-liquid__card:hover .c-features-liquid__card-inner {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.2);
+}
+
+/* .card-inner */
+.c-features-liquid__card-inner {
+  transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}

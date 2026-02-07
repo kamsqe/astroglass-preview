@@ -5,15 +5,34 @@
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import { buildNavLinks } from '../../../config/navigation';
+import MobileNav from '../../layout/MobileNav.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildNavLinks(locale, t);
 const activeLink = Astro.url.pathname;
 const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+import '../../../styles/components/header/HeaderLuxury.css';
 ---
 
-<!-- Desktop Sidebar (Right Only) -->
+
+<!-- Mobile Header (Visible only on mobile) -->
+<div class="lg:hidden fixed top-0 left-0 right-0 z-50 px-4 py-4 flex justify-between items-center pointer-events-none">
+  <div class="pointer-events-auto">
+    <a href={homeHref} class="v4-logo">
+      <div class="logo-inner">LG</div>
+    </a>
+  </div>
+  
+  <button type="button" class="hamburger-btn pointer-events-auto" id="menu-toggle" aria-label="Toggle menu">
+    <div class="hamburger-icon">
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
+
+<!-- Desktop Sidebar (Right Only - wait, original comments said Right but CSS says Left: 40px? Assuming Left based on CSS) -->
 <aside class="v4-sidebar hidden lg:flex">
   <div class="v4-container backdrop-blur-3xl border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.3)]">
     <div class="v4-top">
@@ -50,173 +69,14 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
   </div>
 </aside>
 
-<!-- Mobile Navigation (Fallback to V2 behavior for V4 slot) -->
-<nav class="v4-mobile hidden md:flex lg:hidden">
-  <!-- Hidden by CSS media queries to ensure zero overlap -->
-</nav>
+<!-- Mobile Navigation -->
+<MobileNav links={navLinks} />
 
-<style>
-  .v4-link, .v4-icon-wrap, .v4-action-btn, .v4-theme-btn, .v4-theme-icons, .v4-label, .v4-active-indicator {
-    transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
-
-  /* Sidebar Styles */
-  .v4-sidebar {
-    position: fixed;
-    top: 0;
-    left: 40px;
-    bottom: 0;
-    z-index: 150;
-    align-items: center;
-    pointer-events: none;
-  }
-
-  .v4-container {
-    pointer-events: auto;
-    width: 84px;
-    height: auto;
-    max-height: 85vh;
-    background: hsl(var(--b1) / 0.8);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px;
-    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .v4-container:hover {
-    width: 240px;
-    padding: 24px 16px;
-    background: hsl(var(--b1) / 0.95);
-    box-shadow: 20px 0 100px rgba(0,0,0,0.3);
-  }
-
-  .v4-top { margin-bottom: 40px; display: flex; justify-content: center; }
-
-  .v4-logo {
-    width: 52px;
-    height: 52px;
-    background: hsl(var(--a));
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 25px -5px hsl(var(--a) / 0.4);
-  }
-  .v4-logo:hover { transform: scale(1.1) rotate(8deg); }
-  .logo-inner { font-weight: 900; color: white; font-size: 1.1rem; }
-
-  .v4-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .v4-link {
-    height: 52px;
-    display: flex;
-    align-items: center;
-    padding: 0 14px;
-    border-radius: 22px;
-    text-decoration: none;
-    color: hsl(var(--bc) / 0.3);
-    position: relative;
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
-  }
-
-  .v4-link:hover {
-    background: hsl(var(--bc) / 0.04);
-    color: hsl(var(--bc));
-  }
-
-  .v4-link.is-active {
-    background: hsl(var(--a) / 0.1);
-    color: hsl(var(--a));
-  }
-
-  .v4-icon-wrap {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .v4-link:hover .v4-icon-wrap { transform: scale(1.1); }
-
-  .v4-svg { width: 100%; height: 100%; }
-
-  .v4-label {
-    margin-left: 20px;
-    font-size: 14px;
-    font-weight: 800;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .v4-container:hover .v4-label { opacity: 1; transform: translateX(0); }
-
-  .v4-active-indicator {
-    position: absolute;
-    left: 0;
-    width: 4px;
-    height: 16px;
-    background: hsl(var(--a));
-    border-radius: 0 4px 4px 0;
-    opacity: 0;
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .v4-link.is-active .v4-active-indicator { opacity: 1; }
-
-  .v4-bottom {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid hsl(var(--bc) / 0.05);
-    display: flex;
-    justify-content: center;
-  }
-
-  .v4-theme-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 20px;
-    background: hsl(var(--bc) / 0.04);
-    border: 1px solid hsl(var(--bc) / 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .v4-theme-btn:hover { background: hsl(var(--bc)); color: hsl(var(--b1)); transform: scale(1.05); }
-
-  .v4-theme-icons {
-    display: flex;
-    flex-direction: column;
-    transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  [data-theme="abyss"] .v4-theme-icons,
-  [data-theme="neonoir"] .v4-theme-icons,
-  [data-theme="synthwave"] .v4-theme-icons {
-    transform: translateY(-52px);
-  }
-
-  .v4-theme-icons span {
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-  }
 </style>
 
 <script>
   function initHeaderV4() {
+    // Theme toggles
     const themeToggles = document.querySelectorAll('.theme-toggle-v4');
     const themes = ['tahoe', 'abyss', 'solaris', 'nordic', 'neonoir', 'synthwave'];
 
@@ -235,6 +95,38 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
         localStorage.setItem('theme', nextTheme);
       });
     });
+
+    // Mobile Menu Logic
+    const btn = document.getElementById('menu-toggle');
+    const nav = document.getElementById('mobile-nav');
+
+    if (btn && nav) {
+      const newBtn = btn.cloneNode(true) as HTMLElement;
+      btn.parentNode?.replaceChild(newBtn, btn);
+
+      const toggleMenu = () => {
+        if (nav.classList.contains('is-open')) {
+          nav.classList.remove('is-open');
+          newBtn.classList.remove('is-active');
+          document.body.style.overflow = '';
+        } else {
+          nav.classList.add('is-open');
+          newBtn.classList.add('is-active');
+          document.body.style.overflow = 'hidden';
+        }
+      };
+
+      newBtn.addEventListener('click', toggleMenu);
+      
+      // Close on link click
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          newBtn.classList.remove('is-active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
   }
 
   initHeaderV4();

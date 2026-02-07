@@ -4,10 +4,13 @@
  * Full-screen immersive story format with tap navigation.
  * Mobile: Swipeable carousel with visible nav. Desktop: Horizontal cards.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/testimonial/TestimonialLiquid.css';
 
 const testimonials = [
   {
@@ -55,11 +58,11 @@ const testimonials = [
 
     <!-- Mobile: Horizontal Swipe Carousel -->
     <div class="lg:hidden">
-       <div class="story-carousel-mobile overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide">
+       <div class="c-testimonial-liquid__carousel overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide">
           <div class="flex gap-4" style="width: max-content;">
              {testimonials.map((item, i) => (
                 <div 
-                  class="story-card-mobile snap-center flex-shrink-0 w-[85vw] max-w-[340px] relative rounded-[2rem] overflow-hidden bg-base-content/[0.03] border border-base-content/10"
+                  class="c-testimonial-liquid__card-mobile snap-center flex-shrink-0 w-[85vw] max-w-[340px] relative rounded-[2rem] overflow-hidden bg-base-content/[0.03] border border-base-content/10"
                   style="min-height: 420px;"
                 >
                    <!-- Gradient Background -->
@@ -99,7 +102,7 @@ const testimonials = [
     <!-- Desktop: Horizontal Cards -->
     <div class="hidden lg:grid grid-cols-4 gap-6">
        {testimonials.map((item, i) => (
-          <div class="story-card group relative p-8 rounded-[2rem] bg-base-content/[0.02] border border-base-content/10 overflow-hidden hover:bg-base-content/[0.05] transition-all duration-700">
+          <div class="c-testimonial-liquid__card group relative p-8 rounded-[2rem] bg-base-content/[0.02] border border-base-content/10 overflow-hidden hover:bg-base-content/[0.05] transition-all duration-700">
              <!-- Gradient -->
              <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]}></div>
              
@@ -120,25 +123,3 @@ const testimonials = [
     </div>
   </div>
 </section>
-
-<style>
-  .story-carousel-mobile {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .story-carousel-mobile::-webkit-scrollbar {
-    display: none;
-  }
-
-  .story-card-mobile {
-    transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .story-card {
-    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .story-card:hover {
-    transform: translateY(-8px);
-    border-color: hsl(var(--bc) / 0.2);
-  }
-</style>

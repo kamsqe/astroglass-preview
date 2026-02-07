@@ -7,5 +7,16 @@
   "author": "Author",
   "tags": "Tags",
   "noPosts": "No posts found",
-  "relatedPosts": "Related Posts"
+  "relatedPosts": "Related Posts",
+  "dashboard": {
+    "source": "Source",
+    "visits": "Visits",
+    "topPages": "Top Pages",
+    "systemUptime": "System Uptime (90 Days)",
+    "apiAvailability": "API Availability",
+    "operational": "Operational",
+    "degraded": "Degraded Performance",
+    "downtime": "Downtime",
+    "last24h": "Last 24h"
+  }
 }

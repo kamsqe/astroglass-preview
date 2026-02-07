@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import Fuse from 'fuse.js';
+import Fuse, { type FuseResult } from 'fuse.js';
 
 export interface SearchResult {
   url: string;
@@ -19,7 +19,7 @@ export interface UseSearchOptions {
 
 export function useSearch({ locale }: UseSearchOptions) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
-  const [results, setResults] = useState<Fuse.FuseResult<SearchResult>[]>([]);
+  const [results, setResults] = useState<FuseResult<SearchResult>[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   
   const fuseRef = useRef<Fuse<SearchResult> | null>(null);

@@ -5,6 +5,7 @@
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import { buildNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
+import { Button } from '../../ui/button';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -30,7 +31,11 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
         {navLinks.map((link) => (
           link.children ? (
             <div class="dropdown-v2" data-dropdown-v2>
-              <button type="button" class="nav-v2-item" aria-expanded="false">
+              <button 
+                type="button"
+                class="nav-v2-item h-auto font-normal hover:bg-transparent" 
+                aria-expanded="false"
+              >
                 {link.label}
                 <svg class="nav-v2-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -38,12 +43,16 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
               </button>
               <div class="dropdown-v2-menu">
                 {link.children.map((child) => (
-                  <a href={child.href} class="dropdown-v2-item">{child.label}</a>
+                  <a href={child.href} class="dropdown-v2-item justify-start w-full h-auto font-normal px-4 py-2 hover:bg-accent/10">
+                    {child.label}
+                  </a>
                 ))}
               </div>
             </div>
           ) : (
-            <a href={link.href} class="nav-v2-item">{link.label}</a>
+            <a href={link.href} class="nav-v2-item h-auto font-normal hover:bg-transparent">
+              {link.label}
+            </a>
           )
         ))}
       </nav>

@@ -7,5 +7,16 @@
   "author": "Автор",
   "tags": "Теги",
   "noPosts": "Записи не найдены",
-  "relatedPosts": "Похожие записи"
+  "relatedPosts": "Похожие записи",
+  "dashboard": {
+    "source": "Источник",
+    "visits": "Визиты",
+    "topPages": "Популярные Страницы",
+    "systemUptime": "Аптайм Системы (90 Дней)",
+    "apiAvailability": "Доступность API",
+    "operational": "Работает",
+    "degraded": "Снижение производительности",
+    "downtime": "Отказ",
+    "last24h": "Последние 24ч"
+  }
 }

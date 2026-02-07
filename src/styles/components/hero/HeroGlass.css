@@ -1,0 +1,68 @@
+/* HeroGlass.css */
+
+/* .btn-liquid-v2 */
+.c-hero-glass__btn-liquid-v2 {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.c-hero-glass__btn-liquid-v2:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
+}
+
+/* .btn-liquid-secondary-v2 */
+.c-hero-glass__btn-liquid-secondary-v2 {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.c-hero-glass__btn-liquid-secondary-v2:hover {
+  background-color: hsl(var(--bc) / 0.08);
+  border-color: hsl(var(--bc) / 0.2);
+}
+
+/* .hero-card */
+.c-hero-glass__card {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform: rotateY(-8deg);
+}
+
+.c-hero-glass__card:hover {
+  transform: rotateY(0deg) scale(1.02);
+}
+
+/* .accent-float */
+.c-hero-glass__accent-float {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.c-hero-glass__accent-float:hover {
+  transform: scale(1.1) rotate(0deg);
+  border-color: hsl(var(--bc) / 0.3);
+}
+
+/* .play-icon */
+.c-hero-glass__play-icon {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* .card-content */
+.c-hero-glass__content {
+  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Utilities */
+.c-hero-glass__perspective-2000 {
+  perspective: 2000px;
+}

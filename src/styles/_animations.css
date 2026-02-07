@@ -136,6 +136,17 @@
   }
 }
 
+@keyframes fade-in-up-short {
+  from { 
+    opacity: 0; 
+    transform: translateY(15px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
 /* ============================================
    Shimmer Animation
    ============================================ */
@@ -187,6 +198,28 @@
 
 .animate-fade-in {
   animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================
+   Component Specific Animations (Consolidated)
+   ============================================ */
+
+@keyframes width-grow {
+  from { width: 0; opacity: 0; }
+  to { width: 128px; opacity: 1; }
+}
+
+.animate-width-grow {
+  animation: width-grow 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(100px, -100px) rotate(30deg); }
+}
+
+.animate-drift {
+  animation: drift 20s infinite alternate ease-in-out;
 }
 
 .animate-fade-in-up {

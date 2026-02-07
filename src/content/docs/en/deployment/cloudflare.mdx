@@ -55,7 +55,7 @@ You can also deploy directly from your terminal.
 <Steps>
 1. **Login to Wrangler**
    
-   ```bash
+   ```bash title="Terminal" frame="terminal"
    npx wrangler login
    ```
 
@@ -63,7 +63,7 @@ You can also deploy directly from your terminal.
    
    Run the deploy script defined in `package.json`:
    
-   ```bash
+   ```bash title="Terminal" frame="terminal"
    pnpm run deploy
    ```
    
@@ -76,7 +76,7 @@ The project uses **Fuse.js** for search. This requires a build-time step to gene
 
 The `build` script in `package.json` handles this automatically:
 
-```json
+```json title="data.json"
 "scripts": {
   "build": "astro build && pnpm run index:content",
   "index:content": "node scripts/generate-search-index.mjs"

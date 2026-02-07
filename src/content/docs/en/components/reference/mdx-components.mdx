@@ -37,7 +37,7 @@ Use callouts to highlight important information.
   You can use markdown inside callouts.
 </Callout>
 
-```mdx
+```mdx title="content.mdx"
 import Callout from '../../components/mdx/Callout.astro';
 
 <Callout type="info" title="Note">
@@ -57,7 +57,7 @@ Currently using <Badge type="new">v2.0</Badge> of the framework.
 This feature is <Badge type="experimental">Experimental</Badge>.
 Legacy API is <Badge type="deprecated">Deprecated</Badge>.
 
-```mdx
+```mdx title="content.mdx"
 import Badge from '../../components/mdx/Badge.astro';
 
 <Badge type="new">New</Badge>
@@ -85,7 +85,7 @@ Use the Steps component to document sequential procedures.
    Run `npm run dev` to start the development server.
 </Steps>
 
-```mdx
+```mdx title="content.mdx"
 import Steps from '../../components/mdx/Steps.astro';
 
 <Steps>
@@ -112,7 +112,7 @@ Visualize directory structures.
 - package.json
 </FileTree>
 
-```mdx
+```mdx title="content.mdx"
 import FileTree from '../../components/mdx/FileTree.astro';
 
 <FileTree>
@@ -146,7 +146,7 @@ Link to other pages visually.
   />
 </CardGrid>
 
-```mdx
+```mdx title="content.mdx"
 import CardGrid from '../../components/mdx/CardGrid.astro';
 import LinkCard from '../../components/mdx/LinkCard.astro';
 

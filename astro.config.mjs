@@ -7,12 +7,47 @@ import { adapter, output } from './src/config/providers/active-provider';
 
 import react from '@astrojs/react';
 
+import expressiveCode from 'astro-expressive-code';
+
 // https://astro.build/config
 export default defineConfig({
   output,
   adapter,
-  integrations: [mdx(), react()],
+  integrations: [
+    expressiveCode({
+      themes: ['dracula', 'github-light'],
+      themeCssSelector: (theme, context) => {
+        // Dark themes - High contrast Dracula
+        if (theme.name === 'dracula') {
+          return '[data-theme="abyss"], [data-theme="neonoir"], [data-theme="synthwave"], [data-theme="monochrome"] .dark, .dark';
+        }
+        // Light themes - Default Github Light
+        // Explicitly listing them ensures no specificity conflicts with the dark theme
+        return '[data-theme="tahoe"], [data-theme="solaris"], [data-theme="nordic"], [data-theme="evergreen"], [data-theme="rose"], [data-theme="aquatica"], [data-theme="monochrome"]';
+      },
+      styleOverrides: {
+        borderColor: 'hsl(var(--bc) / 0.1)',
+        frames: {
+          frameBoxShadowCssValue: 'none', // Removed shadow for flattening
+          editorActiveTabBackground: 'hsl(var(--b2))',
+          editorActiveTabBorderColor: 'transparent',
+          editorTabBarBackground: 'hsl(var(--b2))',
+          editorBackground: 'hsl(var(--b2))',
+          
+          // Contrast fixes
+          editorTabBarBorderColor: 'hsl(var(--bc) / 0.1)',
+          editorActiveTabIndicatorHeight: '2px',
+          editorActiveTabIndicatorBottomColor: 'hsl(var(--a))',
+        },
+        // Ensure text is readable
+        uiFontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+      },
+    }),
+    mdx(), 
+    react()
+  ],
   vite: {
+    // @ts-ignore
     plugins: [tailwindcss()],
     optimizeDeps: {
       include: ['valibot']

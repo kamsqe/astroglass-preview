@@ -3,7 +3,10 @@
  * About V2 - The Stats Spotlight (Refined)
  * Center-aligned narrative with meaningful stat cards.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+import '../../../styles/components/about/AboutGlass.css';
 
 export interface Props {
   isFirst?: boolean;
@@ -38,10 +41,10 @@ const stats = [
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12">
     {stats.map((item, i) => (
       <div 
-        class="stat-card p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-base-100/50 backdrop-blur-xl border border-base-content/5 flex flex-col items-center text-center group"
+        class="c-about-glass__card p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-base-100/50 backdrop-blur-xl border border-base-content/5 flex flex-col items-center text-center group"
         style={`animation-delay: ${i * 100}ms`}
       >
-        <div class="icon-box w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700">
+        <div class="c-about-glass__icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700">
           {item.icon}
         </div>
         <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-base-content mb-2">{item.stat}</div>
@@ -62,34 +65,3 @@ const stats = [
     </div>
   </div>
 </section>
-
-<style>
-  .stat-card {
-    transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes card-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .stat-card:hover {
-    background-color: hsl(var(--a) / 0.05);
-    border-color: hsl(var(--a) / 0.2);
-    transform: translateY(-6px);
-    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.2);
-  }
-
-  .icon-box {
-    transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .stat-card:hover .icon-box {
-    background-color: hsl(var(--a) / 0.2);
-  }
-</style>

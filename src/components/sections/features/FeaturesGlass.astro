@@ -3,7 +3,9 @@
  * Features V2 - Horizontal List (Refined)
  * Numbered rows with better mobile layout and visible interactions.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/features/FeaturesGlass.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -14,6 +16,8 @@ const features = [
   { id: 3, title: t('features.f3Title'), desc: t('features.f3Desc'), icon: '📱' },
   { id: 4, title: t('features.f4Title'), desc: t('features.f4Desc'), icon: '🎨' },
 ];
+
+
 ---
 
 <section class="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-base-content/[0.01]">
@@ -34,7 +38,7 @@ const features = [
     <!-- Feature Rows -->
     <div class="space-y-2 sm:space-y-3">
       {features.map((f, i) => (
-        <div class="feature-row group relative" style={`animation-delay: ${i * 100}ms`}>
+        <div class="c-features-glass__row group relative" style={`animation-delay: ${i * 100}ms`}>
           <!-- Hover background -->
           <div class="absolute inset-0 bg-base-content/[0.03] backdrop-blur-xl rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-[0.98] group-hover:scale-100"></div>
           
@@ -84,21 +88,4 @@ const features = [
   </div>
 </section>
 
-<style>
-  .feature-row {
-    opacity: 0;
-    transform: translateY(15px);
-    animation: row-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
 
-  @keyframes row-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .feature-row:hover {
-    z-index: 2;
-  }
-</style>

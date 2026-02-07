@@ -4,7 +4,9 @@
  * Interactive product showcase where users can immediately experience the product.
  * Mobile: Demo above fold. Desktop: Side-by-side with content.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import '../../../styles/components/hero/HeroLuxury.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -17,10 +19,12 @@ const themes = [
 ];
 ---
 
+
+
 <section class="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 lg:px-16 pt-[calc(80px+var(--nav-offset))] pb-16 lg:pb-24">
   <!-- Background -->
   <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="hero-v4-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent opacity-10 blur-[150px] rounded-full transition-all duration-1000"></div>
+    <div class="c-hero-luxury__glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent opacity-10 blur-[150px] rounded-full transition-all duration-1000"></div>
   </div>
 
   <div class="relative z-10 w-full max-w-7xl mx-auto">
@@ -35,7 +39,7 @@ const themes = [
           <!-- Demo content -->
           <div class="hero-v4-demo-content aspect-[9/16] bg-base-100 rounded-[2rem] overflow-hidden flex flex-col items-center justify-center p-6 relative">
             <!-- Interactive theme preview -->
-            <div class="hero-v4-preview-card w-full aspect-video rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-6 transition-all duration-700">
+            <div class="c-hero-luxury__preview-card w-full aspect-video rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-6 transition-all duration-700">
               <span class="text-4xl">✨</span>
             </div>
             
@@ -43,7 +47,7 @@ const themes = [
             <div class="flex gap-2">
               {themes.map((theme, i) => (
                 <button 
-                  class={`hero-v4-theme-btn w-10 h-10 rounded-full border-2 transition-all duration-500 ${i === 0 ? 'scale-110 border-base-content' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                  class={`c-hero-luxury__theme-btn w-10 h-10 rounded-full border-2 transition-all duration-500 ${i === 0 ? 'scale-110 border-base-content' : 'border-transparent opacity-60 hover:opacity-100'}`}
                   style={`background: ${theme.color}`}
                   data-theme={theme.id}
                   data-color={theme.color}
@@ -111,7 +115,7 @@ const themes = [
 
       <!-- Desktop: Large Demo -->
       <div class="hidden lg:block order-1 lg:order-2">
-        <div class="hero-v4-demo-frame relative perspective-2000">
+        <div class="hero-v4-demo-frame relative c-hero-luxury__perspective-2000">
           <!-- Browser frame -->
           <div class="relative bg-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 rounded-[2rem] overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-all duration-700 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
             <!-- Browser chrome -->
@@ -129,7 +133,7 @@ const themes = [
             <!-- Demo content -->
             <div class="hero-v4-demo-content aspect-video bg-base-100 p-8 flex flex-col items-center justify-center">
               <!-- Interactive preview card -->
-              <div class="hero-v4-preview-card w-full max-w-md aspect-video rounded-3xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-all duration-700 shadow-xl">
+              <div class="c-hero-luxury__preview-card w-full max-w-md aspect-video rounded-3xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-all duration-700 shadow-xl">
                 <div class="text-center">
                   <span class="text-6xl block mb-2">✨</span>
                   <span class="text-base-content/50 text-sm">Interactive Preview</span>
@@ -142,7 +146,7 @@ const themes = [
                 <div class="flex gap-3">
                   {themes.map((theme, i) => (
                     <button 
-                      class={`hero-v4-theme-btn w-12 h-12 rounded-xl border-2 transition-all duration-500 hover:scale-110 ${i === 0 ? 'scale-110 border-base-content shadow-lg' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                      class={`c-hero-luxury__theme-btn w-12 h-12 rounded-xl border-2 transition-all duration-500 hover:scale-110 ${i === 0 ? 'scale-110 border-base-content shadow-lg' : 'border-transparent opacity-60 hover:opacity-100'}`}
                       style={`background: ${theme.color}`}
                       data-theme={theme.id}
                       data-color={theme.color}
@@ -166,54 +170,11 @@ const themes = [
   </div>
 </section>
 
-<style>
-  .perspective-2000 {
-    perspective: 2000px;
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes reveal {
-    from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0); }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(12deg); }
-    50% { transform: translateY(-10px) rotate(8deg); }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-reveal {
-    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-float {
-    animation: float 5s ease-in-out infinite;
-  }
-
-  .hero-v4-theme-btn {
-    transform: translateZ(0);
-  }
-
-  .hero-v4-theme-btn.active {
-    transform: scale(1.15);
-    border-color: hsl(var(--bc));
-    box-shadow: 0 8px 20px -4px currentColor;
-  }
-</style>
-
 <script>
   function initHeroV4() {
-    const buttons = document.querySelectorAll('.hero-v4-theme-btn');
-    const previewCards = document.querySelectorAll('.hero-v4-preview-card');
-    const glow = document.querySelector('.hero-v4-glow');
+    const buttons = document.querySelectorAll('.c-hero-luxury__theme-btn');
+    const previewCards = document.querySelectorAll('.c-hero-luxury__preview-card');
+    const glow = document.querySelector('.c-hero-luxury__glow');
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {

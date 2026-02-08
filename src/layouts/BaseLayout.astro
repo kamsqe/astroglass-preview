@@ -7,13 +7,11 @@ import HeaderV2 from '../components/layout/header/HeaderGlass.astro';
 import HeaderV3 from '../components/layout/header/HeaderNeo.astro';
 import HeaderV4 from '../components/layout/header/HeaderLuxury.astro';
 import HeaderV5 from '../components/layout/header/HeaderMinimal.astro';
-import ShowcaseControls from '../components/ui/ShowcaseControls.astro';
 
 export interface Props {
   title: string;
   description: string;
   showHeader?: boolean;
-  showControls?: boolean;
   headerVersion?: 1 | 2 | 3 | 4 | 5;
   heroVersion?: 1 | 2 | 3;
   aboutVersion?: 1 | 2 | 3;
@@ -30,33 +28,13 @@ const {
   title, 
   description, 
   showHeader = true, 
-  showControls = false,
-  headerVersion, 
-  heroVersion, 
-  aboutVersion,
-  featuresVersion,
-  portfolioVersion,
-  pricingVersion,
-  testimonialVersion,
-  faqVersion,
-  ctaVersion,
-  contactVersion
+  headerVersion = 1, 
 } = Astro.props;
 
 const locale = getLocaleFromUrl(Astro.url);
 
-// Determine versions (prefer prop, fallback to URL, fallback to 1)
-const url = new URL(Astro.request.url);
-let currentHeader = headerVersion || parseInt(url.searchParams.get('header') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentHero = heroVersion || parseInt(url.searchParams.get('hero') || '1') as 1 | 2 | 3;
-const currentAbout = aboutVersion || parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3;
-const currentFeatures = featuresVersion || parseInt(url.searchParams.get('features') || '1') as 1 | 2 | 3;
-const currentPortfolio = portfolioVersion || parseInt(url.searchParams.get('portfolio') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentPricing = pricingVersion || parseInt(url.searchParams.get('pricing') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentTestimonial = testimonialVersion || parseInt(url.searchParams.get('testimonial') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentFaq = faqVersion || parseInt(url.searchParams.get('faq') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentCta = ctaVersion || parseInt(url.searchParams.get('cta') || '1') as 1 | 2 | 3 | 4 | 5;
-const currentContact = contactVersion || parseInt(url.searchParams.get('contact') || '1') as 1 | 2 | 3 | 4 | 5;
+// Use prop version or default to 1
+const currentHeader = headerVersion;
 
 // If Header V2 is active, force the 'nordic' theme
 const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
@@ -101,21 +79,6 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
     <div>
       <slot />
     </div>
-
-    {showControls && (
-      <ShowcaseControls 
-        headerVer={currentHeader} 
-        heroVer={currentHero} 
-        aboutVer={currentAbout} 
-        featuresVer={currentFeatures}
-        portfolioVer={currentPortfolio}
-        pricingVer={currentPricing}
-        testimonialVer={currentTestimonial}
-        faqVer={currentFaq}
-        ctaVer={currentCta}
-        contactVer={currentContact}
-      />
-    )}
 
     <script is:inline>
       // Apply stored locale preference to navigation links

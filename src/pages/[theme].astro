@@ -31,11 +31,55 @@ import AboutGlass from '../components/sections/about/AboutGlass.astro';
 import AboutNeo from '../components/sections/about/AboutNeo.astro';
 import AboutLuxury from '../components/sections/about/AboutLuxury.astro';
 import AboutMinimal from '../components/sections/about/AboutMinimal.astro';
-import AboutLumina from '../components/sections/about/AboutLumina.astro';
 
-// Features (truncate for brevity in context, but ensuring import is placed correctly)
+// Features
+import FeaturesLiquid from '../components/sections/features/FeaturesLiquid.astro';
+import FeaturesGlass from '../components/sections/features/FeaturesGlass.astro';
+import FeaturesNeo from '../components/sections/features/FeaturesNeo.astro';
+import FeaturesLuxury from '../components/sections/features/FeaturesLuxury.astro';
+import FeaturesMinimal from '../components/sections/features/FeaturesMinimal.astro';
 
-// ... [existing imports]
+// Portfolio
+import PortfolioLiquid from '../components/sections/portfolio/PortfolioLiquid.astro';
+import PortfolioGlass from '../components/sections/portfolio/PortfolioGlass.astro';
+import PortfolioNeo from '../components/sections/portfolio/PortfolioNeo.astro';
+import PortfolioLuxury from '../components/sections/portfolio/PortfolioLuxury.astro';
+import PortfolioMinimal from '../components/sections/portfolio/PortfolioMinimal.astro';
+
+// Pricing
+import PricingLiquid from '../components/sections/pricing/PricingLiquid.astro';
+import PricingGlass from '../components/sections/pricing/PricingGlass.astro';
+import PricingNeo from '../components/sections/pricing/PricingNeo.astro';
+import PricingLuxury from '../components/sections/pricing/PricingLuxury.astro';
+import PricingMinimal from '../components/sections/pricing/PricingMinimal.astro';
+
+// Testimonial
+import TestimonialLiquid from '../components/sections/testimonial/TestimonialLiquid.astro';
+import TestimonialGlass from '../components/sections/testimonial/TestimonialGlass.astro';
+import TestimonialNeo from '../components/sections/testimonial/TestimonialNeo.astro';
+import TestimonialLuxury from '../components/sections/testimonial/TestimonialLuxury.astro';
+import TestimonialMinimal from '../components/sections/testimonial/TestimonialMinimal.astro';
+
+// FAQ
+import FAQLiquid from '../components/sections/faq/FAQLiquid.astro';
+import FAQGlass from '../components/sections/faq/FAQGlass.astro';
+import FAQNeo from '../components/sections/faq/FAQNeo.astro';
+import FAQLuxury from '../components/sections/faq/FAQLuxury.astro';
+import FAQMinimal from '../components/sections/faq/FAQMinimal.astro';
+
+// CTA
+import CTALiquid from '../components/sections/cta/CTALiquid.astro';
+import CTAGlass from '../components/sections/cta/CTAGlass.astro';
+import CTANeo from '../components/sections/cta/CTANeo.astro';
+import CTALuxury from '../components/sections/cta/CTALuxury.astro';
+import CTAMinimal from '../components/sections/cta/CTAMinimal.astro';
+
+// Contact
+import ContactLiquid from '../components/sections/contact/ContactLiquid.astro';
+import ContactGlass from '../components/sections/contact/ContactGlass.astro';
+import ContactNeo from '../components/sections/contact/ContactNeo.astro';
+import ContactLuxury from '../components/sections/contact/ContactLuxury.astro';
+import ContactMinimal from '../components/sections/contact/ContactMinimal.astro';
 
 // Component maps for dynamic rendering
 const componentMap = {
@@ -51,92 +95,55 @@ const componentMap = {
     CTA: CTALiquid,
     Contact: ContactLiquid,
   },
-  // ... [other themes]
-  lumina: {
-     // For now, reuse other components until specific ones are built, or leave as undefined if handled by page logic
-     // In this architecture, it expects a full set. We will map available ones and fallback others.
-     // However, `lumina.astro` page is separate. 
-     // WAIT: The user asked to "continue with the next component" which implies adding it to the full flow possibly?
-     // BUT: previously I made `lumina.astro` as a standalone page.
-     // IF I want it to work in `[theme].astro`, I need to fill this map.
-    Header: HeaderGlass, // Placeholder
-    Hero: HeroLiquid, // Placeholder (The specific Hero is React and used in standalone page)
-    About: AboutLumina,
-    Features: FeaturesLumina,
-    Portfolio: PortfolioLumina,
-    Pricing: PricingLumina,
-    Testimonial: TestimonialLumina,
-    FAQ: FAQLumina,
-    CTA: CTALumina,
-    Contact: ContactLumina,
-    Footer: FooterLumina,
+  glass: {
+    Header: HeaderGlass,
+    Hero: HeroGlass,
+    About: AboutGlass,
+    Features: FeaturesGlass,
+    Portfolio: PortfolioGlass,
+    Pricing: PricingGlass,
+    Testimonial: TestimonialGlass,
+    FAQ: FAQGlass,
+    CTA: CTAGlass,
+    Contact: ContactGlass,
+  },
+  neo: {
+    Header: HeaderNeo,
+    Hero: HeroNeo,
+    About: AboutNeo,
+    Features: FeaturesNeo,
+    Portfolio: PortfolioNeo,
+    Pricing: PricingNeo,
+    Testimonial: TestimonialNeo,
+    FAQ: FAQNeo,
+    CTA: CTANeo,
+    Contact: ContactNeo,
+  },
+  luxury: {
+    Header: HeaderLuxury,
+    Hero: HeroLuxury,
+    About: AboutLuxury,
+    Features: FeaturesLuxury,
+    Portfolio: PortfolioLuxury,
+    Pricing: PricingLuxury,
+    Testimonial: TestimonialLuxury,
+    FAQ: FAQLuxury,
+    CTA: CTALuxury,
+    Contact: ContactLuxury,
+  },
+  minimal: {
+    Header: HeaderMinimal,
+    Hero: HeroMinimal,
+    About: AboutMinimal,
+    Features: FeaturesMinimal,
+    Portfolio: PortfolioMinimal,
+    Pricing: PricingMinimal,
+    Testimonial: TestimonialMinimal,
+    FAQ: FAQMinimal,
+    CTA: CTAMinimal,
+    Contact: ContactMinimal,
   },
 };
-
-// Features
-import FeaturesLiquid from '../components/sections/features/FeaturesLiquid.astro';
-import FeaturesGlass from '../components/sections/features/FeaturesGlass.astro';
-import FeaturesNeo from '../components/sections/features/FeaturesNeo.astro';
-import FeaturesLuxury from '../components/sections/features/FeaturesLuxury.astro';
-import FeaturesMinimal from '../components/sections/features/FeaturesMinimal.astro';
-import FeaturesLumina from '../components/sections/features/FeaturesLumina.astro';
-
-// Portfolio
-import PortfolioLiquid from '../components/sections/portfolio/PortfolioLiquid.astro';
-import PortfolioGlass from '../components/sections/portfolio/PortfolioGlass.astro';
-import PortfolioNeo from '../components/sections/portfolio/PortfolioNeo.astro';
-import PortfolioLuxury from '../components/sections/portfolio/PortfolioLuxury.astro';
-import PortfolioMinimal from '../components/sections/portfolio/PortfolioMinimal.astro';
-import PortfolioLumina from '../components/sections/portfolio/PortfolioLumina.astro';
-
-// Pricing
-import PricingLiquid from '../components/sections/pricing/PricingLiquid.astro';
-import PricingGlass from '../components/sections/pricing/PricingGlass.astro';
-import PricingNeo from '../components/sections/pricing/PricingNeo.astro';
-import PricingLuxury from '../components/sections/pricing/PricingLuxury.astro';
-import PricingMinimal from '../components/sections/pricing/PricingMinimal.astro';
-import PricingLumina from '../components/sections/pricing/PricingLumina.astro';
-
-// Testimonial
-import TestimonialLiquid from '../components/sections/testimonial/TestimonialLiquid.astro';
-import TestimonialGlass from '../components/sections/testimonial/TestimonialGlass.astro';
-import TestimonialNeo from '../components/sections/testimonial/TestimonialNeo.astro';
-import TestimonialLuxury from '../components/sections/testimonial/TestimonialLuxury.astro';
-import TestimonialMinimal from '../components/sections/testimonial/TestimonialMinimal.astro';
-import TestimonialLumina from '../components/sections/testimonial/TestimonialLumina.astro';
-
-// FAQ
-import FAQLiquid from '../components/sections/faq/FAQLiquid.astro';
-import FAQGlass from '../components/sections/faq/FAQGlass.astro';
-import FAQNeo from '../components/sections/faq/FAQNeo.astro';
-import FAQLuxury from '../components/sections/faq/FAQLuxury.astro';
-import FAQMinimal from '../components/sections/faq/FAQMinimal.astro';
-import FAQLumina from '../components/sections/faq/FAQLumina.astro';
-
-// CTA
-import CTALiquid from '../components/sections/cta/CTALiquid.astro';
-import CTAGlass from '../components/sections/cta/CTAGlass.astro';
-import CTANeo from '../components/sections/cta/CTANeo.astro';
-import CTALuxury from '../components/sections/cta/CTALuxury.astro';
-import CTAMinimal from '../components/sections/cta/CTAMinimal.astro';
-import CTALumina from '../components/sections/cta/CTALumina.astro';
-
-// Contact
-import ContactLiquid from '../components/sections/contact/ContactLiquid.astro';
-import ContactGlass from '../components/sections/contact/ContactGlass.astro';
-import ContactNeo from '../components/sections/contact/ContactNeo.astro';
-import ContactLuxury from '../components/sections/contact/ContactLuxury.astro';
-import ContactMinimal from '../components/sections/contact/ContactMinimal.astro';
-import ContactLumina from '../components/sections/contact/ContactLumina.astro';
-
-// Footer
-import FooterLiquid from '../components/layout/footer/FooterLiquid.astro';
-import FooterGlass from '../components/layout/footer/FooterGlass.astro';
-import FooterNeo from '../components/layout/footer/FooterNeo.astro';
-import FooterLuxury from '../components/layout/footer/FooterLuxury.astro';
-import FooterMinimal from '../components/layout/footer/FooterMinimal.astro';
-import FooterLumina from '../components/sections/footer/FooterLumina.astro';
-
 
 export function getStaticPaths() {
   return getEnabledThemes().map((theme) => ({

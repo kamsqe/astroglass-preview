@@ -27,10 +27,6 @@
     "minimal": {
       "name": "Minimal",
       "description": "Clean simplicity"
-    },
-    "lumina": {
-      "name": "Lumina",
-      "description": "Prismatic Glassmorphism"
     }
   }
 }

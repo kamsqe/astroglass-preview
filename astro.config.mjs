@@ -26,7 +26,7 @@ export default defineConfig({
         return '[data-theme="tahoe"], [data-theme="solaris"], [data-theme="nordic"], [data-theme="evergreen"], [data-theme="rose"], [data-theme="aquatica"], [data-theme="monochrome"]';
       },
       styleOverrides: {
-        borderColor: 'hsl(var(--bc) / 0.1)',
+        borderColor: 'transparent',
         frames: {
           frameBoxShadowCssValue: 'none', // Removed shadow for flattening
           editorActiveTabBackground: 'hsl(var(--b2))',
@@ -35,9 +35,11 @@ export default defineConfig({
           editorBackground: 'hsl(var(--b2))',
           
           // Contrast fixes
+
           editorTabBarBorderColor: 'hsl(var(--bc) / 0.1)',
-          editorActiveTabIndicatorHeight: '2px',
-          editorActiveTabIndicatorBottomColor: 'hsl(var(--a))',
+          editorActiveTabIndicatorHeight: '2px', // Restored bottom line
+          editorActiveTabIndicatorTopColor: 'transparent',
+          editorActiveTabIndicatorBottomColor: 'hsl(var(--a))', // Restored color
         },
         // Ensure text is readable
         uiFontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',

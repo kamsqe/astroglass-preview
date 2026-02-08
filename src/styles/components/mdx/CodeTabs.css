@@ -52,7 +52,9 @@
 }
 
 .c-code-tabs__panels :global(.expressive-code .header) {
-  display: none !important;
+  /* display: none !important; - Unhide to show copy button */
+  border: none !important;
+  background: transparent !important;
 }
 
 .c-code-tabs__panels :global(.expressive-code pre) {

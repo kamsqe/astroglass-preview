@@ -1,0 +1,10 @@
+---
+import { LuminaFeatures } from '../../demos/lumina/LuminaFeatures';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<LuminaFeatures client:visible />

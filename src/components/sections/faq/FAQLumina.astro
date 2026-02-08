@@ -1,0 +1,10 @@
+---
+import { LuminaFAQ } from '../../demos/lumina/LuminaFAQ';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<LuminaFAQ client:visible />

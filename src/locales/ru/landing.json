@@ -27,6 +27,10 @@
     "minimal": {
       "name": "Minimal",
       "description": "Чистая простота"
+    },
+    "lumina": {
+      "name": "Lumina",
+      "description": "Призматический глассморфизм"
     }
   }
 }

@@ -85,6 +85,16 @@ export const themes: ThemeDefinition[] = [
     premium: false,
     description: 'Clean, focused design with essential elements',
   },
+  {
+    id: 'lumina',
+    name: 'Lumina',
+    color: 'from-indigo-500 to-purple-500',
+    icon: '💎',
+    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact'],
+    enabled: true,
+    premium: false,
+    description: 'High-end glassmorphism with complex parallax',
+  },
 ];
 
 /** Get all enabled themes */

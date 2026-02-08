@@ -1,0 +1,10 @@
+---
+import { LuminaContact } from '../../demos/lumina/LuminaContact';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<LuminaContact client:visible />

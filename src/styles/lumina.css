@@ -1,0 +1,95 @@
+/* Lumina Prismatic - Aggressive Neon Liquid */
+
+:root {
+  --lumina-bg: #050505;
+  --lumina-neon-1: #ff00ff; /* Magenta */
+  --lumina-neon-2: #00ffff; /* Cyan */
+  --lumina-neon-3: #ccff00; /* Lime */
+  --lumina-neon-4: #ff3300; /* OrangeRed */
+}
+
+/* --- Base --- */
+.lumina-void-bg {
+    background-color: var(--lumina-bg);
+    position: relative;
+    overflow: hidden;
+    cursor: none; /* Custom cursor handling */
+}
+
+/* --- Noise Grain --- */
+.lumina-noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.12;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- Melting Text Effect --- */
+.lumina-melt-text {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.8);
+    position: relative;
+    z-index: 10;
+    filter: url(#meltFilter);
+    transition: all 0.3s;
+}
+
+.lumina-melt-text:hover {
+    -webkit-text-stroke: 0px transparent;
+    color: white;
+    text-shadow: 
+        0 0 10px var(--lumina-neon-1),
+        0 0 20px var(--lumina-neon-2),
+        0 0 40px var(--lumina-neon-1);
+}
+
+/* --- Liquid Blobs --- */
+.lumina-blob {
+    position: absolute;
+    filter: blur(60px) contrast(1.2);
+    mix-blend-mode: screen;
+    opacity: 0.8;
+}
+
+/* --- Aggressive Glitch --- */
+@keyframes glitch-anim {
+    0% { transform: translate(0) }
+    20% { transform: translate(-5px, 5px) }
+    40% { transform: translate(-5px, -5px) }
+    60% { transform: translate(5px, 5px) }
+    80% { transform: translate(5px, -5px) }
+    100% { transform: translate(0) }
+}
+
+.lumina-glitch:hover {
+    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    color: var(--lumina-neon-3);
+}
+
+/* --- Custom Cursor --- */
+.lumina-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: width 0.2s, height 0.2s;
+}
+
+.lumina-cursor.hovering {
+    width: 80px;
+    height: 80px;
+    background: white;
+    mix-blend-mode: exclusion;
+}

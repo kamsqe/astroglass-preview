@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LuminaHero } from '../components/demos/lumina/LuminaHero';
+import { LuminaAbout } from '../components/demos/lumina/LuminaAbout';
+import { LuminaFeatures } from '../components/demos/lumina/LuminaFeatures';
+import { LuminaPortfolio } from '../components/demos/lumina/LuminaPortfolio';
+import { LuminaPricing } from '../components/demos/lumina/LuminaPricing';
+import { LuminaTestimonial } from '../components/demos/lumina/LuminaTestimonial';
+import { LuminaFAQ } from '../components/demos/lumina/LuminaFAQ';
+import { LuminaCTA } from '../components/demos/lumina/LuminaCTA';
+import { LuminaContact } from '../components/demos/lumina/LuminaContact';
+import { LuminaFooter } from '../components/demos/lumina/LuminaFooter';
+import { LuminaNavbar } from '../components/demos/lumina/LuminaNavbar';
+import { useTranslations } from '../utils/i18n';
+import { getLocaleFromUrl } from '../utils/locale-utils';
+import '../styles/lumina.css';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const title = "Lumina - " + t('landing.headline');
+const description = t('landing.tagline');
+---
+
+<BaseLayout title={title} description={description} showHeader={false} showControls={true}>
+  <LuminaNavbar client:load />
+  <main>
+    <LuminaHero 
+      client:only="react"
+      title={t('landing.demos.lumina.name')}
+      subtitle={t('landing.demos.lumina.description')}
+      ctaPrimary={t('landing.viewDemos')}
+      ctaSecondary={t('landing.documentation')}
+    />
+    <LuminaAbout client:visible />
+    <LuminaFeatures client:visible />
+    <LuminaPortfolio client:visible />
+    <LuminaPricing client:visible />
+    <LuminaTestimonial client:visible />
+    <LuminaFAQ client:visible />
+    <LuminaCTA client:visible />
+    <LuminaContact client:visible />
+    <LuminaFooter client:visible />
+  </main>
+</BaseLayout>

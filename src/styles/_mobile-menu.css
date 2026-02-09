@@ -73,9 +73,7 @@
   background: radial-gradient(circle, hsl(var(--a) / 0.25) 0%, hsl(var(--a) / 0.05) 70%);
   animation-delay: -4s;
 }
-.orb-3 {
-  display: none;
-}
+
 
 /* Mobile nav items - Theme-Aware */
 .mobile-nav-item {

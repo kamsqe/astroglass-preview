@@ -68,9 +68,6 @@ dependencies:
   react-dom:
     specifier: ^19.2.4
     version: 19.2.4(react@19.2.4)
-  react-scroll-parallax:
-    specifier: ^3.5.0
-    version: 3.5.0(react-dom@19.2.4)(react@19.2.4)
   recharts:
     specifier: ^3.7.0
     version: 3.7.0(@types/react@19.2.13)(react-dom@19.2.4)(react-is@19.2.4)(react@19.2.4)(redux@5.0.1)
@@ -3195,10 +3192,6 @@ packages:
     resolution: {integrity: sha512-JtTezzbAibu8G0R9op9zb3vcWZd9JF6M0xOYGPn0fNCd7wOpRB1mU2mH9T8gaBGbAAyIIVgB2G7xG0GP98zMAQ==}
     dev: false
 
-  /bezier-easing@2.1.0:
-    resolution: {integrity: sha512-gbIqZ/eslnUFC1tjEvtz0sgx+xTK20wDnYMIA27VA04R7w6xxXQPZDbibjA9DTWZRA2CXtwHykkVzlCaAJAZig==}
-    dev: false
-
   /blake3-wasm@2.1.5:
     resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
     dev: false
@@ -5220,13 +5213,6 @@ packages:
     resolution: {integrity: sha512-61A5ThoTiDG/C8s8UMZwSorAGwMJ0ERVGj2OjoW5pAalsNOg15+iQiPzrLJ4jhZ1HJzmC2PIHT2oEiH3R5fzNA==}
     dev: false
 
-  /parallax-controller@1.7.1:
-    resolution: {integrity: sha512-facVMEBnUynzMN7hCSqyNpF6uyCpVIl4XAUyTR9D8q2JlhgyPY6bZtj/OkFk3+Cpka1TnYCppQb8BzDWHtSaZg==}
-    engines: {node: '>=12'}
-    dependencies:
-      bezier-easing: 2.1.0
-    dev: false
-
   /parse-entities@4.0.2:
     resolution: {integrity: sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==}
     dependencies:
@@ -5410,18 +5396,6 @@ packages:
       tslib: 2.8.1
       use-callback-ref: 1.3.3(@types/react@19.2.13)(react@19.2.4)
       use-sidecar: 1.1.3(@types/react@19.2.13)(react@19.2.4)
-    dev: false
-
-  /react-scroll-parallax@3.5.0(react-dom@19.2.4)(react@19.2.4):
-    resolution: {integrity: sha512-cUyBTFfTMA/4jweZB4j06LQnUQdZlGgVKX2hmZ5a/BuHZsnp85MEo6ygD2otCQH734VJ9xXPVZ3WfiAiF2TesQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0
-    dependencies:
-      parallax-controller: 1.7.1
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
     dev: false
 
   /react-style-singleton@2.2.3(@types/react@19.2.13)(react@19.2.4):

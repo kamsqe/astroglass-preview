@@ -4,7 +4,9 @@ description: "Добро пожаловать в документацию Liquid
 order: 1
 ---
 
-# Введение
+
+import CardGrid from '../../../../components/mdx/CardGrid.astro';
+import LinkCard from '../../../../components/mdx/LinkCard.astro';
 
 Liquid Glass — это премиальная тема Astro, разработанная для стартапов и авторов, которые хотят выделиться. Она включает уникальную дизайн-систему **Glassmorphism**, построенную на Tailwind CSS.
 
@@ -18,7 +20,25 @@ Liquid Glass — это премиальная тема Astro, разработ�
 
 Тема поставляется с более чем 20+ готовыми компонентами, включая:
 
-- 5 вариантов Hero-секций
-- 5 секций преимуществ
-- 5 таблиц цен
-- Полноценная система блога и документации
+<CardGrid>
+  <LinkCard
+    title="5 вариантов Hero"
+    description="Впечатляющие заголовки для любого лендинга."
+    href="/docs/ru/components/sections/hero"
+  />
+  <LinkCard
+    title="Секции преимуществ"
+    description="Универсальные сетки для демонстрации функций."
+    href="/docs/ru/components/sections/features"
+  />
+  <LinkCard
+    title="Таблицы цен"
+    description="Понятные тарифы для конвертации."
+    href="/docs/ru/components/sections/pricing"
+  />
+  <LinkCard
+    title="Блог и документация"
+    description="Полноценная система контента с MDX."
+    href="/docs/ru/components/sections/overview"
+  />
+</CardGrid>

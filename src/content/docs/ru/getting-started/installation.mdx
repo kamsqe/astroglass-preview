@@ -4,7 +4,7 @@ description: "Как настроить ваш новый проект."
 order: 2
 ---
 
-# Установка
+import Steps from '../../../../components/mdx/Steps.astro';
 
 Начать работу легко. Вы можете клонировать репозиторий или использовать CLI.
 
@@ -15,18 +15,30 @@ order: 2
 
 ## Быстрый старт
 
-```bash title="Terminal" frame="terminal"
-# Клонировать репозиторий
-git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+<Steps>
+1. **Клонировать репозиторий**
+   
+   ```bash frame="terminal"
+   git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+   ```
 
-# Перейдите в директорию
-cd my-project
+2. **Перейдите в директорию**
 
-# Установите зависимости
-pnpm install
+   ```bash frame="terminal"
+   cd my-project
+   ```
 
-# Запустите сервер разработки
-pnpm dev
-```
+3. **Установите зависимости**
+
+   ```bash frame="terminal"
+   pnpm install
+   ```
+
+4. **Запустите сервер разработки**
+
+   ```bash frame="terminal"
+   pnpm dev
+   ```
+</Steps>
 
 Перейдите на `http://localhost:4321`, чтобы увидеть ваш новый сайт.

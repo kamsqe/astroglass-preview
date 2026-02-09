@@ -4,7 +4,9 @@ description: "Welcome to the Liquid Glass documentation."
 order: 1
 ---
 
-# Introduction
+
+import CardGrid from '../../../../components/mdx/CardGrid.astro';
+import LinkCard from '../../../../components/mdx/LinkCard.astro';
 
 Liquid Glass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique **Glassmorphism** design system built on top of Tailwind CSS.
 
@@ -18,7 +20,25 @@ Liquid Glass is a premium Astro theme designed for startups and creators who wan
 
 The theme comes with over 20+ pre-built components, including:
 
-- 5 Hero variations
-- 5 Feature sections
-- 5 Pricing tables
-- Comprehensive Blog & Docs system
+<CardGrid>
+  <LinkCard
+    title="5 Hero Variations"
+    description="High-impact headers for any landing page."
+    href="/docs/en/components/sections/hero"
+  />
+  <LinkCard
+    title="Feature Sections"
+    description="Versatile grids and lists to showcase product features."
+    href="/docs/en/components/sections/features"
+  />
+  <LinkCard
+    title="Pricing Tables"
+    description="Clear pricing options to convert visitors."
+    href="/docs/en/components/sections/pricing"
+  />
+  <LinkCard
+    title="Blog & Docs"
+    description="Comprehensive content system with MDX support."
+    href="/docs/en/components/sections/overview"
+  />
+</CardGrid>

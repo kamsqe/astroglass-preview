@@ -10,6 +10,8 @@ const cardVariants = cva(
       variant: {
         default: "bg-base-100 border-base-content/10",
         glass: "bg-base-content/[0.02] backdrop-blur-3xl border-base-content/10 shadow-2xl overflow-hidden",
+        solid: "bg-base-200 border-transparent shadow-md",
+        outline: "bg-transparent border-base-content/20 shadow-none",
         "bento-highlight": "bg-base-content/[0.04] backdrop-blur-3xl border-base-content/10 shadow-2xl relative overflow-hidden group hover:bg-base-content/[0.06] hover:shadow-xl transition-all duration-1000",
         bento: "bg-base-content/[0.02] border-base-content/5 backdrop-blur-2xl hover:bg-base-content/[0.04] transition-all duration-1000 hover:-translate-y-1 hover:shadow-xl",
       },

@@ -3,7 +3,8 @@ title: Forms & Validation
 description: Learn how to build secure, validated forms using Valibot and Astro Actions.
 ---
 
-# Forms & Validation
+
+import Steps from '../../../../components/mdx/Steps.astro';
 
 This template uses **Valibot** for lightweight, type-safe validation on both the client and server. We've designed a hybrid approach that gives you:
 1.  **Instant UI Feedback**: Using a tiny client-side script.
@@ -13,48 +14,52 @@ This template uses **Valibot** for lightweight, type-safe validation on both the
 
 To add a new validated form:
 
-### 1. Define specific rules (Optional)
-If you need custom rules beyond the shared `ContactSchema`, create a new schema in `src/lib/schemas/`.
+<Steps>
+1. **Define specific rules (Optional)**
+   
+   If you need custom rules beyond the shared `ContactSchema`, create a new schema in `src/lib/schemas/`.
 
-### 2. Add the Form to your Component
-Copy this pattern. The key is strict naming of inputs and the `.input-error` class handling.
+2. **Add the Form to your Component**
+   
+   Copy this pattern. The key is strict naming of inputs and the `.input-error` class handling.
 
-```astro title="Component.astro"
----
-import { createContactSchema } from '../../lib/schemas/contact';
-// ... imports
----
+   ```astro title="Component.astro"
+   ---
+   import { createContactSchema } from '../../lib/schemas/contact';
+   // ... imports
+   ---
 
-<form class="my-form" novalidate>
-  <div class="form-control">
-    <input type="email" name="email" required />
-  </div>
-  <button type="submit">Send</button>
-</form>
+   <form class="my-form" novalidate>
+     <div class="form-control">
+       <input type="email" name="email" required />
+     </div>
+     <button type="submit">Send</button>
+   </form>
 
-<script>
-  import { safeParse } from 'valibot';
-  import { createContactSchema } from '../../lib/schemas/contact';
+   <script>
+     import { safeParse } from 'valibot';
+     import { createContactSchema } from '../../lib/schemas/contact';
 
-  const form = document.querySelector('.my-form');
-  // Pass translation function (or ident) and options
-  const schema = createContactSchema(key => key, { companyRequired: true }); 
+     const form = document.querySelector('.my-form');
+     // Pass translation function (or ident) and options
+     const schema = createContactSchema(key => key, { companyRequired: true }); 
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Parse using the schema
-    const result = safeParse(schema, data);
+     form.addEventListener('submit', (e) => {
+       e.preventDefault();
+       const formData = new FormData(form);
+       const data = Object.fromEntries(formData);
+       
+       // Parse using the schema
+       const result = safeParse(schema, data);
 
-    if (!result.success) {
-      // Handle errors (e.g., show red borders)
-      console.log(result.issues);
-    }
-  });
-</script>
-```
+       if (!result.success) {
+         // Handle errors (e.g., show red borders)
+         console.log(result.issues);
+       }
+     });
+   </script>
+   ```
+</Steps>
 
 ## Theme-Aware Styles
 

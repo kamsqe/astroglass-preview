@@ -4,7 +4,7 @@ description: "Карточки со стекломорфизмом для бло
 order: 2
 ---
 
-# Карточки
+import { Card } from '../../../../../components/ui/card.tsx';
 
 Карточки — это основной строительный блок дизайн-системы glass.
 
@@ -18,10 +18,29 @@ order: 2
 | `solid` | Непрозрачный фон | Высокий контраст |
 | `outline` | Только граница | Минималистичный |
 
-## Пример
+## Живые примеры
 
-```astro title="Component.astro"
-<Card variant="glass">
+<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 not-prose my-8">
+  <Card variant="glass" className="p-6">
+    <h3 className="text-lg font-bold mb-2 text-white">Стеклянная карточка</h3>
+    <p className="text-sm opacity-80">Стандартный эффект матового стекла с размытием.</p>
+  </Card>
+
+  <Card variant="solid" className="p-6">
+    <h3 className="text-lg font-bold mb-2 text-white">Сплошная карточка</h3>
+    <p className="text-sm opacity-80">Непрозрачный фон для высокого контраста.</p>
+  </Card>
+
+  <Card variant="outline" className="p-6">
+    <h3 className="text-lg font-bold mb-2 text-white">Контурная карточка</h3>
+    <p className="text-sm opacity-80">Минималистичный стиль только с границей.</p>
+  </Card>
+</div>
+
+## Пример использования
+
+```tsx
+<Card variant="glass" className="p-6">
   <h3>Стеклянная карточка</h3>
   <p>Создаёт красивый эффект глубины.</p>
 </Card>

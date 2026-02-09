@@ -4,7 +4,7 @@ description: "How to set up your new project."
 order: 2
 ---
 
-# Installation
+import Steps from '../../../../components/mdx/Steps.astro';
 
 Getting started is easy. You can clone the repository or use the CLI.
 
@@ -15,18 +15,30 @@ Getting started is easy. You can clone the repository or use the CLI.
 
 ## Quick Start
 
-```bash title="Terminal" frame="terminal"
-# Clone the repository
-git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+<Steps>
+1. **Clone the repository**
+   
+   ```bash frame="terminal"
+   git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+   ```
 
-# Enter the directory
-cd my-project
+2. **Enter the directory**
 
-# Install dependencies
-pnpm install
+   ```bash frame="terminal"
+   cd my-project
+   ```
 
-# Start development server
-pnpm dev
-```
+3. **Install dependencies**
+
+   ```bash frame="terminal"
+   pnpm install
+   ```
+
+4. **Start development server**
+
+   ```bash frame="terminal"
+   pnpm dev
+   ```
+</Steps>
 
 Visit `http://localhost:4321` to see your new site.

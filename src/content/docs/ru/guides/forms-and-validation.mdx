@@ -3,7 +3,8 @@ title: Формы и Валидация
 description: Узнайте, как создавать безопасные формы с валидацией, используя Valibot и Astro Actions.
 ---
 
-# Формы и Валидация
+
+import Steps from '../../../../components/mdx/Steps.astro';
 
 Этот шаблон использует **Valibot** для легкой и типизированной валидации как на клиенте, так и на сервере. Мы разработали гибридный подход, который обеспечивает:
 1.  **Мгновенную обратную связь**: С помощью небольшого клиентского скрипта.
@@ -13,48 +14,52 @@ description: Узнайте, как создавать безопасные фо
 
 Чтобы добавить новую валидируемую форму:
 
-### 1. Определите правила (Опционально)
-Если вам нужны правила, отличные от стандартной `ContactSchema`, создайте новую схему в `src/lib/schemas/`.
+<Steps>
+1. **Определите правила (Опционально)**
+   
+   Если вам нужны правила, отличные от стандартной `ContactSchema`, создайте новую схему в `src/lib/schemas/`.
 
-### 2. Добавьте форму в компонент
-Используйте этот шаблон. Ключевым моментом является строгое именование полей ввода и использование класса `.input-error`.
+2. **Добавьте форму в компонент**
+   
+   Используйте этот шаблон. Ключевым моментом является строгое именование полей ввода и использование класса `.input-error`.
 
-```astro title="Component.astro"
----
-import { createContactSchema } from '../../lib/schemas/contact';
-// ... импорты
----
+   ```astro title="Component.astro"
+   ---
+   import { createContactSchema } from '../../lib/schemas/contact';
+   // ... импорты
+   ---
 
-<form class="my-form" novalidate>
-  <div class="form-control">
-    <input type="email" name="email" required />
-  </div>
-  <button type="submit">Отправить</button>
-</form>
+   <form class="my-form" novalidate>
+     <div class="form-control">
+       <input type="email" name="email" required />
+     </div>
+     <button type="submit">Отправить</button>
+   </form>
 
-<script>
-  import { safeParse } from 'valibot';
-  import { createContactSchema } from '../../lib/schemas/contact';
+   <script>
+     import { safeParse } from 'valibot';
+     import { createContactSchema } from '../../lib/schemas/contact';
 
-  const form = document.querySelector('.my-form');
-  // Передай функцию перевода и опции
-  const schema = createContactSchema(key => key, { companyRequired: true }); 
+     const form = document.querySelector('.my-form');
+     // Передай функцию перевода и опции
+     const schema = createContactSchema(key => key, { companyRequired: true }); 
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Парсинг с использованием схемы
-    const result = safeParse(schema, data);
+     form.addEventListener('submit', (e) => {
+       e.preventDefault();
+       const formData = new FormData(form);
+       const data = Object.fromEntries(formData);
+       
+       // Парсинг с использованием схемы
+       const result = safeParse(schema, data);
 
-    if (!result.success) {
-      // Обработка ошибок (например, красные границы)
-      console.log(result.issues);
-    }
-  });
-</script>
-```
+       if (!result.success) {
+         // Обработка ошибок (например, красные границы)
+         console.log(result.issues);
+       }
+     });
+   </script>
+   ```
+</Steps>
 
 ## Стилизация (Темы)
 

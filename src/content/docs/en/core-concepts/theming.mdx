@@ -89,11 +89,27 @@ const ThemeComponent = themeMap[version] || HeroLiquid;
   This pattern allows for maximum flexibility. You can have completely different HTML structures for different themes while keeping a uniform API for the page templates.
 </Callout>
 
+
+import Steps from '../../../../components/mdx/Steps.astro';
+
 ## Creating a New Theme
 
 To add a new theme, follow these steps:
 
-1. Add the theme definition to `src/config/themes.ts`.
-2. Define the new theme's CSS variables in `src/styles/_themes.css`.
-3. (Optional) Create theme-specific components in `src/components/sections/hero/`, etc.
-4. Add any new localized strings to the translation files. 
+<Steps>
+1. **Add Theme Definition**
+   
+   Add the theme definition object to `src/config/themes.ts`.
+
+2. **Define CSS Variables**
+   
+   Define the new theme's CSS variables (colors, effects) in `src/styles/_themes.css`.
+
+3. **Create Components (Optional)**
+   
+   Create theme-specific component variants in `src/components/sections/hero/`, etc., if needed.
+
+4. **Add Translations**
+   
+   Add any new localized strings to the translation files.
+</Steps> 

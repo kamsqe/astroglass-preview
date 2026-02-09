@@ -56,7 +56,7 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
     if (sectionLabels[original]) return sectionLabels[original];
     
     // Try lowercased dashed (e.g. index returns "components-ui")
-    const key = original.toLowerCase();
+    const key = original.toLowerCase().replace(/\s+/g, '-');
     if (sectionLabels[key]) return sectionLabels[key];
     
     // Fallback: Check if we can reverse-map "Marketing Sections" -> "components-sections" -> "Ru Label"
@@ -145,7 +145,7 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
       >
         <Command shouldFilter={false} label="Global Search">
           {/* Search Header - Polished Border & Focus State */}
-          <div className="flex items-center border-b border-white/5 px-4 py-3 bg-white/[0.02] transition-colors has-[:focus]:bg-white/[0.04] has-[:focus]:border-[hsl(var(--a)/0.3)]">
+          <div className="search-input-wrapper flex items-center border-b border-white/5 px-4 py-3 bg-white/[0.02] transition-colors has-[:focus]:bg-white/[0.04] has-[:focus]:border-[hsl(var(--a)/0.3)]">
             <svg className="mr-3 h-5 w-5 text-[hsl(var(--a))] opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -156,12 +156,12 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
                 search(q);
               }}
               placeholder={labels.placeholder}
-              className="flex-1 bg-transparent text-[16px] font-medium text-white placeholder-white/30 outline-none focus:outline-none focus:ring-0 border-none ring-0 selection:bg-[hsl(var(--a)/0.3)]"
+              className="flex-1 bg-transparent text-[16px] font-medium text-white placeholder-white/30 outline-none border-none shadow-none selection:bg-[hsl(var(--a)/0.3)] selection:text-white caret-[hsl(var(--a))]"
               autoFocus
             />
             <button 
               onClick={() => setOpen(false)}
-              className="ml-2 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-xs font-semibold uppercase text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+              className="ml-2 hidden sm:inline-block rounded-md border border-white/10 bg-white/5 px-1.5 py-1 text-[10px] font-bold text-white/50 shadow-sm hover:bg-white/10 hover:text-white transition-colors"
             >
               {labels.esc}
             </button>

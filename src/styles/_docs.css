@@ -265,3 +265,20 @@
     }
   }
 }
+
+/* Specific override for search input to remove global focus ring without !important */
+.search-input-wrapper input:focus,
+.search-input-wrapper input:focus-visible,
+.search-input-wrapper [cmdk-input]:focus,
+.search-input-wrapper [cmdk-input]:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* Force white text selection within search input for readability on all themes */
+.search-input-wrapper input::selection,
+.search-input-wrapper [cmdk-input]::selection {
+  color: white;
+  background: hsl(var(--a) / 0.3);
+}

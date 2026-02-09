@@ -24,9 +24,12 @@ import '../../../styles/components/contact/ContactNeo.css';
   <div class="lg:min-h-[600px] lg:grid lg:grid-cols-2">
     
     <!-- Left: Context Side -->
-    <div class="relative px-6 py-12 lg:py-20 lg:px-12 xl:px-20 bg-base-content/[0.02]">
-      <!-- Background pattern -->
-      <div class="absolute inset-0 pointer-events-none opacity-30">
+    <div class="contact-neo-left relative px-6 py-12 lg:py-20 lg:px-12 xl:px-20 bg-base-content/[0.02] overflow-hidden">
+      <!-- Particle flow field canvas -->
+      <canvas class="contact-neo-canvas absolute inset-0 w-full h-full pointer-events-none" id="contact-neo-particles"></canvas>
+      
+      <!-- Ambient glow overlay -->
+      <div class="absolute inset-0 pointer-events-none z-[1]">
         <div class="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-accent/10 rounded-full blur-[100px]"></div>
       </div>
 
@@ -176,7 +179,264 @@ import '../../../styles/components/contact/ContactNeo.css';
   </div>
 </section>
 
-</style>
+<script>
+/**
+ * Contact Neo Particle Flow Field
+ * Adapts to theme accent color automatically
+ */
+(function initContactNeoParticles() {
+  const canvas = document.getElementById('contact-neo-particles') as HTMLCanvasElement;
+  const container = document.querySelector('.contact-neo-left');
+  if (!canvas || !container) return;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  
+  // Check reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    canvas.style.display = 'none';
+    return;
+  }
+  
+  // Config - fewer particles for smaller area
+  const PARTICLE_COUNT = 60;
+  const PARTICLE_SIZE_MIN = 1.5;
+  const PARTICLE_SIZE_MAX = 4;
+  const VISCOSITY = 0.03;
+  const FRICTION = 0.96;
+  const CURSOR_RADIUS = 150;
+  const TRAIL_OPACITY = 0.12;
+  
+  // State
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    hue: number;
+    alpha: number;
+    baseX: number;
+    baseY: number;
+  }
+  
+  let particles: Particle[] = [];
+  let mouse = { x: -1000, y: -1000 };
+  let isVisible = true;
+  let animationId: number;
+  let dpr = 1;
+  let accentHue = 262;
+  let accentSat = 80;
+  let isMonoTheme = false;
+  
+  // Get accent color from CSS (also detect mono themes)
+  function updateAccentColor() {
+    const computedStyle = getComputedStyle(document.documentElement);
+    const accentHsl = computedStyle.getPropertyValue('--a').trim();
+    // Parse HSL: "h s% l%"
+    const parts = accentHsl.split(/\s+/);
+    if (parts.length >= 2) {
+      accentHue = parseFloat(parts[0]) || 0;
+      accentSat = parseFloat(parts[1]) || 0;
+      // Mono theme has very low saturation (typically < 10%)
+      isMonoTheme = accentSat < 15;
+    }
+  }
+  
+  // Watch for theme changes
+  const themeObserver = new MutationObserver(() => {
+    updateAccentColor();
+    particles.forEach(p => {
+      p.hue = accentHue + (Math.random() - 0.5) * 25;
+    });
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = container!.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    initParticles(rect.width, rect.height);
+  }
+  
+  function initParticles(w: number, h: number) {
+    updateAccentColor();
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      particles.push({
+        x, y,
+        vx: 0, vy: 0,
+        size: PARTICLE_SIZE_MIN + Math.random() * (PARTICLE_SIZE_MAX - PARTICLE_SIZE_MIN),
+        hue: accentHue + (Math.random() - 0.5) * 25,
+        alpha: 0.25 + Math.random() * 0.45,
+        baseX: x, baseY: y,
+      });
+    }
+  }
+  
+  function update(w: number, h: number) {
+    particles.forEach(p => {
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      if (dist < CURSOR_RADIUS && dist > 0) {
+        const force = (1 - dist / CURSOR_RADIUS) * VISCOSITY;
+        p.vx += (dx / dist) * force * 6;
+        p.vy += (dy / dist) * force * 6;
+      }
+      
+      p.vx += (p.baseX - p.x) * 0.0008;
+      p.vy += (p.baseY - p.y) * 0.0008;
+      p.vx += (Math.random() - 0.5) * 0.08;
+      p.vy += (Math.random() - 0.5) * 0.08;
+      p.vx *= FRICTION;
+      p.vy *= FRICTION;
+      p.x += p.vx;
+      p.y += p.vy;
+      
+      if (p.x < -p.size) p.x = w + p.size;
+      if (p.x > w + p.size) p.x = -p.size;
+      if (p.y < -p.size) p.y = h + p.size;
+      if (p.y > h + p.size) p.y = -p.size;
+    });
+  }
+  
+  // Get base background color from CSS variables
+  function getBaseColor(): string {
+    const computedStyle = getComputedStyle(document.documentElement);
+    // --b1 is the base-100 color in DaisyUI/HSL format
+    const baseHsl = computedStyle.getPropertyValue('--b1').trim();
+    if (baseHsl) {
+      // Parse HSL values (format: "h s% l%")
+      const parts = baseHsl.split(/\s+/);
+      if (parts.length >= 3) {
+        const h = parts[0];
+        const s = parts[1];
+        const l = parts[2];
+        return `hsla(${h}, ${s}, ${l}, ${TRAIL_OPACITY})`;
+      }
+    }
+    // Fallback
+    return `hsla(0, 0%, 98%, ${TRAIL_OPACITY})`;
+  }
+  
+  function draw(w: number, h: number) {
+    ctx.fillStyle = getBaseColor();
+    ctx.fillRect(0, 0, w, h);
+    
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      // Use black for mono themes, colored for others
+      if (isMonoTheme) {
+        ctx.fillStyle = `hsla(0, 0%, 20%, ${p.alpha * 0.6})`;
+      } else {
+        ctx.fillStyle = `hsla(${p.hue}, 65%, 55%, ${p.alpha * 0.5})`;
+      }
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * 1.8, 0, Math.PI * 2);
+      if (isMonoTheme) {
+        ctx.fillStyle = `hsla(0, 0%, 15%, ${p.alpha * 0.1})`;
+      } else {
+        ctx.fillStyle = `hsla(${p.hue}, 75%, 50%, ${p.alpha * 0.08})`;
+      }
+      ctx.fill();
+    });
+    
+    // Connections
+    if (isMonoTheme) {
+      ctx.strokeStyle = `hsla(0, 0%, 20%, 0.06)`;
+    } else {
+      ctx.strokeStyle = `hsla(${accentHue}, 50%, 50%, 0.04)`;
+    }
+    ctx.lineWidth = 0.8;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        if (Math.sqrt(dx * dx + dy * dy) < 60) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+  
+  function animate() {
+    if (!isVisible) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    const rect = container!.getBoundingClientRect();
+    update(rect.width, rect.height);
+    draw(rect.width, rect.height);
+    animationId = requestAnimationFrame(animate);
+  }
+  
+  function onMouseMove(e: MouseEvent) {
+    const rect = container!.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  }
+  
+  function onTouchMove(e: TouchEvent) {
+    if (e.touches.length > 0) {
+      const rect = container!.getBoundingClientRect();
+      mouse.x = e.touches[0].clientX - rect.left;
+      mouse.y = e.touches[0].clientY - rect.top;
+    }
+  }
+  
+  function onMouseLeave() {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  }
+  
+  const visibilityObserver = new IntersectionObserver(
+    (entries) => entries.forEach(entry => { isVisible = entry.isIntersecting; }),
+    { threshold: 0.1 }
+  );
+  
+  function init() {
+    resize();
+    container!.addEventListener('mousemove', onMouseMove);
+    container!.addEventListener('touchmove', onTouchMove, { passive: true });
+    container!.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('resize', resize);
+    visibilityObserver.observe(container!);
+    animate();
+  }
+  
+  function cleanup() {
+    cancelAnimationFrame(animationId);
+    container!.removeEventListener('mousemove', onMouseMove);
+    container!.removeEventListener('touchmove', onTouchMove);
+    container!.removeEventListener('mouseleave', onMouseLeave);
+    window.removeEventListener('resize', resize);
+    visibilityObserver.disconnect();
+    themeObserver.disconnect();
+  }
+  
+  init();
+  document.addEventListener('astro:before-swap', cleanup);
+  document.addEventListener('astro:after-swap', () => {
+    const newCanvas = document.getElementById('contact-neo-particles');
+    if (newCanvas) init();
+  });
+})();
+</script>
 
 <script>
   import { safeParse } from 'valibot';

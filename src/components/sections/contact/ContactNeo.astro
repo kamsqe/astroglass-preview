@@ -184,22 +184,29 @@ import '../../../styles/components/contact/ContactNeo.css';
  * Contact Neo Particle Flow Field
  * Adapts to theme accent color automatically
  */
-(function initContactNeoParticles() {
+
+// Module-scoped cleanup function for View Transitions
+let particleCleanup: (() => void) | null = null;
+
+function initContactNeoParticles() {
+  // Clean up any previous instance first
+  particleCleanup?.();
+  
+  // Query DOM elements FRESH every time (critical for View Transitions)
   const canvas = document.getElementById('contact-neo-particles') as HTMLCanvasElement;
-  const container = document.querySelector('.contact-neo-left');
+  const container = document.querySelector('.contact-neo-left') as HTMLElement;
   if (!canvas || !container) return;
   
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   
   // Check reduced motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     canvas.style.display = 'none';
     return;
   }
   
-  // Config - fewer particles for smaller area
+  // Config
   const PARTICLE_COUNT = 60;
   const PARTICLE_SIZE_MIN = 1.5;
   const PARTICLE_SIZE_MAX = 4;
@@ -208,7 +215,7 @@ import '../../../styles/components/contact/ContactNeo.css';
   const CURSOR_RADIUS = 150;
   const TRAIL_OPACITY = 0.12;
   
-  // State
+  // State - scoped to this init call
   interface Particle {
     x: number;
     y: number;
@@ -230,21 +237,17 @@ import '../../../styles/components/contact/ContactNeo.css';
   let accentSat = 80;
   let isMonoTheme = false;
   
-  // Get accent color from CSS (also detect mono themes)
   function updateAccentColor() {
     const computedStyle = getComputedStyle(document.documentElement);
     const accentHsl = computedStyle.getPropertyValue('--a').trim();
-    // Parse HSL: "h s% l%"
     const parts = accentHsl.split(/\s+/);
     if (parts.length >= 2) {
       accentHue = parseFloat(parts[0]) || 0;
       accentSat = parseFloat(parts[1]) || 0;
-      // Mono theme has very low saturation (typically < 10%)
       isMonoTheme = accentSat < 15;
     }
   }
   
-  // Watch for theme changes
   const themeObserver = new MutationObserver(() => {
     updateAccentColor();
     particles.forEach(p => {
@@ -255,7 +258,7 @@ import '../../../styles/components/contact/ContactNeo.css';
   
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const rect = container!.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     canvas.style.width = rect.width + 'px';
@@ -309,13 +312,10 @@ import '../../../styles/components/contact/ContactNeo.css';
     });
   }
   
-  // Get base background color from CSS variables
   function getBaseColor(): string {
     const computedStyle = getComputedStyle(document.documentElement);
-    // --b1 is the base-100 color in DaisyUI/HSL format
     const baseHsl = computedStyle.getPropertyValue('--b1').trim();
     if (baseHsl) {
-      // Parse HSL values (format: "h s% l%")
       const parts = baseHsl.split(/\s+/);
       if (parts.length >= 3) {
         const h = parts[0];
@@ -324,7 +324,6 @@ import '../../../styles/components/contact/ContactNeo.css';
         return `hsla(${h}, ${s}, ${l}, ${TRAIL_OPACITY})`;
       }
     }
-    // Fallback
     return `hsla(0, 0%, 98%, ${TRAIL_OPACITY})`;
   }
   
@@ -335,7 +334,6 @@ import '../../../styles/components/contact/ContactNeo.css';
     particles.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      // Use black for mono themes, colored for others
       if (isMonoTheme) {
         ctx.fillStyle = `hsla(0, 0%, 20%, ${p.alpha * 0.6})`;
       } else {
@@ -379,21 +377,21 @@ import '../../../styles/components/contact/ContactNeo.css';
       animationId = requestAnimationFrame(animate);
       return;
     }
-    const rect = container!.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     update(rect.width, rect.height);
     draw(rect.width, rect.height);
     animationId = requestAnimationFrame(animate);
   }
   
   function onMouseMove(e: MouseEvent) {
-    const rect = container!.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   }
   
   function onTouchMove(e: TouchEvent) {
     if (e.touches.length > 0) {
-      const rect = container!.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       mouse.x = e.touches[0].clientX - rect.left;
       mouse.y = e.touches[0].clientY - rect.top;
     }
@@ -409,33 +407,34 @@ import '../../../styles/components/contact/ContactNeo.css';
     { threshold: 0.1 }
   );
   
-  function init() {
-    resize();
-    container!.addEventListener('mousemove', onMouseMove);
-    container!.addEventListener('touchmove', onTouchMove, { passive: true });
-    container!.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('resize', resize);
-    visibilityObserver.observe(container!);
-    animate();
-  }
+  // Start animation
+  resize();
+  container.addEventListener('mousemove', onMouseMove);
+  container.addEventListener('touchmove', onTouchMove, { passive: true });
+  container.addEventListener('mouseleave', onMouseLeave);
+  window.addEventListener('resize', resize);
+  visibilityObserver.observe(container);
+  animate();
   
-  function cleanup() {
+  // Store cleanup function at module scope
+  particleCleanup = () => {
     cancelAnimationFrame(animationId);
-    container!.removeEventListener('mousemove', onMouseMove);
-    container!.removeEventListener('touchmove', onTouchMove);
-    container!.removeEventListener('mouseleave', onMouseLeave);
+    container.removeEventListener('mousemove', onMouseMove);
+    container.removeEventListener('touchmove', onTouchMove);
+    container.removeEventListener('mouseleave', onMouseLeave);
     window.removeEventListener('resize', resize);
     visibilityObserver.disconnect();
     themeObserver.disconnect();
-  }
-  
-  init();
-  document.addEventListener('astro:before-swap', cleanup);
-  document.addEventListener('astro:after-swap', () => {
-    const newCanvas = document.getElementById('contact-neo-particles');
-    if (newCanvas) init();
-  });
-})();
+    particleCleanup = null;
+  };
+}
+
+// Initialize on first load
+initContactNeoParticles();
+
+// Handle View Transitions
+document.addEventListener('astro:before-swap', () => particleCleanup?.());
+document.addEventListener('astro:after-swap', initContactNeoParticles);
 </script>
 
 <script>

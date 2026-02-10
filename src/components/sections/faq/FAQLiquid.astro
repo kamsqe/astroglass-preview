@@ -83,7 +83,7 @@ const categoriesJson = JSON.stringify(categories);
           <div class="c-faq-liquid__categories-view grid grid-cols-2 gap-4">
              {categories.map(cat => (
                 <button 
-                  class="c-faq-liquid__category-btn p-6 rounded-2xl bg-base-content/[0.03] border border-base-content/10 text-left hover:bg-base-content/[0.06] hover:border-base-content/20 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  class="c-faq-liquid__category-btn c-faq-liquid__category-card p-6 bg-base-content/[0.03] border border-base-content/10 text-left hover:bg-base-content/[0.06] hover:border-base-content/20 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                   data-category={cat.id}
                 >
                    <span class="text-2xl mb-3 block">{cat.icon}</span>
@@ -149,7 +149,12 @@ const categoriesJson = JSON.stringify(categories);
        <div class="col-span-8">
           <div class="c-faq-liquid__content-area p-8 rounded-[2rem] bg-base-content/[0.02] border border-base-content/10 min-h-[400px]">
              <div class="c-faq-liquid__content-placeholder text-center py-16">
-                <span class="text-4xl mb-4 block">💡</span>
+                <div class="mb-4">
+                  <svg class="w-10 h-10 mx-auto text-base-content/20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C12 2 5.5 11 5.5 15.5C5.5 19.09 8.41 22 12 22C15.59 22 18.5 19.09 18.5 15.5C18.5 11 12 2 12 2Z" opacity="0.3"/>
+                    <path d="M12 5C12 5 8 11 8 14C8 16.21 9.79 18 12 18C14.21 18 16 16.21 16 14C16 11 12 5 12 5Z"/>
+                  </svg>
+                </div>
                 <p class="text-base text-base-content/40">{t('faq.selectQuestion')}</p>
              </div>
              <div class="c-faq-liquid__content-answer hidden">

@@ -1,7 +1,7 @@
 ---
 /**
- * About V1 - The Split Stack (Refined)
- * Content left with better hierarchy, purposeful glass stack right.
+ * About V1 - The Liquid Orb (Distinctive)
+ * Content left with stats, animated liquid orb right, wave divider.
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
@@ -35,8 +35,15 @@ const t = useTranslations(locale);
         {t('about.description')}
       </p>
 
+      <!-- Wave Divider (replaces border-t) -->
+      <div class="c-about-liquid__wave-divider">
+        <svg viewBox="0 0 1200 24" preserveAspectRatio="none" fill="none">
+          <path d="M0,12 C100,4 200,20 300,12 C400,4 500,20 600,12 C700,4 800,20 900,12 C1000,4 1100,20 1200,12 C1300,4 1400,20 1500,12 C1600,4 1700,20 1800,12 C1900,4 2000,20 2100,12 C2200,4 2300,20 2400,12" stroke="hsl(var(--a))" stroke-width="1.5" stroke-opacity="0.2" />
+        </svg>
+      </div>
+
       <!-- Stats with label -->
-      <div class="border-t border-base-content/10 pt-8">
+      <div>
         <p class="text-[10px] uppercase tracking-widest font-bold text-base-content/30 mb-6">{t('about.byTheNumbers')}</p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
           <div class="c-about-liquid__stat group">
@@ -65,26 +72,32 @@ const t = useTranslations(locale);
       </div>
     </div>
 
-    <!-- Glass Stack with purpose -->
+    <!-- Animated Liquid Orb (replaces glass stack) -->
     <div class="relative flex justify-center order-1 lg:order-2">
-       <div class="c-about-liquid__stack relative w-[240px] h-[320px] sm:w-[300px] sm:h-[400px] lg:w-[380px] lg:h-[480px] group">
-          <!-- Back layer -->
-          <div class="c-about-liquid__layer-back absolute inset-0 bg-accent/5 backdrop-blur-xl border border-accent/10 rounded-[2.5rem] rotate-6 shadow-xl" style="animation-delay: -2s;"></div>
-          
-          <!-- Front layer with content -->
-          <div class="c-about-liquid__layer-front absolute inset-0 bg-base-content/[0.03] backdrop-blur-2xl border border-base-content/10 rounded-[2.5rem] -rotate-3 shadow-2xl flex flex-col items-center justify-center p-8">
-            <div class="text-5xl sm:text-6xl mb-4">✨</div>
-            <p class="text-base-content/60 text-sm font-medium text-center mb-4">{t('about.glassCardLabel')}</p>
-            <div class="flex items-center gap-2 text-accent text-xs font-bold">
-              <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-              {t('hero.liveBadge')}
-            </div>
+      <div class="c-about-liquid__orb-container">
+        <svg class="c-about-liquid__orb-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="aboutLiquidGoo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+              <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            </filter>
+          </defs>
+          <g filter="url(#aboutLiquidGoo)">
+            <path class="c-about-liquid__orb-blob-1" d="M250,180Q310,100,380,160Q450,220,400,300Q350,380,260,360Q170,340,140,280Q110,220,180,160Q250,100,250,180Z" />
+            <path class="c-about-liquid__orb-blob-2" d="M240,200Q300,130,360,180Q420,230,390,310Q360,390,270,370Q180,350,150,290Q120,230,170,180Q220,130,240,200Z" />
+            <path class="c-about-liquid__orb-blob-3" d="M260,220Q300,170,340,210Q380,250,360,300Q340,350,280,340Q220,330,200,290Q180,250,210,220Q240,190,260,220Z" />
+          </g>
+        </svg>
+        <!-- Center icon -->
+        <div class="c-about-liquid__orb-center">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent/20 backdrop-blur-xl border border-accent/20 flex items-center justify-center shadow-lg">
+            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-accent" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C12 2 5.5 11 5.5 15.5C5.5 19.09 8.41 22 12 22C15.59 22 18.5 19.09 18.5 15.5C18.5 11 12 2 12 2Z" opacity="0.3"/>
+              <path d="M12 4C12 4 7.5 11.5 7.5 15C7.5 17.49 9.51 19.5 12 19.5C14.49 19.5 16.5 17.49 16.5 15C16.5 11.5 12 4 12 4Z"/>
+            </svg>
           </div>
-          
-          <!-- Glow orbs -->
-          <div class="absolute -top-8 -right-8 w-32 h-32 bg-accent/20 blur-[60px] rounded-full animate-pulse"></div>
-          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-primary/20 blur-[60px] rounded-full animate-pulse" style="animation-delay: -3s;"></div>
-       </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

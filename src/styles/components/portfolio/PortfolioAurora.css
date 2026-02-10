@@ -1,0 +1,344 @@
+/* -------------------------------------------------------------------------- */
+/*                        PORTFOLIO AURORA — MASONRY                          */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora {
+  position: relative;
+  padding: 80px 24px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .portfolio-aurora {
+    padding: 120px 32px;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                HEADER                                      */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-header {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.portfolio-aurora-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--a));
+  margin-bottom: 20px;
+}
+
+.portfolio-aurora-label-frame {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: hsl(var(--a) / 0.5);
+}
+
+.portfolio-aurora-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: hsl(var(--bc));
+  margin-bottom: 12px;
+}
+
+.portfolio-aurora-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: hsl(var(--bc) / 0.5);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                           CATEGORY FILTERS                                 */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .portfolio-aurora-filters {
+    margin-bottom: 48px;
+  }
+}
+
+.portfolio-aurora-filter {
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: hsl(var(--bc) / 0.5);
+  background: none;
+  border: 1px solid hsl(var(--bc) / 0.08);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.portfolio-aurora-filter:hover {
+  color: hsl(var(--bc) / 0.8);
+  border-color: hsl(var(--bc) / 0.15);
+}
+
+.portfolio-aurora-filter.is-active {
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.08);
+  border-color: hsl(var(--a) / 0.2);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               GRID                                         */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .portfolio-aurora-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-aurora-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Span variants */
+.portfolio-aurora-item--tall {
+  grid-row: span 1;
+}
+
+@media (min-width: 640px) {
+  .portfolio-aurora-item--tall {
+    grid-row: span 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-aurora-item--wide {
+    grid-column: span 2;
+  }
+}
+
+.portfolio-aurora-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              FRAME                                         */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-frame {
+  position: relative;
+  height: 100%;
+  min-height: 260px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid hsl(var(--bc) / 0.06);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.portfolio-aurora-item--tall .portfolio-aurora-frame {
+  min-height: 300px;
+}
+
+@media (min-width: 640px) {
+  .portfolio-aurora-item--tall .portfolio-aurora-frame {
+    min-height: 544px;
+  }
+}
+
+.portfolio-aurora-frame:hover {
+  border-color: hsl(var(--a) / 0.25);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 60px hsl(var(--bc) / 0.06),
+    0 0 0 1px hsl(var(--a) / 0.1);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        VISUAL PLACEHOLDER                                  */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-visual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--b1));
+}
+
+.portfolio-aurora-visual-mesh {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 40%,
+    hsl(var(--a) / 0.08) 0%,
+    transparent 60%
+  );
+}
+
+.portfolio-aurora-visual-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(var(--bc) / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--bc) / 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.portfolio-aurora-visual-icon {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--a) / 0.3);
+}
+
+.portfolio-aurora-visual-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                          HOVER OVERLAY                                     */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  background: linear-gradient(
+    to top,
+    hsl(var(--b1) / 0.95) 0%,
+    hsl(var(--b1) / 0.7) 40%,
+    transparent 100%
+  );
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.portfolio-aurora-frame:hover .portfolio-aurora-overlay {
+  opacity: 1;
+}
+
+.portfolio-aurora-overlay-content {
+  transform: translateY(12px);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.portfolio-aurora-frame:hover .portfolio-aurora-overlay-content {
+  transform: translateY(0);
+}
+
+.portfolio-aurora-overlay-cat {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.1);
+  border: 1px solid hsl(var(--a) / 0.15);
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.portfolio-aurora-overlay-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: hsl(var(--bc));
+  margin-bottom: 6px;
+}
+
+.portfolio-aurora-overlay-desc {
+  font-size: 0.8rem;
+  color: hsl(var(--bc) / 0.5);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Metric */
+.portfolio-aurora-overlay-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.portfolio-aurora-overlay-metric-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, hsl(var(--bc)), hsl(var(--a)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio-aurora-overlay-metric-label {
+  font-size: 0.7rem;
+  color: hsl(var(--bc) / 0.4);
+}
+
+/* Link */
+.portfolio-aurora-overlay-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: hsl(var(--a));
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.portfolio-aurora-overlay-link:hover {
+  gap: 10px;
+}
+
+.portfolio-aurora-overlay-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              HINT                                          */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-hint {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 0.75rem;
+  color: hsl(var(--bc) / 0.25);
+  letter-spacing: 0.05em;
+}

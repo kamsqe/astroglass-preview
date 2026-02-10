@@ -55,7 +55,7 @@ const tiers = [
              {tiers.map((tier) => (
                 <div class:list={[
                    "c-pricing-liquid__header p-8 text-center border-l border-base-content/5 relative",
-                   tier.popular ? "bg-accent/5" : ""
+                   tier.popular ? "c-pricing-liquid__header--popular c-pricing-liquid__col--popular bg-accent/5" : ""
                 ]}>
                    {tier.popular && (
                       <div class="absolute -top-px left-1/2 -translate-x-1/2 px-6 py-2 bg-accent text-base-100 text-[8px] font-black uppercase tracking-[0.3em] rounded-b-xl shadow-lg">
@@ -105,8 +105,8 @@ const tiers = [
              {tiers.map((tier) => (
                 <div class="p-8 flex items-center justify-center border-l border-base-content/5">
                    <button class:list={[
-                      "c-pricing-liquid__cta px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.3em] shadow-lg transition-all duration-500 hover:scale-105 active:scale-95",
-                      tier.popular ? "bg-accent text-base-100 shadow-accent/30" : "bg-base-content/5 text-base-content hover:bg-base-content hover:text-base-100"
+                      "c-pricing-liquid__cta px-10 py-4 font-black text-[10px] uppercase tracking-[0.3em] shadow-lg",
+                      tier.popular ? "c-pricing-liquid__cta--popular bg-accent text-base-100 shadow-accent/30" : "bg-base-content/5 text-base-content hover:bg-base-content hover:text-base-100"
                    ]}>
                       {t('pricing.cta')}
                    </button>
@@ -121,7 +121,7 @@ const tiers = [
        {tiers.map((tier) => (
           <div class:list={[
              "c-pricing-liquid__mobile-card relative p-6 rounded-[2rem] border backdrop-blur-xl",
-             tier.popular ? "bg-accent/5 border-accent/30" : "bg-base-content/[0.02] border-base-content/10"
+             tier.popular ? "c-pricing-liquid__mobile-card--popular bg-accent/5 border-accent/30" : "bg-base-content/[0.02] border-base-content/10"
           ]}>
              <!-- Header row -->
              <div class="flex items-center justify-between mb-6">

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderLiquid from '../../components/layout/header/HeaderLiquid.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -114,4 +115,5 @@ const getLocalizedHref = (demoId: string) => {
       </div>
     </section>
   </main>
+  <FooterLiquid />
 </BaseLayout>

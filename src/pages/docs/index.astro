@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildDocsNav } from '../../utils/docs-nav';
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 
 export const prerender = true;
 
@@ -44,4 +45,5 @@ console.log(`[Docs Index] Found ${sections.length} sections for ${locale}`);
       ))}
     </div>
   </div>
+  <FooterLiquid />
 </BaseLayout>

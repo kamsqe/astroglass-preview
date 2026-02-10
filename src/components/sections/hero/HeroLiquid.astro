@@ -8,10 +8,21 @@ const t = useTranslations(locale);
 ---
 
 <section class="relative min-h-[90vh] flex items-center justify-center px-4 pt-[calc(80px+var(--nav-offset))] pb-24 md:py-32">
-  <!-- Dynamic Background Ambient Glow -->
-  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-    <div class="absolute top-1/4 left-0 w-[50%] h-[50%] bg-[hsl(var(--glow-color))] opacity-[var(--glow-intensity,0.15)] blur-[140px] rounded-full animate-pulse-slow"></div>
-    <div class="absolute bottom-1/4 right-0 w-[50%] h-[50%] bg-accent opacity-10 blur-[140px] rounded-full animate-pulse-slow" style="animation-delay: 3s;"></div>
+  <!-- Animated Liquid Blob Background -->
+  <div class="c-hero-liquid__blob-bg">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <filter id="heroLiquidGoo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+      <g filter="url(#heroLiquidGoo)">
+        <path class="c-hero-liquid__blob-path-1" d="M420,300Q380,500,200,480Q20,460,60,300Q100,140,260,100Q420,60,420,300Z" />
+        <path class="c-hero-liquid__blob-path-2" d="M380,320Q340,500,180,460Q20,420,60,260Q100,100,280,120Q460,140,380,320Z" />
+      </g>
+    </svg>
   </div>
 
   <div class="relative z-10 max-w-5xl mx-auto text-center">
@@ -39,7 +50,6 @@ const t = useTranslations(locale);
     <!-- CTAs with improved touch targets -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-12 animate-fade-in opacity-0" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
       <a href="#explore" class="c-hero-liquid__btn-primary group relative w-full sm:w-auto px-10 py-5 rounded-2xl bg-base-content text-base-100 font-bold overflow-hidden text-center">
-        <div class="c-hero-liquid__btn-shimmer absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0"></div>
         <span class="relative z-10">{t('hero.cta')}</span>
       </a>
       
@@ -49,22 +59,24 @@ const t = useTranslations(locale);
       </a>
     </div>
 
-    <!-- Trust indicators -->
-    <div class="flex flex-wrap items-center justify-center gap-6 text-base-content/30 animate-fade-in opacity-0" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
-      <span class="text-xs font-medium">{t('hero.trustedBy')}</span>
-      <div class="flex items-center gap-4 opacity-50">
-        <span class="text-sm font-bold">Vercel</span>
-        <span class="text-sm font-bold">Linear</span>
-        <span class="text-sm font-bold">Stripe</span>
+    <!-- Liquid Trust Pills (abstract organic shapes instead of plain text logos) -->
+    <div class="animate-fade-in opacity-0" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
+      <span class="text-xs font-medium text-base-content/30 block mb-3">{t('hero.trustedBy')}</span>
+      <div class="c-hero-liquid__trust-pills">
+        <div class="c-hero-liquid__trust-pill"></div>
+        <div class="c-hero-liquid__trust-pill"></div>
+        <div class="c-hero-liquid__trust-pill"></div>
+        <div class="c-hero-liquid__trust-pill"></div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll Indicator -->
+  <!-- Scroll Indicator (Liquid Drip) -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 animate-fade-in" style="animation-delay: 1.2s; animation-fill-mode: forwards;">
     <span class="text-[10px] font-medium text-base-content/30 uppercase tracking-widest">{t('hero.scrollToExplore')}</span>
-    <svg class="w-5 h-5 text-base-content/30 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    <svg class="c-hero-liquid__scroll-drop w-5 h-5 text-base-content/30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C12 2 6 10 6 14.5C6 17.54 8.69 20 12 20C15.31 20 18 17.54 18 14.5C18 10 12 2 12 2Z" opacity="0.5"/>
+      <path d="M12 5C12 5 8 10.5 8 13.5C8 15.99 9.79 18 12 18C14.21 18 16 15.99 16 13.5C16 10.5 12 5 12 5Z"/>
     </svg>
   </div>
 </section>

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import About from '../../components/sections/about/index.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -15,4 +16,5 @@ const aboutVer = parseInt(url.searchParams.get('about') || '1') as 1 | 2 | 3;
   <main class="min-h-screen">
     <About version={aboutVer} isFirst={true} />
   </main>
+  <FooterLiquid />
 </BaseLayout>

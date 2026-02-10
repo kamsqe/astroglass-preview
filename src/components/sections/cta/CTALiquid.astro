@@ -43,11 +43,17 @@ const echoMessages = JSON.stringify([
           </p>
           
           <!-- Social proof micro-stat -->
-          <div class="cta-v1-proof flex items-center gap-3 opacity-0">
+           <div class="cta-v1-proof flex items-center gap-3 opacity-0">
             <div class="flex -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-accent/20 border-2 border-base-100 flex items-center justify-center text-xs">🚀</div>
-              <div class="w-8 h-8 rounded-full bg-primary/20 border-2 border-base-100 flex items-center justify-center text-xs">⚡</div>
-              <div class="w-8 h-8 rounded-full bg-secondary/20 border-2 border-base-100 flex items-center justify-center text-xs">✨</div>
+              <div class="cta-v1-proof-drop w-8 h-8 bg-accent/20 border-2 border-base-100 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C12 2 6 10 6 14.5C6 17.54 8.69 20 12 20C15.31 20 18 17.54 18 14.5C18 10 12 2 12 2Z"/></svg>
+              </div>
+              <div class="cta-v1-proof-drop w-8 h-8 bg-primary/20 border-2 border-base-100 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C12 2 6 10 6 14.5C6 17.54 8.69 20 12 20C15.31 20 18 17.54 18 14.5C18 10 12 2 12 2Z"/></svg>
+              </div>
+              <div class="cta-v1-proof-drop w-8 h-8 bg-secondary/20 border-2 border-base-100 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-secondary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C12 2 6 10 6 14.5C6 17.54 8.69 20 12 20C15.31 20 18 17.54 18 14.5C18 10 12 2 12 2Z"/></svg>
+              </div>
             </div>
             <p class="text-xs text-base-content/40">{t('cta.proof')}</p>
           </div>
@@ -96,7 +102,6 @@ const echoMessages = JSON.stringify([
   </div>
 </section>
 
-</style>
 
 <script>
   function initCTAV1() {

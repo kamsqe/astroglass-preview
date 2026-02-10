@@ -1,0 +1,135 @@
+---
+/**
+ * Header V6 - Aurora Transparent Floating Bar
+ * A full-width transparent header with gradient luminous accents.
+ * Bottom gradient border fades in on scroll. Fullscreen mesh overlay on mobile.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { buildNavLinks } from '../../../config/navigation';
+import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
+import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const navLinks = buildNavLinks(locale, t);
+const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+import '../../../styles/components/header/HeaderAurora.css';
+---
+
+
+<header class="header-aurora" id="header-aurora">
+  <div class="header-aurora-inner">
+    <!-- Logo -->
+    <a href={homeHref} class="logo-aurora" aria-label={t('nav.home')}>
+      <div class="logo-aurora-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="logo-aurora-text">{t('siteName')}</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-aurora">
+      {navLinks.slice(0, 4).map((link) => (
+        <a href={link.href} class="nav-aurora-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <!-- Desktop Actions -->
+    <div class="header-aurora-actions">
+      <ThemeSwitcher />
+      <div class="aurora-divider"></div>
+      <LanguageSwitcher />
+    </div>
+
+    <!-- Hamburger -->
+    <button type="button" class="burger-aurora" id="burger-aurora" aria-label={t('nav.menu')}>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Gradient bottom border -->
+  <div class="header-aurora-border"></div>
+</header>
+
+<!-- Fullscreen Overlay Menu -->
+<div class="overlay-aurora" id="overlay-aurora">
+  <div class="overlay-aurora-mesh"></div>
+  <div class="overlay-aurora-content">
+    <nav class="overlay-aurora-nav">
+      {navLinks.map((link, i) => (
+        <a href={link.href} class="overlay-aurora-link" style={`animation-delay: ${i * 0.08}s`}>
+          <span class="overlay-aurora-num">0{i + 1}</span>
+          <span class="overlay-aurora-text">{link.label}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="overlay-aurora-footer">
+      <div class="overlay-aurora-footer-group">
+        <LanguageSwitcher />
+      </div>
+      <div class="overlay-aurora-footer-group">
+        <ThemeSwitcher />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initHeaderAurora() {
+    const header = document.getElementById('header-aurora');
+    const burger = document.getElementById('burger-aurora');
+    const overlay = document.getElementById('overlay-aurora');
+
+    if (!burger || !overlay || !header) return;
+
+    // Reset state
+    overlay.classList.remove('is-open');
+    burger.classList.remove('is-active');
+
+    // Scroll handler for frosted effect + border
+    const onScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial check
+
+    // Clone to remove old listeners
+    const newBurger = burger.cloneNode(true) as HTMLElement;
+    burger.parentNode?.replaceChild(newBurger, burger);
+
+    newBurger.addEventListener('click', () => {
+      const isOpen = overlay.classList.toggle('is-open');
+      newBurger.classList.toggle('is-active');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.classList.remove('is-open');
+        newBurger.classList.remove('is-active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+        overlay.classList.remove('is-open');
+        newBurger.classList.remove('is-active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  initHeaderAurora();
+  document.addEventListener('astro:after-swap', initHeaderAurora);
+</script>

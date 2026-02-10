@@ -17,6 +17,7 @@ import HeaderGlass from '../../components/layout/header/HeaderGlass.astro';
 import HeaderNeo from '../../components/layout/header/HeaderNeo.astro';
 import HeaderLuxury from '../../components/layout/header/HeaderLuxury.astro';
 import HeaderMinimal from '../../components/layout/header/HeaderMinimal.astro';
+import HeaderAurora from '../../components/layout/header/HeaderAurora.astro';
 
 // Heroes
 import HeroLiquid from '../../components/sections/hero/HeroLiquid.astro';
@@ -24,6 +25,7 @@ import HeroGlass from '../../components/sections/hero/HeroGlass.astro';
 import HeroNeo from '../../components/sections/hero/HeroNeo.astro';
 import HeroLuxury from '../../components/sections/hero/HeroLuxury.astro';
 import HeroMinimal from '../../components/sections/hero/HeroMinimal.astro';
+import HeroAurora from '../../components/sections/hero/HeroAurora.astro';
 
 // About
 import AboutLiquid from '../../components/sections/about/AboutLiquid.astro';
@@ -31,6 +33,7 @@ import AboutGlass from '../../components/sections/about/AboutGlass.astro';
 import AboutNeo from '../../components/sections/about/AboutNeo.astro';
 import AboutLuxury from '../../components/sections/about/AboutLuxury.astro';
 import AboutMinimal from '../../components/sections/about/AboutMinimal.astro';
+import AboutAurora from '../../components/sections/about/AboutAurora.astro';
 
 // Features
 import FeaturesLiquid from '../../components/sections/features/FeaturesLiquid.astro';
@@ -38,6 +41,7 @@ import FeaturesGlass from '../../components/sections/features/FeaturesGlass.astr
 import FeaturesNeo from '../../components/sections/features/FeaturesNeo.astro';
 import FeaturesLuxury from '../../components/sections/features/FeaturesLuxury.astro';
 import FeaturesMinimal from '../../components/sections/features/FeaturesMinimal.astro';
+import FeaturesAurora from '../../components/sections/features/FeaturesAurora.astro';
 
 // Portfolio
 import PortfolioLiquid from '../../components/sections/portfolio/PortfolioLiquid.astro';
@@ -45,6 +49,7 @@ import PortfolioGlass from '../../components/sections/portfolio/PortfolioGlass.a
 import PortfolioNeo from '../../components/sections/portfolio/PortfolioNeo.astro';
 import PortfolioLuxury from '../../components/sections/portfolio/PortfolioLuxury.astro';
 import PortfolioMinimal from '../../components/sections/portfolio/PortfolioMinimal.astro';
+import PortfolioAurora from '../../components/sections/portfolio/PortfolioAurora.astro';
 
 // Pricing
 import PricingLiquid from '../../components/sections/pricing/PricingLiquid.astro';
@@ -52,6 +57,7 @@ import PricingGlass from '../../components/sections/pricing/PricingGlass.astro';
 import PricingNeo from '../../components/sections/pricing/PricingNeo.astro';
 import PricingLuxury from '../../components/sections/pricing/PricingLuxury.astro';
 import PricingMinimal from '../../components/sections/pricing/PricingMinimal.astro';
+import PricingAurora from '../../components/sections/pricing/PricingAurora.astro';
 
 // Testimonial
 import TestimonialLiquid from '../../components/sections/testimonial/TestimonialLiquid.astro';
@@ -59,6 +65,7 @@ import TestimonialGlass from '../../components/sections/testimonial/TestimonialG
 import TestimonialNeo from '../../components/sections/testimonial/TestimonialNeo.astro';
 import TestimonialLuxury from '../../components/sections/testimonial/TestimonialLuxury.astro';
 import TestimonialMinimal from '../../components/sections/testimonial/TestimonialMinimal.astro';
+import TestimonialAurora from '../../components/sections/testimonial/TestimonialAurora.astro';
 
 // FAQ
 import FAQLiquid from '../../components/sections/faq/FAQLiquid.astro';
@@ -66,6 +73,7 @@ import FAQGlass from '../../components/sections/faq/FAQGlass.astro';
 import FAQNeo from '../../components/sections/faq/FAQNeo.astro';
 import FAQLuxury from '../../components/sections/faq/FAQLuxury.astro';
 import FAQMinimal from '../../components/sections/faq/FAQMinimal.astro';
+import FAQAurora from '../../components/sections/faq/FAQAurora.astro';
 
 // CTA
 import CTALiquid from '../../components/sections/cta/CTALiquid.astro';
@@ -73,6 +81,7 @@ import CTAGlass from '../../components/sections/cta/CTAGlass.astro';
 import CTANeo from '../../components/sections/cta/CTANeo.astro';
 import CTALuxury from '../../components/sections/cta/CTALuxury.astro';
 import CTAMinimal from '../../components/sections/cta/CTAMinimal.astro';
+import CTAAurora from '../../components/sections/cta/CTAAurora.astro';
 
 // Contact
 import ContactLiquid from '../../components/sections/contact/ContactLiquid.astro';
@@ -80,6 +89,15 @@ import ContactGlass from '../../components/sections/contact/ContactGlass.astro';
 import ContactNeo from '../../components/sections/contact/ContactNeo.astro';
 import ContactLuxury from '../../components/sections/contact/ContactLuxury.astro';
 import ContactMinimal from '../../components/sections/contact/ContactMinimal.astro';
+import ContactAurora from '../../components/sections/contact/ContactAurora.astro';
+
+// Footer
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
+import FooterGlass from '../../components/sections/footer/FooterGlass.astro';
+import FooterNeo from '../../components/sections/footer/FooterNeo.astro';
+import FooterLuxury from '../../components/sections/footer/FooterLuxury.astro';
+import FooterMinimal from '../../components/sections/footer/FooterMinimal.astro';
+import FooterAurora from '../../components/sections/footer/FooterAurora.astro';
 
 // Component maps for dynamic rendering
 const componentMap = {
@@ -94,6 +112,7 @@ const componentMap = {
     FAQ: FAQLiquid,
     CTA: CTALiquid,
     Contact: ContactLiquid,
+    Footer: FooterLiquid,
   },
   glass: {
     Header: HeaderGlass,
@@ -106,6 +125,7 @@ const componentMap = {
     FAQ: FAQGlass,
     CTA: CTAGlass,
     Contact: ContactGlass,
+    Footer: FooterGlass,
   },
   neo: {
     Header: HeaderNeo,
@@ -118,6 +138,7 @@ const componentMap = {
     FAQ: FAQNeo,
     CTA: CTANeo,
     Contact: ContactNeo,
+    Footer: FooterNeo,
   },
   luxury: {
     Header: HeaderLuxury,
@@ -130,6 +151,7 @@ const componentMap = {
     FAQ: FAQLuxury,
     CTA: CTALuxury,
     Contact: ContactLuxury,
+    Footer: FooterLuxury,
   },
   minimal: {
     Header: HeaderMinimal,
@@ -142,6 +164,20 @@ const componentMap = {
     FAQ: FAQMinimal,
     CTA: CTAMinimal,
     Contact: ContactMinimal,
+    Footer: FooterMinimal,
+  },
+  aurora: {
+    Header: HeaderAurora,
+    Hero: HeroAurora,
+    About: AboutAurora,
+    Features: FeaturesAurora,
+    Portfolio: PortfolioAurora,
+    Pricing: PricingAurora,
+    Testimonial: TestimonialAurora,
+    FAQ: FAQAurora,
+    CTA: CTAAurora,
+    Contact: ContactAurora,
+    Footer: FooterAurora,
   },
 };
 
@@ -173,6 +209,7 @@ const Testimonial = components.Testimonial;
 const FAQ = components.FAQ;
 const CTA = components.CTA;
 const Contact = components.Contact;
+const Footer = components.Footer;
 ---
 
 <BaseLayout title={`${theme?.name} Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
@@ -188,4 +225,5 @@ const Contact = components.Contact;
     <CTA />
     <Contact />
   </main>
+  <Footer />
 </BaseLayout>

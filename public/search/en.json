@@ -29,7 +29,7 @@
       "Why Liquid Glass?",
       "What's Included?"
     ],
-    "content": "Introduction Liquid Glass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS. Why Liquid Glass? - Premium Design: Ready-to-use components with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. What's Included? The theme comes with over 20+ pre-built components, including: - 5 Hero variations - 5 Feature sections - 5 Pricing tables - Comprehensive Blog & Docs system",
+    "content": "Liquid Glass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS. Why Liquid Glass? - Premium Design: Ready-to-use components with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. What's Included? The theme comes with over 20+ pre-built components, including:",
     "order": 1
   },
   {
@@ -44,7 +44,7 @@
       "Prerequisites",
       "Quick Start"
     ],
-    "content": "Installation Getting started is easy. You can clone the repository or use the CLI. Prerequisites - Node.js v18.0.0 or higher - pnpm (recommended) or npm/yarn Quick Start Visit to see your new site.",
+    "content": "Getting started is easy. You can clone the repository or use the CLI. Prerequisites - Node.js v18.0.0 or higher - pnpm (recommended) or npm/yarn Quick Start 1. Clone the repository 2. Enter the directory 3. Install dependencies 4. Start development server Visit to see your new site.",
     "order": 2
   },
   {
@@ -58,7 +58,7 @@
     "headings": [
       "Tailwind Config"
     ],
-    "content": "Configuration The theme is configured via (coming soon) and standard Astro configuration files. Tailwind Config You can customize the colors and fonts in or by editing the CSS variables in .",
+    "content": "The theme is configured via (coming soon) and standard Astro configuration files. Tailwind Config You can customize the colors and fonts in or by editing the CSS variables in .",
     "order": 3
   },
   {
@@ -92,7 +92,7 @@
       "Props",
       "Usage"
     ],
-    "content": "Hero Components We provide 5 distinct hero variations. Props | Prop | Type | Default | Description | | :--- | :--- | :--- | :--- | | | | - | Main headline | | | | - | Subtext below headline | | | | - | Hero image (if applicable) | | | | \"Get Started\" | Primary button text | Usage",
+    "content": "Props | Prop | Type | Default | Description | | :--- | :--- | :--- | :--- | | | | - | Main headline | | | | - | Subtext below headline | | | | - | Hero image (if applicable) | | | | \"Get Started\" | Primary button text | Usage",
     "order": 1
   },
   {
@@ -105,9 +105,10 @@
     "sectionOrder": 2,
     "headings": [
       "Variants",
-      "Example"
+      "Live Examples",
+      "Code Usage"
     ],
-    "content": "Cards Cards are the fundamental building block of the glass design system. Variants We support multiple card styles via the prop. | Variant | Description | Visual Style | | :--- | :--- | :--- | | | Standard frosted glass | Blur + Border | | | Opaque background | High contrast | | | Border only | Minimalist | Example",
+    "content": "Cards are the fundamental building block of the glass design system. Variants We support multiple card styles via the prop. | Variant | Description | Visual Style | | :--- | :--- | :--- | | | Standard frosted glass | Blur + Border | | | Opaque background | High contrast | | | Border only | Minimalist | Live Examples Glass Card Standard frosted glass effect with blur and subtle border. Solid Card Opaque background for high contrast. Outline Card Minimalist border-only style. Code Usage",
     "order": 2
   },
   {
@@ -122,7 +123,7 @@
       "Components",
       "Usage"
     ],
-    "content": "Feature Components Showcase your product's capabilities with our versatile feature sections. Components We provide 5 variants suited for different content densities. | Component | Style | Best For | | :--- | :--- | :--- | | | 3-Column Grid | High-level overview of many features | | | Alternating Side-by-Side | Detailed breakdown with images | | | Bento Grid | Modern, asymmetric layouts | | | List with Icons | Technical specs or checklist | | | Tabs / Accordion | Grouping complex features | Usage",
+    "content": "Components We provide 5 variants suited for different content densities. | Component | Style | Best For | | :--- | :--- | :--- | | | 3-Column Grid | High-level overview of many features | | | Alternating Side-by-Side | Detailed breakdown with images | | | Bento Grid | Modern, asymmetric layouts | | | List with Icons | Technical specs or checklist | | | Tabs / Accordion | Grouping complex features | Usage",
     "order": 3
   },
   {
@@ -137,7 +138,7 @@
       "Props",
       "Usage"
     ],
-    "content": "Pricing Tables Convert visitors into customers with clear pricing options. Props | Prop | Type | Default | Description | | :--- | :--- | :--- | :--- | | | | - | Array of pricing tiers | | | | \"$\" | Currency symbol | | | | \"month\" | Billing period | Usage",
+    "content": "Props | Prop | Type | Default | Description | | :--- | :--- | :--- | :--- | | | | - | Array of pricing tiers | | | | \"$\" | Currency symbol | | | | \"month\" | Billing period | Usage",
     "order": 4
   },
   {
@@ -152,7 +153,7 @@
       "Variants",
       "Tips"
     ],
-    "content": "Testimonials Build trust with social proof from happy customers. Variants | Component | Style | | :--- | :--- | | | Single highlighted quote | | | 3-Column Grid | | | Masonry Grid (Wall of Love) | | | Slider / Carousel | Tips Use for high-impact landing pages, and for a dedicated reviews page.",
+    "content": "Variants | Component | Style | | :--- | :--- | | | Single highlighted quote | | | 3-Column Grid | | | Masonry Grid (Wall of Love) | | | Slider / Carousel | Tips Use for high-impact landing pages, and for a dedicated reviews page.",
     "order": 5
   },
   {
@@ -167,7 +168,7 @@
       "Best Practices",
       "Variants"
     ],
-    "content": "Call to Action (CTA) The final push your users need to convert. Best Practices 1. Clear Value: State exactly what they get. 2. Urgency: Use words like \"Today\" or \"Now\". 3. Contrast: Ensure the button stands out against the background. Variants - : Simple centered text + button - : Split layout with image - : Floating glass card - : Magnetic attraction effect (Interactive) - : Terminal style (Developer focused)",
+    "content": "Best Practices 1. Clear Value: State exactly what they get. 2. Urgency: Use words like \"Today\" or \"Now\". 3. Contrast: Ensure the button stands out against the background. Variants - : Simple centered text + button - : Split layout with image - : Floating glass card - : Magnetic attraction effect (Interactive) - : Terminal style (Developer focused)",
     "order": 6
   },
   {
@@ -186,7 +187,7 @@
       "Cards",
       "Code Tabs"
     ],
-    "content": "Liquid Glass comes with a set of custom MDX components to help you write beautiful and effective documentation. Callouts Use callouts to highlight important information. This is a default info callout. Be careful when modifying configuration files. This action is irreversible. Deployment completed successfully! You can use markdown inside callouts. Badges Use badges to show version status or feature tags. Currently using v2.0 of the framework. This feature is Experimental. Legacy API is Deprecated. Steps Use the Steps component to document sequential procedures. 1. Install dependencies Run in your terminal. 2. Configure the project Edit to set up your integration. 3. Start the server Run to start the development server. File Tree Visualize directory structures. - src/ - components/ - Header.astro - Footer.astro - pages/ - index.astro - public/ - package.json Cards Link to other pages visually. Code Tabs Display code in multiple languages or formats. js console.log('Hello'); ts const msg: string = 'Hello'; console.log(msg); `",
+    "content": "Liquid Glass comes with a set of custom MDX components to help you write beautiful and effective documentation. Callouts Use callouts to highlight important information. This is a default info callout. Be careful when modifying configuration files. This action is irreversible. Deployment completed successfully! You can use markdown inside callouts. Badges Use badges to show version status or feature tags. Currently using v2.0 of the framework. This feature is Experimental. Legacy API is Deprecated. Steps Use the Steps component to document sequential procedures. 1. Install dependencies Run in your terminal. 2. Configure the project Edit to set up your integration. 3. Start the server Run to start the development server. File Tree Visualize directory structures. - src/ - components/ - Header.astro - Footer.astro - pages/ - index.astro - public/ - package.json Usage Cards Link to other pages visually. Code Tabs Display code in multiple languages or formats. js console.log('Hello'); ts const msg: string = 'Hello'; console.log(msg); `",
     "order": 99
   },
   {
@@ -220,7 +221,7 @@
     "headings": [
       "The Recipe"
     ],
-    "content": "Glassmorphism Liquid Glass implements a modern take on glassmorphism. The Recipe 1. Backdrop Blur: We use for the frosted effect. 2. Translucency: Background colors use alpha channels (e.g., ). 3. Borders: Subtle 1px borders () define the edges. 4. Shadows: Soft, colored shadows create depth. This combination creates a sense of hierarchy and modernity.",
+    "content": "Liquid Glass implements a modern take on glassmorphism. The Recipe 1. Backdrop Blur: We use for the frosted effect. 2. Translucency: Background colors use alpha channels (e.g., ). 3. Borders: Subtle 1px borders () define the edges. 4. Shadows: Soft, colored shadows create depth. This combination creates a sense of hierarchy and modernity.",
     "order": 1
   },
   {
@@ -238,7 +239,7 @@
       "Dynamic Component Loading",
       "Creating a New Theme"
     ],
-    "content": "Our template features a highly flexible dynamic theming system built on top of Tailwind CSS and Astro's component architecture. Architecture Overview The theming system consists of three main layers: 1. Theme Registry: Definitions for each theme in . 2. CSS Custom Properties: Theme-aware variables defined in . 3. Dynamic Rendering: Section components that render variants based on the prop. Theme Registry Every theme must be registered in the file. This centralizes theme metadata and makes it available to the entire application. - src/ - config/ - themes.ts [modified] Each theme definition looks like this: CSS Variables We use standard CSS variables (custom properties) to handle theme-specific colors and effects. These variables are scoped to a data attribute on the or tag. Always use the prefix for theme variables to ensure consistency with our utility classes. Dynamic Component Loading Section components like act as wrappers. They dynamically import the correct theme variant based on the prop. This pattern allows for maximum flexibility. You can have completely different HTML structures for different themes while keeping a uniform API for the page templates. Creating a New Theme To add a new theme, follow these steps: 1. Add the theme definition to . 2. Define the new theme's CSS variables in . 3. (Optional) Create theme-specific components in , etc. 4. Add any new localized strings to the translation files.",
+    "content": "Our template features a highly flexible dynamic theming system built on top of Tailwind CSS and Astro's component architecture. Architecture Overview The theming system consists of three main layers: 1. Theme Registry: Definitions for each theme in . 2. CSS Custom Properties: Theme-aware variables defined in . 3. Dynamic Rendering: Section components that render variants based on the prop. Theme Registry Every theme must be registered in the file. This centralizes theme metadata and makes it available to the entire application. - src/ - config/ - themes.ts [modified] Each theme definition looks like this: CSS Variables We use standard CSS variables (custom properties) to handle theme-specific colors and effects. These variables are scoped to a data attribute on the or tag. Always use the prefix for theme variables to ensure consistency with our utility classes. Dynamic Component Loading Section components like act as wrappers. They dynamically import the correct theme variant based on the prop. This pattern allows for maximum flexibility. You can have completely different HTML structures for different themes while keeping a uniform API for the page templates. Creating a New Theme To add a new theme, follow these steps: 1. Add Theme Definition Add the theme definition object to . 2. Define CSS Variables Define the new theme's CSS variables (colors, effects) in . 3. Create Components (Optional) Create theme-specific component variants in , etc., if needed. 4. Add Translations Add any new localized strings to the translation files.",
     "order": 1
   },
   {
@@ -320,7 +321,7 @@
       "Customizing Validation Rules",
       "Internationalization (i18n)"
     ],
-    "content": "Forms & Validation This template uses Valibot for lightweight, type-safe validation on both the client and server. We've designed a hybrid approach that gives you: 1. Instant UI Feedback: Using a tiny client-side script. 2. Server-Side Security: Using the same schema in Astro Actions (optional but recommended). Quick Start To add a new validated form: 1. Define specific rules (Optional) If you need custom rules beyond the shared , create a new schema in . 2. Add the Form to your Component Copy this pattern. The key is strict naming of inputs and the class handling. Theme-Aware Styles We've built a CSS system that automatically adapts validation styles to your active theme (Liquid, Glass, Minimal, etc.). You just need to toggle the or classes on your inputs. | Class | Effect | | :--- | :--- | | | Adds a Red border/glow ( color). | | | Adds a Green border ( color). | | | A styled small text helper that slides in. | Example Usage Customizing Validation Rules Edit to change the rules for the default contact form. Internationalization (i18n) Validation messages are fully translated. Keys are located in: - (under object) - When initializing the schema on the client, you must pass a translation function or a lookup map, as seen in .",
+    "content": "This template uses Valibot for lightweight, type-safe validation on both the client and server. We've designed a hybrid approach that gives you: 1. Instant UI Feedback: Using a tiny client-side script. 2. Server-Side Security: Using the same schema in Astro Actions (optional but recommended). Quick Start To add a new validated form: 1. Define specific rules (Optional) If you need custom rules beyond the shared , create a new schema in . 2. Add the Form to your Component Copy this pattern. The key is strict naming of inputs and the class handling. Theme-Aware Styles We've built a CSS system that automatically adapts validation styles to your active theme (Liquid, Glass, Minimal, etc.). You just need to toggle the or classes on your inputs. | Class | Effect | | :--- | :--- | | | Adds a Red border/glow ( color). | | | Adds a Green border ( color). | | | A styled small text helper that slides in. | Example Usage Customizing Validation Rules Edit to change the rules for the default contact form. Internationalization (i18n) Validation messages are fully translated. Keys are located in: - (under object) - When initializing the schema on the client, you must pass a translation function or a lookup map, as seen in .",
     "order": 99
   }
 ]

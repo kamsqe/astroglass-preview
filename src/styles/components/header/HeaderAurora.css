@@ -1,0 +1,429 @@
+/* -------------------------------------------------------------------------- */
+/*                           HEADER AURORA — BASE                             */
+/* -------------------------------------------------------------------------- */
+
+.header-aurora {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.header-aurora.is-scrolled {
+  background: hsl(var(--b1) / 0.7);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+.header-aurora-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .header-aurora-inner {
+    padding: 20px 32px;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                          GRADIENT BOTTOM BORDER                            */
+/* -------------------------------------------------------------------------- */
+
+.header-aurora-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--a) / 0.4) 20%,
+    hsl(var(--a)) 50%,
+    hsl(var(--a) / 0.4) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: header-aurora-shimmer 4s linear infinite;
+}
+
+@keyframes header-aurora-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.header-aurora.is-scrolled .header-aurora-border {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                LOGO                                        */
+/* -------------------------------------------------------------------------- */
+
+.logo-aurora {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: hsl(var(--bc));
+  transition: all 0.3s ease;
+}
+
+.logo-aurora:hover {
+  transform: translateY(-1px);
+}
+
+.logo-aurora-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--a) / 0.1);
+  border: 1px solid hsl(var(--a) / 0.2);
+  border-radius: 10px;
+  color: hsl(var(--a));
+  transition: all 0.4s ease;
+}
+
+.logo-aurora:hover .logo-aurora-icon {
+  background: hsl(var(--a) / 0.2);
+  border-color: hsl(var(--a) / 0.4);
+  box-shadow:
+    0 0 20px hsl(var(--a) / 0.2),
+    0 0 40px hsl(var(--a) / 0.1);
+}
+
+.logo-aurora-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.logo-aurora-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .logo-aurora-text {
+    display: block;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            DESKTOP NAVIGATION                              */
+/* -------------------------------------------------------------------------- */
+
+.nav-aurora {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (min-width: 1024px) {
+  .nav-aurora {
+    display: flex;
+  }
+}
+
+.nav-aurora-link {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--bc) / 0.6);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.nav-aurora-link:hover {
+  color: hsl(var(--a));
+  background: linear-gradient(135deg, hsl(var(--bc)), hsl(var(--a)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient underline on hover */
+.nav-aurora-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--a)),
+    hsl(var(--a) / 0.4)
+  );
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.nav-aurora-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            DESKTOP ACTIONS                                 */
+/* -------------------------------------------------------------------------- */
+
+.header-aurora-actions {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 1024px) {
+  .header-aurora-actions {
+    display: flex;
+  }
+}
+
+.aurora-divider {
+  width: 1px;
+  height: 20px;
+  background: hsl(var(--bc) / 0.1);
+  margin: 0 4px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            HAMBURGER BUTTON                                */
+/* -------------------------------------------------------------------------- */
+
+.burger-aurora {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid hsl(var(--bc) / 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.4s ease;
+}
+
+@media (min-width: 1024px) {
+  .burger-aurora {
+    display: none;
+  }
+}
+
+.burger-aurora:hover {
+  border-color: hsl(var(--a) / 0.3);
+  background: hsl(var(--a) / 0.05);
+}
+
+.burger-aurora span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: hsl(var(--bc) / 0.7);
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.burger-aurora span:nth-child(2) {
+  width: 14px;
+}
+
+/* Active state */
+.burger-aurora.is-active {
+  border-color: hsl(var(--a) / 0.4);
+  background: hsl(var(--a) / 0.1);
+}
+
+.burger-aurora.is-active span {
+  background: hsl(var(--a));
+}
+
+.burger-aurora.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+  width: 18px;
+}
+
+.burger-aurora.is-active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.burger-aurora.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+  width: 18px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                          FULLSCREEN OVERLAY                                */
+/* -------------------------------------------------------------------------- */
+
+.overlay-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay-aurora.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mesh gradient background */
+.overlay-aurora-mesh {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--b1) / 0.92);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+.overlay-aurora-mesh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, hsl(var(--a) / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, hsl(var(--a) / 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, hsl(var(--a) / 0.05) 0%, transparent 70%);
+  animation: aurora-mesh-shift 8s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-mesh-shift {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 100% 0%, 0% 100%, 50% 50%;
+    opacity: 0.6;
+  }
+}
+
+/* Content */
+.overlay-aurora-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 100px 32px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .overlay-aurora-content {
+    padding: 120px 48px 60px;
+  }
+}
+
+/* Navigation Links */
+.overlay-aurora-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: auto;
+}
+
+.overlay-aurora-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: hsl(var(--bc));
+  text-decoration: none;
+  border-bottom: 1px solid hsl(var(--bc) / 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .overlay-aurora-link {
+    font-size: 2.5rem;
+    gap: 20px;
+    padding: 20px 0;
+  }
+}
+
+.overlay-aurora.is-open .overlay-aurora-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-aurora-link:hover {
+  color: hsl(var(--a));
+}
+
+.overlay-aurora-link:hover .overlay-aurora-num {
+  color: hsl(var(--a));
+  text-shadow: 0 0 20px hsl(var(--a) / 0.5);
+}
+
+.overlay-aurora-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: monospace;
+  color: hsl(var(--a) / 0.5);
+  min-width: 28px;
+  transition: all 0.3s ease;
+}
+
+.overlay-aurora-text {
+  transition: transform 0.3s ease;
+}
+
+.overlay-aurora-link:hover .overlay-aurora-text {
+  transform: translateX(8px);
+}
+
+/* Footer */
+.overlay-aurora-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 1px solid hsl(var(--bc) / 0.05);
+  opacity: 0;
+  transition: all 0.6s ease 0.4s;
+}
+
+.overlay-aurora.is-open .overlay-aurora-footer {
+  opacity: 1;
+}
+
+.overlay-aurora-footer-group {
+  display: flex;
+  align-items: center;
+}

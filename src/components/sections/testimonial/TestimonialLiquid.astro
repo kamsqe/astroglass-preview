@@ -1,8 +1,7 @@
 ---
 /**
- * Testimonial V1 - The Story Reel
- * Full-screen immersive story format with tap navigation.
- * Mobile: Swipeable carousel with visible nav. Desktop: Horizontal cards.
+ * Testimonial V1 - Liquid Bubbles (Distinctive)
+ * Organic bubble-shaped cards with floating offset layout and avatar ripple effect.
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
@@ -62,21 +61,24 @@ const testimonials = [
           <div class="flex gap-4" style="width: max-content;">
              {testimonials.map((item, i) => (
                 <div 
-                  class="c-testimonial-liquid__card-mobile snap-center flex-shrink-0 w-[85vw] max-w-[340px] relative rounded-[2rem] overflow-hidden bg-base-content/[0.03] border border-base-content/10"
+                  class="c-testimonial-liquid__card-mobile snap-center flex-shrink-0 w-[85vw] max-w-[340px] relative overflow-hidden bg-base-content/[0.03] border border-base-content/10"
                   style="min-height: 420px;"
                 >
                    <!-- Gradient Background -->
                    <div class:list={["absolute inset-0 bg-gradient-to-br opacity-30 pointer-events-none", item.gradient]}></div>
                    
                    <div class="relative z-10 h-full flex flex-col items-center justify-center p-8 text-center">
-                      <!-- Avatar -->
-                      <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+                      <!-- Quote mark -->
+                      <div class="c-testimonial-liquid__quote-mark mb-2">❝</div>
+
+                      <!-- Avatar with ripple -->
+                      <div class="c-testimonial-liquid__avatar w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
                          <img src={item.avatar} alt={item.author} class="w-full h-full object-cover" />
                       </div>
 
                       <!-- Quote -->
                       <p class="text-lg font-semibold text-base-content leading-relaxed mb-6">
-                         "{item.quote}"
+                         {item.quote}
                       </p>
 
                       <!-- Attribution -->
@@ -99,19 +101,24 @@ const testimonials = [
        <p class="text-center text-xs text-base-content/30 mt-2">{t('testimonial.swipe')}</p>
     </div>
 
-    <!-- Desktop: Horizontal Cards -->
-    <div class="hidden lg:grid grid-cols-4 gap-6">
+    <!-- Desktop: Floating Bubble Cards -->
+    <div class="hidden lg:grid grid-cols-4 gap-6 items-start">
        {testimonials.map((item, i) => (
-          <div class="c-testimonial-liquid__card group relative p-8 rounded-[2rem] bg-base-content/[0.02] border border-base-content/10 overflow-hidden hover:bg-base-content/[0.05] transition-all duration-700">
+          <div class="c-testimonial-liquid__card group relative p-8 bg-base-content/[0.02] border border-base-content/10 overflow-hidden hover:bg-base-content/[0.05]">
              <!-- Gradient -->
              <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]}></div>
              
              <div class="relative z-10">
-                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-base-content/10 mb-6">
+                <!-- Quote mark -->
+                <div class="c-testimonial-liquid__quote-mark mb-4">❝</div>
+
+                <!-- Avatar with ripple ring -->
+                <div class="c-testimonial-liquid__avatar w-14 h-14 rounded-full overflow-hidden border-2 border-base-content/10 mb-6">
                    <img src={item.avatar} alt={item.author} class="w-full h-full object-cover" />
                 </div>
+
                 <p class="text-base text-base-content/70 font-medium leading-relaxed mb-6 line-clamp-4">
-                   "{item.quote}"
+                   {item.quote}
                 </p>
                 <div>
                    <p class="text-sm font-bold text-base-content">{item.author}</p>

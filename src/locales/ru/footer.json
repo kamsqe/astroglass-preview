@@ -1,0 +1,27 @@
+{
+  "company": "LiquidGlass",
+  "tagline": "Красивые шаблоны для современного веба",
+  "madeWith": "Сделано с",
+  "copyright": "© 2025 LiquidGlass",
+  "allRightsReserved": "Все права защищены",
+  "backToTop": "Наверх",
+  "links": {
+    "product": "Продукт",
+    "features": "Возможности",
+    "pricing": "Цены",
+    "demos": "Демо",
+    "company": "Компания",
+    "about": "О нас",
+    "blog": "Блог",
+    "contact": "Контакты",
+    "resources": "Ресурсы",
+    "docs": "Документация",
+    "faq": "FAQ",
+    "support": "Поддержка"
+  },
+  "social": {
+    "github": "GitHub",
+    "twitter": "Twitter",
+    "discord": "Discord"
+  }
+}

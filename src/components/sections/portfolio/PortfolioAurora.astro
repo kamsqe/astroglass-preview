@@ -1,0 +1,160 @@
+---
+/**
+ * Portfolio V6 - Aurora Masonry Lightbox
+ * Grid layout with gradient-border frames, category filter pills,
+ * and hover effects with overlay text reveal.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+import '../../../styles/components/portfolio/PortfolioAurora.css';
+
+const categories = [
+  { id: 'all', label: t('portfolio.allWork') },
+  { id: 'webapp', label: t('portfolio.categories.webapp') },
+  { id: 'dashboard', label: t('portfolio.categories.dashboard') },
+  { id: 'mobile', label: t('portfolio.categories.mobile') },
+  { id: 'branding', label: t('portfolio.categories.branding') },
+];
+
+const projects = [
+  {
+    title: t('portfolio.p1Title'),
+    desc: t('portfolio.p1Desc'),
+    category: 'webapp',
+    metric: '3.2x',
+    metricLabel: t('portfolio.metrics.faster'),
+    span: 'tall',
+  },
+  {
+    title: t('portfolio.p2Title'),
+    desc: t('portfolio.p2Desc'),
+    category: 'dashboard',
+    metric: '50K+',
+    metricLabel: t('portfolio.metrics.users'),
+    span: 'wide',
+  },
+  {
+    title: t('portfolio.p3Title'),
+    desc: t('portfolio.p3Desc'),
+    category: 'mobile',
+    metric: '4.9',
+    metricLabel: t('portfolio.metrics.rating'),
+    span: 'normal',
+  },
+  {
+    title: t('portfolio.p4Title'),
+    desc: t('portfolio.p4Desc'),
+    category: 'branding',
+    metric: '280%',
+    metricLabel: t('portfolio.metrics.growth'),
+    span: 'normal',
+  },
+];
+---
+
+<section class="portfolio-aurora" id="portfolio">
+  <!-- Header -->
+  <div class="portfolio-aurora-header">
+    <div class="portfolio-aurora-label">
+      <span class="portfolio-aurora-label-frame">▮▯▮</span>
+      <span>{t('portfolio.badge')}</span>
+    </div>
+    <h2 class="portfolio-aurora-title">{t('portfolio.title')}</h2>
+    <p class="portfolio-aurora-subtitle">{t('portfolio.subtitle')}</p>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="portfolio-aurora-filters" id="aurora-portfolio-filters">
+    {categories.map((cat, i) => (
+      <button
+        class:list={['portfolio-aurora-filter', i === 0 ? 'is-active' : '']}
+        data-filter={cat.id}
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Grid -->
+  <div class="portfolio-aurora-grid" id="aurora-portfolio-grid">
+    {projects.map((p) => (
+      <div class:list={['portfolio-aurora-item', `portfolio-aurora-item--${p.span}`]} data-category={p.category}>
+        <!-- Gradient border frame -->
+        <div class="portfolio-aurora-frame">
+          <!-- Visual placeholder -->
+          <div class="portfolio-aurora-visual">
+            <div class="portfolio-aurora-visual-mesh"></div>
+            <div class="portfolio-aurora-visual-grid"></div>
+            <span class="portfolio-aurora-visual-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </span>
+          </div>
+
+          <!-- Overlay on hover -->
+          <div class="portfolio-aurora-overlay">
+            <div class="portfolio-aurora-overlay-content">
+              <span class="portfolio-aurora-overlay-cat">{categories.find(c => c.id === p.category)?.label}</span>
+              <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
+              <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
+              <div class="portfolio-aurora-overlay-metric">
+                <span class="portfolio-aurora-overlay-metric-value">{p.metric}</span>
+                <span class="portfolio-aurora-overlay-metric-label">{p.metricLabel}</span>
+              </div>
+              <a href="#" class="portfolio-aurora-overlay-link">
+                {t('portfolio.viewProject')}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Hint -->
+  <p class="portfolio-aurora-hint">{t('portfolio.gridHint')}</p>
+</section>
+
+<script>
+  function initPortfolioAurora() {
+    const filters = document.getElementById('aurora-portfolio-filters');
+    const grid = document.getElementById('aurora-portfolio-grid');
+
+    if (!filters || !grid) return;
+
+    filters.querySelectorAll('.portfolio-aurora-filter').forEach(btn => {
+      const newBtn = btn.cloneNode(true) as HTMLElement;
+      btn.parentNode?.replaceChild(newBtn, btn);
+
+      newBtn.addEventListener('click', () => {
+        // Update active state
+        filters.querySelectorAll('.portfolio-aurora-filter').forEach(b => b.classList.remove('is-active'));
+        newBtn.classList.add('is-active');
+
+        const filter = newBtn.getAttribute('data-filter');
+        
+        grid.querySelectorAll('.portfolio-aurora-item').forEach(item => {
+          const el = item as HTMLElement;
+          if (filter === 'all' || el.getAttribute('data-category') === filter) {
+            el.style.display = '';
+            el.style.opacity = '1';
+            el.style.transform = 'scale(1)';
+          } else {
+            el.style.opacity = '0';
+            el.style.transform = 'scale(0.95)';
+            setTimeout(() => { el.style.display = 'none'; }, 300);
+          }
+        });
+      });
+    });
+  }
+
+  initPortfolioAurora();
+  document.addEventListener('astro:after-swap', initPortfolioAurora);
+</script>

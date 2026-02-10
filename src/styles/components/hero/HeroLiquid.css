@@ -1,27 +1,104 @@
-/* HeroLiquid.css */
+/* HeroLiquid.css — Liquid-themed hero with organic blobs, ripple CTA */
 
-/* .btn-liquid */
+/* ── Animated SVG Blob Background ── */
+.c-hero-liquid__blob-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.c-hero-liquid__blob-bg svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  opacity: 0.12;
+}
+
+.c-hero-liquid__blob-path-1 {
+  animation: heroLiquidBlobMorph1 12s ease-in-out infinite;
+  fill: hsl(var(--a));
+}
+
+.c-hero-liquid__blob-path-2 {
+  animation: heroLiquidBlobMorph2 14s ease-in-out infinite;
+  fill: hsl(var(--p, var(--a)));
+  opacity: 0.6;
+}
+
+@keyframes heroLiquidBlobMorph1 {
+  0%, 100% {
+    d: path("M420,300Q380,500,200,480Q20,460,60,300Q100,140,260,100Q420,60,420,300Z");
+  }
+  25% {
+    d: path("M440,320Q400,520,220,500Q40,480,40,300Q40,120,240,80Q440,40,440,320Z");
+  }
+  50% {
+    d: path("M400,340Q360,540,180,500Q0,460,40,280Q80,100,260,60Q440,20,400,340Z");
+  }
+  75% {
+    d: path("M460,280Q420,480,240,500Q60,520,80,320Q100,120,280,80Q460,40,460,280Z");
+  }
+}
+
+@keyframes heroLiquidBlobMorph2 {
+  0%, 100% {
+    d: path("M380,320Q340,500,180,460Q20,420,60,260Q100,100,280,120Q460,140,380,320Z");
+  }
+  33% {
+    d: path("M400,280Q360,460,200,480Q40,500,80,300Q120,100,300,80Q480,60,400,280Z");
+  }
+  66% {
+    d: path("M360,340Q320,520,160,480Q0,440,40,280Q80,120,260,100Q440,80,360,340Z");
+  }
+}
+
+/* ── Primary Button — Ripple CTA ── */
 .c-hero-liquid__btn-primary {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.c-hero-liquid__btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-hero-liquid__btn-primary:hover::before {
+  width: 300%;
+  height: 300%;
 }
 
 .c-hero-liquid__btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
 .c-hero-liquid__btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.97);
 }
 
-/* .btn-shimmer */
+/* ── Shimmer (kept but secondary to ripple) ── */
 .c-hero-liquid__btn-shimmer {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* .btn-liquid-secondary */
+/* ── Secondary Button ── */
 .c-hero-liquid__btn-secondary {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .c-hero-liquid__btn-secondary:hover {
@@ -34,9 +111,80 @@
   transform: translateX(3px);
 }
 
-/* .arrow-icon */
 .c-hero-liquid__arrow-icon {
   transition: all 0.3s ease;
 }
 
-/* Animations provided globally: .animate-pulse-slow, .animate-reveal, .animate-fade-in */
+/* ── Liquid Trust Pills ── */
+.c-hero-liquid__trust-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.c-hero-liquid__trust-pill {
+  width: 64px;
+  height: 24px;
+  border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+  background: hsl(var(--bc) / 0.06);
+  border: 1px solid hsl(var(--bc) / 0.08);
+  animation: heroLiquidPillMorph 6s ease-in-out infinite;
+  backdrop-filter: blur(8px);
+}
+
+.c-hero-liquid__trust-pill:nth-child(2) {
+  width: 72px;
+  animation-delay: -2s;
+  border-radius: 50% 40% 50% 60% / 40% 60% 40% 60%;
+}
+
+.c-hero-liquid__trust-pill:nth-child(3) {
+  width: 56px;
+  animation-delay: -4s;
+  border-radius: 60% 40% 40% 60% / 60% 40% 60% 40%;
+}
+
+.c-hero-liquid__trust-pill:nth-child(4) {
+  width: 68px;
+  animation-delay: -1s;
+  border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%;
+}
+
+@keyframes heroLiquidPillMorph {
+  0%, 100% {
+    border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+    transform: scale(1);
+  }
+  25% {
+    border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
+  }
+  50% {
+    border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%;
+    transform: scale(1.05);
+  }
+  75% {
+    border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%;
+  }
+}
+
+/* ── Scroll Indicator Drip ── */
+.c-hero-liquid__scroll-drop {
+  animation: heroLiquidDrip 2s ease-in-out infinite;
+}
+
+@keyframes heroLiquidDrip {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateY(10px) scaleY(1.2);
+    opacity: 0.2;
+  }
+}

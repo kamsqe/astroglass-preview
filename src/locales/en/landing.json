@@ -27,6 +27,10 @@
     "minimal": {
       "name": "Minimal",
       "description": "Clean simplicity"
+    },
+    "aurora": {
+      "name": "Aurora",
+      "description": "Ethereal & vibrant colors"
     }
   }
 }

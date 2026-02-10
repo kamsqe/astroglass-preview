@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../components/ui/BlogCard.astro';
 import { useTranslations } from '../../../utils/i18n';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
 
 export const prerender = true;
 
@@ -35,4 +36,5 @@ const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.val
       )}
     </div>
   </div>
+  <FooterLiquid />
 </BaseLayout>

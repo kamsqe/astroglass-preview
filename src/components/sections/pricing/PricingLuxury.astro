@@ -62,149 +62,152 @@ const plans = [
        <h2 class="text-5xl md:text-7xl lg:text-9xl font-normal font-serif text-base-content tracking-tighter leading-none">{t('pricing.title')}</h2>
     </div>
 
-    <!-- Desktop: Perspective Gallery -->
-    <div class="hidden lg:block">
-       <div class="c-pricing-luxury__stage" data-active="1">
-          <div class="c-pricing-luxury__track">
-             {plans.map((p, i) => (
-                <article class="c-pricing-luxury__card" data-index={i}>
-                   <div class="c-pricing-luxury__card-inner js-spotlight" data-popular={p.popular}>
-                      <!-- Glass Shimmer -->
-                      <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-60 pointer-events-none rounded-3xl"></div>
-                      
-                      <!-- Popular Badge -->
-                      {p.popular && (
-                         <div class="absolute -top-px left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-                            <div class="px-8 py-3 bg-accent text-base-100 text-[9px] font-black uppercase tracking-[0.4em] rounded-b-2xl shadow-2xl">
-                               {t('pricing.mostPopular')}
+    <!-- Scroll Anchor Wrapper (Content has ID so it has height for Observer) -->
+    <div id="pricing" class="scroll-mt-24">
+       <!-- Desktop: Perspective Gallery -->
+       <div class="hidden lg:block relative">
+          <div class="c-pricing-luxury__stage" data-active="1">
+             <div class="c-pricing-luxury__track">
+                {plans.map((p, i) => (
+                   <article class="c-pricing-luxury__card" data-index={i}>
+                      <div class="c-pricing-luxury__card-inner js-spotlight" data-popular={p.popular}>
+                         <!-- Glass Shimmer -->
+                         <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-60 pointer-events-none rounded-3xl"></div>
+                         
+                         <!-- Popular Badge -->
+                         {p.popular && (
+                            <div class="absolute -top-px left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                               <div class="px-8 py-3 bg-accent text-base-100 text-[9px] font-black uppercase tracking-[0.4em] rounded-b-2xl shadow-2xl">
+                                  {t('pricing.mostPopular')}
+                               </div>
+                            </div>
+                         )}
+
+                         <div class="relative z-10 flex-1 flex flex-col h-full pointer-events-none">
+                            <!-- Tier Header -->
+                            <div class="mb-10">
+                               <h3 class="text-[11px] font-black uppercase tracking-[0.5em] text-accent mb-6">{p.name}</h3>
+                               <div class="flex items-baseline gap-3">
+                                  <span class="text-base-content/20 text-4xl font-black">$</span>
+                                  <span class="text-7xl font-black text-base-content tracking-tighter">{p.price}</span>
+                               </div>
+                               <p class="text-sm text-base-content/30 font-bold mt-3">{p.period}</p>
+                            </div>
+
+                            <!-- Description -->
+                            <p class="text-lg text-base-content/40 font-medium leading-relaxed mb-10">{p.desc}</p>
+
+                            <!-- Features -->
+                            <ul class="space-y-4 flex-1">
+                               {p.features.map(f => (
+                                  <li class="flex items-center gap-4 text-sm font-semibold text-base-content/50">
+                                     <div class="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
+                                     {f}
+                                  </li>
+                               ))}
+                            </ul>
+
+                            <!-- CTA - Fixed at bottom -->
+                            <div class="pt-8 mt-auto pointer-events-auto">
+                               <button class:list={[
+                                  "w-full py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] shadow-xl transition-luxury hover:scale-105 active:scale-95",
+                                  p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content hover:bg-base-content hover:text-base-100"
+                               ]}>
+                                  {p.cta}
+                               </button>
                             </div>
                          </div>
-                      )}
 
-                      <div class="relative z-10 flex-1 flex flex-col h-full pointer-events-none">
-                         <!-- Tier Header -->
-                         <div class="mb-10">
-                            <h3 class="text-[11px] font-black uppercase tracking-[0.5em] text-accent mb-6">{p.name}</h3>
-                            <div class="flex items-baseline gap-3">
-                               <span class="text-base-content/20 text-4xl font-black">$</span>
-                               <span class="text-7xl font-black text-base-content tracking-tighter">{p.price}</span>
-                            </div>
-                            <p class="text-sm text-base-content/30 font-bold mt-3">{p.period}</p>
-                         </div>
-
-                         <!-- Description -->
-                         <p class="text-lg text-base-content/40 font-medium leading-relaxed mb-10">{p.desc}</p>
-
-                         <!-- Features -->
-                         <ul class="space-y-4 flex-1">
-                            {p.features.map(f => (
-                               <li class="flex items-center gap-4 text-sm font-semibold text-base-content/50">
-                                  <div class="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
-                                  {f}
-                               </li>
-                            ))}
-                         </ul>
-
-                         <!-- CTA - Fixed at bottom -->
-                         <div class="pt-8 mt-auto pointer-events-auto">
-                            <button class:list={[
-                               "w-full py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] shadow-xl transition-luxury hover:scale-105 active:scale-95",
-                               p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content hover:bg-base-content hover:text-base-100"
-                            ]}>
-                               {p.cta}
-                            </button>
-                         </div>
+                         <!-- Accent Glow -->
+                         {p.popular && <div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-accent/20 blur-[100px] rounded-full pointer-events-none"></div>}
                       </div>
+                   </article>
+                ))}
+             </div>
 
-                      <!-- Accent Glow -->
-                      {p.popular && <div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-accent/20 blur-[100px] rounded-full pointer-events-none"></div>}
-                   </div>
-                </article>
+             <!-- Click zones for left/right navigation -->
+             <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--left" data-nav="prev" aria-label={t('pricing.prevPlan')}></button>
+             <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--right" data-nav="next" aria-label={t('pricing.nextPlan')}></button>
+          </div>
+
+          <!-- Navigation Dots -->
+          <div class="flex items-center justify-center gap-4 mt-16">
+             {plans.map((p, i) => (
+                <button 
+                  class:list={["c-pricing-luxury__dot", i === 1 ? "active" : ""]}
+                  data-target={i}
+                  aria-label={t('pricing.viewPlan').replace('{plan}', p.name)}
+                ></button>
+             ))}
+          </div>
+       </div>
+
+       <!-- Mobile: Tab Navigation -->
+       <div class="lg:hidden">
+          <!-- Tab Bar -->
+          <div class="flex rounded-2xl bg-base-content/[0.03] border border-base-content/10 p-1.5 mb-6">
+             {plans.map((p, idx) => (
+                <button 
+                  class:list={["c-pricing-luxury__mobile-tab flex-1 py-3 rounded-xl text-center transition-all", idx === 1 ? "active" : ""]}
+                  data-step={idx}
+                >
+                   <span class="text-[10px] font-black uppercase tracking-wider">{p.name}</span>
+                </button>
              ))}
           </div>
 
-          <!-- Click zones for left/right navigation -->
-          <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--left" data-nav="prev" aria-label={t('pricing.prevPlan')}></button>
-          <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--right" data-nav="next" aria-label={t('pricing.nextPlan')}></button>
-       </div>
-
-       <!-- Navigation Dots -->
-       <div class="flex items-center justify-center gap-4 mt-16">
-          {plans.map((p, i) => (
-             <button 
-               class:list={["c-pricing-luxury__dot", i === 1 ? "active" : ""]}
-               data-target={i}
-               aria-label={t('pricing.viewPlan').replace('{plan}', p.name)}
-             ></button>
-          ))}
-       </div>
-    </div>
-
-    <!-- Mobile: Tab Navigation -->
-    <div class="lg:hidden">
-       <!-- Tab Bar -->
-       <div class="flex rounded-2xl bg-base-content/[0.03] border border-base-content/10 p-1.5 mb-6">
-          {plans.map((p, idx) => (
-             <button 
-               class:list={["c-pricing-luxury__mobile-tab flex-1 py-3 rounded-xl text-center transition-all", idx === 1 ? "active" : ""]}
-               data-step={idx}
-             >
-                <span class="text-[10px] font-black uppercase tracking-wider">{p.name}</span>
-             </button>
-          ))}
-       </div>
-
-       <!-- Card Container -->
-       <div class="mobile-focus-container relative min-h-[520px]">
-          {plans.map((p, idx) => (
-             <div 
-               class:list={["c-pricing-luxury__mobile-card absolute inset-0", idx === 1 ? "active" : ""]}
-               data-card={idx}
-             >
-                <div class:list={[
-                   "h-full flex flex-col p-8 rounded-3xl border backdrop-blur-xl",
-                   p.popular ? "bg-base-content/[0.04] border-accent/30" : "bg-base-content/[0.02] border-base-content/10"
-                ]}>
-                   {p.popular && (
-                      <div class="self-center px-4 py-1.5 bg-accent text-base-100 text-[8px] font-black uppercase tracking-[0.2em] rounded-full mb-4">
-                         {t('pricing.recommended')}
-                      </div>
-                   )}
-
-                   <div class="text-center mb-6">
-                      <div class="flex items-baseline justify-center gap-1 mb-1">
-                         <span class="text-base-content/20 text-2xl font-black">$</span>
-                         <span class="text-6xl font-black text-base-content tracking-tighter">{p.price}</span>
-                      </div>
-                      <p class="text-xs text-base-content/30 font-medium">{p.period}</p>
-                   </div>
-
-                   <p class="text-sm text-base-content/40 text-center font-medium leading-relaxed mb-6">{p.desc}</p>
-
-                   <div class="flex-1 space-y-3">
-                      {p.features.map(f => (
-                         <div class="flex items-center gap-3 text-sm font-medium text-base-content/50">
-                            <div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                               <svg class="w-3 h-3 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                               </svg>
-                            </div>
-                            {f}
+          <!-- Card Container -->
+          <div class="mobile-focus-container relative min-h-[520px]">
+             {plans.map((p, idx) => (
+                <div 
+                  class:list={["c-pricing-luxury__mobile-card absolute inset-0", idx === 1 ? "active" : ""]}
+                  data-card={idx}
+                >
+                   <div class:list={[
+                      "h-full flex flex-col p-8 rounded-3xl border backdrop-blur-xl",
+                      p.popular ? "bg-base-content/[0.04] border-accent/30" : "bg-base-content/[0.02] border-base-content/10"
+                   ]}>
+                      {p.popular && (
+                         <div class="self-center px-4 py-1.5 bg-accent text-base-100 text-[8px] font-black uppercase tracking-[0.2em] rounded-full mb-4">
+                            {t('pricing.recommended')}
                          </div>
-                      ))}
-                   </div>
+                      )}
 
-                   <div class="pt-6">
-                      <button class:list={[
-                         "w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.3em]",
-                         p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content"
-                      ]}>
-                         {p.cta}
-                      </button>
+                      <div class="text-center mb-6">
+                         <div class="flex items-baseline justify-center gap-1 mb-1">
+                            <span class="text-base-content/20 text-2xl font-black">$</span>
+                            <span class="text-6xl font-black text-base-content tracking-tighter">{p.price}</span>
+                         </div>
+                         <p class="text-xs text-base-content/30 font-medium">{p.period}</p>
+                      </div>
+
+                      <p class="text-sm text-base-content/40 text-center font-medium leading-relaxed mb-6">{p.desc}</p>
+
+                      <div class="flex-1 space-y-3">
+                         {p.features.map(f => (
+                            <div class="flex items-center gap-3 text-sm font-medium text-base-content/50">
+                               <div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                                  <svg class="w-3 h-3 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                  </svg>
+                               </div>
+                               {f}
+                            </div>
+                         ))}
+                      </div>
+
+                      <div class="pt-6">
+                         <button class:list={[
+                            "w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.3em]",
+                            p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content"
+                         ]}>
+                            {p.cta}
+                         </button>
+                      </div>
                    </div>
                 </div>
-             </div>
-          ))}
+             ))}
+          </div>
        </div>
     </div>
   </div>

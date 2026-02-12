@@ -3,6 +3,7 @@
   "description": "Последние обновления",
   "subtitle": "Последние мысли и обновления",
   "featured": "Избранное",
+  "featuredBadge": "Избранное",
   "allPosts": "Все записи",
   "filterByTag": "Фильтр по тегу",
   "readMore": "Читать далее",

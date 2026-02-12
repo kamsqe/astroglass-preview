@@ -3,6 +3,7 @@
   "description": "Latest updates",
   "subtitle": "Latest thoughts and updates",
   "featured": "Featured",
+  "featuredBadge": "Featured",
   "allPosts": "All Posts",
   "filterByTag": "Filter by tag",
   "readMore": "Read More",

@@ -38,13 +38,13 @@ export function buildLuxuryNavLinks(
       type: 'section',
     },
     {
-      label: t('nav.pricing'),
-      href: '#pricing',
+      label: t('nav.portfolio'),
+      href: '#portfolio',
       type: 'section',
     },
     {
-      label: t('nav.portfolio'),
-      href: '#portfolio',
+      label: t('nav.pricing'),
+      href: '#pricing',
       type: 'section',
     },
     // FAQ

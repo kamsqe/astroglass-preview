@@ -201,11 +201,11 @@ const themes = [
   
   /* ACTIVE STATE */
   .luxury-nav-link.is-active {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.25rem;
+    /* font-family: var(--font-serif); Removed per user request */
+    /* font-style: italic; Removed per user request */
+    font-size: 1.1rem; /* Keep same size or slightly larger? User wants consistent. */
     color: hsl(var(--bc));
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* 3. FOOTER / SYSTEM */
@@ -333,7 +333,7 @@ const themes = [
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+          if (entry.isIntersecting) {
              // Activate this link
              const id = entry.target.id;
              document.querySelectorAll('.luxury-nav-link').forEach(l => l.classList.remove('is-active'));
@@ -342,7 +342,8 @@ const themes = [
           }
         });
       }, {
-        rootMargin: '-20% 0px -50% 0px' // Active when section is in top half
+        rootMargin: '-20% 0px -50% 0px', // Active when section is in top half
+        threshold: 0 // Trigger as soon as one pixel enters the margin zone
       });
 
       sections.forEach(s => observer.observe(s));

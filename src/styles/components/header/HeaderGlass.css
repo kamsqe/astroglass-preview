@@ -1,9 +1,9 @@
 /* ============================================
-   Header V2 - Clean Minimal Style
+   HeaderGlass — Floating Glass Bar
    ============================================ */
 
 /* Header container */
-.header-v2 {
+.header-glass {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
 }
 
 /* Add a background fill above the header for mobile overscroll */
-.header-v2::before {
+.header-glass::before {
   content: '';
   position: absolute;
   top: -100px;
@@ -26,12 +26,12 @@
   transition: opacity 0.3s ease;
 }
 
-.header-v2-container {
+.header-glass-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.header-v2-inner {
+.header-glass-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,7 @@
 }
 
 /* Logo */
-.logo-v2 {
+.logo-glass {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -57,9 +57,9 @@
   flex-shrink: 0;
 }
 
-.logo-v2:hover { opacity: 0.8; }
+.logo-glass:hover { opacity: 0.8; }
 
-.logo-v2-icon {
+.logo-glass-icon {
   width: 36px;
   height: 36px;
   display: flex;
@@ -70,31 +70,31 @@
   color: white;
 }
 
-.logo-v2-icon svg {
+.logo-glass-icon svg {
   width: 20px;
   height: 20px;
 }
 
-.logo-v2-text {
+.logo-glass-text {
   display: none;
 }
 
 @media (min-width: 480px) {
-  .logo-v2-text { display: block; }
+  .logo-glass-text { display: block; }
 }
 
 /* Desktop Nav - hidden on mobile */
-.nav-v2 {
+.nav-glass {
   display: none;
   align-items: center;
   gap: 4px;
 }
 
 @media (min-width: 1024px) {
-  .nav-v2 { display: flex; }
+  .nav-glass { display: flex; }
 }
 
-.nav-v2-item {
+.nav-glass-item {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -111,28 +111,28 @@
   white-space: nowrap;
 }
 
-.nav-v2-item:hover {
+.nav-glass-item:hover {
   color: hsl(var(--bc));
   background: hsl(var(--bc) / 0.06);
 }
 
-.nav-v2-chevron {
+.nav-glass-chevron {
   width: 14px;
   height: 14px;
   opacity: 0.5;
   transition: transform 0.2s ease;
 }
 
-.dropdown-v2.is-open .nav-v2-chevron {
+.dropdown-glass.is-open .nav-glass-chevron {
   transform: rotate(180deg);
 }
 
 /* Dropdown menu */
-.dropdown-v2 {
+.dropdown-glass {
   position: relative;
 }
 
-.dropdown-v2-menu {
+.dropdown-glass-menu {
   position: absolute;
   top: calc(100% + 8px);
   left: 50%;
@@ -151,14 +151,14 @@
   z-index: 50;
 }
 
-.dropdown-v2.is-open .dropdown-v2-menu {
+.dropdown-glass.is-open .dropdown-glass-menu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
-.dropdown-v2-item {
+.dropdown-glass-item {
   display: block;
   padding: 10px 14px;
   font-size: 0.875rem;
@@ -168,86 +168,35 @@
   transition: all 0.15s ease;
 }
 
-.dropdown-v2-item:hover {
+.dropdown-glass-item:hover {
   color: hsl(var(--a));
   background: hsl(var(--a) / 0.1);
 }
 
 /* Desktop actions - hidden on mobile */
-.header-v2-actions {
+.header-glass-actions {
   display: none;
   align-items: center;
   gap: 8px;
 }
 
 @media (min-width: 1024px) {
-  .header-v2-actions { display: flex; }
+  .header-glass-actions { display: flex; }
 }
 
 /* Mobile actions - shown only on mobile */
-.header-v2-mobile-actions {
+.header-glass-mobile-actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 @media (min-width: 1024px) {
-  .header-v2-mobile-actions { display: none; }
-}
-
-/* Theme Toggle Button */
-.theme-toggle-v2 {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: hsl(var(--bc) / 0.05);
-  border: 1px solid hsl(var(--bc) / 0.08);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  overflow: hidden;
-}
-
-.theme-toggle-v2:hover {
-  background: hsl(var(--a) / 0.1);
-  border-color: hsl(var(--a) / 0.2);
-}
-
-.theme-toggle-v2:active {
-  transform: scale(0.95);
-}
-
-.theme-icon {
-  position: absolute;
-  font-size: 18px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Light theme: show sun */
-[data-theme="light"] .theme-icon-light {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-[data-theme="light"] .theme-icon-dark {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.5);
-}
-
-/* Dark theme: show moon */
-[data-theme="dark"] .theme-icon-light {
-  opacity: 0;
-  transform: rotate(90deg) scale(0.5);
-}
-[data-theme="dark"] .theme-icon-dark {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
+  .header-glass-mobile-actions { display: none; }
 }
 
 /* Hamburger Button */
-.hamburger-v2 {
+.burger-glass {
   width: 40px;
   height: 40px;
   display: flex;
@@ -262,12 +211,12 @@
   transition: all 0.2s ease;
 }
 
-.hamburger-v2:hover {
+.burger-glass:hover {
   background: hsl(var(--a) / 0.1);
   border-color: hsl(var(--a) / 0.2);
 }
 
-.hamburger-v2-line {
+.burger-glass-line {
   width: 18px;
   height: 2px;
   background: hsl(var(--bc) / 0.7);
@@ -275,16 +224,19 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hamburger-v2.is-active .hamburger-v2-line:first-child {
+.burger-glass.is-active .burger-glass-line:first-child {
   transform: translateY(4px) rotate(45deg);
 }
 
-.hamburger-v2.is-active .hamburger-v2-line:last-child {
+.burger-glass.is-active .burger-glass-line:last-child {
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* Mobile Panel */
-.mobile-panel-v2 {
+/* -------------------------------------------------------------------------- */
+/*                                MOBILE PANEL                                */
+/* -------------------------------------------------------------------------- */
+
+.panel-glass {
   position: fixed;
   inset: 0;
   z-index: 99;
@@ -298,13 +250,13 @@
   overscroll-behavior: contain;
 }
 
-.mobile-panel-v2.is-open {
+.panel-glass.is-open {
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
 }
 
-.mobile-panel-v2-content {
+.panel-glass-content {
   padding: 24px 20px;
   padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   min-height: calc(100% - 80px);
@@ -312,7 +264,7 @@
   flex-direction: column;
 }
 
-.mobile-panel-v2-nav {
+.panel-glass-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -320,7 +272,7 @@
 }
 
 /* Mobile link (non-accordion) */
-.mobile-link-v2 {
+.mobile-link-glass {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -334,16 +286,16 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.mobile-link-v2:hover {
+.mobile-link-glass:hover {
   background: hsl(var(--bc) / 0.05);
 }
 
-.mobile-link-v2:active {
+.mobile-link-glass:active {
   background: hsl(var(--a) / 0.1);
 }
 
 /* Accordion */
-.accordion-v2-trigger {
+.accordion-glass-trigger {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -360,53 +312,53 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.accordion-v2-trigger:hover {
+.accordion-glass-trigger:hover {
   background: hsl(var(--bc) / 0.05);
 }
 
-.accordion-v2-trigger:active {
+.accordion-glass-trigger:active {
   background: hsl(var(--a) / 0.1);
 }
 
-.accordion-v2-icon {
+.accordion-glass-icon {
   width: 22px;
   height: 22px;
   color: hsl(var(--a));
   flex-shrink: 0;
 }
 
-.accordion-v2-label {
+.accordion-glass-label {
   flex: 1;
   text-align: left;
 }
 
-.accordion-v2-chevron {
+.accordion-glass-chevron {
   width: 18px;
   height: 18px;
   color: hsl(var(--bc) / 0.4);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.accordion-v2.is-open .accordion-v2-chevron {
+.accordion-glass.is-open .accordion-glass-chevron {
   transform: rotate(180deg);
 }
 
 /* Accordion panel with smooth animation */
-.accordion-v2-panel {
+.accordion-glass-panel {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.accordion-v2.is-open .accordion-v2-panel {
+.accordion-glass.is-open .accordion-glass-panel {
   grid-template-rows: 1fr;
 }
 
-.accordion-v2-panel-inner {
+.accordion-glass-panel-inner {
   overflow: hidden;
 }
 
-.accordion-v2-link {
+.accordion-glass-link {
   display: block;
   padding: 12px 16px 12px 52px;
   font-size: 0.95rem;
@@ -415,22 +367,28 @@
   transition: all 0.2s ease;
 }
 
-.accordion-v2-link:hover {
+.accordion-glass-link:hover {
   color: hsl(var(--a));
   background: hsl(var(--a) / 0.05);
 }
 
 /* Mobile panel footer */
-.mobile-panel-v2-footer {
+.panel-glass-footer {
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid hsl(var(--bc) / 0.1);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
-.mobile-panel-v2-label {
+.panel-glass-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-glass-label {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -440,7 +398,7 @@
 
 /* Hide mobile panel on desktop */
 @media (min-width: 1024px) {
-  .mobile-panel-v2 {
+  .panel-glass {
     display: none !important;
   }
 }

@@ -5,7 +5,6 @@
 @import "./_animations.css";
 @import "./_docs.css";
 @import "./_header.css";
-@import "./_header-v2.css";
 @import "./_hamburger.css";
 @import "./_mobile-menu.css";
 @import "./_dropdowns.css";
@@ -35,6 +34,7 @@
   --header-height: 64px;
   --header-height-lg: 72px;
   --nav-offset: 0px;
+  --font-serif: "Playfair Display", "Times New Roman", Times, serif;
 }
 
 /* Fixed/Absolute headers need offset to prevent overlap */
@@ -60,6 +60,11 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Premium easing for "liquid" feel */
+.ease-out-expo {
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* ============================================
@@ -133,9 +138,12 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: var(--ambient-glow, none);
+  pointer-events: none;
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   z-index: -1;
   opacity: 1;
+  mix-blend-mode: overlay;
   transition: opacity 0.5s ease, background 0.5s ease;
 }
 

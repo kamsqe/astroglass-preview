@@ -426,118 +426,28 @@
 }
 
 /* Use CSS mask to fade edges - smooth eased gradient for beautiful transition */
-.theme-scroll-container {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0,0,0,0.1) 2%,
-    rgba(0,0,0,0.4) 4%,
-    rgba(0,0,0,0.7) 6%,
-    rgba(0,0,0,0.9) 8%,
-    black 10%,
-    black 90%,
-    rgba(0,0,0,0.9) 92%,
-    rgba(0,0,0,0.7) 94%,
-    rgba(0,0,0,0.4) 96%,
-    rgba(0,0,0,0.1) 98%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0,0,0,0.1) 2%,
-    rgba(0,0,0,0.4) 4%,
-    rgba(0,0,0,0.7) 6%,
-    rgba(0,0,0,0.9) 8%,
-    black 10%,
-    black 90%,
-    rgba(0,0,0,0.9) 92%,
-    rgba(0,0,0,0.7) 94%,
-    rgba(0,0,0,0.4) 96%,
-    rgba(0,0,0,0.1) 98%,
-    transparent 100%
-  );
+.theme-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px; /* Tighter gap */
+  padding: 2px;
 }
 
-/* When scrolled to start, remove left fade */
-.theme-switcher-mobile.at-scroll-start .theme-scroll-container {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    black 0%,
-    black 90%,
-    rgba(0,0,0,0.9) 92%,
-    rgba(0,0,0,0.7) 94%,
-    rgba(0,0,0,0.4) 96%,
-    rgba(0,0,0,0.1) 98%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    black 0%,
-    black 90%,
-    rgba(0,0,0,0.9) 92%,
-    rgba(0,0,0,0.7) 94%,
-    rgba(0,0,0,0.4) 96%,
-    rgba(0,0,0,0.1) 98%,
-    transparent 100%
-  );
-}
-
-/* When scrolled to end, remove right fade */
-.theme-switcher-mobile.at-scroll-end .theme-scroll-container {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0,0,0,0.1) 2%,
-    rgba(0,0,0,0.4) 4%,
-    rgba(0,0,0,0.7) 6%,
-    rgba(0,0,0,0.9) 8%,
-    black 10%,
-    black 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0,0,0,0.1) 2%,
-    rgba(0,0,0,0.4) 4%,
-    rgba(0,0,0,0.7) 6%,
-    rgba(0,0,0,0.9) 8%,
-    black 10%,
-    black 100%
-  );
-}
-
-/* When at both ends (content fits), no fade */
-.theme-switcher-mobile.at-scroll-start.at-scroll-end .theme-scroll-container {
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-.theme-scroll-container {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 4px 2px;
-  margin: -4px -2px;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.theme-scroll-container::-webkit-scrollbar {
-  display: none;
+@media (max-width: 360px) {
+  .theme-grid-container {
+    grid-template-columns: repeat(4, 1fr); /* Fallback for very narrow screens */
+  }
 }
 
 .theme-option-mobile {
   flex-shrink: 0;
-  min-width: 58px;
+  min-width: 50px; /* Tighter */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 12px 8px 10px;
+  gap: 4px;
+  padding: 10px 4px 8px; /* Compact padding */
   border-radius: 14px;
   background: linear-gradient(135deg, hsl(var(--bc) / 0.035) 0%, hsl(var(--bc) / 0.015) 100%);
   border: 1.5px solid hsl(var(--bc) / 0.05);

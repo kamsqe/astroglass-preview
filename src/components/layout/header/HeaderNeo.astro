@@ -1,12 +1,16 @@
 ---
 /**
- * Header V3 - Floating Pill Header
- * A centered, compact floating pill that follows the user.
+ * HeaderNeo — Shrink-on-Scroll Navigation Bar
+ *
+ * Desktop: Full-width transparent bar with all nav links inline.
+ *          Shrinks to a compact centered pill on scroll.
+ *          Dropdowns for Services and Resources.
+ * Mobile:  Hamburger → fullscreen overlay with expandable children.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import { buildNavLinks } from '../../../config/navigation';
-import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
+import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -15,82 +19,189 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 import '../../../styles/components/header/HeaderNeo.css';
 ---
 
-
-<header class="header-v3">
-  <div class="header-v3-pill">
-    <a href={homeHref} class="logo-v3" aria-label={t('nav.home')}>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-        <path d="M2 17l10 5 10-5"/>
-      </svg>
+<header class="header-neo" id="header-neo">
+  <div class="header-neo-inner">
+    <!-- Logo -->
+    <a href={homeHref} class="logo-neo" aria-label={t('nav.home')}>
+      <span class="logo-neo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </span>
+      <span class="logo-neo-text">{t('siteName')}</span>
     </a>
 
-    <nav class="nav-v3">
-      {navLinks.slice(0, 3).map((link) => (
-        <a href={link.href} class="nav-v3-link">{link.label}</a>
+    <!-- Desktop Navigation -->
+    <nav class="nav-neo">
+      {navLinks.map((link) => (
+        link.children ? (
+          <div class="dropdown-neo" data-dropdown-neo>
+            <button type="button" class="nav-neo-link" aria-expanded="false">
+              {link.label}
+              <svg class="nav-neo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="dropdown-neo-menu">
+              {link.children.map((child) => (
+                <a href={child.href} class="dropdown-neo-item">{child.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={link.href} class="nav-neo-link">{link.label}</a>
+        )
       ))}
     </nav>
 
-    <div class="header-v3-divider"></div>
-
-    <div class="header-v3-actions">
-       <button type="button" class="action-btn-v3" id="search-toggle-v3" aria-label={t('nav.explore')}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-        </svg>
-      </button>
-      <div class="v3-desktop-only">
-        <ThemeSwitcher />
-      </div>
-      <button type="button" class="burger-v3" id="hamburger-v3" aria-label={t('nav.menu')}>
-        <span></span>
-        <span></span>
-      </button>
+    <!-- Desktop Actions -->
+    <div class="header-neo-actions">
+      <ThemeSwitcher />
+      <div class="header-neo-divider"></div>
+      <LanguageSwitcher />
     </div>
+
+    <!-- Mobile Burger -->
+    <button type="button" class="burger-neo" id="burger-neo" aria-label={t('nav.menu')}>
+      <span class="burger-neo-line"></span>
+      <span class="burger-neo-line"></span>
+    </button>
   </div>
 </header>
 
-<div class="overlay-v3" id="overlay-v3">
-  <div class="overlay-v3-content">
-    <nav class="overlay-v3-nav">
-      {navLinks.map((link, i) => (
-        <a href={link.href} class="overlay-v3-link" style={`animation-delay: ${i * 0.1}s`}>
-          <span class="overlay-v3-number">0{i + 1}</span>
-          <span class="overlay-v3-text">{link.label}</span>
-        </a>
+<!-- Fullscreen Overlay Navigation -->
+<div class="overlay-neo" id="overlay-neo">
+  <div class="overlay-neo-content">
+    <nav class="overlay-neo-nav">
+      {navLinks.map((link) => (
+        link.children ? (
+          <div class="overlay-neo-group" data-neo-group>
+            <button type="button" class="overlay-neo-group-trigger">
+              <span class="overlay-neo-link-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
+                </svg>
+              </span>
+              {link.label}
+              <svg class="overlay-neo-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="overlay-neo-group-children">
+              <div class="overlay-neo-group-children-inner">
+                {link.children.map((child) => (
+                  <a href={child.href} class="overlay-neo-child-link">{child.label}</a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a href={link.href} class="overlay-neo-link">
+            <span class="overlay-neo-link-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
+              </svg>
+            </span>
+            {link.label}
+          </a>
+        )
       ))}
     </nav>
-    <div class="overlay-v3-footer">
-      <LanguageSwitcher />
-      <ThemeSwitcher />
+
+    <div class="overlay-neo-footer">
+      <div class="overlay-neo-footer-item">
+        <span class="overlay-neo-footer-label">{t('themeSwitcher.label')}</span>
+        <ThemeSwitcher variant="mobile" />
+      </div>
+      <div class="overlay-neo-footer-item">
+        <span class="overlay-neo-footer-label">{t('languageSwitcher.label')}</span>
+        <LanguageSwitcher variant="mobile" />
+      </div>
     </div>
   </div>
 </div>
 
-</style>
-
 <script>
-  function initHeaderV3() {
-    const burger = document.getElementById('hamburger-v3');
-    const overlay = document.getElementById('overlay-v3');
-    
-    if (!burger || !overlay) return;
+  function initHeaderNeo() {
+    const header = document.getElementById('header-neo');
+    const burger = document.getElementById('burger-neo');
+    const overlay = document.getElementById('overlay-neo');
 
-    burger.addEventListener('click', () => {
+    if (!header || !burger || !overlay) return;
+
+    // Reset state
+    overlay.classList.remove('is-open');
+    burger.classList.remove('is-active');
+
+    // ---- Shrink-on-scroll ----
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial check
+
+    // ---- Mobile overlay ----
+    const newBurger = burger.cloneNode(true) as HTMLElement;
+    burger.parentNode?.replaceChild(newBurger, burger);
+
+    const closeOverlay = () => {
+      overlay.classList.remove('is-open');
+      newBurger.classList.remove('is-active');
+      document.body.style.overflow = '';
+    };
+
+    newBurger.addEventListener('click', () => {
       const isOpen = overlay.classList.toggle('is-open');
-      burger.classList.toggle('is-active');
+      newBurger.classList.toggle('is-active');
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     overlay.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        overlay.classList.remove('is-open');
-        burger.classList.remove('is-active');
-        document.body.style.overflow = '';
+      link.addEventListener('click', closeOverlay);
+    });
+
+    // Escape key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+        closeOverlay();
+        newBurger.focus();
+      }
+    });
+
+    // ---- Desktop dropdowns ----
+    document.querySelectorAll('[data-dropdown-neo]').forEach(dropdown => {
+      const trigger = dropdown.querySelector('.nav-neo-link');
+      if (!trigger) return;
+      
+      const newTrigger = trigger.cloneNode(true) as HTMLElement;
+      trigger.parentNode?.replaceChild(newTrigger, trigger);
+      
+      newTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => {
+          if (d !== dropdown) d.classList.remove('is-open');
+        });
+        dropdown.classList.toggle('is-open');
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => d.classList.remove('is-open'));
+    });
+
+    // ---- Mobile expandable groups ----
+    overlay.querySelectorAll('[data-neo-group]').forEach(group => {
+      const groupTrigger = group.querySelector('.overlay-neo-group-trigger');
+      if (!groupTrigger) return;
+
+      groupTrigger.addEventListener('click', () => {
+        group.classList.toggle('is-open');
       });
     });
   }
 
-  initHeaderV3();
-  document.addEventListener('astro:after-swap', initHeaderV3);
+  initHeaderNeo();
+  document.addEventListener('astro:after-swap', initHeaderNeo);
 </script>

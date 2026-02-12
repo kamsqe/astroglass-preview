@@ -1,30 +1,39 @@
 ---
 /**
- * Header V4 - Floating Pro Sidebar (Right)
- * A clean, high-end vertical navigation system.
+ * HeaderLuxury — Editorial Bottom Sheet Navigation
+ *
+ * Desktop: elegant vertical sidebar.
+ * Mobile: "Editorial" bottom sheet with drill-down interactions.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
-import { buildNavLinks } from '../../../config/navigation';
-import MobileNav from '../../layout/MobileNav.astro';
+import { buildLuxuryNavLinks } from '../../../config/luxuryNavigation';
+import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
+import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
+import LuxurySidebarStructure from './LuxurySidebarStructure.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildNavLinks(locale, t);
+const navLinks = buildLuxuryNavLinks(locale, t);
 const activeLink = Astro.url.pathname;
 const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+
+// Language Logic: Preserve current path
+const currentPath = Astro.url.pathname;
+const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
+const finalPath = cleanPath || '/';
+const enPath = finalPath;
+const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+
 import '../../../styles/components/header/HeaderLuxury.css';
 ---
 
-
-<!-- Mobile Header (Visible only on mobile) -->
-<div class="lg:hidden fixed top-0 left-0 right-0 z-50 px-4 py-4 flex justify-between items-center pointer-events-none">
-  <div class="pointer-events-auto">
-    <a href={homeHref} class="v4-logo">
-      <div class="logo-inner">LG</div>
-    </a>
-  </div>
+<!-- Mobile Header Bar -->
+<div class="luxury-mobile-bar">
+  <a href={homeHref} class="luxury-logo">
+    <span class="luxury-logo-inner">LG</span>
+  </a>
   
-  <button type="button" class="hamburger-btn pointer-events-auto" id="menu-toggle" aria-label="Toggle menu">
+  <button type="button" class="hamburger-btn" id="menu-toggle-luxury" aria-label="Toggle menu">
     <div class="hamburger-icon">
       <span></span>
       <span></span>
@@ -32,52 +41,101 @@ import '../../../styles/components/header/HeaderLuxury.css';
   </button>
 </div>
 
-<!-- Desktop Sidebar (Right Only - wait, original comments said Right but CSS says Left: 40px? Assuming Left based on CSS) -->
-<aside class="v4-sidebar hidden lg:flex">
-  <div class="v4-container backdrop-blur-3xl border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.3)]">
-    <div class="v4-top">
-      <a href={homeHref} class="v4-logo">
-        <div class="logo-inner">LG</div>
-      </a>
+<!-- Desktop Sidebar (Unchanged) -->
+<div class="luxury-desktop-wrapper hidden lg:block">
+  <!-- Desktop: The Architectural Spine -->
+  <LuxurySidebarStructure />
+</div>
+
+<!-- Mobile (Unchanged) -->
+<div class="luxury-mobile-bar"></div>
+
+<!-- Mobile Navigation (Editorial Design) -->
+<nav class="luxury-mobile-menu" id="luxury-mobile-menu">
+  <div class="luxury-sheet">
+    
+    <div class="luxury-nav-container">
+      <!-- Main Panel (Simplified for Luxury: Flat List) -->
+      <div class="luxury-panel is-active" id="panel-main">
+        {navLinks.map((link) => (
+           <a 
+             href={link.href} 
+             class="luxury-big-link"
+           >
+             <span>{link.label}</span>
+             {link.type === 'page' && <span class="luxury-arrow">↗</span>}
+           </a>
+        ))}
+      </div>
     </div>
 
-    <nav class="v4-nav">
-      {navLinks.map((link) => (
-        <a 
-          href={link.href} 
-          class={`v4-link group ${activeLink === link.href ? 'is-active' : ''}`}
-        >
-          <div class="v4-icon-wrap">
-            <svg class="v4-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-               {link.icon.paths.map(p => <path stroke-linecap="round" stroke-linejoin="round" d={p} />)}
-            </svg>
+    <!-- Editorial Context Controls -->
+    <div class="luxury-sheet-footer">
+      <div class="luxury-controls-row">
+        
+        <!-- Theme Control -->
+        <div class="luxury-control-group">
+          <span class="luxury-control-label">{t('themeSwitcher.label') || 'Theme'}</span>
+          <button class="luxury-control-trigger" data-toggle-control="theme">
+            <span class="luxury-control-value" id="current-theme-label">Default</span>
+            <span class="text-xs opacity-50">↓</span>
+          </button>
+          <div class="luxury-control-list" id="theme-list">
+             <button class="luxury-control-option" data-set-theme="tahoe">Tahoe</button>
+             <button class="luxury-control-option" data-set-theme="abyss">Abyss</button>
+             <button class="luxury-control-option" data-set-theme="solaris">Solaris</button>
+             <button class="luxury-control-option" data-set-theme="nordic">Nordic</button>
+             <button class="luxury-control-option" data-set-theme="neonoir">NeoNoir</button>
+             <button class="luxury-control-option" data-set-theme="synthwave">Synthwave</button>
           </div>
-          <span class="v4-label">{link.label}</span>
-          <div class="v4-active-indicator"></div>
-        </a>
-      ))}
-    </nav>
-
-    <div class="v4-bottom">
-      <button class="v4-theme-btn theme-toggle-v4" aria-label={t('themeSwitcher.label')}>
-        <div class="v4-theme-icons">
-           <span class="sun">☀️</span>
-           <span class="moon">🌙</span>
         </div>
-      </button>
+
+        <!-- Language Control -->
+        <div class="luxury-control-group items-end">
+          <span class="luxury-control-label">{t('languageSwitcher.label') || 'Language'}</span>
+          <button class="luxury-control-trigger" data-toggle-control="lang">
+            <span class="luxury-control-value">{locale === 'en' ? 'English' : 'Русский'}</span>
+            <span class="text-xs opacity-50">↓</span>
+          </button>
+          <div class="luxury-control-list" id="lang-list">
+             <a href={enPath} class={`luxury-control-option ${locale === 'en' ? 'is-selected' : ''}`}>
+               English
+             </a>
+             <a href={ruPath} class={`luxury-control-option ${locale === 'ru' ? 'is-selected' : ''}`}>
+               Русский
+             </a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</aside>
-
-<!-- Mobile Navigation -->
-<MobileNav links={navLinks} />
-
-</style>
+</nav>
 
 <script>
-  function initHeaderV4() {
-    // Theme toggles
-    const themeToggles = document.querySelectorAll('.theme-toggle-v4');
+  function initHeaderLuxury() {
+    // Helper to update labels
+    const updateControlLabel = (theme: string) => {
+       const label = document.getElementById('current-theme-label');
+       if (label) {
+         label.innerText = theme.charAt(0).toUpperCase() + theme.slice(1);
+       }
+       document.querySelectorAll('[data-set-theme]').forEach(el => {
+          if (el.getAttribute('data-set-theme') === theme) {
+            el.classList.add('is-selected');
+          } else {
+            el.classList.remove('is-selected');
+          }
+       });
+    };
+
+    // Initialize current label
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme') || 'tahoe';
+    updateControlLabel(currentTheme);
+
+    // Desktop Theme Toggle (Legacy)
+    const themeToggles = document.querySelectorAll('.theme-toggle-luxury');
     const themes = ['tahoe', 'abyss', 'solaris', 'nordic', 'neonoir', 'synthwave'];
 
     themeToggles.forEach(btn => {
@@ -93,42 +151,143 @@ import '../../../styles/components/header/HeaderLuxury.css';
         
         html.setAttribute('data-theme', nextTheme);
         localStorage.setItem('theme', nextTheme);
+        updateControlLabel(nextTheme);
       });
     });
 
     // Mobile Menu Logic
-    const btn = document.getElementById('menu-toggle');
-    const nav = document.getElementById('mobile-nav');
+    const btn = document.getElementById('menu-toggle-luxury');
+    const nav = document.getElementById('luxury-mobile-menu');
 
     if (btn && nav) {
       const newBtn = btn.cloneNode(true) as HTMLElement;
       btn.parentNode?.replaceChild(newBtn, btn);
 
-      const toggleMenu = () => {
-        if (nav.classList.contains('is-open')) {
-          nav.classList.remove('is-open');
-          newBtn.classList.remove('is-active');
-          document.body.style.overflow = '';
-        } else {
-          nav.classList.add('is-open');
-          newBtn.classList.add('is-active');
-          document.body.style.overflow = 'hidden';
-        }
+      // Transition Logic
+      const panels = nav.querySelectorAll('.luxury-panel');
+      
+      const resetPanels = () => {
+        panels.forEach((p) => {
+          if (p.id === 'panel-main') {
+            p.classList.add('is-active');
+            p.classList.remove('is-left');
+          } else {
+            p.classList.remove('is-active');
+            p.classList.add('is-right');
+          }
+        });
+        // Collapse controls
+        document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
       };
 
-      newBtn.addEventListener('click', toggleMenu);
-      
-      // Close on link click
-      nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          nav.classList.remove('is-open');
-          newBtn.classList.remove('is-active');
-          document.body.style.overflow = '';
+      const closeMenu = () => {
+        nav.classList.remove('is-open');
+        newBtn.classList.remove('is-active');
+        document.body.style.overflow = '';
+        setTimeout(resetPanels, 600); 
+      };
+
+      const openMenu = () => {
+        nav.classList.add('is-open');
+        newBtn.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      newBtn.addEventListener('click', () => {
+        nav.classList.contains('is-open') ? closeMenu() : openMenu();
+      });
+
+      // Drill-Down Interactions
+      nav.querySelectorAll('[data-target]').forEach(trigger => {
+        const targetId = (trigger as HTMLElement).dataset.target;
+        const targetPanel = document.getElementById(targetId!);
+        const mainPanel = document.getElementById('panel-main');
+        
+        trigger.addEventListener('click', () => {
+          if (mainPanel && targetPanel) {
+             mainPanel.classList.remove('is-active');
+             mainPanel.classList.add('is-left');
+             
+             targetPanel.classList.remove('is-right');
+             targetPanel.classList.add('is-active');
+          }
         });
       });
+
+      // Back interactions
+      nav.querySelectorAll('[data-back]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+           const activePanel = trigger.closest('.luxury-panel');
+           const mainPanel = document.getElementById('panel-main');
+           
+           if (activePanel && mainPanel) {
+             activePanel.classList.remove('is-active');
+             activePanel.classList.add('is-right');
+             
+             mainPanel.classList.remove('is-left');
+             mainPanel.classList.add('is-active');
+           }
+        });
+      });
+      
+      // Controls Logic (Expanders)
+      nav.querySelectorAll('[data-toggle-control]').forEach(trigger => {
+         trigger.addEventListener('click', (e) => {
+           e.stopPropagation();
+           const group = trigger.closest('.luxury-control-group');
+           const wasOpen = group?.classList.contains('is-open');
+           
+           // Close all first
+           document.querySelectorAll('.luxury-control-group').forEach(g => {
+             g.classList.remove('is-open');
+           });
+           
+           // Toggle clicked
+           if (!wasOpen) {
+             group?.classList.add('is-open');
+           }
+         });
+      });
+
+      // Theme Selection
+      nav.querySelectorAll('[data-set-theme]').forEach(option => {
+        option.addEventListener('click', (e) => {
+          const theme = (e.currentTarget as HTMLElement).dataset.setTheme;
+          if (theme) {
+             const html = document.documentElement;
+             html.setAttribute('data-theme', theme);
+             localStorage.setItem('theme', theme);
+             updateControlLabel(theme);
+          }
+        });
+      });
+
+      // Close on link click
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Escape key handler - Guarded
+      if (!(window as any).__escapeListenerLuxuryAdded) {
+        (window as any).__escapeListenerLuxuryAdded = true;
+        document.addEventListener('keydown', (e) => {
+          const nav = document.getElementById('luxury-mobile-menu');
+          const btn = document.getElementById('menu-toggle-luxury');
+          if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
+            const activePanel = nav.querySelector('.luxury-panel.is-active');
+            if (activePanel && activePanel.id !== 'panel-main') {
+               const backBtn = activePanel.querySelector('[data-back]') as HTMLElement;
+               backBtn?.click();
+            } else {
+               closeMenu();
+               btn?.focus();
+            }
+          }
+        });
+      }
     }
   }
 
-  initHeaderV4();
-  document.addEventListener('astro:after-swap', initHeaderV4);
+  initHeaderLuxury();
+  document.addEventListener('astro:after-swap', initHeaderLuxury);
 </script>

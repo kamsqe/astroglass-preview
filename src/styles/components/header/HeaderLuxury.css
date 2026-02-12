@@ -1,176 +1,327 @@
 /* -------------------------------------------------------------------------- */
-/*                                SIDEBAR LAYOUT                              */
+/*                           SIDEBAR LAYOUT — LUXURY                          */
 /* -------------------------------------------------------------------------- */
 
-.v4-sidebar {
+/* -------------------------------------------------------------------------- */
+/*                           SIDEBAR REMOVED -> DESKTOP HEADER USED           */
+/* -------------------------------------------------------------------------- */
+/* The desktop header styles are now self-contained in LuxuryHeaderDesktop.astro */
+
+/* -------------------------------------------------------------------------- */
+/*                           MOBILE HEADER BAR                                */
+/* -------------------------------------------------------------------------- */
+
+.luxury-mobile-bar {
+  display: flex;
   position: fixed;
   top: 0;
-  left: 40px;
-  bottom: 0;
-  z-index: 150;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 16px;
+  justify-content: space-between;
   align-items: center;
   pointer-events: none;
 }
 
-.v4-container {
+@media (min-width: 1024px) {
+  .luxury-mobile-bar { display: none; }
+}
+
+.luxury-mobile-bar > * {
   pointer-events: auto;
-  width: 84px;
-  height: auto;
-  max-height: 85vh;
-  background: hsl(var(--b1) / 0.8);
-  border-radius: 40px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 10px;
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.v4-container:hover {
-  width: 240px;
-  padding: 24px 16px;
-  background: hsl(var(--b1) / 0.95);
-  box-shadow: 20px 0 100px rgba(0,0,0,0.3);
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                LOGO SECTION                                */
-/* -------------------------------------------------------------------------- */
-
-.v4-top { margin-bottom: 40px; display: flex; justify-content: center; }
-
-.v4-logo {
-  width: 52px;
-  height: 52px;
-  background: hsl(var(--a));
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 25px -5px hsl(var(--a) / 0.4);
-}
-.v4-logo:hover { transform: scale(1.1) rotate(8deg); }
-.logo-inner { font-weight: 900; color: white; font-size: 1.1rem; }
-
-/* -------------------------------------------------------------------------- */
-/*                                NAVIGATION LINKS                            */
-/* -------------------------------------------------------------------------- */
-
-.v4-nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.v4-link {
-  height: 52px;
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  border-radius: 22px;
-  text-decoration: none;
-  color: hsl(var(--bc) / 0.3);
-  position: relative;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-
-.v4-link:hover {
-  background: hsl(var(--bc) / 0.04);
-  color: hsl(var(--bc));
-}
-
-.v4-link.is-active {
-  background: hsl(var(--a) / 0.1);
-  color: hsl(var(--a));
-}
-
-.v4-icon-wrap {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.v4-link:hover .v4-icon-wrap { transform: scale(1.1); }
-
-.v4-svg { width: 100%; height: 100%; }
-
-.v4-label {
-  margin-left: 20px;
-  font-size: 14px;
-  font-weight: 800;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(10px);
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.v4-container:hover .v4-label { opacity: 1; transform: translateX(0); }
-
-.v4-active-indicator {
-  position: absolute;
-  left: 0;
-  width: 4px;
-  height: 16px;
-  background: hsl(var(--a));
-  border-radius: 0 4px 4px 0;
-  opacity: 0;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.v4-link.is-active .v4-active-indicator { opacity: 1; }
-
-/* -------------------------------------------------------------------------- */
-/*                                THEME SWITCHER                              */
-/* -------------------------------------------------------------------------- */
-
-.v4-bottom {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid hsl(var(--bc) / 0.05);
-  display: flex;
-  justify-content: center;
-}
-
-.v4-theme-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 20px;
-  background: hsl(var(--bc) / 0.04);
-  border: 1px solid hsl(var(--bc) / 0.1);
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.v4-theme-btn:hover { background: hsl(var(--bc)); color: hsl(var(--b1)); transform: scale(1.05); }
-
-.v4-theme-icons {
-  display: flex;
-  flex-direction: column;
-  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-theme="abyss"] .v4-theme-icons,
-[data-theme="neonoir"] .v4-theme-icons,
-[data-theme="synthwave"] .v4-theme-icons {
-  transform: translateY(-52px);
-}
-
-.v4-theme-icons span {
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                GLOBAL TRANSITIONS                          */
 /* -------------------------------------------------------------------------- */
 
-.v4-link, .v4-icon-wrap, .v4-action-btn, .v4-theme-btn, .v4-theme-icons, .v4-label, .v4-active-indicator {
+.luxury-link, .luxury-icon-wrap, .luxury-theme-btn, .luxury-theme-icons, .luxury-label, .luxury-active-indicator {
   transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                           MOBILE MENU OVERLAY                              */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                           MOBILE MENU - EDITORIAL v2                       */
+/* -------------------------------------------------------------------------- */
+
+.luxury-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Backdrop */
+.luxury-mobile-menu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--b1) / 0.6);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.luxury-mobile-menu.is-open::before {
+  opacity: 1;
+}
+
+/* Bottom Sheet */
+.luxury-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 92vh; /* Use 92% of screen height */
+  background: hsl(var(--b1));
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-top: 1px solid hsl(var(--bc) / 0.1);
+}
+
+.luxury-mobile-menu.is-open .luxury-sheet {
+  transform: translateY(0);
+}
+
+/* Navigation Panels Container - For Drill-Down */
+.luxury-nav-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.luxury-panel {
+  position: absolute;
+  inset: 0;
+  padding: 32px 24px;
+  overflow-y: auto;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Gap between large links */
+}
+
+/* Main Panel State */
+.luxury-panel.is-active {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+.luxury-panel.is-left {
+  transform: translateX(-20%);
+  opacity: 0;
+  pointer-events: none;
+}
+.luxury-panel.is-right {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Massive Typography */
+.luxury-big-link {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(2.5rem, 10vw, 4rem);
+  font-weight: 300; /* Thin elegance */
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: hsl(var(--bc));
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 0;
+  cursor: pointer;
+  /* Text reveal animation setup */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), color 0.3s ease;
+}
+
+/* Staggered Reveal */
+.luxury-mobile-menu.is-open .luxury-big-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Manual staggering done via :nth-child in css or js */
+.luxury-big-link:nth-child(1) { transition-delay: 0.1s; }
+.luxury-big-link:nth-child(2) { transition-delay: 0.15s; }
+.luxury-big-link:nth-child(3) { transition-delay: 0.2s; }
+.luxury-big-link:nth-child(4) { transition-delay: 0.25s; }
+.luxury-big-link:nth-child(5) { transition-delay: 0.3s; }
+
+.luxury-big-link:hover {
+  color: hsl(var(--a)); /* Theme accent on hover */
+  padding-left: 10px; /* Slight shift */
+}
+
+/* Arrow for Drill-Down */
+.luxury-arrow {
+  font-size: 2rem;
+  opacity: 0.3;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.luxury-big-link:hover .luxury-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* Submenu Header */
+.luxury-submenu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 24px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid hsl(var(--bc) / 0.1);
+}
+.luxury-back-btn {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: hsl(var(--bc) / 0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+.luxury-back-btn:hover { color: hsl(var(--bc)); }
+.luxury-submenu-title {
+  font-family: var(--font-serif, serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: hsl(var(--bc));
+  margin-left: auto;
+}
+
+/* Editorial Context Controls */
+.luxury-sheet-footer {
+  padding: 32px 24px;
+  border-top: 1px solid hsl(var(--bc) / 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: hsl(var(--b1));
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+}
+
+.luxury-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.luxury-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.luxury-control-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--bc) / 0.4);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.luxury-control-trigger {
+  font-family: var(--font-serif, serif);
+  font-size: 1.25rem;
+  color: hsl(var(--bc));
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+.luxury-control-trigger:hover {
+  color: hsl(var(--a));
+}
+
+.luxury-control-value {
+  position: relative;
+}
+.luxury-control-value::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+.luxury-control-trigger:hover .luxury-control-value::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Expanded list style */
+.luxury-control-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+  opacity: 0;
+  margin-top: 8px;
+  padding-left: 12px;
+  border-left: 1px solid hsl(var(--bc) / 0.1);
+}
+
+.luxury-control-group.is-open .luxury-control-list {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.luxury-control-option {
+  font-size: 1rem;
+  color: hsl(var(--bc) / 0.6);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+}
+.luxury-control-option:hover, .luxury-control-option.is-selected {
+  color: hsl(var(--bc));
+}
+.luxury-control-option.is-selected::after {
+  content: '◆';
+  font-size: 0.8em;
+  color: hsl(var(--a));
+}
+
+/* Close Button (Floating?) No, hamburger handles open/close. Maybe an internal close too? */
+/* We'll rely on the main hamburger which should be visible or above the sheet. */
+/* The sheet is z-index 99. Hamburger is usually fixed high. */

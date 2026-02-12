@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeaderLiquid from '../components/layout/header/HeaderLiquid.astro';
+import HeaderNeo from '../components/layout/header/HeaderNeo.astro';
 import { useTranslations } from '../utils/i18n';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 import { getEnabledThemes, themeIcons } from '../config/themes';
@@ -23,7 +23,7 @@ const getLocalizedHref = (demoId: string) => {
 ---
 
 <BaseLayout title={t('title')} description={t('description')} showHeader={false} showControls={false}>
-  <HeaderLiquid />
+  <HeaderNeo />
   
   <main class="min-h-screen">
     <!-- Hero Section -->

@@ -1,7 +1,7 @@
 /* ============================================
    Header Glass Effect (Theme-Aware)
    ============================================ */
-.header-glass {
+.header-liquid {
   --_blur: var(--glass-blur, 20px);
   --_opacity: var(--glass-opacity, 0.7);
 

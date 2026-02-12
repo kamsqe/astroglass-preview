@@ -2,6 +2,7 @@
 /**
  * Contact V6 - Aurora Split Form
  * Left info panel with reasons/trust signals, right contact form.
+ * Includes client-side validation with i18n error messages.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 
@@ -56,20 +57,22 @@ import '../../../styles/components/contact/ContactAurora.css';
 
     <!-- Right panel — form -->
     <div class="contact-aurora-form-wrapper">
-      <form class="contact-aurora-form" id="aurora-contact-form">
+      <form class="contact-aurora-form" id="aurora-contact-form" novalidate>
         <div class="contact-aurora-row">
           <div class="contact-aurora-field">
             <label for="aurora-name">{t('contact.form.name')}</label>
-            <input type="text" id="aurora-name" placeholder={t('contact.placeholders.johnSmith')} required />
+            <input type="text" id="aurora-name" name="name" placeholder={t('contact.placeholders.johnSmith')} required minlength="2" maxlength="100" autocomplete="name" />
+            <span class="contact-aurora-error" data-error-for="aurora-name" aria-live="polite"></span>
           </div>
           <div class="contact-aurora-field">
             <label for="aurora-email">{t('contact.form.email')}</label>
-            <input type="email" id="aurora-email" placeholder={t('contact.placeholders.yourEmail')} required />
+            <input type="email" id="aurora-email" name="email" placeholder={t('contact.placeholders.yourEmail')} required autocomplete="email" />
+            <span class="contact-aurora-error" data-error-for="aurora-email" aria-live="polite"></span>
           </div>
         </div>
         <div class="contact-aurora-field">
           <label for="aurora-topic">{t('contact.form.topic')}</label>
-          <select id="aurora-topic">
+          <select id="aurora-topic" name="topic">
             <option value="">{t('contact.placeholders.selectTopic')}</option>
             <option value="general">{t('contact.topics.general')}</option>
             <option value="sales">{t('contact.topics.sales')}</option>
@@ -79,13 +82,134 @@ import '../../../styles/components/contact/ContactAurora.css';
         </div>
         <div class="contact-aurora-field">
           <label for="aurora-message">{t('contact.form.message')}</label>
-          <textarea id="aurora-message" rows="4" placeholder={t('contact.placeholders.tellUs')} required></textarea>
+          <textarea id="aurora-message" name="message" rows="4" placeholder={t('contact.placeholders.tellUs')} required minlength="10" maxlength="2000"></textarea>
+          <span class="contact-aurora-error" data-error-for="aurora-message" aria-live="polite"></span>
         </div>
-        <button type="submit" class="contact-aurora-submit">
-          {t('contact.form.send')}
+        <button type="submit" class="contact-aurora-submit" id="aurora-submit-btn">
+          <span class="contact-aurora-submit-text">{t('contact.form.send')}</span>
+          <span class="contact-aurora-submit-loading" style="display:none;">{t('contact.form.sending')}</span>
         </button>
+        <p class="contact-aurora-success" id="aurora-success" style="display:none;">{t('contact.form.success')}</p>
         <p class="contact-aurora-privacy">{t('contact.secureInfo')}</p>
       </form>
     </div>
   </div>
 </section>
+
+<script
+  define:vars={{
+    validationNameShort: t('contact.validation.nameShort'),
+    validationNameLong: t('contact.validation.nameLong'),
+    validationEmailInvalid: t('contact.validation.emailInvalid'),
+    validationMessageShort: t('contact.validation.messageShort'),
+    validationMessageLong: t('contact.validation.messageLong'),
+    validationRequired: t('contact.validation.required'),
+  }}
+>
+function initAuroraForm() {
+  const form = document.getElementById('aurora-contact-form');
+  if (!form) return;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function showError(fieldId, msg) {
+    const el = form.querySelector(`[data-error-for="${fieldId}"]`);
+    const input = document.getElementById(fieldId);
+    if (el) el.textContent = msg;
+    if (input) input.classList.add('contact-aurora-input--error');
+  }
+
+  function clearError(fieldId) {
+    const el = form.querySelector(`[data-error-for="${fieldId}"]`);
+    const input = document.getElementById(fieldId);
+    if (el) el.textContent = '';
+    if (input) input.classList.remove('contact-aurora-input--error');
+  }
+
+  function clearAllErrors() {
+    form.querySelectorAll('.contact-aurora-error').forEach(el => el.textContent = '');
+    form.querySelectorAll('.contact-aurora-input--error').forEach(el => el.classList.remove('contact-aurora-input--error'));
+  }
+
+  function validateField(id) {
+    const input = document.getElementById(id);
+    if (!input) return true;
+    const val = input.value.trim();
+
+    if (id === 'aurora-name') {
+      if (!val) { showError(id, validationRequired); return false; }
+      if (val.length < 2) { showError(id, validationNameShort); return false; }
+      if (val.length > 100) { showError(id, validationNameLong); return false; }
+      clearError(id);
+      return true;
+    }
+
+    if (id === 'aurora-email') {
+      if (!val) { showError(id, validationRequired); return false; }
+      if (!emailRegex.test(val)) { showError(id, validationEmailInvalid); return false; }
+      clearError(id);
+      return true;
+    }
+
+    if (id === 'aurora-message') {
+      if (!val) { showError(id, validationRequired); return false; }
+      if (val.length < 10) { showError(id, validationMessageShort); return false; }
+      if (val.length > 2000) { showError(id, validationMessageLong); return false; }
+      clearError(id);
+      return true;
+    }
+
+    return true;
+  }
+
+  // Real-time validation on blur
+  ['aurora-name', 'aurora-email', 'aurora-message'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('blur', () => validateField(id));
+      input.addEventListener('input', () => {
+        if (input.classList.contains('contact-aurora-input--error')) {
+          validateField(id);
+        }
+      });
+    }
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearAllErrors();
+
+    const nameValid = validateField('aurora-name');
+    const emailValid = validateField('aurora-email');
+    const messageValid = validateField('aurora-message');
+
+    if (!nameValid || !emailValid || !messageValid) {
+      // Focus the first invalid field
+      const firstError = form.querySelector('.contact-aurora-input--error');
+      if (firstError) firstError.focus();
+      return;
+    }
+
+    // Simulate form submission
+    const submitBtn = document.getElementById('aurora-submit-btn');
+    const textEl = submitBtn?.querySelector('.contact-aurora-submit-text');
+    const loadingEl = submitBtn?.querySelector('.contact-aurora-submit-loading');
+    if (textEl) textEl.style.display = 'none';
+    if (loadingEl) loadingEl.style.display = 'inline';
+    if (submitBtn) submitBtn.disabled = true;
+
+    setTimeout(() => {
+      if (textEl) textEl.style.display = 'inline';
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (submitBtn) submitBtn.disabled = false;
+      const success = document.getElementById('aurora-success');
+      if (success) success.style.display = 'block';
+      form.reset();
+      setTimeout(() => { if (success) success.style.display = 'none'; }, 5000);
+    }, 1500);
+  });
+}
+
+initAuroraForm();
+document.addEventListener('astro:after-swap', initAuroraForm);
+</script>

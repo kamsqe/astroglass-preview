@@ -1,31 +1,162 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostHero from '../../components/blog/PostHero.astro';
+import TableOfContents from '../../components/blog/TableOfContents.astro';
+import ArticleProse from '../../components/blog/ArticleProse.astro';
+import ShareBar from '../../components/blog/ShareBar.astro';
+import PostNavigation from '../../components/blog/PostNavigation.astro';
+import RelatedPosts from '../../components/blog/RelatedPosts.astro';
+import NewsletterCTA from '../../components/blog/NewsletterCTA.astro';
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts
-    .filter(post => post.slug.startsWith('en/'))
-    .map(post => ({
-      params: { slug: post.slug.replace('en/', '') },
-      props: { post },
-    }));
+  const enPosts = posts
+    .filter(post => post.slug.startsWith('en/') && !post.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return enPosts.map((post, i) => ({
+    params: { slug: post.slug.replace('en/', '') },
+    props: {
+      post,
+      prevPost: enPosts[i + 1] ? { slug: enPosts[i + 1].slug, title: enPosts[i + 1].data.title } : undefined,
+      nextPost: enPosts[i - 1] ? { slug: enPosts[i - 1].slug, title: enPosts[i - 1].data.title } : undefined,
+      allPosts: enPosts,
+    },
+  }));
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, prevPost, nextPost, allPosts } = Astro.props;
+const { Content, headings } = await post.render();
 
-// Map numeric layout ID to actual layout component logic if needed
-// For now, passing data to the layout wrapper
-const layoutId = post.data.postLayout || 1;
-const maxWidthClass = layoutId === 2 ? 'max-w-5xl' : 'max-w-2xl';
+// Find related posts (share the most tags)
+const currentTags = new Set(post.data.tags);
+const relatedPosts = allPosts
+  .filter((p: any) => p.slug !== post.slug)
+  .map((p: any) => ({
+    post: p,
+    score: p.data.tags.filter((t: string) => currentTags.has(t)).length,
+  }))
+  .filter(({ score }: any) => score > 0)
+  .sort((a: any, b: any) => b.score - a.score)
+  .slice(0, 3)
+  .map(({ post }: any) => post);
+
+const postUrl = new URL(Astro.url.pathname, Astro.site || 'https://liquid-glass.netlify.app').href;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <div class={`py-20 px-4 ${maxWidthClass} mx-auto`}>
-    <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-    <Content />
+  {/* Cinematic post hero */}
+  <PostHero post={post} />
+
+  {/* Main content area */}
+  <div class="post-page">
+    <div class="post-page__layout">
+      {/* TOC sidebar (desktop) / accordion (mobile) */}
+      {headings.length > 0 && (
+        <aside class="post-page__sidebar">
+          <TableOfContents headings={headings} />
+        </aside>
+      )}
+
+      {/* Article body */}
+      <div class="post-page__main">
+        <ArticleProse>
+          <Content />
+        </ArticleProse>
+
+        <div class="post-page__share">
+          <ShareBar title={post.data.title} url={postUrl} />
+        </div>
+      </div>
+    </div>
+
+    {/* Post navigation */}
+    <div class="post-page__nav">
+      <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+    </div>
+
+    {/* Related posts */}
+    {relatedPosts.length > 0 && (
+      <div class="post-page__related">
+        <RelatedPosts posts={relatedPosts} />
+      </div>
+    )}
+
+    {/* Newsletter */}
+    <div class="post-page__newsletter">
+      <NewsletterCTA />
+    </div>
   </div>
+
+  <FooterLiquid />
 </BaseLayout>
+
+<style>
+  .post-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .post-page__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .post-page__sidebar {
+    order: -1;
+  }
+
+  .post-page__main {
+    min-width: 0;
+  }
+
+  .post-page__share {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid hsl(var(--bc) / 0.06);
+  }
+
+  .post-page__nav {
+    margin-top: 3rem;
+  }
+
+  .post-page__related {
+    margin-top: 3rem;
+  }
+
+  .post-page__newsletter {
+    margin-top: 4rem;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .post-page__layout {
+      flex-direction: row;
+      gap: 3.5rem;
+    }
+
+    .post-page__sidebar {
+      flex-shrink: 0;
+      width: 220px;
+      order: 0;
+    }
+
+    .post-page__main {
+      flex: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .post-page {
+      padding: 0 2rem 4rem;
+    }
+  }
+</style>

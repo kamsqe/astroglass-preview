@@ -25,7 +25,7 @@ const milestones = [
 ];
 ---
 
-<section class:list={["c-about-luxury__section relative px-4 sm:px-6 overflow-hidden", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-20 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-20 md:py-32"]}>
+<section id="about" class:list={["c-about-luxury__section relative px-4 sm:px-6 lg:px-8 lg:px-8 overflow-hidden", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-20 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-20 md:py-32"]}>
   <!-- Background ambient -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]"></div>
@@ -42,7 +42,7 @@ const milestones = [
         </span>
         {t('about.ourJourney')}
       </div>
-      <h2 class="text-4xl sm:text-5xl lg:text-7xl font-black text-base-content tracking-tight mb-6">
+      <h2 class="text-4xl sm:text-5xl lg:text-7xl font-normal font-serif text-base-content tracking-tight mb-6">
         {t('about.timelineTitle')}
       </h2>
       <p class="text-lg sm:text-xl text-base-content/50 max-w-2xl mx-auto leading-relaxed">
@@ -84,7 +84,7 @@ const milestones = [
 
             <!-- Content Card -->
             <div class={`c-about-luxury__card ml-20 sm:ml-24 lg:ml-0 ${i % 2 === 0 ? 'lg:col-start-1 lg:pr-16 lg:text-right' : 'lg:col-start-2 lg:pl-16 lg:text-left'}`}>
-              <div class={`c-about-luxury__card-inner relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-xl border transition-all duration-700 ${m.isCta ? 'bg-gradient-to-br from-accent/10 to-primary/10 border-accent/30' : 'bg-base-content/[0.03] border-base-content/10 hover:bg-base-content/[0.06] hover:border-base-content/20'}`}>
+              <div class={`c-about-luxury__card-inner relative p-6 sm:p-8 rounded-2xl backdrop-blur-xl border ring-1 ring-white/5 ring-inset shadow-xl transition-all duration-700 ${m.isCta ? 'bg-gradient-to-br from-accent/10 to-primary/10 border-accent/30 ring-accent/10' : 'bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border-base-content/10 hover:bg-base-content/[0.06] hover:border-base-content/20'}`}>
                 <!-- Gradient accent line -->
                 <div class={`absolute ${i % 2 === 0 ? 'lg:right-0 lg:left-auto left-0' : 'left-0'} top-6 bottom-6 w-1 rounded-full bg-gradient-to-b ${m.color} opacity-60`}></div>
                 
@@ -97,7 +97,7 @@ const milestones = [
 
                 {m.isCta && (
                   <div class={`mt-6 ${i % 2 === 0 ? 'lg:text-right' : ''}`}>
-                    <a href="#explore" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-accent to-primary text-white font-bold text-sm shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-all duration-300">
+                    <a href="#explore" class="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-gradient-to-r from-accent to-primary text-white font-bold text-sm shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-all duration-300">
                       {t('hero.startBuilding')}
                       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

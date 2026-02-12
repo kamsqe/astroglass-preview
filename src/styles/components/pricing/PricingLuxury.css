@@ -38,8 +38,9 @@
   height: 40px;
   border-radius: 50%;
   background: hsl(var(--bc) / 0.05);
+  background: hsl(var(--bc) / 0.05);
   border: 1px solid hsl(var(--bc) / 0.1);
-  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-pricing-luxury__nav-zone:hover {
   opacity: 1;
@@ -70,9 +71,10 @@
   position: absolute;
   width: 400px;
   height: 680px;
+  height: 680px;
   transform-style: preserve-3d;
-  transition: transform 500ms cubic-bezier(0.32, 0.72, 0, 1),
-              opacity 400ms ease-out;
+  transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1),
+              opacity 500ms ease-out;
   cursor: pointer;
   pointer-events: auto;
   will-change: transform, opacity;
@@ -83,9 +85,77 @@
   transition: border-color 300ms ease-out;
   box-shadow: none !important;
 }
-.c-pricing-luxury__card:hover .c-pricing-luxury__card-inner {
-  border-color: hsl(var(--bc) / 0.25);
-  box-shadow: none !important;
+
+/* Spotlight Glow */
+.c-pricing-luxury__card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    hsl(var(--a) / 0.1),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.c-pricing-luxury__card:hover .c-pricing-luxury__card-inner::before {
+  opacity: 1;
+}
+
+/* Border Beam for Popular Card */
+@keyframes borderBeam {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.c-pricing-luxury__card-inner::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent 0%, transparent 40%, hsl(var(--a)/0.5) 50%, transparent 60%, transparent 100%);
+  background-size: 200% 100%;
+  animation: borderBeam 4s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+[data-popular="true"] .c-pricing-luxury__card-inner::after {
+  opacity: 1;
+}
+
+/* Desktop Hover Effects */
+@media (hover: hover) {
+  .c-pricing-luxury__card:hover .c-pricing-luxury__card-inner {
+    border-color: hsl(var(--a) / 0.4);
+    box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3), 0 0 20px hsl(var(--a) / 0.2) !important;
+    transform: translateY(-6px) scale(1.01);
+  }
+
+  /* Hover on inactive cards */
+  .c-pricing-luxury__card:not([data-index]) .c-pricing-luxury__card-inner:hover,
+  [data-active="0"] .c-pricing-luxury__card:not([data-index="0"]):hover,
+  [data-active="1"] .c-pricing-luxury__card:not([data-index="1"]):hover,
+  [data-active="2"] .c-pricing-luxury__card:not([data-index="2"]):hover {
+    border-color: hsl(var(--bc) / 0.2);
+  }
+
+  /* Nav Zone Hover */
+  .c-pricing-luxury__nav-zone:hover {
+    opacity: 1;
+  }
 }
 
 /* Blur overlay for inactive cards - more performant than filter blur */
@@ -112,11 +182,12 @@
 .c-pricing-luxury__card-inner {
   width: 100%;
   height: 100%;
-  background: hsl(var(--bc) / 0.04);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, hsl(var(--bc) / 0.08), hsl(var(--bc) / 0.02));
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   border: 1px solid hsl(var(--bc) / 0.1);
-  border-radius: 3rem;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  border-radius: 1.5rem;
   padding: 3rem;
   padding-bottom: 2.5rem;
   display: flex;
@@ -202,9 +273,10 @@
   height: 12px;
   border-radius: 50%;
   background: hsl(var(--bc) / 0.1);
+  background: hsl(var(--bc) / 0.1);
   border: none;
   cursor: pointer;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-pricing-luxury__dot:hover {
   background: hsl(var(--bc) / 0.3);
@@ -229,7 +301,10 @@
   opacity: 0;
   visibility: hidden;
   transform: translateX(20px);
-  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px);
+  transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-pricing-luxury__mobile-card.active {
   opacity: 1;

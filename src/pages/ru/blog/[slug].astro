@@ -1,38 +1,128 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostHero from '../../../components/blog/PostHero.astro';
+import TableOfContents from '../../../components/blog/TableOfContents.astro';
+import ArticleProse from '../../../components/blog/ArticleProse.astro';
+import ShareBar from '../../../components/blog/ShareBar.astro';
+import PostNavigation from '../../../components/blog/PostNavigation.astro';
+import RelatedPosts from '../../../components/blog/RelatedPosts.astro';
+import NewsletterCTA from '../../../components/blog/NewsletterCTA.astro';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  // Get all blog posts
   const allPosts = await getCollection('blog');
-  
-  // Get Russian posts, or fall back to English posts for Russian routes
-  const ruPosts = allPosts.filter(post => post.slug.startsWith('ru/'));
-  const enPosts = allPosts.filter(post => post.slug.startsWith('en/'));
-  
-  // If we have Russian posts, use them; otherwise map English posts to Russian routes
-  const postsToUse = ruPosts.length > 0 ? ruPosts : enPosts;
-  
-  return postsToUse.map(post => ({
+  const ruPosts = allPosts.filter(post => post.slug.startsWith('ru/') && !post.data.draft);
+  const enPosts = allPosts.filter(post => post.slug.startsWith('en/') && !post.data.draft);
+  const postsToUse = (ruPosts.length > 0 ? ruPosts : enPosts)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return postsToUse.map((post, i) => ({
     params: { slug: post.slug.replace(/^(en|ru)\//, '') },
-    props: { post },
+    props: {
+      post,
+      prevPost: postsToUse[i + 1] ? { slug: postsToUse[i + 1].slug, title: postsToUse[i + 1].data.title } : undefined,
+      nextPost: postsToUse[i - 1] ? { slug: postsToUse[i - 1].slug, title: postsToUse[i - 1].data.title } : undefined,
+      allPosts: postsToUse,
+    },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, prevPost, nextPost, allPosts } = Astro.props;
+const { Content, headings } = await post.render();
 
-// Map numeric layout ID to actual layout component logic if needed
-// For now, passing data to the layout wrapper
-const layoutId = post.data.postLayout || 1;
-const maxWidthClass = layoutId === 2 ? 'max-w-5xl' : 'max-w-2xl';
+const currentTags = new Set(post.data.tags);
+const relatedPosts = allPosts
+  .filter((p: any) => p.slug !== post.slug)
+  .map((p: any) => ({ post: p, score: p.data.tags.filter((t: string) => currentTags.has(t)).length }))
+  .filter(({ score }: any) => score > 0)
+  .sort((a: any, b: any) => b.score - a.score)
+  .slice(0, 3)
+  .map(({ post }: any) => post);
+
+const postUrl = new URL(Astro.url.pathname, Astro.site || 'https://liquid-glass.netlify.app').href;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <div class={`py-20 px-4 ${maxWidthClass} mx-auto`}>
-    <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-    <Content />
+  <PostHero post={post} />
+
+  <div class="post-page">
+    <div class="post-page__layout">
+      {headings.length > 0 && (
+        <aside class="post-page__sidebar">
+          <TableOfContents headings={headings} />
+        </aside>
+      )}
+      <div class="post-page__main">
+        <ArticleProse><Content /></ArticleProse>
+        <div class="post-page__share">
+          <ShareBar title={post.data.title} url={postUrl} />
+        </div>
+      </div>
+    </div>
+
+    <div class="post-page__nav">
+      <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+    </div>
+
+    {relatedPosts.length > 0 && (
+      <div class="post-page__related">
+        <RelatedPosts posts={relatedPosts} />
+      </div>
+    )}
+
+    <div class="post-page__newsletter">
+      <NewsletterCTA />
+    </div>
   </div>
+
+  <FooterLiquid />
 </BaseLayout>
+
+<style>
+  .post-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .post-page__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .post-page__sidebar { order: -1; }
+  .post-page__main { min-width: 0; }
+
+  .post-page__share {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid hsl(var(--bc) / 0.06);
+  }
+
+  .post-page__nav { margin-top: 3rem; }
+  .post-page__related { margin-top: 3rem; }
+
+  .post-page__newsletter {
+    margin-top: 4rem;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .post-page__layout {
+      flex-direction: row;
+      gap: 3.5rem;
+    }
+    .post-page__sidebar { flex-shrink: 0; width: 220px; order: 0; }
+    .post-page__main { flex: 1; }
+  }
+
+  @media (min-width: 768px) {
+    .post-page { padding: 0 2rem 4rem; }
+  }
+</style>

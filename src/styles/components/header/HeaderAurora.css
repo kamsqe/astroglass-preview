@@ -182,6 +182,75 @@
   transform: scaleX(1);
 }
 
+/* Nav link as button (dropdown trigger) */
+button.nav-aurora-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+}
+
+.nav-aurora-chevron {
+  width: 14px;
+  height: 14px;
+  opacity: 0.5;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-aurora.is-open .nav-aurora-chevron {
+  transform: rotate(180deg);
+}
+
+/* Desktop dropdown menu */
+.dropdown-aurora {
+  position: relative;
+}
+
+.dropdown-aurora-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 180px;
+  padding: 6px;
+  background: hsl(var(--b1) / 0.95);
+  backdrop-filter: blur(24px);
+  border: 1px solid hsl(var(--bc) / 0.1);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px -12px hsl(var(--shadow-color, 0 0% 0%) / 0.25);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 50;
+}
+
+.dropdown-aurora.is-open .dropdown-aurora-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-aurora-item {
+  display: block;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--bc) / 0.7);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-aurora-item:hover {
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.08);
+}
+
 /* -------------------------------------------------------------------------- */
 /*                            DESKTOP ACTIONS                                 */
 /* -------------------------------------------------------------------------- */
@@ -326,7 +395,6 @@
   }
 }
 
-/* Content */
 .overlay-aurora-content {
   position: relative;
   z-index: 10;
@@ -335,6 +403,7 @@
   justify-content: center;
   height: 100%;
   padding: 100px 32px 40px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
   max-width: 600px;
   margin: 0 auto;
 }
@@ -342,6 +411,7 @@
 @media (min-width: 640px) {
   .overlay-aurora-content {
     padding: 120px 48px 60px;
+    padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -405,6 +475,88 @@
 
 .overlay-aurora-link:hover .overlay-aurora-text {
   transform: translateX(8px);
+}
+
+/* Expandable Groups */
+.overlay-aurora-group {
+  border-bottom: 1px solid hsl(var(--bc) / 0.05);
+}
+
+.overlay-aurora-group-trigger {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: hsl(var(--bc));
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .overlay-aurora-group-trigger {
+    font-size: 2.5rem;
+    gap: 20px;
+    padding: 20px 0;
+  }
+}
+
+.overlay-aurora.is-open .overlay-aurora-group-trigger {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-aurora-group-trigger:hover {
+  color: hsl(var(--a));
+}
+
+.overlay-aurora-group-chevron {
+  width: 20px;
+  height: 20px;
+  color: hsl(var(--bc) / 0.3);
+  margin-left: auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay-aurora-group.is-open .overlay-aurora-group-chevron {
+  transform: rotate(180deg);
+  color: hsl(var(--a));
+}
+
+.overlay-aurora-group-children {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay-aurora-group.is-open .overlay-aurora-group-children {
+  grid-template-rows: 1fr;
+}
+
+.overlay-aurora-group-children-inner {
+  overflow: hidden;
+}
+
+.overlay-aurora-child-link {
+  display: block;
+  padding: 10px 0 10px 44px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(var(--bc) / 0.5);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.overlay-aurora-child-link:hover {
+  color: hsl(var(--a));
+  padding-left: 52px;
 }
 
 /* Footer */

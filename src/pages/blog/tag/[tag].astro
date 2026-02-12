@@ -1,13 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BlogCard from '../../../components/ui/BlogCard.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import TagFilter from '../../../components/blog/TagFilter.astro';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
+import { useTranslations } from '../../../utils/i18n';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ slug }) => slug.startsWith('en/'));
-  const tags = new Set();
+  const tags = new Set<string>();
   posts.forEach(post => post.data.tags.forEach((tag: string) => tags.add(tag)));
   
   return [...tags].map(tag => ({
@@ -18,20 +21,32 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 const locale = 'en';
+const t = useTranslations(locale);
 
-const posts = await getCollection('blog', ({ slug, data }) => {
-  return slug.startsWith('en/') && data.tags.includes(tag);
+const allPosts = await getCollection('blog', ({ slug, data }) => {
+  return slug.startsWith('en/') && !data.draft;
 });
+const posts = allPosts
+  .filter(p => p.data.tags.includes(tag))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 ---
 
-<BaseLayout title={`Tag: ${tag}`}>
+<BaseLayout title={`${t('blog.tags')}: ${tag}`} description={`${t('blog.filterByTag')}: ${tag}`}>
   <div class="max-w-6xl mx-auto py-20 px-4">
-    <div class="mb-12">
-      <a href="/blog" class="text-sm font-bold uppercase tracking-wider text-base-content/50 hover:text-accent transition-colors">← Back to Blog</a>
-      <h1 class="text-5xl font-black mt-4">#{tag}</h1>
+    <div class="mb-8">
+      <a href="/blog" class="text-sm font-bold uppercase tracking-wider transition-colors" style={`color: hsl(var(--bc) / 0.4);`}>
+        {t('blog.backToBlog')}
+      </a>
+      <h1 class="text-5xl font-black mt-3">#{tag}</h1>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map(post => <BlogCard post={post} locale={locale} />)}
+
+    <TagFilter tags={allTags} activeTag={tag} />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map(post => <BlogCard post={post} />)}
     </div>
   </div>
+  <FooterLiquid />
 </BaseLayout>

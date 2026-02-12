@@ -63,7 +63,7 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
 {variant === 'mobile' ? (
   <!-- Mobile: Horizontal scrollable grid -->
   <div class="theme-switcher-mobile" data-theme-switcher-mobile>
-    <div class="theme-scroll-container">
+    <div class="theme-grid-container">
       {allThemes.map((theme) => (
         <button
           type="button"
@@ -261,32 +261,8 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       });
     });
 
-    // Mobile grid switchers with scroll fade indicators
+    // Mobile grid switchers
     document.querySelectorAll('[data-theme-switcher-mobile]').forEach(switcher => {
-      const scrollContainer = switcher.querySelector('.theme-scroll-container') as HTMLElement;
-
-      // Scroll fade indicator logic using CSS mask
-      function updateScrollFades() {
-        if (!scrollContainer) return;
-        const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
-        const isAtStart = scrollLeft <= 4;
-        const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 4;
-
-        switcher.classList.toggle('at-scroll-start', isAtStart);
-        switcher.classList.toggle('at-scroll-end', isAtEnd);
-      }
-
-      if (scrollContainer) {
-        // Initial check after a small delay to ensure layout is complete
-        requestAnimationFrame(() => {
-          updateScrollFades();
-        });
-        // Update on scroll
-        scrollContainer.addEventListener('scroll', updateScrollFades, { passive: true });
-        // Update on resize
-        window.addEventListener('resize', updateScrollFades, { passive: true });
-      }
-
       switcher.querySelectorAll('.theme-option-mobile').forEach(btn => {
         const newBtn = btn.cloneNode(true) as HTMLElement;
         btn.parentNode?.replaceChild(newBtn, btn);

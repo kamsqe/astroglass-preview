@@ -10,6 +10,10 @@ const blogCollection = defineCollection({
     author: z.string().default('Team'),
     draft: z.boolean().default(false),
     postLayout: z.number().min(1).max(3).default(1).optional(),
+    cover: image().optional(),
+    category: z.string().optional(),
+    readingTime: z.number().optional(),
+    featured: z.boolean().default(false),
   }),
 });
 

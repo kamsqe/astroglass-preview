@@ -1,0 +1,354 @@
+---
+/**
+ * LuxurySidebarStructure.astro
+ * 
+ * "The Architectural Spine"
+ * A static, permanent vertical sidebar that defines the page layout.
+ * No shrinking, no floating, just rock-solid structure.
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { buildLuxuryNavLinks } from '../../../config/luxuryNavigation';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const navLinks = buildLuxuryNavLinks(locale, t);
+
+// Path Logic
+const currentPath = Astro.url.pathname;
+const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
+const finalPath = cleanPath || '/';
+const enPath = finalPath;
+const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+
+// Themes (Dual-Tone)
+const themes = [
+  { id: 'tahoe', label: 'Tahoe', color: '#3B82F6', bg: '#ffffff' },
+  { id: 'abyss', label: 'Abyss', color: '#6366F1', bg: '#0F172A' },
+  { id: 'solaris', label: 'Solaris', color: '#F59E0B', bg: '#FFF7ED' },
+  { id: 'neonoir', label: 'NeoNoir', color: '#EC4899', bg: '#18181B' },
+  { id: 'synthwave', label: 'Synth', color: '#8B5CF6', bg: '#2E1065' },
+];
+---
+
+<aside class="luxury-spine" id="luxury-spine">
+  <!-- 1. Top: Brand -->
+  <div class="luxury-spine-header">
+    <a href={`/${locale === 'en' ? '' : locale}`} class="luxury-brand">
+      <span class="luxury-brand-main">Liquid</span>
+      <span class="luxury-brand-sub">Design System</span>
+    </a>
+  </div>
+
+  <!-- 2. Middle: Navigation -->
+  <nav class="luxury-spine-nav">
+    <div class="luxury-nav-title">{t('nav.menu')}</div>
+    <ul class="luxury-nav-list">
+      {navLinks.map((link) => {
+        // Active Logic:
+        // For 'page' type: exact match or startsWith
+        // For 'section' type: handled by client-side Observer, but we set initial active if hash matches? 
+        // SSR can't know hash. So only 'page' is active initially here.
+        const isActive = link.type === 'page' && (currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)));
+        
+        return (
+          <li>
+            <a 
+              href={link.href} 
+              class={`luxury-nav-link ${isActive ? 'is-active' : ''}`}
+              data-nav-type={link.type}
+              data-nav-target={link.type === 'section' ? link.href.substring(1) : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+
+  <!-- 3. Bottom: System -->
+  <div class="luxury-spine-footer">
+    <div class="luxury-system-label">{t('nav.system')}</div>
+    
+    <!-- Controls -->
+    <div class="luxury-controls">
+      <!-- Language -->
+      <div class="luxury-lang-switch">
+        <a href={enPath} class={`luxury-lang-opt ${locale === 'en' ? 'is-active' : ''}`}>EN</a>
+        <span class="luxury-sep">/</span>
+        <a href={ruPath} class={`luxury-lang-opt ${locale === 'ru' ? 'is-active' : ''}`}>RU</a>
+      </div>
+
+      <!-- Themes -->
+      <div class="luxury-theme-row">
+        {themes.map(theme => (
+          <button 
+            class="luxury-theme-btn"
+            aria-label={`Theme: ${theme.label}`}
+            data-set-theme-spine={theme.id}
+            title={theme.label}
+            style={`background-color: ${theme.bg};`}
+          >
+            <span class="luxury-theme-dot" style={`background-color: ${theme.color}`}></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- GLOBAL LAYOUT ENFORCEMENT -->
+<style is:global>
+  /* 
+     When this component is present, we enforce the "Spine Layout".
+     The sidebar is fixed 280px. Content MUST start after 280px.
+  */
+  @media (min-width: 1024px) {
+    :root {
+      --luxury-spine-width: 280px;
+    }
+    
+    body:has(#luxury-spine) main {
+      margin-left: var(--luxury-spine-width) !important;
+      width: calc(100% - var(--luxury-spine-width)) !important;
+      max-width: none !important;
+    }
+    
+    body:has(#luxury-spine) footer {
+      margin-left: var(--luxury-spine-width) !important;
+      width: calc(100% - var(--luxury-spine-width)) !important;
+    }
+  }
+</style>
+
+<style>
+  /* SPINE CONTAINER */
+  .luxury-spine {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    background: linear-gradient(to right, hsla(var(--b1) / 0.85), hsla(var(--b1) / 0.7));
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-right: 1px solid hsl(var(--bc) / 0.08);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 40px;
+  }
+
+  /* 1. HEADER */
+  .luxury-spine-header {
+    margin-bottom: 64px;
+  }
+  .luxury-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: hsl(var(--bc));
+  }
+  .luxury-brand-main {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .luxury-brand-sub {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+  }
+
+  /* 2. NAVIGATION */
+  .luxury-spine-nav {
+    flex: 1;
+  }
+  .luxury-nav-title {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: hsl(var(--bc) / 0.4);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid hsl(var(--bc) / 0.1);
+  }
+  .luxury-nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .luxury-nav-link {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: hsl(var(--bc) / 0.6);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .luxury-nav-link:hover {
+    color: hsl(var(--bc));
+    transform: translateX(4px);
+  }
+  
+  /* ACTIVE STATE */
+  .luxury-nav-link.is-active {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: hsl(var(--bc));
+    font-weight: 500;
+  }
+
+  /* 3. FOOTER / SYSTEM */
+  .luxury-spine-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .luxury-system-label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: hsl(var(--bc) / 0.4);
+  }
+  
+  .luxury-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Language */
+  .luxury-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: hsl(var(--bc) / 0.4);
+  }
+  .luxury-lang-opt { text-decoration: none; color: inherit; transition: color 0.2s; }
+  .luxury-lang-opt:hover { color: hsl(var(--bc)); }
+  .luxury-lang-opt.is-active { color: hsl(var(--bc)); font-weight: 600; border-bottom: 1px solid hsl(var(--bc)); }
+  .luxury-sep { opacity: 0.3; }
+
+  /* Theme Row */
+  .luxury-theme-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .luxury-theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid hsl(var(--bc) / 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    padding: 0;
+  }
+  .luxury-theme-btn:hover {
+    transform: scale(1.1);
+    border-color: hsl(var(--bc));
+  }
+  
+  /* Active Theme Indicator */
+  :global([data-theme="tahoe"]) button[data-set-theme-spine="tahoe"],
+  :global([data-theme="abyss"]) button[data-set-theme-spine="abyss"],
+  :global([data-theme="solaris"]) button[data-set-theme-spine="solaris"],
+  :global([data-theme="neonoir"]) button[data-set-theme-spine="neonoir"],
+  :global([data-theme="synthwave"]) button[data-set-theme-spine="synthwave"] {
+    border-color: hsl(var(--bc));
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px hsl(var(--bc) / 0.1);
+  }
+
+  .luxury-theme-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+</style>
+
+<script>
+  function initLuxurySpine() {
+    // 1. Theme Logic
+    document.querySelectorAll('[data-set-theme-spine]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const theme = (e.currentTarget as HTMLElement).dataset.setThemeSpine;
+        if (theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+          window.dispatchEvent(new Event('theme-changed'));
+        }
+      });
+    });
+
+    // 2. ScrollSpy (IntersectionObserver)
+    const sectionLinks = document.querySelectorAll('a[data-nav-type="section"]');
+    const sections = Array.from(sectionLinks).map(link => {
+      const id = (link as HTMLElement).dataset.navTarget;
+      return document.getElementById(id || '');
+    }).filter(s => s !== null) as HTMLElement[];
+
+    if (sections.length > 0) {
+      const observerCallback = (entries: IntersectionObserverEntry[]) => {
+        // Find visible section with highest intersection ratio
+        let bestCandidate: HTMLElement | null = null;
+        let maxRatio = 0;
+
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            bestCandidate = entry.target as HTMLElement;
+          }
+        });
+
+        // Also check if we are scrolled to top -> first section
+        if (window.scrollY < 100) {
+            // Usually Hero, or first section
+            // Reset active to none or first? Usually first if it's "About" etc.
+        }
+
+        // We need to determine the *currently* most active section on screen
+        // Observer only fires on change. Let's rely on intersecting state.
+      };
+
+      // Better ScrollSpy: Observe all sections, keeping track of which one is "most" visible
+      // A simplier approach: Use entry.isIntersecting to toggle.
+      // But multiple can be intersecting.
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+             // Activate this link
+             const id = entry.target.id;
+             document.querySelectorAll('.luxury-nav-link').forEach(l => l.classList.remove('is-active'));
+             const activeLink = document.querySelector(`a[data-nav-target="${id}"]`);
+             if (activeLink) activeLink.classList.add('is-active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -50% 0px' // Active when section is in top half
+      });
+
+      sections.forEach(s => observer.observe(s));
+    }
+  }
+
+  initLuxurySpine();
+  document.addEventListener('astro:after-swap', initLuxurySpine);
+</script>

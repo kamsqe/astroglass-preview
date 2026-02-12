@@ -1,7 +1,9 @@
 ---
 /**
- * Header V5 - Minimalist Fullscreen Overlay
- * The "Invisible" Header.
+ * HeaderMinimal — Fullscreen Overlay Navigation
+ *
+ * The "Invisible" Header. A burger button opens a dramatic fullscreen overlay
+ * with large typography links, expandable children, and settings.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import { buildNavLinks } from '../../../config/navigation';
@@ -14,60 +16,65 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 import '../../../styles/components/header/HeaderMinimal.css';
 ---
 
-
-<header class="header-v5">
-  <a href={homeHref} class="logo-v5">
+<header class="header-minimal">
+  <a href={homeHref} class="logo-minimal">
     {t('siteName')}<span>.</span>
   </a>
 
-  <button class="burger-v5" id="trigger-v5" aria-label={t('nav.menu')}>
-    <div class="burger-v5-box">
-      <div class="burger-v5-inner"></div>
+  <button class="burger-minimal" id="trigger-minimal" aria-label={t('nav.menu')}>
+    <div class="burger-minimal-box">
+      <div class="burger-minimal-inner"></div>
     </div>
   </button>
 </header>
 
-<div class="panel-v5" id="panel-v5">
-  <div class="panel-v5-bg">
-    <div class="bg-blob"></div>
-    <div class="bg-blob"></div>
+<div class="panel-minimal" id="panel-minimal">
+  <div class="panel-minimal-bg">
+    <div class="minimal-blob"></div>
+    <div class="minimal-blob"></div>
   </div>
   
-  <div class="panel-v5-content">
-    <div class="panel-v5-header">
-       <div class="panel-label uppercase tracking-[0.4em] opacity-40 text-[10px] font-black">{t('nav.explore')}</div>
+  <div class="panel-minimal-content">
+    <div class="panel-minimal-header">
+       <div class="panel-minimal-label">{t('nav.explore')}</div>
     </div>
 
-    <nav class="panel-nav">
-      {navLinks.map((link, i) => (
-        <a href={link.href} class="panel-link" data-index={i}>
-          <span class="panel-link-bg">{link.label}</span>
-          <span class="panel-link-text">{link.label}</span>
+    <nav class="panel-minimal-nav">
+      {[
+        { href: homeHref, label: t('nav.home') },
+        { href: locale === 'en' ? '/services' : `/${locale}/services`, label: t('nav.services') },
+        { href: locale === 'en' ? '/pricing' : `/${locale}/pricing`, label: t('nav.pricing') },
+        { href: locale === 'en' ? '/portfolio' : `/${locale}/portfolio`, label: t('nav.portfolio') },
+        { href: locale === 'en' ? '/contact' : `/${locale}/contact`, label: t('nav.contact') },
+      ].map((link, index) => (
+        <a href={link.href} class="panel-minimal-link" data-index={index}>
+          <span class="panel-minimal-link-text">{link.label}</span>
+          {link.label}
         </a>
       ))}
     </nav>
 
-    <div class="panel-settings">
-       <div class="settings-group">
-          <span class="settings-label">{t('nav.preferences')}</span>
-          <div class="theme-grid-v5">
-             <button class="t-btn" data-theme-v5="tahoe" title={t('themeSwitcher.categories.light')}>☀️</button>
-             <button class="t-btn" data-theme-v5="abyss" title={t('themeSwitcher.categories.dark')}>🌙</button>
-             <button class="t-btn" data-theme-v5="synthwave" title={t('themeSwitcher.themes.synthwave')}>🎧</button>
-             <button class="t-btn" data-theme-v5="rose" title={t('themeSwitcher.themes.rose')}>🌸</button>
+    <div class="panel-minimal-settings">
+       <div class="minimal-settings-group">
+          <span class="minimal-settings-label">{t('nav.preferences')}</span>
+          <div class="minimal-theme-grid">
+             <button class="minimal-theme-btn" data-theme-minimal="tahoe" title={t('themeSwitcher.categories.light')}>☀️</button>
+             <button class="minimal-theme-btn" data-theme-minimal="abyss" title={t('themeSwitcher.categories.dark')}>🌙</button>
+             <button class="minimal-theme-btn" data-theme-minimal="synthwave" title={t('themeSwitcher.themes.synthwave')}>🎧</button>
+             <button class="minimal-theme-btn" data-theme-minimal="rose" title={t('themeSwitcher.themes.rose')}>🌸</button>
           </div>
        </div>
-       <div class="settings-group">
-          <span class="settings-label">{t('languageSwitcher.label')}</span>
+       <div class="minimal-settings-group">
+          <span class="minimal-settings-label">{t('languageSwitcher.label')}</span>
           <LanguageSwitcher variant="mobile" />
        </div>
     </div>
 
-    <div class="panel-footer">
-      <div class="footer-info">
+    <div class="panel-minimal-footer">
+      <div class="panel-minimal-footer-info">
         <p>&copy; 2026 {t('siteName')}</p>
       </div>
-      <div class="footer-socials">
+      <div class="panel-minimal-socials">
         <a href="#">TW</a>
         <a href="#">GH</a>
       </div>
@@ -75,12 +82,10 @@ import '../../../styles/components/header/HeaderMinimal.css';
   </div>
 </div>
 
-</style>
-
 <script>
-  function initHeaderV5() {
-    const trigger = document.getElementById('trigger-v5');
-    const panel = document.getElementById('panel-v5');
+  function initHeaderMinimal() {
+    const trigger = document.getElementById('trigger-minimal');
+    const panel = document.getElementById('panel-minimal');
     
     if (!trigger || !panel) return;
 
@@ -88,33 +93,57 @@ import '../../../styles/components/header/HeaderMinimal.css';
     panel.classList.remove('is-open');
     trigger.classList.remove('is-active');
 
-    const toggleMenu = () => {
-      const isOpen = panel.classList.toggle('is-open');
-      trigger.classList.toggle('is-active');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+    const closeMenu = () => {
+      panel.classList.remove('is-open');
+      trigger.classList.remove('is-active');
+      document.body.style.overflow = '';
     };
 
-    trigger.addEventListener('click', toggleMenu);
+    const openMenu = () => {
+      panel.classList.add('is-open');
+      trigger.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    };
 
-    panel.querySelectorAll('.panel-link').forEach(link => {
-      link.addEventListener('click', () => {
-        panel.classList.remove('is-open');
-        trigger.classList.remove('is-active');
-        document.body.style.overflow = '';
-      });
+    trigger.addEventListener('click', () => {
+      panel.classList.contains('is-open') ? closeMenu() : openMenu();
     });
 
-    panel.querySelectorAll('[data-theme-v5]').forEach(btn => {
+    // Close on nav link click (not group triggers)
+    panel.querySelectorAll('.panel-minimal-link, .panel-minimal-child-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Escape key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('is-open')) {
+        closeMenu();
+        trigger.focus();
+      }
+    });
+
+    // Theme buttons
+    panel.querySelectorAll('[data-theme-minimal]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const theme = btn.getAttribute('data-theme-v5');
+        const theme = btn.getAttribute('data-theme-minimal');
         if (theme) {
           document.documentElement.setAttribute('data-theme', theme);
           localStorage.setItem('theme', theme);
         }
       });
     });
+
+    // Expandable groups
+    panel.querySelectorAll('[data-minimal-group]').forEach(group => {
+      const groupTrigger = group.querySelector('.panel-minimal-group-trigger');
+      if (!groupTrigger) return;
+
+      groupTrigger.addEventListener('click', () => {
+        group.classList.toggle('is-open');
+      });
+    });
   }
 
-  initHeaderV5();
-  document.addEventListener('astro:after-swap', initHeaderV5);
+  initHeaderMinimal();
+  document.addEventListener('astro:after-swap', initHeaderMinimal);
 </script>

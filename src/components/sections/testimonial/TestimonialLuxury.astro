@@ -80,32 +80,32 @@ const testimonials = [
 ];
 ---
 
-<section class="relative py-24 lg:py-32 px-6 overflow-hidden bg-base-100">
+<section class="relative py-24 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-base-100">
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16">
        <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('testimonial.wallOfLove')}</span>
-       <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('testimonial.buildersSay')}</h2>
+       <h2 class="text-4xl md:text-6xl font-normal font-serif text-base-content tracking-tighter">{t('testimonial.buildersSay')}</h2>
        <p class="text-base text-base-content/40 mt-4 max-w-xl mx-auto">{t('testimonial.t4_subtitle')}</p>
     </div>
 
     <!-- Masonry Grid -->
-    <div class="c-testimonial-luxury__grid columns-2 lg:columns-3 xl:columns-4 gap-4 lg:gap-6">
+    <div class="c-testimonial-luxury__grid columns-2 lg:columns-3 2xl:columns-4 gap-4 lg:gap-6">
        {testimonials.map((item, i) => (
           <div 
             class="c-testimonial-luxury__card break-inside-avoid mb-4 lg:mb-6 group"
             style={`animation-delay: ${i * 80}ms`}
           >
              <div class:list={[
-               "relative p-5 lg:p-6 rounded-2xl lg:rounded-[1.5rem] border transition-all duration-700 overflow-hidden",
+               "relative p-5 lg:p-6 rounded-xl lg:rounded-2xl border transition-all duration-700 overflow-hidden ring-1 ring-white/5 ring-inset shadow-xl",
                item.accent 
-                 ? "bg-accent/5 border-accent/20 hover:bg-accent/10 hover:border-accent/30" 
-                 : "bg-base-content/[0.02] border-base-content/5 hover:bg-base-content/[0.05] hover:border-base-content/15",
+                 ? "c-testimonial-luxury__card--accent bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20" 
+                 : "c-testimonial-luxury__card--default bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border-base-content/10 font-light backdrop-blur-xl",
                item.size === 'large' ? "lg:p-8" : ""
              ]}>
                 <!-- Accent glow for featured -->
                 {item.accent && (
-                   <div class="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                   <div class="c-testimonial-luxury__glow absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent"></div>
                 )}
                 
                 <div class="relative z-10">

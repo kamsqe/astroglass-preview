@@ -20,7 +20,7 @@ const t = useTranslations(locale);
 import '../../../styles/components/contact/ContactLuxury.css';
 ---
 
-<section class="relative py-20 lg:py-32 px-4 sm:px-6 overflow-hidden bg-base-100">
+<section id="contact" class="relative py-20 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-base-100">
   <!-- Background elements -->
   <div class="absolute inset-0 pointer-events-none">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"></div>
@@ -30,11 +30,11 @@ import '../../../styles/components/contact/ContactLuxury.css';
 
   <div class="max-w-lg mx-auto relative">
     <!-- Floating Glass Card -->
-    <div class="contact-v4-card relative p-6 sm:p-8 lg:p-10 rounded-[1.5rem] sm:rounded-[2rem] bg-base-100/60 backdrop-blur-[40px] border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.12)]" data-validation-messages={JSON.stringify(validationMessages)}>
+    <div class="contact-v4-card relative p-6 sm:p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-base-100/80 to-base-100/40 backdrop-blur-3xl border border-base-content/10 shadow-[0_30px_100px_rgba(0,0,0,0.12)] ring-1 ring-white/20 ring-inset" data-validation-messages={JSON.stringify(validationMessages)}>
       
       <!-- Glass shimmer -->
-      <div class="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] pointer-events-none overflow-hidden">
-        <div class="absolute inset-[-1px] rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-60"></div>
+      <div class="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden">
+        <div class="absolute inset-[-1px] rounded-2xl bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-60"></div>
       </div>
 
       <div class="relative z-10">
@@ -43,7 +43,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
           <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-2xl mx-auto mb-4">
             ✉️
           </div>
-          <h2 class="text-xl sm:text-2xl font-black text-base-content tracking-tight">{t('contact.eyebrow')}</h2>
+          <h2 class="text-xl sm:text-2xl font-normal font-serif text-base-content tracking-tight">{t('contact.eyebrow')}</h2>
           <p class="text-sm text-base-content/50 mt-2">{t('contact.subtitleV4')}</p>
         </div>
 
@@ -56,7 +56,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
                 type="text" 
                 name="name"
                 required
-                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.04] border border-base-content/5 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 focus:bg-base-content/[0.06] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 appearance-none cursor-pointer"
                 placeholder={t('contact.form.name')}
               />
               <div class="contact-v4-valid hidden absolute right-3 top-1/2 -translate-y-1/2 text-success text-sm">✓</div>
@@ -68,7 +68,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
                 name="email"
                 required
                 inputmode="email"
-                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500"
+                class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.04] border border-base-content/5 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 focus:bg-base-content/[0.06] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 appearance-none cursor-pointer"
                 placeholder={t('contact.placeholders.emailAddress')}
               />
               <div class="contact-v4-valid hidden absolute right-3 top-1/2 -translate-y-1/2 text-success text-sm">✓</div>
@@ -79,7 +79,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
           <div class="contact-v4-field">
             <select 
               name="topic"
-              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-500 appearance-none cursor-pointer"
+              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.04] border border-base-content/5 text-sm text-base-content focus:outline-none focus:border-accent/40 focus:bg-base-content/[0.06] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 appearance-none cursor-pointer"
             >
               <option value="" class="text-base-content/30">{t('contact.placeholders.selectTopic')}</option>
               <option value="general">{t('contact.topics.general')}</option>
@@ -98,7 +98,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
               name="message"
               required
               rows="4"
-              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 transition-all duration-500 resize-none"
+              class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.04] border border-base-content/5 text-sm text-base-content placeholder:text-base-content/30 focus:outline-none focus:border-accent/40 focus:bg-base-content/[0.06] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 resize-none"
               placeholder={t('contact.placeholders.yourMessage')}
             ></textarea>
             <div class="contact-v4-counter absolute right-3 bottom-3 text-[10px] text-base-content/30">0/500</div>
@@ -107,7 +107,7 @@ import '../../../styles/components/contact/ContactLuxury.css';
           <!-- Submit -->
           <button 
             type="submit"
-            class="contact-v4-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-500 shadow-[0_8px_30px_rgba(var(--a),0.25)]"
+            class="contact-v4-submit w-full px-6 py-4 rounded-full bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-500 shadow-[0_8px_30px_rgba(var(--a),0.25)]"
           >
             <span>{t('contact.form.send')}</span>
             <svg class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -28,7 +28,7 @@ const {
   title, 
   description, 
   showHeader = true, 
-  headerVersion = 1, 
+  headerVersion = 3, 
 } = Astro.props;
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -50,6 +50,40 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
+    <style is:global>
+      /* Cinema Fade View Transitions */
+      ::view-transition-group(root) {
+        animation-duration: 0.6s;
+      }
+      
+      ::view-transition-old(root) {
+        animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both fade-out-scale;
+      }
+
+      ::view-transition-new(root) {
+        animation: 0.6s cubic-bezier(0.19, 1, 0.22, 1) both fade-in-scale;
+        mix-blend-mode: normal;
+      }
+
+      @keyframes fade-out-scale {
+        0% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        100% { opacity: 0; transform: scale(0.96); filter: blur(4px); }
+      }
+
+      @keyframes fade-in-scale {
+        0% { opacity: 0; transform: scale(1.04); filter: blur(8px); }
+        100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+      }
+
+      /* Reduce motion preference */
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-group(*),
+        ::view-transition-old(*),
+        ::view-transition-new(*) {
+          animation: none !important;
+        }
+      }
+    </style>
     <script is:inline define:vars={{ isV2: currentHeader === 2 }}>
       const setSelectionTheme = () => {
         if (isV2) {
@@ -95,7 +129,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
         if (pathname.startsWith('/' + preferredLocale)) return;
         
         // Update navigation links to include locale prefix
-        document.querySelectorAll('nav a, .nav-v2 a, .panel-nav a, .mobile-nav a, .header-v3 a, [data-mobile-dropdown] a').forEach(link => {
+        document.querySelectorAll('nav a, .nav-glass a, .panel-glass a, .mobile-nav a, .header-neo a, .overlay-neo a, .overlay-aurora a, [data-mobile-dropdown] a').forEach(link => {
           const href = link.getAttribute('href');
           if (!href) return;
           

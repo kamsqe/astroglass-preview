@@ -34,5 +34,5 @@
 .c-portfolio-luxury__link {
   opacity: 0;
   transform: translateY(8px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-luxury-fast) var(--ease-luxury);
 }

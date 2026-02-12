@@ -90,7 +90,8 @@ const themes = [
     border: none;
     color: hsl(var(--bc) / 0.4);
     cursor: pointer;
-    transition: color 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    transition: color var(--duration-luxury-fast) var(--ease-luxury), background var(--duration-luxury-fast) var(--ease-luxury);
     text-align: left;
     overflow: hidden; /* Hide label when collapsed sidebar */
   }
@@ -119,7 +120,8 @@ const themes = [
     white-space: nowrap;
     opacity: 0;
     transform: translateX(10px);
-    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+    transform: translateX(10px);
+    transition: opacity var(--duration-luxury-fast) var(--ease-luxury) 0.1s, transform var(--duration-luxury-fast) var(--ease-luxury) 0.1s;
     flex: 1;
   }
 
@@ -134,7 +136,8 @@ const themes = [
     height: 16px;
     opacity: 0;
     transform: translateX(-10px);
-    transition: all 0.4s ease 0.1s;
+    transform: translateX(-10px);
+    transition: all var(--duration-luxury-medium) var(--ease-luxury) 0.1s;
   }
   
   /* Reveal on sidebar hover */
@@ -148,7 +151,9 @@ const themes = [
   .luxury-accordion-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--duration-luxury-medium) var(--ease-luxury);
+    overflow: hidden;
     overflow: hidden;
     background: hsl(var(--bc) / 0.02);
   }
@@ -169,7 +174,8 @@ const themes = [
     color: hsl(var(--bc) / 0.6);
     text-decoration: none;
     font-size: 0.95rem;
-    transition: color 0.2s ease, background 0.2s ease;
+    font-size: 0.95rem;
+    transition: color var(--duration-luxury-fast) var(--ease-luxury), background var(--duration-luxury-fast) var(--ease-luxury);
     border: none;
     background: transparent;
     cursor: pointer;

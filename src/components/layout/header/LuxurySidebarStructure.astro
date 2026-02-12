@@ -192,7 +192,7 @@ const themes = [
     font-size: 1.1rem;
     color: hsl(var(--bc) / 0.6);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all var(--duration-luxury-fast) var(--ease-luxury);
   }
   .luxury-nav-link:hover {
     color: hsl(var(--bc));
@@ -237,7 +237,7 @@ const themes = [
     font-size: 0.9rem;
     color: hsl(var(--bc) / 0.4);
   }
-  .luxury-lang-opt { text-decoration: none; color: inherit; transition: color 0.2s; }
+  .luxury-lang-opt { text-decoration: none; color: inherit; transition: color var(--duration-luxury-fast) var(--ease-luxury); }
   .luxury-lang-opt:hover { color: hsl(var(--bc)); }
   .luxury-lang-opt.is-active { color: hsl(var(--bc)); font-weight: 600; border-bottom: 1px solid hsl(var(--bc)); }
   .luxury-sep { opacity: 0.3; }
@@ -257,7 +257,7 @@ const themes = [
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform var(--duration-luxury-fast) var(--ease-luxury-out), border-color var(--duration-luxury-fast) var(--ease-luxury);
     padding: 0;
   }
   .luxury-theme-btn:hover {

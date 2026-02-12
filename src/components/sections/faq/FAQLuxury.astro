@@ -39,8 +39,8 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
        
        <!-- Search Bar -->
        <div class="relative max-w-xl mx-auto">
-          <div class="c-faq-luxury__search-wrapper flex items-center gap-3 p-4 lg:p-5 rounded-full bg-base-content/[0.03] border border-base-content/10 focus-within:border-accent/50 focus-within:bg-base-content/[0.05] focus-within:shadow-[0_0_40px_rgba(var(--a),0.1)] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
-             <svg class="w-5 h-5 text-base-content/30 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="c-faq-luxury__search-wrapper flex items-center gap-3 p-4 lg:p-5 rounded-full bg-base-content/[0.03] border border-base-content/10 focus-within:border-accent/50 focus-within:bg-base-content/[0.05] focus-within:shadow-[0_0_40px_rgba(var(--a),0.1)] transition-luxury-slow">
+             <svg class="w-5 h-5 text-base-content/30 transition-colors duration-luxury-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
              </svg>
              <input 
@@ -49,7 +49,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
                placeholder={t('faq.searchPlaceholder')} 
                class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-base"
              />
-             <button id="faq-v4-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/50 hover:bg-base-content/10 transition-all duration-500">
+             <button id="faq-v4-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/50 hover:bg-base-content/10 transition-luxury">
                 {t('faq.clear')}
              </button>
           </div>
@@ -58,7 +58,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
           <div class="flex flex-wrap justify-center gap-2 mt-4">
              {popularTags.map(tag => (
                 <button 
-                  class="c-faq-luxury__tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/60 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] capitalize cursor-pointer"
+                  class="c-faq-luxury__tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/60 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-luxury-slow capitalize cursor-pointer"
                   data-tag={tag}
                 >
                    <span class="mr-1 opacity-50">#</span>{t(`faq.tags.${tag}`)}
@@ -78,10 +78,10 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
             data-tags={faq.tags.join(' ')}
             style={`animation-delay: ${i * 50}ms`}
           >
-             <button class="c-faq-luxury__result-trigger w-full flex items-center justify-between p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border border-base-content/10 hover:bg-base-content/[0.06] hover:border-base-content/20 hover:shadow-xl transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] text-left group backdrop-blur-xl ring-1 ring-white/5 ring-inset">
-                <span class="text-sm lg:text-base text-base-content font-medium pr-4 group-hover:text-accent transition-colors duration-500">{faq.q}</span>
-                <div class="w-8 h-8 rounded-full bg-base-content/5 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/10 transition-all duration-500">
-                   <svg class="w-4 h-4 text-base-content/20 transition-all duration-500 group-hover:text-accent c-faq-luxury__result-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <button class="c-faq-luxury__result-trigger w-full flex items-center justify-between p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border border-base-content/10 hover:bg-base-content/[0.06] hover:border-base-content/20 hover:shadow-xl transition-luxury-slow text-left group backdrop-blur-xl ring-1 ring-white/5 ring-inset">
+                <span class="text-sm lg:text-base text-base-content font-medium pr-4 group-hover:text-accent transition-colors duration-luxury-medium">{faq.q}</span>
+                <div class="w-8 h-8 rounded-full bg-base-content/5 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/10 transition-luxury">
+                   <svg class="w-4 h-4 text-base-content/20 transition-luxury group-hover:text-accent c-faq-luxury__result-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                    </svg>
                 </div>

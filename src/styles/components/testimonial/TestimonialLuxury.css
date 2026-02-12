@@ -17,7 +17,7 @@
 }
 
 .c-testimonial-luxury__card > div {
-  transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-luxury-slow) var(--ease-luxury);
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -25,7 +25,7 @@
 /* Accent Glow */
 .c-testimonial-luxury__glow {
   opacity: 0;
-  transition: opacity 700ms ease;
+  transition: opacity var(--duration-luxury-medium) ease;
   pointer-events: none;
 }
 

@@ -68,7 +68,7 @@ const useCases = [
           <button
             type="button"
             class:list={[
-              "tab-btn flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all duration-500",
+              "tab-btn flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-luxury",
               i === 0 ? "active bg-accent text-white shadow-lg shadow-accent/25" : "text-base-content/60 hover:text-base-content hover:bg-base-content/5"
             ]}
             data-tab={uc.id}
@@ -98,19 +98,19 @@ const useCases = [
           <!-- Feature Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {uc.features.map((f, fi) => (
-              <div class="c-features-luxury__card js-spotlight group relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border border-base-content/5 backdrop-blur-xl hover:bg-base-content/[0.06] hover:border-base-content/10 transition-all duration-500 ring-1 ring-white/5 ring-inset shadow-xl">
+              <div class="c-features-luxury__card js-spotlight group relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border border-base-content/5 backdrop-blur-xl hover:bg-base-content/[0.06] hover:border-base-content/10 transition-luxury ring-1 ring-white/5 ring-inset shadow-xl">
                 <!-- Glow -->
-                <div class="absolute inset-0 bg-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-luxury-medium pointer-events-none"></div>
                 
                 <div class="relative z-10 flex gap-5">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-luxury">
                     {f.icon}
                   </div>
                   <div>
-                    <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
+                    <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-luxury-fast">
                       {f.title}
                     </h3>
-                    <p class="text-sm sm:text-base text-base-content/50 leading-relaxed group-hover:text-base-content/70 transition-colors duration-300">
+                    <p class="text-sm sm:text-base text-base-content/50 leading-relaxed group-hover:text-base-content/70 transition-colors duration-luxury-fast">
                       {f.desc}
                     </p>
                   </div>
@@ -124,9 +124,9 @@ const useCases = [
 
     <!-- CTA -->
     <div class="text-center mt-12 sm:mt-16">
-      <a href="#" class="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-accent text-white font-bold shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 group">
+      <a href="#" class="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-accent text-white font-bold shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-luxury group">
         {t('features.cta')}
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-luxury-fast" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>
       </a>

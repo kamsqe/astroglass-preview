@@ -2,7 +2,7 @@
 
 .c-faq-luxury__result-item {
   opacity: 0;
-  animation: resultFadeInV4 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: resultFadeInV4 var(--duration-luxury-medium) var(--ease-luxury) forwards;
 }
 
 @keyframes resultFadeInV4 {
@@ -32,7 +32,7 @@
 }
 
 .c-faq-luxury__result-content {
-  animation: contentExpandV4 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: contentExpandV4 var(--duration-luxury-medium) var(--ease-luxury);
   background: hsl(var(--bc) / 0.02);
   border: 1px solid hsl(var(--bc) / 0.05);
   border-top: none;

@@ -52,6 +52,9 @@ import '../../../styles/components/header/HeaderLuxury.css';
 
 <!-- Mobile Navigation (Editorial Design) -->
 <nav class="luxury-mobile-menu" id="luxury-mobile-menu">
+  <!-- Backdrop (Click to close) -->
+  <div class="luxury-backdrop" id="luxury-menu-backdrop"></div>
+
   <div class="luxury-sheet">
     
     <div class="luxury-nav-container">
@@ -63,7 +66,14 @@ import '../../../styles/components/header/HeaderLuxury.css';
              class="luxury-big-link"
            >
              <span>{link.label}</span>
-             {link.type === 'page' && <span class="luxury-arrow">↗</span>}
+             {link.type === 'page' && 
+             <span class="luxury-arrow">
+               <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <line x1="7" y1="17" x2="17" y2="7"></line>
+                 <polyline points="7 7 17 7 17 17"></polyline>
+               </svg>
+             </span>
+           }
            </a>
         ))}
       </div>
@@ -114,6 +124,13 @@ import '../../../styles/components/header/HeaderLuxury.css';
 
 <script>
   function initHeaderLuxury() {
+    const nav = document.getElementById('luxury-mobile-menu');
+    const toggleBtn = document.getElementById('menu-toggle-luxury');
+    const backdrop = document.getElementById('luxury-menu-backdrop');
+    
+    // Safety check
+    if (!nav || !toggleBtn) return;
+
     // Helper to update labels
     const updateControlLabel = (theme: string) => {
        const label = document.getElementById('current-theme-label');
@@ -134,160 +151,127 @@ import '../../../styles/components/header/HeaderLuxury.css';
     const currentTheme = html.getAttribute('data-theme') || 'tahoe';
     updateControlLabel(currentTheme);
 
-    // Desktop Theme Toggle (Legacy)
-    const themeToggles = document.querySelectorAll('.theme-toggle-luxury');
-    const themes = ['tahoe', 'abyss', 'solaris', 'nordic', 'neonoir', 'synthwave'];
+    // --- Core Open/Close Logic ---
 
-    themeToggles.forEach(btn => {
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode?.replaceChild(newBtn, btn);
+    const openMenu = () => {
+      nav.classList.add('is-open');
+      toggleBtn.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    };
 
-      newBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme') || 'tahoe';
-        let nextIndex = (themes.indexOf(currentTheme) + 1) % themes.length;
-        const nextTheme = themes[nextIndex];
-        
-        html.setAttribute('data-theme', nextTheme);
-        localStorage.setItem('theme', nextTheme);
-        updateControlLabel(nextTheme);
-      });
+    const closeMenu = () => {
+      nav.classList.remove('is-open');
+      toggleBtn.classList.remove('is-active');
+      document.body.style.overflow = '';
+      
+      // Reset internal states (controls)
+      document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
+    };
+
+    const toggleMenu = (e: Event) => {
+      e.stopPropagation();
+      const isOpen = nav.classList.contains('is-open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
+
+    // --- Event Listeners ---
+    
+    // 1. Toggle Button
+    // Clone to remove old listeners
+    const newToggleBtn = toggleBtn.cloneNode(true) as HTMLElement;
+    toggleBtn.parentNode?.replaceChild(newToggleBtn, toggleBtn);
+    newToggleBtn.addEventListener('click', toggleMenu);
+
+    // 2. Backdrop Click
+    // Clone backdrop if it exists to clean potential old listeners
+    if (backdrop) {
+       const newBackdrop = backdrop.cloneNode(true) as HTMLElement;
+       backdrop.parentNode?.replaceChild(newBackdrop, backdrop);
+       newBackdrop.addEventListener('click', closeMenu);
+    }
+
+    // 3. Links (Close on click)
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
 
-    // Mobile Menu Logic
-    const btn = document.getElementById('menu-toggle-luxury');
-    const nav = document.getElementById('luxury-mobile-menu');
-
-    if (btn && nav) {
-      const newBtn = btn.cloneNode(true) as HTMLElement;
-      btn.parentNode?.replaceChild(newBtn, btn);
-
-      // Transition Logic
-      const panels = nav.querySelectorAll('.luxury-panel');
-      
-      const resetPanels = () => {
-        panels.forEach((p) => {
-          if (p.id === 'panel-main') {
-            p.classList.add('is-active');
-            p.classList.remove('is-left');
-          } else {
-            p.classList.remove('is-active');
-            p.classList.add('is-right');
-          }
-        });
-        // Collapse controls
-        document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
-      };
-
-      const closeMenu = () => {
-        nav.classList.remove('is-open');
-        newBtn.classList.remove('is-active');
-        document.body.style.overflow = '';
-        setTimeout(resetPanels, 600); 
-      };
-
-      const openMenu = () => {
-        nav.classList.add('is-open');
-        newBtn.classList.add('is-active');
-        document.body.style.overflow = 'hidden';
-      };
-
-      newBtn.addEventListener('click', () => {
-        nav.classList.contains('is-open') ? closeMenu() : openMenu();
-      });
-
-      // Drill-Down Interactions
-      nav.querySelectorAll('[data-target]').forEach(trigger => {
-        const targetId = (trigger as HTMLElement).dataset.target;
-        const targetPanel = document.getElementById(targetId!);
-        const mainPanel = document.getElementById('panel-main');
-        
-        trigger.addEventListener('click', () => {
-          if (mainPanel && targetPanel) {
-             mainPanel.classList.remove('is-active');
-             mainPanel.classList.add('is-left');
-             
-             targetPanel.classList.remove('is-right');
-             targetPanel.classList.add('is-active');
-          }
-        });
-      });
-
-      // Back interactions
-      nav.querySelectorAll('[data-back]').forEach(trigger => {
-        trigger.addEventListener('click', () => {
-           const activePanel = trigger.closest('.luxury-panel');
-           const mainPanel = document.getElementById('panel-main');
-           
-           if (activePanel && mainPanel) {
-             activePanel.classList.remove('is-active');
-             activePanel.classList.add('is-right');
-             
-             mainPanel.classList.remove('is-left');
-             mainPanel.classList.add('is-active');
-           }
-        });
-      });
-      
-      // Controls Logic (Expanders)
-      nav.querySelectorAll('[data-toggle-control]').forEach(trigger => {
-         trigger.addEventListener('click', (e) => {
-           e.stopPropagation();
-           const group = trigger.closest('.luxury-control-group');
-           const wasOpen = group?.classList.contains('is-open');
-           
-           // Close all first
-           document.querySelectorAll('.luxury-control-group').forEach(g => {
-             g.classList.remove('is-open');
-           });
-           
-           // Toggle clicked
-           if (!wasOpen) {
-             group?.classList.add('is-open');
-           }
-         });
-      });
-
-      // Theme Selection
-      nav.querySelectorAll('[data-set-theme]').forEach(option => {
-        option.addEventListener('click', (e) => {
-          const theme = (e.currentTarget as HTMLElement).dataset.setTheme;
-          if (theme) {
-             const html = document.documentElement;
-             html.setAttribute('data-theme', theme);
-             localStorage.setItem('theme', theme);
-             updateControlLabel(theme);
-          }
-        });
-      });
-
-      // Close on link click
-      nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      // Escape key handler - Guarded
-      if (!(window as any).__escapeListenerLuxuryAdded) {
-        (window as any).__escapeListenerLuxuryAdded = true;
-        document.addEventListener('keydown', (e) => {
-          const nav = document.getElementById('luxury-mobile-menu');
-          const btn = document.getElementById('menu-toggle-luxury');
-          if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
-            const activePanel = nav.querySelector('.luxury-panel.is-active');
-            if (activePanel && activePanel.id !== 'panel-main') {
-               const backBtn = activePanel.querySelector('[data-back]') as HTMLElement;
-               backBtn?.click();
-            } else {
-               closeMenu();
-               btn?.focus();
-            }
-          }
-        });
-      }
+    // 4. Escape Key
+    // Unique handler attachment using global property to prevent stacking
+    if (!(window as any).__luxuryEscHandler) {
+        (window as any).__luxuryEscHandler = (e: KeyboardEvent) => {
+             const nav = document.getElementById('luxury-mobile-menu');
+             if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
+                 // Close logic duplicated here because we might not have access to the closure
+                 nav.classList.remove('is-open');
+                 document.getElementById('menu-toggle-luxury')?.classList.remove('is-active');
+                 document.body.style.overflow = '';
+             }
+        };
+        document.addEventListener('keydown', (window as any).__luxuryEscHandler);
     }
+
+    // --- Controls Logic (Theme/Lang) ---
+    nav.querySelectorAll('[data-toggle-control]').forEach(trigger => {
+        // Clone to clean
+        const newTrigger = trigger.cloneNode(true) as HTMLElement;
+        trigger.parentNode?.replaceChild(newTrigger, trigger);
+        
+        newTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const group = newTrigger.closest('.luxury-control-group');
+          const wasOpen = group?.classList.contains('is-open');
+          
+          // Close all first
+          document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
+
+          if (!wasOpen) {
+            group?.classList.add('is-open');
+          }
+        });
+    });
+    
+    // Close controls when clicking anywhere else in the sheet
+    const sheet = nav.querySelector('.luxury-sheet');
+    if (sheet) {
+        // Idempotency check for sheet listener not strictly needed if we clone/replace, 
+        // but sheet is large. We'll use a data attribute on the nav to track if we attached global-ish listeners
+        // actually, simpler: just remove old listener if we can, but anonymous functions make it hard.
+        // We'll trust that `initHeaderLuxury` runs on fresh DOM parts usually.
+        // For robustness, we can add a click listener to the sheet that delegated.
+        // But let's just add it.
+        const handleSheetClick = (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (!target.closest('.luxury-control-group')) {
+                document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
+            }
+        };
+        // To prevent stacking on re-init without navigation (rare but possible), we could check a flag
+        // or just accept it. Given Astro view transitions replace body, valid re-init is fine.
+        sheet.addEventListener('click', handleSheetClick);
+    }
+
+
+    // --- Theme Selection Logic ---
+    nav.querySelectorAll('[data-set-theme]').forEach(option => {
+       option.addEventListener('click', (e) => {
+         const theme = (e.currentTarget as HTMLElement).dataset.setTheme;
+         if (theme) {
+            const html = document.documentElement;
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateControlLabel(theme);
+         }
+       });
+    });
   }
 
+  // Run on load
   initHeaderLuxury();
+  
+  // Run on view transitions
   document.addEventListener('astro:after-swap', initHeaderLuxury);
 </script>

@@ -57,17 +57,21 @@
 }
 
 /* Backdrop */
-.luxury-mobile-menu::before {
-  content: '';
+/* Backdrop */
+.luxury-backdrop {
   position: absolute;
   inset: 0;
   background: hsl(var(--b1) / 0.6);
   backdrop-filter: blur(4px);
   opacity: 0;
   transition: opacity 0.5s ease;
+  pointer-events: none; /* Only clickable when open */
 }
-.luxury-mobile-menu.is-open::before {
+
+.luxury-mobile-menu.is-open .luxury-backdrop {
   opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* Bottom Sheet */
@@ -170,9 +174,14 @@
 
 /* Arrow for Drill-Down */
 .luxury-arrow {
-  font-size: 2rem;
+  width: 1em;
+  height: 1em;
+  font-size: 2rem; /* Sets the size of the em unit */
   opacity: 0.3;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  display: inline-flex; /* Ensure SVG centers */
+  align-items: center;
+  justify-content: center;
 }
 .luxury-big-link:hover .luxury-arrow {
   opacity: 1;

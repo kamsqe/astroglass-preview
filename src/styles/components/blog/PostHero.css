@@ -47,12 +47,9 @@
   width: 100%;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem 2.5rem;
+  padding: 8rem 1.5rem 2.5rem;
 }
 
-.post-hero--cover .post-hero__content {
-  padding-top: 6rem;
-}
 
 /* Variant: no cover (typographic) */
 .post-hero--text {
@@ -167,12 +164,10 @@
   }
 
   .post-hero__content {
-    padding: 4rem 2rem 3rem;
+    padding: 10rem 2rem 3rem;
   }
 
-  .post-hero--cover .post-hero__content {
-    padding-top: 8rem;
-  }
+
 }
 
 @media (min-width: 1024px) {
@@ -181,10 +176,8 @@
   }
 
   .post-hero__content {
-    padding: 5rem 3rem 3.5rem;
+    padding: 12rem 3rem 3.5rem;
   }
 
-  .post-hero--cover .post-hero__content {
-    padding-top: 10rem;
-  }
+
 }

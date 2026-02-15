@@ -34,7 +34,7 @@ const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 ---
 
 <BaseLayout title={`${t('blog.tags')}: ${tag}`} description={`${t('blog.filterByTag')}: ${tag}`}>
-  <div class="max-w-6xl mx-auto py-20 px-4">
+  <div class="max-w-6xl mx-auto pt-32 md:pt-40 lg:pt-48 pb-20 px-4">
     <div class="mb-8">
       <a href="/blog" class="text-sm font-bold uppercase tracking-wider transition-colors" style={`color: hsl(var(--bc) / 0.4);`}>
         {t('blog.backToBlog')}

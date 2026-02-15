@@ -1,9 +1,9 @@
 {
-  "title": "Experience the Clarity of Astro Glass",
-  "subtitle": "A premium Astro template designed with focus, depth, and fluid motion.",
-  "cta": "Explore Components",
-  "secondaryCta": "View on GitHub",
-  "liveBadge": "v5.0 is live",
+  "title": "Premium Astro Starter. Free & Open Source.",
+  "subtitle": "Build faster with Astro 5.0 and Tailwind CSS. A production-ready, glassmorphic template for startups, SaaS, portfolios, and many more.",
+  "cta": "Explore Templates",
+  "secondaryCta": "Documentation",
+  "liveBadge": "Free & Open Source",
   "digitalExperience": "Digital Experience",
   "watchReel": "See It In Action",
   "glassCard": {

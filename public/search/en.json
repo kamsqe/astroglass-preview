@@ -14,22 +14,22 @@
       "Choosing a Theme",
       "Next Steps"
     ],
-    "content": "Welcome to the Liquid Glass Template! This guide will walk you through setting up your development environment and customizing the template to fit your needs. Prerequisites Before you begin, make sure you have the following installed: - Node.js v18 or higher - pnpm (recommended) or npm - A code editor (VS Code recommended) We recommend using pnpm for faster, disk-efficient package management. Installation Clone the Repository First, clone the template repository to your local machine: Install Dependencies Install the project dependencies using your preferred package manager: Start the Development Server Run the development server to see your template in action: Your site should now be running at 🎉 Project Structure Here's an overview of the project's folder structure: - src/ - components/ - Hero.astro - About.astro - Pricing.astro - config/ - themes.ts - locales.ts - docs.ts - content/ - docs/ - en/ - ru/ - pages/ - index.astro - [theme].astro - styles/ - global.css - public/ - astro.config.mjs - package.json Choosing a Theme The template comes with 5 beautiful themes out of the box: | Theme | Description | |-------|-------------| | Liquid | Fluid animations, gradient backgrounds | | Glass | Glassmorphism effects, frosted panels | | Neo | Bold typography, strong contrast | | Luxury | Elegant gold accents, premium feel | | Minimal | Clean, focused, distraction-free | To switch themes, simply navigate to the theme switcher in the header or visit the theme demo pages directly. Next Steps Now that you have your development environment set up: 1. Explore the Themes — Learn about each theme's unique features 2. Internationalization Guide — Add support for more languages 3. Deployment Guide — Deploy to Cloudflare, Vercel, or Netlify Check out the FAQ or open an issue if you run into any problems.",
+    "content": "Welcome to the Astro Glass Template! This guide will walk you through setting up your development environment and customizing the template to fit your needs. Prerequisites Before you begin, make sure you have the following installed: - Node.js v18 or higher - pnpm (recommended) or npm - A code editor (VS Code recommended) We recommend using pnpm for faster, disk-efficient package management. Installation Clone the Repository First, clone the template repository to your local machine: Install Dependencies Install the project dependencies using your preferred package manager: Start the Development Server Run the development server to see your template in action: Your site should now be running at 🎉 Project Structure Here's an overview of the project's folder structure: - src/ - components/ - Hero.astro - About.astro - Pricing.astro - config/ - themes.ts - locales.ts - docs.ts - content/ - docs/ - en/ - ru/ - pages/ - index.astro - [theme].astro - styles/ - global.css - public/ - astro.config.mjs - package.json Choosing a Theme The template comes with 5 beautiful themes out of the box: | Theme | Description | |-------|-------------| | Liquid | Fluid animations, gradient backgrounds | | Glass | Glassmorphism effects, frosted panels | | Neo | Bold typography, strong contrast | | Luxury | Elegant gold accents, premium feel | | Minimal | Clean, focused, distraction-free | To switch themes, simply navigate to the theme switcher in the header or visit the theme demo pages directly. Next Steps Now that you have your development environment set up: 1. Explore the Themes — Learn about each theme's unique features 2. Internationalization Guide — Add support for more languages 3. Deployment Guide — Deploy to Cloudflare, Vercel, or Netlify Check out the FAQ or open an issue if you run into any problems.",
     "order": 1
   },
   {
     "url": "/docs/getting-started/introduction",
     "locale": "en",
     "title": "Introduction",
-    "description": "Welcome to the Liquid Glass documentation.",
+    "description": "Welcome to the Astro Glass documentation.",
     "section": "Getting Started",
     "sectionIcon": "⚡",
     "sectionOrder": 1,
     "headings": [
-      "Why Liquid Glass?",
+      "Why Astro Glass?",
       "What's Included?"
     ],
-    "content": "Liquid Glass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS. Why Liquid Glass? - Premium Design: Ready-to-use components with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. What's Included? The theme comes with over 20+ pre-built components, including:",
+    "content": "Astro Glass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS. Why Astro Glass? - Premium Design: Ready-to-use components with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. What's Included? The theme comes with over 20+ pre-built components, including:",
     "order": 1
   },
   {
@@ -187,7 +187,7 @@
       "Cards",
       "Code Tabs"
     ],
-    "content": "Liquid Glass comes with a set of custom MDX components to help you write beautiful and effective documentation. Callouts Use callouts to highlight important information. This is a default info callout. Be careful when modifying configuration files. This action is irreversible. Deployment completed successfully! You can use markdown inside callouts. Badges Use badges to show version status or feature tags. Currently using v2.0 of the framework. This feature is Experimental. Legacy API is Deprecated. Steps Use the Steps component to document sequential procedures. 1. Install dependencies Run in your terminal. 2. Configure the project Edit to set up your integration. 3. Start the server Run to start the development server. File Tree Visualize directory structures. - src/ - components/ - Header.astro - Footer.astro - pages/ - index.astro - public/ - package.json Usage Cards Link to other pages visually. Code Tabs Display code in multiple languages or formats. js console.log('Hello'); ts const msg: string = 'Hello'; console.log(msg); `",
+    "content": "Astro Glass comes with a set of custom MDX components to help you write beautiful and effective documentation. Callouts Use callouts to highlight important information. This is a default info callout. Be careful when modifying configuration files. This action is irreversible. Deployment completed successfully! You can use markdown inside callouts. Badges Use badges to show version status or feature tags. Currently using v2.0 of the framework. This feature is Experimental. Legacy API is Deprecated. Steps Use the Steps component to document sequential procedures. 1. Install dependencies Run in your terminal. 2. Configure the project Edit to set up your integration. 3. Start the server Run to start the development server. File Tree Visualize directory structures. - src/ - components/ - Header.astro - Footer.astro - pages/ - index.astro - public/ - package.json Usage Cards Link to other pages visually. Code Tabs Display code in multiple languages or formats. js console.log('Hello'); ts const msg: string = 'Hello'; console.log(msg); `",
     "order": 99
   },
   {
@@ -207,7 +207,7 @@
       "CTA (Call to Action)",
       "How It Works"
     ],
-    "content": "Liquid Glass provides a set of \"Wrapper Components\" for major page sections. These components automatically handle theme switching based on the prop. Each component supports 5 distinct design themes: 1. Liquid (Default) 2. Glass 3. Neo 4. Luxury 5. Minimal Hero The Hero component is the entry point of your landing page. Features Display your product features in a grid or list layout. Pricing Responsive pricing tables with monthly/yearly toggles. Testimonials Social proof sections to build trust. FAQ Frequently Asked Questions accordion. CTA (Call to Action) Final conversion section at the bottom of pages. How It Works Under the hood, these wrapper components dynamically import the specific implementation based on the version prop. For example, renders . To customize a specific section, you should edit the file in the subdirectory (e.g., ) rather than the wrapper component itself.",
+    "content": "Astro Glass provides a set of \"Wrapper Components\" for major page sections. These components automatically handle theme switching based on the prop. Each component supports 5 distinct design themes: 1. Liquid (Default) 2. Glass 3. Neo 4. Luxury 5. Minimal Hero The Hero component is the entry point of your landing page. Features Display your product features in a grid or list layout. Pricing Responsive pricing tables with monthly/yearly toggles. Testimonials Social proof sections to build trust. FAQ Frequently Asked Questions accordion. CTA (Call to Action) Final conversion section at the bottom of pages. How It Works Under the hood, these wrapper components dynamically import the specific implementation based on the version prop. For example, renders . To customize a specific section, you should edit the file in the subdirectory (e.g., ) rather than the wrapper component itself.",
     "order": 99
   },
   {
@@ -221,7 +221,7 @@
     "headings": [
       "The Recipe"
     ],
-    "content": "Liquid Glass implements a modern take on glassmorphism. The Recipe 1. Backdrop Blur: We use for the frosted effect. 2. Translucency: Background colors use alpha channels (e.g., ). 3. Borders: Subtle 1px borders () define the edges. 4. Shadows: Soft, colored shadows create depth. This combination creates a sense of hierarchy and modernity.",
+    "content": "Astro Glass implements a modern take on glassmorphism. The Recipe 1. Backdrop Blur: We use for the frosted effect. 2. Translucency: Background colors use alpha channels (e.g., ). 3. Borders: Subtle 1px borders () define the edges. 4. Shadows: Soft, colored shadows create depth. This combination creates a sense of hierarchy and modernity.",
     "order": 1
   },
   {
@@ -257,28 +257,28 @@
       "Adding Custom Fonts",
       "Component Customization"
     ],
-    "content": "Liquid Glass uses Tailwind CSS v4 for styling, which offers better performance and a streamlined configuration experience. Styling Overview Global styles and CSS variables are defined in . This file handles: - Base layer resets - Custom fonts (Inter & JetBrains Mono) - CSS variables for theming (HSL color values) - src/ - styles/ - global.css - tailwind.config.mjs Theming System The project uses a CSS variable-based theming system. Colors are defined as HSL values (without the ) function, allowing Tailwind's opacity modifier to work correctly. Components consume these variables via Tailwind utility classes or custom usage. To change the site's color scheme, update the HSL values in . You can define different values for light/dark mode using the selector if needed. Tailwind Configuration Tailwind v4 is configured in using the directive, but for backward compatibility or complex plugins, we also include a file. You can extend the theme, add plugins, or modify content paths in . Adding Custom Fonts 1. Place font files in or import from Google Fonts. 2. Define the font-face in . 3. Update the font family in . Component Customization Most UI components expose props for basic customization (like for Wrapper Components). For deeper changes, you should modify the component files directly in . For example, to change the layout of the Header, edit and .",
+    "content": "Astro Glass uses Tailwind CSS v4 for styling, which offers better performance and a streamlined configuration experience. Styling Overview Global styles and CSS variables are defined in . This file handles: - Base layer resets - Custom fonts (Inter & JetBrains Mono) - CSS variables for theming (HSL color values) - src/ - styles/ - global.css - tailwind.config.mjs Theming System The project uses a CSS variable-based theming system. Colors are defined as HSL values (without the ) function, allowing Tailwind's opacity modifier to work correctly. Components consume these variables via Tailwind utility classes or custom usage. To change the site's color scheme, update the HSL values in . You can define different values for light/dark mode using the selector if needed. Tailwind Configuration Tailwind v4 is configured in using the directive, but for backward compatibility or complex plugins, we also include a file. You can extend the theme, add plugins, or modify content paths in . Adding Custom Fonts 1. Place font files in or import from Google Fonts. 2. Define the font-face in . 3. Update the font family in . Component Customization Most UI components expose props for basic customization (like for Wrapper Components). For deeper changes, you should modify the component files directly in . For example, to change the layout of the Header, edit and .",
     "order": 99
   },
   {
     "url": "/docs/core-concepts/project-structure",
     "locale": "en",
     "title": "Project Structure",
-    "description": "Overview of the Liquid Glass codebase organization.",
+    "description": "Overview of the Astro Glass codebase organization.",
     "section": "Core Concepts",
     "sectionIcon": "📚",
     "sectionOrder": 3,
     "headings": [
       "Key Directories"
     ],
-    "content": "Liquid Glass follows a standard Astro project structure. Key Directories Contains all reusable UI components. The top-level components (e.g., ) are wrapper components that switch between different design implementations located in subdirectories (e.g., ). Contains Markdown and MDX content for the documentation. The structure inside determines the URL structure of your documentation site. File-based routing. The dynamic parameter handles internationalization for all main pages. Utility functions, primarily for handling i18n translations and navigation logic.",
+    "content": "Astro Glass follows a standard Astro project structure. Key Directories Contains all reusable UI components. The top-level components (e.g., ) are wrapper components that switch between different design implementations located in subdirectories (e.g., ). Contains Markdown and MDX content for the documentation. The structure inside determines the URL structure of your documentation site. File-based routing. The dynamic parameter handles internationalization for all main pages. Utility functions, primarily for handling i18n translations and navigation logic.",
     "order": 99
   },
   {
     "url": "/docs/core-concepts/routing-i18n",
     "locale": "en",
     "title": "Routing & Internationalization",
-    "description": "Understand how pages and languages work in Liquid Glass.",
+    "description": "Understand how pages and languages work in Astro Glass.",
     "section": "Core Concepts",
     "sectionIcon": "📚",
     "sectionOrder": 3,
@@ -287,14 +287,14 @@
       "Documentation Routing",
       "Internationalization (i18n)"
     ],
-    "content": "Liquid Glass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy. Page Routing Pages are located in . The folder structure determines the URL path. For localized pages, we use separate directories: - src/ - pages/ - index.astro # Default language (English) Homepage - about.astro # /about - ru/ # Russian Localization - index.astro # /ru/ (Russian Homepage) - about.astro # /ru/about Adding a New Page To add a new page (e.g., ): 1. Create (for English). 2. Create (for Russian). Documentation Routing Documentation pages live in . - src/ - content/ - docs/ - en/ - getting-started/ - 01-introduction.mdx - ru/ - getting-started/ - 01-introduction.mdx The URL for documentation is automatically generated based on the file path, e.g., . Internationalization (i18n) Translations are handled in two ways: 1. Page Content: Duplicate files in . 2. UI Strings: Centralized JSON files in . UI Translations Common strings (nav items, buttons, etc.) are stored in . Use the helper function to translate strings in components: To add a new language (e.g., Spanish): 1. Create a directory. 2. Create . 3. Create . 4. Update to include the new option.",
+    "content": "Astro Glass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy. Page Routing Pages are located in . The folder structure determines the URL path. For localized pages, we use separate directories: - src/ - pages/ - index.astro # Default language (English) Homepage - about.astro # /about - ru/ # Russian Localization - index.astro # /ru/ (Russian Homepage) - about.astro # /ru/about Adding a New Page To add a new page (e.g., ): 1. Create (for English). 2. Create (for Russian). Documentation Routing Documentation pages live in . - src/ - content/ - docs/ - en/ - getting-started/ - 01-introduction.mdx - ru/ - getting-started/ - 01-introduction.mdx The URL for documentation is automatically generated based on the file path, e.g., . Internationalization (i18n) Translations are handled in two ways: 1. Page Content: Duplicate files in . 2. UI Strings: Centralized JSON files in . UI Translations Common strings (nav items, buttons, etc.) are stored in . Use the helper function to translate strings in components: To add a new language (e.g., Spanish): 1. Create a directory. 2. Create . 3. Create . 4. Update to include the new option.",
     "order": 99
   },
   {
     "url": "/docs/deployment/cloudflare",
     "locale": "en",
     "title": "Cloudflare Deployment",
-    "description": "Deploy your Liquid Glass site to Cloudflare Pages.",
+    "description": "Deploy your Astro Glass site to Cloudflare Pages.",
     "section": "Deployment",
     "sectionIcon": "🚀",
     "sectionOrder": 5,

@@ -36,5 +36,44 @@
     "scaleF2Title": "i18n Ready",
     "scaleF2Desc": "Full internationalization support with RTL and multi-language routing."
   },
-  "cta": "Explore the Docs"
+  "cta": "Explore the Docs",
+  "home": {
+    "title": "Why AstroGlass?",
+    "subtitle": "Pure Performance. Liquid Design.",
+    "desc": "A complete toolkit for building stunning, high-performance websites without the hassle.",
+    "list": [
+      {
+        "title": "Astro 5.0",
+        "desc": "Latest Server Islands & Content Layer architecture for ultimate speed."
+      },
+      {
+        "title": "Tailwind CSS 4.0",
+        "desc": "Next-gen utility engine. Zero config, instant builds."
+      },
+      {
+        "title": "Cloudflare Edge",
+        "desc": "Deploy globally with edge-ready config and adapters included."
+      },
+      {
+        "title": "Premium Search",
+        "desc": "Custom Fuse.js implementation. No external services required."
+      },
+      {
+        "title": "I18n Native",
+        "desc": "Built-in routing, locale detection, and translation management."
+      },
+      {
+        "title": "React 19",
+        "desc": "Interactive islands when you need them, static HTML when you don't."
+      },
+      {
+        "title": "Type-Safe",
+        "desc": "Full TypeScript support & Zod content validation schemas."
+      },
+      {
+        "title": "SEO Optimized",
+        "desc": "Canonical URLs, Open Graph, and Sitemap generation included."
+      }
+    ]
+  }
 }

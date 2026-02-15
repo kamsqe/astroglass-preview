@@ -1,0 +1,101 @@
+---
+/**
+ * Theme Gallery - Adapted from PortfolioGlass
+ * Horizontal scrolling showcase of available themes.
+ */
+import '../../../styles/components/portfolio/PortfolioGlass.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { themes } from '../../../config/themes';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Filter enabled themes and map to gallery format
+// Filter enabled themes and map to gallery format
+const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
+  id: i + 1,
+  title: theme.name,
+  desc: theme.description,
+  category: t('portfolio.themeGallery.free'), // Default to Free
+  num: `0${i + 1}`,
+  realId: theme.id,
+  color: theme.color
+}));
+
+// Update category for premium themes manually for display if needed
+// Update category for premium themes manually for display if needed
+const enhancedThemeItems = themeItems.map(c => ({
+  ...c,
+  category: c.title === 'Luxury' || c.title === 'Aurora' ? t('portfolio.themeGallery.premium') : t('portfolio.themeGallery.free')
+}));
+---
+
+<section id="themes" class="relative py-16 sm:py-24 md:py-32 bg-base-content/[0.01] overflow-hidden">
+  <!-- Header -->
+  <div class="px-4 sm:px-6 mb-10 sm:mb-14 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div>
+      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-3">{t('portfolio.themeGallery.subtitle')}</span>
+      <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight leading-none">
+        {t('portfolio.themeGallery.title')}
+      </h2>
+    </div>
+    <p class="text-sm sm:text-base text-base-content/40 max-w-xs">
+      {t('portfolio.themeGallery.desc')}
+    </p>
+  </div>
+
+  <!-- Carousel -->
+  <div class="relative">
+    <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
+      {enhancedThemeItems.map((p, i) => (
+        <a href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+          <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
+            <!-- Background gradient from theme config -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-10 transition-opacity duration-700`}></div>
+
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
+            <div class="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+              <!-- Top -->
+              <div class="flex items-start justify-between">
+                <span class={`px-3 py-1.5 rounded-lg bg-accent/10  text-[10px] font-bold uppercase tracking-wider ${p.category === 'Premium' ? 'text-amber-500' : 'text-accent'}`}>
+                  {p.category}
+                </span>
+                <span class="text-4xl sm:text-5xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500">{p.num}</span>
+              </div>
+              
+              <!-- Bottom -->
+              <div>
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-base-content mb-3 tracking-tight group-hover:text-accent transition-colors duration-500">
+                  {p.title}
+                </h3>
+                <p class="text-sm sm:text-base text-base-content/40 font-medium max-w-md mb-6 group-hover:text-base-content/60 transition-colors duration-500">
+                  {p.desc}
+                </p>
+                <div class="inline-flex items-center gap-3 text-accent font-bold text-xs uppercase tracking-widest hover:gap-5 transition-all duration-300">
+                  {t('portfolio.themeGallery.viewDemo')}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+    <!-- Scroll hint -->
+    <div class="flex items-center justify-center gap-3 text-base-content/30 animate-pulse">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      <span class="text-[10px] font-bold uppercase tracking-widest">{t('portfolio.scrollHint')}</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4-4m0 0l-4-4m4 4H3"/>
+      </svg>
+    </div>
+  </div>
+</section>

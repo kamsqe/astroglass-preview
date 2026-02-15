@@ -10,6 +10,14 @@
   "scrollHint": "Scroll to explore",
   "gridHint": "Hover to explore each project",
   "viewCaseStudy": "View Case Study",
+  "themeGallery": {
+    "title": "Choose Your Style",
+    "subtitle": "Template Gallery",
+    "desc": "Six stunning, professionally designed landing page templates included. Switch instantly.",
+    "viewDemo": "View Demo",
+    "premium": "Premium",
+    "free": "Free"
+  },
   "categories": {
     "webapp": "Web App",
     "dashboard": "Dashboard",

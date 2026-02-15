@@ -1,111 +1,27 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderNeo from '../../components/layout/header/HeaderNeo.astro';
+import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
+
+// New Home Components
+import HeroHome from '../../components/sections/hero/HeroHome.astro';
+import FeaturesHome from '../../components/sections/features/FeaturesHome.astro';
+import ThemeGallery from '../../components/sections/portfolio/ThemeGallery.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-
-import { getEnabledThemes } from '../../config/themes';
-
-const demos = getEnabledThemes().map((theme) => ({
-  id: theme.id,
-  color: theme.color,
-  icon: theme.icon,
-}));
-
-// Build localized href for demos
-const getLocalizedHref = (demoId: string) => {
-  return locale === 'en' ? `/${demoId}` : `/${locale}/${demoId}`;
-};
 ---
 
 <BaseLayout title={t('title')} description={t('description')} showHeader={false} showControls={false}>
   <HeaderNeo />
   
   <main class="min-h-screen">
-    <!-- Hero Section -->
-    <section class="relative py-32 px-6 text-center overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent"></div>
-      <div class="relative z-10 max-w-4xl mx-auto">
-        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">
-          {t('landing.headline')}
-        </h1>
-        <p class="text-xl md:text-2xl text-base-content/60 mb-12 max-w-2xl mx-auto">
-          {t('landing.tagline')}
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href={getLocalizedHref('liquid')} class="px-8 py-4 bg-accent text-white rounded-full font-bold hover:scale-105 transition-transform">
-            {t('landing.viewDemos')}
-          </a>
-          <a href={locale === 'en' ? '/docs' : `/${locale}/docs`} class="px-8 py-4 bg-base-content/10 rounded-full font-bold hover:bg-base-content/20 transition-colors">
-            {t('landing.documentation')}
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Demo Previews -->
-    <section class="py-20 px-6">
-      <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-4">{t('landing.chooseStyle')}</h2>
-        <p class="text-center text-base-content/60 mb-16 max-w-xl mx-auto">
-          {t('landing.chooseStyleDesc')}
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {demos.map((demo) => (
-            <a 
-              href={getLocalizedHref(demo.id)}
-              class="group relative rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10"
-            >
-              <div class={`absolute inset-0 bg-gradient-to-br ${demo.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-              <div class="p-8">
-                <div class="h-48 mb-6 rounded-2xl bg-base-content/5 flex items-center justify-center overflow-hidden">
-                  <span class="text-6xl opacity-30 group-hover:scale-110 transition-transform duration-500">
-                    {demo.icon}
-                  </span>
-                </div>
-                <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">{t(`landing.demos.${demo.id}.name`)}</h3>
-                <p class="text-sm text-base-content/50">{t(`landing.demos.${demo.id}.description`)}</p>
-                <div class="mt-4 flex items-center gap-2 text-sm font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>{t('landing.viewDemo')}</span>
-                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-20 px-6 bg-base-content/[0.02]">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12">{t('landing.builtForModern')}</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
-            <div class="text-3xl mb-4">🚀</div>
-            <h3 class="font-bold mb-2">{t('about.feature1Title')}</h3>
-            <p class="text-sm text-base-content/60">{t('about.feature1Desc')}</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
-            <div class="text-3xl mb-4">🎨</div>
-            <h3 class="font-bold mb-2">{t('about.feature2Title')}</h3>
-            <p class="text-sm text-base-content/60">{t('about.feature2Desc')}</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-base-100 border border-base-content/10">
-            <div class="text-3xl mb-4">🌍</div>
-            <h3 class="font-bold mb-2">{t('about.feature3Title')}</h3>
-            <p class="text-sm text-base-content/60">{t('about.feature3Desc')}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <HeroHome />
+    <FeaturesHome />
+    <ThemeGallery />
   </main>
+  
   <FooterLiquid />
 </BaseLayout>

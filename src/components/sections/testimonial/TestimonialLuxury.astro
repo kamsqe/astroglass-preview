@@ -90,64 +90,61 @@ const testimonials = [
     </div>
 
     <!-- Masonry Grid -->
-    <div class="c-testimonial-luxury__grid columns-2 lg:columns-3 2xl:columns-4 gap-4 lg:gap-6">
+    <div class="c-testimonial-luxury__grid columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4 lg:gap-6">
        {testimonials.map((item, i) => (
           <div 
             class="c-testimonial-luxury__card break-inside-avoid mb-4 lg:mb-6 group"
             style={`animation-delay: ${i * 80}ms`}
           >
              <div class:list={[
-               "relative p-5 lg:p-6 rounded-xl lg:rounded-2xl border transition-luxury overflow-hidden ring-1 ring-white/5 ring-inset shadow-xl",
+               "relative p-6 lg:p-8 rounded-2xl lg:rounded-3xl border transition-luxury overflow-hidden ring-1 ring-white/5 ring-inset shadow-xl flex flex-col justify-between h-full",
                item.accent 
                  ? "c-testimonial-luxury__card--accent bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20" 
                  : "c-testimonial-luxury__card--default bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] border-base-content/10 font-light backdrop-blur-xl",
-               item.size === 'large' ? "lg:p-8" : ""
+               item.size === 'large' ? "lg:p-10" : ""
              ]}>
-                <!-- Accent glow for featured -->
-                {item.accent && (
-                   <div class="c-testimonial-luxury__glow absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent"></div>
+                
+                <!-- Quote Icon for large cards -->
+                {item.size === 'large' && (
+                   <div class="absolute top-6 right-6 w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center opacity-50">
+                      <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                      </svg>
+                   </div>
                 )}
                 
-                <div class="relative z-10">
-                   <!-- Quote Icon for large cards -->
-                   {item.size === 'large' && (
-                      <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                         <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                         </svg>
-                      </div>
-                   )}
-                   
-                   <!-- Quote -->
+                <!-- Quote -->
+                <div class="mb-6 relative z-10">
                    <p class:list={[
-                     "text-base-content/70 leading-relaxed mb-5",
-                     item.size === 'large' ? "text-base lg:text-lg font-medium" : "text-sm",
+                     "text-base-content/80 leading-relaxed font-serif",
+                     item.size === 'large' ? "text-lg lg:text-xl font-medium" : "text-base",
                      item.size === 'small' ? "text-sm font-medium" : ""
                    ]}>
                       "{item.quote}"
                    </p>
+                </div>
 
-                   <!-- Author -->
-                   <div class="flex items-center gap-3">
-                      <img 
-                        src={item.avatar} 
-                        alt={item.author} 
-                        class:list={[
-                          "rounded-full object-cover border",
-                          item.accent ? "border-accent/20" : "border-base-content/10",
-                          item.size === 'large' ? "w-11 h-11" : "w-9 h-9"
-                        ]}
-                      />
-                      <div>
-                         <p class:list={[
-                           "font-bold text-base-content",
-                           item.size === 'large' ? "text-sm" : "text-xs"
-                         ]}>{item.author}</p>
-                         <p class:list={[
-                           item.accent ? "text-accent/60" : "text-base-content/40",
-                           item.size === 'large' ? "text-xs" : "text-[10px]"
-                         ]}>{item.role}</p>
-                      </div>
+                <!-- Author -->
+                <div class="flex items-center gap-4 mt-auto pt-4 border-t border-base-content/5 relative z-10">
+                   <img 
+                     src={item.avatar} 
+                     alt={item.author} 
+                     class:list={[
+                       "rounded-full object-cover border-2 shadow-sm",
+                       item.accent ? "border-white/20" : "border-base-content/10",
+                       item.size === 'large' ? "w-12 h-12" : "w-10 h-10"
+                     ]}
+                   />
+                   <div>
+                      <p class:list={[
+                        "font-bold text-base-content tracking-tight",
+                        item.size === 'large' ? "text-base" : "text-sm"
+                      ]}>{item.author}</p>
+                      <p class:list={[
+                        "font-medium tracking-wide uppercase mt-0.5",
+                        item.accent ? "text-accent" : "text-base-content/40",
+                        item.size === 'large' ? "text-[10px]" : "text-[9px]"
+                      ]}>{item.role}</p>
                    </div>
                 </div>
              </div>

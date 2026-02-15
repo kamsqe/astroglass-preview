@@ -288,7 +288,16 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       if (activeBtn && scrollContainer) {
         // use setTimeout to ensure layout is settled (transitions etc)
         setTimeout(() => {
-            activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          // Calculate center position relative to container
+          const containerWidth = scrollContainer.clientWidth;
+          const btnLeft = (activeBtn as HTMLElement).offsetLeft;
+          const btnWidth = (activeBtn as HTMLElement).offsetWidth;
+          
+          // Scroll container only, avoiding page scroll
+          scrollContainer.scrollTo({
+            left: btnLeft - containerWidth / 2 + btnWidth / 2,
+            behavior: 'smooth'
+          });
         }, 300);
       }
     });

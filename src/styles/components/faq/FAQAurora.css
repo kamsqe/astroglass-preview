@@ -27,12 +27,16 @@
     gap: 64px;
     align-items: start;
   }
+
+  .faq-aurora-header {
+    position: sticky;
+    top: 100px;
+  }
 }
 
 /* Header */
 .faq-aurora-header {
-  position: sticky;
-  top: 100px;
+  position: relative;
 }
 
 .faq-aurora-terminal-label {

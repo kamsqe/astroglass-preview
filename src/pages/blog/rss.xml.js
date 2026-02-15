@@ -6,7 +6,7 @@ export const prerender = true;
 export async function GET(context) {
   const posts = await getCollection('blog', ({ slug }) => slug.startsWith('en/'));
   return rss({
-    title: 'Liquid Glass Blog',
+    title: 'Astro Glass Blog',
     description: 'Insights and updates.',
     site: context.site || 'https://liquid-glass.netlify.app',
     items: posts.map((post) => ({

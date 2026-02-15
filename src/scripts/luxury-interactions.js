@@ -1,6 +1,6 @@
 /**
  * Luxury Interactions (v17.0)
- * Premium micro-interactions for the Liquid Glass theme.
+ * Premium micro-interactions for the Astro Glass theme.
  */
 
 // Spotlight Effect causing a localized glow to follow the cursor

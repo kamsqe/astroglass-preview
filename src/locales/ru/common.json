@@ -1,8 +1,8 @@
 {
   "greeting": "Привет, мир!",
-  "title": "LiquidGlass",
-  "description": "Современный Astro шаблон с дизайном liquid-glass",
-  "siteName": "LiquidGlass",
+  "title": "AstroGlass",
+  "description": "Современный Astro шаблон с дизайном astro-glass",
+  "siteName": "AstroGlass",
   "learnMore": "Узнать больше",
   "back": "Назад",
   "next": "Далее",

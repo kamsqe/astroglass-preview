@@ -1,4 +1,4 @@
-# Liquid Glass Astro Cloudflare Starter
+# Astro Glass Cloudflare Starter
 
 Современный стартовый набор, созданный на [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com) и [Fuse.js](https://fusejs.io) для поиска. Легко развертывается на Cloudflare Pages.
 

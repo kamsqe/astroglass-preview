@@ -5,9 +5,13 @@
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { Image } from 'astro:assets';
+import liquidFeaturesImg from '../../../assets/themes/liquid/LiquidFeatures.png';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+
+import '../../../styles/components/features/FeaturesLiquid.css';
 
 const features = [
   { id: 1, title: t('features.f1Title'), desc: t('features.f1Desc'), iconId: 'droplet', priority: true, organic: 1 },
@@ -63,11 +67,20 @@ import '../../../styles/components/features/FeaturesLiquid.css';
             <!-- Glow on hover -->
             <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-accent/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             
-            <!-- Liquid SVG Icon (organic blob shape) -->
-            <div class="c-features-liquid__icon-box w-12 h-12 sm:w-14 sm:h-14 bg-accent/10 border border-accent/10 flex items-center justify-center mb-6 sm:mb-8 relative z-10">
-              <svg class="c-features-liquid__icon-svg w-6 h-6 sm:w-7 sm:h-7 text-base-content/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d={iconPaths[f.iconId]} />
-              </svg>
+             <div class={`c-features-liquid__icon-box w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center mb-6 sm:mb-8 relative z-10 ${i === 0 ? 'w-auto h-auto bg-transparent border-0' : 'bg-accent/10 border border-accent/10'}`}>
+               {i === 0 ? (
+                 <div class="mb-4">
+                    <Image 
+                      src={liquidFeaturesImg} 
+                      alt="Feature visual" 
+                      class="w-48 h-auto object-contain drop-shadow-lg"
+                    />
+                 </div>
+               ) : (
+                <svg class="c-features-liquid__icon-svg w-6 h-6 sm:w-7 sm:h-7 text-base-content/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={iconPaths[f.iconId]} />
+                </svg>
+               )}
             </div>
 
             <!-- Content -->
@@ -79,7 +92,7 @@ import '../../../styles/components/features/FeaturesLiquid.css';
                 {f.desc}
               </p>
             </div>
-            
+
             <!-- Bottom accent line (liquid flow) -->
             <div class:list={[
               "absolute bottom-0 h-1 bg-gradient-to-r from-accent to-primary rounded-full transition-all duration-1000",

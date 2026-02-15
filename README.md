@@ -1,4 +1,4 @@
-# Liquid Glass Astro Cloudflare Starter
+# Astro Glass Cloudflare Starter
 
 A modern, high-performance starter kit built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and [Fuse.js](https://fusejs.io) for search. Deploys seamlessly to Cloudflare Pages.
 

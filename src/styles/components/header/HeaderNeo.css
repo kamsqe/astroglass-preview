@@ -8,7 +8,7 @@
 }
 
 .header-neo {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -18,7 +18,10 @@
 }
 
 @media (min-width: 1024px) {
-  .header-neo { padding: 24px 40px; }
+  .header-neo { 
+    padding: 24px 40px; 
+    position: fixed;
+  }
 }
 
 /* Scrolled — shrink to compact pill */

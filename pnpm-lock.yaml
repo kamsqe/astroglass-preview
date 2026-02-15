@@ -44,6 +44,9 @@ dependencies:
   astro-expressive-code:
     specifier: ^0.41.6
     version: 0.41.6(astro@5.17.1)
+  body-scroll-lock:
+    specifier: 4.0.0-beta.0
+    version: 4.0.0-beta.0
   class-variance-authority:
     specifier: ^0.7.1
     version: 0.7.1
@@ -82,6 +85,9 @@ dependencies:
     version: 1.2.0(typescript@5.9.3)
 
 devDependencies:
+  '@types/body-scroll-lock':
+    specifier: ^3.1.2
+    version: 3.1.2
   '@types/node':
     specifier: ^25.2.1
     version: 25.2.1
@@ -2692,6 +2698,10 @@ packages:
       '@babel/types': 7.29.0
     dev: false
 
+  /@types/body-scroll-lock@3.1.2:
+    resolution: {integrity: sha512-ELhtuphE/YbhEcpBf/rIV9Tl3/O0A0gpCVD+oYFSS8bWstHFJUgA4nNw1ZakVlRC38XaQEIsBogUZKWIPBvpfQ==}
+    dev: true
+
   /@types/d3-array@3.2.2:
     resolution: {integrity: sha512-hOLWVbm7uRza0BYXpIIW5pxfrKe0W+D5lrFiAEYR+pb6w3N2SwSMaJbXdUfSEv+dT4MfHBLtn5js0LAWaO6otw==}
     dev: false
@@ -3194,6 +3204,10 @@ packages:
 
   /blake3-wasm@2.1.5:
     resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
+    dev: false
+
+  /body-scroll-lock@4.0.0-beta.0:
+    resolution: {integrity: sha512-a7tP5+0Mw3YlUJcGAKUqIBkYYGlYxk2fnCasq/FUph1hadxlTRjF+gAcZksxANnaMnALjxEddmSi/H3OR8ugcQ==}
     dev: false
 
   /boolbase@1.0.0:

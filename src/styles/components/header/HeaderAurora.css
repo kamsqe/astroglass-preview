@@ -570,20 +570,62 @@ button.nav-aurora-link {
 /* Footer */
 .overlay-aurora-footer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 24px; /* Space between Theme and Lang */
   padding-top: 40px;
   border-top: 1px solid hsl(var(--bc) / 0.05);
   opacity: 0;
   transition: all 0.6s ease 0.4s;
+  width: 100%;
 }
 
 .overlay-aurora.is-open .overlay-aurora-footer {
   opacity: 1;
 }
 
-.overlay-aurora-footer-group {
-  display: flex;
-  align-items: center;
+/* Custom Styles for Mobile Switchers in Aurora Context */
+.overlay-aurora-footer .theme-switcher-mobile {
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.overlay-aurora-footer .theme-scroll-container {
+  gap: 12px;
+  padding: 4px; /* breathing room for focus rings */
+}
+
+.overlay-aurora-footer .theme-option-mobile {
+  background: hsl(var(--bc) / 0.03);
+  border: 1px solid hsl(var(--bc) / 0.05);
+  border-radius: 12px;
+  padding: 8px 16px;
+  min-width: auto; /* Allow shrink */
+}
+
+.overlay-aurora-footer .theme-option-mobile.is-active {
+  background: hsl(var(--a) / 0.1);
+  border-color: hsl(var(--a) / 0.3);
+  color: hsl(var(--a));
+}
+
+.overlay-aurora-footer .lang-switcher-mobile {
+  background: hsl(var(--bc) / 0.03);
+  border: 1px solid hsl(var(--bc) / 0.05);
+  padding: 4px;
+  border-radius: 16px; /* Pill shape */
+  display: inline-flex;
+}
+
+.overlay-aurora-footer .lang-option-mobile {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.overlay-aurora-footer .lang-option-mobile.is-active {
+  background: hsl(var(--bc));
+  color: hsl(var(--b1));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }

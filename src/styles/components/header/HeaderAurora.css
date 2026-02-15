@@ -361,9 +361,16 @@ button.nav-aurora-link {
   visibility: visible;
 }
 
+/* Scrollable container */
+.overlay-aurora {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Mesh gradient background */
 .overlay-aurora-mesh {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: hsl(var(--b1) / 0.92);
   backdrop-filter: blur(40px);
@@ -400,8 +407,9 @@ button.nav-aurora-link {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  justify-content: flex-start;
+  min-height: 100dvh;
+  height: auto;
   padding: 100px 32px 40px;
   padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
   max-width: 600px;

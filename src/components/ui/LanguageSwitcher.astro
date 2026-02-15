@@ -82,9 +82,10 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
       link.addEventListener('click', () => {
         const href = link.getAttribute('href');
         if (href) {
-          // Detect locale from href
-          const locale = href.startsWith('/ru') ? 'ru' : 'en';
-          localStorage.setItem('preferred-locale', locale);
+            if (navigator.vibrate) navigator.vibrate(10);
+            // Detect locale from href
+            const locale = href.startsWith('/ru') ? 'ru' : 'en';
+            localStorage.setItem('preferred-locale', locale);
         }
       });
     });

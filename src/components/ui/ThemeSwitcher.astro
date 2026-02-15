@@ -62,19 +62,24 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
 
 {variant === 'mobile' ? (
   <!-- Mobile: Horizontal scrollable grid -->
+  <!-- Mobile: Horizontal scrollable list -->
   <div class="theme-switcher-mobile" data-theme-switcher-mobile>
-    <div class="theme-grid-container">
+    <div class="theme-scroll-container">
       {allThemes.map((theme) => (
         <button
           type="button"
           data-theme-option={theme.id}
           class="theme-option theme-option-mobile"
+          aria-label={theme.label}
         >
           <span class="theme-emoji">{theme.icon}</span>
           <span class="theme-label">{theme.label}</span>
         </button>
       ))}
     </div>
+    <!-- Fade gradients for scroll indication -->
+    <div class="scroll-fade-left"></div>
+    <div class="scroll-fade-right"></div>
   </div>
 ) : (
   <!-- Desktop: Categorized Dropdown -->
@@ -261,17 +266,31 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       });
     });
 
-    // Mobile grid switchers
+    // Mobile horizontal switchers
     document.querySelectorAll('[data-theme-switcher-mobile]').forEach(switcher => {
+      const scrollContainer = switcher.querySelector('.theme-scroll-container');
+      
       switcher.querySelectorAll('.theme-option-mobile').forEach(btn => {
         const newBtn = btn.cloneNode(true) as HTMLElement;
         btn.parentNode?.replaceChild(newBtn, btn);
         newBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           const theme = newBtn.getAttribute('data-theme-option') as Theme;
+          if (navigator.vibrate) navigator.vibrate(10);
           setTheme(theme);
+          // Scroll into view on click
+          newBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         });
       });
+
+      // Initial scroll to active item
+      const activeBtn = switcher.querySelector('.theme-option-mobile.is-active');
+      if (activeBtn && scrollContainer) {
+        // use setTimeout to ensure layout is settled (transitions etc)
+        setTimeout(() => {
+            activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }, 300);
+      }
     });
 
     // Reapply active states after cloning

@@ -374,18 +374,26 @@
 
 /* Mobile panel footer */
 .panel-glass-footer {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid hsl(var(--bc) / 0.1);
+  margin-top: auto; /* Push to bottom if content is short */
+  padding-top: 20px;
+
+  background: linear-gradient(to top, hsl(var(--b1)), hsl(var(--b1) / 0.9) 80%, transparent);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+}
+
+.panel-glass-theme-row {
+  width: 100%;
+  overflow: hidden; /* Contains the negative margin of switcher */
+  padding-bottom: 4px; /* Space for shadow */
 }
 
 .panel-glass-footer-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 4px; /* Align with other content */
 }
 
 .panel-glass-label {

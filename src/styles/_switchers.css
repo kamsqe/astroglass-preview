@@ -420,104 +420,135 @@
   color: hsl(var(--a));
 }
 
-/* Theme Switcher Mobile */
+/* ============================================
+   Theme Switcher Mobile - Refined Horizontal Scroll
+   ============================================ */
+
 .theme-switcher-mobile {
   position: relative;
+  /* Negative margin to allow full-width scroll but keep content aligned */
+  margin: 0 -20px;
+  /* Enhanced Mask for smoother fade at edges */
+  mask-image: linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%);
+  /* Prevent scroll chaining */
+  overscroll-behavior-x: contain;
 }
 
-/* Use CSS mask to fade edges - smooth eased gradient for beautiful transition */
-.theme-grid-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px; /* Tighter gap */
-  padding: 2px;
+.theme-scroll-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 32px; /* Padding matches mask width + extra for first item visibility */
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab; /* Desktop hint */
+}
+.theme-scroll-container:active {
+  cursor: grabbing;
 }
 
-@media (max-width: 360px) {
-  .theme-grid-container {
-    grid-template-columns: repeat(4, 1fr); /* Fallback for very narrow screens */
+.theme-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+/* Mobile Theme Option - Pill Style */
+.theme-option-mobile {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  height: 40px;
+  border-radius: 100px; /* Pill shape */
+  
+  /* Glass Background */
+  background: hsl(var(--bc) / 0.05);
+  border: 1px solid hsl(var(--bc) / 0.08);
+  color: hsl(var(--bc) / 0.6);
+  
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  scroll-snap-align: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover state (on devices that support hover) */
+@media (hover: hover) {
+  .theme-option-mobile:hover {
+    background: hsl(var(--bc) / 0.08);
+    transform: translateY(-1px);
   }
 }
 
-.theme-option-mobile {
-  flex-shrink: 0;
-  min-width: 50px; /* Tighter */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 10px 4px 8px; /* Compact padding */
-  border-radius: 14px;
-  background: linear-gradient(135deg, hsl(var(--bc) / 0.035) 0%, hsl(var(--bc) / 0.015) 100%);
-  border: 1.5px solid hsl(var(--bc) / 0.05);
-  color: hsl(var(--bc) / 0.45);
-  transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
-  -webkit-tap-highlight-color: transparent;
-  scroll-snap-align: center;
-  position: relative;
-  overflow: hidden;
-}
-/* Subtle inner shine */
-.theme-option-mobile::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, hsl(var(--bc) / 0.02) 0%, transparent 100%);
-  pointer-events: none;
-  border-radius: inherit;
-}
-.theme-option-mobile:active {
-  transform: scale(0.94);
-  background: hsl(var(--bc) / 0.06);
-}
+/* Active State - Illuminated Glass */
 .theme-option-mobile.is-active {
-  background: linear-gradient(135deg, hsl(var(--a) / 0.14) 0%, hsl(var(--a) / 0.06) 100%);
+  background: hsl(var(--a) / 0.15);
   border-color: hsl(var(--a) / 0.3);
   color: hsl(var(--a));
-  box-shadow:
-    0 3px 12px -3px hsl(var(--a) / 0.25),
-    inset 0 1px 1px hsl(var(--a) / 0.1);
-}
-/* Active dot indicator */
-.theme-option-mobile.is-active::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
-  background: hsl(var(--a));
-  border-radius: 50%;
-  box-shadow: 0 0 6px hsl(var(--a) / 0.4);
+  box-shadow: 
+    0 4px 12px -2px hsl(var(--a) / 0.2),
+    inset 0 0 0 1px hsl(var(--a) / 0.1);
+  padding-right: 20px; /* Slightly wider when active */
 }
 
-
-.theme-emoji {
-  font-size: 20px;
-  line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+/* Emoji Icon */
 .theme-option-mobile .theme-emoji {
-  font-size: 24px;
-}
-.theme-option-mobile:active .theme-emoji {
-  transform: scale(0.88);
+  font-size: 18px;
+  line-height: 1;
+  filter: grayscale(0.5);
+  transition: all 0.3s ease;
 }
 
+.theme-option-mobile.is-active .theme-emoji {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+/* Label Text */
 .theme-label {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.55;
-  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: font-weight 0.2s ease;
 }
-.theme-option-mobile.is-active .theme-label {
-  opacity: 1;
-  letter-spacing: 0.05em;
+
+
+/* Animation: Staggered Entry */
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
+
+/* Only animate when panel is open */
+.panel-glass.is-open .theme-option-mobile {
+  animation: slideInScale 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  opacity: 0; /* Star hidden */
+}
+
+/* Stagger delays manually for the first 10 items */
+.panel-glass.is-open .theme-option-mobile:nth-child(1) { animation-delay: 100ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(2) { animation-delay: 140ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(3) { animation-delay: 180ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(4) { animation-delay: 220ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(5) { animation-delay: 260ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(6) { animation-delay: 300ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(7) { animation-delay: 340ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(8) { animation-delay: 380ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(9) { animation-delay: 420ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(10) { animation-delay: 460ms; }
+/* Generic delay for any beyond 10 */
+.panel-glass.is-open .theme-option-mobile:nth-child(n+11) { animation-delay: 500ms; }

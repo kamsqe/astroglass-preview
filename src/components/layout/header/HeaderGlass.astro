@@ -111,10 +111,12 @@ import '../../../styles/components/header/HeaderGlass.css';
       ))}
     </nav>
     <div class="panel-glass-footer">
-      <div class="panel-glass-footer-row">
-        <span class="panel-glass-label">{t('themeSwitcher.label')}</span>
-        <ThemeSwitcher />
+      <!-- Theme Switcher: Full width, no label (self-explanatory) -->
+      <div class="panel-glass-theme-row">
+        <ThemeSwitcher variant="mobile" />
       </div>
+      
+      <!-- Language Switcher: Compact row -->
       <div class="panel-glass-footer-row">
         <span class="panel-glass-label">{t('languageSwitcher.label')}</span>
         <LanguageSwitcher variant="mobile" />
@@ -140,6 +142,8 @@ import '../../../styles/components/header/HeaderGlass.css';
       panel.classList.add('is-open');
       burger.classList.add('is-active');
       document.body.style.overflow = 'hidden';
+      // Haptic feedback
+      if (navigator.vibrate) navigator.vibrate(5);
     }
 
     // Clone to remove old listeners

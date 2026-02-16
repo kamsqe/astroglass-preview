@@ -3,24 +3,26 @@ import '../../../styles/components/hero/HeroLiquid.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import { Image } from 'astro:assets';
-import liquidHeroBg from '../../../assets/themes/liquid/LiquidHero.png';
-
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 
 <section class="relative min-h-[90vh] flex items-center justify-center px-4 pt-[calc(80px+var(--nav-offset))] pb-32 md:py-32">
   <!-- Animated Liquid Blob Background -->
-  <div class="c-hero-liquid__blob-bg absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
-    <div class="relative w-full h-full max-w-[1000px] max-h-[1000px] animate-float-slow opacity-90">
-       <Image 
-         src={liquidHeroBg} 
-         alt="Liquid Abstract Background" 
-         class="w-full h-full object-contain"
-         loading="eager"
-       />
-    </div>
+  <div class="c-hero-liquid__blob-bg">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <filter id="heroLiquidGoo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+      <g filter="url(#heroLiquidGoo)">
+        <path class="c-hero-liquid__blob-path-1" d="M420,300Q380,500,200,480Q20,460,60,300Q100,140,260,100Q420,60,420,300Z" />
+        <path class="c-hero-liquid__blob-path-2" d="M380,320Q340,500,180,460Q20,420,60,260Q100,100,280,120Q460,140,380,320Z" />
+      </g>
+    </svg>
   </div>
 
   <div class="relative z-10 max-w-5xl mx-auto text-center">

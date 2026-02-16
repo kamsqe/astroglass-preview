@@ -109,7 +109,7 @@ export const AnalyticsDashboard = () => {
 
       {/* Main Charts area */}
       <Tabs defaultValue="traffic" className="space-y-6 w-full">
-        <TabsList className="bg-[hsl(var(--bc)/0.05)] border border-[hsl(var(--bc)/0.05)] p-1 rounded-xl">
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 h-auto bg-[hsl(var(--bc)/0.05)] border border-[hsl(var(--bc)/0.05)] p-1 rounded-xl">
           <TabsTrigger value="traffic" className="rounded-lg data-[state=active]:bg-[hsl(var(--b1))] data-[state=active]:text-[hsl(var(--bc))] data-[state=active]:shadow-sm text-[hsl(var(--bc)/0.6)]">Traffic Analysis</TabsTrigger>
           <TabsTrigger value="revenue" className="rounded-lg data-[state=active]:bg-[hsl(var(--b1))] data-[state=active]:text-[hsl(var(--bc))] data-[state=active]:shadow-sm text-[hsl(var(--bc)/0.6)]">Revenue Distribution</TabsTrigger>
         </TabsList>

@@ -19,7 +19,7 @@ export default defineConfig({
       themeCssSelector: (theme, context) => {
         // Dark themes - High contrast Dracula
         if (theme.name === 'dracula') {
-          return '[data-theme="abyss"], [data-theme="neonoir"], [data-theme="synthwave"], [data-theme="monochrome"] .dark, .dark';
+          return '[data-theme="abyss"], [data-theme="neonoir"], [data-theme="synthwave"]';
         }
         // Light themes - Default Github Light
         // Explicitly listing them ensures no specificity conflicts with the dark theme

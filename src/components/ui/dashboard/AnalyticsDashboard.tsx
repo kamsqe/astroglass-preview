@@ -186,8 +186,8 @@ export const AnalyticsDashboard = () => {
                         data={salesData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={80}
-                        outerRadius={120}
+                        innerRadius="55%"
+                        outerRadius="80%"
                         paddingAngle={5}
                         dataKey="sales"
                         stroke="none"

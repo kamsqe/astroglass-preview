@@ -64,7 +64,8 @@
 }
 
 .post-hero__back-link {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 0.375rem;
   font-size: 0.8125rem;

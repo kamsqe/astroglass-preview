@@ -228,6 +228,5 @@ html {
 [data-theme="rose"] .expressive-code .frame,
 [data-theme="aquatica"] .expressive-code .frame,
 [data-theme="monochrome"] .expressive-code .frame {
-  border: 1px solid hsl(var(--bc) / 0.1);
-  border-radius: 0.75rem;
+  /* Border handled by config to prevent double borders */
 }

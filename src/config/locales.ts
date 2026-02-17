@@ -36,7 +36,7 @@ export const localesConfig: LocaleConfig[] = [
     code: 'en',
     name: 'English',
     nativeName: 'English',
-    flag: '🇺🇸',
+    flag: '🇬🇧',
     direction: 'ltr',
     enabled: true,
   },

@@ -1,8 +1,7 @@
 ---
 /**
- * Footer Liquid — The Default Footer
- * Fluid, organic design with smooth animations.
- * Used as the default footer on all non-demo pages.
+ * Footer Index — The Footer for the Landing Page
+ * Cloned from FooterLiquid, customized with anchor links for the index page sections.
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
@@ -56,7 +55,9 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.product')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/liquid')} class="text-sm text-base-content/60">{t('footer.links.demos')}</a></li>
+          <li><a href="#features" class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.features')}</a></li>
+          <li><a href="#themes" class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('portfolio.themeGallery.subtitle')}</a></li>
+          <li><a href="#showcase" class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('landing.showcase.eyebrow')}</a></li>
         </ul>
       </div>
 
@@ -64,9 +65,10 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.company')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/blog')} class="text-sm text-base-content/60">{t('footer.links.blog')}</a></li>
-          <li><a href={lp('/privacy')} class="text-sm text-base-content/60">{t('footer.links.privacy')}</a></li>
-          <li><a href={lp('/terms')} class="text-sm text-base-content/60">{t('footer.links.terms')}</a></li>
+          <li><a href="#about" class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.about')}</a></li>
+          <li><a href={lp('/blog')} class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.blog')}</a></li>
+          <li><a href={lp('/privacy')} class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.privacy')}</a></li>
+          <li><a href={lp('/terms')} class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.terms')}</a></li>
         </ul>
       </div>
 
@@ -74,7 +76,8 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.resources')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/docs')} class="text-sm text-base-content/60">{t('footer.links.docs')}</a></li>
+          <li><a href={lp('/docs')} class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.docs')}</a></li>
+          <li><a href="#faq-home" class="text-sm text-base-content/60 hover:text-accent transition-colors">{t('footer.links.faq')}</a></li>
         </ul>
       </div>
     </div>

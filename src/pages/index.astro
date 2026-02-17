@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeaderDefault from '../components/layout/header/HeaderDefault.astro';
-import FooterLiquid from '../components/sections/footer/FooterLiquid.astro';
+import FooterIndex from '../components/sections/footer/FooterIndex.astro';
 import { useTranslations } from '../utils/i18n';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 
@@ -35,6 +35,6 @@ const t = useTranslations(locale);
     <CTAHome />
   </main>
   
-  <FooterLiquid />
+  <FooterIndex />
 </BaseLayout>
 

@@ -2,7 +2,7 @@
   "company": "AstroGlass",
   "tagline": "Beautiful templates for the modern web",
 
-  "copyright": "© 2025 AstroGlass",
+  "copyright": "© 2026 AstroGlass",
   "allRightsReserved": "All rights reserved",
   "backToTop": "Back to top",
   "links": {
@@ -17,7 +17,9 @@
     "resources": "Resources",
     "docs": "Documentation",
     "faq": "FAQ",
-    "support": "Support"
+    "support": "Support",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy"
   },
   "social": {
     "github": "GitHub",

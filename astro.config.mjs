@@ -26,7 +26,8 @@ export default defineConfig({
         return '[data-theme="tahoe"], [data-theme="solaris"], [data-theme="nordic"], [data-theme="evergreen"], [data-theme="rose"], [data-theme="aquatica"], [data-theme="monochrome"]';
       },
       styleOverrides: {
-        borderColor: 'transparent',
+        borderColor: 'hsl(var(--bc) / 0.1)',
+        borderRadius: '0.75rem',
         frames: {
           frameBoxShadowCssValue: 'none',
           editorActiveTabBorderColor: 'transparent',

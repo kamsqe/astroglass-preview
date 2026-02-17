@@ -2,7 +2,7 @@
   "company": "AstroGlass",
   "tagline": "Красивые шаблоны для современного веба",
 
-  "copyright": "© 2025 AstroGlass",
+  "copyright": "© 2026 AstroGlass",
   "allRightsReserved": "Все права защищены",
   "backToTop": "Наверх",
   "links": {
@@ -17,7 +17,9 @@
     "resources": "Ресурсы",
     "docs": "Документация",
     "faq": "FAQ",
-    "support": "Поддержка"
+    "support": "Поддержка",
+    "terms": "Условия и положения",
+    "privacy": "Политика конфиденциальности"
   },
   "social": {
     "github": "GitHub",

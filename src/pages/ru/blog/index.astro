@@ -74,7 +74,7 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
   .blog-index {
     max-width: 72rem;
     margin: 0 auto;
-    padding: 6rem 1.5rem 3rem;
+    padding: calc(var(--nav-offset, 5rem) + 1rem) 1.5rem 3rem;
   }
 
   .blog-index__header {
@@ -154,6 +154,6 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
   }
 
   @media (min-width: 768px) {
-    .blog-index { padding: 8rem 2rem 4rem; }
+    .blog-index { padding: calc(var(--nav-offset, 5rem) + 1.5rem) 2rem 4rem; }
   }
 </style>

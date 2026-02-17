@@ -22,8 +22,8 @@ import { Tracker } from '../../../components/ui/charts/Tracker';
 ### А. Дашборд
 Полный обзор дашборда с карточками KPI, градиентными диаграммами областей и светящимися круговыми диаграммами. Обратите внимание, как цвета адаптируются к вашей активной теме (попробуйте переключиться на "Neo" или "Sunset"!).
 
-<div className="my-10 not-prose">
-  <div className="rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] backdrop-blur-xl p-8 shadow-2xl ring-1 ring-[hsl(var(--bc)/0.05)]">
+<div className="my-10 not-prose overflow-x-auto pb-4">
+  <div className="rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] backdrop-blur-xl p-4 sm:p-8 shadow-2xl ring-1 ring-[hsl(var(--bc)/0.05)]">
     <AnalyticsDashboard client:load />
   </div>
 </div>
@@ -41,7 +41,7 @@ export const t = useTranslations('ru');
       <CardTitle>{t('blog.dashboard.topPages')}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="flex justify-between mb-2 text-xs text-white/40 uppercase tracking-wider font-bold">
+      <div className="flex justify-between mb-2 text-xs text-[hsl(var(--bc)/0.4)] uppercase tracking-wider font-bold">
         <p>{t('blog.dashboard.source')}</p>
         <p>{t('blog.dashboard.visits')}</p>
       </div>
@@ -61,7 +61,7 @@ export const t = useTranslations('ru');
   <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)]">
     <CardHeader>
       <CardTitle>{t('blog.dashboard.systemUptime')}</CardTitle>
-      <p className="text-white/60 text-sm">{t('blog.dashboard.apiAvailability')}</p>
+      <p className="text-[hsl(var(--bc)/0.6)] text-sm">{t('blog.dashboard.apiAvailability')}</p>
     </CardHeader>
     <CardContent>
       <Tracker
@@ -95,7 +95,7 @@ export const t = useTranslations('ru');
       />
       <div className="mt-4 flex justify-between items-center text-sm">
         <p className="text-emerald-400 font-bold glow-sm">99.2% Uptime</p>
-        <p className="text-white/40">{t('blog.dashboard.last24h')}</p>
+        <p className="text-[hsl(var(--bc)/0.4)]">{t('blog.dashboard.last24h')}</p>
       </div>
     </CardContent>
   </Card>

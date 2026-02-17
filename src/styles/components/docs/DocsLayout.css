@@ -272,10 +272,6 @@ mark, .search-highlight {
 
 /* ===== MOBILE IMPROVEMENTS ===== */
 @media (max-width: 639px) {
-  .c-docs-layout__container {
-    padding-top: 4rem;
-  }
-  
   .c-docs-layout__prose {
     font-size: 0.95rem;
     line-height: 1.75;

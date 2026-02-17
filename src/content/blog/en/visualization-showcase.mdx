@@ -41,7 +41,7 @@ export const t = useTranslations('en');
       <CardTitle>{t('blog.dashboard.topPages')}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="flex justify-between mb-2 text-xs text-white/40 uppercase tracking-wider font-bold">
+      <div className="flex justify-between mb-2 text-xs text-[hsl(var(--bc)/0.4)] uppercase tracking-wider font-bold">
         <p>{t('blog.dashboard.source')}</p>
         <p>{t('blog.dashboard.visits')}</p>
       </div>
@@ -61,7 +61,7 @@ export const t = useTranslations('en');
   <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)]">
     <CardHeader>
       <CardTitle>{t('blog.dashboard.systemUptime')}</CardTitle>
-      <p className="text-white/60 text-sm">{t('blog.dashboard.apiAvailability')}</p>
+      <p className="text-[hsl(var(--bc)/0.6)] text-sm">{t('blog.dashboard.apiAvailability')}</p>
     </CardHeader>
     <CardContent>
       <Tracker
@@ -95,7 +95,7 @@ export const t = useTranslations('en');
       />
       <div className="mt-4 flex justify-between items-center text-sm">
         <p className="text-emerald-400 font-bold glow-sm">99.2% Uptime</p>
-        <p className="text-white/40">{t('blog.dashboard.last24h')}</p>
+        <p className="text-[hsl(var(--bc)/0.4)]">{t('blog.dashboard.last24h')}</p>
       </div>
     </CardContent>
   </Card>

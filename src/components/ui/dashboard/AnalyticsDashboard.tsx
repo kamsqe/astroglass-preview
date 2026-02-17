@@ -81,14 +81,14 @@ export const AnalyticsDashboard = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {kpiData.map((item) => (
           <Card key={item.title} variant="glass" className="border-[hsl(var(--bc)/0.05)] bg-[hsl(var(--b1)/0.4)] hover:bg-[hsl(var(--b1)/0.6)] transition-colors">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-sm font-medium text-[hsl(var(--bc)/0.5)]">{item.title}</p>
-                  <p className="text-3xl font-black text-[hsl(var(--bc))] mt-1 tracking-tight">{item.metric}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-[hsl(var(--bc))] mt-1 tracking-tight">{item.metric}</p>
                 </div>
                 <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 backdrop-blur-md">
                   {item.delta}
@@ -119,7 +119,7 @@ export const AnalyticsDashboard = () => {
             <CardHeader>
               <CardTitle className="text-[hsl(var(--bc))]">Traffic Trends</CardTitle>
             </CardHeader>
-            <CardContent className="h-[350px] w-full min-h-[350px]">
+            <CardContent className="h-[280px] sm:h-[350px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={websiteTraffic} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
@@ -178,7 +178,7 @@ export const AnalyticsDashboard = () => {
              <CardHeader>
                <CardTitle className="text-[hsl(var(--bc))]">Revenue Mix</CardTitle>
              </CardHeader>
-             <CardContent className="flex flex-col md:flex-row items-center justify-center gap-8 min-h-[350px] p-6">
+             <CardContent className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 min-h-[300px] sm:min-h-[350px] p-4 sm:p-6">
                 <div className="relative w-full h-[300px] md:w-1/2 flex-1">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>

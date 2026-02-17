@@ -10,6 +10,7 @@
   color: hsl(var(--bc) / 0.85);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* Headings */

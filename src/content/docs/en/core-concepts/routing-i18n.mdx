@@ -1,12 +1,14 @@
 ---
 title: Routing & Internationalization
-description: Understand how pages and languages work in Astro Glass.
+description: Understand how pages and languages work in AstroGlass.
+order: 4
 ---
 
 import FileTree from '../../../../components/mdx/FileTree.astro';
 import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
 
-Astro Glass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy.
+AstroGlass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy.
 
 ## Page Routing
 
@@ -17,23 +19,23 @@ For localized pages, we use separate directories:
 <FileTree>
 - src/
   - pages/
-    - **index.astro**      # Default language (English) Homepage
-    - about.astro          # /about
-    - ru/                  # Russian Localization
-      - **index.astro**    # /ru/ (Russian Homepage)
-      - about.astro        # /ru/about
+    - **index.astro**      — Default language (English) Homepage
+    - **[theme].astro**    — Dynamic theme demo pages (e.g., /liquid, /glass)
+    - about.astro          — /about
+    - blog/                — Blog pages
+    - docs/                — Documentation pages
+    - ru/                  — Russian Localization
+      - **index.astro**    — /ru/ (Russian Homepage)
+      - about.astro        — /ru/about
 </FileTree>
 
-### Adding a New Page
+### Theme Demo Routing
 
-To add a new page (e.g., `services`):
-
-1.  Create `src/pages/services.astro` (for English).
-2.  Create `src/pages/ru/services.astro` (for Russian).
+Theme pages are generated dynamically from the theme registry. Adding a theme to `src/config/themes.ts` with `enabled: true` automatically creates a route at `/{themeId}`.
 
 ## Documentation Routing
 
-Documentation pages live in `src/content/docs/[lang]/`.
+Documentation pages live in `src/content/docs/[lang]/`:
 
 <FileTree>
 - src/
@@ -41,10 +43,13 @@ Documentation pages live in `src/content/docs/[lang]/`.
     - docs/
       - en/
         - getting-started/
-          - 01-introduction.mdx
+          - introduction.mdx
+          - installation.mdx
+        - core-concepts/
+        - components/
       - ru/
         - getting-started/
-          - 01-introduction.mdx
+          - introduction.mdx
 </FileTree>
 
 The URL for documentation is automatically generated based on the file path, e.g., `/docs/en/getting-started/introduction`.
@@ -57,32 +62,59 @@ Translations are handled in two ways:
 
 ### UI Translations
 
-Common strings (nav items, buttons, etc.) are stored in `src/locales/[lang]/common.json`.
+Common strings (nav items, buttons, section text, etc.) are stored as JSON files organized by section:
 
-```json title="data.json"
-/* src/locales/en/common.json */
-{
-  "nav": {
-    "home": "Home",
-    "about": "About"
-  }
-}
+```
+src/locales/
+├── en/
+│   ├── common.json
+│   ├── hero.json
+│   ├── features.json
+│   ├── pricing.json
+│   ├── contact.json
+│   └── ... (17 files total)
+├── ru/
+│   ├── common.json
+│   ├── hero.json
+│   └── ...
 ```
 
-Use the helper function to translate strings in components:
+Use the `useTranslations` helper in components:
 
 ```astro title="Component.astro"
 ---
 import { useTranslations } from '../utils/i18n';
-const t = useTranslations('en');
+import { getLocaleFromUrl } from '../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
 ---
-<p>{t('nav.home')}</p>
+<p>{t('hero.title')}</p>
+<p>{t('pricing.plans.pro.name')}</p>
 ```
 
-<Callout type="info" title="Adding Languages">
-  To add a new language (e.g., Spanish):
-  1. Create a `src/pages/es/` directory.
-  2. Create `src/locales/es/common.json`.
-  3. Create `src/content/docs/es/`.
-  4. Update `src/components/ui/LanguageSwitcher.astro` to include the new option.
+Translation keys support dot notation for nested values. The `common.json` keys are spread at the root level, while other files are namespaced by their filename (e.g., `hero.title`, `pricing.plans`).
+
+### Adding a New Language
+
+<Steps>
+1. **Register the locale**
+
+   Add an entry to `src/config/locales.ts` with `enabled: true`.
+
+2. **Create translation files**
+
+   Create `src/locales/{code}/` directory with JSON files matching the English structure.
+
+3. **Create localized pages**
+
+   Create `src/pages/{code}/` directory with `.astro` page files.
+
+4. **Create documentation content**
+
+   Create `src/content/docs/{code}/` with translated MDX files.
+</Steps>
+
+<Callout type="info" title="Automatic Discovery">
+  The i18n system uses Vite's `import.meta.glob` to automatically discover all JSON files in `src/locales/`. No manual imports are needed — just create the files and they're available via `useTranslations()`.
 </Callout>

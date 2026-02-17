@@ -8,13 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(100px + var(--nav-offset, 0px)) 24px 80px;
+  padding: calc(100px + var(--nav-offset, 0px)) 24px 140px;
   overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .hero-aurora {
-    padding: calc(120px + var(--nav-offset, 0px)) 32px 100px;
+    padding: calc(120px + var(--nav-offset, 0px)) 32px 160px;
   }
 }
 
@@ -404,7 +404,7 @@
 
 .hero-aurora-scroll {
   position: absolute;
-  bottom: 32px;
+  bottom: 48px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;

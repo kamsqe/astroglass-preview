@@ -1,88 +1,54 @@
 ---
 title: Кастомизация
 description: Как настроить стили, темы и конфигурацию.
+order: 2
 ---
 
 import Callout from '../../../../components/mdx/Callout.astro';
 import FileTree from '../../../../components/mdx/FileTree.astro';
 
-Astro Glass использует **Tailwind CSS v4** для стилизации, что обеспечивает лучшую производительность и упрощенный опыт настройки.
+AstroGlass использует **Tailwind CSS v4** для стилизации через плагин `@tailwindcss/vite`. Отдельного файла `tailwind.config.mjs` нет — вся настройка происходит через CSS.
 
-## Обзор стилей
+## Обзор стилизации
 
-Глобальные стили и CSS переменные определены в `src/styles/global.css`. Этот файл обрабатывает:
-- Сброс стилей базового слоя
-- Кастомные шрифты (Inter и JetBrains Mono)
-- CSS переменные для темизации (значения цветов HSL)
+Глобальные стили и CSS-переменные определены в `src/styles/global.css`. Тематические переопределения находятся в `src/styles/_themes.css`.
 
 <FileTree>
 - src/
   - styles/
-    - **global.css**
-- **tailwind.config.mjs**
+    - **global.css** — Базовые стили, шрифты, CSS-переменные
+    - **_themes.css** — Цветовые переопределения для каждой темы
+    - **_animations.css** — Общие анимации
+    - **_forms.css** — Стили форм
+    - components/ — Стили отдельных компонентов
 </FileTree>
 
-## Система темок
+## Система цветов
 
-Проект использует систему темизации на основе CSS переменных. Цвета определены как значения HSL (без функции `hsl()`), что позволяет модификатору прозрачности Tailwind работать корректно.
+Проект использует CSS-переменные с HSL-значениями:
 
-```css title="styles.css"
-/* src/styles/global.css */
+```css title="global.css"
 :root {
-  /* Значения HSL */
-  --p: 260 80% 60%; /* Primary (Основной) */
-  --s: 310 80% 60%; /* Secondary (Вторичный) */
-  --a: 190 90% 60%; /* Accent (Акцент) */
-  
-  --b1: 220 20% 10%; /* Base 1 (Фон) */
-  --bc: 220 20% 90%; /* Base Content (Текст) */
+  --p: 260 80% 60%;   /* Основной */
+  --s: 310 80% 60%;   /* Вторичный */
+  --a: 190 90% 60%;   /* Акцент */
+  --b1: 220 20% 10%;  /* Фон */
+  --bc: 220 20% 90%;  /* Текст */
 }
-```
-
-Компоненты используют эти переменные через утилитарные классы Tailwind или кастомное использование `hsl()`.
-
-```html title="index.html"
-<div class="bg-[hsl(var(--p))] text-[hsl(var(--bc))]">
-  Основной фон с базовым цветом текста
-</div>
 ```
 
 <Callout type="tip" title="Изменение цветов">
-  Чтобы изменить цветовую схему сайта, обновите значения HSL в `src/styles/global.css`. Вы можете определить разные значения для светлой/темной темы, используя селектор `[data-theme="light"]`, если это необходимо.
+  Для изменения цветовой схемы обновите HSL-значения в `global.css`. Для тематических переопределений используйте `[data-theme="..."]` селекторы в `_themes.css`.
 </Callout>
-
-## Конфигурация Tailwind
-
-Tailwind v4 настроен в `src/styles/global.css` с использованием директивы `@theme`, но для обратной совместимости или сложных плагинов мы также включаем файл `tailwind.config.mjs`.
-
-Вы можете расширить тему, добавить плагины или изменить пути к контенту в `tailwind.config.mjs`.
-
-```javascript
-/* tailwind.config.mjs */
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter Variable', 'sans-serif'],
-        mono: ['JetBrains Mono Variable', 'monospace'],
-      },
-      // ...
-    },
-  },
-  plugins: [],
-}
-```
-
-## Добавление кастомных шрифтов
-
-1.  Поместите файлы шрифтов в `public/fonts/` или импортируйте из Google Fonts.
-2.  Определите font-face в `src/styles/global.css`.
-3.  Обновите семейство шрифтов в `tailwind.config.mjs`.
 
 ## Кастомизация компонентов
 
-Большинство UI компонентов предоставляют пропсы для базовой настройки (например, `version` для Компонентов-оберток). Для более глубоких изменений вам следует изменить файлы компонентов напрямую в `src/components/`.
+Каждая тема имеет свои варианты компонентов (например, `HeroLiquid.astro`, `HeroGlass.astro`). Для настройки секции:
 
-Например, чтобы изменить макет шапки, отредактируйте `src/components/layout/DesktopNav.astro` и `src/components/layout/MobileNav.astro`.
+1. Перейдите в `src/components/sections/{section}/`.
+2. Отредактируйте файл нужной темы (например, `HeroGlass.astro`).
+3. CSS компонентов находится в `src/styles/components/{section}/`.
+
+<Callout type="info" title="Без внешних пропсов">
+  Секции не принимают текстовые пропсы. Весь контент управляется ключами перевода через `useTranslations()`. Для изменения текста редактируйте JSON-файлы в `src/locales/{lang}/`.
+</Callout>

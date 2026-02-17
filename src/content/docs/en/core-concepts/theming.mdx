@@ -1,13 +1,16 @@
 ---
 title: "Theming System"
-description: "Understand the core architecture of our dynamic theming system, including CSS variables, theme registry, and variant rendering."
+description: "Understand the core architecture of the dynamic theming system, including CSS variables, theme registry, and variant rendering."
 order: 1
 category: core-concepts
 tags: ["theming", "design-system", "css"]
 ---
 
+import Steps from '../../../../components/mdx/Steps.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
 
-Our template features a highly flexible dynamic theming system built on top of **Tailwind CSS** and **Astro's component architecture**.
+AstroGlass features a highly flexible dynamic theming system built on top of **Tailwind CSS v4** and **Astro's component architecture**.
 
 ## Architecture Overview
 
@@ -15,86 +18,98 @@ The theming system consists of three main layers:
 
 1. **Theme Registry**: Definitions for each theme in `src/config/themes.ts`.
 2. **CSS Custom Properties**: Theme-aware variables defined in `src/styles/_themes.css`.
-3. **Dynamic Rendering**: Section components that render variants based on the `version` prop.
+3. **Dynamic Rendering**: The `[theme].astro` page dynamically renders the correct component variant for each section.
 
 ## Theme Registry
 
-Every theme must be registered in the `themes.ts` file. This centralizes theme metadata and makes it available to the entire application.
+Every theme is registered in `src/config/themes.ts`. This centralizes theme metadata and makes it available to the entire application.
 
 <FileTree>
 - src/
   - config/
-    - themes.ts [modified]
+    - themes.ts
 </FileTree>
 
-Each theme definition looks like this:
+Each theme definition includes:
 
 ```typescript
 export const themes: ThemeDefinition[] = [
   {
     id: 'liquid',
     name: 'Liquid',
-    color: 'bg-indigo-600',
+    color: 'from-blue-500 to-cyan-400',  // Tailwind gradient classes
     icon: '💧',
-    sections: ['Hero', 'About', 'Pricing'],
+    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
     enabled: true,
-    premium: false
+    premium: false,
+    description: 'Fluid, organic design with smooth animations',
   },
-  // ... other themes
+  // Glass, Neo, Luxury, Minimal, Aurora...
 ];
 ```
 
 ## CSS Variables
 
-We use standard CSS variables (custom properties) to handle theme-specific colors and effects. These variables are scoped to a data attribute on the `<html>` or `<body>` tag.
+Theme-specific colors and effects are controlled through CSS custom properties. Variables are scoped to a `data-theme` attribute on the `<html>` or `<body>` tag.
 
-<CodeTabs labels={['CSS', 'Tailwind']}>
 ```css
 /* src/styles/_themes.css */
 [data-theme="liquid"] {
-  --color-primary: 79 70 229;
-  --color-accent: 124 58 237;
-  --glass-blur: 8px;
+  --p: 260 80% 60%;    /* Primary */
+  --s: 310 80% 60%;    /* Secondary */
+  --a: 190 90% 60%;    /* Accent */
+  --b1: 220 20% 10%;   /* Base background */
+  --bc: 220 20% 90%;   /* Base content (text) */
 }
 ```
+
+Components consume these via `hsl(var(--p))` or Tailwind utilities:
+
 ```html
-<!-- usage in component -->
-<div class="bg-primary/10 border-accent/20 backdrop-blur-[var(--glass-blur)]">
+<div class="bg-[hsl(var(--p))] text-[hsl(var(--bc))]">
   Themed Content
 </div>
 ```
-</CodeTabs>
 
 <Callout type="warning" title="Naming Convention">
-  Always use the `--color-*` prefix for theme variables to ensure consistency with our utility classes.
+  Variables use short names (`--p`, `--s`, `--a`, `--b1`, `--bc`, `--er`, `--su`) to stay consistent with the DaisyUI-inspired naming convention used throughout the project.
 </Callout>
 
-## Dynamic Component Loading
+## Dynamic Component Rendering
 
-Section components like `Hero.astro` act as wrappers. They dynamically import the correct theme variant based on the `version` prop.
+Theme pages are rendered by `src/pages/[theme].astro`. This file uses a **component map** to dynamically select the correct variant for each section:
 
-```astro title="Component.astro"
+```astro title="[theme].astro"
 ---
-// src/components/sections/hero
-const { version } = Astro.props;
+const componentMap = {
+  liquid: {
+    Header: HeaderLiquid,
+    Hero: HeroLiquid,
+    About: AboutLiquid,
+    Features: FeaturesLiquid,
+    // ... all 11 sections
+  },
+  glass: { /* ... */ },
+  neo: { /* ... */ },
+  luxury: { /* ... */ },
+  minimal: { /* ... */ },
+  aurora: { /* ... */ },
+};
 
-// Logic to load HeroLiquid, HeroGlass, etc.
-const ThemeComponent = themeMap[version] || HeroLiquid;
+const components = componentMap[themeId];
 ---
 
-<ThemeComponent { ...Astro.props } />
+<components.Header />
+<components.Hero />
+<components.About />
+<!-- ... -->
 ```
 
 <Callout type="info">
-  This pattern allows for maximum flexibility. You can have completely different HTML structures for different themes while keeping a uniform API for the page templates.
+  Each section variant is a self-contained Astro component. It uses `useTranslations()` internally for all text — no external props are needed. This allows each theme to have completely different HTML structures while maintaining a uniform API.
 </Callout>
 
-
-import Steps from '../../../../components/mdx/Steps.astro';
-
 ## Creating a New Theme
-
-To add a new theme, follow these steps:
 
 <Steps>
 1. **Add Theme Definition**
@@ -103,13 +118,17 @@ To add a new theme, follow these steps:
 
 2. **Define CSS Variables**
    
-   Define the new theme's CSS variables (colors, effects) in `src/styles/_themes.css`.
+   Define the new theme's CSS variables in `src/styles/_themes.css`.
 
-3. **Create Components (Optional)**
+3. **Create Section Components**
    
-   Create theme-specific component variants in `src/components/sections/hero/`, etc., if needed.
+   Create theme-specific component variants for each section, e.g., `src/components/sections/hero/HeroMyTheme.astro`.
 
-4. **Add Translations**
+4. **Register in Component Map**
    
-   Add any new localized strings to the translation files.
+   Add the new theme's components to the `componentMap` in `src/pages/[theme].astro`.
+
+5. **Add Translations**
+   
+   Add any new localized strings to the JSON files in `src/locales/`.
 </Steps> 

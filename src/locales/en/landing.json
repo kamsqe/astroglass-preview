@@ -32,5 +32,52 @@
       "name": "Aurora",
       "description": "Ethereal & vibrant colors"
     }
+  },
+  "showcase": {
+    "eyebrow": "Everything Included",
+    "title": "One Template. Infinite Possibilities.",
+    "desc": "Every section, component, and page you need — designed, coded, and ready to deploy.",
+    "themes": "Landing Pages",
+    "themesDesc": "Liquid, Glass, Neo, Luxury, Minimal & Aurora — 6 fully designed demo pages ready to go.",
+    "components": "Components",
+    "componentsDesc": "Hero, About, Features, Pricing, Testimonial, FAQ, CTA, Contact & more.",
+    "blog": "Blog System",
+    "blogDesc": "MDX-powered with categories, tags, reading time, and syntax highlighting.",
+    "i18n": "I18n Ready",
+    "i18nDesc": "Built-in multi-language routing, locale detection, and translation management.",
+    "docs": "Documentation",
+    "docsDesc": "Full docs system with sidebar navigation, search, and code examples.",
+    "edge": "Edge Deployed",
+    "edgeDesc": "Cloudflare-ready with adapter config, SSR support, and global CDN.",
+    "seo": "SEO Optimized",
+    "seoDesc": "Semantic HTML, meta tags, Open Graph, structured data, and sitemap built in.",
+    "perf": "Performance First",
+    "perfDesc": "100 Lighthouse score with zero-JS by default, lazy loading, and optimized assets.",
+    "colorThemes": "Color Themes",
+    "colorThemesDesc": "10 built-in palettes — Tahoe, Nord, Rosé, Dracula, Mono, and more — switch with one line."
+  },
+  "stats": {
+    "themes": "Themes",
+    "components": "Components",
+    "sections": "Section Types",
+    "languages": "Languages",
+    "edge": "Edge-Ready"
+  },
+  "cta": {
+    "eyebrow": "Get Started in Seconds",
+    "title": "Clone. Install. Ship.",
+    "desc": "From zero to production-ready in under 2 minutes.",
+    "github": "View on GitHub",
+    "docs": "Read the Docs",
+    "step1": "Clone the repository",
+    "step2": "Install dependencies",
+    "step3": "Start developing",
+    "step1cmd": "git clone https://github.com/mirmanoov/liquid-glass-astro-cloudflare.git",
+    "step2cmd": "cd liquid-glass-astro-cloudflare && npm install",
+    "step3cmd": "npm run dev",
+    "ready": "✓ Ready at localhost:4321",
+    "freeForever": "Free forever",
+    "mitLicense": "MIT Licensed",
+    "noLock": "No vendor lock-in"
   }
 }

@@ -1,0 +1,144 @@
+---
+/**
+ * Stats Strip — Key metrics in a horizontal strip
+ * Social proof numbers: themes, components, sections, languages, edge-ready
+ */
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const stats = [
+  { value: '6', label: t('landing.stats.themes'), accent: true },
+  { value: '66+', label: t('landing.stats.components'), accent: false },
+  { value: '11', label: t('landing.stats.sections'), accent: false },
+  { value: '2', label: t('landing.stats.languages'), accent: false },
+  { value: '✓', label: t('landing.stats.edge'), accent: true },
+];
+---
+
+<section id="stats" class="stats-strip">
+  <div class="stats-strip-inner">
+    {stats.map((stat, i) => (
+      <div class="stats-strip-item" style={`animation-delay: ${i * 0.1}s`}>
+        <span class:list={["stats-strip-value", stat.accent && "stats-strip-value--accent"]}>
+          {stat.value}
+        </span>
+        <span class="stats-strip-label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats-strip {
+    position: relative;
+    padding: 48px 24px;
+    overflow: hidden;
+    border-top: 1px solid hsl(var(--bc) / 0.04);
+    border-bottom: 1px solid hsl(var(--bc) / 0.04);
+    background: hsl(var(--bc) / 0.01);
+  }
+
+  .stats-strip-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .stats-strip-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    position: relative;
+    opacity: 0;
+    animation: stats-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .stats-strip-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: hsl(var(--bc) / 0.06);
+  }
+
+  .stats-strip-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: hsl(var(--bc));
+    line-height: 1;
+  }
+
+  .stats-strip-value--accent {
+    color: hsl(var(--a));
+  }
+
+  .stats-strip-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: hsl(var(--bc) / 0.35);
+  }
+
+  @keyframes stats-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-strip-inner {
+      gap: 0;
+    }
+    .stats-strip-item {
+      padding: 12px 20px;
+      flex: 0 0 33.33%;
+    }
+    .stats-strip-item:nth-child(3)::after {
+      display: none;
+    }
+    .stats-strip-item:nth-child(n+4) {
+      flex: 0 0 50%;
+    }
+    .stats-strip-item:nth-child(n+4)::after {
+      display: none;
+    }
+    .stats-strip-item:nth-child(4)::after {
+      display: block;
+    }
+    .stats-strip-value {
+      font-size: 2rem;
+    }
+    .stats-strip-label {
+      font-size: 0.62rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-strip {
+      padding: 32px 16px;
+    }
+    .stats-strip-item {
+      padding: 10px 14px;
+    }
+    .stats-strip-value {
+      font-size: 1.6rem;
+    }
+  }
+</style>

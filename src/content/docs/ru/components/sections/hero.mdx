@@ -1,29 +1,30 @@
 ---
-title: "Компоненты Hero"
-description: "Впечатляющие hero-секции для лендингов."
-order: 1
+title: "Секция Hero"
+description: "Полноэкранные секции Hero для каждой темы."
+order: 2
 ---
 
+import Callout from '../../../../../components/mdx/Callout.astro';
 
+Секция Hero — первое, что видят посетители. Каждая тема имеет уникальный дизайн с кастомными анимациями.
 
+## Варианты тем
 
-## Пропсы
+| Тема | Компонент | Дизайн |
+|------|-----------|--------|
+| **Liquid** | `HeroLiquid.astro` | Анимированные SVG-блобы, градиентный текст |
+| **Glass** | `HeroGlass.astro` | Матовые карточки с размытым фоном |
+| **Neo** | `HeroNeo.astro` | Смелая типографика, высокий контраст |
+| **Luxury** | `HeroLuxury.astro` | Золотые акценты, премиальная компоновка |
+| **Minimal** | `HeroMinimal.astro` | Чистый, центрированный дизайн |
+| **Aurora** | `HeroAurora.astro` | Градиентная сетка, геометрические элементы |
 
-| Prop | Тип | По умолчанию | Описание |
-| :--- | :--- | :--- | :--- |
-| `title` | `string` | - | Основной заголовок |
-| `subtitle` | `string` | - | Подзаголовок |
-| `image` | `ImageMetadata` | - | Изображение hero (если применимо) |
-| `primaryCta` | `string` | "Начать" | Текст основной кнопки |
+Все варианты находятся в `src/components/sections/hero/`.
 
-## Использование
+## Как это работает
 
-```astro title="Component.astro"
----
----
+Каждый вариант Hero использует `useTranslations()` для загрузки ключей переводов: `hero.title`, `hero.subtitle`, `hero.cta`, `hero.liveBadge`.
 
-<HeroV1 
-  title="Создавайте быстрее"
-  subtitle="Лучшая тема для Astro."
-/>
-```
+<Callout type="info" title="Без пропсов">
+  Hero-компоненты не принимают внешних пропсов. Для изменения текста редактируйте `src/locales/{lang}/hero.json`.
+</Callout>

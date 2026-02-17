@@ -37,6 +37,10 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
   'guide': {
     en: 'Guide',
     ru: 'Руководство'
+  },
+  'guides': {
+    en: 'Guides',
+    ru: 'Руководства'
   }
 };
 
@@ -77,11 +81,12 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
   // Explicit Section Ordering
   const SECTION_ORDER: Record<string, number> = {
     'getting-started': 1,
-    'components-sections': 2,
-    'components-ui': 3,
-    'components-reference': 4,
-    'core-concepts': 5,
-    'deployment': 6,
+    'core-concepts': 2,
+    'components-sections': 3,
+    'components-ui': 4,
+    'components-reference': 5,
+    'guides': 6,
+    'deployment': 7,
     'General': 0
   };
 

@@ -1,30 +1,73 @@
 ---
 title: Project Structure
-description: Overview of the Astro Glass codebase organization.
+description: Overview of the AstroGlass codebase organization.
+order: 3
 ---
 
-
-
-Astro Glass follows a standard Astro project structure.
-
 import ProjectStructureGraph from '../../../../components/ui/diagrams/ProjectStructureGraph';
+
+AstroGlass follows a standard Astro project structure with a few key organizational patterns.
 
 <ProjectStructureGraph client:only="react" />
 
 ## Key Directories
 
-### `src/components`
+### `src/components/sections/`
 
-Contains all reusable UI components. The top-level components (e.g., `Hero.astro`) are wrapper components that switch between different design implementations located in subdirectories (e.g., `hero/HeroLiquid.astro`).
+Contains all page section components, organized by section type. Each section has a subdirectory with one variant per theme:
 
-### `src/content`
+```
+sections/
+├── hero/
+│   ├── HeroLiquid.astro
+│   ├── HeroGlass.astro
+│   ├── HeroNeo.astro
+│   ├── HeroLuxury.astro
+│   ├── HeroMinimal.astro
+│   └── HeroAurora.astro
+├── about/
+├── features/
+├── portfolio/
+├── pricing/
+├── testimonial/
+├── faq/
+├── cta/
+├── contact/
+└── footer/
+```
 
-Contains Markdown and MDX content for the documentation. The structure inside `docs/[lang]` determines the URL structure of your documentation site.
+### `src/components/layout/header/`
 
-### `src/pages`
+Theme-specific header/navbar components (e.g., `HeaderGlass.astro`, `HeaderLuxury.astro`).
 
-File-based routing. The `[lang]` dynamic parameter handles internationalization for all main pages.
+### `src/components/ui/`
 
-### `src/utils`
+Reusable UI primitives: `Button`, `Card`, `Badge`, `Avatar`, `Input`, `Tabs`, `Charts`, `ThemeSwitcher`, `LanguageSwitcher`, and `Search`.
 
-Utility functions, primarily for handling i18n translations and navigation logic.
+### `src/config/`
+
+Central configuration files:
+- `themes.ts` — Theme registry (IDs, names, enabled status, section lists)
+- `locales.ts` — Supported languages and their metadata
+- `navigation.ts` — Main site navigation structure
+- `docs.ts` — Documentation sidebar config and version management
+
+### `src/content/`
+
+Astro Content Collections for docs and blog posts. Structure inside `docs/[lang]/` determines the URL paths for documentation.
+
+### `src/locales/`
+
+JSON translation files organized by language code. Each file corresponds to a page section (e.g., `hero.json`, `pricing.json`, `contact.json`).
+
+### `src/pages/`
+
+File-based routing. The `[theme].astro` dynamic route generates pages for each enabled theme. The `[lang]` directory patterns handle localized page variants.
+
+### `src/styles/`
+
+Global CSS, theme overrides (`_themes.css`), animation keyframes, and component-specific stylesheets in `components/`.
+
+### `src/utils/`
+
+Utility functions for i18n translations (`i18n.ts`), locale detection (`locale-utils.ts`), and documentation navigation (`docs-nav.ts`).

@@ -1,115 +1,87 @@
 ---
 title: "Система тем"
-description: "Изучите архитектуру нашей системы динамических тем, включая переменные CSS, реестр тем и рендеринг вариантов."
+description: "Архитектура динамической системы тем: CSS-переменные, реестр тем и рендеринг вариантов."
 order: 1
 category: core-concepts
 tags: ["темы", "дизайн-система", "css"]
 ---
 
+import Steps from '../../../../components/mdx/Steps.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
 
-Наш шаблон обладает гибкой системой динамических тем, построенной на основе **Tailwind CSS** и компонентной архитектуры **Astro**.
+AstroGlass включает гибкую систему динамических тем, построенную на основе **Tailwind CSS v4** и **компонентной архитектуры Astro**.
 
 ## Обзор архитектуры
 
-Система тем состоит из трех основных уровней:
+Система тем состоит из трёх основных слоёв:
 
-1. **Реестр тем**: Определения для каждой темы в файле `src/config/themes.ts`.
-2. **Пользовательские свойства CSS**: Переменные, зависящие от темы, определенные в `src/styles/_themes.css`.
-3. **Динамический рендеринг**: Компоненты разделов, которые отрисовывают варианты в зависимости от пропса `version`.
+1. **Реестр тем**: Определения каждой темы в `src/config/themes.ts`.
+2. **CSS-переменные**: Тематические переменные в `src/styles/_themes.css`.
+3. **Динамический рендеринг**: Страница `[theme].astro` динамически отображает правильный вариант компонента для каждой секции.
 
 ## Реестр тем
 
-Каждая тема должна быть зарегистрирована в файле `themes.ts`. Это централизует метаданные темы и делает их доступными для всего приложения.
-
-<FileTree>
-- src/
-  - config/
-    - themes.ts [изменен]
-</FileTree>
-
-Каждое определение темы выглядит следующим образом:
+Каждая тема зарегистрирована в `src/config/themes.ts`:
 
 ```typescript
 export const themes: ThemeDefinition[] = [
   {
     id: 'liquid',
     name: 'Liquid',
-    color: 'bg-indigo-600',
+    color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Hero', 'About', 'Pricing'],
+    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
     enabled: true,
-    premium: false
+    premium: false,
+    description: 'Fluid, organic design with smooth animations',
   },
-  // ... другие темы
+  // Glass, Neo, Luxury, Minimal, Aurora...
 ];
 ```
 
-## Переменные CSS
+## CSS-переменные
 
-Мы используем стандартные переменные CSS для управления цветами и эффектами, специфичными для темы. Эти переменные привязаны к соответствующему атрибуту `data-theme` на теге `<html>` или `<body>`.
+Цвета и эффекты тем контролируются через CSS-переменные с атрибутом `data-theme`:
 
-<CodeTabs labels={['CSS', 'Tailwind']}>
 ```css
-/* src/styles/_themes.css */
 [data-theme="liquid"] {
-  --color-primary: 79 70 229;
-  --color-accent: 124 58 237;
-  --glass-blur: 8px;
+  --p: 260 80% 60%;    /* Основной */
+  --s: 310 80% 60%;    /* Вторичный */
+  --a: 190 90% 60%;    /* Акцент */
+  --b1: 220 20% 10%;   /* Фон */
+  --bc: 220 20% 90%;   /* Текст */
 }
 ```
-```html
-<!-- использование в компоненте -->
-<div class="bg-primary/10 border-accent/20 backdrop-blur-[var(--glass-blur)]">
-  Тематический контент
-</div>
-```
-</CodeTabs>
 
-<Callout type="warning" title="Соглашение об именовании">
-  Всегда используйте префикс `--color-*` для переменных темы, чтобы обеспечить совместимость с нашими утилитными классами.
-</Callout>
+## Динамический рендеринг компонентов
 
-## Динамическая загрузка компонентов
+Тематические страницы отображаются через `src/pages/[theme].astro` с использованием **карты компонентов**:
 
-Компоненты разделов, такие как `Hero.astro`, действуют как обертки. Они динамически импортируют правильный вариант темы на основе пропса `version`.
-
-```astro title="Component.astro"
+```astro title="[theme].astro"
 ---
-// src/components/sections/hero
-const { version } = Astro.props;
-
-// Логика загрузки HeroLiquid, HeroGlass и т.д.
-const ThemeComponent = themeMap[version] || HeroLiquid;
+const componentMap = {
+  liquid: { Header: HeaderLiquid, Hero: HeroLiquid, About: AboutLiquid, ... },
+  glass: { ... },
+  aurora: { ... },
+};
+const components = componentMap[themeId];
 ---
-
-<ThemeComponent { ...Astro.props } />
+<components.Header />
+<components.Hero />
+<components.About />
 ```
 
 <Callout type="info">
-  Этот паттерн обеспечивает максимальную гибкость. Вы можете иметь совершенно разные структуры HTML для разных тем, сохраняя при этом единообразный API для шаблонов страниц.
+  Каждый вариант секции — самостоятельный Astro-компонент. Он использует `useTranslations()` для всех текстов — внешние пропсы не нужны.
 </Callout>
-
-
-import Steps from '../../../../components/mdx/Steps.astro';
 
 ## Создание новой темы
 
-Чтобы добавить новую тему, выполните следующие действия:
-
 <Steps>
-1. **Добавьте определение темы**
-   
-   Добавьте определение темы в файл `src/config/themes.ts`.
-
-2. **Определите переменные CSS**
-   
-   Определите переменные CSS для новой темы в `src/styles/_themes.css`.
-
-3. **Создайте компоненты (Опционально)**
-   
-   Создайте специфичные для темы компоненты в `src/components/sections/hero/` и т.д.
-
-4. **Добавьте переводы**
-   
-   Добавьте новые локализованные строки в файлы переводов.
+1. **Добавьте определение темы** в `src/config/themes.ts`.
+2. **Определите CSS-переменные** в `src/styles/_themes.css`.
+3. **Создайте компоненты секций** (например, `HeroMyTheme.astro`).
+4. **Зарегистрируйте в карте компонентов** в `src/pages/[theme].astro`.
+5. **Добавьте переводы** в JSON-файлы в `src/locales/`.
 </Steps>

@@ -1,30 +1,58 @@
 ---
 title: Структура проекта
-description: Обзор организации кодовой базы Astro Glass.
+description: Обзор организации кодовой базы AstroGlass.
+order: 3
 ---
-
-
-
-Astro Glass следует стандартной структуре проекта Astro.
-
-import ProjectStructureGraph from '../../../../components/ui/diagrams/ProjectStructureGraph';
-
-<ProjectStructureGraph client:only="react" />
 
 ## Ключевые директории
 
-### `src/components`
+### `src/components/sections/`
 
-Содержит все переиспользуемые UI компоненты. Компоненты верхнего уровня (например, `Hero.astro`) являются обертками, которые переключают различные реализации дизайна, расположенные в поддиректориях (например, `hero/HeroLiquid.astro`).
+Все секции страниц, организованные по типу. Каждая секция содержит по одному варианту на тему:
 
-### `src/content`
+```
+sections/
+├── hero/
+│   ├── HeroLiquid.astro
+│   ├── HeroGlass.astro
+│   ├── HeroNeo.astro
+│   ├── HeroLuxury.astro
+│   ├── HeroMinimal.astro
+│   └── HeroAurora.astro
+├── about/
+├── features/
+├── portfolio/
+└── ...
+```
 
-Содержит Markdown и MDX контент для документации. Структура внутри `docs/[lang]` определяет структуру URL вашего сайта документации.
+### `src/components/layout/header/`
 
-### `src/pages`
+Тематические компоненты навигации (например, `HeaderGlass.astro`, `HeaderLuxury.astro`).
 
-Файловый роутинг. Динамический параметр `[lang]` обрабатывает интернационализацию для всех основных страниц.
+### `src/components/ui/`
 
-### `src/utils`
+Переиспользуемые UI-примитивы: `Button`, `Card`, `Badge`, `Avatar`, `Input`, `Tabs`, `Charts`, `ThemeSwitcher`, `LanguageSwitcher` и `Search`.
 
-Утилитарные функции, в основном для обработки логики i18n переводов и навигации.
+### `src/config/`
+
+Центральные файлы конфигурации:
+- `themes.ts` — Реестр тем (ID, имена, статус, секции)
+- `locales.ts` — Поддерживаемые языки
+- `navigation.ts` — Структура навигации
+- `docs.ts` — Конфигурация боковой панели документации
+
+### `src/locales/`
+
+JSON-файлы переводов, организованные по коду языка. Каждый файл соответствует секции страницы (например, `hero.json`, `pricing.json`).
+
+### `src/pages/`
+
+Файловая маршрутизация. Динамический маршрут `[theme].astro` генерирует страницы для каждой активной темы.
+
+### `src/styles/`
+
+Глобальные CSS, тематические переопределения (`_themes.css`), анимации и стили компонентов в `components/`.
+
+### `src/utils/`
+
+Утилиты для переводов (`i18n.ts`), определения локали (`locale-utils.ts`) и навигации документации (`docs-nav.ts`).

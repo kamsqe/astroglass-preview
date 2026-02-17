@@ -1,184 +1,142 @@
 ---
-title: "Component API Reference"
-description: "Complete API documentation for all template components including props, events, and usage examples."
+title: "API Reference"
+description: "Technical API reference for AstroGlass components and utilities."
 order: 1
-category: api
-tags: ["api", "components", "reference"]
 ---
 
+import Callout from '../../../../../components/mdx/Callout.astro';
 
-This reference documents the public API for all template components. Each component is fully typed with TypeScript and supports internationalization out of the box.
+Detailed reference for key functions, types, and configuration objects used in AstroGlass.
 
----
+## `useTranslations(locale)`
 
-## Hero Component
+Returns a translation getter function for the given locale.
 
-The `Hero` component displays the main hero section of the page with dynamic theming support.
+**Module**: `src/utils/i18n.ts`
 
-<ApiMethod
-  name="Hero"
-  signature="<Hero version={string} locale={Locale} />"
-  description="Renders a themed hero section with title, subtitle, and call-to-action buttons."
-  params={[
-    { name: 'version', type: 'ThemeId', description: 'Theme variant to render', required: true },
-    { name: 'locale', type: 'Locale', description: 'Current locale for i18n', required: false, default: '"en"' }
-  ]}
-  returns={{ type: 'AstroComponent', description: 'Rendered hero section' }}
-  since="v1.0.0"
-/>
-
-### Usage
-
-```astro title="Component.astro"
----
----
-
-<Hero version="glass" locale="en" />
-```
-
-### Available Versions
-
-| Version | Description |
-|---------|-------------|
-| `liquid` | Fluid gradient animations |
-| `glass` | Glassmorphism with blur effects |
-| `neo` | Bold, high-contrast design |
-| `luxury` | Gold accents, premium styling |
-| `minimal` | Clean, focused layout |
-
----
-
-## Pricing Component
-
-The `Pricing` component displays pricing tiers with monthly/yearly toggle functionality.
-
-<ApiMethod
-  name="Pricing"
-  signature="<Pricing version={string} locale={Locale} />"
-  description="Renders a pricing section with configurable plans and billing toggle."
-  params={[
-    { name: 'version', type: 'ThemeId', description: 'Theme variant to render', required: true },
-    { name: 'locale', type: 'Locale', description: 'Current locale for i18n', required: false, default: '"en"' }
-  ]}
-  returns={{ type: 'AstroComponent', description: 'Rendered pricing section' }}
-  since="v1.0.0"
-/>
-
-### Usage
-
-```astro title="Component.astro"
----
----
-
-<Pricing version="luxury" locale="ru" />
-```
-
----
-
-## useTranslations <Badge type="new">v1.1</Badge>
-
-The `useTranslations` function returns a translation function for the specified locale.
-
-<ApiMethod
-  name="useTranslations"
-  signature="useTranslations(locale: Locale): (key: string, params?: Record<string, string>) => string"
-  description="Returns a translation function that retrieves localized strings by key path."
-  params={[
-    { name: 'locale', type: 'Locale', description: 'Target locale code (e.g., "en", "ru")', required: true }
-  ]}
-  returns={{ type: '(key: string) => string', description: 'Translation function' }}
-  since="v1.0.0"
-/>
-
-### Usage
-
+**Signature**:
 ```typescript
-
-const t = useTranslations('en');
-
-const title = t('hero.title');           // "Welcome"
-const cta = t('hero.primaryCta');         // "Get Started"
+function useTranslations(locale: Locale): (key: string) => string;
 ```
 
-### Nested Keys
+**Parameters**:
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `locale` | `Locale` (`'en' \| 'ru'`) | The locale code to load translations for. |
 
-Translation keys support dot notation for nested values:
+**Returns**: A function `t(key: string): string` that resolves a dot-notation key to its translated value. If the key is not found, it returns the key itself and logs a warning in development mode.
 
+**Usage**:
+```astro
+---
+import { useTranslations } from '../utils/i18n';
+import { getLocaleFromUrl } from '../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+<h1>{t('hero.title')}</h1>
+<p>{t('hero.subtitle')}</p>
+```
+
+**Key Behavior**:
+- Keys from `common.json` are spread at root level (e.g., `t('title')`)
+- All other files are namespaced by filename (e.g., `t('hero.title')`, `t('pricing.plans.pro.name')`)
+- Missing keys return the key string in production, log warnings in dev
+
+---
+
+## `getLocaleFromUrl(url)`
+
+Extracts the locale code from the current URL.
+
+**Module**: `src/utils/locale-utils.ts`
+
+**Signature**:
 ```typescript
-const t = useTranslations('ru');
+function getLocaleFromUrl(url: URL): Locale;
+```
 
-t('pricing.plans.pro.name');  // "Профессиональный"
-t('pricing.plans.pro.price'); // "1999"
+Returns the locale prefix from the URL path, defaulting to `'en'` if none is found.
+
+---
+
+## `buildNavLinks(locale, section)`
+
+Generates navigation links for the documentation sidebar.
+
+**Module**: `src/utils/docs-nav.ts`
+
+**Signature**:
+```typescript
+function buildNavLinks(locale: string, section?: string): NavLink[];
+```
+
+Returns an array of navigation link objects used by the docs sidebar component.
+
+---
+
+## `getEnabledThemes()`
+
+Returns all enabled theme definitions.
+
+**Module**: `src/config/themes.ts`
+
+**Signature**:
+```typescript
+function getEnabledThemes(): ThemeDefinition[];
 ```
 
 ---
 
-## buildNavLinks
+## `getThemeById(id)`
 
-Builds localized navigation links from the navigation configuration.
+Returns a specific theme definition by its ID.
 
-<ApiMethod
-  name="buildNavLinks"
-  signature="buildNavLinks(locale: string, t: TranslationFn): NavLink[]"
-  description="Generates navigation links with proper URL prefixes and translated labels."
-  params={[
-    { name: 'locale', type: 'string', description: 'Current locale code', required: true },
-    { name: 't', type: '(key: string) => string', description: 'Translation function', required: true }
-  ]}
-  returns={{ type: 'NavLink[]', description: 'Array of navigation link objects' }}
-  since="v1.0.0"
-/>
+**Module**: `src/config/themes.ts`
 
-### Usage
-
+**Signature**:
 ```typescript
-
-const t = useTranslations('ru');
-const navLinks = buildNavLinks('ru', t);
-
-// Result:
-// [
-//   { href: '/ru/', label: 'Главная', ... },
-//   { href: '/ru/about', label: 'О нас', ... },
-//   ...
-// ]
+function getThemeById(id: string): ThemeDefinition | undefined;
 ```
 
 ---
 
-## ThemeDefinition <Badge>Type</Badge>
-
-TypeScript interface for theme configuration objects.
+## Type: `ThemeDefinition`
 
 ```typescript
 interface ThemeDefinition {
-  id: string;          // Unique theme identifier
-  name: string;        // Display name
-  color: string;       // Primary color (Tailwind class)
-  icon: string;        // Emoji icon
-  sections: string[];  // Available section components
-  enabled: boolean;    // Whether theme is enabled
-  premium: boolean;    // Premium-only flag
+  id: string;              // URL slug (e.g., 'liquid', 'aurora')
+  name: string;            // Display name
+  color: string;           // Tailwind gradient classes
+  icon: string;            // Emoji icon
+  sections: string[];      // Enabled sections
+  enabled: boolean;        // Whether theme is active
+  premium: boolean;        // Premium flag
+  description: string;     // One-line description
 }
 ```
 
-<Callout type="info" title="Type Exports">
-  All types are exported from `src/config/themes.ts` and can be imported in your TypeScript files.
-</Callout>
-
----
-
-## LocaleConfig <Badge>Type</Badge>
-
-TypeScript interface for locale configuration objects.
+## Type: `LocaleConfig`
 
 ```typescript
 interface LocaleConfig {
-  code: string;         // Locale code (e.g., "en", "ru")
-  name: string;         // English name
-  nativeName: string;   // Native language name
-  flag: string;         // Emoji flag
+  code: string;            // ISO language code
+  name: string;            // English name
+  nativeName: string;      // Native name
+  flag: string;            // Flag emoji
   direction: 'ltr' | 'rtl';
   enabled: boolean;
 }
 ```
+
+## Available Themes
+
+| ID | Name | Icon |
+|----|------|------|
+| `liquid` | Liquid | 💧 |
+| `glass` | Glass | 🪟 |
+| `neo` | Neo | ⚡ |
+| `luxury` | Luxury | 👑 |
+| `minimal` | Minimal | ✨ |
+| `aurora` | Aurora | 🌌 |

@@ -16,6 +16,7 @@ import Logo from '../../ui/Logo.astro';
 import DesktopNav from '../../layout/DesktopNav.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
+import '../../../styles/components/header/HeaderNeo.css';
 
 export interface Props {
   /** Additional CSS classes for the header */
@@ -47,264 +48,136 @@ const navLinks = buildNavLinks(locale, t);
         <LanguageSwitcher />
       </div>
 
-      <!-- Hamburger Button -->
-      <button type="button" class="hamburger-btn lg:hidden" id="menu-toggle-liquid" aria-label="Toggle menu">
-        <div class="hamburger-icon" id="hamburger-icon-liquid">
-          <span></span>
-          <span></span>
-        </div>
+      <!-- Neo-style Burger -->
+      <button type="button" class="burger-neo" id="burger-liquid" aria-label="Toggle menu">
+        <span class="burger-neo-line"></span>
+        <span class="burger-neo-line"></span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- Mobile Navigation (Inlined) -->
-<nav class="mobile-nav" id="mobile-nav-liquid">
-  <!-- Decorative elements -->
-  <div class="mobile-nav-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-  </div>
-
-  <div class="relative z-10 flex flex-col h-full">
-    <!-- Single scrollable area for everything -->
-    <div class="flex-1 overflow-y-auto scrollbar-hide">
-      <!-- Navigation Links Section -->
-      <div class="mobile-nav-section">
-        <div class="mobile-section-label">
-          <span class="mobile-section-dot"></span>
-          <span>{t('nav.menu') || 'Menu'}</span>
-        </div>
-        <div class="mobile-nav-links">
-          {navLinks.map((link) => (
-            link.children ? (
-              <div class="mobile-dropdown" data-mobile-dropdown>
-                <button
-                  type="button"
-                  class="mobile-dropdown-trigger mobile-nav-item group flex items-center justify-between w-full h-auto p-0 hover:bg-transparent"
-                >
-                  <div class="flex items-center gap-3.5">
-                    <span class="mobile-nav-icon">
-                      <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {link.icon.paths.map((path) => (
-                          <path 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
-                            stroke-width={link.icon.strokeWidth || 1.75} 
-                            d={path} 
-                          />
-                        ))}
-                      </svg>
-                    </span>
-                    <span class="text-[15px] font-semibold">{link.label}</span>
-                  </div>
-                  <span class="mobile-nav-chevron">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </button>
-                <div class="mobile-dropdown-menu">
-                  <div class="py-1.5 pl-[52px] pr-3 space-y-0.5">
-                    {link.children.map((child) => (
-                      child.children ? (
-                        <!-- Nested mobile dropdown -->
-                        <div class="mobile-nested-dropdown" data-mobile-nested>
-                          <button
-                            type="button"
-                            class="mobile-nested-trigger mobile-subnav-item w-full justify-between h-auto p-0 hover:bg-transparent"
-                          >
-                            <span class="flex items-center gap-2.5">
-                              <span>{child.label}</span>
-                            </span>
-                            <svg class="w-3.5 h-3.5 opacity-40 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                          <div class="mobile-nested-menu">
-                            <div class="py-1 pl-6 space-y-0.5">
-                              {child.children.map((subChild) => (
-                                <a href={subChild.href} class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                                  <span>{subChild.label}</span>
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <a href={child.href} class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                          <span>{child.label}</span>
-                        </a>
-                      )
-                    ))}
-                  </div>
-                </div>
+<!-- Fullscreen Overlay Navigation (Neo-style) -->
+<div class="overlay-neo" id="overlay-liquid">
+  <div class="overlay-neo-content">
+    <nav class="overlay-neo-nav">
+      {navLinks.map((link) => (
+        link.children ? (
+          <div class="overlay-neo-group" data-neo-group-liquid>
+            <button type="button" class="overlay-neo-group-trigger">
+              <span class="overlay-neo-link-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
+                </svg>
+              </span>
+              {link.label}
+              <svg class="overlay-neo-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="overlay-neo-group-children">
+              <div class="overlay-neo-group-children-inner">
+                {link.children.map((child) => (
+                  <a href={child.href} class="overlay-neo-child-link">{child.label}</a>
+                ))}
               </div>
-            ) : (
-              <a href={link.href} class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                <span class="mobile-nav-icon">
-                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {link.icon.paths.map((path) => (
-                      <path 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round" 
-                        stroke-width={link.icon.strokeWidth || 1.75} 
-                        d={path} 
-                      />
-                    ))}
-                  </svg>
-                </span>
-                <span class="text-[15px] font-semibold">{link.label}</span>
-              </a>
-            )
-          ))}
-        </div>
-      </div>
-
-      <!-- Preferences Section -->
-      <div class="mobile-nav-section mobile-nav-section-preferences">
-        <div class="mobile-section-label">
-          <span class="mobile-section-dot"></span>
-          <span>{t('nav.preferences') || 'Preferences'}</span>
-        </div>
-
-        <!-- Theme Selection -->
-        <div class="preference-item">
-          <div class="preference-header">
-            <span class="preference-icon">🎨</span>
-            <div class="preference-info">
-              <span class="preference-title">{t('themeSwitcher.label')}</span>
-              <span class="preference-hint">{t('themeSwitcher.hint') || 'Swipe to explore'}</span>
             </div>
           </div>
-          <ThemeSwitcher variant="mobile" />
-        </div>
+        ) : (
+          <a href={link.href} class="overlay-neo-link">
+            <span class="overlay-neo-link-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
+              </svg>
+            </span>
+            {link.label}
+          </a>
+        )
+      ))}
+    </nav>
 
-        <!-- Language Selection -->
-        <div class="preference-item">
-          <div class="preference-header">
-            <span class="preference-icon">🌐</span>
-            <div class="preference-info">
-              <span class="preference-title">{t('languageSwitcher.label')}</span>
-              <span class="preference-hint">{t('languageSwitcher.hint') || 'Choose language'}</span>
-            </div>
-          </div>
-          <LanguageSwitcher variant="mobile" />
-        </div>
+    <div class="overlay-neo-footer">
+      <div class="overlay-neo-footer-item">
+        <span class="overlay-neo-footer-label">{t('themeSwitcher.label')}</span>
+        <ThemeSwitcher variant="mobile" />
       </div>
-
-      <!-- Bottom safe area spacer -->
-      <div class="mobile-nav-spacer"></div>
+      <div class="overlay-neo-footer-item">
+        <span class="overlay-neo-footer-label">{t('languageSwitcher.label')}</span>
+        <LanguageSwitcher variant="mobile" />
+      </div>
     </div>
   </div>
-</nav>
+</div>
 
 <script>
-  function initNavigation() {
-    // Select Elements with Unique IDs
-    const btn = document.getElementById('menu-toggle-liquid');
-    const nav = document.getElementById('mobile-nav-liquid');
+  function initHeaderLiquid() {
+    const burger = document.getElementById('burger-liquid');
+    const overlay = document.getElementById('overlay-liquid');
 
-    if (!btn || !nav) return;
+    if (!burger || !overlay) return;
 
-    function closeMenu() {
-      nav.classList.remove('is-open');
-      btn.classList.remove('is-active');
+    // Reset state
+    overlay.classList.remove('is-open');
+    burger.classList.remove('is-active');
+
+    // ---- Mobile overlay ----
+    const newBurger = burger.cloneNode(true) as HTMLElement;
+    burger.parentNode?.replaceChild(newBurger, burger);
+
+    const closeOverlay = () => {
+      overlay.classList.remove('is-open');
+      newBurger.classList.remove('is-active');
       document.body.style.overflow = '';
-      nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-      nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-    }
+    };
 
-    function openMenu() {
-      nav.classList.add('is-open');
-      btn.classList.add('is-active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Ensure menu is closed on page load
-    closeMenu();
-
-    // Clone button to remove old listeners
-    const newBtn = btn.cloneNode(true) as HTMLElement;
-    btn.parentNode?.replaceChild(newBtn, btn);
-
-    newBtn.addEventListener('click', () => {
-      if (nav.classList.contains('is-open')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+    newBurger.addEventListener('click', () => {
+      const isOpen = overlay.classList.toggle('is-open');
+      newBurger.classList.toggle('is-active');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Close on link click (not dropdown triggers)
-    nav.querySelectorAll('a').forEach(link => {
-      const newLink = link.cloneNode(true) as HTMLElement;
-      link.parentNode?.replaceChild(newLink, link);
-      newLink.addEventListener('click', closeMenu);
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeOverlay);
     });
 
-    // Mobile dropdown toggles
-    nav.querySelectorAll('[data-mobile-dropdown]').forEach(dropdown => {
-      const trigger = dropdown.querySelector('.mobile-dropdown-trigger');
-      if (!trigger) return;
+    // ---- Mobile expandable groups ----
+    overlay.querySelectorAll('[data-neo-group-liquid]').forEach(group => {
+      const groupTrigger = group.querySelector('.overlay-neo-group-trigger');
+      if (!groupTrigger) return;
 
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdown.classList.toggle('is-open');
-      });
-    });
-
-    // Mobile nested dropdown toggles
-    nav.querySelectorAll('[data-mobile-nested]').forEach(nestedDropdown => {
-      const trigger = nestedDropdown.querySelector('.mobile-nested-trigger');
-      if (!trigger) return;
-
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        nestedDropdown.classList.toggle('is-open');
+      groupTrigger.addEventListener('click', () => {
+        group.classList.toggle('is-open');
       });
     });
   }
 
-  // Handle keyboard escape - only add once
+  // Handle keyboard escape
   if (!(window as any).__escapeListenerLiquidAdded) {
     (window as any).__escapeListenerLiquidAdded = true;
     document.addEventListener('keydown', (e) => {
-      const nav = document.getElementById('mobile-nav-liquid');
-      const btn = document.getElementById('menu-toggle-liquid');
-      if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
-        nav.classList.remove('is-open');
-        nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-        nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-        btn?.classList.remove('is-active');
+      const overlay = document.getElementById('overlay-liquid');
+      const burger = document.getElementById('burger-liquid');
+      if (e.key === 'Escape' && overlay?.classList.contains('is-open')) {
+        overlay.classList.remove('is-open');
+        burger?.classList.remove('is-active');
         document.body.style.overflow = '';
-        btn?.focus();
+        burger?.focus();
       }
     });
   }
 
-  // Handle window resize - only add once
+  // Handle window resize
   if (!(window as any).__resizeListenerLiquidAdded) {
     (window as any).__resizeListenerLiquidAdded = true;
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const nav = document.getElementById('mobile-nav-liquid');
-        const btn = document.getElementById('menu-toggle-liquid');
-        if (window.innerWidth >= 1024 && nav?.classList.contains('is-open')) {
-          nav.classList.remove('is-open');
-          nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-          nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-          btn?.classList.remove('is-active');
+        const overlay = document.getElementById('overlay-liquid');
+        const burger = document.getElementById('burger-liquid');
+        if (window.innerWidth >= 1024 && overlay?.classList.contains('is-open')) {
+          overlay.classList.remove('is-open');
+          burger?.classList.remove('is-active');
           document.body.style.overflow = '';
         }
       }, 100);
@@ -312,6 +185,7 @@ const navLinks = buildNavLinks(locale, t);
   }
 
   // Initialize on first load and after view transitions
-  initNavigation();
-  document.addEventListener('astro:after-swap', initNavigation);
+  initHeaderLiquid();
+  document.addEventListener('astro:after-swap', initHeaderLiquid);
 </script>
+

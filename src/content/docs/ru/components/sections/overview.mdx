@@ -1,88 +1,47 @@
 ---
-title: Компоненты Секций
-description: Готовые компоненты-обертки для Hero, Features, Pricing и других секций.
-order: 0
+title: "Обзор секций"
+description: "Обзор всех компонентов секций в AstroGlass."
+order: 1
 ---
 
+import CardGrid from '../../../../../components/mdx/CardGrid.astro';
+import LinkCard from '../../../../../components/mdx/LinkCard.astro';
 import Callout from '../../../../../components/mdx/Callout.astro';
-import Badge from '../../../../../components/mdx/Badge.astro';
 
-Astro Glass предоставляет набор "Компонентов-оберток" для основных секций страницы. Эти компоненты автоматически управляют переключением тем на основе пропса `version`.
+Секции — это строительные блоки каждой тематической страницы. Каждая страница темы состоит из **11 секций**, каждая из которых имеет вариант для каждой темы.
 
-Каждый компонент поддерживает 5 различных тем дизайна:
-1. **Liquid** (По умолчанию)
-2. **Glass**
-3. **Neo**
-4. **Luxury**
-5. **Minimal**
+## Доступные секции
 
-## Hero
-
-Компонент Hero - это точка входа на ваш лендинг.
-
-```astro title="Component.astro"
-import Hero from '../../components/sections/hero/index.astro';
-
-<Hero version={1} /> <!-- Тема Liquid -->
-<Hero version={2} /> <!-- Тема Glass -->
-```
-
-## Features (Преимущества)
-
-Отобразите преимущества вашего продукта в виде сетки или списка.
-
-```astro title="Component.astro"
-import Features from '../../components/sections/features/index.astro';
-
-<Features version={3} /> <!-- Тема Neo -->
-```
-
-## Pricing (Цены)
-
-Адаптивные таблицы цен с переключателем ежемесячно/ежегодно.
-
-```astro title="Component.astro"
-import Pricing from '../../components/sections/pricing/index.astro';
-
-<Pricing version={4} /> <!-- Тема Luxury -->
-```
-
-## Testimonials (Отзывы)
-
-Секции социальных доказательств для повышения доверия.
-
-```astro title="Component.astro"
-import Testimonial from '../../components/sections/testimonial/index.astro';
-
-<Testimonial version={5} /> <!-- Тема Minimal -->
-```
-
-## FAQ (Вопросы и ответы)
-
-Аккордеон часто задаваемых вопросов.
-
-```astro title="Component.astro"
-import FAQ from '../../components/sections/faq/index.astro';
-
-<FAQ version={1} />
-```
-
-## CTA (Призыв к действию)
-
-Финальная секция конверсии внизу страниц.
-
-```astro title="Component.astro"
-import CTA from '../../components/sections/cta/index.astro';
-
-<CTA version={2} />
-```
+<CardGrid>
+  <LinkCard title="Hero" description="Полноэкранные лендинг-секции." href="/docs/en/components/sections/hero" />
+  <LinkCard title="About" description="Секции представления компании." href="/docs/en/components/sections/about" />
+  <LinkCard title="Features" description="Витрины функций продукта." href="/docs/en/components/sections/features" />
+  <LinkCard title="Portfolio" description="Галереи проектов." href="/docs/en/components/sections/portfolio" />
+  <LinkCard title="Pricing" description="Таблицы тарифов." href="/docs/en/components/sections/pricing" />
+  <LinkCard title="Testimonials" description="Отзывы клиентов." href="/docs/en/components/sections/testimonials" />
+  <LinkCard title="FAQ" description="Частые вопросы с аккордеоном." href="/docs/en/components/sections/faq" />
+  <LinkCard title="CTA" description="Призывы к действию." href="/docs/en/components/sections/cta" />
+  <LinkCard title="Contact" description="Контактные формы с валидацией." href="/docs/en/components/sections/contact" />
+  <LinkCard title="Navbar" description="Тематические навигационные панели." href="/docs/en/components/sections/navbar" />
+  <LinkCard title="Footer" description="Подвал сайта." href="/docs/en/components/sections/footer" />
+</CardGrid>
 
 ## Как это работает
 
-Под капотом эти компоненты-обертки динамически импортируют конкретную реализацию на основе пропса версии.
+Каждая секция имеет **6 тематических вариантов** (Liquid, Glass, Neo, Luxury, Minimal, Aurora). Страница `src/pages/[theme].astro` использует карту компонентов для отображения нужного варианта.
 
-Например, `<Hero version={1} />` рендерит `src/components/sections/hero/HeroLiquid.astro`.
-
-<Callout type="tip" title="Кастомизация">
-  Чтобы настроить конкретную секцию, вам следует редактировать файл в подпапке (например, `src/components/sections/hero/HeroGlass.astro`), а не сам компонент-обертку.
+<Callout type="info" title="Без внешних пропсов">
+  Секции не принимают пропсов. Весь контент загружается через `useTranslations()` из `src/locales/{lang}/{section}.json`.
 </Callout>
+
+## Структура файлов
+
+```
+src/components/sections/{section}/
+├── {Section}Liquid.astro
+├── {Section}Glass.astro
+├── {Section}Neo.astro
+├── {Section}Luxury.astro
+├── {Section}Minimal.astro
+└── {Section}Aurora.astro
+```

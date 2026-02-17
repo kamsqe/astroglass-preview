@@ -1,208 +1,164 @@
 ---
-title: MDX Components
-description: Use built-in MDX components to enhance your documentation.
+title: "MDX Components"
+description: "Custom MDX components available for use in documentation."
+order: 2
 ---
 
 import Callout from '../../../../../components/mdx/Callout.astro';
 import Badge from '../../../../../components/mdx/Badge.astro';
-import Steps from '../../../../../components/mdx/Steps.astro';
-import FileTree from '../../../../../components/mdx/FileTree.astro';
 import CardGrid from '../../../../../components/mdx/CardGrid.astro';
 import LinkCard from '../../../../../components/mdx/LinkCard.astro';
-import CodeTabs from '../../../../../components/mdx/CodeTabs.astro';
 
-Astro Glass comes with a set of custom MDX components to help you write beautiful and effective documentation.
+A library of custom MDX components available in all documentation pages. These are automatically registered in the docs rendering pipeline.
 
-## Callouts
+## Callout
 
 Use callouts to highlight important information.
 
-<Callout type="info" title="Note">
-  This is a default info callout.
+```mdx
+<Callout type="info" title="Info">
+  This is an informational callout.
 </Callout>
 
 <Callout type="warning" title="Warning">
-  Be careful when modifying configuration files.
+  Be careful with this operation.
 </Callout>
 
-<Callout type="error" title="Danger">
-  This action is irreversible.
-</Callout>
-
-<Callout type="success" title="Success">
-  Deployment completed successfully!
-</Callout>
-
-<Callout type="tip" title="Pro Tip">
-  You can use markdown inside callouts.
-</Callout>
-
-```mdx title="content.mdx"
-import Callout from '../../components/mdx/Callout.astro';
-
-<Callout type="info" title="Note">
-  This is a default info callout.
-</Callout>
-
-<Callout type="warning" title="Warning">
-  Be careful when modifying configuration files.
+<Callout type="tip" title="Tip">
+  Here's a helpful suggestion.
 </Callout>
 ```
 
-## Badges
+**Types**: `info`, `warning`, `tip`, `error`
 
-Use badges to show version status or feature tags.
+---
 
-Currently using <Badge type="new">v2.0</Badge> of the framework.
-This feature is <Badge type="experimental">Experimental</Badge>.
-Legacy API is <Badge type="deprecated">Deprecated</Badge>.
+## Badge
 
-```mdx title="content.mdx"
-import Badge from '../../components/mdx/Badge.astro';
+Display version or status indicators.
 
-<Badge type="new">New</Badge>
-<Badge type="experimental">Beta</Badge>
-<Badge type="deprecated">Legacy</Badge>
-<Badge type="required">Required</Badge>
-<Badge type="optional">Optional</Badge>
+```mdx
+<Badge text="New" variant="success" />
+<Badge text="Experimental" variant="warning" />
+<Badge text="Deprecated" variant="error" />
 ```
+
+**Props**:
+| Prop | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Badge label |
+| `variant` | `'success' \| 'warning' \| 'error' \| 'info'` | Color variant |
+
+---
 
 ## Steps
 
-Use the Steps component to document sequential procedures.
+Wrap ordered lists for step-by-step instructions.
 
+```mdx
 <Steps>
-1. **Install dependencies**
+1. **First step**
    
-   Run `npm install` in your terminal.
+   Description of first step.
 
-2. **Configure the project**
+2. **Second step**
    
-   Edit `astro.config.mjs` to set up your integration.
-
-3. **Start the server**
-   
-   Run `npm run dev` to start the development server.
-</Steps>
-
-```mdx title="content.mdx"
-import Steps from '../../components/mdx/Steps.astro';
-
-<Steps>
-1. **Step One**
-   Description of step one.
-
-2. **Step Two**
-   Description of step two.
+   Description of second step.
 </Steps>
 ```
 
-## File Tree
+---
 
-Visualize directory structures.
+## FileTree
 
+Display file and directory structures.
+
+```mdx
 <FileTree>
 - src/
   - components/
-    - **Header.astro**
-    - Footer.astro
   - pages/
-    - **index.astro**
-- public/
-- package.json
-</FileTree>
-
-
-### Usage
-
-```mdx title="content.mdx"
-import FileTree from '../../components/mdx/FileTree.astro';
-
-<FileTree>
-- src/
-  - components/
-    - **Header.astro**
-    - Footer.astro
-  - pages/
-    - **index.astro**
-  - styles/
-    - global.css
-- public/
+    - index.astro
+    - **[theme].astro**
 - package.json
 </FileTree>
 ```
 
-## Cards
+Bold items with `**` are highlighted. Use `-` for list items.
 
-Link to other pages visually.
+---
 
+## CardGrid & LinkCard
+
+Display linked cards in a responsive grid.
+
+```mdx
 <CardGrid>
-  <LinkCard 
-    title="Getting Started" 
-    description="Learn how to install and configure." 
-    href="/docs/en/getting-started/02-installation" 
+  <LinkCard
+    title="Getting Started"
+    description="Set up your project in minutes."
+    href="/docs/en/getting-started/installation"
   />
-  <LinkCard 
-    title="Theming" 
-    description="Customize the look and feel." 
-    href="/docs/en/03-core-concepts/03-theming" 
-  />
-</CardGrid>
-
-```mdx title="content.mdx"
-import CardGrid from '../../components/mdx/CardGrid.astro';
-import LinkCard from '../../components/mdx/LinkCard.astro';
-
-<CardGrid>
-  <LinkCard 
-    title="Getting Started" 
-    description="Description here." 
-    href="/path/to/page" 
-  />
-  <LinkCard 
-    title="API Reference" 
-    description="See the API docs." 
-    href="/path/to/api" 
+  <LinkCard
+    title="Theming"
+    description="Learn about the theme system."
+    href="/docs/en/core-concepts/theming"
   />
 </CardGrid>
 ```
 
-## Code Tabs
+**LinkCard Props**:
+| Prop | Type | Description |
+|------|------|-------------|
+| `title` | `string` | Card title |
+| `description` | `string` | Card description |
+| `href` | `string` | Link destination |
 
-Display code in multiple languages or formats.
+---
 
-<CodeTabs>
-  <div slot="npm">
-  ```bash
-  npm install astro
-  ```
-  </div>
-  <div slot="pnpm">
-  ```bash
-  pnpm add astro
-  ```
-  </div>
-  <div slot="yarn">
-  ```bash
-  yarn add astro
-  ```
-  </div>
+## CodeTabs
+
+Display tabbed code blocks for multiple package managers or languages.
+
+```mdx
+<CodeTabs labels={['pnpm', 'npm', 'yarn']}>
+```bash
+pnpm install
+​```
+```bash
+npm install
+​```
+```bash
+yarn install
+​```
 </CodeTabs>
+```
 
-````mdx
-import CodeTabs from '../../components/mdx/CodeTabs.astro';
+**Props**:
+| Prop | Type | Description |
+|------|------|-------------|
+| `labels` | `string[]` | Tab labels displayed above each code block |
 
-<CodeTabs labels={['js', 'ts']}>
-  <div slot="js">
-  ```js
-  console.log('Hello');
-  ```
-  </div>
-  <div slot="ts">
-  ```ts
-  const msg: string = 'Hello';
-  console.log(msg);
-  ```
-  </div>
-</CodeTabs>
-````
+<Callout type="info" title="Code Blocks">
+  Place each code block as a direct child. The number of code blocks must match the number of labels.
+</Callout>
+
+---
+
+## PropsTable
+
+Display component prop documentation in a formatted table.
+
+```mdx
+<PropsTable component="Hero" />
+```
+
+---
+
+## ApiMethod
+
+Document a function or method signature.
+
+```mdx
+<ApiMethod name="useTranslations" params="locale: Locale" returns="(key: string) => string" />
+```

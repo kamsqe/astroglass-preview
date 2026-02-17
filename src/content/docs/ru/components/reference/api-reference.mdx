@@ -1,148 +1,71 @@
 ---
-title: "Справочник API компонентов"
-description: "Полная документация API для всех компонентов шаблона, включая пропсы, события и примеры использования."
+title: "Справочник API"
+description: "Техническая документация API компонентов и утилит AstroGlass."
 order: 1
-category: api
-tags: ["api", "компоненты", "справочник"]
 ---
 
+import Callout from '../../../../../components/mdx/Callout.astro';
 
-Этот справочник документирует публичный API для всех компонентов шаблона. Каждый компонент полностью типизирован с помощью TypeScript и поддерживает интернационализацию из коробки.
+Подробный справочник ключевых функций, типов и конфигурационных объектов AstroGlass.
 
----
+## `useTranslations(locale)`
 
-## Компонент Hero
+Возвращает функцию получения переводов для указанной локали.
 
-Компонент `Hero` отображает основной раздел сайта с поддержкой динамических тем.
-
-<ApiMethod
-  name="Hero"
-  signature="<Hero version={string} locale={Locale} />"
-  description="Отрисовывает тематический раздел hero с заголовком, подзаголовком и кнопками призыва к действию."
-  params={[
-    { name: 'version', type: 'ThemeId', description: 'Идентификатор темы для рендеринга', required: true },
-    { name: 'locale', type: 'Locale', description: 'Текущая локаль для i18n', required: false, default: '"en"' }
-  ]}
-  returns={{ type: 'AstroComponent', description: 'Отрисованный раздел hero' }}
-  since="v1.0.0"
-/>
-
-### Использование
-
-```astro title="Component.astro"
----
----
-
-<Hero version="glass" locale="ru" />
-```
-
-### Доступные версии
-
-| Версия | Описание |
-|---------|-------------|
-| `liquid` | Жидкие градиентные анимации |
-| `glass` | Стекломорфизм с эффектами размытия |
-| `neo` | Смелый, высококонтрастный дизайн |
-| `luxury` | Золотые акценты, премиальный стиль |
-| `minimal` | Чистый, сфокусированный макет |
-
----
-
-## Компонент Pricing
-
-Компонент `Pricing` отображает тарифные планы с возможностью переключения месячной/годовой оплаты.
-
-<ApiMethod
-  name="Pricing"
-  signature="<Pricing version={string} locale={Locale} />"
-  description="Отрисовывает раздел цен с настраиваемыми планами и переключателем биллинга."
-  params={[
-    { name: 'version', type: 'ThemeId', description: 'Идентификатор темы для рендеринга', required: true },
-    { name: 'locale', type: 'Locale', description: 'Текущая локаль для i18n', required: false, default: '"en"' }
-  ]}
-  returns={{ type: 'AstroComponent', description: 'Отрисованный раздел цен' }}
-  since="v1.0.0"
-/>
-
-### Использование
-
-```astro title="Component.astro"
----
----
-
-<Pricing version="luxury" locale="ru" />
-```
-
----
-
-## useTranslations <Badge type="new">v1.1</Badge>
-
-Функция `useTranslations` возвращает функцию перевода для указанной локали.
-
-<ApiMethod
-  name="useTranslations"
-  signature="useTranslations(locale: Locale): (key: string, params?: Record<string, string>) => string"
-  description="Возвращает функцию перевода, которая извлекает локализованные строки по пути ключа."
-  params={[
-    { name: 'locale', type: 'Locale', description: 'Целевой код локали (например, "en", "ru")', required: true }
-  ]}
-  returns={{ type: '(key: string) => string', description: 'Функция перевода' }}
-  since="v1.0.0"
-/>
-
-### Использование
+**Модуль**: `src/utils/i18n.ts`
 
 ```typescript
-
-const t = useTranslations('ru');
-
-const title = t('hero.title');           // "Добро пожаловать"
-const cta = t('hero.primaryCta');         // "Начать"
+function useTranslations(locale: Locale): (key: string) => string;
 ```
 
-### Вложенные ключи
+**Использование**:
+```astro
+---
+import { useTranslations } from '../utils/i18n';
+import { getLocaleFromUrl } from '../utils/locale-utils';
 
-Ключи перевода поддерживают точечную нотацию для вложенных значений:
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+<h1>{t('hero.title')}</h1>
+```
+
+- Ключи из `common.json` доступны на корневом уровне (например, `t('title')`)
+- Остальные файлы имеют пространства имён по имени файла (например, `t('hero.title')`)
+
+---
+
+## `getLocaleFromUrl(url)`
+
+Извлекает код локали из текущего URL.
+
+**Модуль**: `src/utils/locale-utils.ts`
 
 ```typescript
-const t = useTranslations('ru');
-
-t('pricing.plans.pro.name');  // "Профессиональный"
-t('pricing.plans.pro.price'); // "1999"
+function getLocaleFromUrl(url: URL): Locale;
 ```
 
 ---
 
-## buildNavLinks
+## `getEnabledThemes()`
 
-Создает локализованные навигационные ссылки на основе конфигурации навигации.
+Возвращает все активные темы.
 
-<ApiMethod
-  name="buildNavLinks"
-  signature="buildNavLinks(locale: string, t: TranslationFn): NavLink[]"
-  description="Генерирует навигационные ссылки с правильными префиксами URL и переведенными метками."
-  params={[
-    { name: 'locale', type: 'string', description: 'Текущий код локали', required: true },
-    { name: 't', type: '(key: string) => string', description: 'Функция перевода', required: true }
-  ]}
-  returns={{ type: 'NavLink[]', description: 'Массив объектов навигационных ссылок' }}
-  since="v1.0.0"
-/>
+**Модуль**: `src/config/themes.ts`
+
+```typescript
+function getEnabledThemes(): ThemeDefinition[];
+```
 
 ---
 
-## ThemeDefinition <Badge>Type</Badge>
+## Доступные темы
 
-Интерфейс TypeScript для объектов конфигурации темы.
-
-```typescript
-interface ThemeDefinition {
-  id: string;          // Уникальный идентификатор темы
-  name: string;        // Отображаемое имя
-  color: string;       // Основной цвет (класс Tailwind)
-  icon: string;        // Иконка emoji
-  sections: string[];  // Доступные компоненты разделов
-  enabled: boolean;    // Включена ли тема
-  premium: boolean;    // Флаг только для премиум-доступа
-}
-```
+| ID | Название | Иконка |
+|----|----------|--------|
+| `liquid` | Liquid | 💧 |
+| `glass` | Glass | 🪟 |
+| `neo` | Neo | ⚡ |
+| `luxury` | Luxury | 👑 |
+| `minimal` | Minimal | ✨ |
+| `aurora` | Aurora | 🌌 |

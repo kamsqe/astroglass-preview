@@ -1,7 +1,7 @@
 ---
 /**
- * Theme Gallery - Adapted from PortfolioGlass
- * Horizontal scrolling showcase of available themes.
+ * Theme Gallery — Enhanced horizontal scrolling showcase
+ * Shows all available themes with icons, section counts, and premium/free badges.
  */
 import '../../../styles/components/portfolio/PortfolioGlass.css';
 import { useTranslations } from '../../../utils/i18n';
@@ -11,23 +11,17 @@ import { themes } from '../../../config/themes';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Filter enabled themes and map to gallery format
-// Filter enabled themes and map to gallery format
 const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   id: i + 1,
   title: theme.name,
   desc: theme.description,
-  category: t('portfolio.themeGallery.free'), // Default to Free
+  category: theme.premium ? t('portfolio.themeGallery.premium') : t('portfolio.themeGallery.free'),
+  isPremium: theme.premium,
   num: `0${i + 1}`,
   realId: theme.id,
-  color: theme.color
-}));
-
-// Update category for premium themes manually for display if needed
-// Update category for premium themes manually for display if needed
-const enhancedThemeItems = themeItems.map(c => ({
-  ...c,
-  category: c.title === 'Luxury' || c.title === 'Aurora' ? t('portfolio.themeGallery.premium') : t('portfolio.themeGallery.free')
+  color: theme.color,
+  icon: theme.icon,
+  sectionCount: theme.sections.length,
 }));
 ---
 
@@ -48,26 +42,36 @@ const enhancedThemeItems = themeItems.map(c => ({
   <!-- Carousel -->
   <div class="relative">
     <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
-      {enhancedThemeItems.map((p, i) => (
+      {themeItems.map((p, i) => (
         <a href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
-            <!-- Background gradient from theme config -->
-            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-10 transition-opacity duration-700`}></div>
+            {/* Background gradient from theme config */}
+            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`}></div>
 
-            <!-- Gradient overlay -->
+            {/* Gradient overlay */}
             <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             
             <div class="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-              <!-- Top -->
+              {/* Top */}
               <div class="flex items-start justify-between">
-                <span class={`px-3 py-1.5 rounded-lg bg-accent/10  text-[10px] font-bold uppercase tracking-wider ${p.category === 'Premium' ? 'text-amber-500' : 'text-accent'}`}>
-                  {p.category}
+                <div class="flex items-center gap-3">
+                  <span class={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${p.isPremium ? 'bg-amber-500/10 text-amber-500' : 'bg-accent/10 text-accent'}`}>
+                    {p.category}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-md bg-base-content/5 text-[10px] font-semibold text-base-content/30">
+                    {p.sectionCount} sections
+                  </span>
+                </div>
+                <span class="text-3xl sm:text-4xl transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">
+                  {p.icon}
                 </span>
-                <span class="text-4xl sm:text-5xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500">{p.num}</span>
               </div>
               
-              <!-- Bottom -->
+              {/* Bottom */}
               <div>
+                <div class="flex items-baseline gap-3 mb-3">
+                  <span class="text-4xl sm:text-5xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500">{p.num}</span>
+                </div>
                 <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-base-content mb-3 tracking-tight group-hover:text-accent transition-colors duration-500">
                   {p.title}
                 </h3>

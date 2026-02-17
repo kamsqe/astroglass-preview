@@ -1,9 +1,9 @@
 {
-  "title": "Free & Open Source premium Astro template.",
-  "subtitle": "Build faster with Astro 5.0 and Tailwind CSS. A production-ready, glassmorphic template for startups, SaaS, portfolios, and many more.",
-  "cta": "Explore Templates",
-  "secondaryCta": "Documentation",
-  "liveBadge": "Free & Open Source",
+  "title": "The Astro Starter You'll Actually Ship With.",
+  "subtitle": "6 stunning themes, 66+ components, i18n, blog, docs, and edge deployment — all wired up and ready. Free & open source.",
+  "cta": "Explore Themes",
+  "secondaryCta": "Read the Docs",
+  "liveBadge": "Free & Open Source · Astro 5.0",
   "digitalExperience": "Digital Experience",
   "watchReel": "See It In Action",
   "glassCard": {
@@ -11,7 +11,7 @@
     "desc": "Beautifully crafted blocks designed for high-end digital experiences."
   },
   "visionary": "Visionary Design",
-  "trustedBy": "Trusted by",
+  "trustedBy": "Built with",
   "scrollToExplore": "Scroll to explore",
   "tryItNow": "Try it now",
   "dontTakeOurWord": "Don't take our word for it.",
@@ -21,5 +21,7 @@
   "buildFaster": "Build faster.",
   "shippingVelocity": "10x shipping velocity",
   "readyToBuild": "Ready to build?",
-  "askLeaders": "Ask Stripe, Linear, Vercel."
+  "askLeaders": "Ask Stripe, Linear, Vercel.",
+  "cloneCommand": "npx degit mirmanoov/liquid-glass-astro-cloudflare my-site",
+  "readyIn": "Ready in 2 minutes"
 }

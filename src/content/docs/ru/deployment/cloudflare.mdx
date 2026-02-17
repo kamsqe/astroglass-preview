@@ -1,93 +1,47 @@
 ---
-title: Развертывание на Cloudflare
-description: Разверните ваш сайт Astro Glass на Cloudflare Pages.
+title: Развёртывание на Cloudflare
+description: Развертывание AstroGlass на Cloudflare Pages.
 ---
 
 import Steps from '../../../../components/mdx/Steps.astro';
 import Callout from '../../../../components/mdx/Callout.astro';
 
-Этот проект оптимизирован для развертывания на **Cloudflare Pages**. Он включает необходимый адаптер и конфигурацию "из коробки".
+Проект оптимизирован для развёртывания на **Cloudflare Pages**.
 
 ## Предварительные требования
 
 - Аккаунт [Cloudflare](https://dash.cloudflare.com/).
-- **Node.js**, установленный локально.
-- **Wrangler** CLI, установленный (`npm install -g wrangler`).
+- **Node.js** v20+ установлен локально.
+- **Wrangler** CLI установлен (`npm install -g wrangler`).
 
-## Способы развертывания
-
-Вы можете развернуть проект, используя интеграцию с GitHub (рекомендуется) или через CLI.
+## Способы развёртывания
 
 ### Вариант 1: Интеграция с GitHub
 
 <Steps>
-1. **Запушьте ваш код на GitHub**
-   
-   Убедитесь, что ваш проект находится в репозитории GitHub.
-
-2. **Подключитесь к Cloudflare Pages**
-   
-   Перейдите в Cloudflare Dashboard > Workers & Pages > Create Application > Pages > Connect to Git.
-
-3. **Выберите репозиторий**
-   
-   Выберите ваш репозиторий и ветку.
-
-4. **Настройте параметры сборки**
-   
-   Используйте следующие настройки:
-   - **Framework Preset**: Astro
-   - **Build command**: `pnpm run build`
-   - **Build output directory**: `dist`
-   
-   <Callout type="warning" title="Важно">
-     Убедитесь, что команда сборки установлена на `pnpm run build`! Это запускает сборку И скрипт индексации после сборки (`index:content`), необходимый для работы поиска.
-   </Callout>
-
-5. **Сохраните и разверните**
+1. **Загрузите код на GitHub**.
+2. **Подключите Cloudflare Pages**: Dashboard > Workers & Pages > Create Application > Pages > Connect to Git.
+3. **Выберите репозиторий** и ветку.
+4. **Настройте сборку**:
+   - Framework Preset: Astro
+   - Build command: `pnpm run build`
+   - Build output directory: `dist`
+5. **Сохраните и разверните**.
 </Steps>
 
 ### Вариант 2: Wrangler CLI
 
-Вы также можете развернуть проект напрямую из терминала.
-
 <Steps>
 1. **Войдите в Wrangler**
-   
-   ```bash title="Terminal" frame="terminal"
+   ```bash frame="terminal"
    npx wrangler login
    ```
-
 2. **Соберите и разверните**
-   
-   Запустите скрипт деплоя, определенный в `package.json`:
-   
-   ```bash title="Terminal" frame="terminal"
+   ```bash frame="terminal"
    pnpm run deploy
    ```
-   
-   Эта команда выполняет: `astro build && pnpm run index:content && wrangler pages deploy dist`.
 </Steps>
 
-## Индексация поиска
-
-Проект использует **Fuse.js** для поиска. Это требует этапа генерации индекса контента во время сборки.
-
-Скрипт `build` в `package.json` обрабатывает это автоматически:
-
-```json title="data.json"
-"scripts": {
-  "build": "astro build && pnpm run index:content",
-  "index:content": "node scripts/generate-search-index.mjs"
-}
-```
-
-Если поиск не работает на вашем развернутом сайте, убедитесь, что этап индексации `post-build` прошел успешно.
-
-## Устранение неполадок
-
-### Сбой развертывания
-Проверьте логи сборки. Частые проблемы включают ошибки TypeScript или отсутствующие зависимости.
-
-### Поиск не работает
-Если поиск не возвращает результатов, проверьте, были ли созданы файлы `public/search/{locale}.json` во время сборки. Убедитесь, что `pnpm run index:content` выполнен успешно.
+<Callout type="warning" title="Индексация поиска">
+  Скрипт `build` автоматически генерирует поисковый индекс Fuse.js. Убедитесь, что сборка завершается успешно.
+</Callout>

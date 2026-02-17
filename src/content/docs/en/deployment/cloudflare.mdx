@@ -1,6 +1,6 @@
 ---
 title: Cloudflare Deployment
-description: Deploy your Astro Glass site to Cloudflare Pages.
+description: Deploy your AstroGlass site to Cloudflare Pages.
 ---
 
 import Steps from '../../../../components/mdx/Steps.astro';
@@ -11,7 +11,7 @@ This project is optimized for deployment on **Cloudflare Pages**. It includes th
 ## Prerequisites
 
 - A [Cloudflare](https://dash.cloudflare.com/) account.
-- **Node.js** installed locally.
+- **Node.js** v20+ installed locally.
 - **Wrangler** CLI installed (`npm install -g wrangler`).
 
 ## Deployment Methods
@@ -40,9 +40,8 @@ You can deploy using GitHub integration (recommended) or via CLI.
    - **Build command**: `pnpm run build`
    - **Build output directory**: `dist`
    
-   <Callout type="warning" title="Important">
-     Make sure to set the build command to   npm run build
-   # Note: Search indexing happens automatically during build via generate-search-index.mjs AND the post-build indexing script (`index:content`) required for search functionality.
+   <Callout type="warning" title="Search Indexing">
+     The `build` script automatically runs `astro build && pnpm run index:content`, which generates the Fuse.js search index. Ensure this completes successfully or search will not work on the deployed site.
    </Callout>
 
 5. **Save and Deploy**
@@ -76,14 +75,14 @@ The project uses **Fuse.js** for search. This requires a build-time step to gene
 
 The `build` script in `package.json` handles this automatically:
 
-```json title="data.json"
+```json title="package.json"
 "scripts": {
   "build": "astro build && pnpm run index:content",
   "index:content": "node scripts/generate-search-index.mjs"
 }
 ```
 
-If search isn't working on your deployed site, ensure that the `post-build` indexing step ran successfully.
+If search isn't working on your deployed site, ensure that the indexing step ran successfully.
 
 ## Troubleshooting
 
@@ -91,4 +90,4 @@ If search isn't working on your deployed site, ensure that the `post-build` inde
 Check the build logs. Common issues include TypeScript errors or missing dependencies.
 
 ### Search Not Working
-If search returns no results, check if the `public/search/` directory and `en.json`/`ru.json` files were created during build. Ensure `pnpm run index:content` ran successfully.
+If search returns no results, check if the `public/search/` directory contains `en.json` and `ru.json` files. These are generated during build by `pnpm run index:content`.

@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Templates"
+title: "Getting Started with AstroGlass"
 description: "Learn how to set up and customize your Astro template with themes, internationalization, and cloud deployment."
 order: 1
 category: guide
@@ -7,13 +7,13 @@ tags: ["getting-started", "setup", "beginner"]
 ---
 
 
-Welcome to the **Astro Glass Template**! This guide will walk you through setting up your development environment and customizing the template to fit your needs.
+Welcome to the **AstroGlass Template**! This guide will walk you through setting up your development environment and customizing the template to fit your needs.
 
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
-- **Node.js** v18 or higher
+- **Node.js** v20 or higher
 - **pnpm** (recommended) or npm
 - A code editor (VS Code recommended)
 
@@ -30,8 +30,8 @@ Before you begin, make sure you have the following installed:
 First, clone the template repository to your local machine:
 
 ```bash title="Terminal" frame="terminal"
-git clone https://github.com/your-username/liquid-glass-astro-cloudflare.git
-cd liquid-glass-astro-cloudflare
+git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+cd my-project
 ```
 
 ### Install Dependencies
@@ -77,22 +77,44 @@ Here's an overview of the project's folder structure:
 <FileTree>
 - src/
   - components/
-    - Hero.astro
-    - About.astro
-    - Pricing.astro
+    - sections/
+      - hero/
+        - HeroLiquid.astro
+        - HeroGlass.astro
+        - HeroNeo.astro
+        - ...
+      - features/
+      - pricing/
+      - about/
+      - portfolio/
+      - ...
+    - layout/
+      - header/
+    - ui/
+    - docs/
+    - mdx/
   - config/
     - themes.ts
     - locales.ts
     - docs.ts
+    - navigation.ts
   - content/
     - docs/
       - en/
       - ru/
+    - blog/
+  - locales/
+    - en/
+    - ru/
   - pages/
     - index.astro
     - [theme].astro
+    - docs/
+    - blog/
   - styles/
     - global.css
+    - _themes.css
+    - components/
 - public/
 - astro.config.mjs
 - package.json
@@ -100,7 +122,7 @@ Here's an overview of the project's folder structure:
 
 ## Choosing a Theme
 
-The template comes with **5 beautiful themes** out of the box:
+The template comes with **6 beautiful themes** out of the box:
 
 | Theme | Description |
 |-------|-------------|
@@ -109,17 +131,18 @@ The template comes with **5 beautiful themes** out of the box:
 | **Neo** | Bold typography, strong contrast |
 | **Luxury** | Elegant gold accents, premium feel |
 | **Minimal** | Clean, focused, distraction-free |
+| **Aurora** | Immersive gradients, geometric structure |
 
-To switch themes, simply navigate to the theme switcher in the header or visit the theme demo pages directly.
+To switch themes, simply navigate to the theme switcher in the header or visit the theme demo pages directly (e.g., `/liquid`, `/glass`, `/aurora`).
 
 ## Next Steps
 
 Now that you have your development environment set up:
 
-1. [Explore the Themes](/docs/themes) — Learn about each theme's unique features
-2. [Internationalization Guide](/docs/i18n) — Add support for more languages
-3. [Deployment Guide](/docs/deployment) — Deploy to Cloudflare, Vercel, or Netlify
+1. [Theming System](/docs/en/core-concepts/theming) — Learn how the dynamic theming architecture works
+2. [Routing & i18n](/docs/en/core-concepts/routing-i18n) — Add support for more languages
+3. [Cloudflare Deployment](/docs/en/deployment/cloudflare) — Deploy to Cloudflare Pages
 
 <Callout type="info" title="Need Help?">
-  Check out the [FAQ](/docs/faq) or [open an issue](https://github.com/your-repo/issues) if you run into any problems.
+  Check out the [Forms & Validation Guide](/docs/en/guides/forms-and-validation) or [open an issue](https://github.com/mirmanoov/liquid-glass-astro/issues) if you run into any problems.
 </Callout>

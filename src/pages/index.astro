@@ -5,10 +5,13 @@ import FooterLiquid from '../components/sections/footer/FooterLiquid.astro';
 import { useTranslations } from '../utils/i18n';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 
-// New Home Components
+// Home page sections
 import HeroHome from '../components/sections/hero/HeroHome.astro';
+import StatsStrip from '../components/sections/landing/StatsStrip.astro';
+import TemplateShowcase from '../components/sections/landing/TemplateShowcase.astro';
 import FeaturesHome from '../components/sections/features/FeaturesHome.astro';
 import ThemeGallery from '../components/sections/portfolio/ThemeGallery.astro';
+import CTAHome from '../components/sections/cta/CTAHome.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -19,8 +22,11 @@ const t = useTranslations(locale);
   
   <main class="min-h-screen">
     <HeroHome />
+    <StatsStrip />
+    <TemplateShowcase />
     <FeaturesHome />
     <ThemeGallery />
+    <CTAHome />
   </main>
   
   <FooterLiquid />

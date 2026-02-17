@@ -1,19 +1,19 @@
 ---
-title: "Начало работы с шаблоном"
-description: "Узнайте, как настроить и персонализировать ваш проект на Astro с поддержкой тем, интернационализации и облачного развертывания."
+title: "Начало работы с AstroGlass"
+description: "Узнайте, как настроить и персонализировать ваш Astro шаблон с темами, интернационализацией и облачным развертыванием."
 order: 1
 category: guide
 tags: ["начало работы", "настройка", "для новичков"]
 ---
 
 
-Добро пожаловать в шаблон **Astro Glass**! Это руководство поможет вам настроить среду разработки и адаптировать шаблон под ваши нужды.
+Добро пожаловать в шаблон **AstroGlass**! Это руководство поможет вам настроить среду разработки и адаптировать шаблон под ваши нужды.
 
 ## Предварительные требования
 
 Прежде чем начать, убедитесь, что у вас установлено следующее:
 
-- **Node.js** версии 18 или выше
+- **Node.js** версии 20 или выше
 - **pnpm** (рекомендуется) или npm
 - Редактор кода (рекомендуется VS Code)
 
@@ -30,8 +30,8 @@ tags: ["начало работы", "настройка", "для новичко
 Сначала клонируйте репозиторий шаблона на свой локальный компьютер:
 
 ```bash title="Terminal" frame="terminal"
-git clone https://github.com/your-username/liquid-glass-astro-cloudflare.git
-cd liquid-glass-astro-cloudflare
+git clone https://github.com/mirmanoov/liquid-glass-astro.git my-project
+cd my-project
 ```
 
 ### Установите зависимости
@@ -39,13 +39,13 @@ cd liquid-glass-astro-cloudflare
 Установите зависимости проекта, используя ваш любимый менеджер пакетов:
 
 <CodeTabs labels={['pnpm', 'npm', 'yarn']}>
-```bash
+```bash frame="terminal"
 pnpm install
 ```
-```bash
+```bash frame="terminal"
 npm install
 ```
-```bash
+```bash frame="terminal"
 yarn install
 ```
 </CodeTabs>
@@ -55,13 +55,13 @@ yarn install
 Запустите сервер разработки, чтобы увидеть шаблон в действии:
 
 <CodeTabs labels={['pnpm', 'npm', 'yarn']}>
-```bash
+```bash frame="terminal"
 pnpm dev
 ```
-```bash
+```bash frame="terminal"
 npm run dev
 ```
-```bash
+```bash frame="terminal"
 yarn dev
 ```
 </CodeTabs>
@@ -77,22 +77,44 @@ yarn dev
 <FileTree>
 - src/
   - components/
-    - Hero.astro
-    - About.astro
-    - Pricing.astro
+    - sections/
+      - hero/
+        - HeroLiquid.astro
+        - HeroGlass.astro
+        - HeroNeo.astro
+        - ...
+      - features/
+      - pricing/
+      - about/
+      - portfolio/
+      - ...
+    - layout/
+      - header/
+    - ui/
+    - docs/
+    - mdx/
   - config/
     - themes.ts
     - locales.ts
     - docs.ts
+    - navigation.ts
   - content/
     - docs/
       - en/
       - ru/
+    - blog/
+  - locales/
+    - en/
+    - ru/
   - pages/
     - index.astro
     - [theme].astro
+    - docs/
+    - blog/
   - styles/
     - global.css
+    - _themes.css
+    - components/
 - public/
 - astro.config.mjs
 - package.json
@@ -100,7 +122,7 @@ yarn dev
 
 ## Выбор темы
 
-Шаблон поставляется с **5 великолепными темами**:
+Шаблон поставляется с **6 великолепными темами**:
 
 | Тема | Описание |
 |-------|-------------|
@@ -109,17 +131,18 @@ yarn dev
 | **Neo** | Смелая типографика, сильный контраст |
 | **Luxury** | Элегантные золотые акценты, премиальный вид |
 | **Minimal** | Чистый, сфокусированный дизайн без лишних деталей |
+| **Aurora** | Иммерсивные градиенты, геометрическая структура |
 
-Чтобы переключить тему, просто воспользуйтесь переключателем в шапке сайта или посетите демонстрационные страницы тем напрямую.
+Чтобы переключить тему, воспользуйтесь переключателем в шапке сайта или посетите демонстрационные страницы тем напрямую (например, `/liquid`, `/glass`, `/aurora`).
 
 ## Следующие шаги
 
 Теперь, когда ваша среда разработки настроена:
 
-1. [Обзор тем](/ru/docs/themes) — Узнайте об уникальных особенностях каждой темы
-2. [Руководство по локализации](/ru/docs/i18n) — Добавьте поддержку новых языков
-3. [Развертывание](/ru/docs/deployment) — Разверните проект на Cloudflare, Vercel или Netlify
+1. [Система тем](/docs/en/core-concepts/theming) — Узнайте, как работает архитектура динамических тем
+2. [Маршрутизация и i18n](/docs/en/core-concepts/routing-i18n) — Добавьте поддержку новых языков
+3. [Развёртывание на Cloudflare](/docs/en/deployment/cloudflare) — Разверните проект на Cloudflare Pages
 
 <Callout type="info" title="Нужна помощь?">
-  Ознакомьтесь с разделом [FAQ](/ru/docs/faq) или [создайте тикет](https://github.com/your-repo/issues), если у вас возникли проблемы.
+  Ознакомьтесь с [руководством по формам и валидации](/docs/en/guides/forms-and-validation) или [создайте тикет](https://github.com/mirmanoov/liquid-glass-astro/issues), если у вас возникли проблемы.
 </Callout>

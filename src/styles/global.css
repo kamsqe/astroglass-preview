@@ -38,9 +38,14 @@
   --font-serif: "Playfair Display", "Times New Roman", Times, serif;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Fixed/Absolute headers need offset to prevent overlap */
 [data-header="2"], [data-header="3"], [data-header="5"], [data-header="6"] {
-  --nav-offset: 80px;
+  --nav-offset: 96px;
 }
 
 @media (min-width: 1024px) {

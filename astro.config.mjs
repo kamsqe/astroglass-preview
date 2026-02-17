@@ -28,20 +28,13 @@ export default defineConfig({
       styleOverrides: {
         borderColor: 'transparent',
         frames: {
-          frameBoxShadowCssValue: 'none', // Removed shadow for flattening
-          editorActiveTabBackground: 'hsl(var(--b2))',
+          frameBoxShadowCssValue: 'none',
           editorActiveTabBorderColor: 'transparent',
-          editorTabBarBackground: 'hsl(var(--b2))',
-          editorBackground: 'hsl(var(--b2))',
-          
-          // Contrast fixes
-
           editorTabBarBorderColor: 'hsl(var(--bc) / 0.1)',
-          editorActiveTabIndicatorHeight: '2px', // Restored bottom line
+          editorActiveTabIndicatorHeight: '2px',
           editorActiveTabIndicatorTopColor: 'transparent',
-          editorActiveTabIndicatorBottomColor: 'hsl(var(--a))', // Restored color
+          editorActiveTabIndicatorBottomColor: 'hsl(var(--a))',
         },
-        // Ensure text is readable
         uiFontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
       },
     }),

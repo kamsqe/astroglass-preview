@@ -173,20 +173,44 @@ html {
 }
 
 /* ============================================
-   Expressive Code - Light Theme Contrast Fixes
-   
-   Problem: styleOverrides sets editorBackground to
-   hsl(var(--b2)), which is TINTED on colorful themes
-   (green for Evergreen, pink for Rose, etc.).
-   The github-light syntax tokens use colors designed
-   for a PURE WHITE background — they become invisible
-   on tinted backgrounds.
-   
-   Fix: Force white backgrounds on the actual rendered
-   elements. Token colors (inline styles) are fine on white.
+   Expressive Code — Theme Integration
+
+   github-light's default white bg is correct for
+   all light themes. Dark themes need --b2 tinting.
    ============================================ */
 
-/* Light theme selectors — force neutral white code backgrounds */
+/* --- Dark themes: tinted backgrounds from --b2 --- */
+[data-theme="abyss"] .expressive-code .frame,
+[data-theme="neonoir"] .expressive-code .frame,
+[data-theme="synthwave"] .expressive-code .frame {
+  background-color: hsl(var(--b2)) !important;
+}
+
+[data-theme="abyss"] .expressive-code pre,
+[data-theme="neonoir"] .expressive-code pre,
+[data-theme="synthwave"] .expressive-code pre {
+  background-color: hsl(var(--b2)) !important;
+}
+
+[data-theme="abyss"] .expressive-code .header,
+[data-theme="neonoir"] .expressive-code .header,
+[data-theme="synthwave"] .expressive-code .header {
+  background-color: hsl(var(--b2)) !important;
+}
+
+[data-theme="abyss"] .expressive-code .ec-line .code,
+[data-theme="neonoir"] .expressive-code .ec-line .code,
+[data-theme="synthwave"] .expressive-code .ec-line .code {
+  background-color: transparent !important;
+}
+
+[data-theme="abyss"] .expressive-code .ec-line .gutter,
+[data-theme="neonoir"] .expressive-code .ec-line .gutter,
+[data-theme="synthwave"] .expressive-code .ec-line .gutter {
+  background-color: transparent !important;
+}
+
+/* --- Light themes: ensure code blocks blend nicely --- */
 [data-theme="tahoe"] .expressive-code .frame,
 [data-theme="solaris"] .expressive-code .frame,
 [data-theme="nordic"] .expressive-code .frame,
@@ -194,118 +218,6 @@ html {
 [data-theme="rose"] .expressive-code .frame,
 [data-theme="aquatica"] .expressive-code .frame,
 [data-theme="monochrome"] .expressive-code .frame {
-  background-color: #ffffff !important;
-}
-
-[data-theme="tahoe"] .expressive-code pre,
-[data-theme="solaris"] .expressive-code pre,
-[data-theme="nordic"] .expressive-code pre,
-[data-theme="evergreen"] .expressive-code pre,
-[data-theme="rose"] .expressive-code pre,
-[data-theme="aquatica"] .expressive-code pre,
-[data-theme="monochrome"] .expressive-code pre {
-  background-color: #ffffff !important;
-}
-
-/* Force the .code spans (line content areas) to have white bg too */
-[data-theme="tahoe"] .expressive-code .ec-line .code,
-[data-theme="solaris"] .expressive-code .ec-line .code,
-[data-theme="nordic"] .expressive-code .ec-line .code,
-[data-theme="evergreen"] .expressive-code .ec-line .code,
-[data-theme="rose"] .expressive-code .ec-line .code,
-[data-theme="aquatica"] .expressive-code .ec-line .code,
-[data-theme="monochrome"] .expressive-code .ec-line .code {
-  background-color: transparent !important;
-}
-
-/* Header bar (file name tabs) — light neutral */
-[data-theme="tahoe"] .expressive-code .header,
-[data-theme="solaris"] .expressive-code .header,
-[data-theme="nordic"] .expressive-code .header,
-[data-theme="evergreen"] .expressive-code .header,
-[data-theme="rose"] .expressive-code .header,
-[data-theme="aquatica"] .expressive-code .header,
-[data-theme="monochrome"] .expressive-code .header {
-  background-color: #f6f8fa !important;
-  border-bottom: 1px solid #e1e4e8 !important;
-}
-
-/* Active tab styling */
-[data-theme="tahoe"] .expressive-code .header .tab.is-active,
-[data-theme="solaris"] .expressive-code .header .tab.is-active,
-[data-theme="nordic"] .expressive-code .header .tab.is-active,
-[data-theme="evergreen"] .expressive-code .header .tab.is-active,
-[data-theme="rose"] .expressive-code .header .tab.is-active,
-[data-theme="aquatica"] .expressive-code .header .tab.is-active,
-[data-theme="monochrome"] .expressive-code .header .tab.is-active {
-  background-color: #ffffff !important;
-  color: #24292e !important;
-}
-
-/* Header title text */
-[data-theme="tahoe"] .expressive-code .header .title,
-[data-theme="solaris"] .expressive-code .header .title,
-[data-theme="nordic"] .expressive-code .header .title,
-[data-theme="evergreen"] .expressive-code .header .title,
-[data-theme="rose"] .expressive-code .header .title,
-[data-theme="aquatica"] .expressive-code .header .title,
-[data-theme="monochrome"] .expressive-code .header .title {
-  color: #24292e !important;
-}
-
-/* Copy button */
-[data-theme="tahoe"] .expressive-code .copy button,
-[data-theme="solaris"] .expressive-code .copy button,
-[data-theme="nordic"] .expressive-code .copy button,
-[data-theme="evergreen"] .expressive-code .copy button,
-[data-theme="rose"] .expressive-code .copy button,
-[data-theme="aquatica"] .expressive-code .copy button,
-[data-theme="monochrome"] .expressive-code .copy button {
-  color: #57606a !important;
-  background-color: #f6f8fa !important;
-  border-color: #e1e4e8 !important;
-}
-
-/* Highlighted/marked lines — keep subtle highlight, white bg underneath */
-[data-theme="tahoe"] .expressive-code .ec-line.mark,
-[data-theme="solaris"] .expressive-code .ec-line.mark,
-[data-theme="nordic"] .expressive-code .ec-line.mark,
-[data-theme="evergreen"] .expressive-code .ec-line.mark,
-[data-theme="rose"] .expressive-code .ec-line.mark,
-[data-theme="aquatica"] .expressive-code .ec-line.mark,
-[data-theme="monochrome"] .expressive-code .ec-line.mark {
-  background-color: rgba(56, 132, 244, 0.08) !important;
-}
-
-/* Diff insertion lines */
-[data-theme="tahoe"] .expressive-code .ec-line.ins,
-[data-theme="solaris"] .expressive-code .ec-line.ins,
-[data-theme="nordic"] .expressive-code .ec-line.ins,
-[data-theme="evergreen"] .expressive-code .ec-line.ins,
-[data-theme="rose"] .expressive-code .ec-line.ins,
-[data-theme="aquatica"] .expressive-code .ec-line.ins,
-[data-theme="monochrome"] .expressive-code .ec-line.ins {
-  background-color: rgba(46, 160, 67, 0.12) !important;
-}
-
-/* Diff deletion lines */
-[data-theme="tahoe"] .expressive-code .ec-line.del,
-[data-theme="solaris"] .expressive-code .ec-line.del,
-[data-theme="nordic"] .expressive-code .ec-line.del,
-[data-theme="evergreen"] .expressive-code .ec-line.del,
-[data-theme="rose"] .expressive-code .ec-line.del,
-[data-theme="aquatica"] .expressive-code .ec-line.del,
-[data-theme="monochrome"] .expressive-code .ec-line.del {
-  background-color: rgba(248, 81, 73, 0.12) !important;
-}
-
-/* Gutter (line numbers, diff indicators) */
-[data-theme="tahoe"] .expressive-code .ec-line .gutter,
-[data-theme="solaris"] .expressive-code .ec-line .gutter,
-[data-theme="nordic"] .expressive-code .ec-line .gutter,
-[data-theme="evergreen"] .expressive-code .ec-line .gutter,
-[data-theme="rose"] .expressive-code .ec-line .gutter,
-[data-theme="aquatica"] .expressive-code .ec-line .gutter,
-[data-theme="monochrome"] .expressive-code .ec-line .gutter {
-  background-color: transparent !important;
+  border: 1px solid hsl(var(--bc) / 0.1);
+  border-radius: 0.75rem;
 }

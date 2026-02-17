@@ -34,12 +34,12 @@ const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 ---
 
 <BaseLayout title={`${t('blog.tags')}: ${tag}`} description={`${t('blog.filterByTag')}: ${tag}`}>
-  <div class="max-w-6xl mx-auto pt-32 md:pt-40 lg:pt-48 pb-20 px-4">
+  <div class="max-w-6xl mx-auto pb-20 px-4 sm:px-6 overflow-x-hidden" style="padding-top: calc(var(--nav-offset, 5rem) + 2rem)">
     <div class="mb-8">
       <a href="/blog" class="text-sm font-bold uppercase tracking-wider transition-colors" style={`color: hsl(var(--bc) / 0.4);`}>
         {t('blog.backToBlog')}
       </a>
-      <h1 class="text-5xl font-black mt-3">#{tag}</h1>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black mt-3" style="overflow-wrap: break-word; word-break: break-word;">#{tag}</h1>
     </div>
 
     <TagFilter tags={allTags} activeTag={tag} />

@@ -19,43 +19,37 @@ export function buildLuxuryNavLinks(
   t: (key: string) => string
 ): LuxuryNavLink[] {
   const prefix = locale === 'en' ? '' : `/${locale}`;
-  // For section links, we usually want them to work from anywhere.
-  // If on luxury page, '#id' works. If elsewhere, '/luxury/#id'.
-  // However, since Luxury header is likely only on Luxury page, relative hash is safest for scrollspy.
-  // We'll leave the HREF as just the hash for sections to support smooth scroll libraries/observers easier,
-  // or fully qualified if needed. Let's use Hash for now and handle "external" navigation if we were on another page separately.
-  // Given the request is "within the /luxury page", hash is correct.
+  const themeBase = `${prefix}/luxury`;
   
   return [
     {
       label: t('nav.about'),
-      href: '#about',
+      href: `${themeBase}#about`,
       type: 'section',
     },
     {
       label: t('nav.services'),
-      href: '#services', // Maps to Features component
+      href: `${themeBase}#services`,
       type: 'section',
     },
     {
       label: t('nav.portfolio'),
-      href: '#portfolio',
+      href: `${themeBase}#portfolio`,
       type: 'section',
     },
     {
       label: t('nav.pricing'),
-      href: '#pricing',
+      href: `${themeBase}#pricing`,
       type: 'section',
     },
-    // FAQ
     {
-      label: t('nav.faq'), // Updated to use cleaner 'faq' key
-      href: '#faq',
+      label: t('nav.faq'),
+      href: `${themeBase}#faq`,
       type: 'section',
     },
     {
       label: t('nav.contact'),
-      href: '#contact',
+      href: `${themeBase}#contact`,
       type: 'section',
     },
     // Pages

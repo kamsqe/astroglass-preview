@@ -29,7 +29,7 @@
       "Why AstroGlass?",
       "What's Included?"
     ],
-    "content": "AstroGlass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS v4. Why AstroGlass? - Premium Design: 6 complete theme variants with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. - Full i18n: Built-in support for English and Russian, easily extensible. What's Included? The template comes with 6 fully designed themes, each providing 11 page sections (Hero, About, Features, Portfolio, Pricing, Testimonials, FAQ, CTA, Contact, Header, Footer), plus a blog system and full documentation.",
+    "content": "AstroGlass is a premium Astro theme designed for startups and creators who want to stand out. It features a unique Glassmorphism design system built on top of Tailwind CSS v4. Why AstroGlass? - Premium Design: 6 complete theme variants with depth and blur effects. - Hybrid Performance: Statically generated content with server-side capabilities. - Developer Experience: Type-safe content collections and easy configuration. - Full i18n: Built-in support for English and Russian, easily extensible. What's Included? The template comes with 6 fully designed themes, each providing 12+ page sections (Hero, About, Features, Pricing, Testimonials, FAQ, CTA, Contact, Header, Footer, plus new Landing Page sections), a dedicated Portfolio Page, a custom 404 page, plus a blog system and full documentation.",
     "order": 1
   },
   {
@@ -63,6 +63,22 @@
     ],
     "content": "AstroGlass is configured via files in and standard CSS custom properties. Configuration Files - src/ - config/ - themes.ts — Theme definitions (name, colors, sections, premium flag) - locales.ts — Supported languages and locale metadata - navigation.ts — Main site navigation structure - docs.ts — Documentation sidebar and version config Styling with Tailwind CSS v4 This project uses Tailwind CSS v4 via the plugin. There is no file — all configuration is done through CSS. Colors and theme variables are defined as CSS custom properties in and : To change the site's color scheme, update the HSL values in . Theme-specific overrides live in using selectors. Theme Configuration Each theme is registered in . This centralizes all theme metadata: Locale Configuration Languages are managed in . To add a new language, add an entry and set :",
     "order": 3
+  },
+  {
+    "url": "/docs/components/pages/portfolio-page",
+    "locale": "en",
+    "title": "Portfolio Page",
+    "description": "A full-featured, filtering-enabled portfolio page available for every theme.",
+    "section": "Components",
+    "sectionIcon": "🧩",
+    "sectionOrder": 2,
+    "headings": [
+      "Architecture",
+      "Customization",
+      "Features"
+    ],
+    "content": "Portfolio Page New in AstroGlass, the Portfolio Page is a dedicated, dynamic route that provides a rich showcase for your projects. It features category filtering, detailed project views, and a design that adapts to your active theme. Architecture The portfolio page is served at (e.g., , ). It uses a dynamic routing strategy similar to the main theme pages. File Structure - Route: - The dynamic route handler. - Components: - Theme-specific page implementations (e.g., ). - Content: - All text content, project data, and categories. Customization Unlike the specific landing page sections, the Portfolio Page is entirely data-driven via localization files. This makes it easy to add projects without touching the code. Managing Projects Edit to manage your projects. Categories Categories are defined in the same JSON file and used for filtering. Features - Dynamic Filtering: Client-side filtering by category with smooth animations. - Detail View: Expandable details panel for each project showing \"Challenge\", \"Solution\", and \"Impact\". - Theme Adaptation: Automatically uses the correct header, footer, and styling for the active theme. - Responsive: Fully responsive layout that works on mobile, tablet, and desktop.",
+    "order": 1
   },
   {
     "url": "/docs/components/reference/api-reference",
@@ -100,6 +116,23 @@
     ],
     "content": "Section components are the building blocks of each theme page. Every theme page is composed of 11 sections, each with a dedicated variant per theme. Available Sections How It Works Each section has 6 theme variants — one for each theme (Liquid, Glass, Neo, Luxury, Minimal, Aurora). The dynamic page at uses a component map to render the correct variant: Section components accept no props. All text content is loaded internally via from . To change the content of any section, edit the corresponding locale JSON file. File Structure Each section follows a consistent directory pattern: CSS for each section lives in .",
     "order": 1
+  },
+  {
+    "url": "/docs/components/pages/landing",
+    "locale": "en",
+    "title": "Landing Page Sections",
+    "description": "Specialized sections used on the main landing page.",
+    "section": "Components",
+    "sectionIcon": "🧩",
+    "sectionOrder": 2,
+    "headings": [
+      "Stats Strip",
+      "Template Showcase",
+      "FAQ Home",
+      "How It Works"
+    ],
+    "content": "Landing Page Sections The main entry point of the template () uses several specialized sections designed to showcase the template's features. These are located in . Stats Strip A horizontal strip that displays key metrics about your project (e.g., \"6 Themes\", \"66+ Components\"). - Features: Animated count-up numbers when scrolled into view. - Configuration: Edit the array in the component frontmatter or use for labels. Template Showcase A \"Bento grid\" style layout that provides visual navigation to different parts of the template (Themes, Components, Blog, Docs, etc.). - Features: Hover effects, glassmorphism cards, responsive grid layout. - Content: Managed via under . FAQ Home A lightweight, accordion-style FAQ section designed for the landing page. - Features: Smooth expand/collapse animations, accessible ARIA attributes. - Content: Questions and answers are stored in under . How It Works A 3-step visualization of the workflow (e.g., Clone -> Customize -> Deploy). - Features: Numbered steps with icons and gradient backgrounds. - Content: Steps text in .",
+    "order": 2
   },
   {
     "url": "/docs/components/reference/mdx-components",
@@ -153,6 +186,22 @@
     ],
     "content": "Cards are the fundamental building block of the glass design system. Variants We support multiple card styles via the prop. | Variant | Description | Visual Style | | :--- | :--- | :--- | | | Standard frosted glass | Blur + Border | | | Opaque background | High contrast | | | Border only | Minimalist | Live Examples Glass Card Standard frosted glass effect with blur and subtle border. Solid Card Opaque background for high contrast. Outline Card Minimalist border-only style. Code Usage",
     "order": 2
+  },
+  {
+    "url": "/docs/components/pages/404",
+    "locale": "en",
+    "title": "404 Page",
+    "description": "Theme-adaptive error page.",
+    "section": "Components",
+    "sectionIcon": "🧩",
+    "sectionOrder": 2,
+    "headings": [
+      "Architecture",
+      "Features",
+      "Usage"
+    ],
+    "content": "404 Page AstroGlass includes a sophisticated 404 Error page that automatically adapts to the user's selected theme. Architecture Located at . The page uses CSS variables defined in to render standard 404 visuals (floating particles, glowing orbs, glass cards) that match the active color palette. Features - Theme Adaptive: If a user is browsing with the \"Luxury\" theme and hits a 404, the error page will be Gold/Black. If they are on \"Neo\", it will be Black/Cyan. - Interactive Background: Features animated elements like floating particles and morphing blobs. - Localization: Fully translated messages via (keys starting with ). Usage This page is automatically served by Astro (and most deployment platforms like Cloudflare/Vercel) when a user requests a non-existent route. No configuration is required.",
+    "order": 3
   },
   {
     "url": "/docs/components/sections/about",
@@ -359,7 +408,7 @@
     "headings": [
       "Key Directories"
     ],
-    "content": "AstroGlass follows a standard Astro project structure with a few key organizational patterns. Key Directories Contains all page section components, organized by section type. Each section has a subdirectory with one variant per theme: Theme-specific header/navbar components (e.g., , ). Reusable UI primitives: , , , , , , , , , and . Central configuration files: - — Theme registry (IDs, names, enabled status, section lists) - — Supported languages and their metadata - — Main site navigation structure - — Documentation sidebar config and version management Astro Content Collections for docs and blog posts. Structure inside determines the URL paths for documentation. JSON translation files organized by language code. Each file corresponds to a page section (e.g., , , ). File-based routing. The dynamic route generates pages for each enabled theme. The directory patterns handle localized page variants. Global CSS, theme overrides (), animation keyframes, and component-specific stylesheets in . Utility functions for i18n translations (), locale detection (), and documentation navigation ().",
+    "content": "AstroGlass follows a standard Astro project structure with a few key organizational patterns. Key Directories Contains full-page components for dynamic routes, such as the Portfolio Page. Organized by page type: Contains all page section components, organized by section type. Each section has a subdirectory with one variant per theme: Theme-specific header/navbar components (e.g., , ). Reusable UI primitives: , , , , , , , , , and . Central configuration files: - — Theme registry (IDs, names, enabled status, section lists) - — Supported languages and their metadata - — Main site navigation structure - — Documentation sidebar config and version management Astro Content Collections for docs and blog posts. Structure inside determines the URL paths for documentation. JSON translation files organized by language code. Each file corresponds to a page section (e.g., , , ). File-based routing. The dynamic route generates pages for each enabled theme. The directory patterns handle localized page variants. Global CSS, theme overrides (), animation keyframes, and component-specific stylesheets in . Utility functions for i18n translations (), locale detection (), and documentation navigation ().",
     "order": 3
   },
   {
@@ -375,7 +424,7 @@
       "Documentation Routing",
       "Internationalization (i18n)"
     ],
-    "content": "AstroGlass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy. Page Routing Pages are located in . The folder structure determines the URL path. For localized pages, we use separate directories: - src/ - pages/ - index.astro — Default language (English) Homepage - [theme].astro — Dynamic theme demo pages (e.g., /liquid, /glass) - about.astro — /about - blog/ — Blog pages - docs/ — Documentation pages - ru/ — Russian Localization - index.astro — /ru/ (Russian Homepage) - about.astro — /ru/about Theme Demo Routing Theme pages are generated dynamically from the theme registry. Adding a theme to with automatically creates a route at . Documentation Routing Documentation pages live in : - src/ - content/ - docs/ - en/ - getting-started/ - introduction.mdx - installation.mdx - core-concepts/ - components/ - ru/ - getting-started/ - introduction.mdx The URL for documentation is automatically generated based on the file path, e.g., . Internationalization (i18n) Translations are handled in two ways: 1. Page Content: Duplicate files in . 2. UI Strings: Centralized JSON files in . UI Translations Common strings (nav items, buttons, section text, etc.) are stored as JSON files organized by section: Use the helper in components: Translation keys support dot notation for nested values. The keys are spread at the root level, while other files are namespaced by their filename (e.g., , ). Adding a New Language 1. Register the locale Add an entry to with . 2. Create translation files Create directory with JSON files matching the English structure. 3. Create localized pages Create directory with page files. 4. Create documentation content Create with translated MDX files. The i18n system uses Vite's to automatically discover all JSON files in . No manual imports are needed — just create the files and they're available via .",
+    "content": "AstroGlass uses Astro's file-based routing system combined with a custom internationalization (i18n) strategy. Page Routing Pages are located in . The folder structure determines the URL path. For localized pages, we use separate directories: - src/ - pages/ - index.astro — Default language (English) Homepage - [theme].astro — Dynamic theme demo pages (e.g., /liquid, /glass) - [theme]/portfolio.astro — Dynamic portfolio pages (e.g., /liquid/portfolio) - about.astro — /about - blog/ — Blog pages - docs/ — Documentation pages - ru/ — Russian Localization - index.astro — /ru/ (Russian Homepage) - about.astro — /ru/about Theme Demo Routing Theme pages are generated dynamically from the theme registry. Adding a theme to with automatically creates a route at . Documentation Routing Documentation pages live in : - src/ - content/ - docs/ - en/ - getting-started/ - introduction.mdx - installation.mdx - core-concepts/ - components/ - ru/ - getting-started/ - introduction.mdx The URL for documentation is automatically generated based on the file path, e.g., . Internationalization (i18n) Translations are handled in two ways: 1. Page Content: Duplicate files in . 2. UI Strings: Centralized JSON files in . UI Translations Common strings (nav items, buttons, section text, etc.) are stored as JSON files organized by section: Use the helper in components: Translation keys support dot notation for nested values. The keys are spread at the root level, while other files are namespaced by their filename (e.g., , ). Adding a New Language 1. Register the locale Add an entry to with . 2. Create translation files Create directory with JSON files matching the English structure. 3. Create localized pages Create directory with page files. 4. Create documentation content Create with translated MDX files. The i18n system uses Vite's to automatically discover all JSON files in . No manual imports are needed — just create the files and they're available via .",
     "order": 4
   },
   {

@@ -5,10 +5,11 @@
  */
 import '../../../styles/components/portfolio/PortfolioLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 
 const projects = [
   { 
@@ -105,7 +106,7 @@ const projects = [
               </p>
               
               <!-- CTA -->
-              <a href="#" class="c-portfolio-luxury__link inline-flex items-center gap-2 text-accent text-xs font-bold">
+              <a href={lp('/luxury/portfolio')} class="c-portfolio-luxury__link inline-flex items-center gap-2 text-accent text-xs font-bold">
                 {t('portfolio.viewCaseStudy')}
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -122,7 +123,7 @@ const projects = [
 
     <!-- Bottom CTA -->
     <div class="text-center mt-12 sm:mt-16">
-      <a href="#" class="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-base-content text-base-100 font-bold shadow-xl hover:scale-105 active:scale-95 transition-luxury group">
+      <a href={lp('/luxury/portfolio')} class="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-base-content text-base-100 font-bold shadow-xl hover:scale-105 active:scale-95 transition-luxury group">
         {t('portfolio.allWork')}
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-luxury-fast" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

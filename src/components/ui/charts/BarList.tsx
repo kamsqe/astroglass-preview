@@ -19,8 +19,8 @@ const BarList = ({
     <div className={cn("w-full space-y-3", className)}>
       {data.map((item) => (
         <div key={item.name} className="group relative">
-           <div className="flex items-center justify-between text-xs mb-1 px-1">
-             <span className="font-medium text-[hsl(var(--bc)/0.7)] group-hover:text-[hsl(var(--bc))] transition-colors truncate mr-2">
+           <div className="flex items-center justify-between text-xs mb-1 px-1 min-w-0">
+             <span className="font-medium text-[hsl(var(--bc)/0.7)] group-hover:text-[hsl(var(--bc))] transition-colors truncate mr-2 min-w-0 overflow-hidden">
                {item.name}
              </span>
              <span className="text-[hsl(var(--bc)/0.5)] tabular-nums whitespace-nowrap flex-shrink-0">

@@ -1,6 +1,6 @@
 {
-  "title": "The Astro Starter You'll Actually Ship With.",
-  "subtitle": "6 stunning themes, 66+ components, i18n, blog, docs, and edge deployment — all wired up and ready. Free & open source.",
+  "title": "The Starter You'll Ship.",
+  "subtitle": "6 themes, 66+ components, i18n, docs. Free & Open Source.",
   "cta": "Explore Themes",
   "secondaryCta": "Read the Docs",
   "liveBadge": "Free & Open Source · Astro 5.0",
@@ -23,5 +23,8 @@
   "readyToBuild": "Ready to build?",
   "askLeaders": "Ask Stripe, Linear, Vercel.",
   "cloneCommand": "npx degit mirmanoov/liquid-glass-astro-cloudflare my-site",
-  "readyIn": "Ready in 2 minutes"
+  "readyIn": "Ready in 2 minutes",
+  "terminal": {
+    "label": "Terminal"
+  }
 }

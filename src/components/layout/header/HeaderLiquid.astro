@@ -11,7 +11,7 @@
  * ```
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
-import { buildNavLinks } from '../../../config/navigation';
+import { buildThemeNavLinks } from '../../../config/navigation';
 import Logo from '../../ui/Logo.astro';
 import DesktopNav from '../../layout/DesktopNav.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
@@ -28,11 +28,12 @@ const { class: className = '' } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Build navigation links with locale and translations
-const navLinks = buildNavLinks(locale, t);
+const navLinks = buildThemeNavLinks(locale, t, 'liquid');
+const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 ---
 
-<header class:list={['header-liquid sticky top-0 z-50', className]}>
+<!-- Desktop Header (Liquid-style sticky bar) -->
+<header class:list={['header-liquid sticky top-0 z-50 hidden lg:block', className]}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-18">
       <!-- Logo -->
@@ -47,13 +48,26 @@ const navLinks = buildNavLinks(locale, t);
         <div class="switcher-separator"></div>
         <LanguageSwitcher />
       </div>
-
-      <!-- Neo-style Burger -->
-      <button type="button" class="burger-neo" id="burger-liquid" aria-label="Toggle menu">
-        <span class="burger-neo-line"></span>
-        <span class="burger-neo-line"></span>
-      </button>
     </div>
+  </div>
+</header>
+
+<!-- Mobile Header (Neo-style glass pill) -->
+<header class="header-neo lg:hidden" id="header-neo-liquid">
+  <div class="header-neo-inner">
+    <a href={homeHref} class="logo-neo" aria-label={t('nav.home')}>
+      <span class="logo-neo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
+          <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
+        </svg>
+      </span>
+      <span class="logo-neo-text">{t('siteName')}</span>
+    </a>
+    <button type="button" class="burger-neo" id="burger-liquid" aria-label="Toggle menu">
+      <span class="burger-neo-line"></span>
+      <span class="burger-neo-line"></span>
+    </button>
   </div>
 </header>
 

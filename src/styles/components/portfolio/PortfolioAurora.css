@@ -168,12 +168,14 @@
   }
 }
 
-.portfolio-aurora-frame:hover {
-  border-color: hsl(var(--a) / 0.25);
-  transform: translateY(-4px);
-  box-shadow:
-    0 20px 60px hsl(var(--bc) / 0.06),
-    0 0 0 1px hsl(var(--a) / 0.1);
+@media (hover: hover) {
+  .portfolio-aurora-frame:hover {
+    border-color: hsl(var(--a) / 0.25);
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 60px hsl(var(--bc) / 0.06),
+      0 0 0 1px hsl(var(--a) / 0.1);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -195,6 +197,43 @@
   background: radial-gradient(
     ellipse at 30% 40%,
     hsl(var(--a) / 0.08) 0%,
+    transparent 60%
+  );
+}
+
+/* Per-category mesh color variation */
+.portfolio-aurora-frame[data-category="webapp"] .portfolio-aurora-visual-mesh {
+  background: radial-gradient(
+    ellipse at 25% 35%,
+    hsl(var(--a) / 0.1) 0%,
+    hsl(210 80% 60% / 0.05) 40%,
+    transparent 65%
+  );
+}
+
+.portfolio-aurora-frame[data-category="dashboard"] .portfolio-aurora-visual-mesh {
+  background: radial-gradient(
+    ellipse at 60% 30%,
+    hsl(var(--a) / 0.08) 0%,
+    hsl(280 70% 60% / 0.06) 45%,
+    transparent 70%
+  );
+}
+
+.portfolio-aurora-frame[data-category="mobile"] .portfolio-aurora-visual-mesh {
+  background: radial-gradient(
+    ellipse at 40% 60%,
+    hsl(var(--a) / 0.09) 0%,
+    hsl(160 70% 50% / 0.05) 40%,
+    transparent 65%
+  );
+}
+
+.portfolio-aurora-frame[data-category="branding"] .portfolio-aurora-visual-mesh {
+  background: radial-gradient(
+    ellipse at 55% 45%,
+    hsl(var(--a) / 0.1) 0%,
+    hsl(30 80% 55% / 0.06) 40%,
     transparent 60%
   );
 }
@@ -225,6 +264,77 @@
 }
 
 /* -------------------------------------------------------------------------- */
+/*                   ALWAYS-VISIBLE BADGE & METRIC                            */
+/* -------------------------------------------------------------------------- */
+
+.portfolio-aurora-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 4;
+  padding: 5px 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.08);
+  border: 1px solid hsl(var(--a) / 0.12);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.4s ease;
+}
+
+.portfolio-aurora-float-metric {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  transition: opacity 0.4s ease;
+}
+
+.portfolio-aurora-float-metric-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, hsl(var(--bc) / 0.8), hsl(var(--a)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio-aurora-float-metric-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--bc) / 0.35);
+}
+
+/* Hide badge & metric on mobile (full overlay is always visible) */
+@media (max-width: 767px) {
+  .portfolio-aurora-badge,
+  .portfolio-aurora-float-metric {
+    display: none;
+  }
+}
+
+/* Fade out badge & metric on desktop hover (overlay takes over) */
+@media (hover: hover) {
+  .portfolio-aurora-frame:hover .portfolio-aurora-badge,
+  .portfolio-aurora-frame:hover .portfolio-aurora-float-metric {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+
+/* -------------------------------------------------------------------------- */
 /*                          HOVER OVERLAY                                     */
 /* -------------------------------------------------------------------------- */
 
@@ -247,17 +357,29 @@
   transition: opacity 0.5s ease;
 }
 
-.portfolio-aurora-frame:hover .portfolio-aurora-overlay {
-  opacity: 1;
-}
-
 .portfolio-aurora-overlay-content {
   transform: translateY(12px);
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.portfolio-aurora-frame:hover .portfolio-aurora-overlay-content {
-  transform: translateY(0);
+/* Mobile: overlay always visible */
+@media (max-width: 767px) {
+  .portfolio-aurora-overlay {
+    opacity: 1;
+  }
+  .portfolio-aurora-overlay-content {
+    transform: translateY(0);
+  }
+}
+
+/* Desktop: reveal overlay on hover */
+@media (hover: hover) {
+  .portfolio-aurora-frame:hover .portfolio-aurora-overlay {
+    opacity: 1;
+  }
+  .portfolio-aurora-frame:hover .portfolio-aurora-overlay-content {
+    transform: translateY(0);
+  }
 }
 
 .portfolio-aurora-overlay-cat {

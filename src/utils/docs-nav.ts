@@ -10,6 +10,10 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     en: 'UI Elements',
     ru: 'UI Элементы'
   },
+  'components-pages': {
+    en: 'Pages',
+    ru: 'Страницы'
+  },
   'components-reference': {
     en: 'Reference',
     ru: 'Справочник'
@@ -84,9 +88,10 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
     'core-concepts': 2,
     'components-sections': 3,
     'components-ui': 4,
-    'components-reference': 5,
-    'guides': 6,
-    'deployment': 7,
+    'components-pages': 5,
+    'components-reference': 6,
+    'guides': 7,
+    'deployment': 8,
     'General': 0
   };
 

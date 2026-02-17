@@ -13,5 +13,34 @@
   "error": "Error",
   "success": "Success",
   "required": "Required",
-  "optional": "Optional"
+  "optional": "Optional",
+  "notFound": {
+    "title": "Page Not Found — AstroGlass",
+    "code": "404",
+    "heading": "Lost in the Glass",
+    "message": "The page you're looking for doesn't exist or has been moved.",
+    "suggestion": "Try checking the URL or head back to familiar ground.",
+    "homeButton": "Go Home"
+  },
+  "themeSwitcher": {
+    "label": "Theme",
+    "categories": {
+      "light": "Light",
+      "dark": "Dark",
+      "colorful": "Colorful"
+    },
+    "themes": {
+      "tahoe": "Tahoe",
+      "nordic": "Nordic",
+      "solaris": "Solaris",
+      "abyss": "Abyss",
+      "neonoir": "NeoNoir",
+      "synthwave": "Synthwave",
+      "evergreen": "Evergreen",
+      "rose": "Rosé",
+      "aquatica": "Aquatica",
+      "monochrome": "Monochrome",
+      "default": "Default"
+    }
+  }
 }

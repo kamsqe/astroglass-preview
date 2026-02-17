@@ -24,6 +24,8 @@
   "f4Title": "Limitless Themes",
   "f4Desc": "10+ built-in themes or create your own signature look in seconds.",
   "f4LongDesc": "Powered by CSS custom properties and DaisyUI, switch themes instantly or create custom palettes. Dark mode, light mode, and everything in between.",
+  "f5Title": "Edge Ready",
+  "f5Desc": "Deploy globally with Cloudflare Workers for instant access anywhere.",
   "useCases": {
     "speed": "Build Fast",
     "speedHeadline": "Ship production-ready sites in hours, not weeks.",

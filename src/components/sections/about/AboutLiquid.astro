@@ -17,7 +17,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 
-<section class:list={["relative px-4 sm:px-6 overflow-hidden", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-16 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-16 md:py-32"]}>
+<section id="about" class:list={["relative px-4 sm:px-6 overflow-hidden", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-16 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-16 md:py-32"]}>
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
     <!-- Content -->
     <div class="order-2 lg:order-1">

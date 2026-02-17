@@ -4,10 +4,11 @@
  * Grid layout with gradient-border frames, category filter pills,
  * and hover effects with overlay text reveal.
  */
-import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl, useTranslations, localePath } from '../../../utils/i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 import '../../../styles/components/portfolio/PortfolioAurora.css';
 
 const categories = [
@@ -82,16 +83,28 @@ const projects = [
     {projects.map((p) => (
       <div class:list={['portfolio-aurora-item', `portfolio-aurora-item--${p.span}`]} data-category={p.category}>
         <!-- Gradient border frame -->
-        <div class="portfolio-aurora-frame">
+        <div class="portfolio-aurora-frame" data-category={p.category}>
           <!-- Visual placeholder -->
           <div class="portfolio-aurora-visual">
             <div class="portfolio-aurora-visual-mesh"></div>
             <div class="portfolio-aurora-visual-grid"></div>
             <span class="portfolio-aurora-visual-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
+                <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
               </svg>
             </span>
+          </div>
+
+          <!-- Always-visible category badge (top-left) -->
+          <div class="portfolio-aurora-badge">
+            {categories.find(c => c.id === p.category)?.label}
+          </div>
+
+          <!-- Always-visible floating metric (bottom-right) -->
+          <div class="portfolio-aurora-float-metric">
+            <span class="portfolio-aurora-float-metric-value">{p.metric}</span>
+            <span class="portfolio-aurora-float-metric-label">{p.metricLabel}</span>
           </div>
 
           <!-- Overlay on hover -->
@@ -104,7 +117,7 @@ const projects = [
                 <span class="portfolio-aurora-overlay-metric-value">{p.metric}</span>
                 <span class="portfolio-aurora-overlay-metric-label">{p.metricLabel}</span>
               </div>
-              <a href="#" class="portfolio-aurora-overlay-link">
+              <a href={lp('/aurora/portfolio')} class="portfolio-aurora-overlay-link">
                 {t('portfolio.viewProject')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>

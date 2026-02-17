@@ -17,7 +17,7 @@ import '@xyflow/react/dist/style.css';
 // --- Custom Node Component ---
 const GlassNode = ({ data, isConnectable }: any) => {
   return (
-    <div className="group relative min-w-[180px] rounded-xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.6)] px-4 py-3 shadow-xl backdrop-blur-md transition-all hover:border-[hsl(var(--a)/0.5)] hover:bg-[hsl(var(--b2)/0.8)] hover:shadow-[0_0_20px_hsl(var(--a)/0.1)]">
+    <div className="group relative min-w-[140px] rounded-xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.6)] px-3 py-2 shadow-xl backdrop-blur-md transition-all hover:border-[hsl(var(--a)/0.5)] hover:bg-[hsl(var(--b2)/0.8)] hover:shadow-[0_0_20px_hsl(var(--a)/0.1)]">
       <Handle type="target" position={Position.Top} className="!bg-[hsl(var(--a))] !w-3 !h-3 !-top-1.5 opacity-0 group-hover:opacity-100 transition-opacity" isConnectable={isConnectable} />
       
       <div className="flex items-center gap-3">

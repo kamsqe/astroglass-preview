@@ -6,11 +6,11 @@
  * Replaces the "Monolith" sidebar on Desktop.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
-import { buildNavLinks } from '../../../config/navigation';
+import { buildThemeNavLinks } from '../../../config/navigation';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildNavLinks(locale, t);
+const navLinks = buildThemeNavLinks(locale, t, 'luxury');
 
 // Path Logic for Language Switcher
 const currentPath = Astro.url.pathname;

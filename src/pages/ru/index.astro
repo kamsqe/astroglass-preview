@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeaderNeo from '../../components/layout/header/HeaderNeo.astro';
+import HeaderDefault from '../../components/layout/header/HeaderDefault.astro';
 import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
@@ -9,8 +9,11 @@ import { getLocaleFromUrl } from '../../utils/locale-utils';
 import HeroHome from '../../components/sections/hero/HeroHome.astro';
 import StatsStrip from '../../components/sections/landing/StatsStrip.astro';
 import TemplateShowcase from '../../components/sections/landing/TemplateShowcase.astro';
+import HowItWorks from '../../components/sections/landing/HowItWorks.astro';
 import FeaturesHome from '../../components/sections/features/FeaturesHome.astro';
 import ThemeGallery from '../../components/sections/portfolio/ThemeGallery.astro';
+import TestimonialNeo from '../../components/sections/testimonial/TestimonialNeo.astro';
+import FAQHome from '../../components/sections/landing/FAQHome.astro';
 import CTAHome from '../../components/sections/cta/CTAHome.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -18,16 +21,20 @@ const t = useTranslations(locale);
 ---
 
 <BaseLayout title={t('title')} description={t('description')} showHeader={false} showControls={false}>
-  <HeaderNeo />
+  <HeaderDefault />
   
   <main class="min-h-screen">
     <HeroHome />
     <StatsStrip />
     <TemplateShowcase />
+    <HowItWorks />
     <FeaturesHome />
     <ThemeGallery />
+    <TestimonialNeo />
+    <FAQHome />
     <CTAHome />
   </main>
   
   <FooterLiquid />
 </BaseLayout>
+

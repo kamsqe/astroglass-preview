@@ -12,19 +12,16 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 // Filter enabled themes and map to card format
+// Note: Theme descriptions from config are currently English-only. 
+// Ideally, themes config should probably support i18n or be mapped here.
+// For now, we'll keep the config descriptions but localize the UI around them.
 const themeCards = themes.filter(t => t.enabled).map((theme, i) => ({
   id: i + 1,
   title: theme.name,
-  desc: theme.description,
-  category: theme.premium ? 'Free' : 'Free', // Correction: Check if premium logic needs adjustment, mapped simpler for now.
+  desc: theme.description, 
+  category: theme.name === 'Luxury' || theme.name === 'Aurora' ? t('landing.themeStack.premium') : t('landing.themeStack.free'),
   realId: theme.id,
   color: theme.color
-}));
-
-// Update category for premium themes manually for display if needed
-const enhancedThemeCards = themeCards.map(c => ({
-  ...c,
-  category: c.title === 'Luxury' || c.title === 'Aurora' ? 'Premium' : 'Free'
 }));
 
 ---
@@ -39,18 +36,18 @@ const enhancedThemeCards = themeCards.map(c => ({
   <div class="max-w-6xl mx-auto relative z-10">
     <!-- Header -->
     <div class="text-center mb-12 sm:mb-16 md:mb-20">
-      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-4">Choose Your Style</span>
+      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-4">{t('landing.themeStack.eyebrow')}</span>
       <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight mb-4">
-        Included Themes
+        {t('landing.themeStack.title')}
       </h2>
       <p class="text-base sm:text-lg text-base-content/50 max-w-xl mx-auto">
-        Six stunning, professionally designed themes included in one package. Switch instantly.
+        {t('landing.themeStack.desc')}
       </p>
     </div>
 
     <!-- Stacked Cards -->
     <div class="c-portfolio-neo__container relative">
-      {enhancedThemeCards.map((p, i) => (
+      {themeCards.map((p, i) => (
         <a 
           href={`/${p.realId}`}
           class="c-portfolio-neo__card group block"
@@ -71,7 +68,7 @@ const enhancedThemeCards = themeCards.map(c => ({
                   <span class={`text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-br ${p.color} bg-clip-text text-transparent`}>
                     0{p.id}
                   </span>
-                  <span class={`px-3 py-1 rounded-lg bg-base-content/5 text-[10px] font-bold uppercase tracking-wider ${p.category === 'Premium' ? 'text-amber-500' : 'text-base-content/50'}`}>
+                  <span class={`px-3 py-1 rounded-lg bg-base-content/5 text-[10px] font-bold uppercase tracking-wider ${p.category === t('landing.themeStack.premium') ? 'text-amber-500' : 'text-base-content/50'}`}>
                     {p.category}
                   </span>
                 </div>
@@ -89,7 +86,7 @@ const enhancedThemeCards = themeCards.map(c => ({
                 <!-- Right: CTA -->
                 <div class="flex items-center gap-4">
                   <span class={`inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${p.color} text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300`}>
-                    View Demo
+                    {t('landing.themeStack.viewDemo')}
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>

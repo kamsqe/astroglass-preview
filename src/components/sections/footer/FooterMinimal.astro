@@ -7,10 +7,11 @@
  * numbering, animated accent rules, and a cinematic bottom bar.
  */
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 
 const currentYear = new Date().getFullYear();
 
@@ -50,7 +51,7 @@ import '../../../styles/components/footer/FooterMinimal.css';
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
           <li><a href="#" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.features')}</a></li>
           <li><a href="#" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.pricing')}</a></li>
-          <li><a href="/minimal" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.demos')}</a></li>
+          <li><a href={lp('/minimal')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.demos')}</a></li>
         </ul>
       </div>
 
@@ -61,8 +62,8 @@ import '../../../styles/components/footer/FooterMinimal.css';
           <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-accent/50">{t('footer.links.company')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
-          <li><a href="/about" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.about')}</a></li>
-          <li><a href="/blog" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.blog')}</a></li>
+          <li><a href="#about" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.about')}</a></li>
+          <li><a href={lp('/blog')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.blog')}</a></li>
           <li><a href="#" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.contact')}</a></li>
         </ul>
       </div>
@@ -74,7 +75,7 @@ import '../../../styles/components/footer/FooterMinimal.css';
           <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-accent/50">{t('footer.links.resources')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
-          <li><a href="/docs" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.docs')}</a></li>
+          <li><a href={lp('/docs')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.docs')}</a></li>
           <li><a href="#" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.faq')}</a></li>
           <li><a href="#" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.support')}</a></li>
         </ul>

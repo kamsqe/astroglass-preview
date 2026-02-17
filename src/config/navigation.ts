@@ -2,13 +2,13 @@
  * Navigation Configuration
  * 
  * This file contains the navigation structure for the site.
- * Modify this file to customize the navigation menu.
  * 
- * Each nav item can have:
- * - href: Link URL (optional for dropdown parents)
- * - labelKey: Translation key for the label
- * - icon: SVG path data for the icon (used in mobile nav)
- * - children: Nested navigation items
+ * All theme pages use scroll-to-section links (#about, #services, etc.)
+ * for on-page sections, plus page links for Blog and Docs.
+ * 
+ * Neo, Liquid, Glass, and Aurora additionally get a "Home" dropdown
+ * listing all 6 landing pages. Liquid also gets a nested "Portfolio"
+ * dropdown under Home (for future per-theme portfolio pages).
  */
 
 export interface NavIcon {
@@ -60,97 +60,201 @@ export const navIcons = {
     paths: ['M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
     strokeWidth: 1.75,
   },
+  faq: {
+    paths: ['M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+    strokeWidth: 1.75,
+  },
 } as const;
 
 /**
- * Main navigation structure
- * Uses translation keys instead of hardcoded text
+ * All 6 landing page definitions.
+ * Used for the Home dropdown on Neo, Liquid, Glass, Aurora.
  */
-export const navigationConfig: NavLink[] = [
-  {
-    href: '/',
-    labelKey: 'nav.home',
-    icon: navIcons.home,
-  },
-  {
-    href: '/about',
-    labelKey: 'nav.about',
-    icon: navIcons.about,
-  },
-  {
-    labelKey: 'nav.services',
-    icon: navIcons.services,
-    children: [
-      {
-        href: '/services/web',
-        labelKey: 'nav.servicesWeb',
-        children: [
-          { href: '/services/web/frontend', labelKey: 'nav.webFrontend' },
-          { href: '/services/web/backend', labelKey: 'nav.webBackend' },
-          { href: '/services/web/fullstack', labelKey: 'nav.webFullstack' },
-          { href: '/services/web/ecommerce', labelKey: 'nav.webEcommerce' },
-        ],
-      },
-      {
-        href: '/services/mobile',
-        labelKey: 'nav.servicesMobile',
-        children: [
-          { href: '/services/mobile/ios', labelKey: 'nav.mobileIos' },
-          { href: '/services/mobile/android', labelKey: 'nav.mobileAndroid' },
-          { href: '/services/mobile/cross-platform', labelKey: 'nav.mobileCrossPlatform' },
-        ],
-      },
-      { href: '/services/design', labelKey: 'nav.servicesDesign' },
-      { href: '/services/consulting', labelKey: 'nav.servicesConsulting' },
-    ],
-  },
-  {
-    labelKey: 'nav.resources',
-    icon: navIcons.resources,
-    children: [
-      { href: '/blog', labelKey: 'nav.resourcesBlog' },
-      { href: '/docs', labelKey: 'nav.resourcesDocs' },
-      { href: '/tutorials', labelKey: 'nav.resourcesTutorials' },
-      { href: '/faq', labelKey: 'nav.resourcesFaq' },
-    ],
-  },
-  {
-    href: '/contact',
-    labelKey: 'nav.contact',
-    icon: navIcons.contact,
-  },
-];
+const landingPages = [
+  { id: 'liquid', labelKey: 'nav.themeLiquid', icon: '💧' },
+  { id: 'glass', labelKey: 'nav.themeGlass', icon: '🔮' },
+  { id: 'neo', labelKey: 'nav.themeNeo', icon: '⚡' },
+  { id: 'luxury', labelKey: 'nav.themeLuxury', icon: '✨' },
+  { id: 'minimal', labelKey: 'nav.themeMinimal', icon: '○' },
+  { id: 'aurora', labelKey: 'nav.themeAurora', icon: '🌌' },
+] as const;
 
-/**
- * Helper to build localized navigation
- */
-export function buildNavLinks(
-  locale: string,
-  t: (key: string) => string
-): Array<{
+// ─── Resolved types (returned from build functions) ─────────────
+
+export interface ResolvedNavChild {
+  href: string;
+  label: string;
+  children?: { href: string; label: string }[];
+}
+
+export interface ResolvedNavLink {
   href?: string;
   label: string;
   icon: NavIcon;
-  children?: Array<{
-    href: string;
-    label: string;
-    children?: Array<{ href: string; label: string }>;
-  }>;
-}> {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
-  
-  return navigationConfig.map((link) => ({
-    href: link.href ? `${prefix}${link.href}` : undefined,
-    label: t(link.labelKey),
-    icon: link.icon,
-    children: link.children?.map((child) => ({
-      href: `${prefix}${child.href}`,
-      label: t(child.labelKey),
-      children: child.children?.map((subChild) => ({
-        href: `${prefix}${subChild.href}`,
-        label: t(subChild.labelKey),
-      })),
-    })),
-  }));
+  children?: ResolvedNavChild[];
 }
 
+/**
+ * Build nav links for themes with a Home dropdown (Neo, Liquid, Glass, Aurora).
+ * 
+ * @param locale - Current locale ('en' | 'ru')
+ * @param t - Translation function
+ * @param theme - Current theme id (used for special handling, e.g. Liquid gets Portfolio nested dropdown)
+ */
+export function buildThemeNavLinks(
+  locale: string,
+  t: (key: string) => string,
+  theme: string
+): ResolvedNavLink[] {
+  const prefix = locale === 'en' ? '' : `/${locale}`;
+  const themeBase = `${prefix}/${theme}`;
+
+  // Build landing page children for the Home dropdown
+  const homeChildren: ResolvedNavChild[] = landingPages.map((page) => {
+    const child: ResolvedNavChild = {
+      href: `${prefix}/${page.id}`,
+      label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
+    };
+
+    // For Liquid theme: add portfolio sub-pages under each landing page
+    if (theme === 'liquid') {
+      child.children = [
+        {
+          href: `${prefix}/${page.id}/portfolio`,
+          label: t('nav.portfolio'),
+        }
+      ];
+    }
+
+    return child;
+  });
+
+  return [
+    // Home dropdown with all landing pages
+    {
+      label: t('nav.home'),
+      icon: navIcons.home,
+      children: homeChildren,
+    },
+    // Section scroll links (absolute paths so they work from child pages)
+    {
+      href: `${themeBase}#about`,
+      label: t('nav.about'),
+      icon: navIcons.about,
+    },
+    {
+      href: `${themeBase}#services`,
+      label: t('nav.services'),
+      icon: navIcons.services,
+    },
+    {
+      href: `${themeBase}#portfolio`,
+      label: t('nav.portfolio'),
+      icon: navIcons.portfolio,
+    },
+    {
+      href: `${themeBase}#pricing`,
+      label: t('nav.pricing'),
+      icon: navIcons.pricing,
+    },
+    {
+      href: `${themeBase}#faq`,
+      label: t('nav.faq'),
+      icon: navIcons.faq,
+    },
+    {
+      href: `${themeBase}#contact`,
+      label: t('nav.contact'),
+      icon: navIcons.contact,
+    },
+    // Page links
+    {
+      href: `${prefix}/blog`,
+      label: t('nav.blog'),
+      icon: navIcons.resources,
+    },
+    {
+      href: `${prefix}/docs`,
+      label: t('nav.docs'),
+      icon: navIcons.resources,
+    },
+  ];
+}
+
+/**
+ * Build simple nav links for Minimal theme (no Home dropdown).
+ * Just scroll-to-section links + Blog/Docs.
+ */
+export function buildMinimalNavLinks(
+  locale: string,
+  t: (key: string) => string
+): ResolvedNavLink[] {
+  const prefix = locale === 'en' ? '' : `/${locale}`;
+  const themeBase = `${prefix}/minimal`;
+
+  return [
+    { href: `${themeBase}#about`, label: t('nav.about'), icon: navIcons.about },
+    { href: `${themeBase}#services`, label: t('nav.services'), icon: navIcons.services },
+    { href: `${themeBase}#portfolio`, label: t('nav.portfolio'), icon: navIcons.portfolio },
+    { href: `${themeBase}#pricing`, label: t('nav.pricing'), icon: navIcons.pricing },
+    { href: `${themeBase}#faq`, label: t('nav.faq'), icon: navIcons.faq },
+    { href: `${themeBase}#contact`, label: t('nav.contact'), icon: navIcons.contact },
+    { href: `${prefix}/blog`, label: t('nav.blog'), icon: navIcons.resources },
+    { href: `${prefix}/docs`, label: t('nav.docs'), icon: navIcons.resources },
+  ];
+}
+
+/**
+ * Build nav links for default / non-theme pages (index, blog, docs, etc.).
+ * Uses a "Home" dropdown listing all 6 landing pages,
+ * scroll-to-section links for index page sections,
+ * and page links for Blog and Docs.
+ */
+export function buildDefaultNavLinks(
+  locale: string,
+  t: (key: string) => string
+): ResolvedNavLink[] {
+  const prefix = locale === 'en' ? '' : `/${locale}`;
+
+  // Build landing page children for the Home dropdown
+  const homeChildren: ResolvedNavChild[] = landingPages.map((page) => ({
+    href: `${prefix}/${page.id}`,
+    label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
+  }));
+
+  return [
+    // Home dropdown with all landing pages
+    {
+      label: t('nav.home'),
+      icon: navIcons.home,
+      children: homeChildren,
+    },
+    // Index page scroll sections (absolute paths so they work from any page)
+    {
+      href: `${prefix || '/'}#showcase`,
+      label: t('nav.features'),
+      icon: navIcons.services,
+    },
+    {
+      href: `${prefix || '/'}#get-started`,
+      label: t('nav.getStarted'),
+      icon: navIcons.contact,
+    },
+    {
+      href: `${prefix || '/'}#faq-home`,
+      label: t('nav.faq'),
+      icon: navIcons.faq,
+    },
+    // Page links
+    {
+      href: `${prefix}/blog`,
+      label: t('nav.blog'),
+      icon: navIcons.resources,
+    },
+    {
+      href: `${prefix}/docs`,
+      label: t('nav.docs'),
+      icon: navIcons.resources,
+    },
+  ];
+}

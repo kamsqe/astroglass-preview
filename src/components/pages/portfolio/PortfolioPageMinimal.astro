@@ -1,0 +1,418 @@
+---
+/**
+ * Portfolio Page — Minimal Theme (Brutalist Typographic)
+ * 
+ * Full-width horizontal rows with:
+ * - Massive gradient text hero (matching HeroMinimal DNA)
+ * - Vertical row-based project list with number + title
+ * - Inline expandable detail panels
+ * - Category filters (ultra-bold uppercase pills)
+ * - Bottom CTA with gradient text
+ * 
+ * All text via i18n — zero hardcoded strings.
+ */
+import '../../../styles/components/portfolio/PortfolioPageMinimal.css';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Locale-aware base path
+const localePrefix = locale === 'en' ? '' : `/${locale}`;
+const minimalBase = `${localePrefix}/minimal`;
+
+const categories = [
+  { id: 'all', label: t('portfolioPage.filterAll') },
+  { id: 'webapp', label: t('portfolio.categories.webapp') },
+  { id: 'dashboard', label: t('portfolio.categories.dashboard') },
+  { id: 'mobile', label: t('portfolio.categories.mobile') },
+  { id: 'branding', label: t('portfolio.categories.branding') },
+];
+
+const projects = [
+  {
+    id: 'p1',
+    title: t('portfolioPage.projects.p1.title'),
+    description: t('portfolioPage.projects.p1.description'),
+    category: 'webapp',
+    categoryLabel: t('portfolioPage.projects.p1.category'),
+    challenge: t('portfolioPage.projects.p1.challenge'),
+    solution: t('portfolioPage.projects.p1.solution'),
+    impact: t('portfolioPage.projects.p1.impact'),
+    techStack: ['React', 'Node.js', 'GraphQL', 'Redis', 'AWS'],
+    metric: t('portfolioPage.projects.p1.metric'),
+    metricLabel: t('portfolioPage.projects.p1.metricLabel'),
+    num: '01',
+  },
+  {
+    id: 'p2',
+    title: t('portfolioPage.projects.p2.title'),
+    description: t('portfolioPage.projects.p2.description'),
+    category: 'dashboard',
+    categoryLabel: t('portfolioPage.projects.p2.category'),
+    challenge: t('portfolioPage.projects.p2.challenge'),
+    solution: t('portfolioPage.projects.p2.solution'),
+    impact: t('portfolioPage.projects.p2.impact'),
+    techStack: ['Vue.js', 'D3.js', 'Python', 'PostgreSQL', 'Docker'],
+    metric: t('portfolioPage.projects.p2.metric'),
+    metricLabel: t('portfolioPage.projects.p2.metricLabel'),
+    num: '02',
+  },
+  {
+    id: 'p3',
+    title: t('portfolioPage.projects.p3.title'),
+    description: t('portfolioPage.projects.p3.description'),
+    category: 'mobile',
+    categoryLabel: t('portfolioPage.projects.p3.category'),
+    challenge: t('portfolioPage.projects.p3.challenge'),
+    solution: t('portfolioPage.projects.p3.solution'),
+    impact: t('portfolioPage.projects.p3.impact'),
+    techStack: ['Swift', 'SwiftUI', 'Firebase', 'Lottie', 'CoreData'],
+    metric: t('portfolioPage.projects.p3.metric'),
+    metricLabel: t('portfolioPage.projects.p3.metricLabel'),
+    num: '03',
+  },
+  {
+    id: 'p4',
+    title: t('portfolioPage.projects.p4.title'),
+    description: t('portfolioPage.projects.p4.description'),
+    category: 'branding',
+    categoryLabel: t('portfolioPage.projects.p4.category'),
+    challenge: t('portfolioPage.projects.p4.challenge'),
+    solution: t('portfolioPage.projects.p4.solution'),
+    impact: t('portfolioPage.projects.p4.impact'),
+    techStack: ['Three.js', 'GSAP', 'WebGL', 'Astro', 'Cloudflare'],
+    metric: t('portfolioPage.projects.p4.metric'),
+    metricLabel: t('portfolioPage.projects.p4.metricLabel'),
+    num: '04',
+  },
+  {
+    id: 'p5',
+    title: t('portfolioPage.projects.p5.title'),
+    description: t('portfolioPage.projects.p5.description'),
+    category: 'webapp',
+    categoryLabel: t('portfolioPage.projects.p5.category'),
+    challenge: t('portfolioPage.projects.p5.challenge'),
+    solution: t('portfolioPage.projects.p5.solution'),
+    impact: t('portfolioPage.projects.p5.impact'),
+    techStack: ['Next.js', 'OpenAI', 'Prisma', 'Supabase', 'Vercel'],
+    metric: t('portfolioPage.projects.p5.metric'),
+    metricLabel: t('portfolioPage.projects.p5.metricLabel'),
+    num: '05',
+  },
+  {
+    id: 'p6',
+    title: t('portfolioPage.projects.p6.title'),
+    description: t('portfolioPage.projects.p6.description'),
+    category: 'dashboard',
+    categoryLabel: t('portfolioPage.projects.p6.category'),
+    challenge: t('portfolioPage.projects.p6.challenge'),
+    solution: t('portfolioPage.projects.p6.solution'),
+    impact: t('portfolioPage.projects.p6.impact'),
+    techStack: ['Remix', 'Shopify Hydrogen', 'Three.js', 'Stripe', 'Edge Functions'],
+    metric: t('portfolioPage.projects.p6.metric'),
+    metricLabel: t('portfolioPage.projects.p6.metricLabel'),
+    num: '06',
+  },
+];
+---
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- HERO                                        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="c-portfolio-page-minimal__hero">
+  <div class="c-portfolio-page-minimal__hero-glow"></div>
+
+  <div class="relative z-10 w-full max-w-7xl mx-auto text-center px-4">
+    <!-- Label -->
+    <h2 class="text-xs font-black tracking-[0.5em] text-accent uppercase mb-8">{t('portfolio.title')}</h2>
+
+    <!-- Title — massive gradient text -->
+    <h1 class="c-portfolio-page-minimal__hero-title text-6xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-black tracking-tighter leading-none mb-8">
+      {t('portfolioPage.pageTitle')}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-base-content/40 max-w-2xl mx-auto mb-12">
+      {t('portfolioPage.pageSubtitle')}
+    </p>
+
+    <!-- Category Filters -->
+    <div class="flex flex-wrap gap-2 justify-center" id="pp-minimal-filters">
+      {categories.map((cat, i) => (
+        <button
+          class:list={[
+            'px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] border transition-all duration-500 cursor-pointer',
+            i === 0
+              ? 'border-accent text-accent bg-accent/10'
+              : 'border-base-content/10 text-base-content/30 hover:border-accent hover:text-accent'
+          ]}
+          data-filter={cat.id}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PROJECT ROWS                                -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6" id="pp-minimal-projects">
+  <div class="max-w-7xl mx-auto">
+    <div class="space-y-0">
+      {projects.map((p, i) => (
+        <div data-category={p.category} data-project-id={p.id} class="c-portfolio-page-minimal__item">
+          <!-- Clickable Row -->
+          <div class="c-portfolio-page-minimal__row" data-toggle-details={p.id}>
+            <div class="relative z-10 flex items-center gap-6 sm:gap-10 md:gap-12 min-w-0">
+              <span class="c-portfolio-page-minimal__num text-3xl sm:text-4xl md:text-6xl font-thin text-base-content/10 flex-shrink-0">
+                {p.num}
+              </span>
+              <div class="min-w-0">
+                <h3 class="c-portfolio-page-minimal__title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-base-content tracking-tighter leading-none mb-1">
+                  {p.title}
+                </h3>
+                <div class="flex items-center gap-3 mt-2">
+                  <span class="text-[10px] font-black uppercase tracking-[0.3em] text-base-content/25">
+                    {p.categoryLabel}
+                  </span>
+                  <span class="text-base-content/10">·</span>
+                  <span class="text-sm font-black text-accent">{p.metric}</span>
+                  <span class="text-xs text-base-content/30">{p.metricLabel}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow (desktop hover reveal) -->
+            <div class="c-portfolio-page-minimal__arrow relative z-10 hidden md:flex opacity-0 translate-x-4 pr-4 flex-shrink-0">
+              <div class="w-14 h-14 rounded-xl border border-base-content/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expandable Detail Panel -->
+          <div class="c-portfolio-page-minimal__details" data-details={p.id}>
+            <div class="c-portfolio-page-minimal__details-inner">
+              <!-- Long description -->
+              <p class="text-base text-base-content/50 mb-6 max-w-3xl leading-relaxed">
+                {p.description}
+              </p>
+
+              <!-- Narrative Grid -->
+              <div class="c-portfolio-page-minimal__narrative mb-6">
+                <div class="c-portfolio-page-minimal__narrative-block">
+                  <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-3">
+                    {t('portfolioPage.theChallenge')}
+                  </h4>
+                  <p class="text-sm text-base-content/45 leading-relaxed">{p.challenge}</p>
+                </div>
+                <div class="c-portfolio-page-minimal__narrative-block">
+                  <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-3">
+                    {t('portfolioPage.theSolution')}
+                  </h4>
+                  <p class="text-sm text-base-content/45 leading-relaxed">{p.solution}</p>
+                </div>
+                <div class="c-portfolio-page-minimal__narrative-block">
+                  <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-3">
+                    {t('portfolioPage.theImpact')}
+                  </h4>
+                  <p class="text-sm text-base-content/45 leading-relaxed">{p.impact}</p>
+                </div>
+              </div>
+
+              <!-- Tech Stack -->
+              <div class="mb-5">
+                <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-base-content/20 mb-3">
+                  {t('portfolioPage.techStackLabel')}
+                </h4>
+                <div class="flex flex-wrap gap-1.5">
+                  {p.techStack.map((tech) => (
+                    <span class="c-portfolio-page-minimal__tech-pill">{tech}</span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Close -->
+              <button
+                class="inline-flex items-center gap-2 text-base-content/25 text-[10px] font-black uppercase tracking-[0.3em] hover:text-accent transition-colors duration-300 cursor-pointer"
+                data-close-details={p.id}
+              >
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                </svg>
+                {t('portfolioPage.closeDetails')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- BOTTOM CTA                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="relative py-24 sm:py-32 px-4 overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 text-center max-w-4xl mx-auto">
+    <h2 class="c-portfolio-page-minimal__cta-title text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-none mb-6">
+      {t('portfolioPage.startProject')}
+    </h2>
+    <p class="text-base-content/35 text-lg mb-10">
+      {t('portfolioPage.startProjectSub')}
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href={`${minimalBase}#contact`} class="px-10 py-5 rounded-2xl bg-accent text-base-100 font-black text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl">
+        {t('portfolioPage.startProject')}
+      </a>
+      <a href={minimalBase} class="inline-flex items-center gap-3 px-10 py-5 rounded-2xl border border-base-content/10 bg-base-content/5 text-base-content font-bold hover:bg-base-content hover:text-base-100 transition-all duration-300">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+        </svg>
+        {t('portfolioPage.backToHome')}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CLIENT SCRIPTS                              -->
+<!-- ═══════════════════════════════════════════ -->
+<script>
+  function initPortfolioPageMinimal() {
+    // ── Expand/Collapse (must happen BEFORE observer, since cloneNode replaces rows) ──
+    document.querySelectorAll('[data-toggle-details]').forEach(function(btn) {
+      var newBtn = btn.cloneNode(true);
+      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+
+      newBtn.addEventListener('click', function() {
+        var projectId = newBtn.getAttribute('data-toggle-details');
+        var panel = document.querySelector('[data-details="' + projectId + '"]');
+        if (!panel) return;
+
+        var isExpanded = panel.classList.contains('is-expanded');
+
+        // Close all others
+        document.querySelectorAll('.c-portfolio-page-minimal__details.is-expanded').forEach(function(p) {
+          if (p !== panel) p.classList.remove('is-expanded');
+        });
+
+        if (isExpanded) {
+          panel.classList.remove('is-expanded');
+        } else {
+          panel.classList.add('is-expanded');
+          setTimeout(function() {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-close-details]').forEach(function(btn) {
+      var newBtn = btn.cloneNode(true);
+      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+
+      newBtn.addEventListener('click', function() {
+        var projectId = newBtn.getAttribute('data-close-details');
+        var panel = document.querySelector('[data-details="' + projectId + '"]');
+        if (panel) {
+          panel.classList.remove('is-expanded');
+          var item = panel.closest('.c-portfolio-page-minimal__item');
+          if (item) {
+            setTimeout(function() {
+              item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+          }
+        }
+      });
+    });
+
+    // ── Scroll-based row reveal (AFTER cloneNode so we observe the live DOM nodes) ──
+    var rows = document.querySelectorAll('.c-portfolio-page-minimal__row');
+    var observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    rows.forEach(function(row, i) {
+      row.style.transitionDelay = (i * 100) + 'ms';
+      observer.observe(row);
+    });
+
+    // ── Category filter (no-flash approach) ──
+    var filters = document.getElementById('pp-minimal-filters');
+    var projectItems = document.querySelectorAll('.c-portfolio-page-minimal__item');
+
+    if (filters) {
+      filters.querySelectorAll('button').forEach(function(btn) {
+        var newBtn = btn.cloneNode(true);
+        if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', function() {
+          // Update active state
+          filters.querySelectorAll('button').forEach(function(b) {
+            b.className = b.className
+              .replace(/border-accent|text-accent|bg-accent\/10/g, '')
+              .replace(/border-base-content\/10|text-base-content\/30/g, '')
+              .trim();
+            b.classList.add('border-base-content/10', 'text-base-content/30');
+          });
+          newBtn.classList.remove('border-base-content/10', 'text-base-content/30');
+          newBtn.classList.add('border-accent', 'text-accent', 'bg-accent/10');
+
+          var filter = newBtn.getAttribute('data-filter');
+
+          // Step 1: Hide all
+          projectItems.forEach(function(item) {
+            var row = item.querySelector('.c-portfolio-page-minimal__row');
+            if (row) {
+              row.style.opacity = '0';
+              row.style.transform = 'translateY(20px)';
+            }
+          });
+
+          // Step 2: After fade-out, swap display and reveal matching
+          setTimeout(function() {
+            projectItems.forEach(function(item) {
+              var category = item.getAttribute('data-category');
+              var row = item.querySelector('.c-portfolio-page-minimal__row');
+              if (filter === 'all' || category === filter) {
+                item.style.display = '';
+                if (row) {
+                  requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                      row.style.opacity = '1';
+                      row.style.transform = 'translateY(0)';
+                    });
+                  });
+                }
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          }, 300);
+        });
+      });
+    }
+  }
+
+  initPortfolioPageMinimal();
+  document.addEventListener('astro:after-swap', initPortfolioPageMinimal);
+</script>

@@ -45,3 +45,19 @@ export function getLocalePath(url: URL, targetLocale: Locale): string {
   
   return `/${targetLocale}${cleanPath}`;
 }
+
+/**
+ * Build a locale-aware internal path.
+ * Returns a function that prefixes paths with the current locale.
+ *
+ * Usage in .astro files:
+ *   const lp = localePath(Astro.url);
+ *   <a href={lp('/liquid/portfolio')}>View All</a>
+ *   // On /ru/ pages → "/ru/liquid/portfolio"
+ *   // On /en/ pages → "/liquid/portfolio"
+ */
+export function localePath(url: URL): (path: string) => string {
+  const locale = getLocaleFromUrl(url);
+  const prefix = locale === defaultLocale ? '' : `/${locale}`;
+  return (path: string) => `${prefix}${path}`;
+}

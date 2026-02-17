@@ -54,12 +54,14 @@
     "perf": "Performance First",
     "perfDesc": "100 Lighthouse score with zero-JS by default, lazy loading, and optimized assets.",
     "colorThemes": "Color Themes",
-    "colorThemesDesc": "10 built-in palettes — Tahoe, Nord, Rosé, Dracula, Mono, and more — switch with one line."
+    "colorThemesDesc": "10 built-in palettes — Tahoe, Nord, Rosé, Dracula, Mono, and more — switch with one line.",
+    "explore": "Explore"
   },
   "stats": {
     "themes": "Themes",
     "components": "Components",
     "sections": "Section Types",
+    "palettes": "Color Palettes",
     "languages": "Languages",
     "edge": "Edge-Ready"
   },
@@ -79,5 +81,38 @@
     "freeForever": "Free forever",
     "mitLicense": "MIT Licensed",
     "noLock": "No vendor lock-in"
+  },
+  "howItWorks": {
+    "eyebrow": "Quick Start",
+    "title": "Up & Running in Minutes",
+    "desc": "Three steps to your next project. No complex setup, no boilerplate fatigue.",
+    "clone": "Clone",
+    "cloneDesc": "Grab the template with a single command. All themes, components, and configs included.",
+    "customize": "Customize",
+    "customizeDesc": "Pick a theme, edit your content, tweak colors. Everything is modular and well-documented.",
+    "deploy": "Deploy",
+    "deployDesc": "Push to Cloudflare Pages, Vercel, or Netlify. Edge-ready out of the box."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Common Questions",
+    "freeQ": "Is this template really free?",
+    "freeA": "Yes! The core template is 100% free and MIT-licensed. Use it for personal or commercial projects without restrictions.",
+    "commercialQ": "Can I use this for client projects?",
+    "commercialA": "Absolutely. The MIT license allows commercial use, modification, and distribution. Build as many projects as you want.",
+    "switchQ": "How do I switch between themes?",
+    "switchA": "Each theme is a separate page route (e.g., /liquid, /glass, /neo). Color palettes switch with a single data-theme attribute change.",
+    "reactQ": "Do I need React or framework knowledge?",
+    "reactA": "No. This template uses Astro with zero client-side JavaScript by default. Just HTML, CSS, and Astro components — no React required.",
+    "deployQ": "How do I deploy to Cloudflare?",
+    "deployA": "Run npm run build, then deploy with Wrangler CLI or connect your GitHub repo to Cloudflare Pages for automatic deploys."
+  },
+  "themeStack": {
+    "eyebrow": "Choose Your Style",
+    "title": "Included Themes",
+    "desc": "Six stunning, professionally designed themes included in one package. Switch instantly.",
+    "viewDemo": "View Demo",
+    "free": "Free",
+    "premium": "Premium"
   }
 }

@@ -7,6 +7,7 @@ import HeaderV2 from '../components/layout/header/HeaderGlass.astro';
 import HeaderV3 from '../components/layout/header/HeaderNeo.astro';
 import HeaderV4 from '../components/layout/header/HeaderLuxury.astro';
 import HeaderV5 from '../components/layout/header/HeaderMinimal.astro';
+import HeaderDefault from '../components/layout/header/HeaderDefault.astro';
 
 export interface Props {
   title: string;
@@ -105,7 +106,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
     {showHeader && (
       currentHeader === 1 ? <Header /> :
       currentHeader === 2 ? <HeaderV2 /> :
-      currentHeader === 3 ? <HeaderV3 /> :
+      currentHeader === 3 ? <HeaderDefault /> :
       currentHeader === 4 ? <HeaderV4 /> :
       <HeaderV5 />
     )}
@@ -120,10 +121,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
         const preferredLocale = localStorage.getItem('preferred-locale');
         if (!preferredLocale || preferredLocale === 'en') return;
         
-        // Check if we're on a demo page (no locale prefix needed)
-        const demoPages = ['/liquid', '/glass', '/neo', '/luxury', '/minimal'];
         const pathname = window.location.pathname;
-        const isDemoPage = demoPages.some(demo => pathname === demo || pathname === demo + '/');
         
         // Only apply to navigation links on non-locale-prefixed pages
         if (pathname.startsWith('/' + preferredLocale)) return;
@@ -133,19 +131,10 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
           const href = link.getAttribute('href');
           if (!href) return;
           
-          // Skip external links, anchors, and already localized links
-          if (href.startsWith('http') || href.startsWith('#') || href.startsWith('/' + preferredLocale) || href.match(/^\/(en|ru)\//)) return;
+          // Skip external links, anchors-only, and already localized links
+          if (href.startsWith('http') || href === '#' || href.startsWith('/' + preferredLocale) || href.match(/^\/(en|ru)\//)) return;
           
-          // Skip demo page links
-          if (demoPages.some(demo => href === demo || href.startsWith(demo + '/'))) return;
-          
-          // Skip home link on demo pages (keep users exploring demos)
-          if (isDemoPage && href === '/') {
-            link.setAttribute('href', '/' + preferredLocale + '/');
-            return;
-          }
-          
-          // Add locale prefix
+          // Add locale prefix to all internal links (including theme pages and hash links)
           if (href === '/') {
             link.setAttribute('href', '/' + preferredLocale + '/');
           } else if (href.startsWith('/')) {

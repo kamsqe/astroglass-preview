@@ -178,8 +178,8 @@ export const AnalyticsDashboard = () => {
              <CardHeader>
                <CardTitle className="text-[hsl(var(--bc))]">Revenue Mix</CardTitle>
              </CardHeader>
-             <CardContent className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 min-h-[300px] sm:min-h-[350px] p-4 sm:p-6">
-                <div className="relative w-full h-[300px] md:w-1/2 flex-1">
+             <CardContent className="flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-8 min-h-[220px] sm:min-h-[350px] p-3 sm:p-6">
+                <div className="relative w-full h-[220px] sm:h-[300px] md:w-1/2 flex-1">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie

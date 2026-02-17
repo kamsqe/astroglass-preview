@@ -30,5 +30,19 @@
   "openMenu": "Открыть меню",
   "closeMenu": "Закрыть меню",
   "menu": "Меню",
-  "preferences": "Настройки"
+  "preferences": "Настройки",
+  "themeLiquid": "Liquid",
+  "themeGlass": "Glass",
+  "themeNeo": "Neo",
+  "themeLuxury": "Luxury",
+  "themeMinimal": "Minimal",
+  "themeAurora": "Aurora",
+  "showcase": "Шаблоны",
+  "features": "Возможности",
+  "themes": "Темы",
+  "getStarted": "Начать",
+  "socials": {
+    "twitter": "Twitter",
+    "github": "GitHub"
+  }
 }

@@ -1,0 +1,110 @@
+---
+/**
+ * Portfolio Page — Dynamic Route (Russian Locale)
+ * 
+ * Generates /ru/{theme}/portfolio for each enabled theme.
+ * Mirrors the English route at /[theme]/portfolio.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getEnabledThemes, getThemeById } from '../../../config/themes';
+
+// Headers
+import HeaderLiquid from '../../../components/layout/header/HeaderLiquid.astro';
+import HeaderGlass from '../../../components/layout/header/HeaderGlass.astro';
+import HeaderNeo from '../../../components/layout/header/HeaderNeo.astro';
+import HeaderLuxury from '../../../components/layout/header/HeaderLuxury.astro';
+import HeaderMinimal from '../../../components/layout/header/HeaderMinimal.astro';
+import HeaderAurora from '../../../components/layout/header/HeaderAurora.astro';
+
+// Portfolio Page Components
+import PortfolioPageLiquid from '../../../components/pages/portfolio/PortfolioPageLiquid.astro';
+import PortfolioPageGlass from '../../../components/pages/portfolio/PortfolioPageGlass.astro';
+import PortfolioPageNeo from '../../../components/pages/portfolio/PortfolioPageNeo.astro';
+import PortfolioPageLuxury from '../../../components/pages/portfolio/PortfolioPageLuxury.astro';
+import PortfolioPageMinimal from '../../../components/pages/portfolio/PortfolioPageMinimal.astro';
+import PortfolioPageAurora from '../../../components/pages/portfolio/PortfolioPageAurora.astro';
+
+// Footers
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
+import FooterGlass from '../../../components/sections/footer/FooterGlass.astro';
+import FooterNeo from '../../../components/sections/footer/FooterNeo.astro';
+import FooterLuxury from '../../../components/sections/footer/FooterLuxury.astro';
+import FooterMinimal from '../../../components/sections/footer/FooterMinimal.astro';
+import FooterAurora from '../../../components/sections/footer/FooterAurora.astro';
+
+const componentMap = {
+  liquid: {
+    Header: HeaderLiquid,
+    PortfolioPage: PortfolioPageLiquid,
+    Footer: FooterLiquid,
+  },
+  glass: {
+    Header: HeaderGlass,
+    PortfolioPage: PortfolioPageGlass,
+    Footer: FooterGlass,
+  },
+  neo: {
+    Header: HeaderNeo,
+    PortfolioPage: PortfolioPageNeo,
+    Footer: FooterNeo,
+  },
+  luxury: {
+    Header: HeaderLuxury,
+    PortfolioPage: PortfolioPageLuxury,
+    Footer: FooterLuxury,
+  },
+  minimal: {
+    Header: HeaderMinimal,
+    PortfolioPage: PortfolioPageMinimal,
+    Footer: FooterMinimal,
+  },
+  aurora: {
+    Header: HeaderAurora,
+    PortfolioPage: PortfolioPageAurora,
+    Footer: FooterAurora,
+  },
+};
+
+export function getStaticPaths() {
+  return getEnabledThemes().map((theme) => ({
+    params: { theme: theme.id },
+    props: { themeId: theme.id },
+  }));
+}
+
+interface Props {
+  themeId: string;
+}
+
+const { themeId } = Astro.props;
+const theme = getThemeById(themeId);
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const components = componentMap[themeId as keyof typeof componentMap];
+const Header = components.Header;
+const PortfolioPage = components.PortfolioPage;
+const Footer = components.Footer;
+---
+
+<BaseLayout title={`${t('portfolioPage.pageTitle')} - ${theme?.name}`} description={t('portfolioPage.pageSubtitle')} showHeader={false} showControls={false}>
+  <Header />
+  <main>
+    {PortfolioPage ? (
+      <PortfolioPage />
+    ) : (
+      <section class="min-h-screen flex items-center justify-center px-4 pt-32">
+        <div class="text-center">
+          <h1 class="text-4xl font-black text-base-content mb-4">{t('portfolioPage.pageTitle')}</h1>
+          <p class="text-base-content/50 mb-8">{t('portfolioPage.comingSoon')}</p>
+          <a href={`/ru/${themeId}`} class="inline-flex items-center gap-2 text-accent font-bold hover:gap-4 transition-all duration-300">
+            ← {t('portfolioPage.backToHome')}
+          </a>
+        </div>
+      </section>
+    )}
+  </main>
+  <Footer />
+</BaseLayout>

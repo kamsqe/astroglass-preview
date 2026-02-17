@@ -1,6 +1,6 @@
 {
-  "title": "Премиальный стартовый шаблон Astro. Бесплатно и с открытым кодом.",
-  "subtitle": "Создавайте быстрее с Astro 5.0 и Tailwind CSS. Готовый к продакшену шаблон в стиле глассморфизма для стартапов, SaaS, портфолио и многого другого.",
+  "title": "Идеальный старт на Astro.",
+  "subtitle": "6 тем, компоненты, i18n, блог и документация. Бесплатно.",
   "cta": "Все шаблоны",
   "secondaryCta": "Документация",
   "liveBadge": "Бесплатно и с открытым кодом",
@@ -23,5 +23,8 @@
   "readyToBuild": "Готовы создавать?",
   "askLeaders": "Спросите у Stripe, Linear, Vercel.",
   "cloneCommand": "npx degit mirmanoov/liquid-glass-astro-cloudflare my-site",
-  "readyIn": "Готово за 2 минуты"
+  "readyIn": "Готово за 2 минуты",
+  "terminal": {
+    "label": "Терминал"
+  }
 }

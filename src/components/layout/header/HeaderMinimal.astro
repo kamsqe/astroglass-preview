@@ -6,12 +6,12 @@
  * with large typography links, expandable children, and settings.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
-import { buildNavLinks } from '../../../config/navigation';
+import { buildMinimalNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildNavLinks(locale, t);
+const navLinks = buildMinimalNavLinks(locale, t);
 const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 import '../../../styles/components/header/HeaderMinimal.css';
 ---
@@ -40,13 +40,7 @@ import '../../../styles/components/header/HeaderMinimal.css';
     </div>
 
     <nav class="panel-minimal-nav">
-      {[
-        { href: homeHref, label: t('nav.home') },
-        { href: locale === 'en' ? '/services' : `/${locale}/services`, label: t('nav.services') },
-        { href: locale === 'en' ? '/pricing' : `/${locale}/pricing`, label: t('nav.pricing') },
-        { href: locale === 'en' ? '/portfolio' : `/${locale}/portfolio`, label: t('nav.portfolio') },
-        { href: locale === 'en' ? '/contact' : `/${locale}/contact`, label: t('nav.contact') },
-      ].map((link, index) => (
+      {navLinks.map((link, index) => (
         <a href={link.href} class="panel-minimal-link" data-index={index}>
           <span class="panel-minimal-link-text">{link.label}</span>
           {link.label}
@@ -75,8 +69,8 @@ import '../../../styles/components/header/HeaderMinimal.css';
         <p>&copy; 2026 {t('siteName')}</p>
       </div>
       <div class="panel-minimal-socials">
-        <a href="#">TW</a>
-        <a href="#">GH</a>
+        <a href="#" aria-label={t('nav.socials.twitter')}>TW</a>
+        <a href="#" aria-label={t('nav.socials.github')}>GH</a>
       </div>
     </div>
   </div>

@@ -5,10 +5,11 @@
  * Used as the default footer on all non-demo pages.
  */
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 
 const currentYear = new Date().getFullYear();
 
@@ -57,7 +58,7 @@ import '../../../styles/components/footer/FooterLiquid.css';
         <ul class="space-y-3">
           <li><a href="#" class="text-sm text-base-content/60">{t('footer.links.features')}</a></li>
           <li><a href="#" class="text-sm text-base-content/60">{t('footer.links.pricing')}</a></li>
-          <li><a href="/liquid" class="text-sm text-base-content/60">{t('footer.links.demos')}</a></li>
+          <li><a href={lp('/liquid')} class="text-sm text-base-content/60">{t('footer.links.demos')}</a></li>
         </ul>
       </div>
 
@@ -65,8 +66,8 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.company')}</h4>
         <ul class="space-y-3">
-          <li><a href="/about" class="text-sm text-base-content/60">{t('footer.links.about')}</a></li>
-          <li><a href="/blog" class="text-sm text-base-content/60">{t('footer.links.blog')}</a></li>
+          <li><a href="#about" class="text-sm text-base-content/60">{t('footer.links.about')}</a></li>
+          <li><a href={lp('/blog')} class="text-sm text-base-content/60">{t('footer.links.blog')}</a></li>
           <li><a href="#" class="text-sm text-base-content/60">{t('footer.links.contact')}</a></li>
         </ul>
       </div>
@@ -75,7 +76,7 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.resources')}</h4>
         <ul class="space-y-3">
-          <li><a href="/docs" class="text-sm text-base-content/60">{t('footer.links.docs')}</a></li>
+          <li><a href={lp('/docs')} class="text-sm text-base-content/60">{t('footer.links.docs')}</a></li>
           <li><a href="#" class="text-sm text-base-content/60">{t('footer.links.faq')}</a></li>
           <li><a href="#" class="text-sm text-base-content/60">{t('footer.links.support')}</a></li>
         </ul>

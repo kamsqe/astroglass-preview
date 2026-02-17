@@ -14,6 +14,7 @@ const features = [
   { id: 2, title: t('features.f2Title'), desc: t('features.f2Desc'), iconId: 'wave', priority: false, organic: 2 },
   { id: 3, title: t('features.f3Title'), desc: t('features.f3Desc'), iconId: 'ripple', priority: false, organic: 3 },
   { id: 4, title: t('features.f4Title'), desc: t('features.f4Desc'), iconId: 'flow', priority: false, organic: 4 },
+  { id: 5, title: t('features.f5Title'), desc: t('features.f5Desc'), iconId: 'globe', priority: false, organic: 1 },
 ];
 
 const iconPaths: Record<string, string> = {
@@ -21,11 +22,12 @@ const iconPaths: Record<string, string> = {
   wave: 'M2 12C2 12 5 8 8 8C11 8 11 16 14 16C17 16 20 12 22 12M2 17C2 17 5 13 8 13C11 13 11 21 14 21C17 21 20 17 22 17M2 7C2 7 5 3 8 3C11 3 11 11 14 11C17 11 20 7 22 7',
   ripple: 'M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 12m-6 0a6 6 0 1 0 12 0a6 6 0 1 0-12 0M12 12m-10 0a10 10 0 1 0 20 0a10 10 0 1 0-20 0',
   flow: 'M5 5C5 5 5 12 12 12C19 12 19 19 19 19M5 12C5 12 5 19 12 19M12 5C12 5 12 12 19 12',
+  globe: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z',
 };
 import '../../../styles/components/features/FeaturesLiquid.css';
 ---
 
-<section class="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
+<section id="services" class="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 overflow-hidden">
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 sm:mb-16 md:mb-20">

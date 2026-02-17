@@ -7,13 +7,13 @@
  * Mobile: fullscreen slide-up panel with accordions.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
-import { buildNavLinks } from '../../../config/navigation';
+import { buildThemeNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildNavLinks(locale, t);
+const navLinks = buildThemeNavLinks(locale, t, 'glass');
 const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 import '../../../styles/components/header/HeaderGlass.css';
 ---
@@ -23,10 +23,9 @@ import '../../../styles/components/header/HeaderGlass.css';
     <div class="header-glass-inner">
       <a href={homeHref} class="logo-glass">
         <span class="logo-glass-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
+            <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
           </svg>
         </span>
         <span class="logo-glass-text">{t('siteName')}</span>

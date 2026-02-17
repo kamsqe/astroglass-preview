@@ -1,5 +1,5 @@
 {
-  "home": "Home",
+  "home": "Homes",
   "about": "About",
   "explore": "Explore",
   "services": "Services",
@@ -30,5 +30,19 @@
   "openMenu": "Open menu",
   "closeMenu": "Close menu",
   "menu": "Menu",
-  "preferences": "Preferences"
+  "preferences": "Preferences",
+  "themeLiquid": "Liquid",
+  "themeGlass": "Glass",
+  "themeNeo": "Neo",
+  "themeLuxury": "Luxury",
+  "themeMinimal": "Minimal",
+  "themeAurora": "Aurora",
+  "showcase": "Showcase",
+  "features": "Features",
+  "themes": "Themes",
+  "getStarted": "Get Started",
+  "socials": {
+    "twitter": "Twitter",
+    "github": "GitHub"
+  }
 }

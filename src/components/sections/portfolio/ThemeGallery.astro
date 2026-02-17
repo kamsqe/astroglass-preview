@@ -5,11 +5,12 @@
  */
 import '../../../styles/components/portfolio/PortfolioGlass.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 import { themes } from '../../../config/themes';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 
 const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   id: i + 1,
@@ -43,7 +44,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   <div class="relative">
     <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
       {themeItems.map((p, i) => (
-        <a href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+        <a href={lp(`/${p.realId}`)} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
             {/* Background gradient from theme config */}
             <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`}></div>
@@ -59,7 +60,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
                     {p.category}
                   </span>
                   <span class="px-2.5 py-1 rounded-md bg-base-content/5 text-[10px] font-semibold text-base-content/30">
-                    {p.sectionCount} sections
+                    {p.sectionCount} {t('portfolio.themeGallery.sections')}
                   </span>
                 </div>
                 <span class="text-3xl sm:text-4xl transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">

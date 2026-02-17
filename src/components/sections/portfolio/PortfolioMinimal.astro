@@ -4,10 +4,11 @@
  */
 import '../../../styles/components/portfolio/PortfolioMinimal.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const lp = localePath(Astro.url);
 
 const projects = [
   { id: 1, title: t('portfolio.p1Title'), num: '01' },
@@ -17,13 +18,13 @@ const projects = [
 ];
 ---
 
-<section class="relative py-32 px-6">
+<section id="portfolio" class="relative py-32 px-6">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-xs font-black tracking-[0.5em] text-accent uppercase mb-24 text-center">{t('portfolio.title')}</h2>
 
     <div class="space-y-4">
        {projects.map((p) => (
-          <a href="#" class="c-portfolio-minimal__row group relative flex items-center justify-between py-12 border-b border-base-content/5 overflow-hidden transition-all duration-700">
+          <a href={lp('/minimal/portfolio')} class="c-portfolio-minimal__row group relative flex items-center justify-between py-12 border-b border-base-content/5 overflow-hidden transition-all duration-700">
              <div class="relative z-10 flex items-center gap-12">
                 <span class="text-4xl md:text-6xl font-thin text-base-content/10 group-hover:text-accent group-hover:font-black transition-all duration-1000">{p.num}</span>
                 <h3 class="text-5xl md:text-9xl font-black text-base-content tracking-tighter transition-all duration-1000 group-hover:translate-x-6">{p.title}</h3>

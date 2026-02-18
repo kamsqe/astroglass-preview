@@ -159,10 +159,9 @@
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  /* Closing: opacity disappears immediately (150ms ease-in),
-     then height collapses after a 150ms delay so content is
-     fully invisible before the panel starts shrinking — no flash. */
-  transition: max-height 500ms 150ms ease-in,
+  /* Closing: opacity and height collapse simultaneously and quickly
+     so no whitespace gap is visible after content fades out. */
+  transition: max-height 200ms ease-in,
               opacity 150ms ease-in;
 }
 

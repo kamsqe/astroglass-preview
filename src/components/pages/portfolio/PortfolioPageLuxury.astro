@@ -1,27 +1,25 @@
 ---
 /**
- * Portfolio Page — Luxury Theme (Premium Editorial)
+ * Portfolio Page — Luxury Theme (Composition Layer)
  * 
- * Case-study cards with:
- * - Serif hero with diamond dividers and ambient glow
- * - Glass cards with large number watermarks
- * - Modal detail view (challenge/solution/impact)
- * - Category filters with luxury styling
- * - Bottom CTA
- * 
- * All text via i18n — zero hardcoded strings.
+ * Wires data ↔ sub-components:
+ *   - LuxuryPortfolioHero  → serif hero + diamond dividers + filters
+ *   - LuxuryPortfolioGrid  → glass cards with number watermarks
+ *   - LuxuryPortfolioModal → overlay + pre-rendered templates
+ *   - LuxuryPortfolioCTA   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
-import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
-import LuxuryCard from '../../ui/luxury/LuxuryCard.astro';
-import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
+
+import LuxuryPortfolioHero from './luxury/LuxuryPortfolioHero.astro';
+import LuxuryPortfolioGrid from './luxury/LuxuryPortfolioGrid.astro';
+import LuxuryPortfolioModal from './luxury/LuxuryPortfolioModal.astro';
+import LuxuryPortfolioCTA from './luxury/LuxuryPortfolioCTA.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Locale-aware base path
 const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const luxuryBase = `${localePrefix}/luxury`;
 
@@ -131,194 +129,36 @@ const projects = [
     num: '06',
   },
 ];
-
-const i18nLabels = {
-  challenge: t('portfolioPage.theChallenge'),
-  solution: t('portfolioPage.theSolution'),
-  impact: t('portfolioPage.theImpact'),
-  techStack: t('portfolioPage.techStackLabel'),
-  viewDetails: t('portfolioPage.viewDetails'),
-};
 ---
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- HERO                                        -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="c-portfolio-page-luxury__hero">
-  <div class="c-portfolio-page-luxury__hero-glow"></div>
+<LuxuryPortfolioHero
+  categories={categories}
+  caseStudiesLabel={t('portfolio.caseStudies')}
+  pageTitle={t('portfolioPage.pageTitle')}
+  pageSubtitle={t('portfolioPage.pageSubtitle')}
+/>
 
-  <div class="relative z-10 w-full max-w-5xl mx-auto text-center px-4">
+<LuxuryPortfolioGrid
+  projects={projects}
+  viewDetailsLabel={t('portfolioPage.viewDetails')}
+/>
 
+<LuxuryPortfolioModal
+  projects={projects}
+  challengeLabel={t('portfolioPage.theChallenge')}
+  solutionLabel={t('portfolioPage.theSolution')}
+  impactLabel={t('portfolioPage.theImpact')}
+  techStackLabel={t('portfolioPage.techStackLabel')}
+/>
 
-    <!-- Badge -->
-    <div class="flex justify-center mb-8">
-      <LuxurySectionLabel text={t('portfolio.caseStudies')} />
-    </div>
+<LuxuryPortfolioCTA
+  startProjectLabel={t('portfolioPage.startProject')}
+  startProjectSubLabel={t('portfolioPage.startProjectSub')}
+  backToHomeLabel={t('portfolioPage.backToHome')}
+  contactHref={`${luxuryBase}#contact`}
+  homeHref={luxuryBase}
+/>
 
-    <!-- Title — serif luxury font -->
-    <h1 class="text-5xl sm:text-7xl md:text-8xl xl:text-[9rem] font-serif font-normal text-base-content mb-6 tracking-tight leading-[0.95]">
-      {t('portfolioPage.pageTitle')}
-    </h1>
-
-    <!-- Diamond divider -->
-    <div class="c-portfolio-page-luxury__diamond-line mb-8">
-      <span class="text-accent/40 text-xs">◆</span>
-    </div>
-
-    <!-- Subtitle -->
-    <p class="text-lg sm:text-xl text-base-content/50 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-      {t('portfolioPage.pageSubtitle')}
-    </p>
-
-    <!-- Category Filters -->
-    <div class="flex flex-wrap gap-2 justify-center" id="pp-luxury-filters">
-      {categories.map((cat, i) => (
-        <button
-          class:list={[
-            'px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] border transition-all duration-500 cursor-pointer',
-            i === 0
-              ? 'border-accent/30 text-accent bg-accent/[0.08]'
-              : 'border-base-content/8 text-base-content/35 hover:border-accent/20 hover:text-accent hover:bg-accent/[0.05]'
-          ]}
-          data-filter={cat.id}
-        >
-          {cat.label}
-        </button>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CARD STACK                                  -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="relative pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6" id="pp-luxury-projects">
-  <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-    {projects.map((p, i) => (
-      <LuxuryCard
-        class="group c-portfolio-page-luxury__card"
-        data-category={p.category}
-        data-project-id={p.id}
-        data-project-title={p.title}
-        data-project-challenge={p.challenge}
-        data-project-solution={p.solution}
-        data-project-impact={p.impact}
-        data-project-tech={p.techStack.join(',')}
-        data-project-metric={p.metric}
-        data-project-metric-label={p.metricLabel}
-        spotlight={true}
-        hover={true}
-      >
-        <!-- Background gradient hover -->
-        <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-700 pointer-events-none`}></div>
-
-        <!-- Large number watermar -->
-        <div class="absolute -bottom-6 -right-2 text-[120px] sm:text-[160px] font-black text-base-content/[0.03] leading-none select-none pointer-events-none">
-          {p.num}
-        </div>
-
-        <!-- Card main content -->
-        <div class="relative z-10 p-5 sm:p-6 lg:p-8 min-h-[260px] sm:min-h-[280px] flex flex-col">
-          <!-- Top: Category + Color dot -->
-          <div class="flex items-center justify-between mb-5">
-            <span class="px-3 py-1.5 rounded-lg bg-base-content/5 text-base-content/50 text-[10px] font-bold uppercase tracking-wider">
-              {p.categoryLabel}
-            </span>
-            <div class={`w-7 h-7 rounded-lg bg-gradient-to-br ${p.color} opacity-60`}></div>
-          </div>
-
-          <!-- Middle: Metric -->
-          <div class="mb-5">
-            <div class={`text-3xl sm:text-4xl lg:text-5xl font-black bg-gradient-to-r ${p.color} bg-clip-text text-transparent mb-1`}>
-              {p.metric}
-            </div>
-            <span class="text-xs text-base-content/45 font-medium">{p.metricLabel}</span>
-          </div>
-
-          <!-- Bottom: Title + Description -->
-          <div class="mt-auto">
-            <h3 class="text-lg sm:text-xl font-serif font-normal text-base-content mb-2 tracking-tight">
-              {p.title}
-            </h3>
-            <p class="text-sm text-base-content/40 leading-relaxed mb-4 line-clamp-2">
-              {p.description}
-            </p>
-
-            <!-- CTA -->
-            <button
-              class="inline-flex items-center gap-2 text-accent text-xs font-bold cursor-pointer hover:gap-3 transition-all duration-300"
-              data-toggle-luxury={p.id}
-            >
-              {t('portfolioPage.viewDetails')}
-              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </LuxuryCard>
-    ))}
-  </div>
-</section>
-
-<!-- Detail Modal (fixed overlay) -->
-<div class="c-portfolio-page-luxury__modal-backdrop" id="pp-luxury-modal">
-  <div class="c-portfolio-page-luxury__modal">
-    <button class="c-portfolio-page-luxury__modal-close" id="pp-luxury-modal-close">
-      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
-    <div class="c-portfolio-page-luxury__modal-body" id="pp-luxury-modal-content">
-      <!-- Populated by JS -->
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- BOTTOM CTA                                  -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="relative py-20 sm:py-28 px-4 overflow-hidden">
-  <div class="c-portfolio-page-luxury__cta-glow"></div>
-
-  <div class="relative z-10 text-center max-w-2xl mx-auto">
-    <!-- Diamond divider -->
-    <div class="c-portfolio-page-luxury__diamond-line mb-10">
-      <span class="text-accent/50 text-sm">◆</span>
-    </div>
-
-    <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif font-normal text-base-content mb-4 tracking-tight">
-      {t('portfolioPage.startProject')}
-    </h2>
-    <p class="text-base-content/40 text-lg mb-10 font-light">
-      {t('portfolioPage.startProjectSub')}
-    </p>
-
-    <div class="flex flex-col items-center gap-6">
-    <div class="flex flex-col items-center gap-6">
-      <LuxuryButton href={`${luxuryBase}#contact`} variant="primary" class="shadow-xl px-12 py-4">
-        {t('portfolioPage.startProject')}
-      </LuxuryButton>
-      
-      <LuxuryButton href={luxuryBase} variant="text" icon={true} class="text-base-content/35 hover:text-accent font-light">
-        {t('portfolioPage.backToHome')}
-      </LuxuryButton>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- Pass i18n labels to JS -->
-<div id="pp-luxury-i18n" class="hidden"
-  data-challenge={i18nLabels.challenge}
-  data-solution={i18nLabels.solution}
-  data-impact={i18nLabels.impact}
-  data-tech={i18nLabels.techStack}
-></div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CLIENT SCRIPTS                              -->
-<!-- ═══════════════════════════════════════════ -->
 <script>
   import { registerAstroPage } from '../../../utils/lifecycle';
   import { initScrollReveal } from '../../../utils/animations';
@@ -328,15 +168,7 @@ const i18nLabels = {
     const modal = document.getElementById('pp-luxury-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-luxury-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-luxury-modal-close') as HTMLElement | null;
-    const i18nEl = document.getElementById('pp-luxury-i18n');
-    if (!modal || !modalContent || !i18nEl) return;
-
-    const labels = {
-      challenge: i18nEl.getAttribute('data-challenge') || 'The Challenge',
-      solution: i18nEl.getAttribute('data-solution') || 'The Solution',
-      impact: i18nEl.getAttribute('data-impact') || 'The Impact',
-      tech: i18nEl.getAttribute('data-tech') || 'Tech Stack',
-    };
+    if (!modal || !modalContent) return;
 
     function closeModal() {
       modal!.classList.remove('is-open');
@@ -346,54 +178,21 @@ const i18nLabels = {
       });
     }
 
-    function openModal(card: Element) {
-      const title = card.getAttribute('data-project-title') || '';
-      const challenge = card.getAttribute('data-project-challenge') || '';
-      const solution = card.getAttribute('data-project-solution') || '';
-      const impact = card.getAttribute('data-project-impact') || '';
-      const metricVal = card.getAttribute('data-project-metric') || '';
-      const metricLbl = card.getAttribute('data-project-metric-label') || '';
-      const techStr = card.getAttribute('data-project-tech') || '';
-      const techArr = techStr ? techStr.split(',') : [];
+    function openModal(index: number) {
+      const tpl = document.querySelector<HTMLTemplateElement>(
+        `template[data-luxury-modal-index="${index}"]`
+      );
+      if (!tpl) return;
 
-      const techHtml = techArr.map((t) =>
-        '<span class="c-portfolio-page-luxury__tech-pill">' + t.trim() + '</span>'
-      ).join('');
-
-      const metricBlock = metricVal
-        ? '<div class="c-portfolio-page-luxury__modal-metric mb-6">' +
-            '<span class="c-portfolio-page-luxury__modal-metric-value">' + metricVal + '</span>' +
-            '<span class="c-portfolio-page-luxury__modal-metric-label">' + metricLbl + '</span>' +
-          '</div>'
-        : '';
-
-      modalContent!.innerHTML =
-        '<h3 class="text-2xl sm:text-3xl font-serif font-light text-base-content mb-4 pr-10 tracking-tight">' + title + '</h3>' +
-        metricBlock +
-        '<div class="c-portfolio-page-luxury__narrative mb-5">' +
-          '<div class="c-portfolio-page-luxury__narrative-block">' +
-            '<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-accent/70 mb-2">' + labels.challenge + '</h4>' +
-            '<p class="text-sm text-base-content/50 leading-relaxed">' + challenge + '</p>' +
-          '</div>' +
-          '<div class="c-portfolio-page-luxury__narrative-block">' +
-            '<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-accent/70 mb-2">' + labels.solution + '</h4>' +
-            '<p class="text-sm text-base-content/50 leading-relaxed">' + solution + '</p>' +
-          '</div>' +
-          '<div class="c-portfolio-page-luxury__narrative-block">' +
-            '<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-accent/70 mb-2">' + labels.impact + '</h4>' +
-            '<p class="text-sm text-base-content/50 leading-relaxed">' + impact + '</p>' +
-          '</div>' +
-        '</div>' +
-        '<div>' +
-          '<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-base-content/25 mb-2.5">' + labels.tech + '</h4>' +
-          '<div class="flex flex-wrap gap-1.5">' + techHtml + '</div>' +
-        '</div>';
+      modalContent!.innerHTML = '';
+      modalContent!.appendChild(tpl.content.cloneNode(true));
 
       // Mark active card
       document.querySelectorAll('.c-portfolio-page-luxury__card.is-detail-active').forEach((c) => {
         c.classList.remove('is-detail-active');
       });
-      card.classList.add('is-detail-active');
+      const cards = document.querySelectorAll('.c-portfolio-page-luxury__card');
+      if (cards[index]) cards[index].classList.add('is-detail-active');
 
       modal!.classList.add('is-open');
       document.body.style.overflow = 'hidden';
@@ -407,11 +206,11 @@ const i18nLabels = {
     });
 
     // Card "View Details" button click
-    document.querySelectorAll<HTMLElement>('[data-toggle-luxury]').forEach((btn) => {
+    document.querySelectorAll<HTMLElement>('[data-open-luxury-modal]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const card = btn.closest('.c-portfolio-page-luxury__card');
-        if (card) openModal(card);
+        const index = parseInt(btn.getAttribute('data-open-luxury-modal') || '0', 10);
+        openModal(index);
       });
     });
 

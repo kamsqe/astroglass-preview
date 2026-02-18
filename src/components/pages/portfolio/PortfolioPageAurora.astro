@@ -1,24 +1,24 @@
 ---
 /**
- * Portfolio Page — Aurora Theme
+ * Portfolio Page — Aurora Theme (Composition Layer)
  * 
- * Grid-based card layout with:
- * - Mesh gradient hero with aurora bands
- * - Card grid with gradient-border frames (3-column)
- * - Category-colored radial gradient visuals
- * - Single shared detail overlay below the grid
- * - Pill-shaped category filters
- * - CTA section with gradient text
- * 
- * All text via i18n — zero hardcoded strings.
+ * Wires data ↔ sub-components. All visual HTML lives in aurora/:
+ *   - AuroraPortfolioHero  → hero + filters
+ *   - AuroraPortfolioGrid  → card grid
+ *   - AuroraPortfolioModal → overlay + pre-rendered templates
+ *   - AuroraPortfolioCTA   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageAurora.css';
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 
+import AuroraPortfolioHero from './aurora/AuroraPortfolioHero.astro';
+import AuroraPortfolioGrid from './aurora/AuroraPortfolioGrid.astro';
+import AuroraPortfolioModal from './aurora/AuroraPortfolioModal.astro';
+import AuroraPortfolioCTA from './aurora/AuroraPortfolioCTA.astro';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Locale-aware base path
 const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const auroraBase = `${localePrefix}/aurora`;
 
@@ -110,162 +110,33 @@ const projects = [
     metricLabel: t('portfolioPage.projects.p6.metricLabel'),
   },
 ];
-
-const i18nLabels = {
-  challenge: t('portfolioPage.theChallenge'),
-  solution: t('portfolioPage.theSolution'),
-  impact: t('portfolioPage.theImpact'),
-  techStack: t('portfolioPage.techStackLabel'),
-  close: t('portfolioPage.closeDetails'),
-};
 ---
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- HERO                                        -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="pp-aurora__hero">
-  <div class="pp-aurora__hero-mesh"></div>
-  <div class="pp-aurora__hero-mesh pp-aurora__hero-mesh--2"></div>
-  <div class="pp-aurora__hero-band"></div>
+<AuroraPortfolioHero
+  categories={categories}
+  badgeLabel={t('portfolio.badge')}
+  pageTitle={t('portfolioPage.pageTitle')}
+  pageSubtitle={t('portfolioPage.pageSubtitle')}
+/>
 
-  <div class="relative z-10 max-w-3xl mx-auto px-4">
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent mb-8">
-      <span class="portfolio-aurora-label-frame">▮▯▮</span>
-      <span>{t('portfolio.badge')}</span>
-    </div>
+<AuroraPortfolioGrid projects={projects} />
 
-    <!-- Title -->
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-base-content leading-tight mb-5">
-      {t('portfolioPage.pageTitle')}
-    </h1>
+<AuroraPortfolioModal
+  projects={projects}
+  challengeLabel={t('portfolioPage.theChallenge')}
+  solutionLabel={t('portfolioPage.theSolution')}
+  impactLabel={t('portfolioPage.theImpact')}
+  techStackLabel={t('portfolioPage.techStackLabel')}
+/>
 
-    <!-- Subtitle -->
-    <p class="text-base sm:text-lg text-base-content/50 leading-relaxed mb-10 max-w-2xl mx-auto">
-      {t('portfolioPage.pageSubtitle')}
-    </p>
+<AuroraPortfolioCTA
+  startProjectLabel={t('portfolioPage.startProject')}
+  startProjectSubLabel={t('portfolioPage.startProjectSub')}
+  backToHomeLabel={t('portfolioPage.backToHome')}
+  contactHref={`${auroraBase}#contact`}
+  homeHref={auroraBase}
+/>
 
-    <!-- Category Filters (pill-shaped) -->
-    <div class="flex flex-wrap gap-2 justify-center" id="pp-aurora-filters">
-      {categories.map((cat, i) => (
-        <button
-          class:list={[
-            'pp-aurora__filter',
-            i === 0 ? 'is-active' : ''
-          ]}
-          data-filter={cat.id}
-        >
-          {cat.label}
-        </button>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CARD GRID                                   -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="relative py-12 sm:py-16 px-4 sm:px-6" id="pp-aurora-grid-section">
-  <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="pp-aurora-grid">
-    {projects.map((p) => (
-      <div
-        class="pp-aurora__card"
-        data-category={p.category}
-        data-project-id={p.id}
-        data-project-title={p.title}
-        data-project-challenge={p.challenge}
-        data-project-solution={p.solution}
-        data-project-impact={p.impact}
-        data-project-tech={p.techStack.join(',')}
-      >
-        <!-- Visual placeholder (clickable to expand) -->
-        <div class="pp-aurora__visual" data-toggle-aurora={p.id}>
-          <div class="pp-aurora__visual-mesh"></div>
-          <div class="pp-aurora__visual-grid"></div>
-          <span class="pp-aurora__visual-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
-              <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
-            </svg>
-          </span>
-
-          <!-- Badge (top-left) -->
-          <div class="pp-aurora__badge">{p.categoryLabel}</div>
-
-          <!-- Floating metric (bottom-right) -->
-          <div class="pp-aurora__float-metric">
-            <span class="pp-aurora__float-metric-value">{p.metric}</span>
-            <span class="pp-aurora__float-metric-label">{p.metricLabel}</span>
-          </div>
-        </div>
-
-        <!-- Card Info -->
-        <div class="px-5 py-4">
-          <h3 class="text-lg font-bold text-base-content mb-1">{p.title}</h3>
-          <p class="text-sm text-base-content/45 leading-relaxed line-clamp-2">{p.description}</p>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
-<!-- Detail Modal (fixed overlay) -->
-<div class="pp-aurora__modal-backdrop" id="pp-aurora-modal">
-  <div class="pp-aurora__modal">
-    <button class="pp-aurora__modal-close" id="pp-aurora-modal-close">
-      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
-    <div class="pp-aurora__modal-body" id="pp-aurora-modal-content">
-      <!-- Populated by JS -->
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- BOTTOM CTA                                  -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="relative py-20 sm:py-28 px-4 overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="pp-aurora__hero-mesh" style="opacity: 0.6"></div>
-  </div>
-
-  <div class="relative z-10 text-center max-w-3xl mx-auto">
-    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent mb-6">
-      <span class="portfolio-aurora-label-frame">▮▯▮</span>
-      <span>{t('portfolioPage.startProject')}</span>
-    </div>
-
-    <h2 class="pp-aurora__cta-title mb-5">{t('portfolioPage.startProject')}</h2>
-    <p class="text-base-content/40 text-base mb-8">{t('portfolioPage.startProjectSub')}</p>
-
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-      <a href={`${auroraBase}#contact`} class="pp-aurora__cta-btn pp-aurora__cta-btn--primary">
-        {t('portfolioPage.startProject')}
-      </a>
-      <a href={auroraBase} class="pp-aurora__cta-btn pp-aurora__cta-btn--secondary inline-flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        {t('portfolioPage.backToHome')}
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Pass i18n labels to JS via hidden data -->
-<div id="pp-aurora-i18n" class="hidden"
-  data-challenge={i18nLabels.challenge}
-  data-solution={i18nLabels.solution}
-  data-impact={i18nLabels.impact}
-  data-tech={i18nLabels.techStack}
-  data-close={i18nLabels.close}
-></div>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- CLIENT SCRIPTS                              -->
-<!-- ═══════════════════════════════════════════ -->
 <script>
   import { registerAstroPage } from '../../../utils/lifecycle';
   import { initScrollReveal } from '../../../utils/animations';
@@ -275,15 +146,7 @@ const i18nLabels = {
     const modal = document.getElementById('pp-aurora-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-aurora-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-aurora-modal-close') as HTMLElement | null;
-    const i18nEl = document.getElementById('pp-aurora-i18n');
-    if (!modal || !modalContent || !i18nEl) return;
-
-    const labels = {
-      challenge: i18nEl.getAttribute('data-challenge') || 'The Challenge',
-      solution: i18nEl.getAttribute('data-solution') || 'The Solution',
-      impact: i18nEl.getAttribute('data-impact') || 'The Impact',
-      tech: i18nEl.getAttribute('data-tech') || 'Tech Stack',
-    };
+    if (!modal || !modalContent) return;
 
     function closeModal() {
       modal!.classList.remove('is-open');
@@ -293,58 +156,22 @@ const i18nLabels = {
       });
     }
 
-    function openModal(card: Element) {
-      const title = card.getAttribute('data-project-title') || '';
-      const challenge = card.getAttribute('data-project-challenge') || '';
-      const solution = card.getAttribute('data-project-solution') || '';
-      const impact = card.getAttribute('data-project-impact') || '';
-      const metric = card.querySelector('.pp-aurora__float-metric-value');
-      const metricLabel = card.querySelector('.pp-aurora__float-metric-label');
-      const metricVal = metric ? metric.textContent : '';
-      const metricLbl = metricLabel ? metricLabel.textContent : '';
-      const techStr = card.getAttribute('data-project-tech') || '';
-      const techArr = techStr ? techStr.split(',') : [];
+    function openModal(index: number) {
+      const tpl = document.querySelector<HTMLTemplateElement>(
+        `template[data-aurora-modal-index="${index}"]`
+      );
+      if (!tpl) return;
 
-      const techHtml = techArr.map((t) =>
-        '<span class="pp-aurora__tech-pill">' + t.trim() + '</span>'
-      ).join('');
-
-      const metricBlock = metricVal
-        ? '<div class="pp-aurora__modal-metric mb-6">' +
-            '<span class="pp-aurora__modal-metric-value">' + metricVal + '</span>' +
-            '<span class="pp-aurora__modal-metric-label">' + metricLbl + '</span>' +
-          '</div>'
-        : '';
-
-      modalContent!.innerHTML =
-        '<h3 class="text-2xl sm:text-3xl font-bold text-base-content mb-4 pr-10">' + title + '</h3>' +
-        metricBlock +
-        '<div class="pp-aurora__narrative mb-5">' +
-          '<div class="pp-aurora__narrative-block">' +
-            '<h4 class="text-xs font-bold uppercase tracking-wider text-accent mb-2">' + labels.challenge + '</h4>' +
-            '<p class="text-sm text-base-content/45 leading-relaxed">' + challenge + '</p>' +
-          '</div>' +
-          '<div class="pp-aurora__narrative-block">' +
-            '<h4 class="text-xs font-bold uppercase tracking-wider text-accent mb-2">' + labels.solution + '</h4>' +
-            '<p class="text-sm text-base-content/45 leading-relaxed">' + solution + '</p>' +
-          '</div>' +
-          '<div class="pp-aurora__narrative-block">' +
-            '<h4 class="text-xs font-bold uppercase tracking-wider text-accent mb-2">' + labels.impact + '</h4>' +
-            '<p class="text-sm text-base-content/45 leading-relaxed">' + impact + '</p>' +
-          '</div>' +
-        '</div>' +
-        '<div>' +
-          '<h4 class="text-xs font-bold uppercase tracking-wider text-base-content/25 mb-2">' + labels.tech + '</h4>' +
-          '<div class="flex flex-wrap gap-1.5">' + techHtml + '</div>' +
-        '</div>';
+      modalContent!.innerHTML = '';
+      modalContent!.appendChild(tpl.content.cloneNode(true));
 
       // Mark active card
       document.querySelectorAll('.pp-aurora__card.is-detail-active').forEach((c) => {
         c.classList.remove('is-detail-active');
       });
-      card.classList.add('is-detail-active');
+      const cards = document.querySelectorAll('.pp-aurora__card');
+      if (cards[index]) cards[index].classList.add('is-detail-active');
 
-      // Open modal
       modal!.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
@@ -364,11 +191,11 @@ const i18nLabels = {
       }
     });
 
-    // Card click handlers
-    document.querySelectorAll<HTMLElement>('.pp-aurora__card').forEach((card) => {
+    // Card click handlers — open modal by index
+    document.querySelectorAll<HTMLElement>('.pp-aurora__card').forEach((card, i) => {
       card.style.cursor = 'pointer';
       card.addEventListener('click', () => {
-        openModal(card);
+        openModal(i);
       });
     });
 

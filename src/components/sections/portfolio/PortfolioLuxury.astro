@@ -6,6 +6,9 @@
 import '../../../styles/components/portfolio/PortfolioLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
+import LuxuryCard from '../../ui/luxury/LuxuryCard.astro';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -55,7 +58,9 @@ const projects = [
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 sm:mb-16">
-      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-4">{t('portfolio.caseStudies')}</span>
+      <div class="mb-4 flex justify-center">
+        <LuxurySectionLabel text={t('portfolio.caseStudies')} />
+      </div>
       <h2 class="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-base-content tracking-tight mb-4">
         {t('portfolio.impactTitle')}
       </h2>
@@ -67,10 +72,7 @@ const projects = [
     <!-- Case Study Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <div 
-          class="c-portfolio-luxury__card group relative rounded-2xl overflow-hidden border border-base-content/10 bg-gradient-to-br from-base-content/[0.05] to-base-content/[0.01] backdrop-blur-xl ring-1 ring-white/5 ring-inset shadow-2xl transition-luxury"
-          style={`animation-delay: ${i * 100}ms`}
-        >
+        <LuxuryCard class="group c-portfolio-luxury__card" spotlight={true} hover={false}>
           <!-- Background gradient -->
           <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-luxury-slow`}></div>
           
@@ -82,7 +84,7 @@ const projects = [
           <div class="relative z-10 p-6 sm:p-8 lg:p-10 min-h-[280px] sm:min-h-[320px] flex flex-col">
             <!-- Top: Category -->
             <div class="flex items-center justify-between mb-6">
-              <span class="px-3 py-1.5 rounded-lg bg-base-content/5 text-base-content/60 text-[10px] font-bold uppercase tracking-wider">
+              <span class="px-3 py-1.5 rounded-lg bg-base-content/5 text-base-content/60 text-[10px] font-bold uppercase tracking-luxury-wide">
                 {p.category}
               </span>
               <div class={`w-8 h-8 rounded-lg bg-gradient-to-br ${p.color} opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-luxury`}></div>
@@ -106,29 +108,24 @@ const projects = [
               </p>
               
               <!-- CTA -->
-              <a href={lp('/luxury/portfolio')} class="c-portfolio-luxury__link inline-flex items-center gap-2 text-accent text-xs font-bold">
+              <!-- CTA -->
+              <a href={lp('/luxury/portfolio')} class="inline-flex items-center gap-2 text-accent text-xs font-bold relative z-20">
                 {t('portfolio.viewCaseStudy')}
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
               </a>
             </div>
           </div>
-          
-          <!-- Hover border glow -->
-          <div class={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-accent/20 transition-colors duration-luxury-medium pointer-events-none`}></div>
-        </div>
+        </LuxuryCard>
       ))}
     </div>
 
     <!-- Bottom CTA -->
     <div class="text-center mt-12 sm:mt-16">
-      <a href={lp('/luxury/portfolio')} class="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-base-content text-base-100 font-bold shadow-xl hover:scale-105 active:scale-95 transition-luxury group">
+      <LuxuryButton href={lp('/luxury/portfolio')} variant="primary">
         {t('portfolio.allWork')}
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-luxury-fast" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
+      </LuxuryButton>
     </div>
   </div>
 </section>

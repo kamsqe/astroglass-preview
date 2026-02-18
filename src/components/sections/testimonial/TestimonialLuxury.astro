@@ -7,6 +7,8 @@
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
@@ -84,7 +86,9 @@ const testimonials = [
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('testimonial.wallOfLove')}</span>
+       <div class="mb-4 flex justify-center">
+         <LuxurySectionLabel text={t('testimonial.wallOfLove')} />
+       </div>
        <h2 class="text-4xl md:text-6xl font-normal font-serif text-base-content tracking-tighter">{t('testimonial.buildersSay')}</h2>
        <p class="text-base text-base-content/40 mt-4 max-w-xl mx-auto">{t('testimonial.t4_subtitle')}</p>
     </div>
@@ -104,6 +108,9 @@ const testimonials = [
                item.size === 'large' ? "lg:p-10" : ""
              ]}>
                 
+                {/* Glow Effect */}
+                <div class="c-testimonial-luxury__glow absolute inset-0 bg-accent/5 rounded-2xl lg:rounded-3xl blur-xl"></div>
+
                 <!-- Quote Icon for large cards -->
                 {item.size === 'large' && (
                    <div class="absolute top-6 right-6 w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center opacity-50">

@@ -6,6 +6,7 @@
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -34,7 +35,9 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
   <div class="max-w-4xl mx-auto">
     <!-- Header with Search -->
     <div class="text-center mb-12">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('faq.helpCenter')}</span>
+       <div class="mb-4 flex justify-center">
+         <LuxurySectionLabel text={t('faq.helpCenter')} />
+       </div>
        <h2 class="text-4xl md:text-6xl font-normal font-serif text-base-content tracking-tighter mb-8">{t('faq.title')}</h2>
        
        <!-- Search Bar -->
@@ -86,8 +89,8 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
                    </svg>
                 </div>
              </button>
-             <div class="c-faq-luxury__result-content hidden px-5 lg:px-6 pb-5 lg:pb-6">
-                <p class="text-sm text-base-content/60 leading-relaxed pt-2">{faq.a}</p>
+             <div class="c-faq-luxury__result-content hidden p-5 lg:p-6">
+                <p class="text-sm text-base-content/60 leading-relaxed">{faq.a}</p>
                 <div class="flex gap-2 mt-4">
                    {faq.tags.map(tag => (
                       <span class="c-faq-luxury__label px-2 py-1 rounded-md bg-base-content/[0.02] text-[10px] text-base-content/25 capitalize italic">{t(`faq.tags.${tag}`)}</span>

@@ -1,200 +1,66 @@
 ---
 /**
- * CTA V4 - The Magnetic Pull (REMARKABLE)
- * Interactive gravity-based CTA where the button follows cursor.
- * Creates playful interaction that demands attention.
+ * CTA V4 - The Magnetic Pull
+ * A final, high-impact call to action with particle attraction effects.
+ * Mobile: Simplified particles. Desktop: Mouse-reactive field.
  */
+import '../../../styles/components/cta/CTALuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-import '../../../styles/components/cta/CTALuxury.css';
 ---
 
+<section class="relative py-32 lg:py-48 px-4 sm:px-6 lg:px-8 overflow-hidden bg-base-100">
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <!-- Header -->
+    <div class="mb-12 lg:mb-16">
+       <div class="mb-8 flex justify-center">
+         <LuxurySectionLabel text={t('cta.eyebrow')} />
+       </div>
+       <h2 class="text-5xl md:text-7xl lg:text-9xl font-normal font-serif text-base-content tracking-tighter leading-none mb-8">
+          {t('cta.title')}
+       </h2>
+       <p class="text-lg md:text-xl text-base-content/60 max-w-2xl mx-auto font-light leading-relaxed">
+          {t('cta.subtitle')}
+       </p>
+    </div>
 
-<section class="relative py-20 lg:py-40 px-4 sm:px-6 overflow-hidden bg-base-100">
-  <!-- Magnetic field background -->
-  <div class="cta-v4-field absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-1000">
-    <div class="absolute inset-0 bg-gradient-radial from-accent/5 via-transparent to-transparent"></div>
-    <!-- Field lines -->
-    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <defs>
-        <radialGradient id="fieldGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="var(--a)" stop-opacity="0.1"/>
-          <stop offset="100%" stop-color="var(--a)" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <circle class="cta-v4-ring" cx="50" cy="50" r="20" fill="none" stroke="url(#fieldGrad)" stroke-width="0.1"/>
-      <circle class="cta-v4-ring" cx="50" cy="50" r="30" fill="none" stroke="url(#fieldGrad)" stroke-width="0.1"/>
-      <circle class="cta-v4-ring" cx="50" cy="50" r="40" fill="none" stroke="url(#fieldGrad)" stroke-width="0.1"/>
-    </svg>
+    <!-- Magnetic Button Wrapper -->
+    <div class="c-cta-luxury__magnetic-wrapper inline-block relative z-20">
+       <div class="absolute inset-0 bg-accent/20 blur-[100px] rounded-full pointer-events-none"></div>
+       
+       <LuxuryButton href="#contact" variant="primary" class="text-xl px-12 py-5 shadow-2xl">
+          {t('cta.button')}
+       </LuxuryButton>
+    </div>
+
+    <!-- Trust -->
+    <p class="mt-12 text-xs font-bold uppercase tracking-widest text-base-content/30">
+       {t('cta.trust')}
+    </p>
   </div>
 
-  <div class="max-w-4xl mx-auto relative">
-    <!-- Content wrapper with tilt effect -->
-    <div class="cta-v4-wrapper relative text-center">
-      
-      <!-- Floating particles (hidden on mobile for cleaner look) -->
-      <div class="cta-v4-particles absolute inset-0 pointer-events-none hidden sm:block">
-        <div class="cta-v4-particle absolute w-2 h-2 rounded-full bg-accent/30" style="top: 20%; left: 15%;"></div>
-        <div class="cta-v4-particle absolute w-3 h-3 rounded-full bg-primary/20" style="top: 60%; left: 80%;"></div>
-        <div class="cta-v4-particle absolute w-1.5 h-1.5 rounded-full bg-secondary/40" style="top: 80%; left: 25%;"></div>
-        <div class="cta-v4-particle absolute w-2.5 h-2.5 rounded-full bg-accent/20" style="top: 30%; left: 70%;"></div>
-      </div>
-
-      <!-- Text content -->
-      <div class="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
-        <!-- Eyebrow -->
-        <div class="flex items-center justify-center gap-2 sm:gap-3">
-          <div class="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-accent/50"></div>
-          <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-accent">{t('cta.magnetic.eyebrow')}</span>
-          <div class="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-accent/50"></div>
-        </div>
-
-        <!-- Headline with magnetic letters -->
-        <h2 class="cta-v4-headline text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-base-content tracking-tight leading-[1] sm:leading-[0.95]">
-          <span class="cta-v4-word inline-block">{t('cta.magnetic.line1')}</span>{" "}
-          <span class="cta-v4-word inline-block">{t('cta.magnetic.line2')}</span>{" "}
-          <span class="cta-v4-word inline-block text-accent">{t('cta.magnetic.line3')}</span>{" "}
-          <span class="cta-v4-word inline-block">{t('cta.magnetic.line4')}</span>{" "}
-          <span class="cta-v4-word inline-block">{t('cta.magnetic.line5')}</span>
-        </h2>
-
-        <!-- Supporting text -->
-        <p class="text-sm sm:text-lg lg:text-xl text-base-content/50 max-w-xl mx-auto leading-relaxed px-2">
-          {t('cta.magnetic.subtitle')}
-        </p>
-      </div>
-
-      <!-- Magnetic CTA Button -->
-      <div class="cta-v4-magnetic-zone relative inline-block py-4 sm:py-8 px-8 sm:px-16">
-        <button class="cta-v4-button group relative px-7 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-2xl bg-accent text-base-100 font-bold text-sm sm:text-lg overflow-hidden transition-luxury-slow hover:shadow-[0_20px_60px_rgba(var(--a),0.4)]">
-          <!-- Magnetic glow -->
-          <div class="absolute inset-0 bg-gradient-to-r from-accent via-primary to-accent bg-[length:200%_100%] opacity-0 group-hover:opacity-100 transition-opacity duration-luxury-slow animate-shimmer"></div>
-          
-          <!-- Button content -->
-          <span class="relative z-10 flex items-center gap-3">
-            <span>{t('cta.magnetic.cta')}</span>
-            <svg class="w-5 h-5 transition-transform duration-luxury-slow group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </span>
-
-          <!-- Magnetic distortion ring -->
-          <div class="cta-v4-distortion absolute inset-[-20px] rounded-3xl border border-accent/20 opacity-0 transition-all duration-luxury-slow"></div>
-        </button>
-
-        <!-- Attraction indicator -->
-        <div class="cta-v4-attraction absolute inset-0 pointer-events-none">
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-accent/30 opacity-0"></div>
-        </div>
-      </div>
-
-      <!-- Trust indicators -->
-      <div class="mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-base-content/30">
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-xs sm:text-sm">{t('cta.noCreditCard')}</span>
-        </div>
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-xs sm:text-sm">{t('cta.freeForever')}</span>
-        </div>
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-xs sm:text-sm">{t('cta.setup2min')}</span>
-        </div>
-      </div>
-    </div>
+  <!-- Particle Field -->
+  <div class="c-cta-luxury__particles absolute inset-0 pointer-events-none">
+     <!-- Generated by JS -->
   </div>
 </section>
 
-</style>
-
 <script>
-  function initMagneticCTA() {
-    const zone = document.querySelector('.cta-v4-magnetic-zone') as HTMLElement;
-    const button = document.querySelector('.cta-v4-button') as HTMLElement;
-    const field = document.querySelector('.cta-v4-field') as HTMLElement;
-    const words = document.querySelectorAll('.cta-v4-word');
-    const particles = document.querySelectorAll('.cta-v4-particle');
-
-    if (!zone || !button) return;
-
-    let isInZone = false;
-    const strength = 0.3;
-    const wordStrength = 0.05;
-
-    // Show field on section entry
-    const section = document.querySelector('section');
-    if (section && field) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            field.style.opacity = '1';
-          }
-        });
-      }, { threshold: 0.3 });
-      observer.observe(section);
-    }
-
-    // Magnetic button effect
-    zone.addEventListener('mouseenter', () => {
-      isInZone = true;
-    });
-
-    zone.addEventListener('mouseleave', () => {
-      isInZone = false;
-      button.style.transform = 'translate(0, 0)';
-    });
-
-    zone.addEventListener('mousemove', (e) => {
-      if (!isInZone) return;
-
-      const rect = zone.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const deltaX = (e.clientX - centerX) * strength;
-      const deltaY = (e.clientY - centerY) * strength;
-
-      button.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-    });
-
-    // Word magnetic effect on page mousemove
-    document.addEventListener('mousemove', (e) => {
-      const wrapper = document.querySelector('.cta-v4-wrapper') as HTMLElement;
-      if (!wrapper) return;
-
-      const rect = wrapper.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      words.forEach((word, index) => {
-        const offset = (index - 2) * 0.02;
-        const deltaX = (e.clientX - centerX) * (wordStrength + offset);
-        const deltaY = (e.clientY - centerY) * (wordStrength + offset);
-        (word as HTMLElement).style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-      });
-
-      // Move particles
-      particles.forEach((particle, index) => {
-        const pStrength = 0.02 + (index * 0.01);
-        const deltaX = (e.clientX - centerX) * pStrength;
-        const deltaY = (e.clientY - centerY) * pStrength;
-        (particle as HTMLElement).style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-      });
-    });
+  // Particle System
+  const container = document.querySelector('.c-cta-luxury__particles');
+  if (container) {
+     for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'c-cta-luxury__particle absolute w-1 h-1 bg-base-content/20 rounded-full';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animation = `float ${5 + Math.random() * 10}s infinite ease-in-out ${Math.random() * -5}s`;
+        container.appendChild(p);
+     }
   }
-
-  // Initialize
-  document.addEventListener('DOMContentLoaded', initMagneticCTA);
-  document.addEventListener('astro:page-load', initMagneticCTA);
 </script>

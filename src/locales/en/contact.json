@@ -138,12 +138,27 @@
   "successDescV4": "We'll get back to you soon.",
   "secure": "Secure",
   "noSpam": "No spam",
+  "emailLabel": "Email",
+  "officeLabel": "Office",
+  "name": "Name",
+  "email": "Email",
+  "scaleLabel": "Project Scale",
+  "scale": {
+    "sm": "Small (< 1k users)",
+    "md": "Medium (1k-10k users)",
+    "lg": "Large (10k-100k users)",
+    "xl": "Global (100k+ users)"
+  },
+  "message": "Message",
+  "messagePlaceholder": "Tell us about your project...",
+  "send": "Send Message",
   "validation": {
-    "nameShort": "Name is too short",
+    "nameShort": "Name must be at least 2 characters",
     "nameLong": "Name is too long",
-    "emailInvalid": "Invalid email address",
+    "emailInvalid": "Please enter a valid email address",
     "messageShort": "Message must be at least 10 characters",
     "messageLong": "Message is too long",
-    "required": "This field is required"
+    "required": "This field is required",
+    "submitError": "Something went wrong. Please try again."
   }
 }

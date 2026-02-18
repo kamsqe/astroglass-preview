@@ -7,6 +7,8 @@
 import '../../../styles/components/hero/HeroLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -56,7 +58,7 @@ const themes = [
                   ))}
                 </div>
                 
-                <p class="text-[10px] uppercase tracking-widest text-base-content/40 mt-6 font-bold">{t('hero.tryItNow')}</p>
+                <p class="text-[10px] uppercase tracking-luxury-wide text-base-content/40 mt-6 font-bold">{t('hero.tryItNow')}</p>
               </div>
             </div>
             
@@ -71,9 +73,8 @@ const themes = [
           <!-- Content (Already updated) -->
           <div class="text-center lg:text-left order-2 lg:order-1">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-8 rounded-full">
-          <span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
-          {t('hero.digitalExperience')}
+        <div class="mb-8 flex justify-center lg:justify-start">
+          <LuxurySectionLabel text={t('hero.digitalExperience')} />
         </div>
 
         <!-- Headline -->
@@ -90,21 +91,17 @@ const themes = [
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <a href="/docs" class="c-hero-luxury__btn c-hero-luxury__btn--primary js-magnetic px-10 py-4 bg-base-content text-base-100 font-medium text-center rounded-full min-w-[180px]">
+          <LuxuryButton href="#contact" variant="primary">
             {t('hero.startBuilding')}
-          </a>
-          <!-- Fixed mobile alignment: ensure inline-flex and centered items -->
-          <a href="#" class="c-hero-luxury__btn c-hero-luxury__btn--secondary js-magnetic px-10 py-4 border border-base-content/20 bg-transparent text-base-content font-medium text-center inline-flex items-center justify-center gap-3 rounded-full min-w-[180px]">
-            <span>{t('hero.viewFullDemo')}</span>
-            <svg class="w-4 h-4 translate-y-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-          </a>
+          </LuxuryButton>
+          
+          <LuxuryButton href="#" variant="secondary">
+            {t('hero.viewFullDemo')}
+          </LuxuryButton>
         </div>
 
         <!-- Trust indicators -->
         <div class="flex items-center justify-center lg:justify-start gap-4 mt-12 text-base-content/40">
-          <span class="text-[10px] uppercase tracking-widest font-bold">{t('hero.trustedBy')}</span>
           <span class="text-[10px] uppercase tracking-widest font-bold">{t('hero.trustedBy')}</span>
           <div class="flex gap-4 text-sm font-medium opacity-70">
             <span>Vercel</span>
@@ -139,13 +136,13 @@ const themes = [
                   <div class="c-hero-luxury__preview-card w-full max-w-md aspect-video bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-luxury shadow-none rounded-2xl">
                     <div class="text-center">
                       <span class="text-6xl block mb-2 font-serif italic">Aa</span>
-                      <span class="text-base-content/50 text-xs uppercase tracking-widest">Interactive Preview</span>
+                      <span class="text-base-content/50 text-xs uppercase tracking-luxury-wide">Interactive Preview</span>
                     </div>
                   </div>
 
                   <!-- Theme switcher -->
                   <div class="flex items-center gap-6">
-                    <span class="text-xs text-base-content/40 uppercase tracking-widest font-bold">{t('themeSwitcher.label')}</span>
+                    <span class="text-xs text-base-content/40 uppercase tracking-luxury-wide font-bold">{t('themeSwitcher.label')}</span>
                     <div class="flex gap-3">
                       {themes.map((theme, i) => (
                         <button 
@@ -162,8 +159,8 @@ const themes = [
               </div>
 
               <!-- Floating elements -->
-              <div class="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-accent/20 to-accent/5 backdrop-blur-xl border border-accent/20 rotate-12 animate-float rounded-2xl ring-1 ring-white/10 ring-inset shadow-lg"></div>
-              <div class="absolute -bottom-4 -left-4 px-4 py-3 bg-base-content text-base-100 border border-base-content/10 text-sm animate-float shadow-xl font-medium rounded-xl ring-1 ring-white/10 ring-inset" style="animation-delay: -2s;">
+              <div class="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-accent/20 to-accent/5 backdrop-blur-xl border border-accent/20 rotate-12 animate-float rounded-2xl ring-1 ring-white/10 ring-inset shadow-luxury"></div>
+              <div class="absolute -bottom-4 -left-4 px-4 py-3 bg-base-content text-base-100 border border-base-content/10 text-sm animate-float shadow-luxury font-medium rounded-xl ring-1 ring-white/10 ring-inset" style="animation-delay: -2s;">
                 <span class="text-accent font-bold">+127%</span>
                 <span class="opacity-80 ml-1">faster</span>
               </div>
@@ -180,8 +177,10 @@ const themes = [
 
   function initHeroV4() {
     // Init Magnetic Buttons
-    new Magnetic('.c-hero-luxury__btn.js-magnetic', 20);
-
+    // Note: We need to target the anchor tags inside LuxuryButton if needed, or just apply strictly to .js-magnetic if we kept that class.
+    // However, LuxuryButton uses standard CSS transitions. If we want magnetic flair, we should add it to LuxuryButton component or here.
+    // For now, let's keep it simple as per audit findings to standardize.
+    
     // Init Parallax
     new Parallax('.js-parallax', 0.1); 
 

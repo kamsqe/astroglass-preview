@@ -1,216 +1,214 @@
 ---
 /**
  * Pricing V4 - The Perspective Gallery
- * An architectural 3D gallery with smooth CSS-driven transitions.
+ * 3D cards that rotate on scroll/hover.
+ * Mobile: Swipeable cards. Desktop: 3D Coverflow.
  */
-import '../../../styles/components/pricing/PricingLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
+import LuxuryCard from '../../ui/luxury/LuxuryCard.astro';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
+import '../../../styles/components/pricing/PricingLuxury.css';
+
 const plans = [
-  { 
-    id: 'starter', 
-    name: t('pricing.tier1Name'), 
-    price: '0', 
-    period: t('pricing.freeForever'),
-    desc: t('pricing.plans.starter.desc'),
-    features: [t('pricing.features.projects'), t('pricing.values.community'), t('pricing.features.support'), t('pricing.features.analytics')],
-    cta: t('pricing.plans.starter.cta')
-  },
-  { 
-    id: 'pro', 
-    name: t('pricing.tier2Name'), 
-    price: '49', 
-    period: t('pricing.perMonth'),
-    desc: t('pricing.plans.pro.desc'),
-    features: [t('pricing.values.unlimited'), t('pricing.values.priorityEmail'), t('pricing.features.customThemes'), t('pricing.features.analytics'), t('pricing.features.customThemes'), t('pricing.features.apiAccess')],
-    popular: true,
-    cta: t('pricing.plans.pro.cta')
-  },
-  { 
-    id: 'enterprise', 
-    name: t('pricing.tier3Name'), 
-    price: '199', 
-    period: t('pricing.perMonth'),
-    desc: t('pricing.plans.enterprise.desc'),
-    features: [t('pricing.features.dedicatedNodes'), t('pricing.values.phone247'), t('pricing.features.customSla'), t('pricing.features.securityAudit'), t('pricing.features.teamTraining'), t('pricing.features.whiteLabel')],
-    cta: t('pricing.plans.enterprise.cta')
-  },
+   {
+      name: t('pricing.plans.starter.name'),
+      tagline: t('pricing.plans.starter.tagline'),
+      desc: t('pricing.plans.starter.desc'),
+      price: "$299",
+      period: "/mo",
+      features: [t('pricing.plans.starter.f1'), t('pricing.plans.starter.f2'), t('pricing.plans.starter.f3')],
+      cta: t('pricing.startBuidling'),
+      primary: false
+   },
+   {
+      name: t('pricing.plans.pro.name'),
+      tagline: t('pricing.plans.pro.tagline'),
+      desc: t('pricing.plans.pro.desc'),
+      price: "$599",
+      period: "/mo",
+      features: [
+         t('pricing.plans.pro.f1'), 
+         t('pricing.plans.pro.f2'), 
+         t('pricing.plans.pro.f3'),
+         t('pricing.plans.pro.f4')
+      ],
+      cta: t('pricing.getPro'),
+      primary: true,
+      popular: t('pricing.mostPopular')
+   },
+   {
+      name: t('pricing.plans.enterprise.name'),
+      tagline: t('pricing.plans.enterprise.tagline'),
+      desc: t('pricing.plans.enterprise.desc'),
+      price: t('pricing.custom'),
+      period: "",
+      features: [t('pricing.plans.enterprise.f1'), t('pricing.plans.enterprise.f2'), t('pricing.plans.enterprise.f3')],
+      cta: t('pricing.contactSales'),
+      primary: false
+   }
 ];
 ---
 
+<section id="pricing" class="relative py-20 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center bg-base-100/50">
+   <div class="max-w-7xl mx-auto w-full relative z-10">
+      <div class="text-center mb-20 lg:mb-32">
+         <div class="mb-4 flex justify-center">
+            <LuxurySectionLabel text={t('pricing.selectScale')} />
+         </div>
+         <h2 class="text-5xl md:text-7xl lg:text-9xl font-normal font-serif text-base-content tracking-tighter leading-none">{t('pricing.title')}</h2>
+      </div>
 
+      <!-- Desktop: Perspective Gallery -->
+      <div class="hidden lg:block relative h-[720px]">
+         <div class="c-pricing-luxury__stage" data-active="1">
+            <div class="c-pricing-luxury__track">
+               {plans.map((p, i) => (
+                  <article class="c-pricing-luxury__card" data-index={i}>
+                     <div class="c-pricing-luxury__card-inner js-spotlight" data-popular={p.popular}>
+                        
+                        {/* Popular Badge */}
+                        {p.popular && (
+                           <div class="absolute -top-px left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                              <div class="px-6 py-2 bg-accent text-base-100 text-[9px] font-black uppercase tracking-[0.4em] rounded-b-xl shadow-lg shadow-accent/20">
+                                 {t('pricing.mostPopular')}
+                              </div>
+                           </div>
+                        )}
 
-<section class="pricing-v4-section relative py-32 lg:py-48 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center bg-base-100">
-  <!-- Ambient Background -->
-  <div class="absolute inset-0 pointer-events-none overflow-hidden">
-     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[150vw] h-[80vh] bg-gradient-to-b from-accent/5 to-transparent blur-3xl"></div>
-     <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-base-100 to-transparent"></div>
-  </div>
+                        {/* Card Content */}
+                        <div class="relative z-10 flex-1 flex flex-col h-full pointer-events-none">
+                           <div class="mb-10">
+                              <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-6 flex items-center gap-2">
+                                 {p.name}
+                                 {p.popular && <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>}
+                              </h3>
+                              <div class="flex items-baseline gap-1 mb-4">
+                                 <span class="text-5xl lg:text-7xl font-light font-serif text-base-content tracking-tighter">{p.price}</span>
+                                 <span class="text-sm text-base-content/40 font-bold tracking-widest uppercase">{p.period}</span>
+                              </div>
+                              <p class="text-sm text-base-content/60 leading-relaxed max-w-[90%] font-light">{p.desc}</p>
+                           </div>
 
-  <div class="max-w-7xl mx-auto w-full relative z-10">
-    <!-- Header -->
-    <div class="text-center mb-20 lg:mb-32">
-       <div class="inline-flex items-center gap-4 mb-8">
-          <div class="w-12 h-px bg-accent/40"></div>
-          <span class="text-[10px] font-black uppercase tracking-[0.6em] text-accent">{t('pricing.selectScale')}</span>
-          <div class="w-12 h-px bg-accent/40"></div>
-       </div>
-       <h2 class="text-5xl md:text-7xl lg:text-9xl font-normal font-serif text-base-content tracking-tighter leading-none">{t('pricing.title')}</h2>
-    </div>
+                           <div class="w-full h-px bg-gradient-to-r from-transparent via-base-content/10 to-transparent mb-10"></div>
 
-    <!-- Scroll Anchor Wrapper (Content has ID so it has height for Observer) -->
-    <div id="pricing" class="scroll-mt-24">
-       <!-- Desktop: Perspective Gallery -->
-       <div class="hidden lg:block relative">
-          <div class="c-pricing-luxury__stage" data-active="1">
-             <div class="c-pricing-luxury__track">
-                {plans.map((p, i) => (
-                   <article class="c-pricing-luxury__card" data-index={i}>
-                      <div class="c-pricing-luxury__card-inner js-spotlight" data-popular={p.popular}>
-                         <!-- Glass Shimmer -->
-                         <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-60 pointer-events-none rounded-3xl"></div>
-                         
-                         <!-- Popular Badge -->
-                         {p.popular && (
-                            <div class="absolute -top-px left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-                               <div class="px-8 py-3 bg-accent text-base-100 text-[9px] font-black uppercase tracking-[0.4em] rounded-b-2xl shadow-2xl">
-                                  {t('pricing.mostPopular')}
-                               </div>
-                            </div>
-                         )}
+                           <ul class="space-y-5 mb-auto">
+                              {p.features.map(f => (
+                                 <li class="flex items-start gap-4 text-sm text-base-content/80 group">
+                                    <div class="mt-0.5 w-4 h-4 rounded-full bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                                       <svg class="w-2.5 h-2.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                       </svg>
+                                    </div>
+                                    <span class="font-medium tracking-wide">{f}</span>
+                                 </li>
+                              ))}
+                           </ul>
 
-                         <div class="relative z-10 flex-1 flex flex-col h-full pointer-events-none">
-                            <!-- Tier Header -->
-                            <div class="mb-10">
-                               <h3 class="text-[11px] font-black uppercase tracking-[0.5em] text-accent mb-6">{p.name}</h3>
-                               <div class="flex items-baseline gap-3">
-                                  <span class="text-base-content/20 text-4xl font-black">$</span>
-                                  <span class="text-7xl font-black text-base-content tracking-tighter">{p.price}</span>
-                               </div>
-                               <p class="text-sm text-base-content/30 font-bold mt-3">{p.period}</p>
-                            </div>
+                           <div class="pt-8 mt-auto pointer-events-auto">
+                              <LuxuryButton 
+                                 href="#" 
+                                 variant={p.primary ? "primary" : "secondary"} 
+                                 class="w-full"
+                              >
+                                 {p.cta}
+                              </LuxuryButton>
+                           </div>
+                        </div>
+                     </div>
+                  </article>
+               ))}
+            </div>
 
-                            <!-- Description -->
-                            <p class="text-lg text-base-content/40 font-medium leading-relaxed mb-10">{p.desc}</p>
+            {/* Click zones */}
+            <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--left" data-nav="prev" aria-label={t('pricing.prevPlan')}></button>
+            <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--right" data-nav="next" aria-label={t('pricing.nextPlan')}></button>
+         </div>
 
-                            <!-- Features -->
-                            <ul class="space-y-4 flex-1">
-                               {p.features.map(f => (
-                                  <li class="flex items-center gap-4 text-sm font-semibold text-base-content/50">
-                                     <div class="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
-                                     {f}
-                                  </li>
-                               ))}
-                            </ul>
+         {/* Navigation Dots */}
+         <div class="flex items-center justify-center gap-4 mt-12">
+            {plans.map((p, i) => (
+               <button 
+                 class:list={["c-pricing-luxury__dot", i === 1 ? "active" : ""]}
+                 data-target={i}
+                 aria-label={t('pricing.viewPlan').replace('{plan}', p.name)}
+               ></button>
+            ))}
+         </div>
+      </div>
 
-                            <!-- CTA - Fixed at bottom -->
-                            <div class="pt-8 mt-auto pointer-events-auto">
-                               <button class:list={[
-                                  "w-full py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] shadow-xl transition-luxury hover:scale-105 active:scale-95",
-                                  p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content hover:bg-base-content hover:text-base-100"
-                               ]}>
-                                  {p.cta}
-                               </button>
-                            </div>
-                         </div>
+      <!-- Mobile: Tab View (Simplified) -->
+      <div class="lg:hidden">
+         <div class="flex justify-center mb-8">
+            <div class="inline-flex p-1 bg-base-content/5 rounded-xl">
+               {plans.map((plan, i) => (
+                  <button 
+                     class:list={[
+                        "c-pricing-luxury__mobile-tab px-6 py-2.5 rounded-lg text-xs font-bold transition-all duration-300",
+                        i === 1 ? "active" : ""
+                     ]}
+                     data-step={i}
+                  >
+                     {plan.name}
+                  </button>
+               ))}
+            </div>
+         </div>
 
-                         <!-- Accent Glow -->
-                         {p.popular && <div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-accent/20 blur-[100px] rounded-full pointer-events-none"></div>}
-                      </div>
-                   </article>
-                ))}
-             </div>
+         <div class="relative min-h-[500px]">
+            {plans.map((p, i) => (
+               <div 
+                  class:list={[
+                     "c-pricing-luxury__mobile-card absolute inset-0 w-full transition-all duration-500",
+                     i === 1 ? "active" : ""
+                  ]}
+                  data-card={i}
+               >
+                  <div class:list={[
+                     "h-full p-8 rounded-3xl border bg-base-100/50 backdrop-blur-xl flex flex-col",
+                     p.primary ? "border-accent/30 shadow-xl" : "border-base-content/10"
+                  ]}>
+                     <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-6 flex items-center gap-2">
+                        {p.name}
+                        {p.popular && <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>}
+                     </h3>
+                     <div class="flex items-baseline gap-1 mb-4">
+                        <span class="text-5xl font-light font-serif text-base-content">{p.price}</span>
+                        <span class="text-sm text-base-content/40 font-bold tracking-widest uppercase">{p.period}</span>
+                     </div>
+                     <p class="text-sm text-base-content/60 mb-8 leading-relaxed font-light">{p.desc}</p>
+                     
+                     <div class="w-full h-px bg-gradient-to-r from-transparent via-base-content/10 to-transparent mb-8"></div>
 
-             <!-- Click zones for left/right navigation -->
-             <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--left" data-nav="prev" aria-label={t('pricing.prevPlan')}></button>
-             <button class="c-pricing-luxury__nav-zone c-pricing-luxury__nav-zone--right" data-nav="next" aria-label={t('pricing.nextPlan')}></button>
-          </div>
+                     <ul class="space-y-5 mb-auto">
+                        {p.features.map(f => (
+                           <li class="flex items-start gap-3 text-sm text-base-content/80">
+                              <div class="mt-0.5 w-4 h-4 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                                 <svg class="w-2.5 h-2.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                 </svg>
+                              </div>
+                              <span class="font-medium tracking-wide">{f}</span>
+                           </li>
+                        ))}
+                     </ul>
 
-          <!-- Navigation Dots -->
-          <div class="flex items-center justify-center gap-4 mt-16">
-             {plans.map((p, i) => (
-                <button 
-                  class:list={["c-pricing-luxury__dot", i === 1 ? "active" : ""]}
-                  data-target={i}
-                  aria-label={t('pricing.viewPlan').replace('{plan}', p.name)}
-                ></button>
-             ))}
-          </div>
-       </div>
-
-       <!-- Mobile: Tab Navigation -->
-       <div class="lg:hidden">
-          <!-- Tab Bar -->
-          <div class="flex rounded-2xl bg-base-content/[0.03] border border-base-content/10 p-1.5 mb-6">
-             {plans.map((p, idx) => (
-                <button 
-                  class:list={["c-pricing-luxury__mobile-tab flex-1 py-3 rounded-xl text-center transition-all", idx === 1 ? "active" : ""]}
-                  data-step={idx}
-                >
-                   <span class="text-[10px] font-black uppercase tracking-wider">{p.name}</span>
-                </button>
-             ))}
-          </div>
-
-          <!-- Card Container -->
-          <div class="mobile-focus-container grid grid-cols-1 min-h-[520px]">
-             {plans.map((p, idx) => (
-                <div 
-                  class:list={["c-pricing-luxury__mobile-card col-start-1 row-start-1 w-full", idx === 1 ? "active" : ""]}
-                  data-card={idx}
-                >
-                   <div class:list={[
-                      "h-full flex flex-col px-8 pt-8 pb-12 rounded-3xl border backdrop-blur-xl",
-                      p.popular ? "bg-base-content/[0.04] border-accent/30" : "bg-base-content/[0.02] border-base-content/10"
-                   ]}>
-                      {p.popular && (
-                         <div class="self-center px-4 py-1.5 bg-accent text-base-100 text-[8px] font-black uppercase tracking-[0.2em] rounded-full mb-4">
-                            {t('pricing.recommended')}
-                         </div>
-                      )}
-
-                      <div class="text-center mb-6">
-                         <div class="flex items-baseline justify-center gap-1 mb-1">
-                            <span class="text-base-content/20 text-2xl font-black">$</span>
-                            <span class="text-6xl font-black text-base-content tracking-tighter">{p.price}</span>
-                         </div>
-                         <p class="text-xs text-base-content/30 font-medium">{p.period}</p>
-                      </div>
-
-                      <p class="text-sm text-base-content/40 text-center font-medium leading-relaxed mb-6">{p.desc}</p>
-
-                      <div class="flex-1 space-y-3">
-                         {p.features.map(f => (
-                            <div class="flex items-center gap-3 text-sm font-medium text-base-content/50">
-                               <div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                                  <svg class="w-3 h-3 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                  </svg>
-                               </div>
-                               {f}
-                            </div>
-                         ))}
-                      </div>
-
-                      <div class="pt-6">
-                         <button class:list={[
-                            "w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.3em]",
-                            p.popular ? "bg-accent text-base-100" : "bg-base-content/5 text-base-content"
-                         ]}>
-                            {p.cta}
-                         </button>
-                      </div>
-                   </div>
-                </div>
-             ))}
-          </div>
-       </div>
-    </div>
-  </div>
+                     <div class="mt-8">
+                        <LuxuryButton href="#" variant={p.primary ? "primary" : "secondary"} class="w-full">
+                           {p.cta}
+                        </LuxuryButton>
+                     </div>
+                  </div>
+               </div>
+            ))}
+         </div>
+      </div>
+   </div>
 </section>
 
 <script>
@@ -228,6 +226,7 @@ const plans = [
     const signal = pricingV4Controller.signal;
 
     const stage = document.querySelector('.c-pricing-luxury__stage') as HTMLElement;
+    const cards = document.querySelectorAll('.c-pricing-luxury__card');
     const dots = document.querySelectorAll('.c-pricing-luxury__dot');
     const navZones = document.querySelectorAll('.c-pricing-luxury__nav-zone');
 
@@ -258,6 +257,14 @@ const plans = [
       tabBtns.forEach((btn, i) => btn.classList.toggle('active', i === index));
       focusCards.forEach((card, i) => card.classList.toggle('active', i === index));
     }
+
+    // Card Clicks (Desktop)
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const index = Number(card.getAttribute('data-index'));
+        setActive(index);
+      }, { signal });
+    });
 
     // Navigation zone clicks
     navZones.forEach((zone) => {

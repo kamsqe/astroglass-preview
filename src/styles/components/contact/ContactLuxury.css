@@ -4,74 +4,98 @@
 /*                                CARD & LAYOUT                               */
 /* -------------------------------------------------------------------------- */
 
-.contact-v4-card {
-  animation: contact-float 6s ease-in-out infinite;
-  transform: translateZ(0);
-}
 
-@keyframes contact-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-v4-card { animation: none; }
-}
 
 /* -------------------------------------------------------------------------- */
 /*                               FORM ELEMENTS                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v4-field {
+/* -------------------------------------------------------------------------- */
+/*                               FORM ELEMENTS                                */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                               FORM ELEMENTS                                */
+/* -------------------------------------------------------------------------- */
+
+.contact-luxury-form .input-group {
   position: relative;
+  /* 2.5rem (40px) total space: 8px visual gap + 32px for footer content (2 lines) */
+  padding-bottom: 2.5rem; 
+  margin-bottom: 0.5rem; /* Gap between groups */
 }
 
-.contact-v4-form input:focus,
-.contact-v4-form textarea:focus,
-.contact-v4-form select:focus {
-  box-shadow: 0 0 0 3px hsl(var(--a) / 0.08);
-  background: hsl(var(--bc) / 0.05);
+/* Strict Spacing Tokens */
+.contact-luxury-form label {
+  display: block;
+  margin-bottom: 0.5rem; /* 8px Label -> Input */
+}
+
+.contact-luxury-form .field-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 2rem; /* Fixed height for 2 lines of text */
+  font-size: 0.75rem;
+  line-height: 1.3; /* Tighter leading for multi-line */
+  color: hsl(var(--bc) / 0.6);
+  white-space: normal; /* Allow wrapping */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+/* Error State in Footer */
+.field-footer.has-error {
+  color: hsl(var(--er));
+}
+
+.input-error {
+  border-color: hsl(var(--er) / 0.5) !important;
+  /* Removed shake animation from input to reduce noise, kept on form submit/error */
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.contact-luxury-form input:focus,
+.contact-luxury-form textarea:focus,
+.contact-luxury-form select:focus {
+  box-shadow: 0 0 0 1px hsl(var(--a) / 0.1);
+  background: hsl(var(--bc) / 0.02);
+  border-color: hsl(var(--a) / 0.5);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 STATES                                     */
+/* -------------------------------------------------------------------------- */
+
+
+
+/* Readonly / Submitting */
+.state-readonly {
+  opacity: 0.8;
+  pointer-events: none;
+  filter: grayscale(0.5);
 }
 
 /* -------------------------------------------------------------------------- */
 /*                               SUBMIT BUTTON                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v4-submit {
-  position: relative;
-  overflow: hidden;
-}
 
-.contact-v4-submit::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left var(--duration-luxury-slow);
-}
-
-.contact-v4-submit:hover::after {
-  left: 100%;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                               SUCCESS STATE                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v4-success {
-  animation: contact-success-pop var(--duration-luxury-medium) var(--ease-luxury);
-}
-
-@keyframes contact-success-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+/* Premium Restraint: No animations, just typography and opacity transitions handled by JS */
+/* .contact-luxury-success styles are handled via utility classes in markup */

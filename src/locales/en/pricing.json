@@ -1,6 +1,12 @@
 {
   "title": "Transparent Pricing",
   "subtitle": "Choose the perfect plan for your project's scale.",
+  "backgroundTitle": "Pricing",
+  "plansForEveryStage": "Plans for every stage",
+  "startBuidling": "Start Building",
+  "getPro": "Get Pro",
+  "contactSales": "Contact Sales",
+  "custom": "Custom",
   "monthly": "Monthly",
   "yearly": "Yearly",
   "save": "Save 20%",
@@ -56,21 +62,34 @@
   },
   "plans": {
     "starter": {
+      "name": "Starter",
       "tagline": "Begin Your Journey",
       "desc": "Everything you need to start experimenting with powerful tools at zero cost.",
-      "cta": "Start Free"
+      "cta": "Start Free",
+      "f1": "Free projects",
+      "f2": "Community support",
+      "f3": "Basic analytics"
     },
     "pro": {
+      "name": "Pro",
       "tagline": "Scale With Confidence",
       "desc": "Unlock advanced features and priority support for growing teams and serious creators.",
       "descV2": "Scaling creators and digital studios.",
-      "cta": "Go Pro"
+      "cta": "Go Pro",
+      "f1": "Unlimited projects",
+      "f2": "Priority support",
+      "f3": "Custom themes",
+      "f4": "Advanced analytics"
     },
     "enterprise": {
+      "name": "Enterprise",
       "tagline": "Unlimited Power",
       "desc": "Enterprise-grade infrastructure with dedicated support and custom solutions for your organization.",
       "descV2": "High-performance enterprise solutions.",
-      "cta": "Contact Sales"
+      "cta": "Contact Sales",
+      "f1": "Dedicated nodes",
+      "f2": "99.9% SLA",
+      "f3": "Security audit"
     }
   }
 }

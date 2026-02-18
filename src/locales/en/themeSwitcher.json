@@ -16,6 +16,7 @@
     "evergreen": "Evergreen",
     "rose": "Rosé",
     "aquatica": "Aquatica",
-    "monochrome": "Mono"
+    "monochrome": "Mono",
+    "default": "Default"
   }
 }

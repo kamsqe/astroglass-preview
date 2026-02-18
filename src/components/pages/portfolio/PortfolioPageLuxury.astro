@@ -14,6 +14,9 @@
 import '../../../styles/components/portfolio/PortfolioPageLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
+import LuxuryCard from '../../ui/luxury/LuxuryCard.astro';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -145,15 +148,11 @@ const i18nLabels = {
   <div class="c-portfolio-page-luxury__hero-glow"></div>
 
   <div class="relative z-10 w-full max-w-5xl mx-auto text-center px-4">
-    <!-- Diamond divider -->
-    <div class="c-portfolio-page-luxury__diamond-line mb-8">
-      <span class="text-accent/60 text-sm">◆</span>
-    </div>
+
 
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 border border-accent/20 text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-8 rounded-full">
-      <span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
-      {t('portfolio.caseStudies')}
+    <div class="flex justify-center mb-8">
+      <LuxurySectionLabel text={t('portfolio.caseStudies')} />
     </div>
 
     <!-- Title — serif luxury font -->
@@ -196,8 +195,8 @@ const i18nLabels = {
 <section class="relative pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6" id="pp-luxury-projects">
   <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
     {projects.map((p, i) => (
-      <div
-        class="c-portfolio-page-luxury__card"
+      <LuxuryCard
+        class="group c-portfolio-page-luxury__card"
         data-category={p.category}
         data-project-id={p.id}
         data-project-title={p.title}
@@ -207,17 +206,16 @@ const i18nLabels = {
         data-project-tech={p.techStack.join(',')}
         data-project-metric={p.metric}
         data-project-metric-label={p.metricLabel}
+        spotlight={true}
+        hover={true}
       >
         <!-- Background gradient hover -->
         <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-700 pointer-events-none`}></div>
 
-        <!-- Large number watermark -->
+        <!-- Large number watermar -->
         <div class="absolute -bottom-6 -right-2 text-[120px] sm:text-[160px] font-black text-base-content/[0.03] leading-none select-none pointer-events-none">
           {p.num}
         </div>
-
-        <!-- Ring inset -->
-        <div class="absolute inset-0 rounded-[1.25rem] ring-1 ring-white/5 ring-inset pointer-events-none"></div>
 
         <!-- Card main content -->
         <div class="relative z-10 p-5 sm:p-6 lg:p-8 min-h-[260px] sm:min-h-[280px] flex flex-col">
@@ -258,10 +256,7 @@ const i18nLabels = {
             </button>
           </div>
         </div>
-
-        <!-- Hover border glow -->
-        <div class="absolute inset-0 rounded-[1.25rem] border-2 border-transparent hover:border-accent/15 transition-colors duration-500 pointer-events-none"></div>
-      </div>
+      </LuxuryCard>
     ))}
   </div>
 </section>
@@ -300,17 +295,15 @@ const i18nLabels = {
     </p>
 
     <div class="flex flex-col items-center gap-6">
-      <a href={`${luxuryBase}#contact`} class="group px-12 py-4 bg-base-content text-base-100 font-bold rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all duration-500">
-        <span class="text-sm tracking-[0.15em] uppercase">
-          {t('portfolioPage.startProject')}
-        </span>
-      </a>
-      <a href={luxuryBase} class="inline-flex items-center gap-2 text-base-content/35 font-light text-sm hover:text-accent transition-colors duration-300">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
-        </svg>
+    <div class="flex flex-col items-center gap-6">
+      <LuxuryButton href={`${luxuryBase}#contact`} variant="primary" class="shadow-xl px-12 py-4">
+        {t('portfolioPage.startProject')}
+      </LuxuryButton>
+      
+      <LuxuryButton href={luxuryBase} variant="text" icon={true} class="text-base-content/35 hover:text-accent font-light">
         {t('portfolioPage.backToHome')}
-      </a>
+      </LuxuryButton>
+    </div>
     </div>
   </div>
 </section>

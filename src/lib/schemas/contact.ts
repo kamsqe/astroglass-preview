@@ -35,6 +35,7 @@ export const createContactSchema = (t: (key: string) => string, options: SchemaO
       : optional(string()),
       
     topic: optional(string()),
+    scale: optional(string()),
   });
 };
 

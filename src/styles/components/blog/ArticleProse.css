@@ -111,6 +111,12 @@
   margin-bottom: 0;
 }
 
+/* Code Blocks (Expressive Code) */
+.article-prose .expressive-code {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 /* Inline code */
 .article-prose :not(pre) > code {
   padding: 0.15rem 0.45rem;

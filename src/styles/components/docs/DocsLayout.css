@@ -102,6 +102,11 @@
   }
 }
 
+/* Expressive Code Blocks */
+.c-docs-layout__prose .expressive-code {
+  margin: 1.5rem 0;
+}
+
 /* Blockquotes */
 .c-docs-layout__prose blockquote:not(.not-prose) { 
   border-left: 4px solid hsl(var(--a)); 

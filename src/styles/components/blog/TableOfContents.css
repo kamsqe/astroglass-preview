@@ -5,6 +5,7 @@
 .toc {
   font-size: 0.8125rem;
   line-height: 1.5;
+  margin-bottom: 2rem;
 }
 
 /* Mobile: collapsible accordion */
@@ -96,9 +97,11 @@
   .toc {
     position: sticky;
     top: calc(var(--nav-offset, 0px) + 2rem);
+    margin-bottom: 0;
   }
 
   .toc__heading {
+    display: block;
     font-size: 0.6875rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -106,4 +109,8 @@
     color: hsl(var(--bc) / 0.35);
     margin-bottom: 0.75rem;
   }
+}
+
+.toc__heading {
+  display: none;
 }

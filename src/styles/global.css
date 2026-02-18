@@ -49,14 +49,20 @@ body {
 }
 
 /* Fixed/Absolute headers need offset to prevent overlap */
-[data-header="2"], [data-header="3"], [data-header="5"], [data-header="6"] {
+/* Mobile: Sticky headers (v3) don't need large offset, but Fixed (v2, v5, v6) do */
+[data-header="2"], [data-header="5"], [data-header="6"] {
   --nav-offset: 96px;
+}
+
+[data-header="3"] {
+  --nav-offset: 0px;
 }
 
 @media (min-width: 1024px) {
   :root {
     --header-height: var(--header-height-lg);
   }
+  /* Desktop: Fixed headers need offset */
   [data-header="2"], [data-header="3"], [data-header="5"], [data-header="6"] {
     --nav-offset: 100px;
   }

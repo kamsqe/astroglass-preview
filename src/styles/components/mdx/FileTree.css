@@ -1,5 +1,9 @@
 /* FileTree.css */
 
+.c-file-tree {
+  margin: 1.5rem 0;
+}
+
 .c-file-tree__list ul {
   list-style: none;
   padding: 0;

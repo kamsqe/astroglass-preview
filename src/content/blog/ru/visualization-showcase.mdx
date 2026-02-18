@@ -23,7 +23,7 @@ import { Tracker } from '../../../components/ui/charts/Tracker';
 Полный обзор дашборда с карточками KPI, градиентными диаграммами областей и светящимися круговыми диаграммами. Обратите внимание, как цвета адаптируются к вашей активной теме (попробуйте переключиться на "Neo" или "Sunset"!).
 
 <div className="my-10 not-prose overflow-x-auto pb-4 max-w-full">
-  <div className="rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] backdrop-blur-xl p-2 sm:p-4 md:p-8 shadow-2xl ring-1 ring-[hsl(var(--bc)/0.05)]">
+  <div className="rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] backdrop-blur-xl p-2 sm:p-4 md:p-8 ring-1 ring-[hsl(var(--bc)/0.05)]">
     <AnalyticsDashboard client:load />
   </div>
 </div>
@@ -36,7 +36,7 @@ import { useTranslations } from '../../../utils/i18n';
 export const t = useTranslations('ru');
 
 <div className="my-10 grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
-  <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)]">
+  <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)] shadow-none">
     <CardHeader>
       <CardTitle>{t('blog.dashboard.topPages')}</CardTitle>
     </CardHeader>
@@ -58,7 +58,7 @@ export const t = useTranslations('ru');
     </CardContent>
   </Card>
 
-  <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)]">
+  <Card variant="glass" className="border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b2)/0.3)] shadow-none">
     <CardHeader>
       <CardTitle>{t('blog.dashboard.systemUptime')}</CardTitle>
       <p className="text-[hsl(var(--bc)/0.6)] text-sm">{t('blog.dashboard.apiAvailability')}</p>

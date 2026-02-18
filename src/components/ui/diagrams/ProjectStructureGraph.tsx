@@ -73,7 +73,7 @@ const Flow = () => {
   );
 
   return (
-    <div className="h-[400px] sm:h-[500px] w-full rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] shadow-2xl overflow-hidden backdrop-blur-md relative">
+    <div className="h-[400px] sm:h-[500px] w-full rounded-2xl border border-[hsl(var(--bc)/0.1)] bg-[hsl(var(--b1)/0.5)] overflow-hidden backdrop-blur-md relative">
       <ReactFlow
         nodes={nodes}
         edges={edges}

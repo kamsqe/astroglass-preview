@@ -157,10 +157,10 @@ const plans = [
           </div>
 
           <!-- Card Container -->
-          <div class="mobile-focus-container relative min-h-[520px]">
+          <div class="mobile-focus-container grid grid-cols-1 min-h-[520px]">
              {plans.map((p, idx) => (
                 <div 
-                  class:list={["c-pricing-luxury__mobile-card absolute inset-0", idx === 1 ? "active" : ""]}
+                  class:list={["c-pricing-luxury__mobile-card col-start-1 row-start-1 w-full", idx === 1 ? "active" : ""]}
                   data-card={idx}
                 >
                    <div class:list={[

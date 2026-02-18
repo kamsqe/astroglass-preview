@@ -32,7 +32,7 @@ const t = useTranslations(locale);
 const navLinks = buildNavLinks(locale, t);
 ---
 
-<header class:list={['header-glass sticky top-0 z-50', className]}>
+<header id="main-header" class:list={['header-glass sticky top-0 z-50', className]}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-18">
       <!-- Logo -->
@@ -72,6 +72,8 @@ const navLinks = buildNavLinks(locale, t);
     function closeMenu() {
       nav.classList.remove('is-open');
       btn.classList.remove('is-active');
+      const header = document.getElementById('main-header');
+      if (header) header.classList.remove('is-menu-open');
       document.body.style.overflow = '';
       nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
       nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
@@ -80,6 +82,8 @@ const navLinks = buildNavLinks(locale, t);
     function openMenu() {
       nav.classList.add('is-open');
       btn.classList.add('is-active');
+      const header = document.getElementById('main-header');
+      if (header) header.classList.add('is-menu-open');
       document.body.style.overflow = 'hidden';
     }
 
@@ -147,6 +151,8 @@ const navLinks = buildNavLinks(locale, t);
         nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
         nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
         btn?.classList.remove('is-active');
+        const header = document.getElementById('main-header');
+        if (header) header.classList.remove('is-menu-open');
         document.body.style.overflow = '';
         btn?.focus();
       }
@@ -167,6 +173,8 @@ const navLinks = buildNavLinks(locale, t);
           nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
           nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
           btn?.classList.remove('is-active');
+          const header = document.getElementById('main-header');
+          if (header) header.classList.remove('is-menu-open');
           document.body.style.overflow = '';
         }
       }, 100);

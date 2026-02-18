@@ -69,7 +69,7 @@ import '../../../styles/components/header/HeaderNeo.css';
 </div>
 
 <!-- Mobile Header (Liquid-style sticky bar) -->
-<header class="header-liquid sticky top-0 z-50 lg:hidden">
+<header id="mobile-header-default" class="header-liquid sticky top-0 z-50 lg:hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between h-16">
       <Logo />
@@ -267,6 +267,8 @@ import '../../../styles/components/header/HeaderNeo.css';
     function closeMenu() {
       nav.classList.remove('is-open');
       btn.classList.remove('is-active');
+      const header = document.getElementById('mobile-header-default');
+      if (header) header.classList.remove('is-menu-open');
       document.body.style.overflow = '';
       nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
       nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
@@ -275,6 +277,8 @@ import '../../../styles/components/header/HeaderNeo.css';
     function openMenu() {
       nav.classList.add('is-open');
       btn.classList.add('is-active');
+      const header = document.getElementById('mobile-header-default');
+      if (header) header.classList.add('is-menu-open');
       document.body.style.overflow = 'hidden';
     }
 
@@ -342,6 +346,8 @@ import '../../../styles/components/header/HeaderNeo.css';
         nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
         nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
         btn?.classList.remove('is-active');
+        const header = document.getElementById('mobile-header-default');
+        if (header) header.classList.remove('is-menu-open');
         document.body.style.overflow = '';
         btn?.focus();
       }
@@ -362,6 +368,8 @@ import '../../../styles/components/header/HeaderNeo.css';
           nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
           nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
           btn?.classList.remove('is-active');
+          const header = document.getElementById('mobile-header-default');
+          if (header) header.classList.remove('is-menu-open');
           document.body.style.overflow = '';
         }
       }, 100);

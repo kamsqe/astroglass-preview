@@ -156,7 +156,7 @@ const i18nLabels = {
     </div>
 
     <!-- Title — serif luxury font -->
-    <h1 class="text-5xl sm:text-7xl md:text-8xl xl:text-[9rem] font-serif font-light text-base-content mb-6 tracking-tight leading-[0.95]">
+    <h1 class="text-5xl sm:text-7xl md:text-8xl xl:text-[9rem] font-serif font-normal text-base-content mb-6 tracking-tight leading-[0.95]">
       {t('portfolioPage.pageTitle')}
     </h1>
 
@@ -287,7 +287,7 @@ const i18nLabels = {
       <span class="text-accent/50 text-sm">◆</span>
     </div>
 
-    <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif font-light text-base-content mb-4 tracking-tight">
+    <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif font-normal text-base-content mb-4 tracking-tight">
       {t('portfolioPage.startProject')}
     </h2>
     <p class="text-base-content/40 text-lg mb-10 font-light">
@@ -320,14 +320,18 @@ const i18nLabels = {
 <!-- CLIENT SCRIPTS                              -->
 <!-- ═══════════════════════════════════════════ -->
 <script>
-  function initPortfolioPageLuxury() {
-    var modal = document.getElementById('pp-luxury-modal');
-    var modalContent = document.getElementById('pp-luxury-modal-content');
-    var modalClose = document.getElementById('pp-luxury-modal-close');
-    var i18nEl = document.getElementById('pp-luxury-i18n');
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
+  import { initCategoryFilter } from '../../../utils/portfolio';
+
+  registerAstroPage(() => {
+    const modal = document.getElementById('pp-luxury-modal') as HTMLElement | null;
+    const modalContent = document.getElementById('pp-luxury-modal-content') as HTMLElement | null;
+    const modalClose = document.getElementById('pp-luxury-modal-close') as HTMLElement | null;
+    const i18nEl = document.getElementById('pp-luxury-i18n');
     if (!modal || !modalContent || !i18nEl) return;
 
-    var labels = {
+    const labels = {
       challenge: i18nEl.getAttribute('data-challenge') || 'The Challenge',
       solution: i18nEl.getAttribute('data-solution') || 'The Solution',
       impact: i18nEl.getAttribute('data-impact') || 'The Impact',
@@ -335,35 +339,35 @@ const i18nLabels = {
     };
 
     function closeModal() {
-      modal.classList.remove('is-open');
+      modal!.classList.remove('is-open');
       document.body.style.overflow = '';
-      document.querySelectorAll('.c-portfolio-page-luxury__card.is-detail-active').forEach(function(c) {
+      document.querySelectorAll('.c-portfolio-page-luxury__card.is-detail-active').forEach((c) => {
         c.classList.remove('is-detail-active');
       });
     }
 
-    function openModal(card) {
-      var title = card.getAttribute('data-project-title') || '';
-      var challenge = card.getAttribute('data-project-challenge') || '';
-      var solution = card.getAttribute('data-project-solution') || '';
-      var impact = card.getAttribute('data-project-impact') || '';
-      var metricVal = card.getAttribute('data-project-metric') || '';
-      var metricLbl = card.getAttribute('data-project-metric-label') || '';
-      var techStr = card.getAttribute('data-project-tech') || '';
-      var techArr = techStr ? techStr.split(',') : [];
+    function openModal(card: Element) {
+      const title = card.getAttribute('data-project-title') || '';
+      const challenge = card.getAttribute('data-project-challenge') || '';
+      const solution = card.getAttribute('data-project-solution') || '';
+      const impact = card.getAttribute('data-project-impact') || '';
+      const metricVal = card.getAttribute('data-project-metric') || '';
+      const metricLbl = card.getAttribute('data-project-metric-label') || '';
+      const techStr = card.getAttribute('data-project-tech') || '';
+      const techArr = techStr ? techStr.split(',') : [];
 
-      var techHtml = techArr.map(function(t) {
-        return '<span class="c-portfolio-page-luxury__tech-pill">' + t.trim() + '</span>';
-      }).join('');
+      const techHtml = techArr.map((t) =>
+        '<span class="c-portfolio-page-luxury__tech-pill">' + t.trim() + '</span>'
+      ).join('');
 
-      var metricBlock = metricVal
+      const metricBlock = metricVal
         ? '<div class="c-portfolio-page-luxury__modal-metric mb-6">' +
             '<span class="c-portfolio-page-luxury__modal-metric-value">' + metricVal + '</span>' +
             '<span class="c-portfolio-page-luxury__modal-metric-label">' + metricLbl + '</span>' +
           '</div>'
         : '';
 
-      modalContent.innerHTML =
+      modalContent!.innerHTML =
         '<h3 class="text-2xl sm:text-3xl font-serif font-light text-base-content mb-4 pr-10 tracking-tight">' + title + '</h3>' +
         metricBlock +
         '<div class="c-portfolio-page-luxury__narrative mb-5">' +
@@ -386,102 +390,47 @@ const i18nLabels = {
         '</div>';
 
       // Mark active card
-      document.querySelectorAll('.c-portfolio-page-luxury__card.is-detail-active').forEach(function(c) {
+      document.querySelectorAll('.c-portfolio-page-luxury__card.is-detail-active').forEach((c) => {
         c.classList.remove('is-detail-active');
       });
       card.classList.add('is-detail-active');
 
-      modal.classList.add('is-open');
+      modal!.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
 
     // Close handlers
     if (modalClose) modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal!.classList.contains('is-open')) closeModal();
     });
 
-    // ── Card "View Details" button click ──
-    document.querySelectorAll('[data-toggle-luxury]').forEach(function(btn) {
-      var newBtn = btn.cloneNode(true);
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', function(e) {
+    // Card "View Details" button click
+    document.querySelectorAll<HTMLElement>('[data-toggle-luxury]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        var card = newBtn.closest('.c-portfolio-page-luxury__card');
+        const card = btn.closest('.c-portfolio-page-luxury__card');
         if (card) openModal(card);
       });
     });
 
-    // ── Scroll-based card reveal ──
-    var cards = document.querySelectorAll('.c-portfolio-page-luxury__card');
-    var observer = new IntersectionObserver(
-      function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    cards.forEach(function(card, i) {
-      card.style.transitionDelay = (i * 80) + 'ms';
-      observer.observe(card);
+    // Scroll-based card reveal with stagger
+    initScrollReveal('.c-portfolio-page-luxury__card', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+      staggerMs: 80,
     });
 
-    // ── Category filter ──
-    var filters = document.getElementById('pp-luxury-filters');
-    var projectCards = document.querySelectorAll('.c-portfolio-page-luxury__card');
-
-    if (filters) {
-      filters.querySelectorAll('button').forEach(function(btn) {
-        var newBtn = btn.cloneNode(true);
-        if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-        newBtn.addEventListener('click', function() {
-          // Update active state
-          filters.querySelectorAll('button').forEach(function(b) {
-            b.className = b.className
-              .replace(/border-accent\/30|text-accent|bg-accent\/\[0\.08\]/g, '')
-              .replace(/border-base-content\/8|text-base-content\/35/g, '')
-              .trim();
-            b.classList.add('border-base-content/8', 'text-base-content/35');
-          });
-          newBtn.classList.remove('border-base-content/8', 'text-base-content/35');
-          newBtn.classList.add('border-accent/30', 'text-accent', 'bg-accent/[0.08]');
-
-          var filter = newBtn.getAttribute('data-filter');
-          closeModal();
-
-          projectCards.forEach(function(card) {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px) scale(0.98)';
-          });
-
-          setTimeout(function() {
-            projectCards.forEach(function(card) {
-              var category = card.getAttribute('data-category');
-              if (filter === 'all' || category === filter) {
-                card.style.display = '';
-                requestAnimationFrame(function() {
-                  requestAnimationFrame(function() {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0) scale(1)';
-                  });
-                });
-              } else {
-                card.style.display = 'none';
-              }
-            });
-          }, 300);
-        });
-      });
-    }
-  }
-
-  initPortfolioPageLuxury();
-  document.addEventListener('astro:after-swap', initPortfolioPageLuxury);
+    // Category filter (closes modal on filter change)
+    initCategoryFilter({
+      filtersId: 'pp-luxury-filters',
+      cardSelector: '.c-portfolio-page-luxury__card',
+      activeClasses: ['border-accent/30', 'text-accent', 'bg-accent/[0.08]'],
+      inactiveClasses: ['border-base-content/8', 'text-base-content/35'],
+      twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
+      onFilter: () => closeModal(),
+    });
+  });
 </script>

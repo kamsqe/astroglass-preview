@@ -135,22 +135,25 @@ const projects = [
 </section>
 
 <script>
+  let portfolioAuroraSectionController: AbortController | null = null;
+
   function initPortfolioAurora() {
+    portfolioAuroraSectionController?.abort();
+    portfolioAuroraSectionController = new AbortController();
+    const { signal } = portfolioAuroraSectionController;
+
     const filters = document.getElementById('aurora-portfolio-filters');
     const grid = document.getElementById('aurora-portfolio-grid');
 
     if (!filters || !grid) return;
 
     filters.querySelectorAll('.portfolio-aurora-filter').forEach(btn => {
-      const newBtn = btn.cloneNode(true) as HTMLElement;
-      btn.parentNode?.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', () => {
+      btn.addEventListener('click', () => {
         // Update active state
         filters.querySelectorAll('.portfolio-aurora-filter').forEach(b => b.classList.remove('is-active'));
-        newBtn.classList.add('is-active');
+        btn.classList.add('is-active');
 
-        const filter = newBtn.getAttribute('data-filter');
+        const filter = btn.getAttribute('data-filter');
         
         grid.querySelectorAll('.portfolio-aurora-item').forEach(item => {
           const el = item as HTMLElement;
@@ -164,7 +167,7 @@ const projects = [
             setTimeout(() => { el.style.display = 'none'; }, 300);
           }
         });
-      });
+      }, { signal });
     });
   }
 

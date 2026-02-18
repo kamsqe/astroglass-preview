@@ -11,6 +11,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/faq/FAQNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 
 const categories = [
   {
@@ -86,7 +87,7 @@ const categories = [
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 lg:mb-16">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('nav.resourcesFaq')}</span>
+       <NeoSectionTag label={t('nav.resourcesFaq')} class="mb-4" />
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.findAnswer')}</h2>
        <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
     </div>

@@ -11,6 +11,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/faq/FAQLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
 const categories = [
   {
@@ -66,7 +67,7 @@ const categoriesJson = JSON.stringify(categories);
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 lg:mb-16">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('faq.support')}</span>
+       <LiquidSectionTag label={t('faq.support')} class="mb-4" />
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.title')}</h2>
        <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
     </div>

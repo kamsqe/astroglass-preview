@@ -1,5 +1,6 @@
 ---
 import '../../../styles/components/hero/HeroLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
@@ -27,13 +28,7 @@ const t = useTranslations(locale);
 
   <div class="relative z-10 max-w-5xl mx-auto text-center">
     <!-- Badge with better spacing -->
-    <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-accent/20 bg-accent/[0.05] backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] text-accent mb-8 md:mb-12 animate-fade-in shadow-sm">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-40"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-accent shadow-[0_0_8px_hsl(var(--a))]"></span>
-      </span>
-      {t('hero.liveBadge')}
-    </div>
+    <LiquidSectionTag label={t('hero.liveBadge')} class="mb-8 md:mb-12 animate-fade-in" />
 
     <!-- Headline with responsive scaling -->
     <h1 class="text-5xl sm:text-6xl md:text-8xl xl:text-[11rem] font-black tracking-tighter text-base-content mb-6 md:mb-8 leading-[0.95] md:leading-[0.85] animate-reveal">

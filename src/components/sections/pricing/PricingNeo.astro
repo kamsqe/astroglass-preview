@@ -4,6 +4,7 @@
  * One plan in focus at a time with smooth crossfade transitions.
  */
 import '../../../styles/components/pricing/PricingNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
@@ -61,7 +62,7 @@ const plans = [
   <div class="max-w-7xl mx-auto w-full relative z-10">
     <!-- Header -->
     <div class="text-center mb-16 lg:mb-24">
-       <span class="text-[10px] font-black uppercase tracking-[0.6em] text-accent mb-4 block">{t('pricing.choosePath')}</span>
+       <NeoSectionTag label={t('pricing.choosePath')} class="mb-4" />
        <h2 class="text-5xl md:text-7xl lg:text-8xl font-black text-base-content tracking-tighter leading-none">{t('pricing.title')}</h2>
     </div>
 

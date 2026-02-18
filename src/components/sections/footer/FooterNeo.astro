@@ -14,6 +14,7 @@ const lp = localePath(Astro.url);
 const currentYear = new Date().getFullYear();
 
 import '../../../styles/components/footer/FooterNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 ---
 
 <footer class="footer-neo relative py-16 lg:py-20 px-4 sm:px-6 bg-base-100 border-t border-base-content/5">
@@ -23,10 +24,7 @@ import '../../../styles/components/footer/FooterNeo.css';
     <div class="footer-neo-cta relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 bg-base-content/[0.03] border border-base-content/10 mb-12 text-center overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none"></div>
       <div class="relative z-10">
-        <div class="footer-neo-badge mb-4 mx-auto w-fit">
-          <span class="footer-neo-badge-dot"></span>
-          {t('footer.company')}
-        </div>
+        <NeoSectionTag label={t('footer.company')} class="mb-4" />
         <h3 class="text-lg sm:text-xl font-black text-base-content mb-2">{t('footer.tagline')}</h3>
         <div class="flex items-center justify-center gap-3 mt-4">
           <a href={lp('/neo')} class="px-5 py-2.5 rounded-xl bg-accent text-base-100 text-sm font-bold hover:scale-105 active:scale-95 transition-transform">

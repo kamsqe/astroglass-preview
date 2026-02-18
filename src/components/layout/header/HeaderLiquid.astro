@@ -124,7 +124,13 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 </div>
 
 <script>
+  let liquidController: AbortController | null = null;
+
   function initHeaderLiquid() {
+    liquidController?.abort();
+    liquidController = new AbortController();
+    const { signal } = liquidController;
+
     const burger = document.getElementById('burger-liquid');
     const overlay = document.getElementById('overlay-liquid');
 
@@ -134,24 +140,21 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
     overlay.classList.remove('is-open');
     burger.classList.remove('is-active');
 
-    // ---- Mobile overlay ----
-    const newBurger = burger.cloneNode(true) as HTMLElement;
-    burger.parentNode?.replaceChild(newBurger, burger);
-
     const closeOverlay = () => {
       overlay.classList.remove('is-open');
-      newBurger.classList.remove('is-active');
+      burger.classList.remove('is-active');
       document.body.style.overflow = '';
     };
 
-    newBurger.addEventListener('click', () => {
+    // ---- Mobile overlay ----
+    burger.addEventListener('click', () => {
       const isOpen = overlay.classList.toggle('is-open');
-      newBurger.classList.toggle('is-active');
+      burger.classList.toggle('is-active');
       document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
+    }, { signal });
 
     overlay.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeOverlay);
+      link.addEventListener('click', closeOverlay, { signal });
     });
 
     // ---- Mobile expandable groups ----
@@ -161,44 +164,29 @@ const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 
       groupTrigger.addEventListener('click', () => {
         group.classList.toggle('is-open');
-      });
+      }, { signal });
     });
-  }
 
-  // Handle keyboard escape
-  if (!(window as any).__escapeListenerLiquidAdded) {
-    (window as any).__escapeListenerLiquidAdded = true;
+    // Handle keyboard escape
     document.addEventListener('keydown', (e) => {
-      const overlay = document.getElementById('overlay-liquid');
-      const burger = document.getElementById('burger-liquid');
-      if (e.key === 'Escape' && overlay?.classList.contains('is-open')) {
-        overlay.classList.remove('is-open');
-        burger?.classList.remove('is-active');
-        document.body.style.overflow = '';
-        burger?.focus();
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+        closeOverlay();
+        burger.focus();
       }
-    });
-  }
+    }, { signal });
 
-  // Handle window resize
-  if (!(window as any).__resizeListenerLiquidAdded) {
-    (window as any).__resizeListenerLiquidAdded = true;
+    // Handle window resize
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const overlay = document.getElementById('overlay-liquid');
-        const burger = document.getElementById('burger-liquid');
-        if (window.innerWidth >= 1024 && overlay?.classList.contains('is-open')) {
-          overlay.classList.remove('is-open');
-          burger?.classList.remove('is-active');
-          document.body.style.overflow = '';
+        if (window.innerWidth >= 1024 && overlay.classList.contains('is-open')) {
+          closeOverlay();
         }
       }, 100);
-    });
+    }, { signal });
   }
 
-  // Initialize on first load and after view transitions
   initHeaderLiquid();
   document.addEventListener('astro:after-swap', initHeaderLiquid);
 </script>

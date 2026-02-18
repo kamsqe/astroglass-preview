@@ -1,185 +1,43 @@
 ---
 /**
- * Dynamic Theme Page
- * 
- * This dynamic route handles all theme demo pages.
- * Uses getStaticPaths() to generate pages for each enabled theme.
+ * Dynamic Theme Page — Landing Route
+ *
+ * Generates /{theme} for each enabled theme via getStaticPaths().
+ *
+ * HOW SECTION ORDER IS CONTROLLED:
+ *   Edit src/config/themePresets.ts → {themeId}.landingSections[]
+ *
+ * HOW TO ADD A SECTION TO ONE THEME:
+ *   1. Create the section component (e.g. NewSectionLiquid.astro)
+ *   2. Export it from the theme barrel: src/components/sections/themes/{theme}.ts
+ *   3. Add its key to themePresets.ts → {theme}.landingSections[]
+ *
+ * HOW TO ADD A NEW THEME:
+ *   1. Create src/components/sections/themes/{theme}.ts barrel file
+ *   2. Add a preset in src/config/themePresets.ts
+ *   3. Register the theme in src/config/themes.ts
+ *   4. Add the theme module to the themeModules map below
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { useTranslations } from '../utils/i18n';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 import { getEnabledThemes, getThemeById } from '../config/themes';
+import { themePresets } from '../config/themePresets';
 
-// Import all theme components
-// Headers
-import HeaderLiquid from '../components/layout/header/HeaderLiquid.astro';
-import HeaderGlass from '../components/layout/header/HeaderGlass.astro';
-import HeaderNeo from '../components/layout/header/HeaderNeo.astro';
-import HeaderLuxury from '../components/layout/header/HeaderLuxury.astro';
-import HeaderMinimal from '../components/layout/header/HeaderMinimal.astro';
-import HeaderAurora from '../components/layout/header/HeaderAurora.astro';
-
-// Heroes
-import HeroLiquid from '../components/sections/hero/HeroLiquid.astro';
-import HeroGlass from '../components/sections/hero/HeroGlass.astro';
-import HeroNeo from '../components/sections/hero/HeroNeo.astro';
-import HeroLuxury from '../components/sections/hero/HeroLuxury.astro';
-import HeroMinimal from '../components/sections/hero/HeroMinimal.astro';
-import HeroAurora from '../components/sections/hero/HeroAurora.astro';
-
-// About
-import AboutLiquid from '../components/sections/about/AboutLiquid.astro';
-import AboutGlass from '../components/sections/about/AboutGlass.astro';
-import AboutNeo from '../components/sections/about/AboutNeo.astro';
-import AboutLuxury from '../components/sections/about/AboutLuxury.astro';
-import AboutMinimal from '../components/sections/about/AboutMinimal.astro';
-import AboutAurora from '../components/sections/about/AboutAurora.astro';
-
-// Features
-import FeaturesLiquid from '../components/sections/features/FeaturesLiquid.astro';
-import FeaturesGlass from '../components/sections/features/FeaturesGlass.astro';
-import FeaturesNeo from '../components/sections/features/FeaturesNeo.astro';
-import FeaturesLuxury from '../components/sections/features/FeaturesLuxury.astro';
-import FeaturesMinimal from '../components/sections/features/FeaturesMinimal.astro';
-import FeaturesAurora from '../components/sections/features/FeaturesAurora.astro';
-
-// Portfolio
-import PortfolioLiquid from '../components/sections/portfolio/PortfolioLiquid.astro';
-import PortfolioGlass from '../components/sections/portfolio/PortfolioGlass.astro';
-import PortfolioNeo from '../components/sections/portfolio/PortfolioNeo.astro';
-import PortfolioLuxury from '../components/sections/portfolio/PortfolioLuxury.astro';
-import PortfolioMinimal from '../components/sections/portfolio/PortfolioMinimal.astro';
-import PortfolioAurora from '../components/sections/portfolio/PortfolioAurora.astro';
-
-// Pricing
-import PricingLiquid from '../components/sections/pricing/PricingLiquid.astro';
-import PricingGlass from '../components/sections/pricing/PricingGlass.astro';
-import PricingNeo from '../components/sections/pricing/PricingNeo.astro';
-import PricingLuxury from '../components/sections/pricing/PricingLuxury.astro';
-import PricingMinimal from '../components/sections/pricing/PricingMinimal.astro';
-import PricingAurora from '../components/sections/pricing/PricingAurora.astro';
-
-// Testimonial
-import TestimonialLiquid from '../components/sections/testimonial/TestimonialLiquid.astro';
-import TestimonialGlass from '../components/sections/testimonial/TestimonialGlass.astro';
-import TestimonialNeo from '../components/sections/testimonial/TestimonialNeo.astro';
-import TestimonialLuxury from '../components/sections/testimonial/TestimonialLuxury.astro';
-import TestimonialMinimal from '../components/sections/testimonial/TestimonialMinimal.astro';
-import TestimonialAurora from '../components/sections/testimonial/TestimonialAurora.astro';
-
-// FAQ
-import FAQLiquid from '../components/sections/faq/FAQLiquid.astro';
-import FAQGlass from '../components/sections/faq/FAQGlass.astro';
-import FAQNeo from '../components/sections/faq/FAQNeo.astro';
-import FAQLuxury from '../components/sections/faq/FAQLuxury.astro';
-import FAQMinimal from '../components/sections/faq/FAQMinimal.astro';
-import FAQAurora from '../components/sections/faq/FAQAurora.astro';
-
-// CTA
-import CTALiquid from '../components/sections/cta/CTALiquid.astro';
-import CTAGlass from '../components/sections/cta/CTAGlass.astro';
-import CTANeo from '../components/sections/cta/CTANeo.astro';
-import CTALuxury from '../components/sections/cta/CTALuxury.astro';
-import CTAMinimal from '../components/sections/cta/CTAMinimal.astro';
-import CTAAurora from '../components/sections/cta/CTAAurora.astro';
-
-// Contact
-import ContactLiquid from '../components/sections/contact/ContactLiquid.astro';
-import ContactGlass from '../components/sections/contact/ContactGlass.astro';
-import ContactNeo from '../components/sections/contact/ContactNeo.astro';
-import ContactLuxury from '../components/sections/contact/ContactLuxury.astro';
-import ContactMinimal from '../components/sections/contact/ContactMinimal.astro';
-import ContactAurora from '../components/sections/contact/ContactAurora.astro';
-
-// Footer
-import FooterLiquid from '../components/sections/footer/FooterLiquid.astro';
-import FooterGlass from '../components/sections/footer/FooterGlass.astro';
-import FooterNeo from '../components/sections/footer/FooterNeo.astro';
-import FooterLuxury from '../components/sections/footer/FooterLuxury.astro';
-import FooterMinimal from '../components/sections/footer/FooterMinimal.astro';
-import FooterAurora from '../components/sections/footer/FooterAurora.astro';
-
-// Component maps for dynamic rendering
-const componentMap = {
-  liquid: {
-    Header: HeaderLiquid,
-    Hero: HeroLiquid,
-    About: AboutLiquid,
-    Features: FeaturesLiquid,
-    Portfolio: PortfolioLiquid,
-    Pricing: PricingLiquid,
-    Testimonial: TestimonialLiquid,
-    FAQ: FAQLiquid,
-    CTA: CTALiquid,
-    Contact: ContactLiquid,
-    Footer: FooterLiquid,
-  },
-  glass: {
-    Header: HeaderGlass,
-    Hero: HeroGlass,
-    About: AboutGlass,
-    Features: FeaturesGlass,
-    Portfolio: PortfolioGlass,
-    Pricing: PricingGlass,
-    Testimonial: TestimonialGlass,
-    FAQ: FAQGlass,
-    CTA: CTAGlass,
-    Contact: ContactGlass,
-    Footer: FooterGlass,
-  },
-  neo: {
-    Header: HeaderNeo,
-    Hero: HeroNeo,
-    About: AboutNeo,
-    Features: FeaturesNeo,
-    Portfolio: PortfolioNeo,
-    Pricing: PricingNeo,
-    Testimonial: TestimonialNeo,
-    FAQ: FAQNeo,
-    CTA: CTANeo,
-    Contact: ContactNeo,
-    Footer: FooterNeo,
-  },
-  luxury: {
-    Header: HeaderLuxury,
-    Hero: HeroLuxury,
-    About: AboutLuxury,
-    Features: FeaturesLuxury,
-    Portfolio: PortfolioLuxury,
-    Pricing: PricingLuxury,
-    Testimonial: TestimonialLuxury,
-    FAQ: FAQLuxury,
-    CTA: CTALuxury,
-    Contact: ContactLuxury,
-    Footer: FooterLuxury,
-  },
-  minimal: {
-    Header: HeaderMinimal,
-    Hero: HeroMinimal,
-    About: AboutMinimal,
-    Features: FeaturesMinimal,
-    Portfolio: PortfolioMinimal,
-    Pricing: PricingMinimal,
-    Testimonial: TestimonialMinimal,
-    FAQ: FAQMinimal,
-    CTA: CTAMinimal,
-    Contact: ContactMinimal,
-    Footer: FooterMinimal,
-  },
-  aurora: {
-    Header: HeaderAurora,
-    Hero: HeroAurora,
-    About: AboutAurora,
-    Features: FeaturesAurora,
-    Portfolio: PortfolioAurora,
-    Pricing: PricingAurora,
-    Testimonial: TestimonialAurora,
-    FAQ: FAQAurora,
-    CTA: CTAAurora,
-    Contact: ContactAurora,
-    Footer: FooterAurora,
-  },
-};
+// Theme barrel files — each exports all section components for one theme.
+// Section ordering and enabling is controlled by themePresets.ts, not here.
+// @ts-ignore — .astro imports in .ts barrel files resolve correctly at build time
+import * as LiquidSections  from '../components/sections/themes/liquid';
+// @ts-ignore
+import * as GlassSections   from '../components/sections/themes/glass';
+// @ts-ignore
+import * as NeoSections     from '../components/sections/themes/neo';
+// @ts-ignore
+import * as LuxurySections  from '../components/sections/themes/luxury';
+// @ts-ignore
+import * as MinimalSections from '../components/sections/themes/minimal';
+// @ts-ignore
+import * as AuroraSections  from '../components/sections/themes/aurora';
 
 export function getStaticPaths() {
   return getEnabledThemes().map((theme) => ({
@@ -196,34 +54,41 @@ const { themeId } = Astro.props;
 const theme = getThemeById(themeId);
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const preset = themePresets[themeId] ?? themePresets['liquid'];
 
-// Get components for this theme
-const components = componentMap[themeId as keyof typeof componentMap];
-const Header = components.Header;
-const Hero = components.Hero;
-const About = components.About;
-const Features = components.Features;
-const Portfolio = components.Portfolio;
-const Pricing = components.Pricing;
-const Testimonial = components.Testimonial;
-const FAQ = components.FAQ;
-const CTA = components.CTA;
-const Contact = components.Contact;
-const Footer = components.Footer;
+// Map of all theme section modules — add a new entry here when adding a new theme.
+const themeModules: Record<string, Record<string, unknown>> = {
+  liquid:  LiquidSections,
+  glass:   GlassSections,
+  neo:     NeoSections,
+  luxury:  LuxurySections,
+  minimal: MinimalSections,
+  aurora:  AuroraSections,
+};
+
+const sections = themeModules[themeId] ?? LiquidSections;
+
+// Layout components — always rendered, not part of the section preset.
+const Header = sections['Header'] as any;
+const Footer = sections['Footer'] as any;
+
+// Resolve main content sections in preset order.
+// If a section key is listed in the preset but not exported by the barrel file,
+// it is silently skipped — no runtime error.
+const mainSections = preset.landingSections
+  .map((key) => sections[key] ?? null)
+  .filter((C): C is NonNullable<typeof C> => C !== null) as any[];
 ---
 
-<BaseLayout title={`${theme?.name} Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+<BaseLayout
+  title={`${theme?.name} Theme - ${t('title')}`}
+  description={t('description')}
+  showHeader={false}
+  showControls={false}
+>
   <Header />
   <main>
-    <Hero />
-    <About />
-    <Features />
-    <Portfolio />
-    <Pricing />
-    <Testimonial />
-    <FAQ />
-    <CTA />
-    <Contact />
+    {mainSections.map((Section: any) => <Section />)}
   </main>
   <Footer />
 </BaseLayout>

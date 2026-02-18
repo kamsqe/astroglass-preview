@@ -4,6 +4,7 @@
  * Overlapping card stack with depth and parallax-like hover effects.
  */
 import '../../../styles/components/portfolio/PortfolioNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
@@ -29,7 +30,7 @@ const projects = [
   <div class="max-w-6xl mx-auto relative z-10">
     <!-- Header -->
     <div class="text-center mb-12 sm:mb-16 md:mb-20">
-      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-4">{t('portfolio.badge')}</span>
+      <NeoSectionTag label={t('portfolio.badge')} class="mb-4" />
       <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight mb-4">
         {t('portfolio.title')}
       </h2>

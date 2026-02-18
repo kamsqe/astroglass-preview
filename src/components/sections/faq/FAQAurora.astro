@@ -52,16 +52,19 @@ const faqs = [
 </section>
 
 <script>
+  let faqAuroraController: AbortController | null = null;
+
   function initFAQAurora() {
+    faqAuroraController?.abort();
+    faqAuroraController = new AbortController();
+    const { signal } = faqAuroraController;
+
     const list = document.getElementById('aurora-faq-list');
     if (!list) return;
 
     list.querySelectorAll('.faq-aurora-question').forEach(btn => {
-      const newBtn = btn.cloneNode(true) as HTMLElement;
-      btn.parentNode?.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', () => {
-        const item = newBtn.closest('.faq-aurora-item');
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-aurora-item');
         if (!item) return;
         const isOpen = item.classList.contains('is-open');
 
@@ -74,9 +77,9 @@ const faqs = [
         // Open clicked (if wasn't already open)
         if (!isOpen) {
           item.classList.add('is-open');
-          newBtn.setAttribute('aria-expanded', 'true');
+          btn.setAttribute('aria-expanded', 'true');
         }
-      });
+      }, { signal });
     });
   }
 

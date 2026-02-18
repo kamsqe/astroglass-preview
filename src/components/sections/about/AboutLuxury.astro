@@ -7,6 +7,7 @@ import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 import '../../../styles/components/about/AboutLuxury.css';
+import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 export interface Props {
   isFirst?: boolean;
@@ -35,12 +36,8 @@ const milestones = [
   <div class="max-w-5xl mx-auto relative z-10">
     <!-- Header -->
     <div class="text-center mb-16 lg:mb-24">
-      <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-accent/20 to-primary/20 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-        </span>
-        {t('about.ourJourney')}
+      <div class="mb-6 flex justify-center">
+        <LuxurySectionLabel text={t('about.ourJourney')} />
       </div>
       <h2 class="text-4xl sm:text-5xl lg:text-7xl font-normal font-serif text-base-content tracking-tight mb-6">
         {t('about.timelineTitle')}

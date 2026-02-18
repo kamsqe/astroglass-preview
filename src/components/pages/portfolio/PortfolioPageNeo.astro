@@ -152,8 +152,8 @@ const projects = [
       </span>
     </div>
 
-    <!-- Title — massive editorial font -->
-    <h1 class="text-5xl sm:text-7xl md:text-8xl xl:text-[9rem] font-extralight tracking-tight text-base-content mb-6 leading-[0.95]">
+    <!-- Title -->
+    <h1 class="text-5xl sm:text-7xl md:text-8xl xl:text-[9rem] font-black tracking-tighter text-base-content mb-6 leading-[0.95]">
       {t('portfolioPage.pageTitle')}
     </h1>
 
@@ -307,7 +307,7 @@ const projects = [
     <!-- Decorative Line -->
     <div class="c-portfolio-page-neo__line mb-16"></div>
 
-    <h2 class="text-3xl sm:text-4xl md:text-6xl font-extralight text-base-content mb-4 tracking-tight">
+    <h2 class="text-3xl sm:text-4xl md:text-6xl font-black text-base-content mb-4 tracking-tighter">
       {t('portfolioPage.startProject')}
     </h2>
     <p class="text-base-content/40 text-lg mb-10 font-light">
@@ -334,114 +334,32 @@ const projects = [
 <!-- CLIENT SCRIPTS                              -->
 <!-- ═══════════════════════════════════════════ -->
 <script>
-  function initPortfolioPageNeo() {
-    // ── Scroll-based card reveal ──
-    var cards = document.querySelectorAll('.c-portfolio-page-neo__card');
-    var observer = new IntersectionObserver(
-      function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
+  import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
-    cards.forEach(function(card, i) {
-      card.style.transitionDelay = (i * 60) + 'ms';
-      observer.observe(card);
+  registerAstroPage(() => {
+    // Scroll-based card reveal with stagger
+    initScrollReveal('.c-portfolio-page-neo__card', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+      staggerMs: 60,
     });
 
-    // ── Expand/Collapse ──
-    document.querySelectorAll('[data-toggle-details]').forEach(function(btn) {
-      var newBtn = btn.cloneNode(true);
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', function() {
-        var projectId = newBtn.getAttribute('data-toggle-details');
-        var panel = document.querySelector('[data-details="' + projectId + '"]');
-        if (!panel) return;
-
-        var isExpanded = panel.classList.contains('is-expanded');
-
-        // Close all others
-        document.querySelectorAll('.c-portfolio-page-neo__details.is-expanded').forEach(function(p) {
-          if (p !== panel) p.classList.remove('is-expanded');
-        });
-
-        if (isExpanded) {
-          panel.classList.remove('is-expanded');
-        } else {
-          panel.classList.add('is-expanded');
-          setTimeout(function() {
-            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
-        }
-      });
+    // Expand/Collapse detail panels
+    initDetailPanels({
+      toggleSelector: '[data-toggle-details]',
+      closeSelector: '[data-close-details]',
+      panelBaseSelector: '.c-portfolio-page-neo__details',
+      cardSelector: '.c-portfolio-page-neo__card',
     });
 
-    document.querySelectorAll('[data-close-details]').forEach(function(btn) {
-      var newBtn = btn.cloneNode(true);
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', function() {
-        var projectId = newBtn.getAttribute('data-close-details');
-        var panel = document.querySelector('[data-details="' + projectId + '"]');
-        if (panel) {
-          panel.classList.remove('is-expanded');
-          var card = panel.closest('.c-portfolio-page-neo__card');
-          if (card) {
-            setTimeout(function() {
-              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-          }
-        }
-      });
+    // Category filter
+    initCategoryFilter({
+      filtersId: 'pp-neo-filters',
+      cardSelector: '.c-portfolio-page-neo__card',
+      activeClasses: ['border-accent/20', 'text-accent', 'bg-accent/[0.05]'],
+      inactiveClasses: ['border-base-content/8', 'text-base-content/35'],
     });
-
-    // ── Category filter ──
-    var filters = document.getElementById('pp-neo-filters');
-    var projectCards = document.querySelectorAll('.c-portfolio-page-neo__card');
-
-    if (filters) {
-      filters.querySelectorAll('button').forEach(function(btn) {
-        var newBtn = btn.cloneNode(true);
-        if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-        newBtn.addEventListener('click', function() {
-          // Update active state
-          filters.querySelectorAll('button').forEach(function(b) {
-            b.className = b.className
-              .replace(/border-accent\/20|text-accent|bg-accent\/\[0\.05\]/g, '')
-              .replace(/border-base-content\/8|text-base-content\/35/g, '')
-              .trim();
-            b.classList.add('border-base-content/8', 'text-base-content/35');
-          });
-          newBtn.classList.remove('border-base-content/8', 'text-base-content/35');
-          newBtn.classList.add('border-accent/20', 'text-accent', 'bg-accent/[0.05]');
-
-          var filter = newBtn.getAttribute('data-filter');
-
-          projectCards.forEach(function(card) {
-            var category = card.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-              card.style.display = '';
-              requestAnimationFrame(function() {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-              });
-            } else {
-              card.style.opacity = '0';
-              card.style.transform = 'translateY(20px)';
-              setTimeout(function() { card.style.display = 'none'; }, 400);
-            }
-          });
-        });
-      });
-    }
-  }
-
-  initPortfolioPageNeo();
-  document.addEventListener('astro:after-swap', initPortfolioPageNeo);
+  });
 </script>

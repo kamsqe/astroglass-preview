@@ -225,7 +225,13 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
     updateActiveStates(theme);
   }
 
+  let themeSwitcherController: AbortController | null = null;
+
   function initThemeSwitchers() {
+    themeSwitcherController?.abort();
+    themeSwitcherController = new AbortController();
+    const { signal } = themeSwitcherController;
+
     const currentTheme = getStoredTheme();
     setTheme(currentTheme);
 
@@ -234,10 +240,7 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       const trigger = switcher.querySelector('.theme-trigger');
       if (!trigger) return;
 
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = switcher.classList.contains('is-open');
         // Close all switchers (theme and language)
@@ -247,22 +250,20 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
         });
         if (!isOpen) {
           switcher.classList.add('is-open');
-          newTrigger.setAttribute('aria-expanded', 'true');
+          trigger.setAttribute('aria-expanded', 'true');
         } else {
-          newTrigger.setAttribute('aria-expanded', 'false');
+          trigger.setAttribute('aria-expanded', 'false');
         }
-      });
+      }, { signal });
 
       // Desktop card buttons
       switcher.querySelectorAll('.theme-option-card').forEach(btn => {
-        const newBtn = btn.cloneNode(true) as HTMLElement;
-        btn.parentNode?.replaceChild(newBtn, btn);
-        newBtn.addEventListener('click', (e) => {
+        btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const theme = newBtn.getAttribute('data-theme-option') as Theme;
+          const theme = btn.getAttribute('data-theme-option') as Theme;
           setTheme(theme);
           switcher.classList.remove('is-open');
-        });
+        }, { signal });
       });
     });
 
@@ -271,29 +272,23 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       const scrollContainer = switcher.querySelector('.theme-scroll-container');
       
       switcher.querySelectorAll('.theme-option-mobile').forEach(btn => {
-        const newBtn = btn.cloneNode(true) as HTMLElement;
-        btn.parentNode?.replaceChild(newBtn, btn);
-        newBtn.addEventListener('click', (e) => {
+        btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const theme = newBtn.getAttribute('data-theme-option') as Theme;
+          const theme = btn.getAttribute('data-theme-option') as Theme;
           if (navigator.vibrate) navigator.vibrate(10);
           setTheme(theme);
-          // Scroll into view on click
-          newBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        });
+          (btn as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }, { signal });
       });
 
       // Initial scroll to active item
       const activeBtn = switcher.querySelector('.theme-option-mobile.is-active');
       if (activeBtn && scrollContainer) {
-        // use setTimeout to ensure layout is settled (transitions etc)
         setTimeout(() => {
-          // Calculate center position relative to container
           const containerWidth = scrollContainer.clientWidth;
           const btnLeft = (activeBtn as HTMLElement).offsetLeft;
           const btnWidth = (activeBtn as HTMLElement).offsetWidth;
           
-          // Scroll container only, avoiding page scroll
           scrollContainer.scrollTo({
             left: btnLeft - containerWidth / 2 + btnWidth / 2,
             behavior: 'smooth'
@@ -302,24 +297,21 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
       }
     });
 
-    // Reapply active states after cloning
+    // Reapply active states after setup
     updateActiveStates(getStoredTheme());
 
-    // Listen for external theme changes (like V2 forcing Nordic)
+    // Listen for external theme changes
     window.addEventListener('theme-changed', (e: any) => {
       updateActiveStates(e.detail.theme);
-    });
-  }
+    }, { signal });
 
-  // Close on outside click - only add once
-  if (!(window as any).__themeClickListenerAdded) {
-    (window as any).__themeClickListenerAdded = true;
+    // Close on outside click
     document.addEventListener('click', () => {
       document.querySelectorAll('[data-theme-switcher].is-open').forEach(s => {
         s.classList.remove('is-open');
         s.querySelector('.theme-trigger')?.setAttribute('aria-expanded', 'false');
       });
-    });
+    }, { signal });
   }
 
   initThemeSwitchers();

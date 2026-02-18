@@ -225,7 +225,13 @@ import '../../../styles/components/header/HeaderNeo.css';
 </nav>
 
 <script>
+  let defaultController: AbortController | null = null;
+
   function initHeaderDefault() {
+    defaultController?.abort();
+    defaultController = new AbortController();
+    const { signal } = defaultController;
+
     const header = document.getElementById('header-default');
 
     if (!header) return;
@@ -234,29 +240,26 @@ import '../../../styles/components/header/HeaderNeo.css';
     const onScroll = () => {
       header.classList.toggle('is-scrolled', window.scrollY > 60);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // initial check
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
+    onScroll();
 
     // ---- Desktop dropdowns ----
     document.querySelectorAll('[data-dropdown-neo]').forEach(dropdown => {
       const trigger = dropdown.querySelector('.nav-neo-link');
       if (!trigger) return;
       
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-      
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
         document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => {
           if (d !== dropdown) d.classList.remove('is-open');
         });
         dropdown.classList.toggle('is-open');
-      });
+      }, { signal });
     });
 
     document.addEventListener('click', () => {
       document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => d.classList.remove('is-open'));
-    });
+    }, { signal });
 
     // ---- Mobile menu (Liquid-style) ----
     const btn = document.getElementById('menu-toggle-default');
@@ -282,26 +285,15 @@ import '../../../styles/components/header/HeaderNeo.css';
       document.body.style.overflow = 'hidden';
     }
 
-    // Ensure menu is closed on page load
     closeMenu();
 
-    // Clone button to remove old listeners
-    const newBtn = btn.cloneNode(true) as HTMLElement;
-    btn.parentNode?.replaceChild(newBtn, btn);
+    btn.addEventListener('click', () => {
+      nav.classList.contains('is-open') ? closeMenu() : openMenu();
+    }, { signal });
 
-    newBtn.addEventListener('click', () => {
-      if (nav.classList.contains('is-open')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    // Close on link click (not dropdown triggers)
+    // Close on link click
     nav.querySelectorAll('a').forEach(link => {
-      const newLink = link.cloneNode(true) as HTMLElement;
-      link.parentNode?.replaceChild(newLink, link);
-      newLink.addEventListener('click', closeMenu);
+      link.addEventListener('click', closeMenu, { signal });
     });
 
     // Mobile dropdown toggles
@@ -309,14 +301,11 @@ import '../../../styles/components/header/HeaderNeo.css';
       const trigger = dropdown.querySelector('.mobile-dropdown-trigger');
       if (!trigger) return;
 
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         dropdown.classList.toggle('is-open');
-      });
+      }, { signal });
     });
 
     // Mobile nested dropdown toggles
@@ -324,56 +313,31 @@ import '../../../styles/components/header/HeaderNeo.css';
       const trigger = nestedDropdown.querySelector('.mobile-nested-trigger');
       if (!trigger) return;
 
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         nestedDropdown.classList.toggle('is-open');
-      });
+      }, { signal });
     });
-  }
 
-  // Handle keyboard escape
-  if (!(window as any).__escapeListenerDefaultAdded) {
-    (window as any).__escapeListenerDefaultAdded = true;
+    // Handle keyboard escape
     document.addEventListener('keydown', (e) => {
-      const nav = document.getElementById('mobile-nav-default');
-      const btn = document.getElementById('menu-toggle-default');
-      if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
-        nav.classList.remove('is-open');
-        nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-        nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-        btn?.classList.remove('is-active');
-        const header = document.getElementById('mobile-header-default');
-        if (header) header.classList.remove('is-menu-open');
-        document.body.style.overflow = '';
-        btn?.focus();
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+        closeMenu();
+        btn.focus();
       }
-    });
-  }
+    }, { signal });
 
-  // Handle window resize
-  if (!(window as any).__resizeListenerDefaultAdded) {
-    (window as any).__resizeListenerDefaultAdded = true;
+    // Handle window resize
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const nav = document.getElementById('mobile-nav-default');
-        const btn = document.getElementById('menu-toggle-default');
-        if (window.innerWidth >= 1024 && nav?.classList.contains('is-open')) {
-          nav.classList.remove('is-open');
-          nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-          nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-          btn?.classList.remove('is-active');
-          const header = document.getElementById('mobile-header-default');
-          if (header) header.classList.remove('is-menu-open');
-          document.body.style.overflow = '';
+        if (window.innerWidth >= 1024 && nav.classList.contains('is-open')) {
+          closeMenu();
         }
       }, 100);
-    });
+    }, { signal });
   }
 
   initHeaderDefault();

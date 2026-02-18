@@ -22,6 +22,7 @@ const t = useTranslations(locale);
     thanks: t('contact.chat.thanks')
   });
 import '../../../styles/components/contact/ContactLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 ---
 
 <section id="contact" class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -33,7 +34,7 @@ import '../../../styles/components/contact/ContactLiquid.css';
   <div class="max-w-lg mx-auto relative">
     <!-- Header -->
     <div class="text-center mb-6 sm:mb-8">
-      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.eyebrow')}</span>
+      <LiquidSectionTag label={t('contact.eyebrow')} class="mb-4" />
       <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.title')}</h2>
     </div>
 

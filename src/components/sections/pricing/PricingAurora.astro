@@ -150,19 +150,22 @@ const plans = [
 </section>
 
 <script>
+  let pricingAuroraController: AbortController | null = null;
+
   function initPricingAurora() {
+    pricingAuroraController?.abort();
+    pricingAuroraController = new AbortController();
+    const { signal } = pricingAuroraController;
+
     const toggle = document.getElementById('aurora-pricing-switch');
     const container = document.getElementById('aurora-pricing-toggle');
     if (!toggle || !container) return;
 
     let isYearly = false;
 
-    const newToggle = toggle.cloneNode(true) as HTMLElement;
-    toggle.parentNode?.replaceChild(newToggle, toggle);
-
-    newToggle.addEventListener('click', () => {
+    toggle.addEventListener('click', () => {
       isYearly = !isYearly;
-      newToggle.classList.toggle('is-yearly', isYearly);
+      toggle.classList.toggle('is-yearly', isYearly);
 
       // Update labels
       container.querySelectorAll('.pricing-aurora-toggle-label').forEach(label => {
@@ -182,7 +185,7 @@ const plans = [
       document.querySelectorAll('.pricing-aurora-price-period').forEach(el => {
         el.textContent = isYearly ? '/ mo (billed yearly)' : '/ month';
       });
-    });
+    }, { signal });
   }
 
   initPricingAurora();

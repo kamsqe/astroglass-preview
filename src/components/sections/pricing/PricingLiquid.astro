@@ -7,6 +7,7 @@
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import '../../../styles/components/pricing/PricingLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -35,11 +36,7 @@ const tiers = [
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-20">
-       <div class="inline-flex items-center gap-4 mb-6">
-          <div class="w-8 h-px bg-accent/40"></div>
-          <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent">{t('pricing.comparePlans')}</span>
-          <div class="w-8 h-px bg-accent/40"></div>
-       </div>
+       <LiquidSectionTag label={t('pricing.comparePlans')} class="mb-6" />
        <h2 class="text-5xl md:text-7xl font-black text-base-content tracking-tighter leading-none mb-6">{t('pricing.title')}</h2>
        <p class="text-lg text-base-content/40 font-medium max-w-xl mx-auto">{t('pricing.subtitle')}</p>
     </div>

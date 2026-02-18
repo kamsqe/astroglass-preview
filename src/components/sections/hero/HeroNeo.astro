@@ -12,6 +12,7 @@ const t = useTranslations(locale);
 
 const words = t('hero.title').split(' ');
 import '../../../styles/components/hero/HeroNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 ---
 
 <section class="relative min-h-screen flex items-center justify-center text-center px-4 pt-[calc(100px+var(--nav-offset))] pb-24 overflow-hidden">
@@ -23,15 +24,11 @@ import '../../../styles/components/hero/HeroNeo.css';
   <div class="relative z-10 w-full max-w-5xl">
     <!-- Badge -->
     <div class="animate-fade-in opacity-0" style="animation-fill-mode: forwards;">
-      <span class="c-hero-neo__visionary-badge inline-flex items-center gap-4 text-accent font-bold text-[10px] sm:text-[11px] tracking-[0.4em] sm:tracking-[0.5em] uppercase mb-8 md:mb-12">
-        <span class="w-6 sm:w-8 h-px bg-accent/30"></span>
-        {t('hero.visionary')}
-        <span class="w-6 sm:w-8 h-px bg-accent/30"></span>
-      </span>
+      <NeoSectionTag label={t('hero.visionary')} class="c-hero-neo__visionary-badge mb-8 md:mb-12 sm:text-[11px] sm:tracking-[0.5em]" />
     </div>
 
     <!-- Headline with responsive scaling -->
-    <h1 class="text-4xl sm:text-6xl md:text-8xl xl:text-[10rem] font-extralight tracking-tight text-base-content mb-10 md:mb-16 animate-reveal leading-[1.1] md:leading-none">
+    <h1 class="text-4xl sm:text-6xl md:text-8xl xl:text-[10rem] font-black tracking-tighter text-base-content mb-10 md:mb-16 animate-reveal leading-[1.1] md:leading-none">
       {words.map((word, i) => (
         <span 
           class={`c-hero-neo__title-word inline-block ${i === 1 ? 'font-black italic text-accent' : ''}`}

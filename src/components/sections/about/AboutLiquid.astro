@@ -7,6 +7,7 @@ import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 import '../../../styles/components/about/AboutLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
 export interface Props {
   isFirst?: boolean;
@@ -22,10 +23,7 @@ const t = useTranslations(locale);
     <!-- Content -->
     <div class="order-2 lg:order-1">
       <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
-        {t('about.ourStory')}
-      </div>
+      <LiquidSectionTag label={t('about.ourStory')} class="mb-6" />
 
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 leading-tight text-base-content">
         {t('about.title')}

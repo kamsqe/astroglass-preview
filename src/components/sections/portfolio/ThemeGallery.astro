@@ -30,7 +30,10 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   <!-- Header -->
   <div class="px-4 sm:px-6 mb-10 sm:mb-14 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
     <div>
-      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-3">{t('portfolio.themeGallery.subtitle')}</span>
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+        {t('portfolio.themeGallery.subtitle')}
+      </div>
       <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight leading-none">
         {t('portfolio.themeGallery.title')}
       </h2>

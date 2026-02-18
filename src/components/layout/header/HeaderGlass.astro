@@ -125,7 +125,13 @@ import '../../../styles/components/header/HeaderGlass.css';
 </div>
 
 <script>
+  let glassController: AbortController | null = null;
+
   function initHeaderGlass() {
+    glassController?.abort();
+    glassController = new AbortController();
+    const { signal } = glassController;
+
     const burger = document.getElementById('burger-glass');
     const panel = document.getElementById('panel-glass');
     
@@ -141,62 +147,51 @@ import '../../../styles/components/header/HeaderGlass.css';
       panel.classList.add('is-open');
       burger.classList.add('is-active');
       document.body.style.overflow = 'hidden';
-      // Haptic feedback
       if (navigator.vibrate) navigator.vibrate(5);
     }
 
-    // Clone to remove old listeners
-    const newBurger = burger.cloneNode(true) as HTMLElement;
-    burger.parentNode?.replaceChild(newBurger, burger);
-
-    newBurger.addEventListener('click', () => {
+    burger.addEventListener('click', () => {
       panel.classList.contains('is-open') ? closePanel() : openPanel();
-    });
+    }, { signal });
 
     panel.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closePanel);
+      link.addEventListener('click', closePanel, { signal });
     });
 
     // Escape key handler
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && panel.classList.contains('is-open')) {
         closePanel();
-        newBurger.focus();
+        burger.focus();
       }
-    });
+    }, { signal });
 
     // Desktop dropdowns
     document.querySelectorAll('[data-dropdown-glass]').forEach(dropdown => {
       const trigger = dropdown.querySelector('.nav-glass-item');
       if (!trigger) return;
       
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-      
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
         document.querySelectorAll('[data-dropdown-glass].is-open').forEach(d => {
           if (d !== dropdown) d.classList.remove('is-open');
         });
         dropdown.classList.toggle('is-open');
-      });
+      }, { signal });
     });
 
     document.addEventListener('click', () => {
       document.querySelectorAll('[data-dropdown-glass].is-open').forEach(d => d.classList.remove('is-open'));
-    });
+    }, { signal });
 
     // Mobile accordions
     document.querySelectorAll('[data-accordion-glass]').forEach(accordion => {
       const trigger = accordion.querySelector('.accordion-glass-trigger');
       if (!trigger) return;
       
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-      
-      newTrigger.addEventListener('click', () => {
+      trigger.addEventListener('click', () => {
         accordion.classList.toggle('is-open');
-      });
+      }, { signal });
     });
   }
 

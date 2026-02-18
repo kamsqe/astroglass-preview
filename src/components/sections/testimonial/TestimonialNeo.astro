@@ -11,6 +11,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/testimonial/TestimonialNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 
 const testimonials = [
   {
@@ -55,7 +56,7 @@ const testimonials = [
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16 lg:mb-24">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('testimonial.eyebrow')}</span>
+       <NeoSectionTag label={t('testimonial.eyebrow')} class="mb-4" />
        <h2 class="text-4xl md:text-7xl font-black text-base-content tracking-tighter">{t('testimonial.lovedByLeaders')}</h2>
     </div>
 

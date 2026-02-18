@@ -76,28 +76,30 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
 )}
 
 <script>
+  let langSwitcherController: AbortController | null = null;
+
   function initLangSwitcher() {
+    langSwitcherController?.abort();
+    langSwitcherController = new AbortController();
+    const { signal } = langSwitcherController;
+
     // Store language preference when user clicks a language link
     document.querySelectorAll('.lang-option-desktop, .lang-option-mobile').forEach(link => {
       link.addEventListener('click', () => {
         const href = link.getAttribute('href');
         if (href) {
             if (navigator.vibrate) navigator.vibrate(10);
-            // Detect locale from href
             const locale = href.startsWith('/ru') ? 'ru' : 'en';
             localStorage.setItem('preferred-locale', locale);
         }
-      });
+      }, { signal });
     });
 
     document.querySelectorAll('[data-lang-switcher]').forEach(switcher => {
       const trigger = switcher.querySelector('.lang-trigger');
       if (!trigger) return;
 
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = switcher.classList.contains('is-open');
         // Close all switchers (theme and language)
@@ -107,23 +109,20 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
         });
         if (!isOpen) {
           switcher.classList.add('is-open');
-          newTrigger.setAttribute('aria-expanded', 'true');
+          trigger.setAttribute('aria-expanded', 'true');
         } else {
-          newTrigger.setAttribute('aria-expanded', 'false');
+          trigger.setAttribute('aria-expanded', 'false');
         }
-      });
+      }, { signal });
     });
-  }
 
-  // Close on outside click - only add once
-  if (!(window as any).__langClickListenerAdded) {
-    (window as any).__langClickListenerAdded = true;
+    // Close on outside click
     document.addEventListener('click', () => {
       document.querySelectorAll('[data-lang-switcher].is-open').forEach(s => {
         s.classList.remove('is-open');
         s.querySelector('.lang-trigger')?.setAttribute('aria-expanded', 'false');
       });
-    });
+    }, { signal });
   }
 
   initLangSwitcher();

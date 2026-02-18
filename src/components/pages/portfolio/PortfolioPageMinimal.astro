@@ -291,129 +291,34 @@ const projects = [
 <!-- CLIENT SCRIPTS                              -->
 <!-- ═══════════════════════════════════════════ -->
 <script>
-  function initPortfolioPageMinimal() {
-    // ── Expand/Collapse (must happen BEFORE observer, since cloneNode replaces rows) ──
-    document.querySelectorAll('[data-toggle-details]').forEach(function(btn) {
-      var newBtn = btn.cloneNode(true);
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
+  import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
-      newBtn.addEventListener('click', function() {
-        var projectId = newBtn.getAttribute('data-toggle-details');
-        var panel = document.querySelector('[data-details="' + projectId + '"]');
-        if (!panel) return;
-
-        var isExpanded = panel.classList.contains('is-expanded');
-
-        // Close all others
-        document.querySelectorAll('.c-portfolio-page-minimal__details.is-expanded').forEach(function(p) {
-          if (p !== panel) p.classList.remove('is-expanded');
-        });
-
-        if (isExpanded) {
-          panel.classList.remove('is-expanded');
-        } else {
-          panel.classList.add('is-expanded');
-          setTimeout(function() {
-            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
-        }
-      });
+  registerAstroPage(() => {
+    // Expand/Collapse detail panels
+    initDetailPanels({
+      toggleSelector: '[data-toggle-details]',
+      closeSelector: '[data-close-details]',
+      panelBaseSelector: '.c-portfolio-page-minimal__details',
+      cardSelector: '.c-portfolio-page-minimal__item',
     });
 
-    document.querySelectorAll('[data-close-details]').forEach(function(btn) {
-      var newBtn = btn.cloneNode(true);
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-      newBtn.addEventListener('click', function() {
-        var projectId = newBtn.getAttribute('data-close-details');
-        var panel = document.querySelector('[data-details="' + projectId + '"]');
-        if (panel) {
-          panel.classList.remove('is-expanded');
-          var item = panel.closest('.c-portfolio-page-minimal__item');
-          if (item) {
-            setTimeout(function() {
-              item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-          }
-        }
-      });
+    // Scroll-based row reveal with stagger
+    initScrollReveal('.c-portfolio-page-minimal__row', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+      staggerMs: 100,
     });
 
-    // ── Scroll-based row reveal (AFTER cloneNode so we observe the live DOM nodes) ──
-    var rows = document.querySelectorAll('.c-portfolio-page-minimal__row');
-    var observer = new IntersectionObserver(
-      function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    rows.forEach(function(row, i) {
-      row.style.transitionDelay = (i * 100) + 'ms';
-      observer.observe(row);
+    // Category filter (two-step animation on __row inside __item)
+    initCategoryFilter({
+      filtersId: 'pp-minimal-filters',
+      cardSelector: '.c-portfolio-page-minimal__item',
+      activeClasses: ['border-accent', 'text-accent', 'bg-accent/10'],
+      inactiveClasses: ['border-base-content/10', 'text-base-content/30'],
+      twoStepAnimation: true,
+      animateChildSelector: '.c-portfolio-page-minimal__row',
     });
-
-    // ── Category filter (no-flash approach) ──
-    var filters = document.getElementById('pp-minimal-filters');
-    var projectItems = document.querySelectorAll('.c-portfolio-page-minimal__item');
-
-    if (filters) {
-      filters.querySelectorAll('button').forEach(function(btn) {
-        var newBtn = btn.cloneNode(true);
-        if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-
-        newBtn.addEventListener('click', function() {
-          // Update active state
-          filters.querySelectorAll('button').forEach(function(b) {
-            b.className = b.className
-              .replace(/border-accent|text-accent|bg-accent\/10/g, '')
-              .replace(/border-base-content\/10|text-base-content\/30/g, '')
-              .trim();
-            b.classList.add('border-base-content/10', 'text-base-content/30');
-          });
-          newBtn.classList.remove('border-base-content/10', 'text-base-content/30');
-          newBtn.classList.add('border-accent', 'text-accent', 'bg-accent/10');
-
-          var filter = newBtn.getAttribute('data-filter');
-
-          // Step 1: Hide all
-          projectItems.forEach(function(item) {
-            var row = item.querySelector('.c-portfolio-page-minimal__row');
-            if (row) {
-              row.style.opacity = '0';
-              row.style.transform = 'translateY(20px)';
-            }
-          });
-
-          // Step 2: After fade-out, swap display and reveal matching
-          setTimeout(function() {
-            projectItems.forEach(function(item) {
-              var category = item.getAttribute('data-category');
-              var row = item.querySelector('.c-portfolio-page-minimal__row');
-              if (filter === 'all' || category === filter) {
-                item.style.display = '';
-                if (row) {
-                  requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                      row.style.opacity = '1';
-                      row.style.transform = 'translateY(0)';
-                    });
-                  });
-                }
-              } else {
-                item.style.display = 'none';
-              }
-            });
-          }, 300);
-        });
-      });
-    }
-  }
-
-  initPortfolioPageMinimal();
-  document.addEventListener('astro:after-swap', initPortfolioPageMinimal);
+  });
 </script>

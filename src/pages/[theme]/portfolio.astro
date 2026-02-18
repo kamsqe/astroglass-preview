@@ -1,72 +1,36 @@
 ---
 /**
  * Portfolio Page — Dynamic Route
- * 
+ *
  * Generates /{theme}/portfolio for each enabled theme.
- * Reuses each theme's header and footer, with a theme-specific
- * portfolio page component in the middle.
+ *
+ * HOW TO ADD A PORTFOLIO PAGE FOR A NEW THEME:
+ *   1. Create the portfolio page component (e.g. PortfolioPageMinimal.astro)
+ *   2. Export it as 'PortfolioPage' from the theme's barrel file
+ *      (src/components/sections/themes/{theme}.ts)
+ *   3. Register the theme in themeModules below
+ *
+ * If no PortfolioPage is exported by the theme barrel, the route falls back
+ * to a "coming soon" placeholder — no build errors, no broken routes.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
 import { getEnabledThemes, getThemeById } from '../../config/themes';
 
-// Headers
-import HeaderLiquid from '../../components/layout/header/HeaderLiquid.astro';
-import HeaderGlass from '../../components/layout/header/HeaderGlass.astro';
-import HeaderNeo from '../../components/layout/header/HeaderNeo.astro';
-import HeaderLuxury from '../../components/layout/header/HeaderLuxury.astro';
-import HeaderMinimal from '../../components/layout/header/HeaderMinimal.astro';
-import HeaderAurora from '../../components/layout/header/HeaderAurora.astro';
-
-// Portfolio Page Components
-import PortfolioPageLiquid from '../../components/pages/portfolio/PortfolioPageLiquid.astro';
-import PortfolioPageGlass from '../../components/pages/portfolio/PortfolioPageGlass.astro';
-import PortfolioPageNeo from '../../components/pages/portfolio/PortfolioPageNeo.astro';
-import PortfolioPageLuxury from '../../components/pages/portfolio/PortfolioPageLuxury.astro';
-import PortfolioPageMinimal from '../../components/pages/portfolio/PortfolioPageMinimal.astro';
-import PortfolioPageAurora from '../../components/pages/portfolio/PortfolioPageAurora.astro';
-
-// Footers
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
-import FooterGlass from '../../components/sections/footer/FooterGlass.astro';
-import FooterNeo from '../../components/sections/footer/FooterNeo.astro';
-import FooterLuxury from '../../components/sections/footer/FooterLuxury.astro';
-import FooterMinimal from '../../components/sections/footer/FooterMinimal.astro';
-import FooterAurora from '../../components/sections/footer/FooterAurora.astro';
-
-const componentMap = {
-  liquid: {
-    Header: HeaderLiquid,
-    PortfolioPage: PortfolioPageLiquid,
-    Footer: FooterLiquid,
-  },
-  glass: {
-    Header: HeaderGlass,
-    PortfolioPage: PortfolioPageGlass,
-    Footer: FooterGlass,
-  },
-  neo: {
-    Header: HeaderNeo,
-    PortfolioPage: PortfolioPageNeo,
-    Footer: FooterNeo,
-  },
-  luxury: {
-    Header: HeaderLuxury,
-    PortfolioPage: PortfolioPageLuxury,
-    Footer: FooterLuxury,
-  },
-  minimal: {
-    Header: HeaderMinimal,
-    PortfolioPage: PortfolioPageMinimal,
-    Footer: FooterMinimal,
-  },
-  aurora: {
-    Header: HeaderAurora,
-    PortfolioPage: PortfolioPageAurora,
-    Footer: FooterAurora,
-  },
-};
+// Theme barrel files — same source of truth used by [theme].astro.
+// @ts-ignore — .astro imports in .ts barrel files resolve correctly at build time
+import * as LiquidSections  from '../../components/sections/themes/liquid';
+// @ts-ignore
+import * as GlassSections   from '../../components/sections/themes/glass';
+// @ts-ignore
+import * as NeoSections     from '../../components/sections/themes/neo';
+// @ts-ignore
+import * as LuxurySections  from '../../components/sections/themes/luxury';
+// @ts-ignore
+import * as MinimalSections from '../../components/sections/themes/minimal';
+// @ts-ignore
+import * as AuroraSections  from '../../components/sections/themes/aurora';
 
 export function getStaticPaths() {
   return getEnabledThemes().map((theme) => ({
@@ -84,13 +48,29 @@ const theme = getThemeById(themeId);
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const components = componentMap[themeId as keyof typeof componentMap];
-const Header = components.Header;
-const PortfolioPage = components.PortfolioPage;
-const Footer = components.Footer;
+// Map of all theme section modules — add a new entry here when adding a new theme.
+const themeModules: Record<string, Record<string, unknown>> = {
+  liquid:  LiquidSections,
+  glass:   GlassSections,
+  neo:     NeoSections,
+  luxury:  LuxurySections,
+  minimal: MinimalSections,
+  aurora:  AuroraSections,
+};
+
+const sections = themeModules[themeId] ?? LiquidSections;
+
+const Header       = sections['Header']       as any;
+const PortfolioPage = sections['PortfolioPage'] as any ?? null;
+const Footer       = sections['Footer']       as any;
 ---
 
-<BaseLayout title={`${t('portfolioPage.pageTitle')} - ${theme?.name}`} description={t('portfolioPage.pageSubtitle')} showHeader={false} showControls={false}>
+<BaseLayout
+  title={`${t('portfolioPage.pageTitle')} - ${theme?.name}`}
+  description={t('portfolioPage.pageSubtitle')}
+  showHeader={false}
+  showControls={false}
+>
   <Header />
   <main>
     {PortfolioPage ? (
@@ -100,7 +80,10 @@ const Footer = components.Footer;
         <div class="text-center">
           <h1 class="text-4xl font-black text-base-content mb-4">{t('portfolioPage.pageTitle')}</h1>
           <p class="text-base-content/50 mb-8">{t('portfolioPage.comingSoon')}</p>
-          <a href={`/${themeId}`} class="inline-flex items-center gap-2 text-accent font-bold hover:gap-4 transition-all duration-300">
+          <a
+            href={`/${themeId}`}
+            class="inline-flex items-center gap-2 text-accent font-bold hover:gap-4 transition-all duration-300"
+          >
             ← {t('portfolioPage.backToHome')}
           </a>
         </div>
@@ -109,4 +92,3 @@ const Footer = components.Footer;
   </main>
   <Footer />
 </BaseLayout>
-

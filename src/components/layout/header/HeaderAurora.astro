@@ -116,7 +116,13 @@ import '../../../styles/components/header/HeaderAurora.css';
 </div>
 
 <script>
+  let auroraHeaderController: AbortController | null = null;
+
   function initHeaderAurora() {
+    auroraHeaderController?.abort();
+    auroraHeaderController = new AbortController();
+    const { signal } = auroraHeaderController;
+
     const header = document.getElementById('header-aurora');
     const burger = document.getElementById('burger-aurora');
     const overlay = document.getElementById('overlay-aurora');
@@ -135,56 +141,49 @@ import '../../../styles/components/header/HeaderAurora.css';
         header.classList.remove('is-scrolled');
       }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // initial check
-
-    // Clone to remove old listeners
-    const newBurger = burger.cloneNode(true) as HTMLElement;
-    burger.parentNode?.replaceChild(newBurger, burger);
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
+    onScroll();
 
     const closeOverlay = () => {
       overlay.classList.remove('is-open');
-      newBurger.classList.remove('is-active');
+      burger.classList.remove('is-active');
       document.body.style.overflow = '';
     };
 
-    newBurger.addEventListener('click', () => {
+    burger.addEventListener('click', () => {
       const isOpen = overlay.classList.toggle('is-open');
-      newBurger.classList.toggle('is-active');
+      burger.classList.toggle('is-active');
       document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
+    }, { signal });
 
     overlay.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeOverlay);
+      link.addEventListener('click', closeOverlay, { signal });
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
         closeOverlay();
-        newBurger.focus();
+        burger.focus();
       }
-    });
+    }, { signal });
 
     // Desktop dropdowns
     document.querySelectorAll('[data-dropdown-aurora]').forEach(dropdown => {
       const trigger = dropdown.querySelector('.nav-aurora-link');
       if (!trigger) return;
       
-      const newTrigger = trigger.cloneNode(true) as HTMLElement;
-      trigger.parentNode?.replaceChild(newTrigger, trigger);
-      
-      newTrigger.addEventListener('click', (e) => {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
         document.querySelectorAll('[data-dropdown-aurora].is-open').forEach(d => {
           if (d !== dropdown) d.classList.remove('is-open');
         });
         dropdown.classList.toggle('is-open');
-      });
+      }, { signal });
     });
 
     document.addEventListener('click', () => {
       document.querySelectorAll('[data-dropdown-aurora].is-open').forEach(d => d.classList.remove('is-open'));
-    });
+    }, { signal });
 
     // Mobile overlay expandable groups
     overlay.querySelectorAll('[data-aurora-group]').forEach(group => {
@@ -193,7 +192,7 @@ import '../../../styles/components/header/HeaderAurora.css';
 
       groupTrigger.addEventListener('click', () => {
         group.classList.toggle('is-open');
-      });
+      }, { signal });
     });
   }
 

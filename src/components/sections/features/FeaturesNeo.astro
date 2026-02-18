@@ -4,6 +4,7 @@
  * Editorial header with labeled scroll CTA, better tile proportions.
  */
 import '../../../styles/components/features/FeaturesNeo.css';
+import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
@@ -24,7 +25,7 @@ const features = [
     <!-- Header -->
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 sm:mb-16 md:mb-20 border-b border-base-content/5 pb-8 sm:pb-12">
       <div class="max-w-2xl">
-        <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-4">{t('features.badge')}</span>
+        <NeoSectionTag label={t('features.badge')} class="mb-4" />
         <h2 class="text-5xl sm:text-6xl md:text-8xl font-black text-base-content tracking-tighter leading-[0.9]">
           {t('features.pureTitle')}<br/>
           <span class="text-accent italic">{t('features.liquidTitle')}</span>

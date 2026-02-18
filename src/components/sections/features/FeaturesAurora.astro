@@ -116,7 +116,13 @@ const features = [
 </section>
 
 <script>
+  let featuresAuroraController: AbortController | null = null;
+
   function initFeaturesAurora() {
+    featuresAuroraController?.abort();
+    featuresAuroraController = new AbortController();
+    const { signal } = featuresAuroraController;
+
     const track = document.getElementById('aurora-feat-track');
     const prevBtn = document.getElementById('aurora-feat-prev');
     const nextBtn = document.getElementById('aurora-feat-next');
@@ -125,28 +131,23 @@ const features = [
 
     const scrollAmount = 340;
 
-    const newPrev = prevBtn.cloneNode(true) as HTMLElement;
-    const newNext = nextBtn.cloneNode(true) as HTMLElement;
-    prevBtn.parentNode?.replaceChild(newPrev, prevBtn);
-    nextBtn.parentNode?.replaceChild(newNext, nextBtn);
-
-    newPrev.addEventListener('click', () => {
+    prevBtn.addEventListener('click', () => {
       track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
+    }, { signal });
 
-    newNext.addEventListener('click', () => {
+    nextBtn.addEventListener('click', () => {
       track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
+    }, { signal });
 
     // Update arrow visibility
     const updateArrows = () => {
       const atStart = track.scrollLeft <= 10;
       const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
-      newPrev.classList.toggle('is-hidden', atStart);
-      newNext.classList.toggle('is-hidden', atEnd);
+      prevBtn.classList.toggle('is-hidden', atStart);
+      nextBtn.classList.toggle('is-hidden', atEnd);
     };
 
-    track.addEventListener('scroll', updateArrows, { passive: true });
+    track.addEventListener('scroll', updateArrows, { passive: true, signal });
     updateArrows();
   }
 

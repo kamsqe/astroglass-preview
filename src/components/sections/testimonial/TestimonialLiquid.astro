@@ -10,6 +10,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/testimonial/TestimonialLiquid.css';
+import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
 const testimonials = [
   {
@@ -51,7 +52,7 @@ const testimonials = [
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('testimonial.stories')}</span>
+       <LiquidSectionTag label={t('testimonial.stories')} class="mb-6" />
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('testimonial.title')}</h2>
     </div>
 

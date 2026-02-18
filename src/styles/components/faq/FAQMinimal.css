@@ -2,7 +2,7 @@
 
 .c-faq-minimal__section {
   opacity: 0;
-  animation: sectionFadeInV5 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: sectionFadeInV5 var(--duration-minimal) var(--ease-minimal) forwards;
 }
 
 @keyframes sectionFadeInV5 {
@@ -43,7 +43,7 @@
 }
 
 .c-faq-minimal__acc-content {
-  animation: accordionExpandV5 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: accordionExpandV5 600ms var(--ease-minimal);
 }
 
 @keyframes accordionExpandV5 {

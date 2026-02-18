@@ -38,6 +38,32 @@
 
   --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-luxury-slow: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Glass Theme Tokens */
+  --tracking-glass-tag: 0.25em;
+  --text-glass-tag: 10px;
+
+  --ease-glass: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-glass: 800ms;
+  --duration-glass-fast: 400ms;
+  --duration-glass-slow: 1200ms;
+
+  --blur-glass-sm: 8px;
+  --blur-glass-md: 20px;
+  --blur-glass-lg: 40px;
+
+  /* Minimal Theme Tokens */
+  --tracking-minimal-tag: 0.3em;
+  --text-minimal-tag: 10px;
+
+  --ease-minimal: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-minimal: 800ms;
+  --duration-minimal-fast: 400ms;
+  --duration-minimal-slow: 1500ms;
+
+  --radius-minimal-sm: 0.75rem;
+  --radius-minimal-md: 1rem;
+  --radius-minimal-lg: 2rem;
 }
 
 

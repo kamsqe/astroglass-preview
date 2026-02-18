@@ -11,6 +11,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/faq/FAQMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 
 const sections = [
   {
@@ -64,7 +65,7 @@ const sections = [
   <div class="max-w-5xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 lg:mb-16">
-       <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('nav.resourcesFaq')}</span>
+       <span class="c-tag-minimal mb-4 block"><span class="c-tag-minimal__dash"></span>{t('nav.resourcesFaq')}</span>
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.findAnswer')}</h2>
        <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
     </div>

@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 
 .contact-v5-panel {
-  animation: contact-panel-slide 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: contact-panel-slide var(--duration-minimal-fast) var(--ease-minimal);
 }
 
 @keyframes contact-panel-slide {

@@ -36,6 +36,7 @@ const i18nData = {
     required: t('contact.validation.required')
   };
 import '../../../styles/components/contact/ContactMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 ---
 
 <section id="contact" class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -47,8 +48,8 @@ import '../../../styles/components/contact/ContactMinimal.css';
   <div class="max-w-xl mx-auto relative">
     <!-- Header -->
     <div class="text-center mb-8">
-      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.contactUs')}</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.howCanWeHelp')}</h2>
+      <span class="c-tag-minimal mb-2 block"><span class="c-tag-minimal__dash"></span>{t('contact.contactUs')}</span>
+      <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-base-content tracking-tighter">{t('contact.howCanWeHelp')}</h2>
     </div>
 
     <!-- Wizard Container -->
@@ -198,7 +199,6 @@ import '../../../styles/components/contact/ContactMinimal.css';
   </div>
 </section>
 
-</style>
 
 <script>
   import { safeParse } from 'valibot';

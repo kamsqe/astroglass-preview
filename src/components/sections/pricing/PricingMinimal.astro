@@ -10,6 +10,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/pricing/PricingMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 
 import { Button } from '../../ui/button';
 import { Card } from '../../ui/card';
@@ -40,7 +41,7 @@ const stats = [
          <div class="relative z-10">
             <div class="flex items-center gap-3 mb-10 group-hover/main:translate-x-1">
                <span class="c-pricing-minimal__pulse w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_10px_hsl(var(--a))]"></span>
-               <span class="text-[10px] font-black tracking-[0.5em] text-accent uppercase block">{t('pricing.activeSystem')}</span>
+               <span class="c-tag-minimal"><span class="c-tag-minimal__dash"></span>{t('pricing.activeSystem')}</span>
             </div>
             <h3 class="text-6xl md:text-[6.5rem] font-black text-base-content mb-6 tracking-tighter group-hover/main:scale-105 origin-left">{t('pricing.tier2Name')}</h3>
             <p class="text-xl text-base-content/40 font-medium mb-12 leading-relaxed group-hover/main:text-base-content/60">{t('pricing.plans.pro.desc')}</p>

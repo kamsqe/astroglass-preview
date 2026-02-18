@@ -13,7 +13,7 @@
 }
 
 .c-faq-glass__msg {
-  animation: msgSlideInV2 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: msgSlideInV2 800ms var(--ease-glass);
 }
 
 @keyframes msgSlideInV2 {
@@ -85,7 +85,7 @@
 
 /* Helpful feedback buttons */
 .c-faq-glass__helpful-btn {
-  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 500ms var(--ease-glass);
 }
 
 .c-faq-glass__helpful-btn:hover {

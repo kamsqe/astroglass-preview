@@ -16,11 +16,12 @@ const projects = [
   { id: 3, title: t('portfolio.p3Title'), num: '03' },
   { id: 4, title: t('portfolio.p4Title'), num: '04' },
 ];
+import '../../../styles/components/tag/TagMinimal.css';
 ---
 
 <section id="portfolio" class="relative py-32 px-6">
   <div class="max-w-7xl mx-auto">
-    <h2 class="text-xs font-black tracking-[0.5em] text-accent uppercase mb-24 text-center">{t('portfolio.title')}</h2>
+    <div class="text-center mb-24"><span class="c-tag-minimal"><span class="c-tag-minimal__dash"></span>{t('portfolio.title')}</span></div>
 
     <div class="space-y-4">
        {projects.map((p) => (

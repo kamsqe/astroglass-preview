@@ -16,7 +16,7 @@
 .c-portfolio-glass__item {
   opacity: 0;
   transform: translateX(30px);
-  animation: portfolioGlassSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: portfolioGlassSlideIn 0.6s var(--ease-glass) forwards;
 }
 
 @keyframes portfolioGlassSlideIn {

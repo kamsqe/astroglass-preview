@@ -15,6 +15,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 import '../../../styles/components/cta/CTAMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 ---
 
 <section class="cta-minimal relative py-24 lg:py-36 px-4 sm:px-6 overflow-hidden bg-base-100" data-cta-section>
@@ -62,10 +63,9 @@ import '../../../styles/components/cta/CTAMinimal.css';
 
     <!-- Eyebrow -->
     <div class="text-center mb-6">
-      <span class="cta-minimal__fade-in inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.35em] text-accent/70">
-        <span class="w-5 h-px bg-accent/40"></span>
+      <span class="cta-minimal__fade-in c-tag-minimal">
+        <span class="c-tag-minimal__dash"></span>
         {t('cta.eyebrow')}
-        <span class="w-5 h-px bg-accent/40"></span>
       </span>
     </div>
 

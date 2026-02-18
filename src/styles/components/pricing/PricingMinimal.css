@@ -7,7 +7,7 @@
 .c-pricing-minimal__pulse,
 .c-pricing-minimal__btn-bg,
 .c-pricing-minimal__icon {
-  transition: all 1500ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all var(--duration-minimal-slow) var(--ease-minimal);
   transform: translateZ(0);
   backface-visibility: hidden;
 }

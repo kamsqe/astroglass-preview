@@ -21,14 +21,16 @@ const optionsJson = JSON.stringify(options);
 import '../../../styles/components/cta/CTAGlass.css';
 import { Button, buttonVariants } from '../../ui/button';
 import { cn } from '../../../lib/utils';
+import SectionTag from '../../ui/glass/SectionTag.astro';
+import SectionHeading from '../../ui/glass/SectionHeading.astro';
 ---
 
 <section class="relative py-20 lg:py-32 px-4 sm:px-6 overflow-hidden bg-base-100">
   <div class="max-w-4xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-8 sm:mb-12">
-      <span class="text-[10px] font-black uppercase tracking-[0.4em] sm:tracking-[0.5em] text-accent mb-4 block">{t('cta.getStarted')}</span>
-      <h2 class="text-2xl sm:text-3xl md:text-5xl font-black text-base-content tracking-tight">{t('cta.steps.title')}</h2>
+      <SectionTag label={t('cta.getStarted')} class="mb-4" />
+      <SectionHeading size="sm" align="center">{t('cta.steps.title')}</SectionHeading>
     </div>
 
     <!-- Interactive Stepper -->

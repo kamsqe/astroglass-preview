@@ -5,6 +5,7 @@
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import '../../../styles/components/tag/TagMinimal.css';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -54,8 +55,8 @@ const features = [
   <div class="sticky top-0 z-20 py-6 sm:py-8 px-4 sm:px-6 bg-base-100/80 backdrop-blur-xl border-b border-base-content/5">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <span class="text-accent font-black uppercase text-[10px] tracking-[0.3em]">{t('features.badge')}</span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-base-content tracking-tight">
+        <span class="c-tag-minimal"><span class="c-tag-minimal__dash"></span>{t('features.badge')}</span>
+        <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-base-content tracking-tighter">
           {t('features.title')}
         </h2>
       </div>

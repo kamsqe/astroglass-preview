@@ -12,6 +12,7 @@
  * All text via i18n — zero hardcoded strings.
  */
 import '../../../styles/components/portfolio/PortfolioPageMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
@@ -126,7 +127,7 @@ const projects = [
 
   <div class="relative z-10 w-full max-w-7xl mx-auto text-center px-4">
     <!-- Label -->
-    <h2 class="text-xs font-black tracking-[0.5em] text-accent uppercase mb-8">{t('portfolio.title')}</h2>
+    <span class="c-tag-minimal mb-8"><span class="c-tag-minimal__dash"></span>{t('portfolio.title')}</span>
 
     <!-- Title — massive gradient text -->
     <h1 class="c-portfolio-page-minimal__hero-title text-6xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-black tracking-tighter leading-none mb-8">

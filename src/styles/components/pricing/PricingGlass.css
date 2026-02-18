@@ -5,7 +5,7 @@
 .c-pricing-glass__card *, 
 .c-pricing-glass__toggle, 
 .c-pricing-glass__toggle-glider {
-  transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 1200ms var(--ease-glass);
   transform: translateZ(0);
   backface-visibility: hidden;
 }

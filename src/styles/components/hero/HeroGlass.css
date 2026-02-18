@@ -2,7 +2,7 @@
 
 /* .btn-liquid-v2 */
 .c-hero-glass__btn-liquid-v2 {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
@@ -14,7 +14,7 @@
 
 /* .btn-liquid-secondary-v2 */
 .c-hero-glass__btn-liquid-secondary-v2 {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
@@ -26,7 +26,7 @@
 
 /* .hero-card */
 .c-hero-glass__card {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transform: rotateY(-8deg);
@@ -38,7 +38,7 @@
 
 /* .accent-float */
 .c-hero-glass__accent-float {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
@@ -50,14 +50,14 @@
 
 /* .play-icon */
 .c-hero-glass__play-icon {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
 /* .card-content */
 .c-hero-glass__content {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }

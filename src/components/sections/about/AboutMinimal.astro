@@ -7,6 +7,7 @@ import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 import '../../../styles/components/about/AboutMinimal.css';
+import '../../../styles/components/tag/TagMinimal.css';
 
 export interface Props {
   isFirst?: boolean;
@@ -49,9 +50,7 @@ const values = [
   <div class="max-w-6xl mx-auto">
     <!-- Header with manifesto -->
     <div class="text-center mb-12 lg:mb-16">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
-        {t('about.whatWeBelieve')}
-      </div>
+      <span class="c-tag-minimal mb-6"><span class="c-tag-minimal__dash"></span>{t('about.whatWeBelieve')}</span>
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black text-base-content tracking-tight mb-6 max-w-4xl mx-auto leading-tight">
         {t('about.manifesto')}
       </h2>

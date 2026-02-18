@@ -6,6 +6,8 @@
 import '../../../styles/components/portfolio/PortfolioGlass.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import SectionTag from '../../ui/glass/SectionTag.astro';
+import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -23,10 +25,10 @@ const projects = [
   <!-- Header -->
   <div class="px-4 sm:px-6 mb-10 sm:mb-14 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
     <div>
-      <span class="inline-block text-accent font-black uppercase text-[10px] tracking-[0.3em] mb-3">{t('portfolio.gallery')}</span>
-      <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tight leading-none">
+      <SectionTag label={t('portfolio.gallery')} class="mb-3" />
+      <SectionHeading size="lg" class="leading-none">
         {t('portfolio.title')}
-      </h2>
+      </SectionHeading>
     </div>
     <p class="text-sm sm:text-base text-base-content/40 max-w-xs">
       {t('portfolio.subtitle')}

@@ -18,7 +18,7 @@
 
 /* Steps Animation */
 .c-cta-glass__step {
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 600ms var(--ease-glass);
 }
 
 .c-cta-glass__step.hidden {
@@ -26,7 +26,7 @@
 }
 
 .c-cta-glass__step:not(.hidden) {
-  animation: stepFadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: stepFadeIn 600ms var(--ease-glass);
 }
 
 @keyframes stepFadeIn {

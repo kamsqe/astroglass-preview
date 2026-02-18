@@ -6,6 +6,8 @@
  */
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import SectionTag from '../../ui/glass/SectionTag.astro';
+import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -70,11 +72,8 @@ const messages = [
   <div class="max-w-3xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12">
-       <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-accent/10 border border-accent/20 mb-6">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          <span class="text-xs font-bold text-accent">{messages.length} {t('testimonial.peopleTalking')}</span>
-       </div>
-       <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('testimonial.buzz')}</h2>
+       <SectionTag label={`${messages.length} ${t('testimonial.peopleTalking')}`} class="mb-6" />
+       <SectionHeading size="md" align="center">{t('testimonial.buzz')}</SectionHeading>
     </div>
 
     <!-- Chat Container -->

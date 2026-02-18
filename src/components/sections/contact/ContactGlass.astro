@@ -29,6 +29,8 @@ const topics = [
     messageLong: t('contact.validation.messageLong')
   };
 import '../../../styles/components/contact/ContactGlass.css';
+import SectionTag from '../../ui/glass/SectionTag.astro';
+import SectionHeading from '../../ui/glass/SectionHeading.astro';
 ---
 
 <section id="contact" class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
@@ -40,8 +42,8 @@ import '../../../styles/components/contact/ContactGlass.css';
   <div class="max-w-lg mx-auto relative">
     <!-- Header -->
     <div class="text-center mb-8">
-      <span class="text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 block">{t('contact.eyebrow')}</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.title')}</h2>
+      <SectionTag label={t('contact.eyebrow')} class="mb-2" />
+      <SectionHeading size="sm" align="center">{t('contact.title')}</SectionHeading>
       <p class="text-sm text-base-content/50 mt-2">{t('contact.subtitle')}</p>
     </div>
 
@@ -138,7 +140,6 @@ import '../../../styles/components/contact/ContactGlass.css';
   </div>
 </section>
 
-</style>
 
 <script>
   import { safeParse } from 'valibot';

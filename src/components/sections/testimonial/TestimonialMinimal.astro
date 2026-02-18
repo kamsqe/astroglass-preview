@@ -29,12 +29,13 @@ const row2 = [
   { quote: t('testimonial.q16'), author: "Jay H.", company: "Clerk", avatar: "https://i.pravatar.cc/150?img=52" },
   { quote: t('testimonial.q13'), author: "Amy L.", company: "Resend", avatar: "https://i.pravatar.cc/150?img=47" },
 ];
+import '../../../styles/components/tag/TagMinimal.css';
 ---
 
 <section class="relative py-24 lg:py-32 overflow-hidden bg-base-100">
   <!-- Header -->
   <div class="text-center mb-16 px-6">
-     <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">{t('testimonial.trustedBy')}</span>
+     <span class="c-tag-minimal mb-4 block"><span class="c-tag-minimal__dash"></span>{t('testimonial.trustedBy')}</span>
      <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('testimonial.theCommunity')}</h2>
   </div>
 

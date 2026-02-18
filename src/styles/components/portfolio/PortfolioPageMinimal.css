@@ -44,7 +44,7 @@
   opacity: 0;
   transform: translateY(20px);
   cursor: pointer;
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-minimal) var(--ease-minimal);
 }
 
 .c-portfolio-page-minimal__row.is-visible {
@@ -55,7 +55,7 @@
 .c-portfolio-page-minimal__num,
 .c-portfolio-page-minimal__title,
 .c-portfolio-page-minimal__arrow {
-  transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-minimal) var(--ease-minimal);
 }
 
 @media (hover: hover) {
@@ -83,7 +83,7 @@
 .c-portfolio-page-minimal__details {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: max-height 600ms var(--ease-minimal);
 }
 
 .c-portfolio-page-minimal__details.is-expanded {

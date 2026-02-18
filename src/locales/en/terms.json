@@ -4,6 +4,7 @@
   "description": "Read our terms and conditions for using Liquid Glass services.",
   "sections": {
     "intro": {
+      "title": "Introduction",
       "content": "Welcome to Liquid Glass! These terms and conditions outline the rules and regulations for the use of Liquid Glass's Website. By accessing this website we assume you accept these terms and conditions. Do not continue to use Liquid Glass if you do not agree to take all of the terms and conditions stated on this page."
     },
     "license": {

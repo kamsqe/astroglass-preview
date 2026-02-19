@@ -159,11 +159,12 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
-  registerAstroPage(() => {
+  registerAstroPage((signal) => {
     initScrollReveal('.c-portfolio-page-neo__card', {
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px',
       staggerMs: 60,
+      signal,
     });
 
     initDetailPanels({
@@ -171,6 +172,7 @@ const projects = [
       closeSelector: '[data-close-details]',
       panelBaseSelector: '.c-portfolio-page-neo__details',
       cardSelector: '.c-portfolio-page-neo__card',
+      signal,
     });
 
     initCategoryFilter({
@@ -178,6 +180,9 @@ const projects = [
       cardSelector: '.c-portfolio-page-neo__card',
       activeClasses: ['border-accent/20', 'text-accent', 'bg-accent/[0.05]'],
       inactiveClasses: ['border-base-content/8', 'text-base-content/35'],
+      twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
+      signal,
     });
   });
 </script>

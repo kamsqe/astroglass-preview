@@ -135,42 +135,18 @@ const projects = [
 </section>
 
 <script>
-  let portfolioAuroraSectionController: AbortController | null = null;
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initCategoryFilter } from '../../../utils/portfolio';
 
-  function initPortfolioAurora() {
-    portfolioAuroraSectionController?.abort();
-    portfolioAuroraSectionController = new AbortController();
-    const { signal } = portfolioAuroraSectionController;
-
-    const filters = document.getElementById('aurora-portfolio-filters');
-    const grid = document.getElementById('aurora-portfolio-grid');
-
-    if (!filters || !grid) return;
-
-    filters.querySelectorAll('.portfolio-aurora-filter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active state
-        filters.querySelectorAll('.portfolio-aurora-filter').forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-
-        const filter = btn.getAttribute('data-filter');
-        
-        grid.querySelectorAll('.portfolio-aurora-item').forEach(item => {
-          const el = item as HTMLElement;
-          if (filter === 'all' || el.getAttribute('data-category') === filter) {
-            el.style.display = '';
-            el.style.opacity = '1';
-            el.style.transform = 'scale(1)';
-          } else {
-            el.style.opacity = '0';
-            el.style.transform = 'scale(0.95)';
-            setTimeout(() => { el.style.display = 'none'; }, 300);
-          }
-        });
-      }, { signal });
+  registerAstroPage((signal) => {
+    initCategoryFilter({
+      filtersId: 'aurora-portfolio-filters',
+      cardSelector: '.portfolio-aurora-item',
+      activeClasses: ['is-active'],
+      inactiveClasses: [],
+      twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
+      signal,
     });
-  }
-
-  initPortfolioAurora();
-  document.addEventListener('astro:after-swap', initPortfolioAurora);
+  });
 </script>

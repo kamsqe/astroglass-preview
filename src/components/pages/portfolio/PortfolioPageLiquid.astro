@@ -153,10 +153,11 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
-  registerAstroPage(() => {
+  registerAstroPage((signal) => {
     initScrollReveal('.c-portfolio-page-liquid__card', {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px',
+      signal,
     });
 
     initDetailPanels({
@@ -164,6 +165,7 @@ const projects = [
       closeSelector: '[data-close-details]',
       panelBaseSelector: '.c-portfolio-page-liquid__details',
       cardSelector: '.c-portfolio-page-liquid__card',
+      signal,
     });
 
     initCategoryFilter({
@@ -171,6 +173,9 @@ const projects = [
       cardSelector: '.c-portfolio-page-liquid__card',
       activeClasses: ['is-active'],
       inactiveClasses: [],
+      twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
+      signal,
     });
   });
 </script>

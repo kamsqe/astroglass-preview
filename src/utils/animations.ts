@@ -15,6 +15,8 @@ export interface ScrollRevealOptions {
   staggerMs?: number;
   /** Class to add when element is visible (default: 'is-visible') */
   visibleClass?: string;
+  /** Optional signal to automatically disconnect observer */
+  signal?: AbortSignal;
 }
 
 /**
@@ -32,6 +34,7 @@ export function initScrollReveal(
     rootMargin = '0px 0px -40px 0px',
     staggerMs = 0,
     visibleClass = 'is-visible',
+    signal,
   } = options;
 
   const elements = document.querySelectorAll<HTMLElement>(selector);
@@ -53,6 +56,10 @@ export function initScrollReveal(
     }
     observer.observe(el);
   });
+
+  if (signal) {
+    signal.addEventListener('abort', () => observer.disconnect(), { once: true });
+  }
 
   return observer;
 }

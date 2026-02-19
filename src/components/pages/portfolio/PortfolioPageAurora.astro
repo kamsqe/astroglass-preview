@@ -142,7 +142,7 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter } from '../../../utils/portfolio';
 
-  registerAstroPage(() => {
+  registerAstroPage((signal) => {
     const modal = document.getElementById('pp-aurora-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-aurora-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-aurora-modal-close') as HTMLElement | null;
@@ -177,26 +177,26 @@ const projects = [
     }
 
     // Close button
-    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalClose) modalClose.addEventListener('click', closeModal, { signal });
 
     // Backdrop click
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
-    });
+    }, { signal });
 
     // Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal!.classList.contains('is-open')) {
         closeModal();
       }
-    });
+    }, { signal });
 
     // Card click handlers — open modal by index
     document.querySelectorAll<HTMLElement>('.pp-aurora__card').forEach((card, i) => {
       card.style.cursor = 'pointer';
       card.addEventListener('click', () => {
         openModal(i);
-      });
+      }, { signal });
     });
 
     // Scroll reveal with stagger
@@ -204,6 +204,7 @@ const projects = [
       threshold: 0.1,
       rootMargin: '0px 0px -30px 0px',
       staggerMs: 80,
+      signal,
     });
 
     // Category filter (closes modal on filter, uses scale transform)
@@ -213,8 +214,9 @@ const projects = [
       activeClasses: ['is-active'],
       inactiveClasses: [],
       twoStepAnimation: true,
-      hideTransform: 'scale(0.95)',
+      hideTransform: 'translateY(20px) scale(0.98)',
       onFilter: () => closeModal(),
+      signal,
     });
   });
 </script>

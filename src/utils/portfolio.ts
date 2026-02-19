@@ -40,112 +40,175 @@ export interface CategoryFilterConfig {
    * Used by Minimal theme which animates `.c-portfolio-page-minimal__row`.
    */
   animateChildSelector?: string;
+  /** Signal for cleanup string View Transitions */
+  signal?: AbortSignal;
 }
 
 /**
- * Wire up category filter buttons to show/hide project cards.
- *
- * Returns an AbortController — call `.abort()` on reinit to cleanly
- * remove all listeners without cloneNode.
+ * A helper to track animation timeouts to prevent race conditions during rapid clicks.
  */
-export function initCategoryFilter(config: CategoryFilterConfig): AbortController | null {
+const timeoutRegistry = new WeakMap<HTMLElement, NodeJS.Timeout>();
+
+function clearElementTimeout(el: HTMLElement) {
+  if (timeoutRegistry.has(el)) {
+    clearTimeout(timeoutRegistry.get(el));
+    timeoutRegistry.delete(el);
+  }
+}
+
+function setElementTimeout(el: HTMLElement, fn: () => void, ms: number) {
+  clearElementTimeout(el);
+  const id = setTimeout(() => {
+    fn();
+    timeoutRegistry.delete(el);
+  }, ms);
+  timeoutRegistry.set(el, id);
+}
+
+/**
+ * Filter DOM items based on category. Will use document.startViewTransition 
+ * for layout morphing if supported, otherwise degrades gracefully.
+ */
+function applyFilterLogic(
+  filter: string,
+  config: CategoryFilterConfig
+) {
   const {
-    filtersId,
     cardSelector,
-    activeClasses,
-    inactiveClasses,
-    onFilter,
     hideTransform = 'translateY(20px)',
     fadeOutMs = 400,
     twoStepAnimation = false,
     animateChildSelector,
   } = config;
 
-  const filters = document.getElementById(filtersId);
-  if (!filters) return null;
+  const cards = document.querySelectorAll<HTMLElement>(cardSelector);
 
-  const controller = new AbortController();
-  const { signal } = controller;
+  if (twoStepAnimation) {
+    // Step 1: Fade out all items
+    cards.forEach((card) => {
+      const target = animateChildSelector
+        ? card.querySelector<HTMLElement>(animateChildSelector)
+        : card;
+      if (target) {
+        target.style.opacity = '0';
+        target.style.transform = hideTransform;
+      }
+    });
 
-  filters.querySelectorAll<HTMLElement>('button').forEach((btn) => {
-    btn.addEventListener(
-      'click',
-      () => {
-        // Update active state on all filter buttons
-        filters.querySelectorAll<HTMLElement>('button').forEach((b) => {
-          // Remove both active and inactive classes, then add inactive
-          [...activeClasses, ...inactiveClasses].forEach((cls) => b.classList.remove(cls));
-          inactiveClasses.forEach((cls) => b.classList.add(cls));
-        });
-        // Mark clicked button as active
-        inactiveClasses.forEach((cls) => btn.classList.remove(cls));
-        activeClasses.forEach((cls) => btn.classList.add(cls));
+    // Step 2: After fade-out, swap display and reveal matching
+    setTimeout(() => {
+      cards.forEach((card) => {
+        const category = card.getAttribute('data-category');
+        const target = animateChildSelector
+          ? card.querySelector<HTMLElement>(animateChildSelector)
+          : card;
 
-        const filter = btn.getAttribute('data-filter');
-        if (onFilter) onFilter(filter || 'all');
-
-        const cards = document.querySelectorAll<HTMLElement>(cardSelector);
-
-        if (twoStepAnimation) {
-          // Step 1: Fade out all items
-          cards.forEach((card) => {
-            const target = animateChildSelector
-              ? card.querySelector<HTMLElement>(animateChildSelector)
-              : card;
-            if (target) {
-              target.style.opacity = '0';
-              target.style.transform = hideTransform;
-            }
-          });
-
-          // Step 2: After fade-out, swap display and reveal matching
-          setTimeout(() => {
-            cards.forEach((card) => {
-              const category = card.getAttribute('data-category');
-              const target = animateChildSelector
-                ? card.querySelector<HTMLElement>(animateChildSelector)
-                : card;
-
-              if (filter === 'all' || category === filter) {
-                card.style.display = '';
-                if (target) {
-                  requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                      target.style.opacity = '1';
-                      target.style.transform = '';
-                    });
-                  });
-                }
-              } else {
-                card.style.display = 'none';
-              }
-            });
-          }, fadeOutMs < 400 ? fadeOutMs : 300);
-        } else {
-          // Simple show/hide with transition
-          cards.forEach((card) => {
-            const category = card.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-              card.style.display = '';
+        if (filter === 'all' || category === filter) {
+          card.style.display = '';
+          if (target) {
+            requestAnimationFrame(() => {
               requestAnimationFrame(() => {
-                card.style.opacity = '1';
-                card.style.transform = '';
+                target.style.opacity = '1';
+                target.style.transform = '';
               });
-            } else {
-              card.style.opacity = '0';
-              card.style.transform = hideTransform;
-              setTimeout(() => {
-                card.style.display = 'none';
-              }, fadeOutMs);
-            }
-          });
+            });
+          }
+        } else {
+          card.style.display = 'none';
         }
-      },
-      { signal }
-    );
-  });
+      });
+    }, fadeOutMs < 400 ? fadeOutMs : 300);
+  } else {
+    // Simple show/hide with transition fallback (no startViewTransition)
+    cards.forEach((card) => {
+      clearElementTimeout(card);
+      
+      const category = card.getAttribute('data-category');
+      const isMatch = filter === 'all' || category === filter;
 
-  return controller;
+      if (isMatch) {
+        card.style.display = '';
+        requestAnimationFrame(() => {
+          card.style.opacity = '1';
+          card.style.transform = '';
+        });
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = hideTransform;
+        
+        setElementTimeout(
+          card,
+          () => {
+            card.style.display = 'none';
+          },
+          fadeOutMs
+        );
+      }
+    });
+  }
+}
+
+/**
+ * Wire up category filter buttons to show/hide project cards.
+ */
+export function initCategoryFilter(config: CategoryFilterConfig): void {
+  const {
+    filtersId,
+    activeClasses,
+    inactiveClasses,
+    onFilter,
+    signal,
+  } = config;
+
+  const filters = document.getElementById(filtersId);
+  if (!filters) return;
+
+  const handleClick = (e: MouseEvent) => {
+    const btn = (e.target as HTMLElement).closest('button[data-filter]');
+    if (!btn) return;
+
+    // Update active state on all filter buttons
+    filters.querySelectorAll<HTMLElement>('button').forEach((b) => {
+      [...activeClasses, ...inactiveClasses].forEach((cls) => b.classList.remove(cls));
+      inactiveClasses.forEach((cls) => b.classList.add(cls));
+    });
+    
+    // Mark clicked button as active
+    inactiveClasses.forEach((cls) => btn.classList.remove(cls));
+    activeClasses.forEach((cls) => btn.classList.add(cls));
+
+    const filter = btn.getAttribute('data-filter') || 'all';
+    if (onFilter) onFilter(filter);
+
+    // Use native View Transitions API if supported to prevent layout jumping
+    if (!config.twoStepAnimation && document.startViewTransition) {
+      // Find a suitable parent container or default to the first card's parent
+      const firstCard = document.querySelector<HTMLElement>(config.cardSelector);
+      const container = firstCard ? firstCard.parentElement : null;
+
+      if (container) {
+        // Isolate the view transition purely to the portfolio grid instead of whole page
+        container.style.viewTransitionName = 'portfolio-grid';
+        
+        const transition = document.startViewTransition(() => {
+          applyFilterLogic(filter, { ...config, fadeOutMs: 0 }); 
+        });
+
+        // Cleanup constraint after transition completes
+        transition.finished.finally(() => {
+          container.style.viewTransitionName = '';
+        });
+      } else {
+        document.startViewTransition(() => {
+          applyFilterLogic(filter, { ...config, fadeOutMs: 0 }); 
+        });
+      }
+    } else {
+      applyFilterLogic(filter, config);
+    }
+  };
+
+  filters.addEventListener('click', handleClick, { signal });
 }
 
 // ─── Detail Panel Expand/Collapse ───────────────────────────────
@@ -161,6 +224,8 @@ export interface DetailPanelConfig {
   panelBaseSelector: string;
   /** Selector for the card/item ancestor (used for scroll-back on close) */
   cardSelector: string;
+  /** Optional signal from registerAstroPage */
+  signal?: AbortSignal;
 }
 
 /**
@@ -168,20 +233,16 @@ export interface DetailPanelConfig {
  *
  * Used by Liquid, Neo, and Minimal portfolio pages (themes with
  * inline expandable panels rather than modals).
- *
- * Returns an AbortController for cleanup.
  */
-export function initDetailPanels(config: DetailPanelConfig): AbortController {
+export function initDetailPanels(config: DetailPanelConfig): void {
   const {
     toggleSelector,
     closeSelector,
     expandedClass = 'is-expanded',
     panelBaseSelector,
     cardSelector,
+    signal,
   } = config;
-
-  const controller = new AbortController();
-  const { signal } = controller;
 
   // Toggle buttons
   document.querySelectorAll<HTMLElement>(toggleSelector).forEach((btn) => {
@@ -232,6 +293,4 @@ export function initDetailPanels(config: DetailPanelConfig): AbortController {
       { signal }
     );
   });
-
-  return controller;
 }

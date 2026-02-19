@@ -164,7 +164,7 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter } from '../../../utils/portfolio';
 
-  registerAstroPage(() => {
+  registerAstroPage((signal) => {
     const modal = document.getElementById('pp-luxury-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-luxury-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-luxury-modal-close') as HTMLElement | null;
@@ -199,11 +199,11 @@ const projects = [
     }
 
     // Close handlers
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    if (modalClose) modalClose.addEventListener('click', closeModal, { signal });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); }, { signal });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal!.classList.contains('is-open')) closeModal();
-    });
+    }, { signal });
 
     // Card "View Details" button click
     document.querySelectorAll<HTMLElement>('[data-open-luxury-modal]').forEach((btn) => {
@@ -211,7 +211,7 @@ const projects = [
         e.stopPropagation();
         const index = parseInt(btn.getAttribute('data-open-luxury-modal') || '0', 10);
         openModal(index);
-      });
+      }, { signal });
     });
 
     // Scroll-based card reveal with stagger
@@ -219,6 +219,7 @@ const projects = [
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px',
       staggerMs: 80,
+      signal,
     });
 
     // Category filter (closes modal on filter change)
@@ -230,6 +231,7 @@ const projects = [
       twoStepAnimation: true,
       hideTransform: 'translateY(20px) scale(0.98)',
       onFilter: () => closeModal(),
+      signal,
     });
   });
 </script>

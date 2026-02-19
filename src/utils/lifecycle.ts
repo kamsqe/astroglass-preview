@@ -5,33 +5,32 @@
  * correctly with Astro's View Transitions (client-side navigation).
  *
  * Fixes the listener accumulation bug where each navigation adds
- * a new `astro:after-swap` listener without removing the old one.
+ * a new `astro:after-swap` listener without removing the old one,
+ * and handles Astro script module evaluation skipping.
  */
 
 /**
- * Register a page init function with safe astro:after-swap handling.
+ * Register a page init function with safe astro:page-load handling.
  *
- * - Calls `initFn` immediately for the initial page load.
- * - Adds an `astro:after-swap` listener so `initFn` re-runs on
- *   client-side navigation.
- * - Removes the old listener on `astro:before-swap` to prevent
- *   accumulation across navigations.
+ * - Uses `astro:page-load` to run reliably on initial load and every navigation.
+ * - Passes an `AbortSignal` to the init payload for listeners.
+ * - Triggers `.abort()` on navigation away (`astro:before-swap`).
  */
-export function registerAstroPage(initFn: () => void): void {
-  // Run immediately for the initial page load
-  initFn();
+export function registerAstroPage(initFn: (signal?: AbortSignal) => void): void {
+  let controller: AbortController | null = null;
 
-  // Handler reference so we can remove it later
-  const swapHandler = () => initFn();
+  document.addEventListener('astro:page-load', () => {
+    // Ensure any stale controller is aborted
+    if (controller) controller.abort();
+    
+    controller = new AbortController();
+    initFn(controller.signal);
+  });
 
-  document.addEventListener('astro:after-swap', swapHandler);
-
-  // Clean up on next navigation to prevent stacking
-  document.addEventListener(
-    'astro:before-swap',
-    () => {
-      document.removeEventListener('astro:after-swap', swapHandler);
-    },
-    { once: true }
-  );
+  document.addEventListener('astro:before-swap', () => {
+    if (controller) {
+      controller.abort();
+      controller = null;
+    }
+  });
 }

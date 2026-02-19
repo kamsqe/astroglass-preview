@@ -147,18 +147,20 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
-  registerAstroPage(() => {
+  registerAstroPage((signal) => {
     initDetailPanels({
       toggleSelector: '[data-toggle-details]',
       closeSelector: '[data-close-details]',
       panelBaseSelector: '.c-portfolio-page-minimal__details',
       cardSelector: '.c-portfolio-page-minimal__item',
+      signal,
     });
 
     initScrollReveal('.c-portfolio-page-minimal__row', {
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px',
       staggerMs: 100,
+      signal,
     });
 
     initCategoryFilter({
@@ -167,7 +169,9 @@ const projects = [
       activeClasses: ['border-accent', 'text-accent', 'bg-accent/10'],
       inactiveClasses: ['border-base-content/10', 'text-base-content/30'],
       twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
       animateChildSelector: '.c-portfolio-page-minimal__row',
+      signal,
     });
   });
 </script>

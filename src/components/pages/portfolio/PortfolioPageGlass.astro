@@ -187,11 +187,12 @@ const projects = [
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter } from '../../../utils/portfolio';
 
-  function initPortfolioPageGlass() {
+  function initPortfolioPageGlass(signal?: AbortSignal) {
     // ── Scroll-based card reveal (shared util) ──
     initScrollReveal('.c-portfolio-page-glass__card', {
       threshold: 0.08,
       staggerMs: 80,
+      signal,
     });
 
     // ── Category filter (shared util) ──
@@ -200,13 +201,14 @@ const projects = [
       cardSelector: '.c-portfolio-page-glass__card',
       activeClasses: ['bg-accent/10', 'border-accent/20', 'text-accent'],
       inactiveClasses: ['bg-base-content/[0.02]', 'border-base-content/8', 'text-base-content/40'],
+      twoStepAnimation: true,
+      hideTransform: 'translateY(20px) scale(0.98)',
+      signal,
     });
 
     // ── Modal (Glass-specific) ──
     const modal = document.getElementById('pp-glass-modal');
     const modalContent = document.getElementById('pp-glass-modal-content');
-    const modalController = new AbortController();
-    const { signal } = modalController;
 
     function openModal(index: number) {
       if (!modal || !modalContent) return;

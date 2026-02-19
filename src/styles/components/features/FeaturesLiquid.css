@@ -24,15 +24,17 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 0;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: bottom;
   background: linear-gradient(to top, hsl(var(--a) / 0.06), transparent);
-  transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 0;
 }
 
 .c-features-liquid__card:hover .c-features-liquid__card-inner::before {
-  height: 100%;
+  transform: scaleY(1);
 }
 
 .c-features-liquid__card:hover .c-features-liquid__card-inner {

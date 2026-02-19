@@ -21,7 +21,34 @@
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   
   /* Lift on hover */
+  /* Lift on hover */
   --lift-amount: -4px;
+
+  /* ============================================
+     NEW MOTION SYSTEM (Physics-Based)
+     ============================================ */
+  --motion-instant: 100ms;   /* Color changes, active states */
+  --motion-quick: 250ms;     /* Micro-interactions (hover, toggle) */
+  --motion-natural: 400ms;   /* UI movement (modals, dropdowns) */
+  --motion-fluid: 700ms;     /* Large layout shifts */
+  --motion-sustained: 1200ms; /* Ambient loops */
+
+  /* ============================================
+     NEW ELEVATION SYSTEM (Lift Model)
+      Strict correlation between Y-axis and Shadow
+     ============================================ */
+  --lift-rest: 0px;
+  --lift-hover: -4px;
+  --lift-float: -8px;
+  
+  --scale-rest: 1;
+  --scale-hover: 1.02;
+  --scale-float: 1.04;
+  
+  /* Semantic Shadows (Map to lifts) */
+  --shadow-rest: var(--shadow-sm);
+  --shadow-hover: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
 }
 
 /* Tahoe (Default Light) - Crisp, clean, modern

@@ -122,19 +122,19 @@
 
 
 .animate-reveal {
-  animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: reveal var(--motion-fluid) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-reveal-left {
-  animation: reveal-left 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: reveal-left var(--motion-fluid) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-reveal-right {
-  animation: reveal-right 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: reveal-right var(--motion-fluid) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-in var(--motion-natural) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ============================================

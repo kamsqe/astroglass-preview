@@ -69,7 +69,14 @@
 
 /* Final Button Breathing Animation */
 .c-cta-glass__final-btn {
-  animation: breathe 3s ease-in-out infinite;
+  /* Restraint: Removed breathing animation */
+  /* animation: breathe 3s ease-in-out infinite; */
+  box-shadow: 0 0 0 0 hsl(var(--a) / 0.2);
+  transition: box-shadow var(--duration-normal) ease;
+}
+
+.c-cta-glass__final-btn:hover {
+  box-shadow: 0 0 20px 5px hsl(var(--a) / 0.15);
 }
 
 @keyframes breathe {

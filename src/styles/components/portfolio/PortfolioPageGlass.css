@@ -79,8 +79,8 @@
   backdrop-filter: blur(20px);
   border: 1px solid hsl(var(--bc) / 0.08);
   transition: all var(--duration-slow) var(--ease-glass);
-  opacity: 0;
-  transform: translateY(24px);
+  /* opacity: 0; */
+  /* transform: translateY(24px); */
 }
 
 .c-portfolio-page-glass__card.is-visible {

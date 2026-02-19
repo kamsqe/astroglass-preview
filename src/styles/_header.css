@@ -17,12 +17,12 @@
     0 1px 0 0 hsl(var(--shadow-color, 0 0% 0%) / 0.03),
     0 4px 16px -4px hsl(var(--shadow-color, 0 0% 0%) / 0.1),
     inset 0 1px 0 0 rgb(var(--glass-border, 255 255 255 / 0.1));
-  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  transition: background var(--motion-natural) ease, backdrop-filter var(--motion-natural) ease;
 }
 
 /* Logo styles */
 .logo-link {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.16, 1, 0.3, 1);
 }
 .logo-link:hover {
   transform: translateY(-1px);
@@ -31,7 +31,7 @@
   transform: scale(0.98);
 }
 .logo-icon {
-  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   box-shadow: 0 4px 12px -2px hsl(var(--a) / calc(var(--glow-intensity, 0.15) * 1.5));
 }
 .logo-link:hover .logo-icon {
@@ -49,7 +49,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--motion-instant) ease;
 }
 .logo-link:hover .logo-text {
   opacity: 0.85;
@@ -74,8 +74,8 @@
   border-radius: 2px;
   opacity: 0;
   transition:
-    transform 0.25s cubic-bezier(0.32, 0.72, 0, 1),
-    opacity 0.2s ease;
+    transform var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1),
+    opacity var(--motion-quick) ease;
 }
 .nav-item:hover::after {
   transform: translateX(-50%) scaleX(1);
@@ -92,7 +92,9 @@
   position: absolute;
   inset: 0;
   background: hsl(var(--a) / 0);
-  transition: background 0.2s ease;
+  background: hsl(var(--a) / 0);
+  transition: background var(--motion-instant) ease;
+  border-radius: inherit;
   border-radius: inherit;
 }
 .dropdown-item:hover::before {
@@ -108,12 +110,12 @@
   box-shadow: 0 0 8px hsl(var(--a) / 0.5);
 }
 .dropdown-dot {
-  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* Nested dropdown arrow hover */
 .nested-trigger svg {
-  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
 }
 .nested-dropdown:hover > .nested-trigger svg {
   transform: translateX(2px);

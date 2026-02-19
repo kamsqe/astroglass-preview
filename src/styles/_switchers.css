@@ -11,7 +11,7 @@
   background: hsl(var(--bc) / 0.03);
   border: 1px solid rgb(var(--glass-border, var(--bc) / 0.06));
   color: hsl(var(--bc) / 0.7);
-  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   cursor: pointer;
   overflow: hidden;
 }
@@ -22,7 +22,7 @@
   inset: 0;
   background: radial-gradient(circle at center, hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 0.6)) 0%, transparent 70%);
   opacity: 0;
-  transition: opacity var(--duration-fast) ease;
+  transition: opacity var(--motion-quick) ease;
 }
 .switcher-btn:hover::before {
   opacity: 1;
@@ -49,18 +49,19 @@
 .switcher-emoji {
   font-size: 17px;
   line-height: 1;
-  transition: transform var(--duration-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--motion-quick) cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 1;
 }
 .switcher-btn:hover .switcher-emoji {
-  transform: scale(1.12) rotate(-3deg);
+  /* Restraint: Removed rotation and scale */
+  transform: none;
 }
 .switcher-chevron {
   width: 11px;
   height: 11px;
   opacity: 0.3;
-  transition: all 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   position: relative;
   z-index: 1;
 }
@@ -90,12 +91,12 @@
   z-index: 150; /* Higher than overlay panels (z-index: 100) */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-6px) scale(0.97);
+  transform: translateY(var(--lift-hover)) scale(0.97);
   transform-origin: top right;
   transition:
-    opacity var(--duration-fast) ease,
-    transform var(--duration-fast) cubic-bezier(0.16, 1, 0.3, 1),
-    visibility var(--duration-fast) ease;
+    opacity var(--motion-quick) ease,
+    transform var(--motion-quick) cubic-bezier(0.16, 1, 0.3, 1),
+    visibility var(--motion-quick) ease;
   pointer-events: none;
 }
 
@@ -141,7 +142,7 @@
   border-radius: 12px;
   color: hsl(var(--bc) / 0.6);
   text-decoration: none;
-  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
@@ -155,7 +156,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, hsl(var(--a) / 0) 0%, hsl(var(--a) / 0) 100%);
-  transition: all 0.22s ease;
+  transition: all var(--motion-quick) ease;
   border-radius: inherit;
 }
 .lang-option-desktop:hover::before {
@@ -166,7 +167,8 @@
   transform: translateX(2px);
 }
 .lang-option-desktop:hover .lang-flag {
-  transform: scale(1.15) rotate(-2deg);
+  /* Restraint: Removed rotation and scale */
+  transform: none;
 }
 .lang-option-desktop:active {
   transform: translateX(2px) scale(0.98);
@@ -182,7 +184,7 @@
 .lang-flag {
   font-size: 20px;
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--motion-quick) cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 1;
 }
@@ -200,7 +202,7 @@
   color: hsl(var(--a));
   opacity: 0;
   transform: scale(0.8);
-  transition: all 0.2s ease;
+  transition: all var(--motion-instant) ease;
   position: relative;
   z-index: 1;
 }
@@ -226,7 +228,7 @@
   border: 1.5px solid hsl(var(--bc) / 0.05);
   color: hsl(var(--bc) / 0.5);
   text-decoration: none;
-  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
@@ -258,7 +260,7 @@
 .lang-option-mobile .lang-flag {
   font-size: 22px;
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--motion-quick) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .lang-option-mobile:active .lang-flag {
   transform: scale(0.88);
@@ -329,7 +331,7 @@
   background: hsl(var(--bc) / 0.02);
   color: hsl(var(--bc) / 0.55);
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
 }
 /* Inner glow effect - theme-aware */
 .theme-option-card::before {
@@ -337,7 +339,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at top, hsl(var(--glow-color, var(--a)) / 0) 0%, transparent 70%);
-  transition: all 0.25s ease;
+  transition: all var(--motion-quick) ease;
   border-radius: inherit;
 }
 .theme-option-card:hover {
@@ -354,7 +356,8 @@
   background: radial-gradient(ellipse at top, hsl(var(--glow-color, var(--a)) / 0.15) 0%, transparent 70%);
 }
 .theme-option-card:hover .theme-card-emoji {
-  transform: scale(1.18) rotate(-3deg);
+  /* Restraint: Removed rotation and scale */
+  transform: none;
 }
 .theme-option-card:active {
   transform: translateY(0) scale(0.96);
@@ -383,7 +386,7 @@
 .theme-card-emoji {
   font-size: 20px;
   line-height: 1;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--motion-quick) cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 1;
 }
@@ -393,7 +396,7 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   opacity: 0.7;
-  transition: all 0.18s ease;
+  transition: all var(--motion-instant) ease;
   position: relative;
   z-index: 1;
   max-width: 100%;
@@ -416,7 +419,7 @@
   height: 12px;
   opacity: 0;
   transform: scale(0.5);
-  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.34, 1.56, 0.64, 1);
   color: hsl(var(--a));
 }
 
@@ -472,7 +475,7 @@
   border: 1px solid hsl(var(--bc) / 0.08);
   color: hsl(var(--bc) / 0.6);
   
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
   scroll-snap-align: center;
   user-select: none;
@@ -503,7 +506,7 @@
   font-size: 18px;
   line-height: 1;
   filter: grayscale(0.5);
-  transition: all 0.3s ease;
+  transition: all var(--motion-quick) ease;
 }
 
 .theme-option-mobile.is-active .theme-emoji {
@@ -517,7 +520,7 @@
   font-weight: 500;
   letter-spacing: 0.02em;
   white-space: nowrap;
-  transition: font-weight 0.2s ease;
+  transition: font-weight var(--motion-instant) ease;
 }
 
 

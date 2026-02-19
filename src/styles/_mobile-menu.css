@@ -13,15 +13,19 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    transform 0.35s cubic-bezier(0.32, 0.72, 0, 1),
-    opacity 0.25s ease,
-    visibility 0.25s ease;
+    transform var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1),
+    opacity var(--motion-quick) ease,
+    visibility var(--motion-quick) ease;
   overflow: hidden;
 }
 .mobile-nav.is-open {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
+  transition:
+    transform var(--motion-natural) cubic-bezier(0.32, 0.72, 0, 1),
+    opacity var(--motion-natural) ease,
+    visibility var(--motion-natural) ease;
 }
 @media (min-width: 1024px) {
   .mobile-nav {
@@ -85,10 +89,29 @@
   border-radius: 16px;
   color: hsl(var(--bc));
   text-decoration: none;
-  transition: all 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   -webkit-tap-highlight-color: transparent;
   position: relative;
+  
+  /* Staggered Entry Setup */
+  opacity: 0;
+  transform: translateY(10px);
 }
+
+.mobile-nav.is-open .mobile-nav-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Logic for Mobile Items */
+.mobile-nav.is-open .mobile-nav-item:nth-child(1) { transition-delay: 100ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(2) { transition-delay: 150ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(3) { transition-delay: 200ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(4) { transition-delay: 250ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(5) { transition-delay: 300ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(6) { transition-delay: 350ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(7) { transition-delay: 400ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(8) { transition-delay: 450ms; }
 .mobile-nav-item:active {
   background: hsl(var(--glow-color, var(--a)) / 0.08);
   transform: scale(0.985);
@@ -103,7 +126,8 @@
   border-radius: 13px;
   background: linear-gradient(145deg, hsl(var(--a) / 0.14) 0%, hsl(var(--a) / 0.05) 100%);
   color: hsl(var(--a));
-  transition: all 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+  color: hsl(var(--a));
+  transition: all var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   flex-shrink: 0;
   box-shadow:
     0 2px 8px -2px hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.5)),
@@ -130,7 +154,7 @@
   color: hsl(var(--bc) / 0.55);
   font-size: 14px;
   text-decoration: none;
-  transition: all 0.18s ease;
+  transition: all var(--motion-instant) ease;
   -webkit-tap-highlight-color: transparent;
 }
 .mobile-subnav-item:active {

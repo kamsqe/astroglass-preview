@@ -11,9 +11,9 @@
   visibility: hidden;
   transform: translateY(-6px);
   transition:
-    opacity 0.18s ease,
-    transform 0.22s cubic-bezier(0.32, 0.72, 0, 1),
-    visibility 0.18s ease;
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1),
+    visibility var(--duration-fast) ease;
   pointer-events: none;
   backdrop-filter: blur(var(--_blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--_blur)) saturate(180%);
@@ -33,10 +33,10 @@
 
 /* Dropdown trigger hover state */
 .dropdown-trigger {
-  transition: all 0.2s ease;
+  transition: all var(--duration-fast) ease;
 }
 .dropdown-trigger svg {
-  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
 }
 .dropdown:hover > .dropdown-trigger,
 .dropdown.is-open > .dropdown-trigger {
@@ -63,9 +63,9 @@
   visibility: hidden;
   transform: translateX(-6px);
   transition:
-    opacity 0.15s ease,
-    transform 0.2s cubic-bezier(0.32, 0.72, 0, 1),
-    visibility 0.15s ease;
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1),
+    visibility var(--duration-fast) ease;
   pointer-events: none;
   backdrop-filter: blur(var(--_blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--_blur)) saturate(180%);
@@ -83,7 +83,7 @@
 }
 
 .nested-trigger {
-  transition: all 0.15s ease;
+  transition: all var(--duration-fast) ease;
 }
 .nested-dropdown:hover > .nested-trigger {
   color: hsl(var(--a)) !important;
@@ -104,8 +104,8 @@
   overflow: hidden;
   opacity: 0;
   transition:
-    max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease;
+    max-height var(--duration-normal) cubic-bezier(0.16, 1, 0.3, 1),
+    opacity var(--duration-fast) ease;
 }
 
 .mobile-dropdown.is-open > .mobile-dropdown-menu {
@@ -135,8 +135,8 @@
   overflow: hidden;
   opacity: 0;
   transition:
-    max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.2s ease;
+    max-height var(--duration-normal) cubic-bezier(0.16, 1, 0.3, 1),
+    opacity var(--duration-fast) ease;
 }
 
 .mobile-nested-dropdown.is-open > .mobile-nested-menu {

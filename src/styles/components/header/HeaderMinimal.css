@@ -337,7 +337,7 @@
 .minimal-theme-btn:hover {
   background: hsl(var(--a) / 0.15);
   border-color: hsl(var(--a) / 0.3);
-  transform: translateY(-3px) scale(1.1);
+  transform: translateY(var(--lift-amount)) scale(1.1);
 }
 
 /* -------------------------------------------------------------------------- */

@@ -83,7 +83,7 @@
 .c-portfolio-page-minimal__details {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 600ms var(--ease-minimal);
+  transition: max-height var(--duration-slow) var(--ease-minimal);
 }
 
 .c-portfolio-page-minimal__details.is-expanded {
@@ -132,7 +132,7 @@
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: all 300ms ease;
+  transition: all var(--duration-fast) ease;
 }
 
 .c-portfolio-page-minimal__tech-pill:hover {

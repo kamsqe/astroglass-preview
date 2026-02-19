@@ -2,18 +2,18 @@
 
 /* ── Background ── */
 .cta-v1-bg {
-  transition: opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--duration-long) var(--ease-liquid);
 }
 
 /* ── Main Card — Rise/pool effect ── */
 .cta-v1-card {
-  transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-long) var(--ease-liquid);
   transform: translateZ(0);
 }
 
 .cta-v1-card:hover {
   border-color: hsl(var(--a) / 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-xl);
 }
 
 /* Card reflection (pool effect) */
@@ -38,37 +38,37 @@
 
 /* ── Reveal Animations (rise from pool) ── */
 .cta-v1-eyebrow.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 0ms;
 }
 
 .cta-v1-message.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 100ms;
 }
 
 .cta-v1-proof.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 200ms;
 }
 
 .cta-v1-headline.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 150ms;
 }
 
 .cta-v1-subtext.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 250ms;
 }
 
 .cta-v1-buttons.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 350ms;
 }
 
 .cta-v1-trust.revealed {
-  animation: cta-pool-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 450ms;
 }
 
@@ -100,7 +100,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 0.75rem;
-  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--duration-slow) var(--ease-liquid);
 }
 
 .cta-v1-primary::before {
@@ -144,4 +144,22 @@
 @keyframes ctaLiquidProofMorph {
   0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
   50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-v1-eyebrow.revealed,
+  .cta-v1-message.revealed,
+  .cta-v1-proof.revealed,
+  .cta-v1-headline.revealed,
+  .cta-v1-subtext.revealed,
+  .cta-v1-buttons.revealed,
+  .cta-v1-trust.revealed {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .cta-v1-handle, .cta-v1-proof-drop {
+    animation: none !important;
+  }
 }

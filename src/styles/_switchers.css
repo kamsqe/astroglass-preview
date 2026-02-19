@@ -11,7 +11,7 @@
   background: hsl(var(--bc) / 0.03);
   border: 1px solid rgb(var(--glass-border, var(--bc) / 0.06));
   color: hsl(var(--bc) / 0.7);
-  transition: all 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
   cursor: pointer;
   overflow: hidden;
 }
@@ -22,7 +22,7 @@
   inset: 0;
   background: radial-gradient(circle at center, hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 0.6)) 0%, transparent 70%);
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity var(--duration-fast) ease;
 }
 .switcher-btn:hover::before {
   opacity: 1;
@@ -49,7 +49,7 @@
 .switcher-emoji {
   font-size: 17px;
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--duration-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 1;
 }
@@ -93,9 +93,9 @@
   transform: translateY(-6px) scale(0.97);
   transform-origin: top right;
   transition:
-    opacity 0.18s ease,
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.18s ease;
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) cubic-bezier(0.16, 1, 0.3, 1),
+    visibility var(--duration-fast) ease;
   pointer-events: none;
 }
 
@@ -141,7 +141,7 @@
   border-radius: 12px;
   color: hsl(var(--bc) / 0.6);
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
@@ -226,7 +226,7 @@
   border: 1.5px solid hsl(var(--bc) / 0.05);
   color: hsl(var(--bc) / 0.5);
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all var(--duration-fast) cubic-bezier(0.32, 0.72, 0, 1);
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;

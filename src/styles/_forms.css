@@ -6,7 +6,7 @@
 /* 1. Base Input Styles (Shared) */
 input, textarea, select {
   transition-property: border-color, background-color, box-shadow, transform;
-  transition-duration: 0.2s;
+  transition-duration: var(--duration-fast);
   transition-timing-function: ease-out;
 }
 
@@ -49,7 +49,7 @@ input, textarea, select {
   margin-top: 0.35rem;
   opacity: 0;
   transform: translateY(-5px);
-  animation: slideErrorIn 0.2s ease-out forwards;
+  animation: slideErrorIn var(--duration-fast) ease-out forwards;
 }
 
 @keyframes slideErrorIn {
@@ -67,7 +67,7 @@ input, textarea, select {
 }
 
 .animate-shake {
-  animation: shake 0.3s ease-in-out;
+  animation: shake var(--duration-fast) ease-in-out;
 }
 
 /* 5. Theme-Specific Overrides */

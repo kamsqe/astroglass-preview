@@ -78,7 +78,7 @@
   background: hsl(var(--bc) / 0.02);
   backdrop-filter: blur(20px);
   border: 1px solid hsl(var(--bc) / 0.08);
-  transition: all 700ms var(--ease-glass);
+  transition: all var(--duration-slow) var(--ease-glass);
   opacity: 0;
   transform: translateY(24px);
 }
@@ -92,9 +92,9 @@
   border-color: hsl(var(--a) / 0.2);
   box-shadow: 
     0 0 0 1px hsl(var(--a) / 0.05),
-    0 30px 60px -15px rgba(0, 0, 0, 0.15),
+    var(--shadow-xl),
     inset 0 1px 0 0 hsl(var(--bc) / 0.05);
-  transform: translateY(-4px);
+  transform: translateY(var(--lift-amount));
 }
 
 /* Wide cards (1st and 4th) have a horizontal layout on desktop */
@@ -136,7 +136,7 @@
     transparent 80%
   );
   transform: rotate(15deg);
-  transition: left 1.2s var(--ease-glass);
+  transition: left var(--duration-long) var(--ease-glass);
   pointer-events: none;
 }
 
@@ -155,7 +155,7 @@
   border-radius: 50%;
   filter: blur(60px);
   opacity: 0.15;
-  transition: opacity 700ms ease;
+  transition: opacity var(--duration-slow) ease;
 }
 
 .c-portfolio-page-glass__card:hover .c-portfolio-page-glass__inner-glow {
@@ -187,7 +187,7 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   opacity: 0;
-  transition: opacity 300ms ease;
+  transition: opacity var(--duration-normal) ease;
 }
 
 .c-portfolio-page-glass__overlay.is-open .c-portfolio-page-glass__overlay-backdrop {
@@ -207,7 +207,7 @@
   padding: 2rem;
   box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
   transform: scale(0.95) translateY(20px);
-  transition: transform 500ms var(--ease-glass);
+  transition: transform var(--duration-normal) var(--ease-glass);
 }
 
 @media (min-width: 640px) {
@@ -273,7 +273,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   backdrop-filter: blur(8px);
-  transition: all 300ms ease;
+  transition: all var(--duration-normal) ease;
 }
 
 .c-portfolio-page-glass__tech-pill:hover {

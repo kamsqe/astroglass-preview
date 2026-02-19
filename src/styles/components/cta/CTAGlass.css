@@ -7,7 +7,7 @@
 }
 
 .c-cta-glass__option:hover {
-  transform: translateY(-2px);
+  transform: translateY(var(--lift-amount));
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -18,7 +18,7 @@
 
 /* Steps Animation */
 .c-cta-glass__step {
-  transition: all 600ms var(--ease-glass);
+  transition: all var(--duration-slow) var(--ease-glass);
 }
 
 .c-cta-glass__step.hidden {
@@ -26,7 +26,7 @@
 }
 
 .c-cta-glass__step:not(.hidden) {
-  animation: stepFadeIn 600ms var(--ease-glass);
+  animation: stepFadeIn var(--duration-slow) var(--ease-glass);
 }
 
 @keyframes stepFadeIn {
@@ -42,7 +42,7 @@
 
 /* Indicators */
 .c-cta-glass__indicator > div:first-child {
-  transition: all 0.3s ease;
+  transition: all var(--duration-fast) ease;
 }
 
 .c-cta-glass__indicator.active > div:first-child {
@@ -60,7 +60,7 @@
 }
 
 .c-cta-glass__connector {
-  transition: background 0.3s ease;
+  transition: background var(--duration-fast) ease;
 }
 
 .c-cta-glass__connector.active {

@@ -54,7 +54,7 @@
 }
 
 .header-neo.is-scrolled .header-neo-inner {
-  max-width: 960px; /* Wider pill to fit all nav links + actions */
+  max-width: var(--scrolled-max-width, 960px); /* Wider pill to fit all nav links + actions dynamically */
   padding: 8px 18px;
   border-radius: 999px;
   

@@ -236,6 +236,37 @@ import '../../../styles/components/header/HeaderNeo.css';
 
     if (!header) return;
 
+    // ---- Dynamic Width Calculation (Desktop) ----
+    const calculateDynamicWidth = () => {
+      // Only needed for desktop
+      if (window.innerWidth < 1024) return;
+      
+      const inner = header.querySelector('.header-neo-inner') as HTMLElement;
+      if (!inner) return;
+
+      // Unset any inline width temporarily to measure natural fit-content
+      const isCurrentlyScrolled = header.classList.contains('is-scrolled');
+      
+      // We want to measure the "pill" layout. The easiest way is to add a 
+      // class that removes the max-width restriction but keeps pill padding
+      inner.style.maxWidth = 'max-content';
+      
+      // Get the bounding width (includes padding and gap exactly as laid out)
+      const naturalWidth = inner.offsetWidth;
+      
+      // Clean up inline style
+      inner.style.maxWidth = '';
+      
+      // Add a tiny buffer (~2px) for subpixel rounding issues
+      const finalWidth = naturalWidth + 2;
+      
+      // Set the CSS variable
+      header.style.setProperty('--scrolled-max-width', `${finalWidth}px`);
+    };
+
+    // Calculate immediately and on resize
+    calculateDynamicWidth();
+    
     // ---- Shrink-on-scroll (desktop only) ----
     const onScroll = () => {
       header.classList.toggle('is-scrolled', window.scrollY > 60);
@@ -335,6 +366,7 @@ import '../../../styles/components/header/HeaderNeo.css';
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
+        calculateDynamicWidth();
         if (window.innerWidth >= 1024 && nav.classList.contains('is-open')) {
           closeMenu();
         }

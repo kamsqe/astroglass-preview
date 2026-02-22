@@ -107,18 +107,44 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
       ))}
     </div>
     
-    <!-- Scroll hint -->
-    <div class="flex items-center justify-center gap-3 text-base-content/90 animate-pulse">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
-      </svg>
-      <span class="text-[10px] font-bold uppercase tracking-widest">{t('portfolio.scrollHint')}</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-      </svg>
+    <!-- Scroll hint controls -->
+    <div class="flex items-center justify-center gap-4 mt-4 pb-4">
+      <button id="theme-gallery-prev" aria-label="Scroll left" class="p-2 text-base-content/50 hover:text-accent transition-all hover:-translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+        </svg>
+      </button>
+      <span class="text-[10px] font-bold uppercase tracking-widest text-base-content/50 animate-pulse">{t('portfolio.scrollHint')}</span>
+      <button id="theme-gallery-next" aria-label="Scroll right" class="p-2 text-base-content/50 hover:text-accent transition-all hover:translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l4-4m4-4H3"/>
+        </svg>
+      </button>
     </div>
   </div>
 </section>
+
+<script>
+  function initThemeGalleryScroll() {
+    const container = document.querySelector('#themes .c-portfolio-glass__container');
+    const prevBtn = document.getElementById('theme-gallery-prev');
+    const nextBtn = document.getElementById('theme-gallery-next');
+
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const scrollAmount = window.innerWidth * 0.6; // Scroll roughly 60vw so the next card is mostly centered
+
+    const handlePrev = () => container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    const handleNext = () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+    prevBtn.addEventListener('click', handlePrev);
+    nextBtn.addEventListener('click', handleNext);
+  }
+
+  // Initialize on full load and Astro page swaps
+  initThemeGalleryScroll();
+  document.addEventListener('astro:after-swap', initThemeGalleryScroll);
+</script>
 
 <style>
   /* Monochrome visual overrides */

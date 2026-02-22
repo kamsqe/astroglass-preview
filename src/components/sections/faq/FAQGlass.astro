@@ -1,6 +1,6 @@
 ---
 /**
- * FAQ V2 - The Conversational Thread
+ * FAQ Glass - The Conversational Thread
  * Chat-style interface with message bubbles and suggested questions.
  * Mobile: Native chat feel. Desktop: Centered chat with category sidebar.
  */
@@ -49,7 +49,7 @@ const i18nData = JSON.stringify({
     <!-- Chat Container -->
     <div class="c-faq-glass__chat relative max-w-2xl mx-auto" data-i18n={i18nData}>
        <!-- Messages Area -->
-       <div class="c-faq-glass__messages space-y-4 mb-6 min-h-[200px] max-h-[400px] overflow-y-auto c-faq-glass__scrollbar py-3 px-1" id="faq-v2-messages">
+       <div class="c-faq-glass__messages space-y-4 mb-6 min-h-[200px] max-h-[400px] overflow-y-auto c-faq-glass__scrollbar py-3 px-1" id="faq-glass-messages">
           <!-- Welcome message -->
           <div class="c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start">
              <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
@@ -65,7 +65,7 @@ const i18nData = JSON.stringify({
        </div>
 
        <!-- Suggested Questions -->
-       <div class="c-faq-glass__suggestions mb-6" id="faq-v2-suggestions">
+       <div class="c-faq-glass__suggestions mb-6" id="faq-glass-suggestions">
           <p class="text-xs text-base-content/30 mb-3">{t('faq.popularQuestions')}</p>
           <div class="flex flex-wrap gap-2">
              {faqs.slice(0, 6).map(faq => (
@@ -86,11 +86,11 @@ const i18nData = JSON.stringify({
        <div class="c-faq-glass__input-area flex gap-3 p-4 rounded-2xl bg-base-content/[0.02] border border-base-content/10 focus-within:border-accent/30 focus-within:bg-base-content/[0.04] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
           <Input 
             type="text" 
-            id="faq-v2-input"
+            id="faq-glass-input"
             placeholder={t('faq.typeQuestion')} 
             className="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 border-none shadow-none focus-visible:ring-0 text-sm h-auto p-0"
           />
-          <Button id="faq-v2-send" className="c-faq-glass__ask-btn px-5 py-2.5 h-auto rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
+          <Button id="faq-glass-send" className="c-faq-glass__ask-btn px-5 py-2.5 h-auto rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
              <span class="relative z-10">{t('faq.ask')}</span>
              <div class="c-faq-glass__ask-shine absolute inset-0 pointer-events-none"></div>
           </Button>
@@ -100,13 +100,13 @@ const i18nData = JSON.stringify({
 </section>
 
 <script>
-  let faqV2Controller: AbortController | null = null;
+  let faqGlassController: AbortController | null = null;
 
-  function initFAQV2Chat() {
+  function initFAQGlassChat() {
     // Abort previous listeners
-    faqV2Controller?.abort();
-    faqV2Controller = new AbortController();
-    const signal = faqV2Controller.signal;
+    faqGlassController?.abort();
+    faqGlassController = new AbortController();
+    const signal = faqGlassController.signal;
 
     const chatContainer = document.querySelector('.c-faq-glass__chat') as HTMLElement;
     if (!chatContainer) return;
@@ -118,15 +118,15 @@ const i18nData = JSON.stringify({
     const helpful = i18nData.helpful || "Helpful";
     const thanks = i18nData.thanks || "Thanks!";
     
-    const messagesContainer = document.getElementById('faq-v2-messages');
-    const suggestionsContainer = document.getElementById('faq-v2-suggestions');
-    const input = document.getElementById('faq-v2-input') as HTMLInputElement;
-    const sendBtn = document.getElementById('faq-v2-send');
+    const messagesContainer = document.getElementById('faq-glass-messages');
+    const suggestionsContainer = document.getElementById('faq-glass-suggestions');
+    const input = document.getElementById('faq-glass-input') as HTMLInputElement;
+    const sendBtn = document.getElementById('faq-glass-send');
 
     function showTypingIndicator() {
       // Create typing indicator dynamically at the bottom
       const typing = document.createElement('div');
-      typing.className = 'faq-v2-typing c-faq-glass__msg flex gap-3 items-start';
+      typing.className = 'faq-glass-typing c-faq-glass__msg flex gap-3 items-start';
       typing.innerHTML = `
         <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
           <span class="text-xl leading-none">🤖</span>
@@ -142,7 +142,7 @@ const i18nData = JSON.stringify({
     }
 
     function hideTypingIndicator() {
-      const typing = messagesContainer?.querySelector('.faq-v2-typing');
+      const typing = messagesContainer?.querySelector('.faq-glass-typing');
       typing?.remove();
     }
 
@@ -288,6 +288,6 @@ const i18nData = JSON.stringify({
     }, { signal });
   }
 
-  initFAQV2Chat();
-  document.addEventListener('astro:after-swap', initFAQV2Chat);
+  initFAQGlassChat();
+  document.addEventListener('astro:after-swap', initFAQGlassChat);
 </script>

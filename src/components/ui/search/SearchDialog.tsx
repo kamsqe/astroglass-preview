@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Command } from 'cmdk';
 import { useSearch, type SearchResult } from '../../../lib/search/useSearch';
 import { useRecentSearches } from '../../../lib/search/useRecentSearches';
@@ -29,14 +29,6 @@ interface SearchLabels {
 }
 
 // ... imports
-
-// Helper to normalize section keys for lookup
-const normalizeSection = (section: string) => {
-  // e.g. "Marketing Sections" -> "components-sections" if possible, or just look up directly
-  // Actually the search index likely returns "components-ui" or the title "UI Elements"
-  // Let's try to map titles back or just use the passed map if the key matches
-  return section.toLowerCase().replace(/\s+/g, '-');
-};
 
 interface Props {
   locale: string;

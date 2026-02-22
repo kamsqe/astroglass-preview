@@ -206,4 +206,14 @@ const cards = [
       transform: translateY(0);
     }
   }
+
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .showcase-card .bg-gradient-to-br {
+    background: none !important;
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+
+  :global([data-theme="monochrome"]) .showcase-card:hover {
+    border-color: hsl(var(--bc) / 0.2) !important;
+  }
 </style>

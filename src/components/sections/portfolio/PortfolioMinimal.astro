@@ -1,8 +1,8 @@
 ---
 /**
- * Portfolio V5 - Vertical Stage
+ * Portfolio Minimal - Vertical Stage
  */
-import '../../../styles/components/portfolio/PortfolioMinimal.css';
+import '../../../styles/components/portfolio/PortfolioPageMinimal.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 
@@ -25,7 +25,7 @@ import '../../../styles/components/tag/TagMinimal.css';
 
     <div class="space-y-4">
        {projects.map((p) => (
-          <div class="c-portfolio-minimal__row group relative border-b border-base-content/5 overflow-hidden transition-all duration-700">
+          <div class="c-portfolio-page-minimal__row group relative border-b border-base-content/5 overflow-hidden transition-all duration-700">
              {/* Destop Overlay Link */}
              <a href={lp('/minimal/portfolio')} class="absolute inset-0 z-20 hidden md:block" aria-label={`View project ${p.title}`}></a>
 
@@ -34,7 +34,7 @@ import '../../../styles/components/tag/TagMinimal.css';
                 class="absolute inset-0 z-20 md:hidden w-full h-full cursor-pointer focus:outline-none"
                 aria-label={`Expand project ${p.title}`}
                 onclick={`
-                   const parent = this.closest('.c-portfolio-minimal__row');
+                   const parent = this.closest('.c-portfolio-page-minimal__row');
                    const content = parent.querySelector('.c-portfolio-expanded');
                    const icon = parent.querySelector('.c-portfolio-icon');
                    
@@ -44,7 +44,7 @@ import '../../../styles/components/tag/TagMinimal.css';
                          el.style.maxHeight = null;
                          el.style.opacity = '0';
                          el.style.marginTop = '0';
-                         el.closest('.c-portfolio-minimal__row').querySelector('.c-portfolio-icon')?.classList.remove('rotate-180');
+                         el.closest('.c-portfolio-page-minimal__row').querySelector('.c-portfolio-icon')?.classList.remove('rotate-180');
                       }
                    });
 
@@ -106,3 +106,17 @@ import '../../../styles/components/tag/TagMinimal.css';
     </div>
   </div>
 </section>
+
+<script>
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
+
+  registerAstroPage((signal) => {
+    initScrollReveal('.c-portfolio-page-minimal__row', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+      staggerMs: 100,
+      signal,
+    });
+  });
+</script>

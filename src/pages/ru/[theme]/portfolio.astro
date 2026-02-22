@@ -74,7 +74,7 @@ export function getStaticPaths() {
   }));
 }
 
-interface Props {
+export interface Props {
   themeId: string;
 }
 
@@ -89,7 +89,7 @@ const PortfolioPage = components.PortfolioPage;
 const Footer = components.Footer;
 ---
 
-<BaseLayout title={`${t('portfolioPage.pageTitle')} - ${theme?.name}`} description={t('portfolioPage.pageSubtitle')} showHeader={false} showControls={false}>
+<BaseLayout title={`${t('portfolioPage.pageTitle')} - ${theme?.name}`} description={t('portfolioPage.pageSubtitle')} showHeader={false}>
   <Header />
   <main>
     {PortfolioPage ? (

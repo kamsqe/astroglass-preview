@@ -50,12 +50,12 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
               
               <!-- Blob overlay -->
               <svg class="c-portfolio-page-liquid__visual-blob" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M45,25 Q65,5 85,25 Q105,45 85,70 Q65,95 45,75 Q25,55 25,45 Q25,35 45,25Z" fill="white" opacity="0.08" />
+                <path d="M45,25 Q65,5 85,25 Q105,45 85,70 Q65,95 45,75 Q25,55 25,45 Q25,35 45,25Z" fill="currentColor" class="text-base-content" opacity="0.08" />
               </svg>
 
               <!-- Category badge -->
               <div class="absolute top-6 left-6 sm:top-8 sm:left-8 z-10">
-                <span class="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold">
+                <span class="px-3 py-1.5 rounded-full bg-base-content/10 backdrop-blur-sm border border-base-content/20 text-base-content text-xs font-bold">
                   {p.categoryLabel}
                 </span>
               </div>
@@ -73,15 +73,15 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
               </div>
 
               <!-- Drop icon -->
-              <div class="c-portfolio-page-liquid__drop-icon absolute bottom-6 right-6 sm:bottom-8 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 bg-white/10 border border-white/20 flex items-center justify-center z-10">
-                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white/60" viewBox="0 0 24 24" fill="currentColor">
+              <div class="c-portfolio-page-liquid__drop-icon absolute bottom-6 right-6 sm:bottom-8 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 bg-base-content/10 border border-base-content/20 flex items-center justify-center z-10">
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-base-content/60" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C12 2 5.5 11 5.5 15.5C5.5 19.09 8.41 22 12 22C15.59 22 18.5 19.09 18.5 15.5C18.5 11 12 2 12 2Z"/>
                 </svg>
               </div>
 
               <!-- Project number watermark -->
               <div class="absolute bottom-4 left-6 sm:bottom-6 sm:left-8 z-10">
-                <span class="text-7xl sm:text-8xl font-black text-white/[0.06] leading-none select-none">
+                <span class="text-7xl sm:text-8xl font-black text-base-content/[0.06] leading-none select-none">
                   {String(i + 1).padStart(2, '0')}
                 </span>
               </div>
@@ -182,3 +182,20 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
     ))}
   </div>
 </section>
+
+<style>
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__card .bg-gradient-to-br,
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__card .bg-gradient-to-r {
+    background-image: none !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__visual .bg-gradient-to-br {
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__metric .bg-gradient-to-r {
+    color: hsl(var(--bc)) !important;
+    -webkit-text-fill-color: hsl(var(--bc)) !important;
+  }
+</style>

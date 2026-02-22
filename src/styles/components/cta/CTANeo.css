@@ -2,7 +2,7 @@
 /*                                CARD & FLOAT                                */
 /* -------------------------------------------------------------------------- */
 
-.cta-v3-card {
+.cta-neo-card {
   animation: cta-float 6s ease-in-out infinite;
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -13,7 +13,7 @@
   50% { transform: translateY(-8px); }
 }
 
-.cta-v3-card:hover {
+.cta-neo-card:hover {
   animation-play-state: paused;
   border-color: hsl(var(--a) / 0.2);
 }
@@ -22,7 +22,7 @@
 /*                                   BUTTON                                   */
 /* -------------------------------------------------------------------------- */
 
-.cta-v3-primary {
+.cta-neo-primary {
   background: linear-gradient(135deg, hsl(var(--a)) 0%, hsl(var(--a) / 0.9) 100%);
 }
 
@@ -31,7 +31,7 @@
 /* -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .cta-v3-card {
+  .cta-neo-card {
     animation: none;
   }
 }

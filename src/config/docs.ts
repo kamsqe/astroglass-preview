@@ -6,7 +6,7 @@
  */
 
 export interface DocsVersion {
-  /** Version identifier (e.g., 'v1', 'v2') */
+  /** Version identifier (e.g., 'liquid', 'glass') */
   id: string;
   /** Display name */
   label: string;
@@ -26,7 +26,7 @@ export interface DocsCategory {
   /** Order in sidebar */
   order: number;
   /** Layout type for this category */
-  layout: 'v1' | 'v2';
+  layout: 'liquid' | 'glass';
 }
 
 /**
@@ -41,10 +41,10 @@ export const docsVersions: DocsVersion[] = [
   },
   // Add future versions here:
   // {
-  //   id: 'v1',
-  //   label: 'v1.x',
+  //   id: 'liquid',
+  //   label: 'liquid.x',
   //   current: false,
-  //   pathPrefix: 'v1',
+  //   pathPrefix: 'liquid',
   // },
 ];
 
@@ -57,21 +57,21 @@ export const docsCategories: DocsCategory[] = [
     label: 'Guide',
     icon: '📖',
     order: 1,
-    layout: 'v1',
+    layout: 'liquid',
   },
   {
     id: 'api',
     label: 'API Reference',
     icon: '⚡',
     order: 2,
-    layout: 'v2',
+    layout: 'glass',
   },
   {
     id: 'examples',
     label: 'Examples',
     icon: '🎨',
     order: 3,
-    layout: 'v1',
+    layout: 'liquid',
   },
 ];
 

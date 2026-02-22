@@ -40,29 +40,5 @@
     "allSet": "You're all set!",
     "startTrial": "Start your free trial and see the difference.",
     "changeGoal": "← Change my goal"
-  },
-  "magnetic": {
-    "eyebrow": "Feel The Pull",
-    "line1": "Some",
-    "line2": "things",
-    "line3": "pull",
-    "line4": "you",
-    "line5": "in",
-    "subtitle": "Join 50,000+ developers building the future.",
-    "cta": "Get Started Free"
-  },
-  "terminal": {
-    "tab": "zsh — ~/projects",
-    "cloning": "Cloning into 'success-story'... done.",
-    "built": "Built in 1.2s",
-    "live": "Live at",
-    "ready": "Ready to ship something amazing?",
-    "option1": "Start building free",
-    "option2": "Watch demo",
-    "option3": "Read docs",
-    "navigate": "navigate",
-    "select": "select",
-    "devsOnline": "devs online",
-    "deploysMin": "deploys/min"
   }
 }

@@ -17,6 +17,7 @@
     if (!progressBar || !content) return;
     
     function updateProgress() {
+      if (!progressBar || !content) return;
       const contentRect = content.getBoundingClientRect();
       const contentTop = contentRect.top + window.scrollY;
       const contentHeight = contentRect.height;

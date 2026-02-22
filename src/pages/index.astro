@@ -20,7 +20,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 
-<BaseLayout title={t('title')} description={t('description')} showHeader={false} showControls={false}>
+<BaseLayout title={t('title')} description={t('description')} showHeader={false}>
   <HeaderDefault />
   
   <main class="min-h-screen">

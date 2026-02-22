@@ -188,7 +188,7 @@ export function getStaticPaths() {
   }));
 }
 
-interface Props {
+export interface Props {
   themeId: string;
 }
 
@@ -212,7 +212,7 @@ const Contact = components.Contact;
 const Footer = components.Footer;
 ---
 
-<BaseLayout title={`${theme?.name} Theme - ${t('title')}`} description={t('description')} showHeader={false} showControls={false}>
+<BaseLayout title={`${theme?.name} Theme - ${t('title')}`} description={t('description')} showHeader={false}>
   <Header />
   <main>
     <Hero />

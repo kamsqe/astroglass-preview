@@ -144,4 +144,9 @@ const rightFeatures = features.slice(4);
       transform: translateY(0);
     }
   }
+
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .features-home-card:hover {
+    border-color: hsl(var(--bc) / 0.2) !important;
+  }
 </style>

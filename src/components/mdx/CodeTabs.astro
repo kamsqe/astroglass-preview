@@ -65,7 +65,7 @@ const tabId = `codetabs-${Math.random().toString(36).slice(2, 9)}`;
     };
 
     // Helper: Set stored preference
-    const setPreference = (label) => {
+    const setPreference = (label: string) => {
       try {
         localStorage.setItem(STORAGE_KEY, label);
       } catch (e) {
@@ -130,13 +130,13 @@ const tabId = `codetabs-${Math.random().toString(36).slice(2, 9)}`;
           const index = parseInt((tab as HTMLElement).dataset.tabIndex || '0', 10);
           let newIndex = -1;
 
-          if (e.key === 'ArrowRight') {
+          if ((e as KeyboardEvent).key === 'ArrowRight') {
             newIndex = (index + 1) % tabs.length;
-          } else if (e.key === 'ArrowLeft') {
+          } else if ((e as KeyboardEvent).key === 'ArrowLeft') {
             newIndex = (index - 1 + tabs.length) % tabs.length;
-          } else if (e.key === 'Home') {
+          } else if ((e as KeyboardEvent).key === 'Home') {
             newIndex = 0;
-          } else if (e.key === 'End') {
+          } else if ((e as KeyboardEvent).key === 'End') {
             newIndex = tabs.length - 1;
           }
 

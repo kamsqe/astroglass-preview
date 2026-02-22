@@ -2,10 +2,10 @@
 
 .c-faq-luxury__result-item {
   opacity: 0;
-  animation: resultFadeInV4 var(--duration-luxury-medium) var(--ease-luxury) forwards;
+  animation: resultFadeInLuxury var(--duration-luxury-medium) var(--ease-luxury) forwards;
 }
 
-@keyframes resultFadeInV4 {
+@keyframes resultFadeInLuxury {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -32,7 +32,7 @@
 }
 
 .c-faq-luxury__result-content {
-  animation: contentExpandV4 var(--duration-luxury-medium) var(--ease-luxury);
+  animation: contentExpandLuxury var(--duration-luxury-medium) var(--ease-luxury);
   background: hsl(var(--bc) / 0.02);
   border: 1px solid hsl(var(--bc) / 0.05);
   border-top: none;
@@ -40,7 +40,7 @@
   border-bottom-right-radius: 1rem;
 }
 
-@keyframes contentExpandV4 {
+@keyframes contentExpandLuxury {
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -71,9 +71,9 @@
 }
 
 /* Input - remove all focus styles */
-#faq-v4-search,
-#faq-v4-search:focus,
-#faq-v4-search:focus-visible {
+#faq-luxury-search,
+#faq-luxury-search:focus,
+#faq-luxury-search:focus-visible {
   outline: none !important;
   border: none !important;
   box-shadow: none !important;

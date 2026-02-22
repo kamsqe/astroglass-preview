@@ -1,6 +1,6 @@
 ---
 /**
- * CTA V2 - The Confidence Builder (REMARKABLE)
+ * CTA Glass - The Confidence Builder (REMARKABLE)
  * Interactive 3-step micro-commitment CTA.
  * Uses psychology of small choices to increase conversion.
  */
@@ -34,7 +34,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     </div>
 
     <!-- Interactive Stepper -->
-    <div class="cta-v2-stepper relative" data-options={optionsJson}>
+    <div class="cta-glass-stepper relative" data-options={optionsJson}>
       
       <!-- Step Indicators (Desktop) -->
       <div class="hidden lg:flex items-center justify-center gap-4 mb-12">
@@ -55,7 +55,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       </div>
 
        <!-- Step 1: Choose Goal -->
-       <div class="c-cta-glass__step cta-v2-step-1">
+       <div class="c-cta-glass__step cta-glass-step-1">
          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
            {options.map(opt => (
              <button 
@@ -71,14 +71,14 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       </div>
 
       <!-- Step 2: Response (hidden initially) -->
-      <div class="c-cta-glass__step cta-v2-step-2 hidden">
+      <div class="c-cta-glass__step cta-glass-step-2 hidden">
         <div class="text-center p-6 sm:p-8 rounded-xl sm:rounded-2xl bg-accent/5 border border-accent/20">
           <div class="c-cta-glass__response-icon text-3xl sm:text-4xl mb-3 sm:mb-4">🚀</div>
           <p class="c-cta-glass__response-text text-base sm:text-lg text-base-content font-medium mb-5 sm:mb-6">
             {t('cta.steps.buildResponse')}
           </p>
           <Button 
-            className="cta-v2-continue px-5 sm:px-6 py-2.5 sm:py-3 h-auto rounded-xl bg-base-content/5 text-sm sm:text-base text-base-content/70 font-medium hover:bg-base-content/10 transition-all duration-500 shadow-none border-none"
+            className="cta-glass-continue px-5 sm:px-6 py-2.5 sm:py-3 h-auto rounded-xl bg-base-content/5 text-sm sm:text-base text-base-content/70 font-medium hover:bg-base-content/10 transition-all duration-500 shadow-none border-none"
             variant="ghost"
           >
             {t('cta.steps.continue')}
@@ -87,7 +87,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       </div>
 
       <!-- Step 3: Final CTA (hidden initially) -->
-      <div class="c-cta-glass__step cta-v2-step-3 hidden">
+      <div class="c-cta-glass__step cta-glass-step-3 hidden">
         <div class="text-center p-6 sm:p-8 lg:p-12 rounded-xl sm:rounded-2xl bg-base-content/[0.03] border border-base-content/10">
           <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl mx-auto mb-4 sm:mb-6">
             ✨
@@ -100,7 +100,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
             href="#"
             class={cn(buttonVariants({ variant: "liquid", size: "liquid" }), "c-cta-glass__final-btn bg-accent text-white hover:text-base-content")}
           >
-            <span class="cta-v2-final-btn-text relative z-10">{t('cta.steps.buildCta')}</span>
+            <span class="cta-glass-final-btn-text relative z-10">{t('cta.steps.buildCta')}</span>
             <div class="absolute inset-0 bg-base-100 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           </a>
           <p class="text-xs text-base-content/30 mt-6">{t('cta.noCreditCardRequired')} · {t('cta.cancelAnytime')}</p>
@@ -109,7 +109,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
           <Button 
             variant="ghost" 
             size="sm" 
-            className="cta-v2-restart mt-6 text-xs text-base-content/30 hover:text-accent transition-colors duration-300 h-auto p-0 hover:bg-transparent"
+            className="cta-glass-restart mt-6 text-xs text-base-content/30 hover:text-accent transition-colors duration-300 h-auto p-0 hover:bg-transparent"
           >
             {t('cta.steps.changeGoal')}
           </Button>
@@ -123,16 +123,16 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 
 <script>
-  function initCTAV2() {
-    const stepper = document.querySelector('.cta-v2-stepper') as HTMLElement;
+  function initCTAGlass() {
+    const stepper = document.querySelector('.cta-glass-stepper') as HTMLElement;
     if (!stepper) return;
 
     const options = JSON.parse(stepper.dataset.options || '[]');
     let selectedOption: any = null;
 
-    const step1 = stepper.querySelector('.cta-v2-step-1');
-    const step2 = stepper.querySelector('.cta-v2-step-2');
-    const step3 = stepper.querySelector('.cta-v2-step-3');
+    const step1 = stepper.querySelector('.cta-glass-step-1');
+    const step2 = stepper.querySelector('.cta-glass-step-2');
+    const step3 = stepper.querySelector('.cta-glass-step-3');
     const indicators = stepper.querySelectorAll('.c-cta-glass__indicator');
     const connectors = stepper.querySelectorAll('.c-cta-glass__connector');
 
@@ -180,16 +180,16 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     });
 
     // Step 2: Continue
-    stepper.querySelector('.cta-v2-continue')?.addEventListener('click', () => {
+    stepper.querySelector('.cta-glass-continue')?.addEventListener('click', () => {
       // Update final CTA button text
-      const btnText = step3?.querySelector('.cta-v2-final-btn-text');
+      const btnText = step3?.querySelector('.cta-glass-final-btn-text');
       if (btnText && selectedOption) btnText.textContent = selectedOption.cta;
       
       goToStep(3);
     });
 
     // Restart
-    stepper.querySelector('.cta-v2-restart')?.addEventListener('click', () => {
+    stepper.querySelector('.cta-glass-restart')?.addEventListener('click', () => {
       selectedOption = null;
       stepper.querySelectorAll('.c-cta-glass__option').forEach(b => b.classList.remove('selected'));
       goToStep(1);
@@ -199,6 +199,6 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     goToStep(1);
   }
 
-  initCTAV2();
-  document.addEventListener('astro:after-swap', initCTAV2);
+  initCTAGlass();
+  document.addEventListener('astro:after-swap', initCTAGlass);
 </script>

@@ -2,10 +2,10 @@
 
 .c-faq-minimal__section {
   opacity: 0;
-  animation: sectionFadeInV5 var(--duration-minimal) var(--ease-minimal) forwards;
+  animation: sectionFadeInMinimal var(--duration-minimal) var(--ease-minimal) forwards;
 }
 
-@keyframes sectionFadeInV5 {
+@keyframes sectionFadeInMinimal {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -43,10 +43,10 @@
 }
 
 .c-faq-minimal__acc-content {
-  animation: accordionExpandV5 600ms var(--ease-minimal);
+  animation: accordionExpandMinimal 600ms var(--ease-minimal);
 }
 
-@keyframes accordionExpandV5 {
+@keyframes accordionExpandMinimal {
   from {
     opacity: 0;
     transform: translateY(-8px);

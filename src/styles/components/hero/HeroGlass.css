@@ -1,25 +1,25 @@
 /* HeroGlass.css */
 
-/* .btn-liquid-v2 */
-.c-hero-glass__btn-liquid-v2 {
+/* .btn-liquid-glass */
+.c-hero-glass__btn-liquid-glass {
   transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
-.c-hero-glass__btn-liquid-v2:hover {
+.c-hero-glass__btn-liquid-glass:hover {
   transform: scale(1.03);
   box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
 }
 
-/* .btn-liquid-secondary-v2 */
-.c-hero-glass__btn-liquid-secondary-v2 {
+/* .btn-liquid-secondary-glass */
+.c-hero-glass__btn-liquid-secondary-glass {
   transition: all 800ms var(--ease-glass);
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
-.c-hero-glass__btn-liquid-secondary-v2:hover {
+.c-hero-glass__btn-liquid-secondary-glass:hover {
   background-color: hsl(var(--bc) / 0.08);
   border-color: hsl(var(--bc) / 0.2);
 }

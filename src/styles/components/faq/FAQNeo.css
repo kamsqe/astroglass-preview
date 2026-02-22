@@ -2,10 +2,10 @@
 
 .c-faq-neo__category-card {
   opacity: 0;
-  animation: cardFadeInV3 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardFadeInNeo 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes cardFadeInV3 {
+@keyframes cardFadeInNeo {
   from {
     opacity: 0;
     transform: translateY(20px) scale(0.98);
@@ -119,10 +119,10 @@
 }
 
 .c-faq-neo__acc-content {
-  animation: accordionExpandV3 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: accordionExpandNeo 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes accordionExpandV3 {
+@keyframes accordionExpandNeo {
   from {
     opacity: 0;
     transform: translateY(-12px);

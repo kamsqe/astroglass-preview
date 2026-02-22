@@ -1,5 +1,4 @@
 import { 
-  localesConfig, 
   defaultLocale, 
   getEnabledLocaleCodes,
   type Locale 

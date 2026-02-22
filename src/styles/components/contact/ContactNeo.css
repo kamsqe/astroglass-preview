@@ -2,8 +2,8 @@
 /*                               FORM ELEMENTS                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v3-form input:focus,
-.contact-v3-form textarea:focus {
+.contact-neo-form input:focus,
+.contact-neo-form textarea:focus {
   box-shadow: 0 0 0 3px hsl(var(--a) / 0.1);
 }
 
@@ -11,12 +11,12 @@
 /*                               SUBMIT BUTTON                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v3-submit {
+.contact-neo-submit {
   position: relative;
   overflow: hidden;
 }
 
-.contact-v3-submit::before {
+.contact-neo-submit::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -25,7 +25,7 @@
   transition: transform 600ms;
 }
 
-.contact-v3-submit:hover::before {
+.contact-neo-submit:hover::before {
   transform: translateX(100%);
 }
 
@@ -33,7 +33,7 @@
 /*                               SUCCESS STATE                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v3-success {
+.contact-neo-success {
   animation: contact-success-fade 500ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 

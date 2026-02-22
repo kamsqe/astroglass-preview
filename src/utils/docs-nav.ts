@@ -51,11 +51,9 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
 export async function buildDocsNav(locale: 'en' | 'ru') {
   // Fetch all docs
   const allDocs = await getCollection('docs');
-  console.log(`[DocsNav] Total docs found: ${allDocs.length}`);
   
   // Filter for locale
   const docs = allDocs.filter(d => d.slug.startsWith(`${locale}/`));
-  console.log(`[DocsNav] Docs for ${locale}: ${docs.length}`);
   
   // Group by folder
   const sections: Record<string, any[]> = {};

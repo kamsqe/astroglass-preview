@@ -3,17 +3,17 @@
  * Portfolio Page — Liquid Theme (Composition Layer)
  * 
  * Wires data ↔ sub-components:
- *   - LiquidPortfolioHero  → hero + blob + filters
- *   - LiquidPortfolioCards → alternating cards + inline detail panels
- *   - LiquidPortfolioCTA   → bottom CTA
+ *   - PortfolioHeroLiquid  → hero + blob + filters
+ *   - PortfolioCardsLiquid → alternating cards + inline detail panels
+ *   - PortfolioCTALiquid   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageLiquid.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import LiquidPortfolioHero from './liquid/LiquidPortfolioHero.astro';
-import LiquidPortfolioCards from './liquid/LiquidPortfolioCards.astro';
-import LiquidPortfolioCTA from './liquid/LiquidPortfolioCTA.astro';
+import PortfolioHeroLiquid from './liquid/PortfolioHeroLiquid.astro';
+import PortfolioCardsLiquid from './liquid/PortfolioCardsLiquid.astro';
+import PortfolioCTALiquid from './liquid/PortfolioCTALiquid.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -123,14 +123,14 @@ const projects = [
 ];
 ---
 
-<LiquidPortfolioHero
+<PortfolioHeroLiquid
   categories={categories}
   badgeLabel={t('portfolio.badge')}
   pageTitle={t('portfolioPage.pageTitle')}
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<LiquidPortfolioCards
+<PortfolioCardsLiquid
   projects={projects}
   viewDetailsLabel={t('portfolioPage.viewDetails')}
   challengeLabel={t('portfolioPage.theChallenge')}
@@ -140,7 +140,7 @@ const projects = [
   closeDetailsLabel={t('portfolioPage.closeDetails')}
 />
 
-<LiquidPortfolioCTA
+<PortfolioCTALiquid
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -154,6 +154,8 @@ const projects = [
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    if (!document.querySelector('.c-portfolio-page-liquid__card')) return;
+
     initScrollReveal('.c-portfolio-page-liquid__card', {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px',

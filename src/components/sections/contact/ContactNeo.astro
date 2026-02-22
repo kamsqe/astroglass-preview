@@ -1,6 +1,6 @@
 ---
 /**
- * Contact V3 - The Split Screen
+ * Contact Neo - The Split Screen
  * Left: Context/benefits/trust. Right: Clean form.
  * Professional B2B aesthetic.
  */
@@ -102,8 +102,8 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 
     <!-- Right: Form Side -->
     <div class="px-6 py-12 lg:py-20 lg:px-12 xl:px-20 flex items-center">
-      <div class="contact-v3-form-container w-full max-w-md mx-auto lg:mx-0" data-validation-messages={JSON.stringify(validationMessages)}>
-        <form class="contact-v3-form space-y-5" novalidate>
+      <div class="contact-neo-form-container w-full max-w-md mx-auto lg:mx-0" data-validation-messages={JSON.stringify(validationMessages)}>
+        <form class="contact-neo-form space-y-5" novalidate>
           <!-- Name -->
           <div>
             <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
@@ -155,7 +155,7 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
           <!-- Submit -->
           <button 
             type="submit"
-            class="contact-v3-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_20px_rgba(var(--a),0.3)]"
+            class="contact-neo-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_20px_rgba(var(--a),0.3)]"
           >
             <span>{t('contact.form.send')}</span>
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,7 +170,7 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
         </form>
 
         <!-- Success State -->
-        <div class="contact-v3-success hidden text-center py-12">
+        <div class="contact-neo-success hidden text-center py-12">
           <div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center text-3xl mx-auto mb-4">✓</div>
           <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
           <p class="text-sm text-base-content/60">{t('contact.successDesc')}</p>
@@ -264,6 +264,7 @@ function initContactNeoParticles() {
     canvas.height = rect.height * dpr;
     canvas.style.width = rect.width + 'px';
     canvas.style.height = rect.height + 'px';
+    if (!ctx) return;
     ctx.scale(dpr, dpr);
     initParticles(rect.width, rect.height);
   }
@@ -329,6 +330,7 @@ function initContactNeoParticles() {
   }
   
   function draw(w: number, h: number) {
+    if (!ctx) return;
     ctx.fillStyle = getBaseColor();
     ctx.fillRect(0, 0, w, h);
     
@@ -439,17 +441,17 @@ document.addEventListener('astro:after-swap', initContactNeoParticles);
 </script>
 
 <script>
-  import { safeParse } from 'valibot';
   import { createContactSchema } from '../../../lib/schemas/contact';
+  import { validateSingleField, validateForm } from '../../../utils/form-validation';
 
-  let contactV3Controller: AbortController | null = null;
+  let contactNeoController: AbortController | null = null;
 
-  function initContactV3() {
-    contactV3Controller?.abort();
-    contactV3Controller = new AbortController();
-    const signal = contactV3Controller.signal;
+  function initContactNeo() {
+    contactNeoController?.abort();
+    contactNeoController = new AbortController();
+    const signal = contactNeoController.signal;
 
-    const container = document.querySelector('.contact-v3-form-container') as HTMLElement;
+    const container = document.querySelector('.contact-neo-form-container') as HTMLElement;
     if (!container) return;
 
     const validationMessages = JSON.parse(container.dataset.validationMessages || '{}');
@@ -457,34 +459,12 @@ document.addEventListener('astro:after-swap', initContactNeoParticles);
     // B2B form requires company name
     const schema = createContactSchema(t, { companyRequired: true });
 
-    const form = container.querySelector('.contact-v3-form') as HTMLFormElement;
-    const success = container.querySelector('.contact-v3-success');
+    const form = container.querySelector('.contact-neo-form') as HTMLFormElement;
+    const success = container.querySelector('.contact-neo-success');
 
     // Field Validation Helper
     const validateField = (input: HTMLInputElement | HTMLTextAreaElement) => {
-      const fieldName = input.name;
-      const formData = new FormData(form);
-      const data: Record<string, any> = {};
-      formData.forEach((value, key) => data[key] = value);
-      
-      const result = safeParse(schema, data);
-      
-      const parent = input.closest('div');
-      const existingError = parent?.querySelector('.error-message');
-      
-      input.classList.remove('input-error');
-      existingError?.remove();
-
-      if (!result.success) {
-        const issue = result.issues.find(i => i.path?.[0].key === fieldName);
-        if (issue) {
-          input.classList.add('input-error');
-          const errorMsg = document.createElement('p');
-          errorMsg.className = 'error-message';
-          errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${issue.message}`;
-          parent?.appendChild(errorMsg);
-        }
-      }
+       validateSingleField(input, { form, schema });
     };
 
     // Attach listeners
@@ -499,36 +479,18 @@ document.addEventListener('astro:after-swap', initContactNeoParticles);
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const formData = new FormData(form);
-      const data: Record<string, any> = {};
-      formData.forEach((value, key) => data[key] = value);
-      
-      const result = safeParse(schema, data);
+      const result = validateForm({ form, schema });
 
       if (!result.success) {
-        form.classList.add('animate-shake');
-        setTimeout(() => form.classList.remove('animate-shake'), 300);
-
-        let firstInvalid: HTMLElement | null = null;
-        result.issues.forEach(issue => {
-          const fieldName = issue.path?.[0].key as string;
-          const input = form.querySelector(`[name="${fieldName}"]`);
-          if (input) {
-             if (!firstInvalid) firstInvalid = input as HTMLElement;
-             validateField(input as HTMLInputElement);
-          }
-        });
-        
-        firstInvalid?.focus();
         return;
       }
       
-      console.log('Form submitted:', data);
+
       form.classList.add('hidden');
       success?.classList.remove('hidden');
     }, { signal });
   }
 
-  initContactV3();
-  document.addEventListener('astro:after-swap', initContactV3);
+  initContactNeo();
+  document.addEventListener('astro:after-swap', initContactNeo);
 </script>

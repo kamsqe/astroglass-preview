@@ -26,25 +26,43 @@
   border-radius: 2rem 2.5rem 2rem 2.5rem;
 }
 
-.c-testimonial-liquid__card:nth-child(2) {
+.c-testimonial-liquid__wrapper:nth-child(2) .c-testimonial-liquid__card {
   border-radius: 2.5rem 2rem 2.5rem 2rem;
+}
+.c-testimonial-liquid__wrapper:nth-child(2) {
   transform: translateY(20px);
 }
 
-.c-testimonial-liquid__card:nth-child(3) {
+.c-testimonial-liquid__wrapper:nth-child(3) .c-testimonial-liquid__card {
   border-radius: 2rem 2rem 2.5rem 2.5rem;
+}
+.c-testimonial-liquid__wrapper:nth-child(3) {
   transform: translateY(-10px);
 }
 
-.c-testimonial-liquid__card:nth-child(4) {
+.c-testimonial-liquid__wrapper:nth-child(4) .c-testimonial-liquid__card {
   border-radius: 2.5rem 2.5rem 2rem 2rem;
+}
+.c-testimonial-liquid__wrapper:nth-child(4) {
   transform: translateY(30px);
 }
 
-.c-testimonial-liquid__card:hover {
+.c-testimonial-liquid__wrapper:hover .c-testimonial-liquid__card {
   transform: translateY(-8px) !important;
   border-color: hsl(var(--a) / 0.2);
   border-radius: 2.5rem;
+}
+
+.c-testimonial-liquid__wrapper:nth-child(2):hover .c-testimonial-liquid__card {
+  transform: translateY(-28px) !important;
+}
+
+.c-testimonial-liquid__wrapper:nth-child(3):hover .c-testimonial-liquid__card {
+  transform: translateY(2px) !important; /* -10px offset - -8px hover = +2px */
+}
+
+.c-testimonial-liquid__wrapper:nth-child(4):hover .c-testimonial-liquid__card {
+  transform: translateY(-38px) !important;
 }
 
 /* ── Avatar Ripple Ring ── */
@@ -61,7 +79,7 @@
   transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.c-testimonial-liquid__card:hover .c-testimonial-liquid__avatar::before,
+.c-testimonial-liquid__wrapper:hover .c-testimonial-liquid__card .c-testimonial-liquid__avatar::before,
 .c-testimonial-liquid__card-mobile:active .c-testimonial-liquid__avatar::before {
   border-color: hsl(var(--a) / 0.3);
   inset: -8px;
@@ -91,7 +109,7 @@
   pointer-events: none;
 }
 
-.c-testimonial-liquid__card:hover .c-testimonial-liquid__avatar::after {
+.c-testimonial-liquid__wrapper:hover .c-testimonial-liquid__card .c-testimonial-liquid__avatar::after {
   animation: testimonialLiquidRipple 1.5s ease-out 0.3s infinite;
 }
 

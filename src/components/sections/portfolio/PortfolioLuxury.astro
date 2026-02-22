@@ -1,9 +1,9 @@
 ---
 /**
- * Portfolio V4 - Case Study Cards (Redesigned)
+ * Portfolio Luxury - Case Study Cards (Redesigned)
  * Metric-led narrative cards with impact focus.
  */
-import '../../../styles/components/portfolio/PortfolioLuxury.css';
+import '../../../styles/components/portfolio/PortfolioPageLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
 import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
@@ -72,7 +72,7 @@ const projects = [
     <!-- Case Study Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <LuxuryCard class="group c-portfolio-luxury__card" spotlight={true} hover={false}>
+        <LuxuryCard class="group c-portfolio-page-luxury__card" spotlight={true} hover={false}>
           <!-- Background gradient -->
           <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-luxury-slow`}></div>
           
@@ -129,3 +129,17 @@ const projects = [
     </div>
   </div>
 </section>
+
+<script>
+  import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
+
+  registerAstroPage((signal) => {
+    initScrollReveal('.c-portfolio-page-luxury__card', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+      staggerMs: 80,
+      signal,
+    });
+  });
+</script>

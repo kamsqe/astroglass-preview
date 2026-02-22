@@ -1,6 +1,6 @@
 ---
 /**
- * FAQ V3 - The Category Grid
+ * FAQ Neo - The Category Grid
  * Visual category cards that expand into accordion lists.
  * Mobile: 2-column grid → full-screen accordion. Desktop: 3-column with inline expand.
  */
@@ -93,7 +93,7 @@ const categories = [
     </div>
 
     <!-- Category Grid -->
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" id="faq-v3-grid">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" id="faq-neo-grid">
        {categories.map((cat, i) => (
           <div class="c-faq-neo__category-card" data-category={cat.id} style={`animation-delay: ${i * 80}ms`}>
              <button class="c-faq-neo__cat-trigger w-full p-6 lg:p-8 rounded-2xl lg:rounded-[1.5rem] bg-base-content/[0.02] border border-base-content/10 text-left group relative overflow-hidden">
@@ -103,7 +103,7 @@ const categories = [
                 <div class="relative z-10">
                    <span class="text-2xl lg:text-3xl mb-4 block">{cat.icon}</span>
                    <p class="text-sm lg:text-base font-bold text-base-content mb-1">{cat.title}</p>
-                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length)}</p>
+                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
                 </div>
              </button>
              
@@ -134,13 +134,13 @@ const categories = [
 </section>
 
 <script>
-  let faqV3Controller: AbortController | null = null;
+  let faqNeoController: AbortController | null = null;
 
-  function initFAQV3Grid() {
+  function initFAQNeoGrid() {
     // Abort previous listeners
-    faqV3Controller?.abort();
-    faqV3Controller = new AbortController();
-    const signal = faqV3Controller.signal;
+    faqNeoController?.abort();
+    faqNeoController = new AbortController();
+    const signal = faqNeoController.signal;
 
     // Category card clicks
     document.querySelectorAll('.c-faq-neo__cat-trigger').forEach(btn => {
@@ -193,6 +193,6 @@ const categories = [
     });
   }
 
-  initFAQV3Grid();
-  document.addEventListener('astro:after-swap', initFAQV3Grid);
+  initFAQNeoGrid();
+  document.addEventListener('astro:after-swap', initFAQNeoGrid);
 </script>

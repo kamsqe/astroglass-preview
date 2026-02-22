@@ -7,32 +7,6 @@
   "chooseStyleDesc": "5 unique theme variations, each with its own personality. Click to explore the full demo.",
   "viewDemo": "View Demo",
   "builtForModern": "Built for Modern Development",
-  "demos": {
-    "liquid": {
-      "name": "Liquid",
-      "description": "Fluid & organic animations"
-    },
-    "glass": {
-      "name": "Glass",
-      "description": "Glassmorphism style"
-    },
-    "neo": {
-      "name": "Neo",
-      "description": "Modern futuristic"
-    },
-    "luxury": {
-      "name": "Luxury",
-      "description": "Premium elegance"
-    },
-    "minimal": {
-      "name": "Minimal",
-      "description": "Clean simplicity"
-    },
-    "aurora": {
-      "name": "Aurora",
-      "description": "Ethereal & vibrant colors"
-    }
-  },
   "showcase": {
     "eyebrow": "Everything Included",
     "title": "One Template. Infinite Possibilities.",

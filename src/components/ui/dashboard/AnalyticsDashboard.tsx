@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
 import { Badge } from '../../ui/badge';

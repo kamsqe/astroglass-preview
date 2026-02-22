@@ -39,5 +39,5 @@ export const createContactSchema = (t: (key: string) => string, options: SchemaO
   });
 };
 
-// Type inference helper (v1 uses InferInput)
+// Type inference helper (liquid uses InferInput)
 export type ContactFormValues = InferInput<ReturnType<typeof createContactSchema>>;

@@ -1,23 +1,23 @@
 /* CTALiquid.css — Pooling rise effect, blob button, liquid flows */
 
 /* ── Background ── */
-.cta-v1-bg {
+.cta-liquid-bg {
   transition: opacity var(--duration-long) var(--ease-liquid);
 }
 
 /* ── Main Card — Rise/pool effect ── */
-.cta-v1-card {
+.cta-liquid-card {
   transition: all var(--duration-long) var(--ease-liquid);
   transform: translateZ(0);
 }
 
-.cta-v1-card:hover {
+.cta-liquid-card:hover {
   border-color: hsl(var(--a) / 0.2);
   box-shadow: var(--shadow-xl);
 }
 
 /* Card reflection (pool effect) */
-.cta-v1-card::after {
+.cta-liquid-card::after {
   content: '';
   position: absolute;
   bottom: -40px;
@@ -32,42 +32,42 @@
   pointer-events: none;
 }
 
-.cta-v1-card.revealed::after {
+.cta-liquid-card.revealed::after {
   opacity: 1;
 }
 
 /* ── Reveal Animations (rise from pool) ── */
-.cta-v1-eyebrow.revealed {
+.cta-liquid-eyebrow.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 0ms;
 }
 
-.cta-v1-message.revealed {
+.cta-liquid-message.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 100ms;
 }
 
-.cta-v1-proof.revealed {
+.cta-liquid-proof.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 200ms;
 }
 
-.cta-v1-headline.revealed {
+.cta-liquid-headline.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 150ms;
 }
 
-.cta-v1-subtext.revealed {
+.cta-liquid-subtext.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 250ms;
 }
 
-.cta-v1-buttons.revealed {
+.cta-liquid-buttons.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 350ms;
 }
 
-.cta-v1-trust.revealed {
+.cta-liquid-trust.revealed {
   animation: cta-pool-rise var(--duration-slow) var(--ease-liquid) forwards;
   animation-delay: 450ms;
 }
@@ -86,7 +86,7 @@
 }
 
 /* ── Handle Pulse (mobile) ── */
-.cta-v1-handle {
+.cta-liquid-handle {
   animation: cta-handle-pulse 2s ease-in-out infinite;
 }
 
@@ -96,14 +96,14 @@
 }
 
 /* ── Primary Button — Ripple + Blob ── */
-.cta-v1-primary {
+.cta-liquid-primary {
   position: relative;
   overflow: hidden;
   border-radius: 0.75rem;
   transition: all var(--duration-slow) var(--ease-liquid);
 }
 
-.cta-v1-primary::before {
+.cta-liquid-primary::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -116,27 +116,27 @@
   transition: width 0.8s ease, height 0.8s ease;
 }
 
-.cta-v1-primary:hover::before {
+.cta-liquid-primary:hover::before {
   width: 300%;
   height: 300%;
 }
 
-.cta-v1-primary:hover {
+.cta-liquid-primary:hover {
   border-radius: 1.5rem 0.75rem 1.5rem 0.75rem;
 }
 
 /* ── Liquid Social Proof Drops ── */
-.cta-v1-proof-drop {
+.cta-liquid-proof-drop {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   animation: ctaLiquidProofMorph 6s ease-in-out infinite;
 }
 
-.cta-v1-proof-drop:nth-child(2) {
+.cta-liquid-proof-drop:nth-child(2) {
   animation-delay: -2s;
   border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
 }
 
-.cta-v1-proof-drop:nth-child(3) {
+.cta-liquid-proof-drop:nth-child(3) {
   animation-delay: -4s;
   border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
 }
@@ -147,19 +147,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta-v1-eyebrow.revealed,
-  .cta-v1-message.revealed,
-  .cta-v1-proof.revealed,
-  .cta-v1-headline.revealed,
-  .cta-v1-subtext.revealed,
-  .cta-v1-buttons.revealed,
-  .cta-v1-trust.revealed {
+  .cta-liquid-eyebrow.revealed,
+  .cta-liquid-message.revealed,
+  .cta-liquid-proof.revealed,
+  .cta-liquid-headline.revealed,
+  .cta-liquid-subtext.revealed,
+  .cta-liquid-buttons.revealed,
+  .cta-liquid-trust.revealed {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
   }
-  .cta-v1-handle, .cta-v1-proof-drop {
+  .cta-liquid-handle, .cta-liquid-proof-drop {
     animation: none !important;
   }
 }

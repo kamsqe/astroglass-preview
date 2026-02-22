@@ -4,19 +4,19 @@
  * 
  * Composition layer that wires data ↔ sub-components.
  * All visual HTML lives in the glass/ sub-components:
- *   - GlassPortfolioHero  → hero + filters
- *   - GlassPortfolioGrid  → bento card grid
- *   - GlassPortfolioModal → overlay + pre-rendered templates
- *   - GlassPortfolioCTA   → bottom call-to-action
+ *   - PortfolioHeroGlass  → hero + filters
+ *   - PortfolioGridGlass  → bento card grid
+ *   - PortfolioModalGlass → overlay + pre-rendered templates
+ *   - PortfolioCTAGlass   → bottom call-to-action
  */
 import '../../../styles/components/portfolio/PortfolioPageGlass.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import GlassPortfolioHero from './glass/GlassPortfolioHero.astro';
-import GlassPortfolioGrid from './glass/GlassPortfolioGrid.astro';
-import GlassPortfolioModal from './glass/GlassPortfolioModal.astro';
-import GlassPortfolioCTA from './glass/GlassPortfolioCTA.astro';
+import PortfolioHeroGlass from './glass/PortfolioHeroGlass.astro';
+import PortfolioGridGlass from './glass/PortfolioGridGlass.astro';
+import PortfolioModalGlass from './glass/PortfolioModalGlass.astro';
+import PortfolioCTAGlass from './glass/PortfolioCTAGlass.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -142,7 +142,7 @@ const projects = [
 <!-- ═══════════════════════════════════════════ -->
 <!-- HERO                                        -->
 <!-- ═══════════════════════════════════════════ -->
-<GlassPortfolioHero
+<PortfolioHeroGlass
   categories={categories}
   galleryLabel={t('portfolio.gallery')}
   pageTitle={t('portfolioPage.pageTitle')}
@@ -152,7 +152,7 @@ const projects = [
 <!-- ═══════════════════════════════════════════ -->
 <!-- BENTO GRID                                  -->
 <!-- ═══════════════════════════════════════════ -->
-<GlassPortfolioGrid
+<PortfolioGridGlass
   projects={projects}
   viewDetailsLabel={t('portfolioPage.viewDetails')}
 />
@@ -160,7 +160,7 @@ const projects = [
 <!-- ═══════════════════════════════════════════ -->
 <!-- OVERLAY MODAL                               -->
 <!-- ═══════════════════════════════════════════ -->
-<GlassPortfolioModal
+<PortfolioModalGlass
   projects={projects}
   challengeLabel={t('portfolioPage.theChallenge')}
   solutionLabel={t('portfolioPage.theSolution')}
@@ -171,7 +171,7 @@ const projects = [
 <!-- ═══════════════════════════════════════════ -->
 <!-- BOTTOM CTA                                  -->
 <!-- ═══════════════════════════════════════════ -->
-<GlassPortfolioCTA
+<PortfolioCTAGlass
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -188,6 +188,8 @@ const projects = [
   import { initCategoryFilter } from '../../../utils/portfolio';
 
   function initPortfolioPageGlass(signal?: AbortSignal) {
+    if (!document.querySelector('.c-portfolio-page-glass__card')) return;
+
     // ── Scroll-based card reveal (shared util) ──
     initScrollReveal('.c-portfolio-page-glass__card', {
       threshold: 0.08,

@@ -148,3 +148,18 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                        PORTFOLIO MINIMAL SECTION                           */
+/* -------------------------------------------------------------------------- */
+
+.c-portfolio-page-minimal__row span, 
+.c-portfolio-page-minimal__row h3, 
+.c-portfolio-page-minimal__row div:not(.c-portfolio-expanded) {
+  transition: all var(--duration-minimal-slow) var(--ease-minimal);
+}
+
+.c-portfolio-expanded {
+   transition: max-height var(--duration-minimal-fast) ease-in-out, opacity var(--duration-minimal-fast) ease-in-out, margin-top var(--duration-minimal-fast) ease-in-out;
+}
+

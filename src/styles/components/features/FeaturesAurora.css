@@ -221,11 +221,11 @@
 .features-aurora-card[data-aurora-hue="4"] { --card-hue: 160 70% 55%; }
 
 .features-aurora-card:hover {
-  border-color: hsl(var(--a) / 0.2);
+  border-color: hsl(var(--a) / 0.15);
   transform: translateY(-4px);
   box-shadow:
-    0 20px 60px hsl(var(--bc) / 0.06),
-    0 0 40px hsl(var(--a) / 0.05);
+    0 8px 24px hsl(var(--bc) / 0.02),
+    0 0 12px hsl(var(--card-hue, var(--a)) / 0.03);
 }
 
 /* Card grid overlay */
@@ -280,9 +280,9 @@
 }
 
 .features-aurora-card:hover .features-aurora-card-icon {
-  background: hsl(var(--card-hue, var(--a)) / 0.15);
-  border-color: hsl(var(--card-hue, var(--a)) / 0.3);
-  box-shadow: 0 0 24px hsl(var(--card-hue, var(--a)) / 0.15);
+  background: hsl(var(--card-hue, var(--a)) / 0.12);
+  border-color: hsl(var(--card-hue, var(--a)) / 0.2);
+  box-shadow: 0 0 16px hsl(var(--card-hue, var(--a)) / 0.1);
   transform: scale(1.05);
 }
 
@@ -353,10 +353,10 @@
   bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  height: 80px;
-  background: radial-gradient(ellipse, hsl(var(--card-hue, var(--a)) / 0.15) 0%, transparent 70%);
-  filter: blur(20px);
+  width: 70%;
+  height: 60px;
+  background: radial-gradient(ellipse, hsl(var(--card-hue, var(--a)) / 0.08) 0%, transparent 60%);
+  filter: blur(24px);
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -405,4 +405,11 @@
 
 .features-aurora-cta:hover svg {
   transform: translateX(4px);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         MONOCHROME THEME OVERRIDES                         */
+/* -------------------------------------------------------------------------- */
+[data-theme="monochrome"] .features-aurora-card[data-aurora-hue] {
+  --card-hue: var(--bc) !important;
 }

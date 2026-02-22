@@ -138,12 +138,14 @@ import '../../../styles/components/header/HeaderGlass.css';
     if (!burger || !panel) return;
 
     function closePanel() {
+      if (!panel || !burger) return;
       panel.classList.remove('is-open');
       burger.classList.remove('is-active');
       document.body.style.overflow = '';
     }
 
     function openPanel() {
+      if (!panel || !burger) return;
       panel.classList.add('is-open');
       burger.classList.add('is-active');
       document.body.style.overflow = 'hidden';

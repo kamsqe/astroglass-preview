@@ -1,6 +1,6 @@
 ---
 /**
- * Features V4 - Use-Case Driven Tabs
+ * Features Luxury - Use-Case Driven Tabs
  * Features organized by user intent with interactive tab switching.
  */
 import '../../../styles/components/features/FeaturesLuxury.css';
@@ -49,7 +49,7 @@ const useCases = [
 
 
 
-<section id="services" class="features-v4 relative py-20 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+<section id="services" class="features-luxury relative py-20 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-10 sm:mb-14">
@@ -57,10 +57,10 @@ const useCases = [
         <LuxurySectionLabel text={t('features.badge')} />
       </div>
       <h2 class="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-base-content tracking-tight mb-4">
-        {t('features.v4Title')}
+        {t('features.luxuryTitle')}
       </h2>
       <p class="text-base sm:text-lg text-base-content/50 max-w-xl mx-auto">
-        {t('features.v4Subtitle')}
+        {t('features.luxurySubtitle')}
       </p>
     </div>
 
@@ -134,12 +134,12 @@ const useCases = [
 <script>
   import { Spotlight } from '../../../scripts/luxury-interactions';
 
-  function initFeaturesV4() {
-    const container = document.querySelector('.features-v4');
+  function initFeaturesLuxury() {
+    const container = document.querySelector('.features-luxury');
     if (!container) return;
     
     // Init Spotlight
-    new Spotlight('.features-v4 .js-spotlight');
+    new Spotlight('.features-luxury .js-spotlight');
 
     const tabs = container.querySelectorAll('.tab-btn');
     const contents = container.querySelectorAll('.c-features-luxury__content');
@@ -168,8 +168,8 @@ const useCases = [
   }
 
   // Initialize
-  initFeaturesV4();
+  initFeaturesLuxury();
 
   // Re-init on Astro navigation
-  document.addEventListener('astro:after-swap', initFeaturesV4);
+  document.addEventListener('astro:after-swap', initFeaturesLuxury);
 </script>

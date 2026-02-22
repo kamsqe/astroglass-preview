@@ -95,3 +95,25 @@
     }
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/*                         MONOCHROME THEME OVERRIDES                         */
+/* -------------------------------------------------------------------------- */
+[data-theme="monochrome"] .c-about-luxury__node-inner.bg-gradient-to-br,
+[data-theme="monochrome"] .c-about-luxury__node-outer > .bg-gradient-to-br.animate-ping,
+[data-theme="monochrome"] .c-about-luxury__card-inner > .bg-gradient-to-b {
+  background: none !important;
+  background-color: hsl(var(--bc) / 0.15) !important;
+}
+
+[data-theme="monochrome"] .c-about-luxury__node span.bg-gradient-to-r {
+  background: none !important;
+  background-color: hsl(var(--bc)) !important;
+  color: hsl(var(--b1)) !important;
+}
+
+[data-theme="monochrome"] .c-about-luxury__card a.bg-gradient-to-r {
+  background: none !important;
+  background-color: hsl(var(--bc)) !important;
+  color: hsl(var(--b1)) !important;
+}

@@ -1,6 +1,6 @@
 ---
 /**
- * Contact V2 - The Simple Form
+ * Contact Glass - The Simple Form
  * Clean, straightforward contact form with topic selection.
  * Mobile-first, no gimmicks, just works.
  */
@@ -48,15 +48,15 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     </div>
 
     <!-- Form Container -->
-    <div class="contact-v2-form-container p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/10 backdrop-blur-sm" data-validation-messages={JSON.stringify(validationMessages)}>
+    <div class="contact-glass-form-container p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/10 backdrop-blur-sm" data-validation-messages={JSON.stringify(validationMessages)}>
       
-      <form class="contact-v2-form space-y-5" novalidate>
+      <form class="contact-glass-form space-y-5" novalidate>
         <!-- Topic Selection -->
         <div>
           <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-3">{t('contact.form.topic')}</label>
           <div class="grid grid-cols-2 gap-2">
             {topics.map((topic, i) => (
-              <label class="contact-v2-topic-label cursor-pointer">
+              <label class="contact-glass-topic-label cursor-pointer">
                 <input 
                   type="radio" 
                   name="topic" 
@@ -113,7 +113,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
         <!-- Submit -->
         <Button 
           type="submit"
-          className="contact-v2-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 hover:bg-accent/90"
+          className="contact-glass-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 hover:bg-accent/90"
         >
           <span>{t('contact.form.send')}</span>
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,11 +123,11 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       </form>
 
       <!-- Success State (hidden) -->
-      <div class="contact-v2-success hidden text-center py-8">
+      <div class="contact-glass-success hidden text-center py-8">
         <div class="text-5xl mb-4">🎉</div>
         <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
         <p class="text-sm text-base-content/60 mb-6">{t('contact.form.success')}</p>
-        <button class="contact-v2-reset text-sm text-accent hover:underline">
+        <button class="contact-glass-reset text-sm text-accent hover:underline">
           {t('contact.wizard.actions.restart')}
         </button>
       </div>
@@ -142,69 +142,30 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 
 <script>
-  import { safeParse } from 'valibot';
   import { createContactSchema } from '../../../lib/schemas/contact';
+  import { validateSingleField, validateForm } from '../../../utils/form-validation';
 
-  let contactV2Controller: AbortController | null = null;
+  let contactGlassController: AbortController | null = null;
 
-  function initContactV2() {
-    contactV2Controller?.abort();
-    contactV2Controller = new AbortController();
-    const signal = contactV2Controller.signal;
+  function initContactGlass() {
+    contactGlassController?.abort();
+    contactGlassController = new AbortController();
+    const signal = contactGlassController.signal;
 
-    const container = document.querySelector('.contact-v2-form-container') as HTMLElement;
+    const container = document.querySelector('.contact-glass-form-container') as HTMLElement;
     if (!container) return;
 
     const validationMessages = JSON.parse(container.dataset.validationMessages || '{}');
     const t = (key: string) => validationMessages[key.split('.')[1]] || key;
     const schema = createContactSchema(t);
 
-    const form = container.querySelector('.contact-v2-form') as HTMLFormElement;
-    const successEl = container.querySelector('.contact-v2-success');
-    const resetBtn = container.querySelector('.contact-v2-reset');
+    const form = container.querySelector('.contact-glass-form') as HTMLFormElement;
+    const successEl = container.querySelector('.contact-glass-success');
+    const resetBtn = container.querySelector('.contact-glass-reset');
 
     // Field Validation Helper
     const validateField = (input: HTMLInputElement | HTMLTextAreaElement) => {
-      const fieldName = input.name;
-      // Partial validation object
-      const fieldData = { [fieldName]: input.value };
-      
-      // We need to pick just this field from the schema, but Valibot schema is an object.
-      // Easiest client-side way is to parse the whole object (ignoring others if possible) 
-      // OR mostly just rely on the full schema safeParse but check errors for this key.
-      
-      const formData = new FormData(form);
-      const data: Record<string, any> = {};
-      formData.forEach((value, key) => data[key] = value);
-      
-      const result = safeParse(schema, data);
-      
-      // Clear current error
-      const parent = input.closest('.form-control') || input.parentElement;
-      const existingError = parent?.querySelector('.error-message');
-      
-      // Reset state first
-      input.classList.remove('input-error', 'input-success');
-      existingError?.remove();
-
-      if (!result.success) {
-        // Find issue for THIS field
-        const issue = result.issues.find(i => i.path?.[0].key === fieldName);
-        if (issue) {
-          input.classList.add('input-error');
-          // Show error message
-          const errorMsg = document.createElement('p');
-          errorMsg.className = 'error-message';
-          errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${issue.message}`;
-          parent?.appendChild(errorMsg);
-        } else {
-          // If no issue for this field BUT it has value, show success
-          if (input.value.length > 0) input.classList.add('input-success');
-        }
-      } else {
-        // Entire form valid
-        if (input.value.length > 0) input.classList.add('input-success');
-      }
+       validateSingleField(input, { form, schema });
     };
 
     // Attach listeners
@@ -224,49 +185,13 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const formData = new FormData(form);
-      const data: Record<string, any> = {};
-      formData.forEach((value, key) => data[key] = value);
-
-      const result = safeParse(schema, data);
+      const result = validateForm({ form, schema });
 
       if (!result.success) {
-        // Shake form
-        form.classList.add('animate-shake');
-        setTimeout(() => form.classList.remove('animate-shake'), 300);
-
-        let firstInvalid: HTMLElement | null = null;
-
-        // Show all errors
-        result.issues.forEach(issue => {
-          const fieldName = issue.path?.[0].key as string;
-          const input = form.querySelector(`[name="${fieldName}"]`) as HTMLInputElement;
-          if (input) {
-            if (!firstInvalid) firstInvalid = input;
-            
-            // Re-use logic
-             const parent = input.closest('.form-control') || input.parentElement;
-             const existingError = parent?.querySelector('.error-message');
-             if (!existingError) {
-                input.classList.add('input-error');
-                const errorMsg = document.createElement('p');
-                errorMsg.className = 'error-message';
-                errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${issue.message}`;
-                parent?.appendChild(errorMsg);
-             }
-          }
-        });
-
-        // Scroll to first error
-        if (firstInvalid) {
-          (firstInvalid as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
-          (firstInvalid as HTMLElement).focus();
-        }
-        
         return;
       }
 
-      console.log('Form valid & submitted:', data);
+
 
       // Show success
       form.classList.add('hidden');
@@ -284,6 +209,6 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     }, { signal });
   }
 
-  initContactV2();
-  document.addEventListener('astro:after-swap', initContactV2);
+  initContactGlass();
+  document.addEventListener('astro:after-swap', initContactGlass);
 </script>

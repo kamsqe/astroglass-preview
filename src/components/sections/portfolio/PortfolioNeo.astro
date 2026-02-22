@@ -1,9 +1,9 @@
 ---
 /**
- * Portfolio V3 - Stacked Cards
+ * Portfolio Neo - Stacked Cards
  * Overlapping card stack with depth and parallax-like hover effects.
  */
-import '../../../styles/components/portfolio/PortfolioNeo.css';
+import '../../../styles/components/portfolio/PortfolioPageNeo.css';
 import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
@@ -40,14 +40,14 @@ const projects = [
     </div>
 
     <!-- Stacked Cards -->
-    <div class="c-portfolio-neo__container relative">
+    <div class="c-portfolio-page-neo__section-container relative">
       {projects.map((p, i) => (
         <div 
-          class="c-portfolio-neo__card group"
+          class="c-portfolio-page-neo__section-card group"
           style={`animation-delay: ${i * 100}ms`}
           data-index={i}
         >
-          <div class="c-portfolio-neo__inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
+          <div class="c-portfolio-page-neo__section-inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
             <!-- Gradient accent top -->
             <div class={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color}`}></div>
             
@@ -103,3 +103,25 @@ const projects = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__section-inner .bg-gradient-to-r,
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__section-inner .bg-gradient-to-br {
+    background-image: none !important;
+  }
+  
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__section-inner .bg-gradient-to-r.h-1\.5 {
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+  
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__section-inner .bg-clip-text {
+    color: hsl(var(--bc)) !important;
+    -webkit-text-fill-color: hsl(var(--bc)) !important;
+  }
+  
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__section-inner a.bg-gradient-to-r {
+    background-color: hsl(var(--bc)) !important;
+    color: hsl(var(--b1)) !important;
+  }
+</style>

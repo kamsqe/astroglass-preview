@@ -1,6 +1,6 @@
 ---
 interface Props {
-  href: string;
+  href?: string;
   variant?: 'primary' | 'secondary' | 'text';
   class?: string;
   icon?: boolean; // Whether to show the arrow icon
@@ -13,7 +13,7 @@ const { href, variant = 'primary', class: className, icon = true, type } = Astro
 const baseStyles = "inline-flex items-center justify-center gap-3 rounded-full font-bold transition-all duration-300 ease-luxury group cursor-pointer";
 
 const variants = {
-  primary: "bg-base-content text-base-100 px-8 py-4 shadow-luxury hover:shadow-luxury-hover hover:scale-105 active:scale-95 border-none",
+  primary: "bg-base-content text-base-100 px-8 py-4 shadow-main-luxury hover:shadow-hover-luxury hover:scale-105 active:scale-95 border-none",
   secondary: "bg-transparent border border-base-content/20 text-base-content px-8 py-4 hover:border-base-content hover:bg-base-content/5",
   text: "text-accent text-xs font-bold tracking-luxury-wide hover:translate-x-1 p-2 bg-transparent border-none shadow-none"
 };

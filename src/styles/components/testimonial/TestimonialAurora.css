@@ -41,6 +41,11 @@
   text-shadow: 0 0 8px hsl(45 100% 60% / 0.3);
 }
 
+[data-theme="monochrome"] .testimonial-aurora-stars {
+  color: hsl(var(--bc));
+  text-shadow: 0 0 8px hsl(var(--bc) / 0.3);
+}
+
 .testimonial-aurora-title {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 900;

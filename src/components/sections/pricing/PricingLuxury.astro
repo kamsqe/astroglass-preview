@@ -1,6 +1,6 @@
 ---
 /**
- * Pricing V4 - The Perspective Gallery
+ * Pricing Luxury - The Perspective Gallery
  * 3D cards that rotate on scroll/hover.
  * Mobile: Swipeable cards. Desktop: 3D Coverflow.
  */
@@ -23,7 +23,7 @@ const plans = [
       price: "$299",
       period: "/mo",
       features: [t('pricing.plans.starter.f1'), t('pricing.plans.starter.f2'), t('pricing.plans.starter.f3')],
-      cta: t('pricing.startBuidling'),
+      cta: t('pricing.startBuilding'),
       primary: false
    },
    {
@@ -214,16 +214,16 @@ const plans = [
 <script>
   import { Spotlight } from '../../../scripts/luxury-interactions';
 
-  let pricingV4Controller: AbortController | null = null;
+  let pricingLuxuryController: AbortController | null = null;
 
   function initPerspectiveGallery() {
     // Init Spotlight
     new Spotlight('.c-pricing-luxury__stage .js-spotlight');
 
     // Abort previous listeners
-    pricingV4Controller?.abort();
-    pricingV4Controller = new AbortController();
-    const signal = pricingV4Controller.signal;
+    pricingLuxuryController?.abort();
+    pricingLuxuryController = new AbortController();
+    const signal = pricingLuxuryController.signal;
 
     const stage = document.querySelector('.c-pricing-luxury__stage') as HTMLElement;
     const cards = document.querySelectorAll('.c-pricing-luxury__card');

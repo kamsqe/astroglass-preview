@@ -1,6 +1,6 @@
 ---
 /**
- * Testimonial V1 - Liquid Bubbles (Distinctive)
+ * Testimonial Liquid - Liquid Bubbles (Distinctive)
  * Organic bubble-shaped cards with floating offset layout and avatar ripple effect.
  */
 import { useTranslations } from '../../../utils/i18n';
@@ -105,9 +105,10 @@ const testimonials = [
     <!-- Desktop: Floating Bubble Cards -->
     <div class="hidden lg:grid grid-cols-4 gap-6 items-start">
        {testimonials.map((item, i) => (
-          <div class="c-testimonial-liquid__card group relative p-8 bg-base-content/[0.02] border border-base-content/10 overflow-hidden hover:bg-base-content/[0.05]">
-             <!-- Gradient -->
-             <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]}></div>
+          <div class="c-testimonial-liquid__wrapper group">
+             <div class="c-testimonial-liquid__card relative p-8 bg-base-content/[0.02] border border-base-content/10 overflow-hidden group-hover:bg-base-content/[0.05]">
+                <!-- Gradient -->
+                <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]}></div>
              
              <div class="relative z-10">
                 <!-- Quote mark -->
@@ -127,7 +128,16 @@ const testimonials = [
                 </div>
              </div>
           </div>
+          </div>
        ))}
     </div>
   </div>
 </section>
+
+<style>
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .c-testimonial-liquid__card-mobile .bg-gradient-to-br,
+  :global([data-theme="monochrome"]) .c-testimonial-liquid__card .bg-gradient-to-br {
+    background-image: none !important;
+  }
+</style>

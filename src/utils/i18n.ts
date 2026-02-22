@@ -92,7 +92,7 @@ export { getLocaleFromUrl, getLocalePath, localePath } from './locale-utils';
 export function useTranslations(locale: Locale) {
   const t = translations[locale] || translations[defaultLocale];
   
-  return function getTranslation(key: string): string {
+  return function getTranslation(key: string, options?: { silent?: boolean }): string {
     const keys = key.split('.');
     let value: unknown = t;
     
@@ -100,8 +100,8 @@ export function useTranslations(locale: Locale) {
       if (value && typeof value === 'object' && k in value) {
         value = (value as Record<string, unknown>)[k];
       } else {
-        // Log warning in development mode
-        if (import.meta.env.DEV) {
+        // Log warning in development mode, unless explicitly silenced
+        if (import.meta.env.DEV && !options?.silent) {
           console.warn(`[i18n] Missing translation: "${key}" for locale "${locale}"`);
         }
         return key; // Return key if translation not found

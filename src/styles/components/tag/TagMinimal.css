@@ -4,10 +4,10 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: var(--text-minimal-tag);
+  font-size: var(--text-tag-minimal);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-minimal-tag);
+  letter-spacing: var(--tracking-tag-minimal);
   color: hsl(var(--a));
 }
 

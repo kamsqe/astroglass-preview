@@ -6,7 +6,7 @@
   "stat1Sub": "100 Lighthouse score",
   "stat1Desc": "Optimized for Core Web Vitals and instant page loads.",
   "stat2": "Fully Dynamic",
-  "stat2Sub": "10+ Custom Themes",
+  "stat2Sub": "10+ Color Palettes",
   "stat2Desc": "Switch themes on the fly with zero page reload.",
   "stat3": "Global Reach",
   "stat3Sub": "Ready for i18n",
@@ -30,7 +30,7 @@
     "m2Desc": "Built our first component library in a weekend hackathon. It worked.",
     "m3Title": "1,000 Users",
     "m3Desc": "Crossed our first major milestone. The community started growing organically.",
-    "m4Title": "V5 Launch",
+    "m4Title": "Astro Glass Launch",
     "m4Desc": "Complete redesign. Faster, cleaner, more powerful than ever before.",
     "m5Title": "Your Turn",
     "m5Desc": "Now it's your story to write. Let's build something amazing together."

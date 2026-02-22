@@ -1,6 +1,6 @@
 ---
 /**
- * Features V5 - Progressive Reveal Stack
+ * Features Minimal - Progressive Reveal Stack
  * Scroll-driven cinematic feature presentation, one feature at a time.
  */
 import { useTranslations } from '../../../utils/i18n';
@@ -50,7 +50,7 @@ const features = [
 ];
 ---
 
-<section id="services" class="features-v5 relative overflow-hidden">
+<section id="services" class="features-minimal relative overflow-hidden">
   <!-- Sticky Header -->
   <div class="sticky top-0 z-20 py-6 sm:py-8 px-4 sm:px-6 bg-base-100/80 backdrop-blur-xl border-b border-base-content/5">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -135,8 +135,8 @@ const features = [
   <!-- Final CTA -->
   <div class="relative py-16 sm:py-24 px-4 sm:px-6 bg-base-content/[0.02] border-t border-base-content/5">
     <div class="max-w-3xl mx-auto text-center">
-      <h3 class="text-2xl sm:text-3xl font-black text-base-content mb-4">{t('features.v5CtaTitle')}</h3>
-      <p class="text-base sm:text-lg text-base-content/50 mb-8">{t('features.v5CtaDesc')}</p>
+      <h3 class="text-2xl sm:text-3xl font-black text-base-content mb-4">{t('features.minimalCtaTitle')}</h3>
+      <p class="text-base sm:text-lg text-base-content/50 mb-8">{t('features.minimalCtaDesc')}</p>
       <a href="#" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-base-content text-base-100 font-bold shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group">
         {t('features.cta')}
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -190,10 +190,23 @@ const features = [
     transform: scale(1.3);
     box-shadow: 0 0 10px hsl(var(--a) / 0.5);
   }
+
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .feature-section [data-feature-bg],
+  :global([data-theme="monochrome"]) .feature-section [data-feature-orb],
+  :global([data-theme="monochrome"]) .feature-section .bg-gradient-to-br,
+  :global([data-theme="monochrome"]) .feature-section .bg-gradient-to-r {
+    background: none !important;
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+
+  :global([data-theme="monochrome"]) .feature-section a.bg-gradient-to-r {
+    background-color: hsl(var(--bc)) !important;
+  }
 </style>
 
 <script>
-  function initFeaturesV5() {
+  function initFeaturesMinimal() {
     const sections = document.querySelectorAll('[data-feature-section]');
     const dots = document.querySelectorAll('[data-feature-dot]');
 
@@ -206,10 +219,12 @@ const features = [
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
           
-          // Update dots
-          dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i <= parseInt(index));
-          });
+          if (index !== null) {
+            // Update dots
+            dots.forEach((dot, i) => {
+              dot.classList.toggle('active', i <= parseInt(index));
+            });
+          }
         }
       });
     }, {
@@ -221,8 +236,8 @@ const features = [
   }
 
   // Initialize
-  initFeaturesV5();
+  initFeaturesMinimal();
 
   // Re-init on Astro navigation
-  document.addEventListener('astro:after-swap', initFeaturesV5);
+  document.addEventListener('astro:after-swap', initFeaturesMinimal);
 </script>

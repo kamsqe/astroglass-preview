@@ -1,6 +1,6 @@
 ---
 /**
- * Contact V4 - The Glass Form
+ * Contact Luxury - The Glass Form
  * Sophisticated contact interface with validation.
  * Mobile: Full width. Desktop: Split screen with info.
  */
@@ -134,11 +134,11 @@ const validationMessages = {
 
           <!-- Success State -->
           <div class="contact-luxury-success hidden absolute inset-0 flex flex-col items-center justify-center text-center p-8 md:p-12 z-20 transition-all duration-500">
-            <h3 class="text-3xl font-serif tracking-tight text-base-content mb-4 opacity-0 translate-y-4 transition-all duration-700 delay-100 ease-out" id="success-title">{t('contact.successTitleV4')}</h3>
-            <p class="text-base text-base-content/60 mb-8 opacity-0 translate-y-4 transition-all duration-700 delay-200 ease-out" id="success-desc">{t('contact.successDescV4')}</p>
+            <h3 class="text-3xl font-serif tracking-tight text-base-content mb-4 opacity-0 translate-y-4 transition-all duration-700 delay-100 ease-out" id="success-title">{t('contact.successTitleLuxury')}</h3>
+            <p class="text-base text-base-content/60 mb-8 opacity-0 translate-y-4 transition-all duration-700 delay-200 ease-out" id="success-desc">{t('contact.successDescLuxury')}</p>
             
             <div class="opacity-0 translate-y-4 transition-all duration-700 delay-300 ease-out" id="success-btn-container">
-               <LuxuryButton type="button" variant="outline" class="contact-reset-btn">
+               <LuxuryButton type="button" variant="secondary" class="contact-reset-btn">
                   {t('contact.wizard.actions.restart')}
                </LuxuryButton>
             </div>
@@ -151,8 +151,8 @@ const validationMessages = {
 </section>
 
 <script>
-  import { safeParse } from 'valibot';
   import { createContactSchema } from '../../../lib/schemas/contact';
+  import { validateSingleField, validateForm } from '../../../utils/form-validation';
 
   let contactLuxuryController: AbortController | null = null;
 
@@ -174,7 +174,7 @@ const validationMessages = {
     const resetBtn = container.querySelector('.contact-reset-btn');
 
     const validationMessages = JSON.parse(container.dataset.validationMessages || '{}');
-    const t = (key: string) => validationMessages[key.split('.').pop()] || key;
+    const t = (key: string) => validationMessages[key.split('.').pop() || ''] || key;
     const schema = createContactSchema(t);
 
     const setFieldError = (input: Element, message: string | null) => {
@@ -193,24 +193,11 @@ const validationMessages = {
         }
     };
 
+    const renderError = (input: HTMLElement, message: string) => setFieldError(input, message);
+    const clearError = (input: HTMLElement) => setFieldError(input, null);
+
     const validateFieldWrapper = (input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
-      const fieldName = input.name;
-      const formData = new FormData(form);
-      const data: Record<string, any> = {};
-      formData.forEach((value, key) => data[key] = value);
-      
-      const result = safeParse(schema, data);
-      
-      if (!result.success) {
-        const issue = result.issues.find(i => i.path?.[0].key === fieldName);
-        if (issue) {
-           setFieldError(input, issue.message);
-        } else {
-           setFieldError(input, null);
-        }
-      } else {
-         setFieldError(input, null);
-      }
+       validateSingleField(input, { form, schema, renderError, clearError });
     };
 
     // Attach listeners
@@ -238,22 +225,9 @@ const validationMessages = {
       const data: Record<string, any> = {};
       formData.forEach((value, key) => data[key] = value);
 
-      const result = safeParse(schema, data);
+      const result = validateForm({ form, schema, renderError, clearError });
 
       if (!result.success) {
-        form.classList.add('animate-shake');
-        setTimeout(() => form.classList.remove('animate-shake'), 500);
-
-        let firstInvalid: HTMLElement | null = null;
-        result.issues.forEach(issue => {
-          const fieldName = issue.path?.[0].key as string;
-          const input = form.querySelector(`[name="${fieldName}"]`);
-          if (input) {
-             if (!firstInvalid) firstInvalid = input as HTMLElement;
-             setFieldError(input as Element, issue.message);
-          }
-        });
-        firstInvalid?.focus();
         return;
       }
 
@@ -266,7 +240,7 @@ const validationMessages = {
 
       // Simulate Network Request
       await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form submitted:', data);
+
       
       // Initial success feedback on button
       btnText.textContent = "Sent!";

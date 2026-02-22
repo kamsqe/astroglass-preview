@@ -3,19 +3,19 @@
  * Portfolio Page — Luxury Theme (Composition Layer)
  * 
  * Wires data ↔ sub-components:
- *   - LuxuryPortfolioHero  → serif hero + diamond dividers + filters
- *   - LuxuryPortfolioGrid  → glass cards with number watermarks
- *   - LuxuryPortfolioModal → overlay + pre-rendered templates
- *   - LuxuryPortfolioCTA   → bottom CTA
+ *   - PortfolioHeroLuxury  → serif hero + diamond dividers + filters
+ *   - PortfolioGridLuxury  → glass cards with number watermarks
+ *   - PortfolioModalLuxury → overlay + pre-rendered templates
+ *   - PortfolioCTALuxury   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import LuxuryPortfolioHero from './luxury/LuxuryPortfolioHero.astro';
-import LuxuryPortfolioGrid from './luxury/LuxuryPortfolioGrid.astro';
-import LuxuryPortfolioModal from './luxury/LuxuryPortfolioModal.astro';
-import LuxuryPortfolioCTA from './luxury/LuxuryPortfolioCTA.astro';
+import PortfolioHeroLuxury from './luxury/PortfolioHeroLuxury.astro';
+import PortfolioGridLuxury from './luxury/PortfolioGridLuxury.astro';
+import PortfolioModalLuxury from './luxury/PortfolioModalLuxury.astro';
+import PortfolioCTALuxury from './luxury/PortfolioCTALuxury.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -131,19 +131,19 @@ const projects = [
 ];
 ---
 
-<LuxuryPortfolioHero
+<PortfolioHeroLuxury
   categories={categories}
   caseStudiesLabel={t('portfolio.caseStudies')}
   pageTitle={t('portfolioPage.pageTitle')}
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<LuxuryPortfolioGrid
+<PortfolioGridLuxury
   projects={projects}
   viewDetailsLabel={t('portfolioPage.viewDetails')}
 />
 
-<LuxuryPortfolioModal
+<PortfolioModalLuxury
   projects={projects}
   challengeLabel={t('portfolioPage.theChallenge')}
   solutionLabel={t('portfolioPage.theSolution')}
@@ -151,7 +151,7 @@ const projects = [
   techStackLabel={t('portfolioPage.techStackLabel')}
 />
 
-<LuxuryPortfolioCTA
+<PortfolioCTALuxury
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -165,6 +165,8 @@ const projects = [
   import { initCategoryFilter } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    if (!document.querySelector('.c-portfolio-page-luxury__card')) return;
+
     const modal = document.getElementById('pp-luxury-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-luxury-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-luxury-modal-close') as HTMLElement | null;

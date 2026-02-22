@@ -1,6 +1,6 @@
 ---
 /**
- * Pricing V3 - The Spotlight Carousel
+ * Pricing Neo - The Spotlight Carousel
  * One plan in focus at a time with smooth crossfade transitions.
  */
 import '../../../styles/components/pricing/PricingNeo.css';
@@ -51,7 +51,7 @@ const plans = [
 
 
 
-<section id="pricing" class="pricing-v3-section relative py-32 lg:py-48 px-6 overflow-hidden min-h-screen flex items-center bg-base-100">
+<section id="pricing" class="pricing-neo-section relative py-32 lg:py-48 px-6 overflow-hidden min-h-screen flex items-center bg-base-100">
   <!-- Background glow layers for each tier -->
   <div class="absolute inset-0 pointer-events-none">
      <div class="c-pricing-neo__bg-layer active" data-tier="0" style="background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.1) 0%, transparent 70%);"></div>
@@ -224,7 +224,7 @@ const plans = [
 </section>
 
 <script>
-  function initSpotlightV3() {
+  function initSpotlightNeo() {
     const navBtns = document.querySelectorAll('.c-pricing-neo__nav-btn');
     const planCards = document.querySelectorAll('.c-pricing-neo__card');
     const featuresLists = document.querySelectorAll('.c-pricing-neo__features');
@@ -257,6 +257,6 @@ const plans = [
   // The original script called setActive(1) immediately.
   // We'll trust the original logic but update class selection.
 
-  initSpotlightV3();
-  document.addEventListener('astro:after-swap', initSpotlightV3);
+  initSpotlightNeo();
+  document.addEventListener('astro:after-swap', initSpotlightNeo);
 </script>

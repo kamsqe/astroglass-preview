@@ -13,10 +13,10 @@
 }
 
 .c-faq-glass__msg {
-  animation: msgSlideInV2 800ms var(--ease-glass);
+  animation: msgSlideInGlass 800ms var(--ease-glass);
 }
 
-@keyframes msgSlideInV2 {
+@keyframes msgSlideInGlass {
   from {
     opacity: 0;
     transform: translateY(20px) scale(0.95);
@@ -73,9 +73,9 @@
 }
 
 /* Input - remove all focus styles */
-#faq-v2-input,
-#faq-v2-input:focus,
-#faq-v2-input:focus-visible {
+#faq-glass-input,
+#faq-glass-input:focus,
+#faq-glass-input:focus-visible {
   outline: none !important;
   border: none !important;
   box-shadow: none !important;

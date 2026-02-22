@@ -141,3 +141,30 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
     ))}
   </div>
 </section>
+
+<style>
+  /* Monochrome visual overrides */
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .bg-gradient-to-br,
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .bg-gradient-to-r {
+    background-image: none !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__accent-bar {
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .hover\:opacity-\[0\.03\]:hover {
+    background-color: hsl(var(--bc) / 0.05) !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card span.bg-gradient-to-br,
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card span.bg-gradient-to-r {
+    color: hsl(var(--bc)) !important;
+    -webkit-text-fill-color: hsl(var(--bc)) !important;
+  }
+
+  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card button.bg-gradient-to-r {
+    background-color: hsl(var(--bc)) !important;
+    color: hsl(var(--b1)) !important;
+  }
+</style>

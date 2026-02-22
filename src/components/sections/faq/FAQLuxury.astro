@@ -1,6 +1,6 @@
 ---
 /**
- * FAQ V4 - The Search Hero
+ * FAQ Luxury - The Search Hero
  * Large prominent search bar with instant filtering.
  * Mobile: Sticky search with filtered results. Desktop: Centered search with grid.
  */
@@ -48,11 +48,11 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
              </svg>
              <input 
                type="text" 
-               id="faq-v4-search"
+               id="faq-luxury-search"
                placeholder={t('faq.searchPlaceholder')} 
                class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-base"
              />
-             <button id="faq-v4-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/50 hover:bg-base-content/10 transition-luxury">
+             <button id="faq-luxury-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/50 hover:bg-base-content/10 transition-luxury">
                 {t('faq.clear')}
              </button>
           </div>
@@ -72,7 +72,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     </div>
 
     <!-- Results -->
-    <div class="c-faq-luxury__results space-y-3" id="faq-v4-results">
+    <div class="c-faq-luxury__results space-y-3" id="faq-luxury-results">
        {faqs.map((faq, i) => (
           <div 
             class="c-faq-luxury__result-item" 
@@ -102,7 +102,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     </div>
 
     <!-- No results message -->
-    <div class="faq-v4-no-results hidden text-center py-12">
+    <div class="faq-luxury-no-results hidden text-center py-12">
        <span class="text-4xl mb-4 block">🔍</span>
        <p class="text-base text-base-content/50 mb-2">{t('faq.noResults')}</p>
        <p class="text-sm text-base-content/30">{t('faq.tryDifferent')} <a href="#" class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
@@ -110,25 +110,25 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
 
     <!-- Result count -->
     <div class="text-center mt-8">
-       <p class="text-xs text-base-content/30" id="faq-v4-count" data-template={t('faq.showingQuestions')}>{t('faq.showingQuestions').replace('{count}', faqs.length)}</p>
+       <p class="text-xs text-base-content/30" id="faq-luxury-count" data-template={t('faq.showingQuestions')}>{t('faq.showingQuestions').replace('{count}', faqs.length.toString())}</p>
     </div>
   </div>
 </section>
 
 <script>
-  let faqV4Controller: AbortController | null = null;
+  let faqLuxuryController: AbortController | null = null;
 
-  function initFAQV4Search() {
+  function initFAQLuxurySearch() {
     // Abort previous listeners
-    faqV4Controller?.abort();
-    faqV4Controller = new AbortController();
-    const signal = faqV4Controller.signal;
+    faqLuxuryController?.abort();
+    faqLuxuryController = new AbortController();
+    const signal = faqLuxuryController.signal;
 
-    const searchInput = document.getElementById('faq-v4-search') as HTMLInputElement;
-    const clearBtn = document.getElementById('faq-v4-clear');
+    const searchInput = document.getElementById('faq-luxury-search') as HTMLInputElement;
+    const clearBtn = document.getElementById('faq-luxury-clear');
     const results = document.querySelectorAll('.c-faq-luxury__result-item');
-    const noResults = document.querySelector('.faq-v4-no-results');
-    const countEl = document.getElementById('faq-v4-count');
+    const noResults = document.querySelector('.faq-luxury-no-results');
+    const countEl = document.getElementById('faq-luxury-count');
     const tagBtns = document.querySelectorAll('.c-faq-luxury__tag-btn');
     
     let activeTag = '';
@@ -217,6 +217,6 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     });
   }
 
-  initFAQV4Search();
-  document.addEventListener('astro:after-swap', initFAQV4Search);
+  initFAQLuxurySearch();
+  document.addEventListener('astro:after-swap', initFAQLuxurySearch);
 </script>

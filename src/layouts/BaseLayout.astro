@@ -1,12 +1,11 @@
 ---
 import { getLocaleFromUrl } from '../utils/locale-utils';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/layout/header/HeaderLiquid.astro';
-import HeaderV2 from '../components/layout/header/HeaderGlass.astro';
-import HeaderV3 from '../components/layout/header/HeaderNeo.astro';
-import HeaderV4 from '../components/layout/header/HeaderLuxury.astro';
-import HeaderV5 from '../components/layout/header/HeaderMinimal.astro';
+import HeaderGlass from '../components/layout/header/HeaderGlass.astro';
+import HeaderLuxury from '../components/layout/header/HeaderLuxury.astro';
+import HeaderMinimal from '../components/layout/header/HeaderMinimal.astro';
 import HeaderDefault from '../components/layout/header/HeaderDefault.astro';
 
 export interface Props {
@@ -37,7 +36,7 @@ const locale = getLocaleFromUrl(Astro.url);
 // Use prop version or default to 1
 const currentHeader = headerVersion;
 
-// If Header V2 is active, force the 'nordic' theme
+// If Header Glass is active, force the 'nordic' theme
 const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
 ---
 
@@ -50,7 +49,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <ClientRouter />
     <style is:global>
       /* Cinema Fade View Transitions */
       ::view-transition-group(root) {
@@ -85,9 +84,9 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
         }
       }
     </style>
-    <script is:inline define:vars={{ isV2: currentHeader === 2 }}>
+    <script is:inline define:vars={{ isGlass: currentHeader === 2 }}>
       const setSelectionTheme = () => {
-        if (isV2) {
+        if (isGlass) {
           document.documentElement.setAttribute('data-theme', 'nordic');
         } else {
           const stored = localStorage.getItem('theme');
@@ -105,10 +104,10 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
   <body class="bg-base-100 text-base-content min-h-screen">
     {showHeader && (
       currentHeader === 1 ? <Header /> :
-      currentHeader === 2 ? <HeaderV2 /> :
+      currentHeader === 2 ? <HeaderGlass /> :
       currentHeader === 3 ? <HeaderDefault /> :
-      currentHeader === 4 ? <HeaderV4 /> :
-      <HeaderV5 />
+      currentHeader === 4 ? <HeaderLuxury /> :
+      <HeaderMinimal />
     )}
     
     <div style="overflow-x: clip;">

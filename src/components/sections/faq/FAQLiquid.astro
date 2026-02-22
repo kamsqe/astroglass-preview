@@ -1,6 +1,6 @@
 ---
 /**
- * FAQ V1 - The Guided Journey
+ * FAQ Liquid - The Guided Journey
  * Step-by-step progressive disclosure with breadcrumb navigation.
  * Mobile: Full-screen steps. Desktop: Split view with navigation tree.
  */
@@ -89,20 +89,20 @@ const categoriesJson = JSON.stringify(categories);
                 >
                    <span class="text-2xl mb-3 block">{cat.icon}</span>
                    <p class="text-sm font-bold text-base-content mb-1">{cat.title}</p>
-                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length)}</p>
+                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
                 </button>
              ))}
           </div>
 
           <!-- Questions View (hidden by default) -->
           <div class="c-faq-liquid__questions-view hidden">
-             <div class="space-y-3" id="mobile-v1-questions-list"></div>
+             <div class="space-y-3" id="mobile-liquid-questions-list"></div>
           </div>
 
           <!-- Answer View (hidden by default) -->
           <div class="c-faq-liquid__answer-view hidden">
              <div class="p-6 rounded-2xl bg-base-content/[0.03] border border-base-content/10">
-                <p id="mobile-v1-answer-text" class="text-base text-base-content/70 leading-relaxed"></p>
+                <p id="mobile-liquid-answer-text" class="text-base text-base-content/70 leading-relaxed"></p>
              </div>
              <div class="mt-6 pt-6 border-t border-base-content/5">
                 <p class="text-xs text-base-content/30 mb-3">{t('faq.wasHelpful')}</p>
@@ -159,20 +159,20 @@ const categoriesJson = JSON.stringify(categories);
                 <p class="text-base text-base-content/40">{t('faq.selectQuestion')}</p>
              </div>
              <div class="c-faq-liquid__content-answer hidden">
-                <p class="text-xs text-accent font-bold uppercase tracking-widest mb-4" id="desktop-v1-category-label"></p>
-                <h3 class="text-xl font-bold text-base-content mb-6" id="desktop-v1-question-text"></h3>
-                <p class="text-base text-base-content/70 leading-relaxed" id="desktop-v1-answer-text"></p>
+                <p class="text-xs text-accent font-bold uppercase tracking-widest mb-4" id="desktop-liquid-category-label"></p>
+                <h3 class="text-xl font-bold text-base-content mb-6" id="desktop-liquid-question-text"></h3>
+                <p class="text-base text-base-content/70 leading-relaxed" id="desktop-liquid-answer-text"></p>
                 
                 <div class="mt-8 pt-8 border-t border-base-content/5 flex items-center justify-between">
-                   <div>
+                   <div class="relative">
                       <p class="text-xs text-base-content/30 mb-2">{t('faq.wasHelpful')}</p>
                       <div class="flex gap-2 c-faq-liquid__feedback-btns">
                          <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-yes px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-bold hover:bg-accent/20 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="yes">👍 {t('faq.yes')}</button>
                          <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/50 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
                       </div>
-                      <p class="c-faq-liquid__feedback-thanks hidden text-xs text-accent mt-2">{t('faq.feedbackThanks')}</p>
+                      <p class="c-faq-liquid__feedback-thanks hidden absolute top-full left-0 mt-2 text-xs text-accent whitespace-nowrap">{t('faq.feedbackThanks')}</p>
                    </div>
-                   <a href="#" class="text-sm text-accent hover:underline">{t('faq.stillNeedHelp')}</a>
+                   <a href="#" class="text-sm text-accent hover:underline shrink-0">{t('faq.stillNeedHelp')}</a>
                 </div>
              </div>
           </div>
@@ -182,13 +182,13 @@ const categoriesJson = JSON.stringify(categories);
 </section>
 
 <script>
-  let faqV1Controller: AbortController | null = null;
+  let faqLiquidController: AbortController | null = null;
 
-  function initFAQV1Journey() {
+  function initFAQLiquidJourney() {
     // Abort previous listeners
-    faqV1Controller?.abort();
-    faqV1Controller = new AbortController();
-    const signal = faqV1Controller.signal;
+    faqLiquidController?.abort();
+    faqLiquidController = new AbortController();
+    const signal = faqLiquidController.signal;
 
     // Mobile functionality
     const journey = document.querySelector('.c-faq-liquid__journey') as HTMLElement;
@@ -200,8 +200,8 @@ const categoriesJson = JSON.stringify(categories);
     const categoriesView = journey.querySelector('.c-faq-liquid__categories-view');
     const questionsView = journey.querySelector('.c-faq-liquid__questions-view');
     const answerView = journey.querySelector('.c-faq-liquid__answer-view');
-    const questionsList = document.getElementById('mobile-v1-questions-list');
-    const answerText = document.getElementById('mobile-v1-answer-text');
+    const questionsList = document.getElementById('mobile-liquid-questions-list');
+    const answerText = document.getElementById('mobile-liquid-answer-text');
     
     let currentCategory: any = null;
 
@@ -312,9 +312,9 @@ const categoriesJson = JSON.stringify(categories);
         document.querySelector('.c-faq-liquid__content-placeholder')?.classList.add('hidden');
         document.querySelector('.c-faq-liquid__content-answer')?.classList.remove('hidden');
         
-        const categoryLabel = document.getElementById('desktop-v1-category-label');
-        const questionText = document.getElementById('desktop-v1-question-text');
-        const answerTextEl = document.getElementById('desktop-v1-answer-text');
+        const categoryLabel = document.getElementById('desktop-liquid-category-label');
+        const questionText = document.getElementById('desktop-liquid-question-text');
+        const answerTextEl = document.getElementById('desktop-liquid-answer-text');
         
         if (categoryLabel) categoryLabel.textContent = cat.title;
         if (questionText) questionText.textContent = q.q;
@@ -373,6 +373,6 @@ const categoriesJson = JSON.stringify(categories);
     });
   }
 
-  initFAQV1Journey();
-  document.addEventListener('astro:after-swap', initFAQV1Journey);
+  initFAQLiquidJourney();
+  document.addEventListener('astro:after-swap', initFAQLiquidJourney);
 </script>

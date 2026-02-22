@@ -7,18 +7,18 @@
   100% { background-position: -200% 0; }
 }
 
-.cta-v4-animate-shimmer {
+.cta-luxury-animate-shimmer {
   animation: cta-shimmer 3s ease-in-out infinite;
 }
 
 /* Particle floating animation */
-.cta-v4-particle {
+.cta-luxury-particle {
   animation: cta-particle-float 6s ease-in-out infinite;
 }
 
-.cta-v4-particle:nth-child(2) { animation-delay: -1.5s; }
-.cta-v4-particle:nth-child(3) { animation-delay: -3s; }
-.cta-v4-particle:nth-child(4) { animation-delay: -4.5s; }
+.cta-luxury-particle:nth-child(2) { animation-delay: -1.5s; }
+.cta-luxury-particle:nth-child(3) { animation-delay: -3s; }
+.cta-luxury-particle:nth-child(4) { animation-delay: -4.5s; }
 
 @keyframes cta-particle-float {
   0%, 100% { transform: translateY(0) translateX(0); }
@@ -28,13 +28,13 @@
 }
 
 /* Ring pulse animation */
-.cta-v4-ring {
+.cta-luxury-ring {
   transform-origin: center;
   animation: cta-ring-pulse 4s ease-in-out infinite;
 }
 
-.cta-v4-ring:nth-child(2) { animation-delay: -1s; }
-.cta-v4-ring:nth-child(3) { animation-delay: -2s; }
+.cta-luxury-ring:nth-child(2) { animation-delay: -1s; }
+.cta-luxury-ring:nth-child(3) { animation-delay: -2s; }
 
 @keyframes cta-ring-pulse {
   0%, 100% { 
@@ -52,22 +52,22 @@
 /* -------------------------------------------------------------------------- */
 
 /* Word magnetic effect */
-.cta-v4-word {
+.cta-luxury-word {
   transition: transform var(--duration-luxury-slow) var(--ease-luxury);
 }
 
 /* Button magnetic pull */
-.cta-v4-button {
+.cta-luxury-button {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform;
 }
 
-.cta-v4-distortion {
+.cta-luxury-distortion {
   transform: translateZ(0);
 }
 
-.cta-v4-button:hover .cta-v4-distortion {
+.cta-luxury-button:hover .cta-luxury-distortion {
   opacity: 1;
   transform: scale(1.05);
 }

@@ -109,7 +109,6 @@ export class Parallax {
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
       this.targets.forEach(el => {
-        const offset = (el.getBoundingClientRect().top + scrolled) * this.speed;
         // Calculate relative movement
         const yPos = -(scrolled * this.speed);
         el.style.transform = `translate3d(0, ${yPos}px, 0)`;

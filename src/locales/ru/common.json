@@ -21,26 +21,5 @@
     "message": "Страница, которую вы ищете, не существует или была перемещена.",
     "suggestion": "Проверьте URL или вернитесь на знакомую территорию.",
     "homeButton": "На главную"
-  },
-  "themeSwitcher": {
-    "label": "Тема",
-    "categories": {
-      "light": "Светлые",
-      "dark": "Тёмные",
-      "colorful": "Цветные"
-    },
-    "themes": {
-      "tahoe": "Тахо",
-      "nordic": "Нордик",
-      "solaris": "Солярис",
-      "abyss": "Бездна",
-      "neonoir": "НеоНуар",
-      "synthwave": "Синтвейв",
-      "evergreen": "Эвергрин",
-      "rose": "Розе",
-      "aquatica": "Акватика",
-      "monochrome": "Монохром",
-      "default": "По умолчанию"
-    }
   }
 }

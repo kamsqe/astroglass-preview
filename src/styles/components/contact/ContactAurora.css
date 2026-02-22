@@ -203,6 +203,19 @@
   font-family: inherit;
 }
 
+/* Hard override for Chrome Autofill specific to Aurora's transparent fields */
+.contact-aurora-field input:-webkit-autofill,
+.contact-aurora-field input:-webkit-autofill:hover,
+.contact-aurora-field input:-webkit-autofill:focus,
+.contact-aurora-field input:-webkit-autofill:active,
+.contact-aurora-field textarea:-webkit-autofill,
+.contact-aurora-field select:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: hsl(var(--bc)) !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent !important;
+}
+
 .contact-aurora-field input:focus,
 .contact-aurora-field select:focus,
 .contact-aurora-field textarea:focus {
@@ -242,26 +255,26 @@
 .contact-aurora-error {
   font-size: 0.75rem;
   font-weight: 600;
-  color: hsl(0 80% 60%);
+  color: hsl(var(--er));
   min-height: 1.125rem;
   margin-top: 2px;
   transition: opacity 0.2s ease;
 }
 
 .contact-aurora-input--error {
-  border-bottom-color: hsl(0 80% 60%) !important;
-  box-shadow: 0 2px 0 hsl(0 80% 60% / 0.3) !important;
+  border-bottom-color: hsl(var(--er)) !important;
+  box-shadow: 0 2px 0 hsl(var(--er) / 0.3) !important;
 }
 
 .contact-aurora-success {
   font-size: 0.875rem;
   font-weight: 600;
-  color: hsl(142 70% 50%);
+  color: hsl(var(--su));
   text-align: center;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background: hsl(142 70% 50% / 0.08);
-  border: 1px solid hsl(142 70% 50% / 0.15);
+  background: hsl(var(--su) / 0.08);
+  border: 1px solid hsl(var(--su) / 0.15);
 }
 
 .contact-aurora-submit:disabled {

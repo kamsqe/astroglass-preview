@@ -1,6 +1,6 @@
 ---
 /**
- * Pricing V2 - Refraction Toggle
+ * Pricing Glass - Refraction Toggle
  * Ultra-clean layout with dynamic discount highlighting.
  */
 import { useTranslations } from '../../../utils/i18n';
@@ -43,7 +43,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
           <div class="relative z-10 h-full flex flex-col">
              <div class="w-16 h-1 bg-accent mb-10 transform scale-x-50 group-hover:scale-x-100 origin-left transition-transform duration-1000"></div>
              <h3 class="text-3xl lg:text-5xl font-black text-base-content mb-3 tracking-tighter group-hover:translate-x-2 transition-transform duration-1200">{t('pricing.tier2Name')}</h3>
-             <p class="text-lg text-base-content/30 mb-12 font-medium max-w-xs group-hover:text-base-content/60 transition-colors duration-1200">{t('pricing.plans.pro.descV2')}</p>
+             <p class="text-lg text-base-content/30 mb-12 font-medium max-w-xs group-hover:text-base-content/60 transition-colors duration-1200">{t('pricing.plans.pro.descGlass')}</p>
              
              <div class="price-container flex flex-col mb-12 mt-auto">
                 <div class="flex items-center gap-3 h-8">
@@ -70,7 +70,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
           <div class="relative z-10 h-full flex flex-col">
              <div class="w-16 h-1 bg-base-content mb-10 transform scale-x-50 group-hover:scale-x-100 origin-left transition-transform duration-1000"></div>
              <h3 class="text-3xl lg:text-5xl font-black text-base-content mb-3 tracking-tighter group-hover:translate-x-2 transition-transform duration-1200">{t('pricing.tier3Name')}</h3>
-             <p class="text-lg text-base-content/30 mb-12 font-medium max-w-xs group-hover:text-base-content/60 transition-colors duration-1200">{t('pricing.plans.enterprise.descV2')}</p>
+             <p class="text-lg text-base-content/30 mb-12 font-medium max-w-xs group-hover:text-base-content/60 transition-colors duration-1200">{t('pricing.plans.enterprise.descGlass')}</p>
              
              <div class="price-container flex flex-col mb-12 mt-auto">
                 <div class="flex items-center gap-3 h-8">
@@ -96,15 +96,15 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 </section>
 
 <script>
-  let pricingV2Controller: AbortController | null = null;
+  let pricingGlassController: AbortController | null = null;
 
-  function initPricingV2() {
+  function initPricingGlass() {
     // Abort previous listeners
-    pricingV2Controller?.abort();
-    pricingV2Controller = new AbortController();
-    const signal = pricingV2Controller.signal;
+    pricingGlassController?.abort();
+    pricingGlassController = new AbortController();
+    const signal = pricingGlassController.signal;
 
-    const section = document.getElementById('pricing-v2');
+    const section = document.getElementById('pricing-glass');
     const btns = document.querySelectorAll('.c-pricing-glass__toggle-btn');
     const proPrice = document.querySelector('[data-price-pro]');
     const bizPrice = document.querySelector('[data-price-biz]');
@@ -127,7 +127,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
          // No manual toggle logic needed since CSS handles it via :has and .active on buttons?
          // Actually the CSS uses .active on the button to drive the glider via :has selector on the PARENT toggle
          // But the parent toggle doesn't have .active, the button inside it has .active.
-         // CSS: .toggle-v2:has([data-period="yearly"].active) .toggle-glider
+         // CSS: .toggle-glass:has([data-period="yearly"].active) .toggle-glider
          
          // So ensure the button has the 'active' class (done above) AND the data-period attribute is correct.
 
@@ -148,6 +148,6 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     });
   }
 
-  initPricingV2();
-  document.addEventListener('astro:after-swap', initPricingV2);
+  initPricingGlass();
+  document.addEventListener('astro:after-swap', initPricingGlass);
 </script>

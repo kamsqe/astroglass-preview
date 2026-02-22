@@ -1,6 +1,6 @@
 ---
 /**
- * Hero V4 - The Product Stage
+ * Hero Luxury - The Product Stage
  * Interactive product showcase where users can immediately experience the product.
  * Mobile: Demo above fold. Desktop: Side-by-side with content.
  */
@@ -33,13 +33,13 @@ const themes = [
     <!-- Mobile: Demo First -->
     <div class="lg:hidden mb-10">
       <!-- Interactive Demo Frame -->
-      <div class="hero-v4-demo-frame relative mx-auto max-w-sm">
+      <div class="hero-luxury-demo-frame relative mx-auto max-w-sm">
         <div class="relative bg-gradient-to-br from-base-content/[0.08] to-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 rounded-3xl p-4 shadow-2xl overflow-hidden ring-1 ring-white/10 ring-inset">
           <!-- Phone notch -->
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-base-100/80 backdrop-blur-md rounded-b-xl border-b border-r border-l border-base-content/5 z-20"></div>
           
           <!-- Demo content -->
-          <div class="hero-v4-demo-content aspect-[9/16] bg-base-100 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-6 relative">
+          <div class="hero-luxury-demo-content aspect-[9/16] bg-base-100 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-6 relative">
             <!-- Interactive theme preview -->
             <div class="c-hero-luxury__preview-card w-full aspect-video rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-6 transition-luxury">
               <span class="text-4xl">✨</span>
@@ -115,7 +115,7 @@ const themes = [
 
           <!-- Desktop: Large Demo -->
           <div class="hidden lg:block order-1 lg:order-2">
-            <div class="hero-v4-demo-frame relative c-hero-luxury__perspective-2000">
+            <div class="hero-luxury-demo-frame relative c-hero-luxury__perspective-2000">
               <!-- Browser frame -->
               <div class="relative bg-gradient-to-br from-base-content/[0.08] to-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] rounded-2xl ring-1 ring-white/10 ring-inset">
                 <!-- Browser chrome -->
@@ -131,7 +131,7 @@ const themes = [
                 </div>
 
                 <!-- Demo content -->
-                <div class="hero-v4-demo-content aspect-video bg-base-100 p-8 flex flex-col items-center justify-center">
+                <div class="hero-luxury-demo-content aspect-video bg-base-100 p-8 flex flex-col items-center justify-center">
                   <!-- Interactive preview card -->
                   <div class="c-hero-luxury__preview-card w-full max-w-md aspect-video bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-luxury shadow-none rounded-2xl">
                     <div class="text-center">
@@ -159,8 +159,8 @@ const themes = [
               </div>
 
               <!-- Floating elements -->
-              <div class="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-accent/20 to-accent/5 backdrop-blur-xl border border-accent/20 rotate-12 animate-float rounded-2xl ring-1 ring-white/10 ring-inset shadow-luxury"></div>
-              <div class="absolute -bottom-4 -left-4 px-4 py-3 bg-base-content text-base-100 border border-base-content/10 text-sm animate-float shadow-luxury font-medium rounded-xl ring-1 ring-white/10 ring-inset" style="animation-delay: -2s;">
+              <div class="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-accent/20 to-accent/5 backdrop-blur-xl border border-accent/20 rotate-12 animate-float rounded-2xl ring-1 ring-white/10 ring-inset shadow-main-luxury"></div>
+              <div class="absolute -bottom-4 -left-4 px-4 py-3 bg-base-content text-base-100 border border-base-content/10 text-sm animate-float shadow-main-luxury font-medium rounded-xl ring-1 ring-white/10 ring-inset" style="animation-delay: -2s;">
                 <span class="text-accent font-bold">+127%</span>
                 <span class="opacity-80 ml-1">faster</span>
               </div>
@@ -173,9 +173,9 @@ const themes = [
 </section>
 
 <script>
-  import { Magnetic, Parallax } from '../../../scripts/luxury-interactions';
+  import { Parallax } from '../../../scripts/luxury-interactions';
 
-  function initHeroV4() {
+  function initHeroLuxury() {
     // Init Magnetic Buttons
     // Note: We need to target the anchor tags inside LuxuryButton if needed, or just apply strictly to .js-magnetic if we kept that class.
     // However, LuxuryButton uses standard CSS transitions. If we want magnetic flair, we should add it to LuxuryButton component or here.
@@ -193,6 +193,7 @@ const themes = [
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const color = (btn as HTMLElement).dataset.color;
+        if (!color) return;
         
         // Update button states
         buttons.forEach(b => {
@@ -216,6 +217,6 @@ const themes = [
     });
   }
 
-  initHeroV4();
-  document.addEventListener('astro:after-swap', initHeroV4);
+  initHeroLuxury();
+  document.addEventListener('astro:after-swap', initHeroLuxury);
 </script>

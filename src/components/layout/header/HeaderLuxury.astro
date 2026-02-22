@@ -9,7 +9,7 @@ import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import { buildLuxuryNavLinks } from '../../../config/navigation';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
-import LuxurySidebarStructure from './LuxurySidebarStructure.astro';
+import SidebarStructureLuxury from './SidebarStructureLuxury.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -44,7 +44,7 @@ import '../../../styles/components/header/HeaderLuxury.css';
 <!-- Desktop Sidebar (Unchanged) -->
 <div class="luxury-desktop-wrapper hidden lg:block">
   <!-- Desktop: The Architectural Spine -->
-  <LuxurySidebarStructure />
+  <SidebarStructureLuxury />
 </div>
 
 <!-- Mobile (Unchanged) -->

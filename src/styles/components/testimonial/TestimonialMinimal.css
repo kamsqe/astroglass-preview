@@ -8,6 +8,7 @@
   display: flex;
   gap: 1.5rem;
   width: max-content;
+  padding: 0.5rem 0; /* Accommodate hover scale to prevent border clipping */
 }
 
 .c-testimonial-minimal__track--left {

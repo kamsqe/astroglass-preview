@@ -242,3 +242,38 @@
   border-radius: 50%;
   filter: blur(120px);
 }
+
+/* -------------------------------------------------------------------------- */
+/*                        PORTFOLIO LUXURY SECTION                            */
+/* -------------------------------------------------------------------------- */
+
+/* Desktop Hover Effects */
+@media (hover: hover) {
+  /* Link reveal on desktop hover */
+  .c-portfolio-page-luxury__card:hover .c-portfolio-luxury__link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base link style (hidden) */
+.c-portfolio-luxury__link {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all var(--duration-luxury-fast) var(--ease-luxury);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         MONOCHROME THEME OVERRIDES                         */
+/* -------------------------------------------------------------------------- */
+[data-theme="monochrome"] .c-portfolio-page-luxury__card > div.bg-gradient-to-br,
+[data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-br {
+  background: none !important;
+  background-color: hsl(var(--bc) / 0.1) !important;
+}
+
+[data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-r {
+  background: none !important;
+  color: hsl(var(--bc)) !important;
+  -webkit-text-fill-color: hsl(var(--bc)) !important;
+}

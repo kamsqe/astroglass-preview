@@ -268,6 +268,7 @@ import '../../../styles/components/header/HeaderNeo.css';
     if (!btn || !nav) return;
 
     function closeMenu() {
+      if (!nav || !btn) return;
       nav.classList.remove('is-open');
       btn.classList.remove('is-active');
       const header = document.getElementById('mobile-header-default');
@@ -278,6 +279,7 @@ import '../../../styles/components/header/HeaderNeo.css';
     }
 
     function openMenu() {
+      if (!nav || !btn) return;
       nav.classList.add('is-open');
       btn.classList.add('is-active');
       const header = document.getElementById('mobile-header-default');

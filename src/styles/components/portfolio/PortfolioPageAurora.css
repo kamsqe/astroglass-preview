@@ -97,12 +97,20 @@
   );
 }
 
-/* Category-colored mesh variants */
 .pp-aurora__card[data-category="webapp"] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 25% 35%,
     hsl(var(--a) / 0.1) 0%,
     hsl(210 80% 60% / 0.05) 40%,
+    transparent 65%
+  );
+}
+
+[data-theme="monochrome"] .pp-aurora__card[data-category="webapp"] .pp-aurora__visual-mesh {
+  background: radial-gradient(
+    ellipse at 25% 35%,
+    hsl(var(--a) / 0.1) 0%,
+    hsl(var(--bc) / 0.05) 40%,
     transparent 65%
   );
 }
@@ -116,6 +124,15 @@
   );
 }
 
+[data-theme="monochrome"] .pp-aurora__card[data-category="dashboard"] .pp-aurora__visual-mesh {
+  background: radial-gradient(
+    ellipse at 60% 30%,
+    hsl(var(--a) / 0.08) 0%,
+    hsl(var(--bc) / 0.06) 45%,
+    transparent 70%
+  );
+}
+
 .pp-aurora__card[data-category="mobile"] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 40% 60%,
@@ -125,11 +142,29 @@
   );
 }
 
+[data-theme="monochrome"] .pp-aurora__card[data-category="mobile"] .pp-aurora__visual-mesh {
+  background: radial-gradient(
+    ellipse at 40% 60%,
+    hsl(var(--a) / 0.09) 0%,
+    hsl(var(--bc) / 0.05) 40%,
+    transparent 65%
+  );
+}
+
 .pp-aurora__card[data-category="branding"] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 55% 45%,
     hsl(var(--a) / 0.1) 0%,
     hsl(30 80% 55% / 0.06) 40%,
+    transparent 60%
+  );
+}
+
+[data-theme="monochrome"] .pp-aurora__card[data-category="branding"] .pp-aurora__visual-mesh {
+  background: radial-gradient(
+    ellipse at 55% 45%,
+    hsl(var(--a) / 0.1) 0%,
+    hsl(var(--bc) / 0.06) 40%,
     transparent 60%
   );
 }

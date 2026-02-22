@@ -76,10 +76,16 @@ function applyFilterLogic(
   const {
     cardSelector,
     hideTransform = 'translateY(20px)',
-    fadeOutMs = 400,
     twoStepAnimation = false,
     animateChildSelector,
   } = config;
+  
+  // Attempt to fetch from CSS vars, fallback to config or 400
+  let fadeOutMs = config.fadeOutMs;
+  if (!fadeOutMs) {
+    const rawVal = getComputedStyle(document.documentElement).getPropertyValue('--duration-normal').trim();
+    fadeOutMs = parseInt(rawVal.replace('ms', '')) || 400;
+  }
 
   const cards = document.querySelectorAll<HTMLElement>(cardSelector);
 

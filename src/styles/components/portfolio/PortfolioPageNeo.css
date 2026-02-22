@@ -223,3 +223,64 @@
   border-radius: 50%;
   filter: blur(100px);
 }
+
+/* -------------------------------------------------------------------------- */
+/*                        PORTFOLIO NEO SECTION                               */
+/* -------------------------------------------------------------------------- */
+
+.c-portfolio-page-neo__section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .c-portfolio-page-neo__section-container {
+    gap: 1.5rem;
+  }
+}
+
+.c-portfolio-page-neo__section-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: portfolioNeoStackIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes portfolioNeoStackIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.c-portfolio-page-neo__section-inner {
+  transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-portfolio-page-neo__section-card:hover .c-portfolio-page-neo__section-inner {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         MONOCHROME THEME OVERRIDES                         */
+/* -------------------------------------------------------------------------- */
+[data-theme="monochrome"] .c-portfolio-page-neo__card > div.bg-gradient-to-br,
+[data-theme="monochrome"] .c-portfolio-page-neo__card > div.bg-gradient-to-r,
+[data-theme="monochrome"] .c-portfolio-page-neo__accent-bar {
+  background: none !important;
+  background-color: hsl(var(--bc) / 0.05) !important;
+}
+
+[data-theme="monochrome"] .c-portfolio-page-neo__card span.bg-gradient-to-br,
+[data-theme="monochrome"] .c-portfolio-page-neo__card span.bg-gradient-to-r {
+  background: none !important;
+  color: hsl(var(--bc)) !important;
+  -webkit-text-fill-color: hsl(var(--bc)) !important;
+}
+
+[data-theme="monochrome"] .c-portfolio-page-neo__card button.bg-gradient-to-r {
+  background: none !important;
+  background-color: hsl(var(--bc)) !important;
+  color: hsl(var(--b1)) !important;
+}

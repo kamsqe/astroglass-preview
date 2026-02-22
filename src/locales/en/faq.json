@@ -21,14 +21,6 @@
   "botFallback": "I'm not sure about that one. Try asking a different way, or contact our support team at support@example.com for personalized help!",
   "jumpTo": "Jump to",
   "stillQuestions": "Still have questions?",
-  "categories": {
-    "gettingStarted": "Getting Started",
-    "billing": "Billing & Plans",
-    "technical": "Technical",
-    "account": "Account & Access",
-    "features": "Features",
-    "support": "Support"
-  },
   "q1": "How do I get started?",
   "a1": "Getting started is easy! Just sign up for a free account, pick a template, and you'll be building in under 2 minutes. No credit card required.",
   "q2": "Is there a free trial?",
@@ -110,7 +102,7 @@
     "data": "Data"
   },
   "feedbackThanks": "Thanks for your feedback! 💚",
-  "v5": {
+  "minimal": {
     "general": {
       "title": "General",
       "q1": "What is this product?",

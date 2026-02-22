@@ -22,12 +22,18 @@ For localized pages, we use separate directories:
     - **index.astro**      — Default language (English) Homepage
     - **[theme].astro**    — Dynamic theme demo pages (e.g., /liquid, /glass)
     - **[theme]/portfolio.astro** — Dynamic portfolio pages (e.g., /liquid/portfolio)
+    - 404.astro            — /404 Error page
     - about.astro          — /about
     - blog/                — Blog pages
     - docs/                — Documentation pages
+    - privacy.astro        — Privacy Policy
+    - terms.astro          — Terms of Service
     - ru/                  — Russian Localization
       - **index.astro**    — /ru/ (Russian Homepage)
+      - 404.astro          — /ru/404 Error page
       - about.astro        — /ru/about
+      - privacy.astro      — Russian Privacy Policy
+      - terms.astro        — Russian Terms of Service
 </FileTree>
 
 ### Theme Demo Routing
@@ -73,7 +79,9 @@ src/locales/
 │   ├── features.json
 │   ├── pricing.json
 │   ├── contact.json
-│   └── ... (17 files total)
+│   ├── privacy.json
+│   ├── terms.json
+│   └── ... (19 files total)
 ├── ru/
 │   ├── common.json
 │   ├── hero.json
@@ -91,7 +99,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 <p>{t('hero.title')}</p>
-<p>{t('pricing.plans.pro.name')}</p>
+<p>{t('pricing.tier2Name')}</p>
 ```
 
 Translation keys support dot notation for nested values. The `common.json` keys are spread at the root level, while other files are namespaced by their filename (e.g., `hero.title`, `pricing.plans`).

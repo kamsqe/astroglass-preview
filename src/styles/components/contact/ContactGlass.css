@@ -2,7 +2,7 @@
 /*                              FORM CONTAINER                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v2-form-container {
+.contact-glass-form-container {
   transition: all 500ms var(--ease-glass);
 }
 
@@ -10,7 +10,7 @@
 /*                               TOPIC SELECTION                              */
 /* -------------------------------------------------------------------------- */
 
-.contact-v2-topic-label input:focus-visible + div {
+.contact-glass-topic-label input:focus-visible + div {
   outline: 2px solid hsl(var(--a) / 0.5);
   outline-offset: 2px;
 }
@@ -19,7 +19,7 @@
 /*                               SUCCESS STATE                                */
 /* -------------------------------------------------------------------------- */
 
-.contact-v2-success {
+.contact-glass-success {
   animation: contact-success-fade 500ms var(--ease-glass);
 }
 

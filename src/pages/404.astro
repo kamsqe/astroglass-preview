@@ -16,7 +16,7 @@ const t = useTranslations(locale);
 const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 ---
 
-<BaseLayout title={t('notFound.title')} description={t('notFound.message')} showHeader={false} showControls={false}>
+<BaseLayout title={t('notFound.title')} description={t('notFound.message')} showHeader={false}>
   <HeaderDefault />
 
   <section class="not-found" aria-label={t('notFound.heading')}>

@@ -7,32 +7,6 @@
   "chooseStyleDesc": "5 уникальных вариаций тем, каждая со своей индивидуальностью. Нажмите, чтобы изучить полную демонстрацию.",
   "viewDemo": "Смотреть демо",
   "builtForModern": "Создано для современной разработки",
-  "demos": {
-    "liquid": {
-      "name": "Liquid",
-      "description": "Плавные и органичные анимации"
-    },
-    "glass": {
-      "name": "Glass",
-      "description": "Стиль глассморфизма"
-    },
-    "neo": {
-      "name": "Neo",
-      "description": "Современный футуризм"
-    },
-    "luxury": {
-      "name": "Luxury",
-      "description": "Премиальная элегантность"
-    },
-    "minimal": {
-      "name": "Minimal",
-      "description": "Чистая простота"
-    },
-    "aurora": {
-      "name": "Aurora",
-      "description": "Эфирные и яркие цвета"
-    }
-  },
   "showcase": {
     "eyebrow": "Всё включено",
     "title": "Один шаблон. Безграничные возможности.",

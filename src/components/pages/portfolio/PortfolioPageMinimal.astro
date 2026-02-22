@@ -3,18 +3,18 @@
  * Portfolio Page — Minimal Theme (Composition Layer)
  * 
  * Wires data ↔ sub-components:
- *   - MinimalPortfolioHero → gradient text hero + filters
- *   - MinimalPortfolioRows → horizontal rows + inline detail panels
- *   - MinimalPortfolioCTA  → bottom CTA
+ *   - PortfolioHeroMinimal → gradient text hero + filters
+ *   - PortfolioRowsMinimal → horizontal rows + inline detail panels
+ *   - PortfolioCTAMinimal  → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageMinimal.css';
 import '../../../styles/components/tag/TagMinimal.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import MinimalPortfolioHero from './minimal/MinimalPortfolioHero.astro';
-import MinimalPortfolioRows from './minimal/MinimalPortfolioRows.astro';
-import MinimalPortfolioCTA from './minimal/MinimalPortfolioCTA.astro';
+import PortfolioHeroMinimal from './minimal/PortfolioHeroMinimal.astro';
+import PortfolioRowsMinimal from './minimal/PortfolioRowsMinimal.astro';
+import PortfolioCTAMinimal from './minimal/PortfolioCTAMinimal.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -118,14 +118,14 @@ const projects = [
 ];
 ---
 
-<MinimalPortfolioHero
+<PortfolioHeroMinimal
   categories={categories}
   titleLabel={t('portfolio.title')}
   pageTitle={t('portfolioPage.pageTitle')}
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<MinimalPortfolioRows
+<PortfolioRowsMinimal
   projects={projects}
   challengeLabel={t('portfolioPage.theChallenge')}
   solutionLabel={t('portfolioPage.theSolution')}
@@ -134,7 +134,7 @@ const projects = [
   closeDetailsLabel={t('portfolioPage.closeDetails')}
 />
 
-<MinimalPortfolioCTA
+<PortfolioCTAMinimal
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -148,6 +148,8 @@ const projects = [
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    if (!document.querySelector('.c-portfolio-page-minimal__row')) return;
+
     initDetailPanels({
       toggleSelector: '[data-toggle-details]',
       closeSelector: '[data-close-details]',

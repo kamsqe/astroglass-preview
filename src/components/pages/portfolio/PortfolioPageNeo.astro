@@ -3,17 +3,17 @@
  * Portfolio Page — Neo Theme (Composition Layer)
  * 
  * Wires data ↔ sub-components:
- *   - NeoPortfolioHero  → hero + particles + filters
- *   - NeoPortfolioCards → vertical card stack + inline detail panels
- *   - NeoPortfolioCTA   → bottom CTA
+ *   - PortfolioHeroNeo  → hero + particles + filters
+ *   - PortfolioCardsNeo → vertical card stack + inline detail panels
+ *   - PortfolioCTANeo   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageNeo.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
-import NeoPortfolioHero from './neo/NeoPortfolioHero.astro';
-import NeoPortfolioCards from './neo/NeoPortfolioCards.astro';
-import NeoPortfolioCTA from './neo/NeoPortfolioCTA.astro';
+import PortfolioHeroNeo from './neo/PortfolioHeroNeo.astro';
+import PortfolioCardsNeo from './neo/PortfolioCardsNeo.astro';
+import PortfolioCTANeo from './neo/PortfolioCTANeo.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -129,14 +129,14 @@ const projects = [
 ];
 ---
 
-<NeoPortfolioHero
+<PortfolioHeroNeo
   categories={categories}
   badgeLabel={t('portfolio.badge')}
   pageTitle={t('portfolioPage.pageTitle')}
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<NeoPortfolioCards
+<PortfolioCardsNeo
   projects={projects}
   viewDetailsLabel={t('portfolioPage.viewDetails')}
   challengeLabel={t('portfolioPage.theChallenge')}
@@ -146,7 +146,7 @@ const projects = [
   closeDetailsLabel={t('portfolioPage.closeDetails')}
 />
 
-<NeoPortfolioCTA
+<PortfolioCTANeo
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -160,6 +160,8 @@ const projects = [
   import { initCategoryFilter, initDetailPanels } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    if (!document.querySelector('.c-portfolio-page-neo__card')) return;
+
     initScrollReveal('.c-portfolio-page-neo__card', {
       threshold: 0.1,
       rootMargin: '0px 0px -40px 0px',

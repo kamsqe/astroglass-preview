@@ -1,6 +1,6 @@
 ---
 /**
- * Portfolio V6 - Aurora Masonry Lightbox
+ * Portfolio Aurora - Aurora Masonry Lightbox
  * Grid layout with gradient-border frames, category filter pills,
  * and hover effects with overlay text reveal.
  */
@@ -66,8 +66,7 @@ const projects = [
     <p class="portfolio-aurora-subtitle">{t('portfolio.subtitle')}</p>
   </div>
 
-  <!-- Category Filter -->
-  <div class="portfolio-aurora-filters" id="aurora-portfolio-filters">
+  <div class="portfolio-aurora-filters mb-10 md:mb-12 flex justify-center flex-wrap gap-2" id="aurora-portfolio-filters">
     {categories.map((cat, i) => (
       <button
         class:list={['portfolio-aurora-filter', i === 0 ? 'is-active' : '']}
@@ -79,69 +78,66 @@ const projects = [
   </div>
 
   <!-- Grid -->
-  <div class="portfolio-aurora-grid" id="aurora-portfolio-grid">
+  <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="aurora-portfolio-grid">
     {projects.map((p) => (
-      <div class:list={['portfolio-aurora-item', `portfolio-aurora-item--${p.span}`]} data-category={p.category}>
-        <!-- Gradient border frame -->
-        <div class="portfolio-aurora-frame" data-category={p.category}>
-          <!-- Visual placeholder -->
-          <div class="portfolio-aurora-visual">
-            <div class="portfolio-aurora-visual-mesh"></div>
-            <div class="portfolio-aurora-visual-grid"></div>
-            <span class="portfolio-aurora-visual-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
-                <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
-              </svg>
-            </span>
-          </div>
+      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category}>
+        
+        <div class="pp-aurora__visual" data-category={p.category}>
+          <div class="pp-aurora__visual-mesh"></div>
+          <div class="pp-aurora__visual-grid"></div>
+          <span class="pp-aurora__visual-icon group-hover:scale-110 transition-transform duration-300">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
+              <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
+            </svg>
+          </span>
 
-          <!-- Always-visible category badge (top-left) -->
-          <div class="portfolio-aurora-badge">
+          <div class="pp-aurora__badge">
             {categories.find(c => c.id === p.category)?.label}
           </div>
 
-          <!-- Always-visible floating metric (bottom-right) -->
-          <div class="portfolio-aurora-float-metric">
-            <span class="portfolio-aurora-float-metric-value">{p.metric}</span>
-            <span class="portfolio-aurora-float-metric-label">{p.metricLabel}</span>
+          <div class="pp-aurora__float-metric">
+            <span class="pp-aurora__float-metric-value">{p.metric}</span>
+            <span class="pp-aurora__float-metric-label">{p.metricLabel}</span>
           </div>
+        </div>
 
-          <!-- Overlay on hover -->
-          <div class="portfolio-aurora-overlay">
-            <div class="portfolio-aurora-overlay-content">
-              <span class="portfolio-aurora-overlay-cat">{categories.find(c => c.id === p.category)?.label}</span>
-              <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
-              <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
-              <div class="portfolio-aurora-overlay-metric">
-                <span class="portfolio-aurora-overlay-metric-value">{p.metric}</span>
-                <span class="portfolio-aurora-overlay-metric-label">{p.metricLabel}</span>
-              </div>
-              <a href={lp('/aurora/portfolio')} class="portfolio-aurora-overlay-link">
-                {t('portfolio.viewProject')}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
+        <!-- Overlay on hover (Desktop) / Normal content (Mobile) -->
+        <div class="portfolio-aurora-overlay">
+          <div class="portfolio-aurora-overlay-content">
+            <span class="portfolio-aurora-overlay-cat">{categories.find(c => c.id === p.category)?.label}</span>
+            <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
+            <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
+            
+            <a href={lp('/aurora/portfolio')} class="portfolio-aurora-overlay-link">
+              {t('portfolio.viewProject')}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
     ))}
   </div>
-
-  <!-- Hint -->
-  <p class="portfolio-aurora-hint">{t('portfolio.gridHint')}</p>
 </section>
 
 <script>
   import { registerAstroPage } from '../../../utils/lifecycle';
+  import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    initScrollReveal('.pp-aurora__card', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px',
+      staggerMs: 80,
+      signal,
+    });
+
     initCategoryFilter({
       filtersId: 'aurora-portfolio-filters',
-      cardSelector: '.portfolio-aurora-item',
+      cardSelector: '.pp-aurora__card',
       activeClasses: ['is-active'],
       inactiveClasses: [],
       twoStepAnimation: true,

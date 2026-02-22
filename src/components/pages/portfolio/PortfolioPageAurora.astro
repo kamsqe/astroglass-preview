@@ -3,18 +3,18 @@
  * Portfolio Page — Aurora Theme (Composition Layer)
  * 
  * Wires data ↔ sub-components. All visual HTML lives in aurora/:
- *   - AuroraPortfolioHero  → hero + filters
- *   - AuroraPortfolioGrid  → card grid
- *   - AuroraPortfolioModal → overlay + pre-rendered templates
- *   - AuroraPortfolioCTA   → bottom CTA
+ *   - PortfolioHeroAurora  → hero + filters
+ *   - PortfolioGridAurora  → card grid
+ *   - PortfolioModalAurora → overlay + pre-rendered templates
+ *   - PortfolioCTAAurora   → bottom CTA
  */
 import '../../../styles/components/portfolio/PortfolioPageAurora.css';
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 
-import AuroraPortfolioHero from './aurora/AuroraPortfolioHero.astro';
-import AuroraPortfolioGrid from './aurora/AuroraPortfolioGrid.astro';
-import AuroraPortfolioModal from './aurora/AuroraPortfolioModal.astro';
-import AuroraPortfolioCTA from './aurora/AuroraPortfolioCTA.astro';
+import PortfolioHeroAurora from './aurora/PortfolioHeroAurora.astro';
+import PortfolioGridAurora from './aurora/PortfolioGridAurora.astro';
+import PortfolioModalAurora from './aurora/PortfolioModalAurora.astro';
+import PortfolioCTAAurora from './aurora/PortfolioCTAAurora.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -112,16 +112,16 @@ const projects = [
 ];
 ---
 
-<AuroraPortfolioHero
+<PortfolioHeroAurora
   categories={categories}
   badgeLabel={t('portfolio.badge')}
   pageTitle={t('portfolioPage.pageTitle')}
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<AuroraPortfolioGrid projects={projects} />
+<PortfolioGridAurora projects={projects} />
 
-<AuroraPortfolioModal
+<PortfolioModalAurora
   projects={projects}
   challengeLabel={t('portfolioPage.theChallenge')}
   solutionLabel={t('portfolioPage.theSolution')}
@@ -129,7 +129,7 @@ const projects = [
   techStackLabel={t('portfolioPage.techStackLabel')}
 />
 
-<AuroraPortfolioCTA
+<PortfolioCTAAurora
   startProjectLabel={t('portfolioPage.startProject')}
   startProjectSubLabel={t('portfolioPage.startProjectSub')}
   backToHomeLabel={t('portfolioPage.backToHome')}
@@ -143,6 +143,8 @@ const projects = [
   import { initCategoryFilter } from '../../../utils/portfolio';
 
   registerAstroPage((signal) => {
+    if (!document.querySelector('.pp-aurora__card')) return;
+
     const modal = document.getElementById('pp-aurora-modal') as HTMLElement | null;
     const modalContent = document.getElementById('pp-aurora-modal-content') as HTMLElement | null;
     const modalClose = document.getElementById('pp-aurora-modal-close') as HTMLElement | null;

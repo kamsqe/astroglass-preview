@@ -35,7 +35,7 @@ const sections = [
       <ArticleProse>
         {sections.map((section) => (
           <div class="mb-12">
-            {t(`privacy.sections.${section}.title`) !== `privacy.sections.${section}.title` && (
+            {t(`privacy.sections.${section}.title`, { silent: true }) !== `privacy.sections.${section}.title` && (
               <h2>{t(`privacy.sections.${section}.title`)}</h2>
             )}
             <p>{t(`privacy.sections.${section}.content`)}</p>

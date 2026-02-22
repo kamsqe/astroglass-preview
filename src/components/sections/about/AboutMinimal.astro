@@ -54,7 +54,7 @@ const values = [
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black text-base-content tracking-tight mb-6 max-w-4xl mx-auto leading-tight">
         {t('about.manifesto')}
       </h2>
-      <p class="text-lg text-base-content/50 max-w-2xl mx-auto">
+      <p class="text-lg text-base-content/60 max-w-2xl mx-auto">
         {t('about.manifestoSub')}
       </p>
     </div>
@@ -82,7 +82,7 @@ const values = [
           </p>
 
           <!-- Proof point -->
-          <div class={`c-about-minimal__proof inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-500 ${v.featured ? 'bg-accent/10 text-accent' : 'bg-base-content/[0.03] text-base-content/50 group-hover:bg-accent/10 group-hover:text-accent'}`}>
+          <div class={`c-about-minimal__proof inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-500 ${v.featured ? 'bg-accent/10 text-accent' : 'bg-base-content/[0.03] text-base-content/60 group-hover:bg-accent/10 group-hover:text-accent'}`}>
             <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
             {v.proof}
           </div>
@@ -90,12 +90,12 @@ const values = [
           {/* Featured card extra content */}
           {v.featured && (
             <div class="mt-6 pt-6 border-t border-accent/10">
-              <p class="text-sm text-base-content/40 italic mb-4">"{t('about.values.featuredQuote')}"</p>
+              <p class="text-sm text-base-content/60 italic mb-4">"{t('about.values.featuredQuote')}"</p>
               <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm">👤</div>
                 <div>
                   <p class="text-xs font-bold text-base-content">{t('about.values.featuredAuthor')}</p>
-                  <p class="text-[10px] text-base-content/40">{t('about.values.featuredRole')}</p>
+                  <p class="text-[10px] text-base-content/60">{t('about.values.featuredRole')}</p>
                 </div>
               </div>
             </div>

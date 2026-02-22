@@ -89,7 +89,7 @@ const categories = [
     <div class="text-center mb-12 lg:mb-16">
        <NeoSectionTag label={t('nav.resourcesFaq')} class="mb-4" />
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.findAnswer')}</h2>
-       <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
+       <p class="text-base text-base-content/60 mt-4">{t('faq.subtitle')}</p>
     </div>
 
     <!-- Category Grid -->
@@ -103,7 +103,7 @@ const categories = [
                 <div class="relative z-10">
                    <span class="text-2xl lg:text-3xl mb-4 block">{cat.icon}</span>
                    <p class="text-sm lg:text-base font-bold text-base-content mb-1">{cat.title}</p>
-                   <p class="text-xs text-base-content/40">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
+                   <p class="text-xs text-base-content/60">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
                 </div>
              </button>
              
@@ -123,7 +123,7 @@ const categories = [
                    </div>
                 ))}
                 
-                <button class="c-faq-neo__close-cat w-full p-3 rounded-xl border border-dashed border-base-content/10 text-xs text-base-content/40 hover:text-base-content/60 hover:border-base-content/20 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <button class="c-faq-neo__close-cat w-full p-3 rounded-xl border border-dashed border-base-content/10 text-xs text-base-content/60 hover:text-base-content/60 hover:border-base-content/20 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
                    ← {t('faq.backToCategories')}
                 </button>
              </div>

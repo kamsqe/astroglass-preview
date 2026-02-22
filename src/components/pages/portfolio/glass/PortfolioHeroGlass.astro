@@ -32,7 +32,7 @@ const { categories, galleryLabel, pageTitle, pageSubtitle } = Astro.props;
     </SectionHeading>
 
     <!-- Subtitle -->
-    <p class="text-base sm:text-lg md:text-xl text-base-content/50 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
+    <p class="text-base sm:text-lg md:text-xl text-base-content/60 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
       {pageSubtitle}
     </p>
 
@@ -44,7 +44,7 @@ const { categories, galleryLabel, pageTitle, pageSubtitle } = Astro.props;
             'px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider border backdrop-blur-sm transition-all duration-400 cursor-pointer',
             i === 0
               ? 'bg-accent/10 border-accent/20 text-accent'
-              : 'bg-base-content/[0.02] border-base-content/8 text-base-content/40 hover:bg-accent/10 hover:border-accent/20 hover:text-accent'
+              : 'bg-base-content/[0.02] border-base-content/8 text-base-content/60 hover:bg-accent/10 hover:border-accent/20 hover:text-accent'
           ]}
           data-filter={cat.id}
         >

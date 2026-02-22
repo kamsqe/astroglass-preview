@@ -32,12 +32,12 @@ const features = [
         </h2>
       </div>
       <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6">
-        <p class="text-base sm:text-lg text-base-content/40 font-medium max-w-xs">
+        <p class="text-base sm:text-lg text-base-content/60 font-medium max-w-xs">
           {t('features.subtitle')}
         </p>
         <a href="#feature-grid" class="group flex items-center gap-3 px-5 py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300">
           <span class="text-sm font-bold text-base-content/60 group-hover:text-accent transition-colors duration-300">{t('features.explore')}</span>
-          <svg class="w-5 h-5 text-base-content/40 group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-base-content/60 group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
           </svg>
         </a>
@@ -63,7 +63,7 @@ const features = [
             <div class="relative z-10 flex items-center justify-between mb-6">
               <span class:list={[
                 "text-xs font-black tracking-widest",
-                f.featured ? "text-accent" : "text-accent/50 group-hover:text-accent/80"
+                f.featured ? "text-accent" : "text-accent/70 group-hover:text-accent/80"
               ]}>0{i + 1}</span>
               <div class="text-3xl sm:text-4xl transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
                 {f.icon}
@@ -78,7 +78,7 @@ const features = [
               ]}>
                 {f.title}
               </h3>
-              <p class="text-sm sm:text-base text-base-content/40 group-hover:text-base-content/60 leading-relaxed transition-colors duration-500 mb-4">
+              <p class="text-sm sm:text-base text-base-content/60 group-hover:text-base-content/60 leading-relaxed transition-colors duration-500 mb-4">
                 {f.desc}
               </p>
               

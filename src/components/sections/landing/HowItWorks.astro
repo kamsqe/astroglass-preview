@@ -37,14 +37,14 @@ const steps = [
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-12 sm:mb-16 md:mb-20">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-base-content/80 text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
         <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
         {t('landing.howItWorks.eyebrow')}
       </div>
       <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tighter leading-[0.95] mb-6">
         {t('landing.howItWorks.title')}
       </h2>
-      <p class="text-base sm:text-lg text-base-content/40 max-w-xl mx-auto">
+      <p class="text-base sm:text-lg text-base-content/60 max-w-xl mx-auto">
         {t('landing.howItWorks.desc')}
       </p>
     </div>
@@ -87,14 +87,14 @@ const steps = [
               <h3 class="text-xl sm:text-2xl font-black text-base-content group-hover:text-accent tracking-tight transition-colors duration-500 mb-2">
                 {t(`landing.howItWorks.${step.key}`)}
               </h3>
-              <p class="text-sm text-base-content/40 group-hover:text-base-content/60 leading-relaxed transition-colors duration-500 mb-4">
+              <p class="text-sm text-base-content/60 group-hover:text-base-content/60 leading-relaxed transition-colors duration-500 mb-4">
                 {t(`landing.howItWorks.${step.key}Desc`)}
               </p>
               
               {/* Command snippet */}
               {step.cmd && (
-                <div class="bg-base-content/[0.04] rounded-lg px-3 py-2 font-mono text-[11px] text-base-content/30 group-hover:text-base-content/50 transition-colors duration-500 overflow-x-auto">
-                  <span class="text-accent/60">❯</span> {step.cmd}
+                <div class="bg-base-content/[0.04] rounded-lg px-3 py-2 font-mono text-[11px] text-base-content/30 group-hover:text-base-content/60 transition-colors duration-500 overflow-x-auto">
+                  <span class="text-accent/80">❯</span> {step.cmd}
                 </div>
               )}
             </div>

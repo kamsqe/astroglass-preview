@@ -36,7 +36,7 @@ const { categories, caseStudiesLabel, pageTitle, pageSubtitle } = Astro.props;
     </div>
 
     <!-- Subtitle -->
-    <p class="text-lg sm:text-xl text-base-content/50 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+    <p class="text-lg sm:text-xl text-base-content/60 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
       {pageSubtitle}
     </p>
 
@@ -48,7 +48,7 @@ const { categories, caseStudiesLabel, pageTitle, pageSubtitle } = Astro.props;
             'px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] border transition-all duration-500 cursor-pointer',
             i === 0
               ? 'border-accent/30 text-accent bg-accent/[0.08]'
-              : 'border-base-content/8 text-base-content/35 hover:border-accent/20 hover:text-accent hover:bg-accent/[0.05]'
+              : 'border-base-content/8 text-base-content/50 hover:border-accent/20 hover:text-accent hover:bg-accent/[0.05]'
           ]}
           data-filter={cat.id}
         >

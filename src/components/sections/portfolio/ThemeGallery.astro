@@ -38,7 +38,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   <!-- Header -->
   <div class="px-4 sm:px-6 mb-10 sm:mb-14 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
     <div>
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-base-content/80 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
         <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
         {t('portfolio.themeGallery.subtitle')}
       </div>
@@ -46,7 +46,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
         {t('portfolio.themeGallery.title')}
       </h2>
     </div>
-    <p class="text-sm sm:text-base text-base-content/40 max-w-xs">
+    <p class="text-sm sm:text-base text-base-content/60 max-w-xs">
       {t('portfolio.themeGallery.desc')}
     </p>
   </div>
@@ -63,7 +63,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
                 src={getThemeImage(p.realId)} 
                 alt={`${p.title} theme background`} 
                 width={800}
-                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
+                class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 transition-opacity duration-700" 
               />
             )}
             
@@ -91,7 +91,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
                 <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-base-content mb-3 tracking-tight group-hover:text-accent transition-colors duration-500">
                   {p.title}
                 </h3>
-                <p class="text-sm sm:text-base text-base-content/40 font-medium max-w-md mb-6 group-hover:text-base-content/60 transition-colors duration-500">
+                <p class="text-sm sm:text-base text-base-content/60 font-medium max-w-md mb-6 group-hover:text-base-content/60 transition-colors duration-500">
                   {p.desc}
                 </p>
                 <div class="inline-flex items-center gap-3 text-accent font-bold text-xs uppercase tracking-widest hover:gap-5 transition-all duration-300">

@@ -30,7 +30,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
           <button class="c-pricing-glass__toggle-btn active px-10 py-3.5 rounded-xl text-base-content font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="monthly">
              {t('pricing.monthly')}
           </button>
-          <button class="c-pricing-glass__toggle-btn px-10 py-3.5 rounded-xl text-base-content/40 font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="yearly">
+          <button class="c-pricing-glass__toggle-btn px-10 py-3.5 rounded-xl text-base-content/60 font-black text-[10px] tracking-[0.2em] uppercase transition-all duration-[800ms] z-10" data-period="yearly">
              {t('pricing.yearly')}
           </button>
           <div class="c-pricing-glass__toggle-glider absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-base-content rounded-xl transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"></div>
@@ -52,7 +52,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
                 </div>
                 <div class="flex items-baseline gap-2">
                    <span class="text-7xl lg:text-[9rem] font-black text-accent tracking-tighter transition-transform duration-1200 group-hover:scale-110 origin-left" data-price-pro>$29</span>
-                   <span class="period-label text-base-content/20 font-bold uppercase tracking-[0.3em] text-[10px] group-hover:text-base-content/40 group-hover:translate-x-4 transition-all duration-1200">{t('pricing.perMonth')}</span>
+                   <span class="period-label text-base-content/20 font-bold uppercase tracking-[0.3em] text-[10px] group-hover:text-base-content/60 group-hover:translate-x-4 transition-all duration-1200">{t('pricing.perMonth')}</span>
                 </div>
              </div>
 
@@ -79,7 +79,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
                 </div>
                 <div class="flex items-baseline gap-2">
                    <span class="text-7xl lg:text-[9rem] font-black text-base-content tracking-tighter transition-transform duration-1200 group-hover:scale-110 origin-left" data-price-biz>$99</span>
-                   <span class="period-label text-base-content/20 font-bold uppercase tracking-[0.3em] text-[10px] group-hover:text-base-content/40 group-hover:translate-x-4 transition-all duration-1200">{t('pricing.perMonth')}</span>
+                   <span class="period-label text-base-content/20 font-bold uppercase tracking-[0.3em] text-[10px] group-hover:text-base-content/60 group-hover:translate-x-4 transition-all duration-1200">{t('pricing.perMonth')}</span>
                 </div>
              </div>
 
@@ -119,8 +119,8 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
          
          btns.forEach(b => {
             b.classList.toggle('active', b === btn);
-            if (b !== btn) b.classList.add('text-base-content/40');
-            else b.classList.remove('text-base-content/40');
+            if (b !== btn) b.classList.add('text-base-content/60');
+            else b.classList.remove('text-base-content/60');
          });
 
          const toggle = section?.querySelector('.c-pricing-glass__toggle');

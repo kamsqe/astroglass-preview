@@ -43,7 +43,7 @@ const i18nData = JSON.stringify({
     <div class="text-center mb-12">
        <SectionTag label={t('faq.ask')} icon="💬" class="mb-6" />
        <SectionHeading size="md" align="center">{t('faq.title')}</SectionHeading>
-       <p class="text-base text-base-content/40 mt-4">{t('faq.subtitle')}</p>
+       <p class="text-base text-base-content/60 mt-4">{t('faq.subtitle')}</p>
     </div>
 
     <!-- Chat Container -->
@@ -178,8 +178,8 @@ const i18nData = JSON.stringify({
           </div>
           ${showFeedback ? `
             <div class="c-faq-glass__feedback flex gap-3 mt-2 ml-2 items-center" data-msg="${msgId}">
-              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-yes text-xs text-base-content/40 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
-              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-no text-xs text-base-content/40 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
+              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-yes text-xs text-base-content/60 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
+              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-no text-xs text-base-content/60 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
               <span class="c-faq-glass__thanks hidden text-xs text-accent ml-1">${thanks}</span>
             </div>
           ` : ''}
@@ -199,7 +199,7 @@ const i18nData = JSON.stringify({
             if (b === btn) {
               // Chosen one: bright and bold
               b.classList.add('chosen');
-              b.classList.remove('text-base-content/40');
+              b.classList.remove('text-base-content/60');
               if (vote === 'yes') {
                 b.classList.add('text-accent', 'font-bold');
               } else {

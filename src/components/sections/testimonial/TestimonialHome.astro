@@ -54,7 +54,7 @@ const testimonials = [
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-16 lg:mb-24">
-       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
+       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-base-content/80 text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
          {t('testimonial.eyebrow')}
        </div>
@@ -92,7 +92,7 @@ const testimonials = [
                       />
                       <div>
                          <p class="text-base font-bold text-base-content">{item.author}</p>
-                         <p class="text-sm text-base-content/50">{item.role} {t('testimonial.at')} {item.company}</p>
+                         <p class="text-sm text-base-content/60">{item.role} {t('testimonial.at')} {item.company}</p>
                       </div>
                    </div>
                 </div>
@@ -104,7 +104,7 @@ const testimonials = [
        <div class="flex justify-center gap-3 mt-8">
           {testimonials.map((_, i) => (
              <button 
-               class="c-testimonial-neo__dot w-2.5 h-2.5 rounded-full bg-base-content/20 hover:bg-base-content/40 transition-all"
+               class="c-testimonial-neo__dot p-2 -m-2 box-content bg-clip-content w-2.5 h-2.5 rounded-full bg-base-content/20 hover:bg-base-content/40 transition-all"
                data-target={i}
                aria-label={`Go to testimonial ${i + 1}`}
              ></button>

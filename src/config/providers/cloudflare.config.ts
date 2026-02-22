@@ -10,7 +10,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 /** Cloudflare adapter with image service */
 export const adapter = cloudflare({
-  imageService: 'cloudflare',
+  imageService: 'compile',
 });
 
 /** Output mode for Cloudflare */

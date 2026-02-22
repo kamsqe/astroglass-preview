@@ -69,6 +69,7 @@ const testimonials = [
              <div 
                class="c-testimonial-neo__card absolute left-1/2 top-1/2"
                data-index={i}
+               aria-hidden={i !== 2 ? "true" : undefined}
              >
                 <div class="c-testimonial-neo__content p-8 lg:p-12 rounded-[2.5rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-xl text-center">
                    <!-- Quote Icon -->
@@ -137,10 +138,15 @@ const testimonials = [
       cards.forEach((card, i) => {
         card.classList.remove('active', 'prev', 'next', 'far');
         const offset = i - current;
-        if (offset === 0) card.classList.add('active');
-        else if (offset === -1) card.classList.add('prev');
-        else if (offset === 1) card.classList.add('next');
-        else card.classList.add('far');
+        if (offset === 0) {
+          card.classList.add('active');
+          card.removeAttribute('aria-hidden');
+        } else {
+          card.setAttribute('aria-hidden', 'true');
+          if (offset === -1) card.classList.add('prev');
+          else if (offset === 1) card.classList.add('next');
+          else card.classList.add('far');
+        }
       });
       dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
     }

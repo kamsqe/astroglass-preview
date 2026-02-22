@@ -16,7 +16,7 @@
 }
 
 .c-testimonial-glass__bubble {
-  transition: opacity, transform, background-color, border-color, color, box-shadow 400ms var(--ease-glass);
+  transition: all 400ms var(--ease-glass);
 }
 
 .c-testimonial-glass__message:hover .c-testimonial-glass__bubble {

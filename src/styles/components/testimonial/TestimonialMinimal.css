@@ -34,7 +34,7 @@
 }
 
 .c-testimonial-minimal__card {
-  transition: opacity, transform, background-color, border-color, color, box-shadow var(--duration-minimal-fast) var(--ease-minimal);
+  transition: all var(--duration-minimal-fast) var(--ease-minimal);
 }
 
 .c-testimonial-minimal__card:hover {

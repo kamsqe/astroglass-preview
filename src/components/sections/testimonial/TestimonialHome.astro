@@ -77,7 +77,7 @@ const testimonials = [
                data-index={i}
                aria-hidden={i !== 2 ? "true" : undefined}
              >
-                <div class="c-testimonial-neo__content p-8 lg:p-12 rounded-[2.5rem] bg-base-content/[0.03] border border-base-content/10 backdrop-blur-xl text-center">
+                <div class="c-testimonial-neo__content p-8 lg:p-12 rounded-[2.5rem] bg-base-content/[0.08] border border-base-content/20 backdrop-blur-xl text-center shadow-sm">
                    <!-- Quote Icon -->
                    <div class="w-12 h-12 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center">
                       <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ const testimonials = [
                       />
                       <div>
                          <p class="text-base font-bold text-base-content">{item.author}</p>
-                         <p class="text-sm text-base-content">{item.role} {t('testimonial.at')} {item.company}</p>
+                         <p class="text-sm font-medium text-base-content">{item.role} {t('testimonial.at')} {item.company}</p>
                       </div>
                    </div>
                 </div>

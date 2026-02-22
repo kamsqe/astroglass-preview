@@ -109,15 +109,15 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
     
     <!-- Scroll hint controls -->
     <div class="flex items-center justify-center gap-4 mt-4 pb-4">
-      <button id="theme-gallery-prev" aria-label="Scroll left" class="p-2 text-base-content/80 hover:text-accent transition-all hover:-translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
+      <button id="theme-gallery-prev" aria-label="Scroll left" class="p-2 text-base-content hover:text-accent transition-all hover:-translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
         </svg>
       </button>
-      <span class="text-[10px] font-bold uppercase tracking-widest text-base-content/80 animate-pulse whitespace-nowrap">{t('portfolio.scrollHint')}</span>
-      <button id="theme-gallery-next" aria-label="Scroll right" class="p-2 text-base-content/80 hover:text-accent transition-all hover:translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-base-content animate-pulse whitespace-nowrap">{t('portfolio.scrollHint')}</span>
+      <button id="theme-gallery-next" aria-label="Scroll right" class="p-2 text-base-content hover:text-accent transition-all hover:translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4-4m4-4H3"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l4-4m4-4H3"/>
         </svg>
       </button>
     </div>

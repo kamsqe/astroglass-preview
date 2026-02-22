@@ -107,7 +107,7 @@ const themeCards = themes.filter(t => t.enabled).map((theme, i) => ({
                 </div>
                 
                 <!-- Right: CTA -->
-                <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-4">
                   <span class={`inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${p.color} text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300`}>
                     {t('landing.themeStack.viewDemo')}
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">

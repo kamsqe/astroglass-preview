@@ -6,6 +6,7 @@
 import '../../../styles/components/features/FeaturesNeo.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -46,12 +47,12 @@ const rightFeatures = features.slice(4);
         <p class="text-base sm:text-lg text-base-content/40 font-medium max-w-xs">
           {t('features.home.desc')}
         </p>
-        <a href="/docs" class="group flex items-center gap-3 px-5 py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300">
+        <LocalizedLink href="/docs" class="group flex items-center gap-3 px-5 py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300">
           <span class="text-sm font-bold text-base-content/60 group-hover:text-accent transition-colors duration-300">{t('features.cta')}</span>
           <svg class="w-5 h-5 text-base-content/40 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
-        </a>
+        </LocalizedLink>
       </div>
     </div>
 
@@ -125,13 +126,18 @@ const rightFeatures = features.slice(4);
 
 <style>
   .features-home-card {
+    --card-hover-border: hsl(var(--a) / 0.15);
     opacity: 0;
     animation: feature-card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
+  :global([data-theme="monochrome"]) .features-home-card {
+    --card-hover-border: hsl(var(--bc) / 0.2);
+  }
+
   .features-home-card:hover {
     transform: translateX(4px);
-    border-color: hsl(var(--a) / 0.15);
+    border-color: var(--card-hover-border);
   }
 
   @keyframes feature-card-in {
@@ -145,8 +151,4 @@ const rightFeatures = features.slice(4);
     }
   }
 
-  /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .features-home-card:hover {
-    border-color: hsl(var(--bc) / 0.2) !important;
-  }
 </style>

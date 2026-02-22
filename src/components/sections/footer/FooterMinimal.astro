@@ -7,12 +7,11 @@
  * numbering, animated accent rules, and a cinematic bottom bar.
  */
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const currentYear = new Date().getFullYear();
 
 import '../../../styles/components/footer/FooterMinimal.css';
@@ -30,11 +29,11 @@ import '../../../styles/components/tag/TagMinimal.css';
 
     <!-- Large editorial wordmark -->
     <div class="footer-minimal__wordmark text-center mb-12 lg:mb-16">
-      <a href="/" class="inline-block group">
+      <LocalizedLink href="/" class="inline-block group">
         <span class="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-base-content/[0.06] tracking-tighter leading-none group-hover:text-base-content/[0.10] transition-colors duration-700 select-none">
           {t('footer.company')}
         </span>
-      </a>
+      </LocalizedLink>
       <p class="text-xs sm:text-sm text-base-content/30 mt-3 tracking-wide">
         {t('footer.tagline')}
       </p>
@@ -50,9 +49,9 @@ import '../../../styles/components/tag/TagMinimal.css';
           <span class="c-tag-minimal text-accent/50"><span class="c-tag-minimal__dash"></span>{t('footer.links.product')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
-          <li><a href="#features" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.features')}</a></li>
-          <li><a href="#pricing" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.pricing')}</a></li>
-          <li><a href={lp('/minimal')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.demos')}</a></li>
+          <li><LocalizedLink href="#features" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.features')}</LocalizedLink></li>
+          <li><LocalizedLink href="#pricing" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.pricing')}</LocalizedLink></li>
+          <li><LocalizedLink href="/minimal" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.demos')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -63,11 +62,11 @@ import '../../../styles/components/tag/TagMinimal.css';
           <span class="c-tag-minimal text-accent/50"><span class="c-tag-minimal__dash"></span>{t('footer.links.company')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
-          <li><a href="#about" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.about')}</a></li>
-          <li><a href={lp('/blog')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.blog')}</a></li>
-          <li><a href="#contact" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.contact')}</a></li>
-          <li><a href={lp('/privacy')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.privacy')}</a></li>
-          <li><a href={lp('/terms')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.terms')}</a></li>
+          <li><LocalizedLink href="#about" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.about')}</LocalizedLink></li>
+          <li><LocalizedLink href="/blog" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.blog')}</LocalizedLink></li>
+          <li><LocalizedLink href="#contact" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.contact')}</LocalizedLink></li>
+          <li><LocalizedLink href="/privacy" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.privacy')}</LocalizedLink></li>
+          <li><LocalizedLink href="/terms" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.terms')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -78,9 +77,9 @@ import '../../../styles/components/tag/TagMinimal.css';
           <span class="c-tag-minimal text-accent/50"><span class="c-tag-minimal__dash"></span>{t('footer.links.resources')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
-          <li><a href={lp('/docs')} class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.docs')}</a></li>
-          <li><a href="#faq" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.faq')}</a></li>
-          <li><a href="#contact" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.support')}</a></li>
+          <li><LocalizedLink href="/docs" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.docs')}</LocalizedLink></li>
+          <li><LocalizedLink href="#faq" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.faq')}</LocalizedLink></li>
+          <li><LocalizedLink href="#contact" class="footer-minimal__link text-sm text-base-content/40 flex items-center gap-2"><span class="w-3 h-px bg-base-content/10 group-hover:bg-accent/30 group-hover:w-5 transition-all duration-300"></span>{t('footer.links.support')}</LocalizedLink></li>
         </ul>
       </div>
     </div>

@@ -54,8 +54,8 @@
   transform: rotate(180deg);
 }
 /* Remove underline for dropdown triggers */
-.dropdown-trigger::after {
-  display: none !important;
+.nav-item.dropdown-trigger::after {
+  display: none;
 }
 
 /* Nested Dropdown Styles */
@@ -98,8 +98,8 @@
   transition: all var(--motion-quick) ease;
 }
 .nested-dropdown:hover > .nested-trigger {
-  color: hsl(var(--a)) !important;
-  background: hsl(var(--a) / 0.1) !important;
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.1);
 }
 
 .nested-dropdown:hover > .nested-trigger .dropdown-dot {

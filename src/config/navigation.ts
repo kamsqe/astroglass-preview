@@ -102,17 +102,16 @@ export interface ResolvedNavLink {
  * @param theme - Current theme id (used for special handling, e.g. Liquid gets Portfolio nested dropdown)
  */
 export function buildThemeNavLinks(
-  locale: string,
   t: (key: string) => string,
   theme: string
 ): ResolvedNavLink[] {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
-  const themeBase = `${prefix}/${theme}`;
+  
+  const themeBase = `/${theme}`;
 
   // Build landing page children for the Home dropdown
   const homeChildren: ResolvedNavChild[] = landingPages.map((page) => {
     const child: ResolvedNavChild = {
-      href: `${prefix}/${page.id}`,
+      href: `/${page.id}`,
       label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
     };
 
@@ -120,7 +119,7 @@ export function buildThemeNavLinks(
     if (theme === 'liquid') {
       child.children = [
         {
-          href: `${prefix}/${page.id}/portfolio`,
+          href: `/${page.id}/portfolio`,
           label: t('nav.portfolio'),
         }
       ];
@@ -169,12 +168,12 @@ export function buildThemeNavLinks(
     },
     // Page links
     {
-      href: `${prefix}/blog`,
+      href: `/blog`,
       label: t('nav.blog'),
       icon: navIcons.resources,
     },
     {
-      href: `${prefix}/docs`,
+      href: `/docs`,
       label: t('nav.docs'),
       icon: navIcons.resources,
     },
@@ -186,11 +185,10 @@ export function buildThemeNavLinks(
  * Just scroll-to-section links + Blog/Docs.
  */
 export function buildMinimalNavLinks(
-  locale: string,
   t: (key: string) => string
 ): ResolvedNavLink[] {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
-  const themeBase = `${prefix}/minimal`;
+  
+  const themeBase = `/minimal`;
 
   return [
     { href: `${themeBase}#about`, label: t('nav.about'), icon: navIcons.about },
@@ -199,8 +197,8 @@ export function buildMinimalNavLinks(
     { href: `${themeBase}#pricing`, label: t('nav.pricing'), icon: navIcons.pricing },
     { href: `${themeBase}#faq`, label: t('nav.faq'), icon: navIcons.faq },
     { href: `${themeBase}#contact`, label: t('nav.contact'), icon: navIcons.contact },
-    { href: `${prefix}/blog`, label: t('nav.blog'), icon: navIcons.resources },
-    { href: `${prefix}/docs`, label: t('nav.docs'), icon: navIcons.resources },
+    { href: `/blog`, label: t('nav.blog'), icon: navIcons.resources },
+    { href: `/docs`, label: t('nav.docs'), icon: navIcons.resources },
   ];
 }
 
@@ -211,14 +209,13 @@ export function buildMinimalNavLinks(
  * and page links for Blog and Docs.
  */
 export function buildDefaultNavLinks(
-  locale: string,
   t: (key: string) => string
 ): ResolvedNavLink[] {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
+  
 
   // Build landing page children for the Home dropdown
   const homeChildren: ResolvedNavChild[] = landingPages.map((page) => ({
-    href: `${prefix}/${page.id}`,
+    href: `/${page.id}`,
     label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
   }));
 
@@ -231,28 +228,28 @@ export function buildDefaultNavLinks(
     },
     // Index page scroll sections (absolute paths so they work from any page)
     {
-      href: `${prefix || '/'}#showcase`,
+      href: `/#showcase`,
       label: t('nav.features'),
       icon: navIcons.services,
     },
     {
-      href: `${prefix || '/'}#get-started`,
+      href: `/#get-started`,
       label: t('nav.getStarted'),
       icon: navIcons.contact,
     },
     {
-      href: `${prefix || '/'}#faq-home`,
+      href: `/#faq-home`,
       label: t('nav.faq'),
       icon: navIcons.faq,
     },
     // Page links
     {
-      href: `${prefix}/blog`,
+      href: `/blog`,
       label: t('nav.blog'),
       icon: navIcons.resources,
     },
     {
-      href: `${prefix}/docs`,
+      href: `/docs`,
       label: t('nav.docs'),
       icon: navIcons.resources,
     },
@@ -269,11 +266,10 @@ export interface LuxuryNavLink {
 }
 
 export function buildLuxuryNavLinks(
-  locale: string,
   t: (key: string) => string
 ): LuxuryNavLink[] {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
-  const themeBase = `${prefix}/luxury`;
+  
+  const themeBase = `/luxury`;
 
   return [
     {
@@ -309,12 +305,12 @@ export function buildLuxuryNavLinks(
     // Pages
     {
       label: t('nav.blog'),
-      href: `${prefix}/blog`,
+      href: `/blog`,
       type: 'page',
     },
     {
       label: t('nav.docs'),
-      href: `${prefix}/docs`,
+      href: `/docs`,
       type: 'page',
     },
   ];

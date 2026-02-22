@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import LocalizedLink from '../ui/LocalizedLink.astro';
 import '../../styles/components/blog/BlogCard.css';
 
 interface Props {
@@ -19,7 +20,7 @@ const readingTime = post.data.readingTime || Math.max(1, Math.ceil(post.body.spl
 const hasCover = !!post.data.cover;
 ---
 
-<a href={href} class={`blog-card ${hasCover ? '' : 'blog-card--no-image'}`}>
+<LocalizedLink href={href} class={`blog-card ${hasCover ? '' : 'blog-card--no-image'}`}>
   {hasCover && (
     <div class="blog-card__image-wrap">
       <img src={post.data.cover.src} alt="" loading="lazy" />
@@ -47,4 +48,4 @@ const hasCover = !!post.data.cover;
       </span>
     </div>
   </div>
-</a>
+</LocalizedLink>

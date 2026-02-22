@@ -6,20 +6,20 @@
  * with large typography links, expandable children, and settings.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildMinimalNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildMinimalNavLinks(locale, t);
-const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+const navLinks = buildMinimalNavLinks(t);
 import '../../../styles/components/header/HeaderMinimal.css';
 ---
 
 <header class="header-minimal">
-  <a href={homeHref} class="logo-minimal">
+  <LocalizedLink href="/" class="logo-minimal">
     {t('siteName')}<span>.</span>
-  </a>
+  </LocalizedLink>
 
   <button class="burger-minimal" id="trigger-minimal" aria-label={t('nav.menu')}>
     <div class="burger-minimal-box">
@@ -41,10 +41,10 @@ import '../../../styles/components/header/HeaderMinimal.css';
 
     <nav class="panel-minimal-nav">
       {navLinks.map((link, index) => (
-        <a href={link.href} class="panel-minimal-link" data-index={index}>
+        <LocalizedLink href={link.href} class="panel-minimal-link" data-index={index}>
           <span class="panel-minimal-link-text">{link.label}</span>
           {link.label}
-        </a>
+        </LocalizedLink>
       ))}
     </nav>
 

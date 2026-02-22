@@ -74,9 +74,10 @@
   background: hsl(var(--b1));
 }
 
-.is-active .burger-minimal-inner { background: transparent !important; }
-.is-active .burger-minimal-inner::before { transform: translateY(6px) rotate(45deg); }
-.is-active .burger-minimal-inner::after { transform: translateY(-6px) rotate(-45deg); }
+.burger-minimal.is-active .burger-minimal-inner,
+.burger-minimal.is-active:hover .burger-minimal-inner { background: transparent; }
+.burger-minimal.is-active .burger-minimal-inner::before { transform: translateY(6px) rotate(45deg); }
+.burger-minimal.is-active .burger-minimal-inner::after { transform: translateY(-6px) rotate(-45deg); }
 
 /* -------------------------------------------------------------------------- */
 /*                                OVERLAY PANEL                               */

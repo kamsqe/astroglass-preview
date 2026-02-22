@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import LocalizedLink from '../ui/LocalizedLink.astro';
 import '../../styles/components/blog/BlogHero.css';
 
 interface Props {
@@ -28,7 +29,7 @@ const hasCover = !!post.data.cover;
       <div class="blog-hero__overlay" />
     </div>
   )}
-  <a href={href} class="blog-hero__link">
+  <LocalizedLink href={href} class="blog-hero__link">
     <div class="blog-hero__content">
       {post.data.category && (
         <span class="blog-hero__badge">{t('blog.featured')} · {post.data.category}</span>
@@ -46,5 +47,5 @@ const hasCover = !!post.data.cover;
         <span>{readingTime} {t('blog.minRead')}</span>
       </div>
     </div>
-  </a>
+  </LocalizedLink>
 </section>

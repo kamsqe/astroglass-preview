@@ -4,12 +4,11 @@
  */
 import '../../../styles/components/portfolio/PortfolioPageMinimal.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const projects = [
   { id: 1, title: t('portfolio.p1Title'), num: '01' },
   { id: 2, title: t('portfolio.p2Title'), num: '02' },
@@ -27,7 +26,7 @@ import '../../../styles/components/tag/TagMinimal.css';
        {projects.map((p) => (
           <div class="c-portfolio-page-minimal__row group relative border-b border-base-content/5 overflow-hidden transition-all duration-700">
              {/* Destop Overlay Link */}
-             <a href={lp('/minimal/portfolio')} class="absolute inset-0 z-20 hidden md:block" aria-label={`View project ${p.title}`}></a>
+             <LocalizedLink href="/minimal/portfolio" class="absolute inset-0 z-20 hidden md:block" aria-label={`View project ${p.title}`}></LocalizedLink>
 
              {/* Mobile Toggle Button */}
              <button 
@@ -82,10 +81,10 @@ import '../../../styles/components/tag/TagMinimal.css';
                         <p class="text-base-content/60 text-sm mb-6 leading-relaxed max-w-[90%]">
                            Experience standard-setting design and engineering. Tap to explore the full case study.
                         </p>
-                        <a href={lp('/minimal/portfolio')} class="relative z-30 inline-flex items-center gap-3 px-6 py-3 bg-base-content text-base-100 rounded-full text-sm font-bold tracking-wide uppercase pointer-events-auto">
+                        <LocalizedLink href="/minimal/portfolio" class="relative z-30 inline-flex items-center gap-3 px-6 py-3 bg-base-content text-base-100 rounded-full text-sm font-bold tracking-wide uppercase pointer-events-auto">
                            <span>View Project</span>
                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                        </a>
+                        </LocalizedLink>
                     </div>
                 </div>
              </div>

@@ -74,9 +74,9 @@
 #faq-luxury-search,
 #faq-luxury-search:focus,
 #faq-luxury-search:focus-visible {
-  outline: none !important;
-  border: none !important;
-  box-shadow: none !important;
+  outline: none;
+  border: none;
+  box-shadow: none;
   -webkit-appearance: none;
   appearance: none;
 }

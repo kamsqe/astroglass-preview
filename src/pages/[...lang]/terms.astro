@@ -1,4 +1,12 @@
 ---
+import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
+
+export async function getStaticPaths() {
+  return getEnabledLocaleCodes().map(lang => ({
+    params: { lang: lang === defaultLocale ? undefined : lang }
+  }));
+}
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
 import ArticleProse from '../../components/blog/ArticleProse.astro';

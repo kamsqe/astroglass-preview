@@ -3,7 +3,8 @@
  * LanguageSwitcher Component
  * Emoji flag switcher - inline buttons on mobile, dropdown on desktop
  */
-import { getLocaleFromUrl, getLocalePath, type Locale } from '../../utils/i18n';
+import { getLocaleFromUrl, type Locale } from '../../utils/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getEnabledLocales } from '../../config/locales';
 
 export interface Props {
@@ -24,6 +25,18 @@ const localeData = Object.fromEntries(
   ])
 ) as Record<Locale, { flag: string; label: string; short: string }>;
 
+const pathname = Astro.url.pathname;
+let cleanPath = pathname;
+if (pathname.startsWith(`/${currentLocale}/`)) {
+  cleanPath = pathname.replace(`/${currentLocale}/`, '/');
+} else if (pathname === `/${currentLocale}`) {
+  cleanPath = '/';
+}
+
+function getSwitchPath(targetLocale: Locale) {
+  return getRelativeLocaleUrl(targetLocale, cleanPath);
+}
+
 // Get locale codes for iteration
 const locales = enabledLocales.map((l) => l.code) as Locale[];
 ---
@@ -33,7 +46,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
   <div class="lang-switcher-mobile" data-lang-switcher-mobile>
     {locales.map((locale) => (
       <a
-        href={getLocalePath(Astro.url, locale)}
+          href={getSwitchPath(locale)}
         class:list={['lang-option-mobile', locale === currentLocale && 'is-active']}
         aria-current={locale === currentLocale ? 'page' : undefined}
       >
@@ -60,7 +73,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
     <div class="lang-menu switcher-menu">
       {locales.map((locale) => (
         <a
-          href={getLocalePath(Astro.url, locale)}
+            href={getSwitchPath(locale)}
           class:list={['lang-option-desktop', locale === currentLocale && 'is-active']}
           aria-current={locale === currentLocale ? 'page' : undefined}
         >

@@ -7,11 +7,12 @@
  * No shrinking, no floating, just rock-solid structure.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildLuxuryNavLinks } from '../../../config/navigation';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildLuxuryNavLinks(locale, t);
+const navLinks = buildLuxuryNavLinks(t);
 
 // Path Logic
 const currentPath = Astro.url.pathname;
@@ -33,10 +34,10 @@ const themes = [
 <aside class="luxury-spine" id="luxury-spine">
   <!-- 1. Top: Brand -->
   <div class="luxury-spine-header">
-    <a href={`/${locale === 'en' ? '' : locale}`} class="luxury-brand">
+    <LocalizedLink href={`/${locale === 'en' ? '' : locale}`} class="luxury-brand">
       <span class="luxury-brand-main">Liquid</span>
       <span class="luxury-brand-sub">Design System</span>
-    </a>
+    </LocalizedLink>
   </div>
 
   <!-- 2. Middle: Navigation -->
@@ -52,14 +53,14 @@ const themes = [
         
         return (
           <li>
-            <a 
+            <LocalizedLink 
               href={link.href} 
               class={`luxury-nav-link ${isActive ? 'is-active' : ''}`}
               data-nav-type={link.type}
               data-nav-target={link.type === 'section' ? link.href.substring(1) : undefined}
             >
               {link.label}
-            </a>
+            </LocalizedLink>
           </li>
         );
       })}
@@ -109,14 +110,14 @@ const themes = [
     }
     
     body:has(#luxury-spine) main {
-      margin-left: var(--luxury-spine-width) !important;
-      width: calc(100% - var(--luxury-spine-width)) !important;
-      max-width: none !important;
+      margin-left: var(--luxury-spine-width);
+      width: calc(100% - var(--luxury-spine-width));
+      max-width: none;
     }
     
     body:has(#luxury-spine) footer {
-      margin-left: var(--luxury-spine-width) !important;
-      width: calc(100% - var(--luxury-spine-width)) !important;
+      margin-left: var(--luxury-spine-width);
+      width: calc(100% - var(--luxury-spine-width));
     }
   }
 </style>

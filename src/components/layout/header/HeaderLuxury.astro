@@ -6,6 +6,7 @@
  * Mobile: "Editorial" bottom sheet with drill-down interactions.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildLuxuryNavLinks } from '../../../config/navigation';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
@@ -13,9 +14,8 @@ import SidebarStructureLuxury from './SidebarStructureLuxury.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildLuxuryNavLinks(locale, t);
+const navLinks = buildLuxuryNavLinks(t);
 const activeLink = Astro.url.pathname;
-const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 
 // Language Logic: Preserve current path
 const currentPath = Astro.url.pathname;
@@ -29,9 +29,9 @@ import '../../../styles/components/header/HeaderLuxury.css';
 
 <!-- Mobile Header Bar -->
 <div class="luxury-mobile-bar">
-  <a href={homeHref} class="luxury-logo">
+  <LocalizedLink href="/" class="luxury-logo">
     <span class="luxury-logo-inner">LG</span>
-  </a>
+  </LocalizedLink>
   
   <button type="button" class="hamburger-btn" id="menu-toggle-luxury" aria-label="Toggle menu">
     <div class="hamburger-icon">
@@ -61,7 +61,7 @@ import '../../../styles/components/header/HeaderLuxury.css';
       <!-- Main Panel (Simplified for Luxury: Flat List) -->
       <div class="luxury-panel is-active" id="panel-main">
         {navLinks.map((link) => (
-           <a 
+           <LocalizedLink 
              href={link.href} 
              class="luxury-big-link"
            >
@@ -74,7 +74,7 @@ import '../../../styles/components/header/HeaderLuxury.css';
                </svg>
              </span>
            }
-           </a>
+           </LocalizedLink>
         ))}
       </div>
     </div>

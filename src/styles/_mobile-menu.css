@@ -28,10 +28,11 @@
     visibility var(--motion-natural) ease;
 }
 @media (min-width: 1024px) {
-  .mobile-nav {
-    transform: translateX(-100%) !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
+  .mobile-nav,
+  .mobile-nav.is-open {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
   }
 }
 

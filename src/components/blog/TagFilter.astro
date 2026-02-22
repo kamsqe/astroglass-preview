@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import LocalizedLink from '../ui/LocalizedLink.astro';
 
 interface Props {
   tags: string[];
@@ -11,7 +12,7 @@ interface Props {
 const { tags, activeTag, basePath = '/blog' } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const blogBase = locale === 'en' ? basePath : `/${locale}${basePath}`;
+const blogBase = basePath;
 ---
 
 <nav class="tag-filter" aria-label={t('blog.filterByTag')}>
@@ -21,14 +22,14 @@ const blogBase = locale === 'en' ? basePath : `/${locale}${basePath}`;
       class={`tag-filter__pill ${!activeTag ? 'tag-filter__pill--active' : ''}`}
     >
       {t('blog.allPosts')}
-    </a>
+    </LocalizedLink>
     {tags.map(tag => (
       <a
         href={`${blogBase}/tag/${tag}/`}
         class={`tag-filter__pill ${activeTag === tag ? 'tag-filter__pill--active' : ''}`}
       >
         {tag}
-      </a>
+      </LocalizedLink>
     ))}
   </div>
 </nav>

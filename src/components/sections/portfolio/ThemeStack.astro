@@ -6,6 +6,7 @@
 import '../../../styles/components/portfolio/PortfolioNeo.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { themes } from '../../../config/themes';
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -95,7 +96,7 @@ const themeCards = themes.filter(t => t.enabled).map((theme, i) => ({
               </div>
             </div>
           </div>
-        </a>
+        </LocalizedLink>
       ))}
     </div>
   </div>

@@ -5,13 +5,12 @@
  */
 import '../../../styles/components/portfolio/PortfolioGlass.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { themes } from '../../../config/themes';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   id: i + 1,
   title: theme.name,
@@ -47,13 +46,13 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   <div class="relative">
     <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
       {themeItems.map((p, i) => (
-        <a href={lp(`/${p.realId}`)} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+        <LocalizedLink href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
             {/* Background gradient from theme config */}
-            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`}></div>
+            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`} data-theme-gradient></div>
 
             {/* Gradient overlay */}
-            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" data-theme-gradient></div>
             
             <div class="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
               {/* Top */}
@@ -91,7 +90,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
               </div>
             </div>
           </div>
-        </a>
+        </LocalizedLink>
       ))}
     </div>
     
@@ -110,12 +109,11 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
 
 <style>
   /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-portfolio-glass__item .bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-portfolio-glass__item .bg-gradient-to-tr {
-    background-image: none !important;
+  :global([data-theme="monochrome"]) .c-portfolio-glass__item [data-theme-gradient] {
+    background-image: none;
   }
 
   :global([data-theme="monochrome"]) .group:hover .group-hover\:border-accent\/20 {
-    border-color: hsl(var(--bc) / 0.2) !important;
+    border-color: hsl(var(--bc) / 0.2);
   }
 </style>

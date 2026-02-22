@@ -82,7 +82,7 @@ export const locales = getEnabledLocaleCodes() as unknown as readonly Locale[];
 
 export type { Locale };
 
-export { getLocaleFromUrl, getLocalePath, localePath } from './locale-utils';
+export { getLocaleFromUrl } from './locale-utils';
 
 
 

@@ -14,16 +14,23 @@ import Badge from '../../../components/mdx/Badge.astro';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const docs = await getCollection('docs', ({ slug }) => slug.startsWith('ru/'));
-  return docs.map(doc => ({
-    params: { slug: doc.slug.replace('ru/', '') },
-    props: { doc },
-  }));
+  const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
+  const docs = await getCollection('docs');
+  return docs.map(doc => {
+    const [lang, ...slugParts] = doc.slug.split('/');
+    const slug = slugParts.join('/');
+    return {
+      params: { 
+        lang: lang === defaultLocale ? undefined : lang,
+        slug 
+      },
+      props: { doc, locale: lang },
+    };
+  });
 }
 
-const { doc } = Astro.props;
+const { doc, locale } = Astro.props;
 const { Content, headings } = await doc.render();
-const locale = 'ru';
 
 const components = {
   Callout,

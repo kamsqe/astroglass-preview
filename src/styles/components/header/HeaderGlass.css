@@ -406,7 +406,8 @@
 
 /* Hide mobile panel on desktop */
 @media (min-width: 1024px) {
-  .panel-glass {
-    display: none !important;
+  .panel-glass,
+  .panel-glass.is-open {
+    display: none;
   }
 }

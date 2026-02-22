@@ -19,21 +19,16 @@ For localized pages, we use separate directories:
 <FileTree>
 - src/
   - pages/
-    - **index.astro**      — Default language (English) Homepage
-    - **[theme].astro**    — Dynamic theme demo pages (e.g., /liquid, /glass)
-    - **[theme]/portfolio.astro** — Dynamic portfolio pages (e.g., /liquid/portfolio)
+    - **[...lang]/**       — Dynamic Locale Routing
+      - **index.astro**      — Homepage (All Languages)
+      - **[theme].astro**    — Dynamic theme demo pages (e.g., /liquid, /ru/glass)
+      - **[theme]/portfolio.astro** — Dynamic portfolio pages
+      - blog/                — Blog pages
+      - docs/                — Documentation pages
+      - privacy.astro        — Privacy Policy
+      - terms.astro          — Terms of Service
     - 404.astro            — /404 Error page
-    - about.astro          — /about
-    - blog/                — Blog pages
-    - docs/                — Documentation pages
-    - privacy.astro        — Privacy Policy
-    - terms.astro          — Terms of Service
-    - ru/                  — Russian Localization
-      - **index.astro**    — /ru/ (Russian Homepage)
-      - 404.astro          — /ru/404 Error page
-      - about.astro        — /ru/about
-      - privacy.astro      — Russian Privacy Policy
-      - terms.astro        — Russian Terms of Service
+    - about.astro          — /about (Unlocalized)
 </FileTree>
 
 ### Theme Demo Routing
@@ -64,7 +59,7 @@ The URL for documentation is automatically generated based on the file path, e.g
 ## Internationalization (i18n)
 
 Translations are handled in two ways:
-1.  **Page Content**: Duplicate `.astro` files in `src/pages/[lang]/`.
+1.  **Dynamic Page Routing**: A centralized `src/pages/[...lang]/` directory handles all route permutations dynamically via `getStaticPaths()`.
 2.  **UI Strings**: Centralized JSON files in `src/locales/`.
 
 ### UI Translations
@@ -115,13 +110,15 @@ Translation keys support dot notation for nested values. The `common.json` keys 
 
    Create `src/locales/{code}/` directory with JSON files matching the English structure.
 
-3. **Create localized pages**
-
-   Create `src/pages/{code}/` directory with `.astro` page files.
-
-4. **Create documentation content**
+3. **Create documentation content**
 
    Create `src/content/docs/{code}/` with translated MDX files.
+   (e.g., `src/content/docs/fr/getting-started/introduction.mdx`)
+
+4. **Create blog content**
+
+   Create `src/content/blog/{code}/` with translated Markdown/MDX files.
+   (e.g., `src/content/blog/fr/my-post.md`)
 </Steps>
 
 <Callout type="info" title="Automatic Discovery">

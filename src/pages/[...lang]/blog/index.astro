@@ -1,20 +1,27 @@
 ---
+import { getEnabledLocaleCodes, defaultLocale } from '../../../config/locales';
+
+export async function getStaticPaths() {
+  return getEnabledLocaleCodes().map(lang => ({
+    params: { lang: lang === defaultLocale ? undefined : lang },
+    props: { locale: lang }
+  }));
+}
+
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogHero from '../../components/blog/BlogHero.astro';
-import BlogCard from '../../components/blog/BlogCard.astro';
-import TagFilter from '../../components/blog/TagFilter.astro';
-import NewsletterCTA from '../../components/blog/NewsletterCTA.astro';
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
-import { useTranslations } from '../../utils/i18n';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogHero from '../../../components/blog/BlogHero.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import TagFilter from '../../../components/blog/TagFilter.astro';
+import NewsletterCTA from '../../../components/blog/NewsletterCTA.astro';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
+import { useTranslations } from '../../../utils/i18n';
 
-export const prerender = true;
-
-const locale = 'en';
+const { locale } = Astro.props;
 const t = useTranslations(locale);
 
 const posts = await getCollection('blog', ({ slug, data }) => {
-  return slug.startsWith('en/') && !data.draft;
+  return slug.startsWith(`${locale}/`) && !data.draft;
 });
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 

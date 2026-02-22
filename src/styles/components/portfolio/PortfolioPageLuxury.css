@@ -268,12 +268,12 @@
 /* -------------------------------------------------------------------------- */
 [data-theme="monochrome"] .c-portfolio-page-luxury__card > div.bg-gradient-to-br,
 [data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-br {
-  background: none !important;
-  background-color: hsl(var(--bc) / 0.1) !important;
+  background: none;
+  background-color: hsl(var(--bc) / 0.1);
 }
 
 [data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-r {
-  background: none !important;
-  color: hsl(var(--bc)) !important;
-  -webkit-text-fill-color: hsl(var(--bc)) !important;
+  background: none;
+  color: hsl(var(--bc));
+  -webkit-text-fill-color: hsl(var(--bc));
 }

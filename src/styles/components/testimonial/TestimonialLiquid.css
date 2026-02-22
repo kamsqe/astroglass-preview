@@ -48,21 +48,21 @@
 }
 
 .c-testimonial-liquid__wrapper:hover .c-testimonial-liquid__card {
-  transform: translateY(-8px) !important;
+  transform: translateY(-8px);
   border-color: hsl(var(--a) / 0.2);
   border-radius: 2.5rem;
 }
 
 .c-testimonial-liquid__wrapper:nth-child(2):hover .c-testimonial-liquid__card {
-  transform: translateY(-28px) !important;
+  transform: translateY(-28px);
 }
 
 .c-testimonial-liquid__wrapper:nth-child(3):hover .c-testimonial-liquid__card {
-  transform: translateY(2px) !important; /* -10px offset - -8px hover = +2px */
+  transform: translateY(2px); /* -10px offset - -8px hover = +2px */
 }
 
 .c-testimonial-liquid__wrapper:nth-child(4):hover .c-testimonial-liquid__card {
-  transform: translateY(-38px) !important;
+  transform: translateY(-38px);
 }
 
 /* ── Avatar Ripple Ring ── */

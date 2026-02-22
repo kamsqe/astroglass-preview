@@ -66,7 +66,7 @@ const testimonials = [
                   style="min-height: 420px;"
                 >
                    <!-- Gradient Background -->
-                   <div class:list={["absolute inset-0 bg-gradient-to-br opacity-30 pointer-events-none", item.gradient]}></div>
+                   <div class:list={["absolute inset-0 bg-gradient-to-br opacity-30 pointer-events-none", item.gradient]} data-testimonial-bg></div>
                    
                    <div class="relative z-10 h-full flex flex-col items-center justify-center p-8 text-center">
                       <!-- Quote mark -->
@@ -108,7 +108,7 @@ const testimonials = [
           <div class="c-testimonial-liquid__wrapper group">
              <div class="c-testimonial-liquid__card relative p-8 bg-base-content/[0.02] border border-base-content/10 overflow-hidden group-hover:bg-base-content/[0.05]">
                 <!-- Gradient -->
-                <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]}></div>
+                <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none", item.gradient]} data-testimonial-bg></div>
              
              <div class="relative z-10">
                 <!-- Quote mark -->
@@ -136,8 +136,8 @@ const testimonials = [
 
 <style>
   /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-testimonial-liquid__card-mobile .bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-testimonial-liquid__card .bg-gradient-to-br {
-    background-image: none !important;
+  :global([data-theme="monochrome"]) .c-testimonial-liquid__card-mobile [data-testimonial-bg],
+  :global([data-theme="monochrome"]) .c-testimonial-liquid__card [data-testimonial-bg] {
+    background-image: none;
   }
 </style>

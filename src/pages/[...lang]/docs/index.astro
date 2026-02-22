@@ -1,12 +1,19 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildDocsNav } from '../../utils/docs-nav';
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
+import { getEnabledLocaleCodes, defaultLocale } from '../../../config/locales';
 
-export const prerender = true;
+export async function getStaticPaths() {
+  return getEnabledLocaleCodes().map(lang => ({
+    params: { lang: lang === defaultLocale ? undefined : lang },
+    props: { locale: lang }
+  }));
+}
 
-const locale = 'en';
-const sections = await buildDocsNav(locale);
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildDocsNav } from '../../../utils/docs-nav';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
+
+const { locale } = Astro.props;
+const sections = await buildDocsNav(locale as any);
 
 ---
 

@@ -261,9 +261,14 @@
   transition: opacity 0.2s ease;
 }
 
-.contact-aurora-input--error {
-  border-bottom-color: hsl(var(--er)) !important;
-  box-shadow: 0 2px 0 hsl(var(--er) / 0.3) !important;
+.contact-aurora-field input.contact-aurora-input--error,
+.contact-aurora-field textarea.contact-aurora-input--error,
+.contact-aurora-field select.contact-aurora-input--error,
+.contact-aurora-field input.contact-aurora-input--error:focus,
+.contact-aurora-field textarea.contact-aurora-input--error:focus,
+.contact-aurora-field select.contact-aurora-input--error:focus {
+  border-bottom-color: hsl(var(--er));
+  box-shadow: 0 2px 0 hsl(var(--er) / 0.3);
 }
 
 .contact-aurora-success {

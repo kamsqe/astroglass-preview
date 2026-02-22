@@ -93,9 +93,10 @@
 }
 
 /* Error state */
-.newsletter-cta__input--error {
-  border-color: hsl(0 80% 60%) !important;
-  box-shadow: 0 0 0 3px hsl(0 80% 60% / 0.08) !important;
+.newsletter-cta__input.newsletter-cta__input--error,
+.newsletter-cta__input.newsletter-cta__input--error:focus {
+  border-color: hsl(0 80% 60%);
+  box-shadow: 0 0 0 3px hsl(0 80% 60% / 0.08);
 }
 
 .newsletter-cta__error {

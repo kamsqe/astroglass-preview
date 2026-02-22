@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
+import LocalizedLink from '../ui/LocalizedLink.astro';
 
 interface PostRef {
   slug: string;
@@ -26,16 +27,16 @@ function postHref(slug: string) {
   <nav class="post-nav" aria-label="Post navigation">
     <div class="post-nav__inner">
       {prevPost ? (
-        <a href={postHref(prevPost.slug)} class="post-nav__link post-nav__link--prev">
+        <LocalizedLink href={postHref(prevPost.slug)} class="post-nav__link post-nav__link--prev">
           <span class="post-nav__label">{t('blog.prevPost')}</span>
           <span class="post-nav__title">{prevPost.title}</span>
-        </a>
+        </LocalizedLink>
       ) : <div />}
       {nextPost ? (
-        <a href={postHref(nextPost.slug)} class="post-nav__link post-nav__link--next">
+        <LocalizedLink href={postHref(nextPost.slug)} class="post-nav__link post-nav__link--next">
           <span class="post-nav__label">{t('blog.nextPost')}</span>
           <span class="post-nav__title">{nextPost.title}</span>
-        </a>
+        </LocalizedLink>
       ) : <div />}
     </div>
   </nav>

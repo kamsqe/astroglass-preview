@@ -6,6 +6,7 @@
  * Features hover-expandable menus for Theme and Language.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);

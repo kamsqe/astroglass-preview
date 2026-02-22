@@ -4,11 +4,11 @@
  * Grid layout with gradient-border frames, category filter pills,
  * and hover effects with overlay text reveal.
  */
-import { getLocaleFromUrl, useTranslations, localePath } from '../../../utils/i18n';
+import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
 import '../../../styles/components/portfolio/PortfolioAurora.css';
 
 const categories = [
@@ -109,12 +109,12 @@ const projects = [
             <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
             <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
             
-            <a href={lp('/aurora/portfolio')} class="portfolio-aurora-overlay-link">
+            <LocalizedLink href="/aurora/portfolio" class="portfolio-aurora-overlay-link">
               {t('portfolio.viewProject')}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
-            </a>
+            </LocalizedLink>
           </div>
         </div>
       </div>

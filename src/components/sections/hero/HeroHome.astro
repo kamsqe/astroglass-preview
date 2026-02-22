@@ -4,6 +4,7 @@
  * Aurora mesh gradient + code snippet preview + tech stack badges
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import '../../../styles/components/hero/HeroAurora.css';
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -69,12 +70,12 @@ const t = useTranslations(locale);
         <span class="hero-aurora-btn-glow"></span>
         <span class="hero-aurora-btn-text">{t('hero.cta')}</span>
       </a>
-      <a href="/docs" class="hero-aurora-btn hero-aurora-btn--secondary">
+      <LocalizedLink href="/docs" class="hero-aurora-btn hero-aurora-btn--secondary">
         <span class="hero-aurora-btn-text">{t('hero.secondaryCta')}</span>
         <svg class="hero-aurora-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </a>
+      </LocalizedLink>
     </div>
 
     <!-- Trust strip — Tech stack -->

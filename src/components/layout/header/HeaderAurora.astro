@@ -7,21 +7,21 @@
  * Mobile: fullscreen mesh overlay with expandable children.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildThemeNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildThemeNavLinks(locale, t, 'aurora');
-const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+const navLinks = buildThemeNavLinks(t, 'aurora');
 import '../../../styles/components/header/HeaderAurora.css';
 ---
 
 <header class="header-aurora" id="header-aurora">
   <div class="header-aurora-inner">
     <!-- Logo -->
-    <a href={homeHref} class="logo-aurora" aria-label={t('nav.home')}>
+    <LocalizedLink href="/" class="logo-aurora" aria-label={t('nav.home')}>
       <div class="logo-aurora-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
@@ -29,7 +29,7 @@ import '../../../styles/components/header/HeaderAurora.css';
         </svg>
       </div>
       <span class="logo-aurora-text">{t('siteName')}</span>
-    </a>
+    </LocalizedLink>
 
     <!-- Desktop Navigation -->
     <nav class="nav-aurora">
@@ -44,12 +44,12 @@ import '../../../styles/components/header/HeaderAurora.css';
             </button>
             <div class="dropdown-aurora-menu">
               {link.children.map((child) => (
-                <a href={child.href} class="dropdown-aurora-item">{child.label}</a>
+                <LocalizedLink href={child.href} class="dropdown-aurora-item">{child.label}</LocalizedLink>
               ))}
             </div>
           </div>
         ) : (
-          <a href={link.href} class="nav-aurora-link">{link.label}</a>
+          <LocalizedLink href={link.href} class="nav-aurora-link">{link.label}</LocalizedLink>
         )
       ))}
     </nav>
@@ -91,16 +91,16 @@ import '../../../styles/components/header/HeaderAurora.css';
             <div class="overlay-aurora-group-children">
               <div class="overlay-aurora-group-children-inner">
                 {link.children.map((child) => (
-                  <a href={child.href} class="overlay-aurora-child-link">{child.label}</a>
+                  <LocalizedLink href={child.href} class="overlay-aurora-child-link">{child.label}</LocalizedLink>
                 ))}
               </div>
             </div>
           </div>
         ) : (
-          <a href={link.href} class="overlay-aurora-link" style={`animation-delay: ${i * 0.08}s`}>
+          <LocalizedLink href={link.href} class="overlay-aurora-link" style={`animation-delay: ${i * 0.08}s`}>
             <span class="overlay-aurora-num">0{i + 1}</span>
             <span class="overlay-aurora-text">{link.label}</span>
-          </a>
+          </LocalizedLink>
         )
       ))}
     </nav>

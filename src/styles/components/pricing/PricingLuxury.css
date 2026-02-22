@@ -83,7 +83,6 @@
 /* Ensure inactive cards remain clickable */
 .c-pricing-luxury__card .c-pricing-luxury__card-inner {
   transition: border-color 300ms ease-out;
-  box-shadow: none !important;
 }
 
 /* Spotlight Glow */

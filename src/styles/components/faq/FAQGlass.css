@@ -76,9 +76,9 @@
 #faq-glass-input,
 #faq-glass-input:focus,
 #faq-glass-input:focus-visible {
-  outline: none !important;
-  border: none !important;
-  box-shadow: none !important;
+  outline: none;
+  border: none;
+  box-shadow: none;
   -webkit-appearance: none;
   appearance: none;
 }

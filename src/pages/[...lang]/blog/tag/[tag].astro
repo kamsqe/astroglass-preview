@@ -1,30 +1,43 @@
 ---
+import { getEnabledLocaleCodes, defaultLocale } from '../../../../config/locales';
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BlogCard from '../../../components/blog/BlogCard.astro';
-import TagFilter from '../../../components/blog/TagFilter.astro';
-import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
-import { useTranslations } from '../../../utils/i18n';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import BlogCard from '../../../../components/blog/BlogCard.astro';
+import TagFilter from '../../../../components/blog/TagFilter.astro';
+import FooterLiquid from '../../../../components/sections/footer/FooterLiquid.astro';
+import { useTranslations } from '../../../../utils/i18n';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ slug }) => slug.startsWith('en/'));
-  const tags = new Set<string>();
-  posts.forEach(post => post.data.tags.forEach((tag: string) => tags.add(tag)));
-  
-  return [...tags].map(tag => ({
-    params: { tag },
-    props: { tag },
-  }));
+  const { getEnabledLocaleCodes, defaultLocale } = await import('../../../../config/locales');
+  const langs = getEnabledLocaleCodes();
+  const posts = await getCollection('blog');
+  const paths = [];
+
+  for (const lang of langs) {
+    const langPosts = posts.filter(post => post.slug.startsWith(`${lang}/`));
+    const tags = new Set<string>();
+    langPosts.forEach(post => post.data.tags.forEach((tag: string) => tags.add(tag)));
+    
+    [...tags].forEach(tag => {
+      paths.push({
+        params: { 
+          lang: lang === defaultLocale ? undefined : lang,
+          tag 
+        },
+        props: { tag, locale: lang },
+      });
+    });
+  }
+  return paths;
 }
 
-const { tag } = Astro.props;
-const locale = 'en';
+const { tag, locale } = Astro.props;
 const t = useTranslations(locale);
 
 const allPosts = await getCollection('blog', ({ slug, data }) => {
-  return slug.startsWith('en/') && !data.draft;
+  return slug.startsWith(`${locale}/`) && !data.draft;
 });
 const posts = allPosts
   .filter(p => p.data.tags.includes(tag))

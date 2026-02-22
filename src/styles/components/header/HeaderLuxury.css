@@ -37,7 +37,7 @@
 /* -------------------------------------------------------------------------- */
 
 .luxury-link, .luxury-icon-wrap, .luxury-theme-btn, .luxury-theme-icons, .luxury-label, .luxury-active-indicator {
-  transition: all var(--duration-luxury-slow) var(--ease-luxury) !important;
+  transition: all var(--duration-luxury-slow) var(--ease-luxury);
 }
 
 /* -------------------------------------------------------------------------- */

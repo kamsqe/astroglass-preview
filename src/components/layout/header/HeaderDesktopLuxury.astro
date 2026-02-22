@@ -6,11 +6,12 @@
  * Replaces the "Monolith" sidebar on Desktop.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildThemeNavLinks } from '../../../config/navigation';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildThemeNavLinks(locale, t, 'luxury');
+const navLinks = buildThemeNavLinks(t, 'luxury');
 
 // Path Logic for Language Switcher
 const currentPath = Astro.url.pathname;
@@ -31,17 +32,17 @@ const themes = [
 <header class="luxury-desktop-header hidden lg:grid">
   <!-- Left: Logo -->
   <div class="luxury-header-left">
-    <a href={`/${locale === 'en' ? '' : locale}`} class="luxury-logo-text">
+    <LocalizedLink href={`/${locale === 'en' ? '' : locale}`} class="luxury-logo-text">
       Liquid
-    </a>
+    </LocalizedLink>
   </div>
 
   <!-- Center: Navigation -->
   <nav class="luxury-header-center">
     {navLinks.map((link) => (
-      <a href={link.href} class="luxury-nav-link">
+      <LocalizedLink href={link.href} class="luxury-nav-link">
         {link.label}
-      </a>
+      </LocalizedLink>
     ))}
   </nav>
 

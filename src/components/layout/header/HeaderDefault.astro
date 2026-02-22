@@ -8,6 +8,7 @@
  * Mobile:  Hamburger → fullscreen overlay.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildDefaultNavLinks } from '../../../config/navigation';
 import Logo from '../../ui/Logo.astro';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
@@ -15,8 +16,7 @@ import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const navLinks = buildDefaultNavLinks(locale, t);
-const homeHref = locale === 'en' ? '/' : `/${locale}/`;
+const navLinks = buildDefaultNavLinks(t);
 import '../../../styles/components/header/HeaderNeo.css';
 ---
 
@@ -25,7 +25,7 @@ import '../../../styles/components/header/HeaderNeo.css';
   <header class="header-neo" id="header-default">
     <div class="header-neo-inner">
       <!-- Logo -->
-      <a href={homeHref} class="logo-neo" aria-label={t('nav.home')}>
+      <LocalizedLink href="/" class="logo-neo" aria-label={t('nav.home')}>
         <span class="logo-neo-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
@@ -33,7 +33,7 @@ import '../../../styles/components/header/HeaderNeo.css';
           </svg>
         </span>
         <span class="logo-neo-text">{t('siteName')}</span>
-      </a>
+      </LocalizedLink>
 
       <!-- Desktop Navigation -->
       <nav class="nav-neo">
@@ -48,12 +48,12 @@ import '../../../styles/components/header/HeaderNeo.css';
               </button>
               <div class="dropdown-neo-menu">
                 {link.children.map((child) => (
-                  <a href={child.href} class="dropdown-neo-item">{child.label}</a>
+                  <LocalizedLink href={child.href} class="dropdown-neo-item">{child.label}</LocalizedLink>
                 ))}
               </div>
             </div>
           ) : (
-            <a href={link.href} class="nav-neo-link">{link.label}</a>
+            <LocalizedLink href={link.href} class="nav-neo-link">{link.label}</LocalizedLink>
           )
         ))}
       </nav>
@@ -149,24 +149,24 @@ import '../../../styles/components/header/HeaderNeo.css';
                           <div class="mobile-nested-menu">
                             <div class="py-1 pl-6 space-y-0.5">
                               {child.children.map((subChild) => (
-                                <a href={subChild.href} class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
+                                <LocalizedLink href={subChild.href} class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                                   <span>{subChild.label}</span>
-                                </a>
+                                </LocalizedLink>
                               ))}
                             </div>
                           </div>
                         </div>
                       ) : (
-                        <a href={child.href} class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
+                        <LocalizedLink href={child.href} class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                           <span>{child.label}</span>
-                        </a>
+                        </LocalizedLink>
                       )
                     ))}
                   </div>
                 </div>
               </div>
             ) : (
-              <a href={link.href} class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
+              <LocalizedLink href={link.href} class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
                 <span class="mobile-nav-icon">
                   <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {link.icon.paths.map((path) => (
@@ -180,7 +180,7 @@ import '../../../styles/components/header/HeaderNeo.css';
                   </svg>
                 </span>
                 <span class="text-[15px] font-semibold">{link.label}</span>
-              </a>
+              </LocalizedLink>
             )
           ))}
         </div>

@@ -6,12 +6,11 @@
 import '../../../styles/components/portfolio/PortfolioPageLiquid.css';
 import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const featured = {
   title: t('portfolio.p1Title'),
   desc: t('portfolio.p1Desc'),
@@ -36,12 +35,12 @@ const projects = [
           {t('portfolio.title')}
         </h2>
       </div>
-      <a href={lp('/liquid/portfolio')} class="group flex items-center gap-3 text-accent font-bold text-sm hover:gap-5 transition-all duration-300">
+      <LocalizedLink href="/liquid/portfolio" class="group flex items-center gap-3 text-accent font-bold text-sm hover:gap-5 transition-all duration-300">
         {t('portfolio.allWork')}
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>
-      </a>
+      </LocalizedLink>
     </div>
 
     <!-- Featured Project -->
@@ -49,7 +48,7 @@ const projects = [
       <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]">
         <!-- Visual Side with Blob Shape -->
         <div class="c-portfolio-page-liquid__blob-visual lg:col-span-3 relative overflow-hidden">
-          <div class={`absolute inset-0 bg-gradient-to-br ${featured.color} opacity-20 group-hover:opacity-30 transition-opacity duration-700`}></div>
+          <div class={`absolute inset-0 bg-gradient-to-br ${featured.color} opacity-20 group-hover:opacity-30 transition-opacity duration-700`} data-liquid-bg></div>
           
           <!-- SVG Blob overlay -->
           <svg class="c-portfolio-page-liquid__blob-shape" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -80,12 +79,12 @@ const projects = [
           <p class="text-base sm:text-lg text-base-content/60 leading-relaxed mb-6 lg:mb-8">
             {featured.desc}
           </p>
-          <a href={lp('/liquid/portfolio')} class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-accent text-white font-bold text-sm w-fit hover:scale-105 active:scale-95 transition-all duration-300 group/btn">
+          <LocalizedLink href="/liquid/portfolio" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-accent text-white font-bold text-sm w-fit hover:scale-105 active:scale-95 transition-all duration-300 group/btn">
             {t('portfolio.viewProject')}
             <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
-          </a>
+          </LocalizedLink>
         </div>
       </div>
     </div>
@@ -95,7 +94,7 @@ const projects = [
       {projects.map((p, i) => (
         <div class="c-portfolio-page-liquid__project-card group relative overflow-hidden border border-base-content/5 bg-base-content/[0.02] backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10" style={`animation-delay: ${i * 100}ms`}>
           <!-- Gradient accent (organic line) -->
-          <div class={`c-portfolio-page-liquid__accent-line absolute top-0 left-0 right-0 bg-gradient-to-r ${p.color} opacity-60 group-hover:opacity-100 transition-opacity duration-500`}></div>
+          <div class={`c-portfolio-page-liquid__accent-line absolute top-0 left-0 right-0 bg-gradient-to-r ${p.color} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} data-liquid-bg></div>
           
           <div class="p-5 sm:p-6 lg:p-8">
             <div class="flex items-start justify-between mb-4">
@@ -111,12 +110,12 @@ const projects = [
               {p.desc}
             </p>
             
-            <a href={lp('/liquid/portfolio')} class="inline-flex items-center gap-2 text-accent text-xs font-bold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+            <LocalizedLink href="/liquid/portfolio" class="inline-flex items-center gap-2 text-accent text-xs font-bold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
               {t('portfolio.viewProject')}
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
               </svg>
-            </a>
+            </LocalizedLink>
           </div>
         </div>
       ))}
@@ -126,16 +125,9 @@ const projects = [
 
 <style>
   /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__blob-visual .bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__project-card .bg-gradient-to-r {
-    background-image: none !important;
-  }
-  
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__blob-visual .bg-gradient-to-br {
-    background-color: hsl(var(--bc) / 0.05) !important;
-  }
-  
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__project-card .bg-gradient-to-r {
-    background-color: hsl(var(--bc) / 0.05) !important;
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__blob-visual [data-liquid-bg],
+  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__project-card [data-liquid-bg] {
+    background-image: none;
+    background-color: hsl(var(--bc) / 0.05);
   }
 </style>

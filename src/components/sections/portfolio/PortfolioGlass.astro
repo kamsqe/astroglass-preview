@@ -5,14 +5,13 @@
  */
 import '../../../styles/components/portfolio/PortfolioPageGlass.css';
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 import SectionTag from '../../ui/glass/SectionTag.astro';
 import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const projects = [
   { id: 1, title: t('portfolio.p1Title'), desc: t('portfolio.p1Desc'), category: t('portfolio.categories.webapp'), num: '01' },
   { id: 2, title: t('portfolio.p2Title'), desc: t('portfolio.p2Desc'), category: t('portfolio.categories.dashboard'), num: '02' },
@@ -61,12 +60,12 @@ const projects = [
                 <p class="text-sm sm:text-base text-base-content/40 font-medium max-w-md mb-6 group-hover:text-base-content/60 transition-colors duration-500">
                   {p.desc}
                 </p>
-                <a href={lp('/glass/portfolio')} class="inline-flex items-center gap-3 text-accent font-bold text-xs uppercase tracking-widest hover:gap-5 transition-all duration-300">
+                <LocalizedLink href="/glass/portfolio" class="inline-flex items-center gap-3 text-accent font-bold text-xs uppercase tracking-widest hover:gap-5 transition-all duration-300">
                   {t('portfolio.viewProject')}
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                   </svg>
-                </a>
+                </LocalizedLink>
               </div>
             </div>
           </div>

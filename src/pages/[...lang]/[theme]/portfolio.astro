@@ -13,30 +13,44 @@
  * If no PortfolioPage is exported by the theme barrel, the route falls back
  * to a "coming soon" placeholder — no build errors, no broken routes.
  */
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../utils/i18n';
-import { getLocaleFromUrl } from '../../utils/locale-utils';
-import { getEnabledThemes, getThemeById } from '../../config/themes';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../utils/i18n';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { getThemeById } from '../../../config/themes';
 
 // Theme barrel files — same source of truth used by [theme].astro.
 // @ts-ignore — .astro imports in .ts barrel files resolve correctly at build time
-import * as LiquidSections  from '../../components/sections/themes/liquid';
+import * as LiquidSections  from '../../../components/sections/themes/liquid';
 // @ts-ignore
-import * as GlassSections   from '../../components/sections/themes/glass';
+import * as GlassSections   from '../../../components/sections/themes/glass';
 // @ts-ignore
-import * as NeoSections     from '../../components/sections/themes/neo';
+import * as NeoSections     from '../../../components/sections/themes/neo';
 // @ts-ignore
-import * as LuxurySections  from '../../components/sections/themes/luxury';
+import * as LuxurySections  from '../../../components/sections/themes/luxury';
 // @ts-ignore
-import * as MinimalSections from '../../components/sections/themes/minimal';
+import * as MinimalSections from '../../../components/sections/themes/minimal';
 // @ts-ignore
-import * as AuroraSections  from '../../components/sections/themes/aurora';
+import * as AuroraSections  from '../../../components/sections/themes/aurora';
 
-export function getStaticPaths() {
-  return getEnabledThemes().map((theme) => ({
-    params: { theme: theme.id },
-    props: { themeId: theme.id },
-  }));
+export async function getStaticPaths() {
+  const { getEnabledThemes } = await import('../../../config/themes');
+  const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
+  const themes = getEnabledThemes();
+  const langs = getEnabledLocaleCodes();
+  const paths = [];
+
+  for (const lang of langs) {
+    for (const theme of themes) {
+      paths.push({
+        params: {
+          lang: lang === defaultLocale ? undefined : lang,
+          theme: theme.id
+        },
+        props: { themeId: theme.id }
+      });
+    }
+  }
+  return paths;
 }
 
 interface Props {

@@ -1,35 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostHero from '../../components/blog/PostHero.astro';
-import TableOfContents from '../../components/blog/TableOfContents.astro';
-import ArticleProse from '../../components/blog/ArticleProse.astro';
-import ShareBar from '../../components/blog/ShareBar.astro';
-import PostNavigation from '../../components/blog/PostNavigation.astro';
-import RelatedPosts from '../../components/blog/RelatedPosts.astro';
-import NewsletterCTA from '../../components/blog/NewsletterCTA.astro';
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostHero from '../../../components/blog/PostHero.astro';
+import TableOfContents from '../../../components/blog/TableOfContents.astro';
+import ArticleProse from '../../../components/blog/ArticleProse.astro';
+import ShareBar from '../../../components/blog/ShareBar.astro';
+import PostNavigation from '../../../components/blog/PostNavigation.astro';
+import RelatedPosts from '../../../components/blog/RelatedPosts.astro';
+import NewsletterCTA from '../../../components/blog/NewsletterCTA.astro';
+import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const enPosts = posts
-    .filter(post => post.slug.startsWith('en/') && !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
+  const langs = getEnabledLocaleCodes();
+  const paths = [];
 
-  return enPosts.map((post, i) => ({
-    params: { slug: post.slug.replace('en/', '') },
-    props: {
-      post,
-      prevPost: enPosts[i + 1] ? { slug: enPosts[i + 1].slug, title: enPosts[i + 1].data.title } : undefined,
-      nextPost: enPosts[i - 1] ? { slug: enPosts[i - 1].slug, title: enPosts[i - 1].data.title } : undefined,
-      allPosts: enPosts,
-    },
-  }));
+  for (const lang of langs) {
+    const langPosts = posts
+      .filter(post => post.slug.startsWith(`${lang}/`) && !post.data.draft)
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+    langPosts.forEach((post, i) => {
+      paths.push({
+        params: { 
+          lang: lang === defaultLocale ? undefined : lang,
+          slug: post.slug.replace(`${lang}/`, '') 
+        },
+        props: {
+          post,
+          prevPost: langPosts[i + 1] ? { slug: langPosts[i + 1].slug.replace(`${lang}/`, ''), title: langPosts[i + 1].data.title } : undefined,
+          nextPost: langPosts[i - 1] ? { slug: langPosts[i - 1].slug.replace(`${lang}/`, ''), title: langPosts[i - 1].data.title } : undefined,
+          allPosts: langPosts,
+          locale: lang
+        },
+      });
+    });
+  }
+  return paths;
 }
 
-const { post, prevPost, nextPost, allPosts } = Astro.props;
+const { post, prevPost, nextPost, allPosts, locale } = Astro.props;
 const { Content, headings } = await post.render();
 
 // Find related posts (share the most tags)

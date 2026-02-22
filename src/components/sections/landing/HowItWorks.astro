@@ -57,7 +57,7 @@ const steps = [
           style={`animation-delay: ${i * 120}ms`}
         >
           {/* Background gradient */}
-          <div class={`absolute inset-0 bg-gradient-to-br ${step.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
+          <div class={`absolute inset-0 bg-gradient-to-br ${step.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} data-hiw-bg></div>
           
           {/* Glass overlay */}
           <div class="absolute inset-0 bg-base-content/[0.02] group-hover:bg-base-content/[0.04] transition-colors duration-700"></div>
@@ -130,8 +130,8 @@ const steps = [
   }
 
   /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .hiw-card .bg-gradient-to-br {
-    background: none !important;
-    background-color: hsl(var(--bc) / 0.05) !important;
+  :global([data-theme="monochrome"]) .hiw-card [data-hiw-bg] {
+    background-image: none;
+    background-color: hsl(var(--bc) / 0.05);
   }
 </style>

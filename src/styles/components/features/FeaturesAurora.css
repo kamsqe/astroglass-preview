@@ -411,5 +411,5 @@
 /*                         MONOCHROME THEME OVERRIDES                         */
 /* -------------------------------------------------------------------------- */
 [data-theme="monochrome"] .features-aurora-card[data-aurora-hue] {
-  --card-hue: var(--bc) !important;
+  --card-hue: var(--bc);
 }

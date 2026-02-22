@@ -71,12 +71,13 @@
 
 /* Dropdown Menu Container - Theme-Aware Glass */
 .switcher-menu {
+  --menu-padding: 6px;
   --_blur: var(--glass-blur, 24px);
   --_opacity: var(--glass-opacity, 0.7);
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  padding: 6px;
+  padding: var(--menu-padding);
   background: hsl(var(--b1) / calc(var(--_opacity) + 0.15));
   backdrop-filter: blur(var(--_blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--_blur)) saturate(180%);
@@ -132,7 +133,7 @@
 /* Language Menu - Refined */
 .lang-menu {
   min-width: 170px;
-  padding: 8px !important;
+  --menu-padding: 8px;
 }
 .lang-option-desktop {
   display: flex;
@@ -275,7 +276,7 @@
 /* Theme Switcher Desktop - Refined Categorized Layout */
 .theme-menu {
   width: 300px;
-  padding: 10px !important;
+  --menu-padding: 10px;
 }
 
 /* Category Sections with subtle dividers */

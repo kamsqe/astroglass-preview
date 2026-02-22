@@ -1,7 +1,15 @@
 ---
+import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
+
+export async function getStaticPaths() {
+  return getEnabledLocaleCodes().map(lang => {
+    return { params: { lang: lang === defaultLocale ? undefined : lang } };
+  });
+}
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeaderDefault from '../../components/layout/header/HeaderDefault.astro';
-import FooterLiquid from '../../components/sections/footer/FooterLiquid.astro';
+import FooterIndex from '../../components/sections/footer/FooterIndex.astro';
 import { useTranslations } from '../../utils/i18n';
 import { getLocaleFromUrl } from '../../utils/locale-utils';
 
@@ -12,11 +20,11 @@ import TemplateShowcase from '../../components/sections/landing/TemplateShowcase
 import HowItWorks from '../../components/sections/landing/HowItWorks.astro';
 import FeaturesHome from '../../components/sections/features/FeaturesHome.astro';
 import ThemeGallery from '../../components/sections/portfolio/ThemeGallery.astro';
-import TestimonialNeo from '../../components/sections/testimonial/TestimonialNeo.astro';
+import TestimonialHome from '../../components/sections/testimonial/TestimonialHome.astro';
 import FAQHome from '../../components/sections/landing/FAQHome.astro';
 import CTAHome from '../../components/sections/cta/CTAHome.astro';
 
-const locale = getLocaleFromUrl(Astro.url);
+const locale = Astro.params.lang || 'en'; // getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 
@@ -30,11 +38,10 @@ const t = useTranslations(locale);
     <HowItWorks />
     <FeaturesHome />
     <ThemeGallery />
-    <TestimonialNeo />
+    <TestimonialHome />
     <FAQHome />
     <CTAHome />
   </main>
   
-  <FooterLiquid />
+  <FooterIndex />
 </BaseLayout>
-

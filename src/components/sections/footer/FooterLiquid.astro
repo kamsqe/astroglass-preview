@@ -5,12 +5,11 @@
  * Used as the default footer on all non-demo pages.
  */
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const currentYear = new Date().getFullYear();
 
 import '../../../styles/components/footer/FooterLiquid.css';
@@ -26,14 +25,14 @@ import '../../../styles/components/footer/FooterLiquid.css';
       
       <!-- Brand Column -->
       <div class="col-span-2 sm:col-span-2 lg:col-span-1">
-        <a href="/" class="inline-flex items-center gap-2 text-xl font-black text-base-content mb-4 hover:!transform-none">
+        <LocalizedLink href="/" class="inline-flex items-center gap-2 text-xl font-black text-base-content mb-4 hover:!transform-none">
           <span class="footer-liquid-droplet w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
             <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C12 2 6 10 6 14.5C6 17.54 8.69 20 12 20C15.31 20 18 17.54 18 14.5C18 10 12 2 12 2Z"/>
             </svg>
           </span>
           {t('footer.company')}
-        </a>
+        </LocalizedLink>
         <p class="text-sm text-base-content/50 leading-relaxed max-w-xs">
           {t('footer.tagline')}
         </p>
@@ -56,7 +55,7 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.product')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/liquid')} class="text-sm text-base-content/60">{t('footer.links.demos')}</a></li>
+          <li><LocalizedLink href="/liquid" class="text-sm text-base-content/60">{t('footer.links.demos')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -64,9 +63,9 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.company')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/blog')} class="text-sm text-base-content/60">{t('footer.links.blog')}</a></li>
-          <li><a href={lp('/privacy')} class="text-sm text-base-content/60">{t('footer.links.privacy')}</a></li>
-          <li><a href={lp('/terms')} class="text-sm text-base-content/60">{t('footer.links.terms')}</a></li>
+          <li><LocalizedLink href="/blog" class="text-sm text-base-content/60">{t('footer.links.blog')}</LocalizedLink></li>
+          <li><LocalizedLink href="/privacy" class="text-sm text-base-content/60">{t('footer.links.privacy')}</LocalizedLink></li>
+          <li><LocalizedLink href="/terms" class="text-sm text-base-content/60">{t('footer.links.terms')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -74,7 +73,7 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/40 mb-4">{t('footer.links.resources')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/docs')} class="text-sm text-base-content/60">{t('footer.links.docs')}</a></li>
+          <li><LocalizedLink href="/docs" class="text-sm text-base-content/60">{t('footer.links.docs')}</LocalizedLink></li>
         </ul>
       </div>
     </div>

@@ -125,7 +125,7 @@
 
 /* Fixed header when menu is open (prevents scrolling away) */
 header.is-menu-open {
-  position: fixed !important;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

@@ -64,6 +64,24 @@ export class ScrollReveal {
   }
 
   init() {
+    // Add CSS classes for reveal states
+    if (!document.getElementById('scroll-reveal-style')) {
+      const style = document.createElement('style');
+      style.id = 'scroll-reveal-style';
+      style.innerHTML = `
+        .reveal-base {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-base.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -76,22 +94,10 @@ export class ScrollReveal {
     this.targets.forEach(target => {
       // Add base styles if not present
       if (!target.classList.contains('reveal-base')) {
-        target.style.opacity = '0';
-        target.style.transform = 'translateY(20px)';
-        target.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        target.classList.add('reveal-base');
       }
       observer.observe(target);
     });
-
-    // Add CSS class for visible state
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .is-visible {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-      }
-    `;
-    document.head.appendChild(style);
   }
 }
 
@@ -127,6 +133,24 @@ export class TextReveal {
   }
 
   init() {
+    // Add revelation definition
+    if (!document.getElementById('text-reveal-style')) {
+      const style = document.createElement('style');
+      style.id = 'text-reveal-style';
+      style.innerHTML = `
+        .js-text-reveal-span {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(100%);
+        }
+        .js-text-reveal.is-revealed .js-text-reveal-span {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -146,27 +170,12 @@ export class TextReveal {
       words.forEach((word, i) => {
         const span = document.createElement('span');
         span.textContent = word + ' ';
-        span.style.display = 'inline-block';
-        span.style.opacity = '0';
-        span.style.transform = 'translateY(100%)';
+        span.classList.add('js-text-reveal-span');
         span.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`;
         el.appendChild(span);
       });
 
       observer.observe(el);
     });
-
-    // Add revelation definition
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .js-text-reveal.is-revealed span {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-      }
-    `;
-    if (!document.getElementById('text-reveal-style')) {
-      style.id = 'text-reveal-style';
-      document.head.appendChild(style);
-    }
   }
 }

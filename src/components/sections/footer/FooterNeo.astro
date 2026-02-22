@@ -5,12 +5,11 @@
  * Strong accent colors, badge-style elements, background blur blobs.
  */
 import { useTranslations } from '../../../utils/i18n';
-import { getLocaleFromUrl, localePath } from '../../../utils/locale-utils';
+import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import LocalizedLink from '../../ui/LocalizedLink.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
-const lp = localePath(Astro.url);
-
 const currentYear = new Date().getFullYear();
 
 import '../../../styles/components/footer/FooterNeo.css';
@@ -27,10 +26,10 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
         <NeoSectionTag label={t('footer.company')} class="mb-4" />
         <h3 class="text-lg sm:text-xl font-black text-base-content mb-2">{t('footer.tagline')}</h3>
         <div class="flex items-center justify-center gap-3 mt-4">
-          <a href={lp('/neo')} class="px-5 py-2.5 rounded-xl bg-accent text-base-100 text-sm font-bold hover:scale-105 active:scale-95 transition-transform">
+          <LocalizedLink href="/neo" class="px-5 py-2.5 rounded-xl bg-accent text-base-100 text-sm font-bold hover:scale-105 active:scale-95 transition-transform">
             {t('footer.links.demos')}
-          </a>
-          <a href={lp('/docs')} class="px-5 py-2.5 rounded-xl border border-base-content/10 text-sm font-medium text-base-content/60 hover:bg-base-content/5 transition-colors">
+          </LocalizedLink>
+          <LocalizedLink href="/docs" class="px-5 py-2.5 rounded-xl border border-base-content/10 text-sm font-medium text-base-content/60 hover:bg-base-content/5 transition-colors">
             {t('footer.links.docs')}
           </a>
         </div>
@@ -43,9 +42,9 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent/60 mb-4">{t('footer.links.product')}</h4>
         <ul class="space-y-3">
-          <li><a href="#features" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.features')}</a></li>
-          <li><a href="#pricing" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.pricing')}</a></li>
-          <li><a href={lp('/neo')} class="footer-neo-link text-sm text-base-content/55">{t('footer.links.demos')}</a></li>
+          <li><LocalizedLink href="#features" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.features')}</LocalizedLink></li>
+          <li><LocalizedLink href="#pricing" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.pricing')}</LocalizedLink></li>
+          <li><LocalizedLink href="/neo" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.demos')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -53,11 +52,11 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent/60 mb-4">{t('footer.links.company')}</h4>
         <ul class="space-y-3">
-          <li><a href="#about" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.about')}</a></li>
-          <li><a href={lp('/blog')} class="footer-neo-link text-sm text-base-content/55">{t('footer.links.blog')}</a></li>
-          <li><a href="#contact" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.contact')}</a></li>
-          <li><a href={lp('/privacy')} class="footer-neo-link text-sm text-base-content/55">{t('footer.links.privacy')}</a></li>
-          <li><a href={lp('/terms')} class="footer-neo-link text-sm text-base-content/55">{t('footer.links.terms')}</a></li>
+          <li><LocalizedLink href="#about" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.about')}</LocalizedLink></li>
+          <li><LocalizedLink href="/blog" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.blog')}</LocalizedLink></li>
+          <li><LocalizedLink href="#contact" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.contact')}</LocalizedLink></li>
+          <li><LocalizedLink href="/privacy" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.privacy')}</LocalizedLink></li>
+          <li><LocalizedLink href="/terms" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.terms')}</LocalizedLink></li>
         </ul>
       </div>
 
@@ -65,9 +64,9 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
       <div>
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent/60 mb-4">{t('footer.links.resources')}</h4>
         <ul class="space-y-3">
-          <li><a href={lp('/docs')} class="footer-neo-link text-sm text-base-content/55">{t('footer.links.docs')}</a></li>
-          <li><a href="#faq" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.faq')}</a></li>
-          <li><a href="#contact" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.support')}</a></li>
+          <li><LocalizedLink href="/docs" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.docs')}</LocalizedLink></li>
+          <li><LocalizedLink href="#faq" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.faq')}</LocalizedLink></li>
+          <li><LocalizedLink href="#contact" class="footer-neo-link text-sm text-base-content/55">{t('footer.links.support')}</LocalizedLink></li>
         </ul>
       </div>
 

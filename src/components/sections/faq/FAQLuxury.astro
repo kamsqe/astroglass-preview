@@ -43,14 +43,14 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
        <!-- Search Bar -->
        <div class="relative max-w-xl mx-auto">
           <div class="c-faq-luxury__search-wrapper flex items-center gap-3 p-4 lg:p-5 rounded-full bg-base-content/[0.03] border border-base-content/10 focus-within:border-accent/50 focus-within:bg-base-content/[0.05] focus-within:shadow-[0_0_40px_rgba(var(--a),0.1)] transition-luxury-slow">
-             <svg class="w-5 h-5 text-base-content/30 transition-colors duration-luxury-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <svg class="w-5 h-5 text-base-content/80 transition-colors duration-luxury-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
              </svg>
              <input 
                type="text" 
                id="faq-luxury-search"
                placeholder={t('faq.searchPlaceholder')} 
-               class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-base"
+               class="flex-1 bg-transparent text-base-content placeholder:text-base-content/80 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-base"
              />
              <button id="faq-luxury-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/75 hover:bg-base-content/10 transition-luxury">
                 {t('faq.clear')}
@@ -105,12 +105,12 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     <div class="faq-luxury-no-results hidden text-center py-12">
        <span class="text-4xl mb-4 block">🔍</span>
        <p class="text-base text-base-content/75 mb-2">{t('faq.noResults')}</p>
-       <p class="text-sm text-base-content/30">{t('faq.tryDifferent')} <a href={`/${locale}/contact`} class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
+       <p class="text-sm text-base-content/80">{t('faq.tryDifferent')} <a href={`/${locale}/contact`} class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
     </div>
 
     <!-- Result count -->
     <div class="text-center mt-8">
-       <p class="text-xs text-base-content/30" id="faq-luxury-count" data-template={t('faq.showingQuestions')}>{t('faq.showingQuestions').replace('{count}', faqs.length.toString())}</p>
+       <p class="text-xs text-base-content/80" id="faq-luxury-count" data-template={t('faq.showingQuestions')}>{t('faq.showingQuestions').replace('{count}', faqs.length.toString())}</p>
     </div>
   </div>
 </section>

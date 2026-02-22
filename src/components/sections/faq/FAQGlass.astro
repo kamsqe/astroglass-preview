@@ -66,7 +66,7 @@ const i18nData = JSON.stringify({
 
        <!-- Suggested Questions -->
        <div class="c-faq-glass__suggestions mb-6" id="faq-glass-suggestions">
-          <p class="text-xs text-base-content/30 mb-3">{t('faq.popularQuestions')}</p>
+          <p class="text-xs text-base-content/80 mb-3">{t('faq.popularQuestions')}</p>
           <div class="flex flex-wrap gap-2">
              {faqs.slice(0, 6).map(faq => (
                 <Button 
@@ -88,7 +88,7 @@ const i18nData = JSON.stringify({
             type="text" 
             id="faq-glass-input"
             placeholder={t('faq.typeQuestion')} 
-            className="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 border-none shadow-none focus-visible:ring-0 text-sm h-auto p-0"
+            className="flex-1 bg-transparent text-base-content placeholder:text-base-content/80 border-none shadow-none focus-visible:ring-0 text-sm h-auto p-0"
           />
           <Button id="faq-glass-send" className="c-faq-glass__ask-btn px-5 py-2.5 h-auto rounded-xl bg-accent text-base-100 text-sm font-bold hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-500 relative overflow-hidden">
              <span class="relative z-10">{t('faq.ask')}</span>

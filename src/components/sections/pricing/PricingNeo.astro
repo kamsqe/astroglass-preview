@@ -111,7 +111,7 @@ const plans = [
                             <span class="text-base-content/20 text-3xl font-black">$</span>
                             <span class="text-8xl font-black text-base-content tracking-tighter">{p.price}</span>
                          </div>
-                         <p class="text-sm text-base-content/30 font-medium">{p.period}</p>
+                         <p class="text-sm text-base-content/80 font-medium">{p.period}</p>
                       </div>
 
                       <p class="text-lg text-base-content/75 font-medium leading-relaxed mb-12 max-w-md">
@@ -130,7 +130,7 @@ const plans = [
        <!-- Features Panel (Right) -->
        <div class="col-span-4">
           <div class="p-10 rounded-[3rem] bg-base-content/[0.02] border border-base-content/5">
-             <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-base-content/30 mb-8">{t('pricing.features')}</h4>
+             <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-base-content/80 mb-8">{t('pricing.features')}</h4>
              {plans.map((p, i) => (
                 <ul 
                   class:list={["c-pricing-neo__features space-y-4", i === 1 ? "active" : ""]}
@@ -182,7 +182,7 @@ const plans = [
                    <div class="flex items-baseline gap-1 mb-4">
                       <span class="text-base-content/20 text-xl font-black">$</span>
                       <span class="text-5xl font-black text-base-content tracking-tighter">{p.price}</span>
-                      <span class="text-xs text-base-content/30 font-medium ml-2">{p.period}</span>
+                      <span class="text-xs text-base-content/80 font-medium ml-2">{p.period}</span>
                    </div>
 
                    <p class="text-sm text-base-content/75 font-medium leading-relaxed mb-6">{p.desc}</p>

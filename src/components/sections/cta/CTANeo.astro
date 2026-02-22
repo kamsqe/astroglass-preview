@@ -48,8 +48,8 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2 sm:pt-4">
-          <a href="#" class="cta-neo-primary group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-accent text-base-100 font-bold text-sm sm:text-base text-center overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_10px_40px_rgba(var(--a),0.3)]">
-            <span class="relative z-10 flex items-center justify-center gap-2">
+          <a href={`/${locale}/pricing`} class="cta-neo-primary group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-accent text-base-100 font-bold text-sm sm:text-base text-center overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_10px_40px_rgba(var(--a),0.3)]">
+            <span class="relative z-10 flex items-center justify-center gap-3">
               {t('cta.primary')}
               <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -57,8 +57,8 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
             </span>
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           </a>
-          <a href="#" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-base-content/10 text-base-content/70 font-medium text-sm sm:text-base text-center hover:bg-base-content/5 hover:border-base-content/20 transition-all duration-500">
-            {t('cta.watchDemo')}
+          <a href={`/${locale}/docs`} class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-base-content/10 text-base-content/70 font-medium text-sm sm:text-base text-center hover:bg-base-content/5 hover:border-base-content/20 transition-all duration-500">
+            {t('cta.secondary')}
           </a>
         </div>
 

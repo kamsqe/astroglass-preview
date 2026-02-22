@@ -105,7 +105,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     <div class="faq-luxury-no-results hidden text-center py-12">
        <span class="text-4xl mb-4 block">🔍</span>
        <p class="text-base text-base-content/50 mb-2">{t('faq.noResults')}</p>
-       <p class="text-sm text-base-content/30">{t('faq.tryDifferent')} <a href="#" class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
+       <p class="text-sm text-base-content/30">{t('faq.tryDifferent')} <a href={`/${locale}/contact`} class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
     </div>
 
     <!-- Result count -->

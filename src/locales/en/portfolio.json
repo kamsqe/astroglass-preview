@@ -11,12 +11,12 @@
   "gridHint": "Hover to explore each project",
   "viewCaseStudy": "View Case Study",
   "themeGallery": {
-    "title": "Choose Your Style",
-    "subtitle": "Template Gallery",
-    "desc": "Six stunning, professionally designed landing page templates included. Switch instantly.",
+    "subtitle": "Discover",
+    "title": "Included Themes",
+    "desc": "Check out the pre-built themes you get with the template. Everything is customizable.",
     "viewDemo": "View Demo",
-    "premium": "Premium",
-    "free": "Free",
+    "free": "Clean & Setup",
+    "premium": "Rich & Advanced",
     "sections": "sections"
   },
   "categories": {

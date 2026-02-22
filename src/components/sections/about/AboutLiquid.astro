@@ -8,6 +8,8 @@ import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 import '../../../styles/components/about/AboutLiquid.css';
 import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
+import { Image } from 'astro:assets';
+import liquidAboutImg from '../../../assets/themes/liquid/LiquidAbout.png';
 
 export interface Props {
   isFirst?: boolean;
@@ -60,8 +62,8 @@ const t = useTranslations(locale);
       </div>
 
       <!-- CTA -->
-      <div class="mt-8">
-        <a href="#" class="inline-flex items-center gap-2 text-accent font-bold text-sm hover:gap-4 transition-all duration-500 group">
+      <div class="pt-8 w-full">
+        <a href={`/${locale}/contact`} class="inline-flex items-center gap-2 text-accent font-bold text-sm hover:gap-4 transition-all duration-500 group">
           {t('about.learnMore')}
           <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -70,30 +72,21 @@ const t = useTranslations(locale);
       </div>
     </div>
 
-    <!-- Animated Liquid Orb (replaces glass stack) -->
+    <!-- Image Container (Simplified) -->
     <div class="relative flex justify-center order-1 lg:order-2">
-      <div class="c-about-liquid__orb-container">
-        <svg class="c-about-liquid__orb-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="aboutLiquidGoo">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-              <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-            </filter>
-          </defs>
-          <g filter="url(#aboutLiquidGoo)">
-            <path class="c-about-liquid__orb-blob-1" d="M250,180Q310,100,380,160Q450,220,400,300Q350,380,260,360Q170,340,140,280Q110,220,180,160Q250,100,250,180Z" />
-            <path class="c-about-liquid__orb-blob-2" d="M240,200Q300,130,360,180Q420,230,390,310Q360,390,270,370Q180,350,150,290Q120,230,170,180Q220,130,240,200Z" />
-            <path class="c-about-liquid__orb-blob-3" d="M260,220Q300,170,340,210Q380,250,360,300Q340,350,280,340Q220,330,200,290Q180,250,210,220Q240,190,260,220Z" />
-          </g>
-        </svg>
-        <!-- Center icon -->
-        <div class="c-about-liquid__orb-center">
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent/20 backdrop-blur-xl border border-accent/20 flex items-center justify-center shadow-lg">
-            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-accent" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C12 2 5.5 11 5.5 15.5C5.5 19.09 8.41 22 12 22C15.59 22 18.5 19.09 18.5 15.5C18.5 11 12 2 12 2Z" opacity="0.3"/>
-              <path d="M12 4C12 4 7.5 11.5 7.5 15C7.5 17.49 9.51 19.5 12 19.5C14.49 19.5 16.5 17.49 16.5 15C16.5 11.5 12 4 12 4Z"/>
-            </svg>
-          </div>
+      <div class="relative w-full aspect-square max-w-lg mx-auto flex items-center justify-center p-4 sm:p-8">
+        <!-- Ambient glow -->
+        <div class="absolute inset-0 bg-accent/20 rounded-[3rem] blur-3xl"></div>
+        <div class="absolute inset-8 bg-primary/20 rounded-full blur-2xl"></div>
+        
+        <!-- Clean Image render -->
+        <div class="relative z-10 w-full h-full">
+          <Image 
+            src={liquidAboutImg} 
+            alt="About Liquid Theme" 
+            width={800}
+            class="w-full h-full object-contain"
+          />
         </div>
       </div>
     </div>

@@ -97,7 +97,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
             {t('cta.steps.startTrial')}
           </p>
           <a  
-            href="#"
+            href={`/${locale}/pricing`}
             class={cn(buttonVariants({ variant: "liquid", size: "liquid" }), "c-cta-glass__final-btn bg-accent text-white hover:text-base-content")}
           >
             <span class="cta-glass-final-btn-text relative z-10">{t('cta.steps.buildCta')}</span>

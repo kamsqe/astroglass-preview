@@ -82,11 +82,11 @@ const echoMessages = JSON.stringify([
             
             <!-- CTA Buttons -->
             <div class="cta-liquid-buttons flex flex-col sm:flex-row gap-3 opacity-0">
-              <a href="#" class="cta-liquid-primary group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-accent text-base-100 font-bold text-sm sm:text-base text-center overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95">
+              <a href={`/${locale}/pricing`} class="cta-liquid-primary group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-accent text-base-100 font-bold text-sm sm:text-base text-center overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95">
                 <span class="relative z-10">{t('cta.primary')}</span>
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               </a>
-              <a href="#" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl border border-base-content/10 text-base-content/70 font-medium text-sm sm:text-base text-center hover:bg-base-content/5 hover:border-base-content/20 transition-all duration-500">
+              <a href={`/${locale}/docs`} class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl border border-base-content/10 text-base-content/70 font-medium text-sm sm:text-base text-center hover:bg-base-content/5 hover:border-base-content/20 transition-all duration-500">
                 {t('cta.secondary')}
               </a>
             </div>

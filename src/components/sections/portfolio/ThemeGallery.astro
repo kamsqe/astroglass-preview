@@ -8,6 +8,15 @@ import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { themes } from '../../../config/themes';
+import { Image } from 'astro:assets';
+
+// Import all theme backgrounds eager-loaded
+const themeImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/themes/*CardBg.png', { eager: true });
+
+const getThemeImage = (id: string) => {
+  const name = id.charAt(0).toUpperCase() + id.slice(1);
+  return themeImages[`/src/assets/themes/${name}CardBg.png`]?.default;
+};
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -48,11 +57,21 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
       {themeItems.map((p, i) => (
         <LocalizedLink href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
+            {/* Background Image (If available) */}
+            {getThemeImage(p.realId) && (
+              <Image 
+                src={getThemeImage(p.realId)} 
+                alt={`${p.title} theme background`} 
+                width={800}
+                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
+              />
+            )}
+            
             {/* Background gradient from theme config */}
-            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`} data-theme-gradient></div>
+            <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-10 group-hover:opacity-30 transition-opacity duration-700 mix-blend-overlay`} data-theme-gradient></div>
 
             {/* Gradient overlay */}
-            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" data-theme-gradient></div>
+            <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 via-base-100/30 to-primary/10 opacity-80 group-hover:opacity-100 transition-opacity duration-700" data-theme-gradient></div>
             
             <div class="relative z-10 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
               {/* Top */}
@@ -61,13 +80,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
                   <span class={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${p.isPremium ? 'bg-amber-500/10 text-amber-500' : 'bg-accent/10 text-accent'}`}>
                     {p.category}
                   </span>
-                  <span class="px-2.5 py-1 rounded-md bg-base-content/5 text-[10px] font-semibold text-base-content/30">
-                    {p.sectionCount} {t('portfolio.themeGallery.sections')}
-                  </span>
                 </div>
-                <span class="text-3xl sm:text-4xl transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">
-                  {p.icon}
-                </span>
               </div>
               
               {/* Bottom */}

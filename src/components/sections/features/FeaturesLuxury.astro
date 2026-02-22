@@ -101,21 +101,23 @@ const useCases = [
           <!-- Feature Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {uc.features.map((f, fi) => (
-              <LuxuryCard class="group p-6 sm:p-8" spotlight={true}>
-                <div class="relative z-10 flex gap-5">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-luxury">
-                    {f.icon}
+              <a href={`/${locale}/docs`} class="block w-full h-full">
+                <LuxuryCard class="group p-6 sm:p-8 h-full" spotlight={true}>
+                  <div class="relative z-10 flex gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-2xl sm:text-3xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-luxury">
+                      {f.icon}
+                    </div>
+                    <div>
+                      <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-luxury-fast">
+                        {f.title}
+                      </h3>
+                      <p class="text-sm sm:text-base text-base-content/50 leading-relaxed group-hover:text-base-content/70 transition-colors duration-luxury-fast">
+                        {f.desc}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-luxury-fast">
-                      {f.title}
-                    </h3>
-                    <p class="text-sm sm:text-base text-base-content/50 leading-relaxed group-hover:text-base-content/70 transition-colors duration-luxury-fast">
-                      {f.desc}
-                    </p>
-                  </div>
-                </div>
-              </LuxuryCard>
+                </LuxuryCard>
+              </a>
             ))}
           </div>
         </div>
@@ -124,7 +126,7 @@ const useCases = [
 
     <!-- CTA -->
     <div class="text-center mt-12 sm:mt-16">
-      <LuxuryButton href="#" variant="primary" icon={true}>
+      <LuxuryButton href={`/${locale}/docs`} variant="primary" icon={true}>
         {t('features.cta')}
       </LuxuryButton>
     </div>

@@ -90,12 +90,9 @@ const themes = [
         </p>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <LuxuryButton href="#contact" variant="primary">
-            {t('hero.startBuilding')}
-          </LuxuryButton>
-          
-          <LuxuryButton href="#" variant="secondary">
+        <div class="hero-luxury__actions flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
+          <LuxuryButton href="#explore" variant="primary">{t('hero.startBuilding')}</LuxuryButton>
+          <LuxuryButton href={`/${locale}/docs`} variant="secondary">
             {t('hero.viewFullDemo')}
           </LuxuryButton>
         </div>

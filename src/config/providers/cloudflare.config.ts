@@ -21,9 +21,6 @@ export const providerName = 'Cloudflare Pages';
 
 /** Provider-specific build notes */
 export const buildNotes = `
-  Deploy to Cloudflare Pages using:
-    pnpm run deploy
-  
-  Or manually:
-    wrangler pages deploy dist
+  Deploy to Cloudflare Pages automatically by configuring GitHub integration.
+  (Local deploy with wrangler is no longer required)
 `;

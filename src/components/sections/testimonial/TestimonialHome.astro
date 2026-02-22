@@ -67,7 +67,13 @@ const testimonials = [
        <div class="c-testimonial-neo__track relative h-[400px] lg:h-[450px]">
           {testimonials.map((item, i) => (
              <div 
-               class="c-testimonial-neo__card absolute left-1/2 top-1/2"
+               class:list={[
+                 "c-testimonial-neo__card absolute left-1/2 top-1/2",
+                 i === 2 ? "active" : "",
+                 i === 1 ? "prev" : "",
+                 i === 3 ? "next" : "",
+                 (i !== 1 && i !== 2 && i !== 3) ? "far" : ""
+               ]}
                data-index={i}
                aria-hidden={i !== 2 ? "true" : undefined}
              >

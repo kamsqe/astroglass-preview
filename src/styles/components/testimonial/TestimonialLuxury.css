@@ -17,7 +17,7 @@
 }
 
 .c-testimonial-luxury__card > div {
-  transition: all var(--duration-luxury-slow) var(--ease-luxury);
+  transition: opacity, transform, background-color, border-color, color, box-shadow var(--duration-luxury-slow) var(--ease-luxury);
   transform: translateZ(0);
   backface-visibility: hidden;
 }

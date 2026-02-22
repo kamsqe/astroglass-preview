@@ -49,6 +49,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
           href={getSwitchPath(locale)}
         class:list={['lang-option-mobile', locale === currentLocale && 'is-active']}
         aria-current={locale === currentLocale ? 'page' : undefined}
+        aria-label={localeData[locale].label}
       >
         <span class="lang-flag">{localeData[locale].flag}</span>
         <span class="lang-code">{localeData[locale].short}</span>
@@ -76,6 +77,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
             href={getSwitchPath(locale)}
           class:list={['lang-option-desktop', locale === currentLocale && 'is-active']}
           aria-current={locale === currentLocale ? 'page' : undefined}
+          aria-label={localeData[locale].label}
         >
           <span class="lang-flag">{localeData[locale].flag}</span>
           <span class="lang-name">{localeData[locale].label}</span>

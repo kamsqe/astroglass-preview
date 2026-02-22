@@ -104,7 +104,7 @@ const testimonials = [
        <div class="flex justify-center gap-3 mt-8">
           {testimonials.map((_, i) => (
              <button 
-               class="c-testimonial-neo__dot p-2 -m-2 box-content bg-clip-content w-2.5 h-2.5 rounded-full bg-base-content/20 hover:bg-base-content/40 transition-all"
+               class="c-testimonial-neo__dot relative w-2.5 h-2.5 rounded-full bg-base-content/20 hover:bg-base-content/40 transition-all"
                data-target={i}
                aria-label={`Go to testimonial ${i + 1}`}
              ></button>

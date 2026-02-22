@@ -2,7 +2,6 @@
 
 .c-testimonial-neo__track {
   perspective: 1200px;
-  transform-style: preserve-3d;
 }
 
 .c-testimonial-neo__card {
@@ -22,21 +21,21 @@
 
 /* Position based on offset from active */
 .c-testimonial-neo__card.active {
-  transform: translate(-50%, -50%) scale(1) translateZ(10px);
+  transform: translate(-50%, -50%) scale(1);
   opacity: 1;
   filter: blur(0);
   z-index: 10;
 }
 
 .c-testimonial-neo__card.prev {
-  transform: translate(-120%, -50%) scale(0.85) rotateY(15deg) translateZ(0);
+  transform: translate(-120%, -50%) scale(0.85) rotateY(15deg);
   opacity: 0.5;
   filter: blur(2px);
   z-index: 5;
 }
 
 .c-testimonial-neo__card.next {
-  transform: translate(20%, -50%) scale(0.85) rotateY(-15deg) translateZ(0);
+  transform: translate(20%, -50%) scale(0.85) rotateY(-15deg);
   opacity: 0.5;
   filter: blur(2px);
   z-index: 5;

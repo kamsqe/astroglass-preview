@@ -55,7 +55,7 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
   <div class="relative">
     <div class="c-portfolio-glass__container flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-[8vw] pt-10 pb-16 sm:pb-20 overflow-x-auto snap-x snap-mandatory">
       {themeItems.map((p, i) => (
-        <LocalizedLink href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
+        <LocalizedLink href={`/${p.realId}`} class="c-portfolio-glass__item group flex-shrink-0 w-[75vw] sm:w-[65vw] md:w-[55vw] lg:w-[42vw] aspect-[4/5] sm:aspect-[4/3] relative snap-center" style={`animation-delay: ${i * 100}ms`}>
           <div class="absolute inset-0 bg-base-content/[0.02] backdrop-blur-xl border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-accent/20">
             {/* Background Image (If available) */}
             {getThemeImage(p.realId) && (
@@ -109,15 +109,15 @@ const themeItems = themes.filter(t => t.enabled).map((theme, i) => ({
     
     <!-- Scroll hint controls -->
     <div class="flex items-center justify-center gap-4 mt-4 pb-4">
-      <button id="theme-gallery-prev" aria-label="Scroll left" class="p-2 text-base-content/80 hover:text-accent transition-all hover:-translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="theme-gallery-prev" aria-label="Scroll left" class="p-2 text-base-content/80 hover:text-accent transition-all hover:-translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
         </svg>
       </button>
-      <span class="text-[10px] font-bold uppercase tracking-widest text-base-content/80 animate-pulse">{t('portfolio.scrollHint')}</span>
-      <button id="theme-gallery-next" aria-label="Scroll right" class="p-2 text-base-content/80 hover:text-accent transition-all hover:translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l4-4m4-4H3"/>
+      <span class="text-[10px] font-bold uppercase tracking-widest text-base-content/80 animate-pulse whitespace-nowrap">{t('portfolio.scrollHint')}</span>
+      <button id="theme-gallery-next" aria-label="Scroll right" class="p-2 text-base-content/80 hover:text-accent transition-all hover:translate-x-1 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full flex-shrink-0">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4-4m4-4H3"/>
         </svg>
       </button>
     </div>

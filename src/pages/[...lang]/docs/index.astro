@@ -11,18 +11,20 @@ export async function getStaticPaths() {
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { buildDocsNav } from '../../../utils/docs-nav';
 import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
+import { useTranslations } from '../../../utils/i18n';
 
 const { locale } = Astro.props;
 const sections = await buildDocsNav(locale as any);
+const t = useTranslations(locale as any);
 
 ---
 
-<BaseLayout title="Documentation" description="Astro Glass Documentation">
+<BaseLayout title={t('docs.indexTitle')} description={t('docs.indexDescription')}>
   <div class="pt-[calc(80px+var(--nav-offset))] pb-20 px-4 sm:px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12 sm:mb-16">
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6">Documentation</h1>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6">{t('docs.indexTitle')}</h1>
       <p class="text-base sm:text-xl text-base-content/60 max-w-2xl mx-auto px-2">
-        Everything you need to build stunning websites with Astro Glass.
+        {t('docs.indexDescription')}
       </p>
     </div>
 
@@ -40,12 +42,12 @@ const sections = await buildDocsNav(locale as any);
               </li>
             ))}
             {section.items.length > 5 && (
-              <li class="text-xs text-base-content/40 pt-2">+ {section.items.length - 5} more</li>
+              <li class="text-xs text-base-content/40 pt-2">+ {section.items.length - 5} {t('docs.more')}</li>
             )}
           </ul>
           <div class="mt-6 pt-6 border-t border-base-content/5">
             <a href={section.items[0]?.href} class="text-sm font-bold text-accent hover:underline">
-              View Section →
+              {t('docs.viewSection')}
             </a>
           </div>
         </div>

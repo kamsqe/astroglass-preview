@@ -26,5 +26,9 @@
   "footerSelect": "Выбрать",
   "footerClose": "Закрыть",
   "remove": "Удалить",
-  "esc": "Esc"
+  "esc": "Esc",
+  "indexTitle": "Документация",
+  "indexDescription": "Всё необходимое для создания потрясающих веб-сайтов с Astro Glass.",
+  "viewSection": "Смотреть раздел →",
+  "more": "ещё"
 }

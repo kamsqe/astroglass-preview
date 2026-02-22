@@ -22,7 +22,7 @@
   "shippingVelocity": "Ускорьте запуск в 10 раз",
   "readyToBuild": "Готовы создавать?",
   "askLeaders": "Спросите у Stripe, Linear, Vercel.",
-  "cloneCommand": "npx degit mirmanoov/liquid-glass-astro-cloudflare my-site",
+  "cloneCommand": "npx degit kamsqee/astroglass my-site",
   "readyIn": "Готово за 2 минуты",
   "terminal": {
     "label": "Терминал"

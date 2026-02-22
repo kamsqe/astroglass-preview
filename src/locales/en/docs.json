@@ -26,5 +26,9 @@
   "footerSelect": "Select",
   "footerClose": "Close",
   "remove": "Remove",
-  "esc": "Esc"
+  "esc": "Esc",
+  "indexTitle": "Documentation",
+  "indexDescription": "Everything you need to build stunning websites with Astro Glass.",
+  "viewSection": "View Section →",
+  "more": "more"
 }

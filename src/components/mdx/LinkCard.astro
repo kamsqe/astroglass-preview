@@ -21,10 +21,10 @@ const { title, href, icon, description } = Astro.props;
     hover:bg-accent/5 hover:border-accent/50
     hover:-translate-y-1 hover:shadow-lg
     transition-all duration-300 ease-out
-    overflow-hidden no-underline
+    no-underline
 ">
   <!-- Gradient overlay on hover -->
-  <div class="absolute inset-0 bg-gradient-to-br from-[hsl(var(--a))/10] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none"></div>
+  <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[hsl(var(--a))/10] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none"></div>
   
   <div class="relative z-10 flex flex-col h-full">
     <div class="flex items-start justify-between gap-4">

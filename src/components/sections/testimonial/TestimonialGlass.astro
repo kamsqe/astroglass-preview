@@ -121,7 +121,7 @@ const messages = [
                             <span class="text-sm font-bold text-base-content">{m.author}</span>
                             <span class="text-xs text-base-content/20">{m.time}</span>
                          </div>
-                         <span class="text-xs text-base-content/60">{m.role}{m.company ? `, ${m.company}` : ''}</span>
+                         <span class="text-xs text-base-content/75">{m.role}{m.company ? `, ${m.company}` : ''}</span>
                       </div>
                       
                       <Card className="c-testimonial-glass__bubble relative p-4 sm:p-5 rounded-2xl rounded-tl-md bg-base-content/[0.04] border-base-content/5 shadow-none">
@@ -134,7 +134,7 @@ const messages = [
                             {m.reactions.map(r => (
                                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-base-content/[0.03] border border-base-content/5 hover:bg-base-content/[0.06] transition-colors cursor-pointer">
                                   <span class="text-sm">{r.emoji}</span>
-                                  <span class="text-xs font-bold text-base-content/60">{r.count}</span>
+                                  <span class="text-xs font-bold text-base-content/75">{r.count}</span>
                                </div>
                             ))}
                          </div>

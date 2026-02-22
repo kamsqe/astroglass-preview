@@ -81,7 +81,7 @@ const searchLabels = {
       <nav class="flex-1 overflow-y-auto p-4 space-y-6">
         {sections.map(section => (
           <div>
-            <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/60 mb-3 px-2">{section.title}</h3>
+            <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/75 mb-3 px-2">{section.title}</h3>
             <ul class="space-y-1">
               {section.items.map(item => {
                 const isActive = Astro.url.pathname.includes(item.href);
@@ -112,7 +112,7 @@ const searchLabels = {
           <nav class="space-y-8">
             {sections.map(section => (
               <div>
-                <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/60 mb-3 px-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-base-content/75 mb-3 px-3">
                   {section.title}
                 </h3>
                 <ul class="space-y-0.5">
@@ -126,7 +126,7 @@ const searchLabels = {
                             "block px-3 py-1.5 rounded-lg text-sm transition-all duration-200",
                             isActive
                               ? "bg-accent/10 text-accent font-medium translate-x-1"
-                              : "text-base-content/60 hover:text-base-content hover:bg-base-content/5 hover:translate-x-1"
+                              : "text-base-content/75 hover:text-base-content hover:bg-base-content/5 hover:translate-x-1"
                           ]}
                         >
                           {item.title}
@@ -156,7 +156,7 @@ const searchLabels = {
             <div class="text-xs font-bold text-accent uppercase tracking-wider mb-3">{doc.data.order ? `Part ${doc.data.order}` : t('docs.guide') || 'Guide'}</div>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-base-content mb-4 tracking-tight">{doc.data.title}</h1>
             {doc.data.description && (
-              <p class="text-lg sm:text-xl text-base-content/60 leading-relaxed">{doc.data.description}</p>
+              <p class="text-lg sm:text-xl text-base-content/75 leading-relaxed">{doc.data.description}</p>
             )}
           </header>
 
@@ -164,7 +164,7 @@ const searchLabels = {
             <slot />
           </article>
           
-          <div class="mt-16 pt-8 border-t border-base-content/5 flex flex-col sm:flex-row justify-between gap-4 text-sm text-base-content/60">
+          <div class="mt-16 pt-8 border-t border-base-content/5 flex flex-col sm:flex-row justify-between gap-4 text-sm text-base-content/75">
             {doc.data.lastUpdated && <span>Updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}</span>}
             {doc.data.lastUpdated && <span>Updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}</span>}
             <!-- Edit link removed -->
@@ -173,8 +173,8 @@ const searchLabels = {
 
         {/* Desktop TOC */}
         <aside class="hidden lg:block py-10 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto">
-          <h4 class="font-bold text-xs uppercase tracking-wider text-base-content/60 mb-4 px-2">{t('docs.onThisPage') || 'On this page'}</h4>
-          <ul class="space-y-1 text-sm text-base-content/60" id="toc-list">
+          <h4 class="font-bold text-xs uppercase tracking-wider text-base-content/75 mb-4 px-2">{t('docs.onThisPage') || 'On this page'}</h4>
+          <ul class="space-y-1 text-sm text-base-content/75" id="toc-list">
             {headings.map(h => (
               <li style={`padding-left: ${(h.depth - 2) * 0.75}rem`}>
                 <a 

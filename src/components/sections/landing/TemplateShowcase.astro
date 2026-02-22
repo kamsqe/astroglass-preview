@@ -113,7 +113,7 @@ const cards = [
       <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-base-content tracking-tighter leading-[0.95] mb-6">
         {t('landing.showcase.title')}
       </h2>
-      <p class="text-base sm:text-lg text-base-content/60 max-w-xl mx-auto">
+      <p class="text-base sm:text-lg text-base-content/75 max-w-xl mx-auto">
         {t('landing.showcase.desc')}
       </p>
     </div>
@@ -144,7 +144,7 @@ const cards = [
                 {card.icon}
               </div>
               {card.value && (
-                <span class:list={[
+                <span aria-hidden="true" class:list={[
                   "font-black tracking-tighter transition-colors duration-500",
                   card.large ? "text-5xl sm:text-7xl text-base-content/5 group-hover:text-base-content/10" : "text-3xl sm:text-4xl text-base-content/5 group-hover:text-base-content/10"
                 ]}>
@@ -162,7 +162,7 @@ const cards = [
                 {t(`landing.showcase.${card.key}`)}
               </h3>
               <p class:list={[
-                "text-base-content/60 group-hover:text-base-content/60 leading-relaxed transition-colors duration-500",
+                "text-base-content/75 group-hover:text-base-content/75 leading-relaxed transition-colors duration-500",
                 card.large ? "text-sm sm:text-base max-w-sm" : "text-xs sm:text-sm"
               ]}>
                 {t(`landing.showcase.${card.key}Desc`)}

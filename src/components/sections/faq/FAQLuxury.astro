@@ -52,7 +52,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
                placeholder={t('faq.searchPlaceholder')} 
                class="flex-1 bg-transparent text-base-content placeholder:text-base-content/30 outline-none border-none ring-0 focus:outline-none focus:border-none focus:ring-0 text-base"
              />
-             <button id="faq-luxury-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/60 hover:bg-base-content/10 transition-luxury">
+             <button id="faq-luxury-clear" class="hidden px-3 py-1 rounded-lg bg-base-content/5 text-xs text-base-content/75 hover:bg-base-content/10 transition-luxury">
                 {t('faq.clear')}
              </button>
           </div>
@@ -61,7 +61,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
           <div class="flex flex-wrap justify-center gap-2 mt-4">
              {popularTags.map(tag => (
                 <button 
-                  class="c-faq-luxury__tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/60 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-luxury-slow capitalize cursor-pointer"
+                  class="c-faq-luxury__tag-btn px-4 py-2 rounded-full bg-base-content/[0.04] border border-base-content/10 text-xs font-medium text-base-content/75 hover:bg-accent/10 hover:border-accent/30 hover:text-accent hover:scale-105 active:scale-95 transition-luxury-slow capitalize cursor-pointer"
                   data-tag={tag}
                 >
                    <span class="mr-1 opacity-50">#</span>{t(`faq.tags.${tag}`)}
@@ -90,7 +90,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
                 </div>
              </button>
              <div class="c-faq-luxury__result-content hidden p-5 lg:p-6">
-                <p class="text-sm text-base-content/60 leading-relaxed">{faq.a}</p>
+                <p class="text-sm text-base-content/75 leading-relaxed">{faq.a}</p>
                 <div class="flex gap-2 mt-4">
                    {faq.tags.map(tag => (
                       <span class="c-faq-luxury__label px-2 py-1 rounded-md bg-base-content/[0.02] text-[10px] text-base-content/25 capitalize italic">{t(`faq.tags.${tag}`)}</span>
@@ -104,7 +104,7 @@ const popularTags = ["basics", "pricing", "technical", "account", "support"];
     <!-- No results message -->
     <div class="faq-luxury-no-results hidden text-center py-12">
        <span class="text-4xl mb-4 block">🔍</span>
-       <p class="text-base text-base-content/60 mb-2">{t('faq.noResults')}</p>
+       <p class="text-base text-base-content/75 mb-2">{t('faq.noResults')}</p>
        <p class="text-sm text-base-content/30">{t('faq.tryDifferent')} <a href={`/${locale}/contact`} class="text-accent hover:underline">{t('faq.contactSupport')}</a></p>
     </div>
 

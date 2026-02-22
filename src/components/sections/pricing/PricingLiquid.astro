@@ -38,7 +38,7 @@ const tiers = [
     <div class="text-center mb-20">
        <LiquidSectionTag label={t('pricing.comparePlans')} class="mb-6" />
        <h2 class="text-5xl md:text-7xl font-black text-base-content tracking-tighter leading-none mb-6">{t('pricing.title')}</h2>
-       <p class="text-lg text-base-content/60 font-medium max-w-xl mx-auto">{t('pricing.subtitle')}</p>
+       <p class="text-lg text-base-content/75 font-medium max-w-xl mx-auto">{t('pricing.subtitle')}</p>
     </div>
 
     <!-- Desktop: Table Layout -->
@@ -76,20 +76,20 @@ const tiers = [
                 i % 2 === 0 ? "bg-transparent" : "bg-base-content/[0.01]"
              ]}>
                 <div class="p-6 flex items-center">
-                   <span class="text-sm font-bold text-base-content/60">{f.name}</span>
+                   <span class="text-sm font-bold text-base-content/75">{f.name}</span>
                 </div>
                 <div class="p-6 flex items-center justify-center border-l border-base-content/5">
-                   <span class:list={["text-sm font-bold", f.starter === '—' ? "text-base-content/20" : "text-base-content/60"]}>
+                   <span class:list={["text-sm font-bold", f.starter === '—' ? "text-base-content/20" : "text-base-content/75"]}>
                       {f.starter}
                    </span>
                 </div>
                 <div class="p-6 flex items-center justify-center border-l border-base-content/5 bg-accent/[0.02]">
-                   <span class:list={["text-sm font-bold", f.pro === '✓' ? "text-accent" : "text-base-content/60"]}>
+                   <span class:list={["text-sm font-bold", f.pro === '✓' ? "text-accent" : "text-base-content/75"]}>
                       {f.pro}
                    </span>
                 </div>
                 <div class="p-6 flex items-center justify-center border-l border-base-content/5">
-                   <span class:list={["text-sm font-bold", f.enterprise === '✓' ? "text-accent" : "text-base-content/60"]}>
+                   <span class:list={["text-sm font-bold", f.enterprise === '✓' ? "text-accent" : "text-base-content/75"]}>
                       {f.enterprise}
                    </span>
                 </div>
@@ -124,7 +124,7 @@ const tiers = [
              <div class="flex items-center justify-between mb-6">
                 <div>
                    <h3 class="text-lg font-black text-base-content">{tier.name}</h3>
-                   <p class="text-xs text-base-content/60">{tier.period}</p>
+                   <p class="text-xs text-base-content/75">{tier.period}</p>
                 </div>
                 <div class="text-right">
                    <div class="flex items-baseline gap-0.5">
@@ -139,14 +139,14 @@ const tiers = [
              <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 pb-6 border-b border-base-content/5">
                 {features.slice(0, 6).map(f => (
                    <div class="flex items-center justify-between text-sm py-1">
-                      <span class="text-base-content/60 text-xs">{f.name}</span>
+                      <span class="text-base-content/75 text-xs">{f.name}</span>
                       <span class:list={[
                          "text-xs font-bold",
                          tier.id === 'starter' && f.starter === '—' ? "text-base-content/20" :
-                         tier.id === 'starter' ? "text-base-content/60" :
+                         tier.id === 'starter' ? "text-base-content/75" :
                          tier.id === 'pro' && f.pro === '✓' ? "text-accent" :
-                         tier.id === 'pro' ? "text-base-content/60" :
-                         f.enterprise === '✓' ? "text-accent" : "text-base-content/60"
+                         tier.id === 'pro' ? "text-base-content/75" :
+                         f.enterprise === '✓' ? "text-accent" : "text-base-content/75"
                       ]}>
                          {tier.id === 'starter' ? f.starter : tier.id === 'pro' ? f.pro : f.enterprise}
                       </span>

@@ -36,7 +36,7 @@ const { projects, challengeLabel, solutionLabel, impactLabel, techStackLabel } =
   <div class="c-portfolio-page-glass__overlay-backdrop" data-close-modal></div>
   <div class="c-portfolio-page-glass__overlay-panel">
     <!-- Close button -->
-    <button class="absolute top-6 right-6 w-10 h-10 rounded-xl bg-base-content/5 border border-base-content/10 flex items-center justify-center text-base-content/60 hover:text-accent hover:border-accent/20 transition-colors duration-300 cursor-pointer z-20" data-close-modal>
+    <button class="absolute top-6 right-6 w-10 h-10 rounded-xl bg-base-content/5 border border-base-content/10 flex items-center justify-center text-base-content/75 hover:text-accent hover:border-accent/20 transition-colors duration-300 cursor-pointer z-20" data-close-modal>
       <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
       </svg>
@@ -56,31 +56,31 @@ const { projects, challengeLabel, solutionLabel, impactLabel, techStackLabel } =
         {p.categoryLabel}
       </span>
       <h2 class="text-3xl sm:text-4xl font-black text-base-content tracking-tight mb-3">{p.title}</h2>
-      <p class="text-base text-base-content/60 leading-relaxed">{p.longDescription}</p>
+      <p class="text-base text-base-content/75 leading-relaxed">{p.longDescription}</p>
     </div>
 
     <div class="flex items-center gap-4 mb-8 p-4 rounded-2xl bg-base-content/[0.02] border border-base-content/5">
       <span class="text-3xl font-black text-accent">{p.metric}</span>
-      <span class="text-xs text-base-content/60 font-bold uppercase tracking-wider">{p.metricLabel}</span>
+      <span class="text-xs text-base-content/75 font-bold uppercase tracking-wider">{p.metricLabel}</span>
     </div>
 
     <div class="c-portfolio-page-glass__narrative mb-8">
       <div class="c-portfolio-page-glass__narrative-block">
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent mb-3">{challengeLabel}</h4>
-        <p class="text-sm text-base-content/60 leading-relaxed">{p.challenge}</p>
+        <p class="text-sm text-base-content/75 leading-relaxed">{p.challenge}</p>
       </div>
       <div class="c-portfolio-page-glass__narrative-block">
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent mb-3">{solutionLabel}</h4>
-        <p class="text-sm text-base-content/60 leading-relaxed">{p.solution}</p>
+        <p class="text-sm text-base-content/75 leading-relaxed">{p.solution}</p>
       </div>
       <div class="c-portfolio-page-glass__narrative-block">
         <h4 class="text-xs font-black uppercase tracking-[0.2em] text-accent mb-3">{impactLabel}</h4>
-        <p class="text-sm text-base-content/60 leading-relaxed">{p.impact}</p>
+        <p class="text-sm text-base-content/75 leading-relaxed">{p.impact}</p>
       </div>
     </div>
 
     <div class="mb-6">
-      <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/60 mb-3">{techStackLabel}</h4>
+      <h4 class="text-xs font-black uppercase tracking-[0.2em] text-base-content/75 mb-3">{techStackLabel}</h4>
       <div class="flex flex-wrap gap-2">
         {p.techStack.map((tech) => (
           <span class="c-portfolio-page-glass__tech-pill">{tech}</span>

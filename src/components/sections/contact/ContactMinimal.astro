@@ -90,7 +90,7 @@ import '../../../styles/components/tag/TagMinimal.css';
                 <span class="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-500">{intent.icon}</span>
                 <div>
                   <p class="text-sm sm:text-base font-bold text-base-content">{intent.label}</p>
-                  <p class="text-xs text-base-content/60 mt-0.5">{intent.desc}</p>
+                  <p class="text-xs text-base-content/75 mt-0.5">{intent.desc}</p>
                 </div>
               </div>
             </button>
@@ -130,7 +130,7 @@ import '../../../styles/components/tag/TagMinimal.css';
           <form class="contact-minimal-form space-y-4" novalidate>
             <!-- Name -->
             <div class="form-control">
-              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+              <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
               <input 
                 type="text" 
                 name="name"
@@ -142,7 +142,7 @@ import '../../../styles/components/tag/TagMinimal.css';
 
             <!-- Email -->
             <div class="form-control">
-              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
+              <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
               <input 
                 type="email" 
                 name="email"
@@ -155,7 +155,7 @@ import '../../../styles/components/tag/TagMinimal.css';
 
             <!-- Message -->
             <div class="form-control">
-              <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
+              <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
               <textarea 
                 name="message"
                 required
@@ -178,7 +178,7 @@ import '../../../styles/components/tag/TagMinimal.css';
           </form>
 
           <!-- Back link -->
-          <button class="contact-minimal-back w-full mt-4 text-xs text-base-content/60 hover:text-accent transition-colors">
+          <button class="contact-minimal-back w-full mt-4 text-xs text-base-content/75 hover:text-accent transition-colors">
             {t('contact.wizard.actions.back')}
           </button>
         </div>
@@ -189,7 +189,7 @@ import '../../../styles/components/tag/TagMinimal.css';
         <div class="p-8 sm:p-12 rounded-2xl bg-accent/5 border border-accent/20 text-center">
           <div class="text-5xl mb-4">🎉</div>
           <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
-          <p class="text-sm text-base-content/60 mb-6" id="contact-minimal-success-text"></p>
+          <p class="text-sm text-base-content/75 mb-6" id="contact-minimal-success-text"></p>
           <button class="contact-minimal-restart text-sm text-accent hover:underline">
             {t('contact.wizard.actions.restart')}
           </button>
@@ -321,7 +321,7 @@ import '../../../styles/components/tag/TagMinimal.css';
       fields.forEach(field => {
         const div = document.createElement('div');
         div.innerHTML = `
-          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">${field.label}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">${field.label}</label>
           ${field.type === 'select' ? `
             <select name="${field.name}" class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-300">
               <option value="">${i18n.placeholders.select}</option>

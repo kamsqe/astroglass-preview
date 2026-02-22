@@ -59,7 +59,7 @@ const useCases = [
       <h2 class="text-4xl sm:text-5xl md:text-6xl font-normal font-serif text-base-content tracking-tight mb-4">
         {t('features.luxuryTitle')}
       </h2>
-      <p class="text-base sm:text-lg text-base-content/60 max-w-xl mx-auto">
+      <p class="text-base sm:text-lg text-base-content/75 max-w-xl mx-auto">
         {t('features.luxurySubtitle')}
       </p>
     </div>
@@ -72,7 +72,7 @@ const useCases = [
             type="button"
             class:list={[
               "tab-btn flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-luxury",
-              i === 0 ? "active bg-accent text-white shadow-lg shadow-accent/25" : "text-base-content/60 hover:text-base-content hover:bg-base-content/5"
+              i === 0 ? "active bg-accent text-white shadow-lg shadow-accent/25" : "text-base-content/75 hover:text-base-content hover:bg-base-content/5"
             ]}
             data-tab={uc.id}
           >
@@ -94,7 +94,7 @@ const useCases = [
           data-content={uc.id}
         >
           <!-- Headline -->
-          <p class="text-center text-lg sm:text-xl text-base-content/60 font-medium mb-8 sm:mb-10 max-w-2xl mx-auto">
+          <p class="text-center text-lg sm:text-xl text-base-content/75 font-medium mb-8 sm:mb-10 max-w-2xl mx-auto">
             {uc.headline}
           </p>
 
@@ -111,7 +111,7 @@ const useCases = [
                       <h3 class="text-lg sm:text-xl font-black text-base-content mb-2 group-hover:text-accent transition-colors duration-luxury-fast">
                         {f.title}
                       </h3>
-                      <p class="text-sm sm:text-base text-base-content/60 leading-relaxed group-hover:text-base-content/70 transition-colors duration-luxury-fast">
+                      <p class="text-sm sm:text-base text-base-content/75 leading-relaxed group-hover:text-base-content/70 transition-colors duration-luxury-fast">
                         {f.desc}
                       </p>
                     </div>
@@ -153,10 +153,10 @@ const useCases = [
         // Update tabs
         tabs.forEach(t => {
           t.classList.remove('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-          t.classList.add('text-base-content/60');
+          t.classList.add('text-base-content/75');
         });
         tab.classList.add('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-        tab.classList.remove('text-base-content/60');
+        tab.classList.remove('text-base-content/75');
 
         // Update content
         contents.forEach(c => {

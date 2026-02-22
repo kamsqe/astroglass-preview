@@ -21,10 +21,10 @@ const { props } = Astro.props;
   <table class="w-full text-left border-collapse">
     <thead>
       <tr class="border-b border-base-content/10 bg-base-content/[0.03]">
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/60">Prop</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/60">Type</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/60">Default</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/60">Description</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Prop</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Type</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Default</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Description</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-base-content/5">
@@ -32,7 +32,7 @@ const { props } = Astro.props;
         <tr class="hover:bg-base-content/[0.02] transition-colors">
           <td class="p-4 font-mono text-sm text-accent font-bold">{prop.name}</td>
           <td class="p-4 font-mono text-xs text-base-content/70 bg-base-content/5 rounded m-2 inline-block">{prop.type}</td>
-          <td class="p-4 font-mono text-xs text-base-content/60">{prop.default || '-'}</td>
+          <td class="p-4 font-mono text-xs text-base-content/75">{prop.default || '-'}</td>
           <td class="p-4 text-sm text-base-content/80 leading-relaxed">{prop.description}</td>
         </tr>
       ))}

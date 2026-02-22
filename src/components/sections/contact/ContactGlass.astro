@@ -44,7 +44,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     <div class="text-center mb-8">
       <SectionTag label={t('contact.eyebrow')} class="mb-2" />
       <SectionHeading size="sm" align="center">{t('contact.title')}</SectionHeading>
-      <p class="text-sm text-base-content/60 mt-2">{t('contact.subtitle')}</p>
+      <p class="text-sm text-base-content/75 mt-2">{t('contact.subtitle')}</p>
     </div>
 
     <!-- Form Container -->
@@ -53,7 +53,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       <form class="contact-glass-form space-y-5" novalidate>
         <!-- Topic Selection -->
         <div>
-          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-3">{t('contact.form.topic')}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-3">{t('contact.form.topic')}</label>
           <div class="grid grid-cols-2 gap-2">
             {topics.map((topic, i) => (
               <label class="contact-glass-topic-label cursor-pointer">
@@ -75,7 +75,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
         <!-- Name -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
           <Input 
             type="text" 
             name="name"
@@ -87,7 +87,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
         <!-- Email -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
           <Input 
             type="email" 
             name="email"
@@ -100,7 +100,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
         <!-- Message -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/60 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
           <Textarea 
             name="message"
             required
@@ -126,7 +126,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
       <div class="contact-glass-success hidden text-center py-8">
         <div class="text-5xl mb-4">🎉</div>
         <h3 class="text-xl font-bold text-base-content mb-2">{t('contact.successTitle')}</h3>
-        <p class="text-sm text-base-content/60 mb-6">{t('contact.form.success')}</p>
+        <p class="text-sm text-base-content/75 mb-6">{t('contact.form.success')}</p>
         <button class="contact-glass-reset text-sm text-accent hover:underline">
           {t('contact.wizard.actions.restart')}
         </button>

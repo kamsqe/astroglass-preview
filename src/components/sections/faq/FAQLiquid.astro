@@ -69,7 +69,7 @@ const categoriesJson = JSON.stringify(categories);
     <div class="text-center mb-12 lg:mb-16">
        <LiquidSectionTag label={t('faq.support')} class="mb-4" />
        <h2 class="text-4xl md:text-6xl font-black text-base-content tracking-tighter">{t('faq.title')}</h2>
-       <p class="text-base text-base-content/60 mt-4">{t('faq.subtitle')}</p>
+       <p class="text-base text-base-content/75 mt-4">{t('faq.subtitle')}</p>
     </div>
 
     <!-- Mobile: Step-by-step Journey -->
@@ -89,7 +89,7 @@ const categoriesJson = JSON.stringify(categories);
                 >
                    <span class="text-2xl mb-3 block">{cat.icon}</span>
                    <p class="text-sm font-bold text-base-content mb-1">{cat.title}</p>
-                   <p class="text-xs text-base-content/60">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
+                   <p class="text-xs text-base-content/75">{t('faq.questionsCount').replace('{count}', cat.questions.length.toString())}</p>
                 </button>
              ))}
           </div>
@@ -108,7 +108,7 @@ const categoriesJson = JSON.stringify(categories);
                 <p class="text-xs text-base-content/30 mb-3">{t('faq.wasHelpful')}</p>
                 <div class="flex gap-3 c-faq-liquid__feedback-btns">
                    <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-yes px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-bold hover:bg-accent/20 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="yes">👍 {t('faq.yes')}</button>
-                   <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/60 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
+                   <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/75 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
                 </div>
                 <p class="c-faq-liquid__feedback-thanks hidden text-xs text-accent mt-3">{t('faq.feedbackThanks')}</p>
              </div>
@@ -133,7 +133,7 @@ const categoriesJson = JSON.stringify(categories);
                    <div class="c-faq-liquid__tree-questions hidden pl-4 mt-2 space-y-1">
                       {cat.questions.map((q, i) => (
                          <button 
-                           class="c-faq-liquid__tree-question w-full text-left px-4 py-3 rounded-lg text-sm text-base-content/60 hover:text-base-content hover:bg-base-content/[0.03] transition-all duration-500"
+                           class="c-faq-liquid__tree-question w-full text-left px-4 py-3 rounded-lg text-sm text-base-content/75 hover:text-base-content hover:bg-base-content/[0.03] transition-all duration-500"
                            data-category={cat.id}
                            data-index={i}
                          >
@@ -156,7 +156,7 @@ const categoriesJson = JSON.stringify(categories);
                     <path d="M12 5C12 5 8 11 8 14C8 16.21 9.79 18 12 18C14.21 18 16 16.21 16 14C16 11 12 5 12 5Z"/>
                   </svg>
                 </div>
-                <p class="text-base text-base-content/60">{t('faq.selectQuestion')}</p>
+                <p class="text-base text-base-content/75">{t('faq.selectQuestion')}</p>
              </div>
              <div class="c-faq-liquid__content-answer hidden">
                 <p class="text-xs text-accent font-bold uppercase tracking-widest mb-4" id="desktop-liquid-category-label"></p>
@@ -168,7 +168,7 @@ const categoriesJson = JSON.stringify(categories);
                       <p class="text-xs text-base-content/30 mb-2">{t('faq.wasHelpful')}</p>
                       <div class="flex gap-2 c-faq-liquid__feedback-btns">
                          <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-yes px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-bold hover:bg-accent/20 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="yes">👍 {t('faq.yes')}</button>
-                         <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/60 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
+                         <button class="c-faq-liquid__feedback-btn c-faq-liquid__feedback-no px-4 py-2 rounded-full bg-base-content/5 text-base-content/75 text-sm font-bold hover:bg-base-content/10 hover:scale-105 active:scale-95 transition-all duration-500" data-vote="no">👎 {t('faq.no')}</button>
                       </div>
                       <p class="c-faq-liquid__feedback-thanks hidden absolute top-full left-0 mt-2 text-xs text-accent whitespace-nowrap">{t('faq.feedbackThanks')}</p>
                    </div>
@@ -224,7 +224,7 @@ const categoriesJson = JSON.stringify(categories);
       
       if (breadcrumb) {
         breadcrumb.innerHTML = `
-          <button class="c-faq-liquid__home text-base-content/60 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
+          <button class="c-faq-liquid__home text-base-content/75 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
           <span class="text-base-content/20">→</span>
           <span class="text-accent font-bold">${cat.title}</span>
         `;
@@ -254,9 +254,9 @@ const categoriesJson = JSON.stringify(categories);
       
       if (breadcrumb) {
         breadcrumb.innerHTML = `
-          <button class="c-faq-liquid__home text-base-content/60 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
+          <button class="c-faq-liquid__home text-base-content/75 hover:text-accent transition-colors duration-500">${i18n.topics}</button>
           <span class="text-base-content/20">→</span>
-          <button class="c-faq-liquid__back-cat text-base-content/60 hover:text-accent transition-colors duration-500">${currentCategory.title}</button>
+          <button class="c-faq-liquid__back-cat text-base-content/75 hover:text-accent transition-colors duration-500">${currentCategory.title}</button>
           <span class="text-base-content/20">→</span>
           <span class="text-accent font-bold">${i18n.answer}</span>
         `;
@@ -336,7 +336,7 @@ const categoriesJson = JSON.stringify(categories);
         // Reset No button styling
         container.querySelectorAll('.c-faq-liquid__feedback-no').forEach(btn => {
           btn.classList.remove('text-accent');
-          btn.classList.add('text-base-content/60', 'bg-base-content/5');
+          btn.classList.add('text-base-content/75', 'bg-base-content/5');
         });
       });
       document.querySelectorAll('.c-faq-liquid__feedback-thanks').forEach(el => el.classList.add('hidden'));

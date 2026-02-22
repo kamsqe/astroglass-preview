@@ -91,7 +91,7 @@ const testimonials = [
                       />
                       <div>
                          <p class="text-base font-bold text-base-content">{item.author}</p>
-                         <p class="text-sm text-base-content/60">{item.role} {t('testimonial.at')} {item.company}</p>
+                         <p class="text-sm text-base-content/75">{item.role} {t('testimonial.at')} {item.company}</p>
                       </div>
                    </div>
                 </div>
@@ -100,13 +100,15 @@ const testimonials = [
        </div>
 
        <!-- Navigation Dots -->
-       <div class="flex justify-center gap-3 mt-8">
+       <div class="flex justify-center gap-0 mt-4">
           {testimonials.map((_, i) => (
              <button 
-               class="c-testimonial-neo__dot relative w-2.5 h-2.5 rounded-full bg-base-content/20 hover:bg-base-content/40 transition-all"
+               class="w-11 h-11 flex items-center justify-center group"
                data-target={i}
                aria-label={`Go to testimonial ${i + 1}`}
-             ></button>
+             >
+               <span class="c-testimonial-neo__dot relative w-2.5 h-2.5 rounded-full bg-base-content/20 group-hover:bg-base-content/40 transition-all"></span>
+             </button>
           ))}
        </div>
     </div>

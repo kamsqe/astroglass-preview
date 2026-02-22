@@ -280,8 +280,8 @@
 
 /* Primary CTA */
 .hero-aurora-btn--primary {
-  color: hsl(var(--bc));
-  background: hsl(var(--a));
+  color: hsl(var(--b1));
+  background: hsl(var(--bc));
 }
 
 .hero-aurora-btn--primary:hover {

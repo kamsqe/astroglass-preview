@@ -144,11 +144,10 @@ const cards = [
                 {card.icon}
               </div>
               {card.value && (
-                <span aria-hidden="true" class:list={[
-                  "font-black tracking-tighter transition-colors duration-500",
+                <span data-content={card.value} class:list={[
+                  "showcase-value font-black tracking-tighter transition-colors duration-500",
                   card.large ? "text-5xl sm:text-7xl text-base-content/5 group-hover:text-base-content/10" : "text-3xl sm:text-4xl text-base-content/5 group-hover:text-base-content/10"
                 ]}>
-                  {card.value}
                 </span>
               )}
             </div>
@@ -215,5 +214,9 @@ const cards = [
 
   :global([data-theme="monochrome"]) .showcase-card:hover {
     border-color: hsl(var(--bc) / 0.2);
+  }
+
+  .showcase-value::before {
+    content: attr(data-content);
   }
 </style>

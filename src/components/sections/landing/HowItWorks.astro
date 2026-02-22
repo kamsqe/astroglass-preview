@@ -65,8 +65,7 @@ const steps = [
           <div class="relative z-10 p-6 sm:p-8 lg:p-10 flex flex-col min-h-[280px] sm:min-h-[320px]">
             {/* Top: Number + Icon */}
             <div class="flex items-start justify-between mb-auto">
-              <span aria-hidden="true" class="text-5xl sm:text-6xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500 tracking-tighter">
-                {step.num}
+              <span data-content={step.num} class="hiw-value text-5xl sm:text-6xl font-black text-base-content/5 group-hover:text-base-content/10 transition-colors duration-500 tracking-tighter">
               </span>
               <div class="text-3xl sm:text-4xl transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                 {step.icon}
@@ -93,7 +92,7 @@ const steps = [
               
               {/* Command snippet */}
               {step.cmd && (
-                <div class="bg-base-content/[0.04] rounded-lg px-3 py-2 font-mono text-[11px] text-base-content/30 group-hover:text-base-content/75 transition-colors duration-500 overflow-x-auto">
+                <div class="bg-base-content/[0.04] rounded-lg px-3 py-2 font-mono text-[11px] text-base-content/60 group-hover:text-base-content/75 transition-colors duration-500 overflow-x-auto">
                   <span class="text-accent/80">❯</span> {step.cmd}
                 </div>
               )}
@@ -133,5 +132,9 @@ const steps = [
   :global([data-theme="monochrome"]) .hiw-card [data-hiw-bg] {
     background-image: none;
     background-color: hsl(var(--bc) / 0.05);
+  }
+
+  .hiw-value::before {
+    content: attr(data-content);
   }
 </style>

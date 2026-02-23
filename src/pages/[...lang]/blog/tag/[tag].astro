@@ -1,5 +1,5 @@
 ---
-import { getEnabledLocaleCodes, defaultLocale } from '../../../../config/locales';
+
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../../components/blog/BlogCard.astro';
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   const { getEnabledLocaleCodes, defaultLocale } = await import('../../../../config/locales');
   const langs = getEnabledLocaleCodes();
   const posts = await getCollection('blog');
-  const paths = [];
+  const paths: { params: { lang: string | undefined; tag: string }; props: { tag: string; locale: string } }[] = [];
 
   for (const lang of langs) {
     const langPosts = posts.filter(post => post.slug.startsWith(`${lang}/`));

@@ -13,9 +13,11 @@ import { buildDocsNav } from '../../../utils/docs-nav';
 import FooterLiquid from '../../../components/sections/footer/FooterLiquid.astro';
 import { useTranslations } from '../../../utils/i18n';
 
+type DocsLocale = Parameters<typeof buildDocsNav>[0];
+
 const { locale } = Astro.props;
-const sections = await buildDocsNav(locale as any);
-const t = useTranslations(locale as any);
+const sections = await buildDocsNav(locale as DocsLocale);
+const t = useTranslations(locale as DocsLocale);
 
 ---
 

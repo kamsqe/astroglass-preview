@@ -24,19 +24,16 @@ import { getLocaleFromUrl } from '../../utils/locale-utils';
 import { getThemeById } from '../../config/themes';
 import { themePresets } from '../../config/themePresets';
 
-// Theme barrel files
-// @ts-ignore
+// Theme barrel files (typed via src/types/theme-sections.d.ts)
 import * as LiquidSections  from '../../components/sections/themes/liquid';
-// @ts-ignore
 import * as GlassSections   from '../../components/sections/themes/glass';
-// @ts-ignore
 import * as NeoSections     from '../../components/sections/themes/neo';
-// @ts-ignore
 import * as LuxurySections  from '../../components/sections/themes/luxury';
-// @ts-ignore
 import * as MinimalSections from '../../components/sections/themes/minimal';
-// @ts-ignore
 import * as AuroraSections  from '../../components/sections/themes/aurora';
+
+/** Shape of each theme module — keyed by section name, values are Astro components. */
+type ThemeModuleMap = Record<string, Record<string, unknown>>;
 
 export async function getStaticPaths() {
   const { getEnabledThemes } = await import('../../config/themes');
@@ -70,7 +67,7 @@ const t = useTranslations(locale);
 const preset = themePresets[themeId] ?? themePresets['liquid'];
 
 // Map of all theme section modules — add a new entry here when adding a new theme.
-const themeModules: Record<string, Record<string, unknown>> = {
+const themeModules: ThemeModuleMap = {
   liquid:  LiquidSections,
   glass:   GlassSections,
   neo:     NeoSections,
@@ -82,15 +79,15 @@ const themeModules: Record<string, Record<string, unknown>> = {
 const sections = themeModules[themeId] ?? LiquidSections;
 
 // Layout components — always rendered, not part of the section preset.
-const Header = sections['Header'] as any;
-const Footer = sections['Footer'] as any;
+const Header = sections['Header'] as (_props: Record<string, unknown>) => unknown;
+const Footer = sections['Footer'] as (_props: Record<string, unknown>) => unknown;
 
 // Resolve main content sections in preset order.
 // If a section key is listed in the preset but not exported by the barrel file,
 // it is silently skipped — no runtime error.
 const mainSections = preset.landingSections
   .map((key) => sections[key] ?? null)
-  .filter((C): C is NonNullable<typeof C> => C !== null) as any[];
+  .filter((C): C is NonNullable<typeof C> => C !== null);
 ---
 
 <BaseLayout

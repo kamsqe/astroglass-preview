@@ -19,17 +19,12 @@ import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import { getThemeById } from '../../../config/themes';
 
 // Theme barrel files — same source of truth used by [theme].astro.
-// @ts-ignore — .astro imports in .ts barrel files resolve correctly at build time
+// Typed via src/types/theme-sections.d.ts
 import * as LiquidSections  from '../../../components/sections/themes/liquid';
-// @ts-ignore
 import * as GlassSections   from '../../../components/sections/themes/glass';
-// @ts-ignore
 import * as NeoSections     from '../../../components/sections/themes/neo';
-// @ts-ignore
 import * as LuxurySections  from '../../../components/sections/themes/luxury';
-// @ts-ignore
 import * as MinimalSections from '../../../components/sections/themes/minimal';
-// @ts-ignore
 import * as AuroraSections  from '../../../components/sections/themes/aurora';
 
 export async function getStaticPaths() {
@@ -74,9 +69,9 @@ const themeModules: Record<string, Record<string, unknown>> = {
 
 const sections = themeModules[themeId] ?? LiquidSections;
 
-const Header       = sections['Header']       as any;
-const PortfolioPage = sections['PortfolioPage'] as any ?? null;
-const Footer       = sections['Footer']       as any;
+const Header       = sections['Header']       as (_props: Record<string, unknown>) => unknown;
+const PortfolioPage = (sections['PortfolioPage'] ?? null) as ((_props: Record<string, unknown>) => unknown) | null;
+const Footer       = sections['Footer']       as (_props: Record<string, unknown>) => unknown;
 ---
 
 <BaseLayout

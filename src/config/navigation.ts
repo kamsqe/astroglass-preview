@@ -16,20 +16,6 @@ export interface NavIcon {
   strokeWidth?: number;
 }
 
-export interface NavChild {
-  href: string;
-  labelKey: string;
-  icon?: NavIcon;
-  children?: { href: string; labelKey: string }[];
-}
-
-export interface NavLink {
-  href?: string;
-  labelKey: string;
-  icon: NavIcon;
-  children?: NavChild[];
-}
-
 // Default icons for common nav items
 export const navIcons = {
   home: {

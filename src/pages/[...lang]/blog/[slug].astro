@@ -16,7 +16,7 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog');
   const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
   const langs = getEnabledLocaleCodes();
-  const paths = [];
+  const paths: Array<{ params: { lang: string | undefined; slug: string }; props: { post: (typeof posts)[number]; prevPost?: { slug: string; title: string }; nextPost?: { slug: string; title: string }; allPosts: (typeof posts)[number][]; locale: string } }> = [];
 
   for (const lang of langs) {
     const langPosts = posts

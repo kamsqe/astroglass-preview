@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getLocaleFromUrl, locales } from '../../utils/locale-utils';
+import type { Locale } from '../../config/locales';
 
 interface Props extends HTMLAttributes<'a'> {
   href: string | URL | null | undefined;
@@ -42,7 +43,7 @@ if (
   const firstPathSegment = segments[1];
   
   // If the path already has a locale prefix (e.g. /ru/docs or /en/docs), strip it
-  if (locales.includes(firstPathSegment as any)) {
+  if (locales.includes(firstPathSegment as Locale)) {
     segments.splice(1, 1);
   }
   

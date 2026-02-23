@@ -45,6 +45,6 @@ const components = {
 };
 ---
 
-<DocsLayout doc={doc} headings={headings} locale={locale}>
+<DocsLayout doc={doc} headings={headings} locale={locale as 'en' | 'ru'}>
   <Content components={components} />
 </DocsLayout>

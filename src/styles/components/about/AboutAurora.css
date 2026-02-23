@@ -39,7 +39,7 @@
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 0.72rem;
   font-weight: 600;
-  color: hsl(var(--a) / 0.6);
+  color: hsl(var(--a) / 0.8);
   letter-spacing: 0.08em;
   margin-bottom: 20px;
 }
@@ -56,7 +56,7 @@
 .about-aurora-desc {
   font-size: 1rem;
   line-height: 1.7;
-  color: hsl(var(--bc) / 0.6);
+  color: hsl(var(--bc) / 0.75);
   margin-bottom: 36px;
   max-width: 520px;
 }
@@ -101,7 +101,7 @@
 
 .about-aurora-stat-sub {
   font-size: 0.7rem;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
 }
 
 /* CTA Link */
@@ -217,7 +217,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -264,7 +264,7 @@
   gap: 8px;
   margin-top: 8px;
   font-size: 0.75rem;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
 }
 
 .about-aurora-sparkline-up {
@@ -367,7 +367,7 @@
 .about-aurora-metric-label {
   font-size: 0.65rem;
   font-weight: 600;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -391,7 +391,7 @@
   padding: 6px 14px;
   font-size: 0.7rem;
   font-weight: 600;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
   background: hsl(var(--bc) / 0.03);
   border: 1px solid hsl(var(--bc) / 0.06);
   border-radius: 999px;

@@ -54,7 +54,7 @@
 
 .portfolio-aurora-subtitle {
   font-size: clamp(1rem, 2vw, 1.15rem);
-  color: hsl(var(--bc) / 0.6);
+  color: hsl(var(--bc) / 0.75);
   line-height: 1.6;
 }
 
@@ -264,7 +264,7 @@
 
 .portfolio-aurora-overlay-desc {
   font-size: 0.85rem;
-  color: hsl(var(--bc) / 0.6);
+  color: hsl(var(--bc) / 0.75);
   line-height: 1.5;
   margin-bottom: 1.25rem;
   display: -webkit-box;
@@ -306,7 +306,7 @@
   padding: 8px 18px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: hsl(var(--bc) / 0.5);
+  color: hsl(var(--bc) / 0.75);
   background: none;
   border: 1px solid hsl(var(--bc) / 0.08);
   border-radius: 999px;

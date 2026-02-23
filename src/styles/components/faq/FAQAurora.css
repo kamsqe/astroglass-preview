@@ -44,7 +44,7 @@
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 0.72rem;
   font-weight: 600;
-  color: hsl(var(--a) / 0.6);
+  color: hsl(var(--a) / 0.8);
   letter-spacing: 0.08em;
   margin-bottom: 20px;
 }
@@ -74,13 +74,13 @@
 .faq-aurora-subtitle {
   font-size: 1rem;
   line-height: 1.6;
-  color: hsl(var(--bc) / 0.5);
+  color: hsl(var(--bc) / 0.75);
   margin-bottom: 24px;
 }
 
 .faq-aurora-contact {
   font-size: 0.85rem;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.7);
 }
 
 .faq-aurora-contact a {
@@ -128,7 +128,7 @@
   font-size: 0.7rem;
   font-weight: 800;
   font-family: monospace;
-  color: hsl(var(--a) / 0.4);
+  color: hsl(var(--a) / 0.7);
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
@@ -185,7 +185,7 @@
 .faq-aurora-answer p {
   font-size: 0.88rem;
   line-height: 1.7;
-  color: hsl(var(--bc) / 0.55);
+  color: hsl(var(--bc) / 0.75);
   padding-left: 40px;
   border-left: 2px solid hsl(var(--a) / 0.15);
   margin-left: 0;

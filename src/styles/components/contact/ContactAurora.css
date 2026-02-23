@@ -74,7 +74,7 @@
 .contact-aurora-desc {
   font-size: 1rem;
   line-height: 1.6;
-  color: hsl(var(--bc) / 0.5);
+  color: hsl(var(--bc) / 0.75);
   margin-bottom: 32px;
 }
 
@@ -93,7 +93,7 @@
   align-items: center;
   gap: 12px;
   font-size: 0.9rem;
-  color: hsl(var(--bc) / 0.7);
+  color: hsl(var(--bc) / 0.9);
 }
 
 .contact-aurora-reason-icon {
@@ -124,7 +124,7 @@
   align-items: center;
   gap: 8px;
   font-size: 0.78rem;
-  color: hsl(var(--bc) / 0.4);
+  color: hsl(var(--bc) / 0.65);
 }
 
 .contact-aurora-trust-icon {
@@ -183,7 +183,7 @@
 .contact-aurora-field label {
   font-size: 0.78rem;
   font-weight: 700;
-  color: hsl(var(--bc) / 0.6);
+  color: hsl(var(--bc) / 0.8);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -247,7 +247,7 @@
 
 .contact-aurora-privacy {
   font-size: 0.72rem;
-  color: hsl(var(--bc) / 0.3);
+  color: hsl(var(--bc) / 0.7);
   text-align: center;
 }
 

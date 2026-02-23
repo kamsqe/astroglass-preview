@@ -65,7 +65,7 @@ const stats = [
 
       <div class="c-pricing-minimal__bento lg:col-span-3 p-10 md:p-14 rounded-[3.5rem] bg-accent/5 border border-accent/10 backdrop-blur-2xl hover:bg-accent/10 flex flex-col justify-center text-center group/b2">
          <div class="text-5xl lg:text-7xl font-black text-accent mb-3 tracking-tighter group-hover/b2:scale-110">{stats[0].value}</div>
-         <div class="text-[11px] font-black uppercase tracking-[0.4em] text-accent opacity-50 group-hover/b2:tracking-[0.6em]">{stats[0].label}</div>
+         <div class="text-[11px] font-black uppercase tracking-[0.4em] text-accent opacity-80 group-hover/b2:tracking-[0.6em]">{stats[0].label}</div>
       </div>
 
       <Card variant="bento" className="c-pricing-minimal__bento lg:col-span-3 p-10 md:p-14 rounded-[3.5rem] group/b3">
@@ -105,7 +105,7 @@ const stats = [
           {stats.map(s => (
              <div class="p-4 rounded-2xl bg-accent/5 border border-accent/10 text-center">
                 <div class="text-2xl font-black text-accent tracking-tight">{s.value}</div>
-                <div class="text-[9px] font-bold uppercase tracking-wider text-accent/80">{s.label}</div>
+                <div class="text-[9px] font-bold uppercase tracking-wider text-accent">{s.label}</div>
              </div>
           ))}
        </div>

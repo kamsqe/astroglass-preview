@@ -29,8 +29,8 @@ import '../../../styles/components/tag/TagMinimal.css';
 
     <!-- Large editorial wordmark -->
     <div class="footer-minimal__wordmark text-center mb-12 lg:mb-16">
-      <LocalizedLink href="/" class="inline-block group">
-        <span class="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-base-content/[0.06] tracking-tighter leading-none group-hover:text-base-content/[0.10] transition-colors duration-700 select-none">
+      <LocalizedLink href="/" class="inline-block group" aria-label={t('footer.company')}>
+        <span aria-hidden="true" class="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-base-content/[0.06] tracking-tighter leading-none group-hover:text-base-content/[0.10] transition-colors duration-700 select-none">
           {t('footer.company')}
         </span>
       </LocalizedLink>
@@ -45,7 +45,7 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Product -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">01</span>
+          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">01</span>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.product')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -58,7 +58,7 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Company -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">02</span>
+          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">02</span>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.company')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -73,7 +73,7 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Resources -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">03</span>
+          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">03</span>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.resources')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -90,7 +90,7 @@ import '../../../styles/components/tag/TagMinimal.css';
         
         <!-- Copyright colophon -->
         <div class="text-center sm:text-left order-2 sm:order-1">
-          <p class="text-[10px] text-base-content/20 uppercase tracking-[0.2em]">
+          <p class="text-[10px] text-base-content/60 uppercase tracking-[0.2em]">
             {t('footer.copyright')}
           </p>
 
@@ -111,7 +111,7 @@ import '../../../styles/components/tag/TagMinimal.css';
 
         <!-- Year marker -->
         <div class="hidden lg:block order-3">
-          <span class="text-5xl font-black text-base-content/[0.04] tracking-tighter leading-none">{currentYear}</span>
+          <span aria-hidden="true" class="text-5xl font-black text-base-content/[0.04] tracking-tighter leading-none">{currentYear}</span>
         </div>
       </div>
     </div>

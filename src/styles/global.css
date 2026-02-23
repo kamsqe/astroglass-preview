@@ -208,13 +208,6 @@ a:not([class]):hover {
   color: hsl(var(--a));
 }
 
-/* Ambient glow for dark themes (applied to body) */
-/* Ambient glow for dark themes (applied to body) */
-body::before {
-  /* Restraint: Removed noise texture for performance */
-  display: none;
-}
-
 /* Smooth theme transitions — scoped to containers, not every element */
 body,
 main,

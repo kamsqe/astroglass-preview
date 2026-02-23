@@ -6,7 +6,6 @@
  */
 
 import { 
-  localesConfig, 
   defaultLocale, 
   getEnabledLocaleCodes,
   type Locale 
@@ -45,15 +44,6 @@ function loadLocaleTranslations(lang: string): Record<string, unknown> {
         }
       }
     }
-  }
-  
-  // Add languageSwitcher metadata (not from JSON files)
-  const localeConfig = localesConfig.find(l => l.code === lang);
-  if (localeConfig) {
-    translations.languageSwitcher = {
-      label: lang === 'en' ? 'Language' : 'Язык',
-      hint: lang === 'en' ? 'Choose language' : 'Выберите язык',
-    };
   }
   
   return translations;

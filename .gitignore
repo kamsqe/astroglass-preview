@@ -26,7 +26,8 @@ pnpm-debug.log*
 # Local Netlify folder
 .netlify
 
+# Local Wrangler folder
+.wrangler
+
 # Pagefind search index (generated)
 public/pagefind/
-
-

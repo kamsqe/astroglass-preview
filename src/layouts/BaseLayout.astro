@@ -1,5 +1,6 @@
 ---
 import { getLocaleFromUrl } from '../utils/locale-utils';
+import { getEnabledLocaleCodes } from '../config/locales';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/layout/header/HeaderLiquid.astro';
@@ -13,15 +14,7 @@ export interface Props {
   description: string;
   showHeader?: boolean;
   headerVersion?: 1 | 2 | 3 | 4 | 5;
-  heroVersion?: 1 | 2 | 3;
-  aboutVersion?: 1 | 2 | 3;
-  featuresVersion?: 1 | 2 | 3;
-  portfolioVersion?: 1 | 2 | 3 | 4 | 5;
-  pricingVersion?: 1 | 2 | 3 | 4 | 5;
-  testimonialVersion?: 1 | 2 | 3 | 4 | 5;
-  faqVersion?: 1 | 2 | 3 | 4 | 5;
-  ctaVersion?: 1 | 2 | 3 | 4 | 5;
-  contactVersion?: 1 | 2 | 3 | 4 | 5;
+  ogImage?: string;
 }
 
 const { 
@@ -29,9 +22,13 @@ const {
   description, 
   showHeader = true, 
   headerVersion = 3, 
+  ogImage,
 } = Astro.props;
 
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const socialImageURL = ogImage ? new URL(ogImage, Astro.url.origin).href : new URL('/favicon.svg', Astro.url.origin).href;
 const locale = getLocaleFromUrl(Astro.url);
+const enabledLocales = getEnabledLocaleCodes();
 
 // Use prop version or default to 1
 const currentHeader = headerVersion;
@@ -47,8 +44,23 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL.href} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+
     <ClientRouter />
     <style is:global>
       /* Cinema Fade View Transitions */
@@ -114,7 +126,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
       <slot />
     </div>
 
-    <script is:inline>
+    <script is:inline define:vars={{ enabledLocales }}>
       // Apply stored locale preference to navigation links
       function applyLocalePreference() {
         const preferredLocale = localStorage.getItem('preferred-locale');
@@ -125,13 +137,16 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'tahoe';
         // Only apply to navigation links on non-locale-prefixed pages
         if (pathname.startsWith('/' + preferredLocale)) return;
         
+        // Build locale regex dynamically from config
+        const localePattern = new RegExp('^/(' + enabledLocales.join('|') + ')/');
+        
         // Update navigation links to include locale prefix
         document.querySelectorAll('nav a, .nav-glass a, .panel-glass a, .mobile-nav a, .header-neo a, .overlay-neo a, .overlay-aurora a, [data-mobile-dropdown] a').forEach(link => {
           const href = link.getAttribute('href');
           if (!href) return;
           
           // Skip external links, anchors-only, and already localized links
-          if (href.startsWith('http') || href === '#' || href.startsWith('/' + preferredLocale) || href.match(/^\/(en|ru)\//)) return;
+          if (href.startsWith('http') || href === '#' || href.startsWith('/' + preferredLocale) || localePattern.test(href)) return;
           
           // Add locale prefix to all internal links (including theme pages and hash links)
           if (href === '/') {

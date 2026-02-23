@@ -3,7 +3,7 @@
   "subtitle": "Выберите идеальный план для вашего проекта.",
   "backgroundTitle": "Цены",
   "plansForEveryStage": "Планы для любого этапа",
-  "startBuidling": "Начать бесплатно",
+  "startBuilding": "Начать бесплатно",
   "getPro": "Получить Pro",
   "contactSales": "Связаться с отделом продаж",
   "custom": "Индивидуально",
@@ -16,6 +16,7 @@
   "cta": "Начать работу",
   "vesselLabel": "Выберите масштаб",
   "popular": "Популярно",
+  "featuresTitle": "Функции",
   "features": {
     "projects": "Проекты",
     "teamMembers": "Команда",

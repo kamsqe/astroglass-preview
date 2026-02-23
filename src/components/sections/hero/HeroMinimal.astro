@@ -23,7 +23,7 @@ const t = useTranslations(locale);
         {t('hero.faster')}
       </h1>
       
-      <a href="#explore" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors mt-8 animate-pulse cursor-pointer">
+      <a href="#about" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors mt-8 animate-pulse cursor-pointer">
         <span class="text-xs uppercase tracking-widest">{t('hero.scrollToExplore')}</span>
         <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
@@ -101,7 +101,7 @@ const t = useTranslations(locale);
       </h2>
       
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-        <a href="#explore" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent text-base-100 font-black text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl text-center">
+        <a href="#about" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent text-base-100 font-black text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl text-center">
           {t('hero.startBuilding')}
         </a>
         <a href={`/${locale}/docs`} class="w-full sm:w-auto px-10 py-5 rounded-2xl border border-base-content/10 bg-base-content/5 text-base-content font-bold hover:bg-base-content hover:text-base-100 transition-all duration-300 text-center">
@@ -131,7 +131,7 @@ const t = useTranslations(locale);
     <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
       <p class="text-sm font-medium text-base-content hidden sm:block">{t('hero.readyToBuild')}</p>
       <div class="flex gap-3 w-full sm:w-auto">
-        <a href="#explore" class="flex-1 sm:flex-none px-6 py-3 rounded-xl bg-accent text-base-100 font-bold text-sm text-center hover:scale-105 transition-all duration-300">
+        <a href="#about" class="flex-1 sm:flex-none px-6 py-3 rounded-xl bg-accent text-base-100 font-bold text-sm text-center hover:scale-105 transition-all duration-300">
           {t('hero.startBuilding')}
         </a>
         <a href={`/${locale}/docs`} class="px-6 py-3 rounded-xl border border-base-content/10 text-base-content font-bold text-sm hover:bg-base-content/[0.03] transition-all duration-300 hidden sm:block">

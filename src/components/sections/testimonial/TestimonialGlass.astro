@@ -112,14 +112,14 @@ const messages = [
                       <div class="hidden sm:flex items-center gap-2 mb-2">
                          <span class="text-sm font-bold text-base-content">{m.author}</span>
                          <span class="text-xs text-base-content/80 truncate">{m.role}{m.company ? `, ${m.company}` : ''}</span>
-                         <span class="text-xs text-base-content/20">· {m.time}</span>
+                         <span class="text-xs text-base-content/60">· {m.time}</span>
                       </div>
                       
                       <!-- Mobile: stacked meta -->
                       <div class="sm:hidden mb-2">
                          <div class="flex items-center gap-2">
                             <span class="text-sm font-bold text-base-content">{m.author}</span>
-                            <span class="text-xs text-base-content/20">{m.time}</span>
+                            <span class="text-xs text-base-content/60">{m.time}</span>
                          </div>
                          <span class="text-xs text-base-content">{m.role}{m.company ? `, ${m.company}` : ''}</span>
                       </div>

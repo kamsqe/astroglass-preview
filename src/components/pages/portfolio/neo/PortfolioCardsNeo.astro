@@ -3,6 +3,7 @@
  * Neo Portfolio — Card Stack
  * Vertical card stack with gradient accent bars and inline expandable detail panels.
  */
+import '../../../../styles/components/portfolio/PortfolioCardsNeo.css';
 interface Project {
   id: string;
   title: string;
@@ -142,29 +143,5 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
   </div>
 </section>
 
-<style>
-  /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .bg-gradient-to-r {
-    background-image: none;
-  }
 
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__accent-bar {
-    background-color: hsl(var(--bc) / 0.05);
-  }
 
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card .hover\:opacity-\[0\.03\]:hover {
-    background-color: hsl(var(--bc) / 0.05);
-  }
-
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card span.bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card span.bg-gradient-to-r {
-    color: hsl(var(--bc));
-    -webkit-text-fill-color: hsl(var(--bc));
-  }
-
-  :global([data-theme="monochrome"]) .c-portfolio-page-neo__card button.bg-gradient-to-r {
-    background-color: hsl(var(--bc));
-    color: hsl(var(--b1));
-  }
-</style>

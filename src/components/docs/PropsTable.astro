@@ -3,6 +3,8 @@
  * Props Table Component
  * Standardized table for API reference documentation.
  */
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
 interface PropDefinition {
   name: string;
   type: string;
@@ -15,16 +17,19 @@ interface Props {
 }
 
 const { props } = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
 ---
 
 <div class="overflow-x-auto my-8 border border-base-content/10 rounded-xl bg-base-content/[0.02]">
   <table class="w-full text-left border-collapse">
     <thead>
       <tr class="border-b border-base-content/10 bg-base-content/[0.03]">
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Prop</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Type</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Default</th>
-        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">Description</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">{t('docs.propsTable.prop')}</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">{t('docs.propsTable.type')}</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">{t('docs.propsTable.default')}</th>
+        <th class="p-4 text-xs font-bold uppercase tracking-wider text-base-content/75">{t('docs.propsTable.description')}</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-base-content/5">

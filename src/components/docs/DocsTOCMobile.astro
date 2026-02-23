@@ -6,6 +6,8 @@
  * Appears when user taps the "Contents" button in bottom bar.
  */
 
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+
 export interface Props {
   headings: Array<{ depth: number; slug: string; text: string }>;
 }
@@ -14,11 +16,14 @@ const { headings } = Astro.props;
 
 // Filter to only h2 and h3 for cleaner mobile view
 const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
 ---
 
 <div id="mobile-toc" class="docs-toc-mobile">
   <div class="flex items-center justify-between mb-4">
-    <h4 class="font-bold text-sm opacity-60">On this page</h4>
+    <h4 class="font-bold text-sm opacity-60">{t('docs.onThisPage')}</h4>
     <button 
       type="button" 
       id="close-mobile-toc"

@@ -5,6 +5,7 @@
  * Frosted glass card grid with reflection streaks,
  * inner glow on hover, and "View Details" modal triggers.
  */
+import '../../../../styles/components/portfolio/PortfolioGridGlass.css';
 interface Project {
   id: string;
   title: string;
@@ -108,15 +109,5 @@ const { projects, viewDetailsLabel } = Astro.props;
   </div>
 </section>
 
-<style>
-  /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-portfolio-page-glass__card .bg-gradient-to-br {
-    background-image: none;
-    background-color: hsl(var(--bc) / 0.05);
-  }
 
-  :global([data-theme="monochrome"]) .c-portfolio-page-glass__card .c-portfolio-page-glass__inner-glow {
-    background: none;
-    background-color: hsl(var(--bc) / 0.02);
-  }
-</style>
+

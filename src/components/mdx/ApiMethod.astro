@@ -18,6 +18,7 @@
  */
 
 import '../../styles/components/mdx/ApiMethod.css';
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
 
 export interface ApiParam {
   name: string;
@@ -53,6 +54,9 @@ const {
   deprecated = false,
   deprecatedMessage
 } = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
 ---
 
 <div class:list={['c-api-method', deprecated && 'is-deprecated']}>
@@ -60,7 +64,7 @@ const {
     <h3 class="c-api-method__name" id={name.toLowerCase()}>
       <code>{name}</code>
       {since && <span class="c-api-badge c-api-badge--since">{since}</span>}
-      {deprecated && <span class="c-api-badge c-api-badge--deprecated">Deprecated</span>}
+      {deprecated && <span class="c-api-badge c-api-badge--deprecated">{t('docs.api.deprecated')}</span>}
     </h3>
   </div>
   
@@ -80,14 +84,14 @@ const {
   
   {params.length > 0 && (
     <div class="c-api-method__section">
-      <h4 class="c-api-method__section-title">Parameters</h4>
+      <h4 class="c-api-method__section-title">{t('docs.api.parameters')}</h4>
       <div class="c-api-method__params">
         {params.map((param) => (
           <div class="c-api-method__param">
             <div class="c-api-method__param-header">
               <code class="c-api-method__param-name">{param.name}</code>
               <code class="c-api-method__param-type">{param.type}</code>
-              {param.required === false && <span class="c-api-badge">optional</span>}
+              {param.required === false && <span class="c-api-badge">{t('common.optional').toLowerCase()}</span>}
               {param.default && <span class="c-api-badge">default: {param.default}</span>}
             </div>
             {param.description && (
@@ -101,7 +105,7 @@ const {
   
   {returns && (
     <div class="c-api-method__section">
-      <h4 class="c-api-method__section-title">Returns</h4>
+      <h4 class="c-api-method__section-title">{t('docs.api.returns')}</h4>
       <div class="c-api-method__return">
         <code class="c-api-method__return-type">{returns.type}</code>
         {returns.description && (

@@ -14,6 +14,11 @@
   "setup2min": "2 min setup",
   "trialDays": "14-day free trial",
   "cancelAnytime": "Cancel anytime",
+  "stats": {
+    "developers": "Developers",
+    "uptime": "Uptime",
+    "faster": "Faster"
+  },
   "noCreditCardRequired": "No credit card required",
   "echo1": "Join thousands of teams who build faster, ship sooner, and scale with confidence.",
   "echo2": "Your next project deserves the best tools. We've got you covered.",

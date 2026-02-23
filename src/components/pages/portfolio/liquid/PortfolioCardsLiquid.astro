@@ -3,6 +3,7 @@
  * Liquid Portfolio — Project Cards
  * Alternating L/R cards with expandable inline detail panels.
  */
+import '../../../../styles/components/portfolio/PortfolioCardsLiquid.css';
 interface Project {
   id: string;
   title: string;
@@ -183,19 +184,5 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
   </div>
 </section>
 
-<style>
-  /* Monochrome visual overrides */
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__card .bg-gradient-to-br,
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__card .bg-gradient-to-r {
-    background-image: none;
-  }
 
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__visual .bg-gradient-to-br {
-    background-color: hsl(var(--bc) / 0.05);
-  }
 
-  :global([data-theme="monochrome"]) .c-portfolio-page-liquid__metric .bg-gradient-to-r {
-    color: hsl(var(--bc));
-    -webkit-text-fill-color: hsl(var(--bc));
-  }
-</style>

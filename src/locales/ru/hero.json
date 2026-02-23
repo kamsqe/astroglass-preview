@@ -26,5 +26,6 @@
   "readyIn": "Готово за 2 минуты",
   "terminal": {
     "label": "Терминал"
-  }
+  },
+  "interactivePreview": "Интерактивное превью"
 }

@@ -59,7 +59,7 @@ const validationMessages = {
              </div>
              <div>
                 <p class="text-xs font-bold uppercase tracking-widest text-base-content/75 mb-1">{t('contact.officeLabel')}</p>
-                <p class="text-xl font-medium text-base-content">San Francisco, CA</p>
+                <p class="text-xl font-medium text-base-content">{t('contact.officeLocation')}</p>
              </div>
           </div>
        </div>
@@ -77,7 +77,7 @@ const validationMessages = {
                      id="name" 
                      name="name"
                      class="w-full bg-base-content/5 border border-base-content/10 rounded-xl px-6 py-4 text-base-content placeholder:text-base-content/75 focus:outline-none transition-luxury"
-                     placeholder="John Doe"
+                     placeholder={t('contact.placeholders.johnSmith')}
                    />
                    <div class="field-footer"></div>
                 </div>
@@ -90,7 +90,7 @@ const validationMessages = {
                      id="email" 
                      name="email"
                      class="w-full bg-base-content/5 border border-base-content/10 rounded-xl px-6 py-4 text-base-content placeholder:text-base-content/75 focus:outline-none transition-luxury"
-                     placeholder="john@example.com"
+                     placeholder={t('contact.placeholders.yourEmail')}
                    />
                    <div class="field-footer"></div>
                 </div>

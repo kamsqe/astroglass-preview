@@ -119,8 +119,9 @@ const features = [
               </p>
               
               <!-- CTA -->
-              <a href={`/${locale}/docs`} aria-label={`${t('cta.learnMore')} ${f.title}`} class={`inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r ${f.color} text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`} data-feature-cta>
+              <a href={`/${locale}/docs`} class={`inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r ${f.color} text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`} data-feature-cta>
                 {t('cta.learnMore')}
+                <span class="sr-only"> {f.title}</span>
                 <svg class={`w-4 h-4 ${i % 2 === 1 ? 'lg:rotate-180' : ''} group-hover:translate-x-1 transition-transform duration-300`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>

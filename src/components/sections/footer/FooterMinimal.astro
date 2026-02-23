@@ -30,9 +30,11 @@ import '../../../styles/components/tag/TagMinimal.css';
     <!-- Large editorial wordmark -->
     <div class="footer-minimal__wordmark text-center mb-12 lg:mb-16">
       <LocalizedLink href="/" class="inline-block group" aria-label={t('footer.company')}>
-        <span aria-hidden="true" class="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-base-content/[0.06] tracking-tighter leading-none group-hover:text-base-content/[0.10] transition-colors duration-700 select-none">
-          {t('footer.company')}
-        </span>
+        <svg class="h-16 sm:h-20 lg:h-24 w-auto min-w-[280px]" viewBox="0 0 400 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="80" font-weight="900" fill="currentColor" class="text-base-content/[0.06] tracking-tighter group-hover:text-base-content/[0.10] transition-colors duration-700">
+            {t('footer.company')}
+          </text>
+        </svg>
       </LocalizedLink>
       <p class="text-xs sm:text-sm text-base-content/80 mt-3 tracking-wide">
         {t('footer.tagline')}
@@ -45,7 +47,9 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Product -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">01</span>
+          <svg class="h-8 sm:h-10 w-12" viewBox="0 0 40 40" aria-hidden="true">
+            <text x="0" y="32" font-size="32" font-weight="900" fill="currentColor" class="text-base-content/[0.04] group-hover:text-accent/10 transition-colors duration-500">01</text>
+          </svg>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.product')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -58,7 +62,9 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Company -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">02</span>
+          <svg class="h-8 sm:h-10 w-12" viewBox="0 0 40 40" aria-hidden="true">
+            <text x="0" y="32" font-size="32" font-weight="900" fill="currentColor" class="text-base-content/[0.04] group-hover:text-accent/10 transition-colors duration-500">02</text>
+          </svg>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.company')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -73,7 +79,9 @@ import '../../../styles/components/tag/TagMinimal.css';
       <!-- Resources -->
       <div class="footer-minimal__col group">
         <div class="flex items-center gap-3 mb-4 sm:mb-5">
-          <span aria-hidden="true" class="text-3xl sm:text-4xl font-black text-base-content/[0.04] leading-none group-hover:text-accent/10 transition-colors duration-500">03</span>
+          <svg class="h-8 sm:h-10 w-12" viewBox="0 0 40 40" aria-hidden="true">
+            <text x="0" y="32" font-size="32" font-weight="900" fill="currentColor" class="text-base-content/[0.04] group-hover:text-accent/10 transition-colors duration-500">03</text>
+          </svg>
           <span class="c-tag-minimal text-accent/70"><span class="c-tag-minimal__dash"></span>{t('footer.links.resources')}</span>
         </div>
         <ul class="space-y-2.5 sm:space-y-3 pl-0 sm:pl-1">
@@ -90,7 +98,7 @@ import '../../../styles/components/tag/TagMinimal.css';
         
         <!-- Copyright colophon -->
         <div class="text-center sm:text-left order-2 sm:order-1">
-          <p class="text-[10px] text-base-content/60 uppercase tracking-[0.2em]">
+          <p class="text-[10px] text-base-content/75 uppercase tracking-[0.2em]">
             {t('footer.copyright')}
           </p>
 
@@ -111,7 +119,9 @@ import '../../../styles/components/tag/TagMinimal.css';
 
         <!-- Year marker -->
         <div class="hidden lg:block order-3">
-          <span aria-hidden="true" class="text-5xl font-black text-base-content/[0.04] tracking-tighter leading-none">{currentYear}</span>
+          <svg class="h-12 w-32" viewBox="0 0 120 50" aria-hidden="true">
+            <text x="100%" y="42" text-anchor="end" font-size="48" font-weight="900" fill="currentColor" class="text-base-content/[0.04] tracking-tighter">{currentYear}</text>
+          </svg>
         </div>
       </div>
     </div>

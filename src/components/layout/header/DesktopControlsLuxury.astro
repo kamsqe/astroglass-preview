@@ -7,16 +7,25 @@
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
+import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Language Logic
+// Language Logic — dynamic for all locales
 const currentPath = Astro.url.pathname;
-const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
-const finalPath = cleanPath || '/';
-const enPath = finalPath;
-const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+const localeCodes = getEnabledLocaleCodes();
+const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
+const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
+
+const enabledLocales = getEnabledLocales();
+const localePaths = enabledLocales.map(loc => ({
+  code: loc.code,
+  nativeName: loc.nativeName,
+  href: getRelativeLocaleUrl(loc.code, cleanPath),
+  isActive: locale === loc.code,
+}));
 
 const themes = [
   { id: 'tahoe', label: 'Tahoe', color: '#3B82F6' },
@@ -40,12 +49,11 @@ const themes = [
       </svg>
     </button>
     <div class="luxury-accordion-content">
-      <a href={enPath} class={`luxury-accordion-item ${locale === 'en' ? 'is-active' : ''}`}>
-        English
-      </a>
-      <a href={ruPath} class={`luxury-accordion-item ${locale === 'ru' ? 'is-active' : ''}`}>
-        Русский
-      </a>
+      {localePaths.map(loc => (
+        <a href={loc.href} class={`luxury-accordion-item ${loc.isActive ? 'is-active' : ''}`}>
+          {loc.nativeName}
+        </a>
+      ))}
     </div>
   </div>
 

@@ -4,51 +4,115 @@ import { getCollection } from 'astro:content';
 export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
   'components-sections': {
     en: 'Marketing Sections',
-    ru: 'Маркетинговые Секции'
+    ru: 'Маркетинговые Секции',
+    fr: 'Sections Marketing',
+    es: 'Secciones de Marketing',
+    ja: 'マーケティングセクション',
+    zh: '营销区块',
+    kk: 'Маркетинг бөлімдері'
   },
   'components-ui': {
     en: 'UI Elements',
-    ru: 'UI Элементы'
+    ru: 'UI Элементы',
+    fr: 'Éléments UI',
+    es: 'Elementos UI',
+    ja: 'UI要素',
+    zh: 'UI 组件',
+    kk: 'UI элементтері'
   },
   'components-pages': {
     en: 'Pages',
-    ru: 'Страницы'
+    ru: 'Страницы',
+    fr: 'Pages',
+    es: 'Páginas',
+    ja: 'ページ',
+    zh: '页面',
+    kk: 'Беттер'
   },
   'components-reference': {
     en: 'Reference',
-    ru: 'Справочник'
+    ru: 'Справочник',
+    fr: 'Référence',
+    es: 'Referencia',
+    ja: 'リファレンス',
+    zh: '参考',
+    kk: 'Анықтамалық'
   },
   'getting-started': {
     en: 'Getting Started',
-    ru: 'Начало работы'
+    ru: 'Начало работы',
+    fr: 'Premiers pas',
+    es: 'Primeros pasos',
+    ja: 'はじめに',
+    zh: '快速开始',
+    kk: 'Бастау'
   },
   'core-concepts': {
     en: 'Core Concepts',
-    ru: 'Основные Концепции'
+    ru: 'Основные Концепции',
+    fr: 'Concepts clés',
+    es: 'Conceptos clave',
+    ja: 'コアコンセプト',
+    zh: '核心概念',
+    kk: 'Негізгі тұжырымдамалар'
   },
   'deployment': {
     en: 'Deployment',
-    ru: 'Развертывание'
+    ru: 'Развертывание',
+    fr: 'Déploiement',
+    es: 'Despliegue',
+    ja: 'デプロイ',
+    zh: '部署',
+    kk: 'Орналастыру'
   },
   'components': {
     en: 'Components',
-    ru: 'Компоненты'
+    ru: 'Компоненты',
+    fr: 'Composants',
+    es: 'Componentes',
+    ja: 'コンポーネント',
+    zh: '组件',
+    kk: 'Компоненттер'
   },
   'themes': {
     en: 'Themes',
-    ru: 'Темы'
+    ru: 'Темы',
+    fr: 'Thèmes',
+    es: 'Temas',
+    ja: 'テーマ',
+    zh: '主题',
+    kk: 'Тақырыптар'
   },
   'guide': {
     en: 'Guide',
-    ru: 'Руководство'
+    ru: 'Руководство',
+    fr: 'Guide',
+    es: 'Guía',
+    ja: 'ガイド',
+    zh: '指南',
+    kk: 'Нұсқаулық'
   },
   'guides': {
     en: 'Guides',
-    ru: 'Руководства'
+    ru: 'Руководства',
+    fr: 'Guides',
+    es: 'Guías',
+    ja: 'ガイド',
+    zh: '指南',
+    kk: 'Нұсқаулықтар'
+  },
+  'General': {
+    en: 'General',
+    ru: 'Общее',
+    fr: 'Général',
+    es: 'General',
+    ja: '一般',
+    zh: '通用',
+    kk: 'Жалпы'
   }
 };
 
-export async function buildDocsNav(locale: 'en' | 'ru') {
+export async function buildDocsNav(locale: string) {
   // Fetch all docs
   const allDocs = await getCollection('docs');
   
@@ -96,7 +160,8 @@ export async function buildDocsNav(locale: 'en' | 'ru') {
   // Convert to array and sort
   const nav = Object.entries(sections).map(([key, items]) => {
     // Default formatting
-    let title = key === 'General' ? 'General' : 
+    let title = key === 'General' 
+      ? (SIDEBAR_LABELS['General']?.[locale] || 'General') : 
       key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
     // Use localized override if available

@@ -8,17 +8,27 @@
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildThemeNavLinks } from '../../../config/navigation';
+import { getEnabledLocales, getEnabledLocaleCodes, defaultLocale } from '../../../config/locales';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildThemeNavLinks(t, 'luxury');
 
-// Path Logic for Language Switcher
+// Path Logic for Language Switcher — dynamic for all locales
 const currentPath = Astro.url.pathname;
-const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
-const finalPath = cleanPath || '/';
-const enPath = finalPath;
-const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+const localeCodes = getEnabledLocaleCodes();
+const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
+const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
+
+const enabledLocales = getEnabledLocales();
+const localePaths = enabledLocales.map(loc => ({
+  code: loc.code,
+  label: loc.code.toUpperCase(),
+  nativeName: loc.nativeName,
+  href: getRelativeLocaleUrl(loc.code, cleanPath),
+  isActive: locale === loc.code,
+}));
 
 const themes = [
   { id: 'tahoe', label: 'Tahoe', color: '#3B82F6' },
@@ -50,9 +60,12 @@ const themes = [
   <div class="luxury-header-right">
     <!-- Language -->
     <div class="luxury-control-group">
-      <a href={enPath} class={`luxury-action-link ${locale === 'en' ? 'is-active' : ''}`}>EN</a>
-      <span class="luxury-divider">/</span>
-      <a href={ruPath} class={`luxury-action-link ${locale === 'ru' ? 'is-active' : ''}`}>RU</a>
+      {localePaths.map((loc, i) => (
+        <>
+          {i > 0 && <span class="luxury-divider">/</span>}
+          <a href={loc.href} class={`luxury-action-link ${loc.isActive ? 'is-active' : ''}`}>{loc.label}</a>
+        </>
+      ))}
     </div>
 
     <div class="luxury-separator"></div>
@@ -75,9 +88,9 @@ const themes = [
     z-index: 100;
     
     /* Grid Layout */
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 32px;
     
     /* Glassmorphism */
     background: rgba(255, 255, 255, 0.02);
@@ -106,7 +119,10 @@ const themes = [
   .luxury-header-center {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 24px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .luxury-nav-link {
@@ -136,7 +152,9 @@ const themes = [
   .luxury-control-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
   }
 
   .luxury-action-link {

@@ -6,6 +6,13 @@
  * Hidden on mobile (lg:flex).
  */
 import type { NavIcon } from '../../config/navigation';
+import LocalizedLink from '../ui/LocalizedLink.astro';
+import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+import '../../styles/components/header/NavOverflow.css';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const moreLabel = t('nav.more', { silent: true }) || 'More';
 
 export interface NavChild {
   href: string;
@@ -56,7 +63,7 @@ const { links, class: className = '' } = Astro.props;
               child.children ? (
                 <!-- Nested dropdown item -->
                 <div class="nested-dropdown relative group/nested">
-                  <a 
+                  <LocalizedLink 
                     href={child.href}
                     class="nested-trigger dropdown-item flex items-center justify-between gap-3 px-4 py-2.5 mx-2 rounded-xl text-base-content/70 hover:text-accent hover:bg-accent/10 transition-colors font-normal"
                   >
@@ -66,40 +73,76 @@ const { links, class: className = '' } = Astro.props;
                     <svg class="w-3.5 h-3.5 opacity-40 transition-transform duration-200 group-hover/nested:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </LocalizedLink>
                   <!-- Invisible bridge for nested dropdown -->
                   <div class="absolute top-0 right-0 w-3 h-full -mr-3"></div>
                   <div class="nested-menu absolute left-full top-0 ml-2 py-2 min-w-48 bg-base-100/98 backdrop-blur-2xl rounded-xl ring-1 ring-base-content/10 shadow-2xl shadow-black/20">
                     {child.children.map((subChild) => (
-                      <a 
+                      <LocalizedLink 
                         href={subChild.href}
                         class="dropdown-item flex items-center justify-start gap-2.5 px-4 py-2 mx-2 rounded-lg text-base-content/70 hover:text-accent hover:bg-accent/10 transition-colors font-normal"
                       >
                         {subChild.label}
-                      </a>
+                      </LocalizedLink>
                     ))}
                   </div>
                 </div>
               ) : (
-                <a 
+                <LocalizedLink 
                   href={child.href}
                   class="dropdown-item flex items-center justify-start gap-3 px-4 py-2.5 mx-2 rounded-xl text-base-content/70 hover:text-accent hover:bg-accent/10 transition-colors font-normal"
                 >
                   {child.label}
-                </a>
+                </LocalizedLink>
               )
             ))}
           </div>
         </div>
       ) : (
-        <a 
+        <LocalizedLink 
           href={link.href}
           class="nav-item px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium"
         >
           {link.label}
-        </a>
+        </LocalizedLink>
       )
     ))}
+
+    {/* Overflow "More" dropdown */}
+    <div class="dropdown relative group" data-nav-more>
+      <button
+        type="button"
+        class="nav-more-trigger nav-item flex items-center gap-1.5 px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium"
+      >
+        {moreLabel}
+        <svg class="w-3.5 h-3.5 opacity-50 nav-more-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div class="nav-more-menu" data-nav-more-menu></div>
+    </div>
   </div>
 </nav>
+
+<script>
+  import { initNavOverflow } from '../../utils/navOverflow';
+  let liquidNavController: AbortController | null = null;
+
+  function initLiquidNav() {
+    liquidNavController?.abort();
+    liquidNavController = new AbortController();
+    const { signal } = liquidNavController;
+
+    initNavOverflow({
+      navSelector: '.nav-pills',
+      itemSelector: ':scope > a, :scope > div:not([data-nav-more])',
+      moreSelector: '[data-nav-more]',
+      moreMenuSelector: '[data-nav-more-menu]',
+      signal,
+    });
+  }
+
+  initLiquidNav();
+  document.addEventListener('astro:after-swap', initLiquidNav);
+</script>
 

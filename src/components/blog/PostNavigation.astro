@@ -18,8 +18,8 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 function postHref(slug: string) {
-  const cleanSlug = slug.replace(/^(en|ru)\//, '');
-  return locale === 'en' ? `/blog/${cleanSlug}/` : `/${locale}/blog/${cleanSlug}/`;
+  const cleanSlug = slug.replace(/^[a-z]{2}\//, '');
+  return `/blog/${cleanSlug}/`;
 }
 ---
 

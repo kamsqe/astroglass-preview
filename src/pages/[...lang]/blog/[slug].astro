@@ -58,7 +58,7 @@ const relatedPosts = allPosts
   .slice(0, 3)
   .map(({ post }: any) => post);
 
-const postUrl = new URL(Astro.url.pathname, Astro.site || 'https://liquid-glass.netlify.app').href;
+const postUrl = new URL(Astro.url.pathname, Astro.site || 'https://astroglass-preview.pages.dev').href;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>

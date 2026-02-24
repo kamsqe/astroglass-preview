@@ -16,6 +16,9 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildThemeNavLinks(t, 'aurora');
 import '../../../styles/components/header/HeaderAurora.css';
+import '../../../styles/components/header/NavOverflow.css';
+
+const moreLabel = t('nav.more', { silent: true }) || 'More';
 ---
 
 <header class="header-aurora" id="header-aurora">
@@ -52,6 +55,17 @@ import '../../../styles/components/header/HeaderAurora.css';
           <LocalizedLink href={link.href} class="nav-aurora-link">{link.label}</LocalizedLink>
         )
       ))}
+
+      {/* Overflow "More" dropdown */}
+      <div class="dropdown-aurora" data-nav-more>
+        <button type="button" class="nav-aurora-link nav-more-trigger" aria-expanded="false">
+          {moreLabel}
+          <svg class="nav-aurora-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="dropdown-aurora-menu nav-more-menu" data-nav-more-menu></div>
+      </div>
     </nav>
 
     <!-- Desktop Actions -->
@@ -116,6 +130,7 @@ import '../../../styles/components/header/HeaderAurora.css';
 </div>
 
 <script>
+  import { initNavOverflow } from '../../../utils/navOverflow';
   let auroraHeaderController: AbortController | null = null;
 
   function initHeaderAurora() {
@@ -193,6 +208,15 @@ import '../../../styles/components/header/HeaderAurora.css';
       groupTrigger.addEventListener('click', () => {
         group.classList.toggle('is-open');
       }, { signal });
+    });
+
+    // Nav overflow "More" menu
+    initNavOverflow({
+      navSelector: '.nav-aurora',
+      itemSelector: ':scope > a, :scope > div:not([data-nav-more])',
+      moreSelector: '[data-nav-more]',
+      moreMenuSelector: '[data-nav-more-menu]',
+      signal,
     });
   }
 

@@ -44,14 +44,12 @@ Documentation pages live in `src/content/docs/[lang]/`:
   - content/
     - docs/
       - en/
-        - getting-started/
-          - introduction.mdx
-          - installation.mdx
-        - core-concepts/
-        - components/
       - ru/
-        - getting-started/
-          - introduction.mdx
+      - fr/
+      - es/
+      - ja/
+      - zh/
+      - kk/
 </FileTree>
 
 The URL for documentation is automatically generated based on the file path, e.g., `/docs/en/getting-started/introduction`.
@@ -69,18 +67,12 @@ Common strings (nav items, buttons, section text, etc.) are stored as JSON files
 ```
 src/locales/
 ├── en/
-│   ├── common.json
-│   ├── hero.json
-│   ├── features.json
-│   ├── pricing.json
-│   ├── contact.json
-│   ├── privacy.json
-│   ├── terms.json
-│   └── ... (19 files total)
 ├── ru/
-│   ├── common.json
-│   ├── hero.json
-│   └── ...
+├── fr/
+├── es/
+├── ja/
+├── zh/
+└── kk/
 ```
 
 Use the `useTranslations` helper in components:

@@ -16,6 +16,9 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildThemeNavLinks(t, 'glass');
 import '../../../styles/components/header/HeaderGlass.css';
+import '../../../styles/components/header/NavOverflow.css';
+
+const moreLabel = t('nav.more', { silent: true }) || 'More';
 ---
 
 <header class="header-glass">
@@ -59,6 +62,17 @@ import '../../../styles/components/header/HeaderGlass.css';
             </LocalizedLink>
           )
         ))}
+
+        {/* Overflow "More" dropdown — hidden by default, shown by JS */}
+        <div class="dropdown-glass" data-nav-more>
+          <button type="button" class="nav-glass-item nav-more-trigger" aria-expanded="false">
+            {moreLabel}
+            <svg class="nav-glass-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="dropdown-glass-menu nav-more-menu" data-nav-more-menu></div>
+        </div>
       </nav>
 
       <div class="header-glass-actions">
@@ -125,6 +139,7 @@ import '../../../styles/components/header/HeaderGlass.css';
 </div>
 
 <script>
+  import { initNavOverflow } from '../../../utils/navOverflow';
   let glassController: AbortController | null = null;
 
   function initHeaderGlass() {
@@ -194,6 +209,15 @@ import '../../../styles/components/header/HeaderGlass.css';
       trigger.addEventListener('click', () => {
         accordion.classList.toggle('is-open');
       }, { signal });
+    });
+
+    // Nav overflow "More" menu
+    initNavOverflow({
+      navSelector: '.nav-glass',
+      itemSelector: ':scope > a, :scope > div:not([data-nav-more])',
+      moreSelector: '[data-nav-more]',
+      moreMenuSelector: '[data-nav-more-menu]',
+      signal,
     });
   }
 

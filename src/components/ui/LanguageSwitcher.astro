@@ -104,7 +104,8 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
         const href = link.getAttribute('href');
         if (href) {
             if (navigator.vibrate) navigator.vibrate(10);
-            const locale = href.startsWith('/ru') ? 'ru' : 'en';
+            const match = href.match(/^\/([a-z]{2})(\/|$)/);
+            const locale = match ? match[1] : 'en';
             localStorage.setItem('preferred-locale', locale);
         }
       }, { signal });

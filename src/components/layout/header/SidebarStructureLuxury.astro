@@ -9,17 +9,26 @@
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildLuxuryNavLinks } from '../../../config/navigation';
+import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildLuxuryNavLinks(t);
 
-// Path Logic
+// Path Logic — dynamic for all locales
 const currentPath = Astro.url.pathname;
-const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
-const finalPath = cleanPath || '/';
-const enPath = finalPath;
-const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+const localeCodes = getEnabledLocaleCodes();
+const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
+const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
+
+const enabledLocales = getEnabledLocales();
+const localePaths = enabledLocales.map(loc => ({
+  code: loc.code,
+  label: loc.code.toUpperCase(),
+  href: getRelativeLocaleUrl(loc.code, cleanPath),
+  isActive: locale === loc.code,
+}));
 
 // Themes (Dual-Tone)
 const themes = [
@@ -75,9 +84,12 @@ const themes = [
     <div class="luxury-controls">
       <!-- Language -->
       <div class="luxury-lang-switch">
-        <a href={enPath} class={`luxury-lang-opt ${locale === 'en' ? 'is-active' : ''}`}>EN</a>
-        <span class="luxury-sep">/</span>
-        <a href={ruPath} class={`luxury-lang-opt ${locale === 'ru' ? 'is-active' : ''}`}>RU</a>
+        {localePaths.map((loc, i) => (
+          <>
+            {i > 0 && <span class="luxury-sep">/</span>}
+            <a href={loc.href} class={`luxury-lang-opt ${loc.isActive ? 'is-active' : ''}`}>{loc.label}</a>
+          </>
+        ))}
       </div>
 
       <!-- Themes -->
@@ -233,9 +245,10 @@ const themes = [
   .luxury-lang-switch {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: wrap;
     font-family: var(--font-sans);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: hsl(var(--bc) / 0.4);
   }
   .luxury-lang-opt { text-decoration: none; color: inherit; transition: color var(--duration-luxury-fast) var(--ease-luxury); }

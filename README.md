@@ -5,10 +5,9 @@
 ![Node >= 20](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
 ![pnpm >= 8](https://img.shields.io/badge/pnpm-%3E%3D8-orange)
 
-A premium, multi-theme Astro template with 6 design variants, i18n, Fuse.js search, and one-click deployment to Cloudflare, Vercel, or Netlify.
+A premium, multi-theme Astro template with 6 design variants, 7 languages (i18n), Fuse.js search, and one-click deployment to Cloudflare, Vercel, or Netlify.
 
-<!-- TODO: Add live demo link -->
-<!-- [🔗 Live Demo](https://astroglass.pages.dev) -->
+[🔗 Live Demo](https://astroglass-preview.pages.dev)
 
 ## ✨ Themes
 
@@ -65,7 +64,7 @@ src/
 ├── content/            # MDX collections (docs, blog)
 ├── layouts/            # Page layouts
 ├── lib/                # Utilities (search, schemas, cn())
-├── locales/            # i18n translation JSON files (en, ru)
+├── locales/            # i18n translation JSON files (en, ru, fr, es, ja, zh, kk)
 ├── pages/              # File-based routing
 ├── styles/             # CSS (global + per-component)
 └── utils/              # Helpers (i18n, animations, form validation)
@@ -109,9 +108,9 @@ export { adapter, output, providerName, buildNotes } from './netlify.config';
 
 - **UI Strings**: `src/locales/{locale}/*.json` — auto-loaded via Vite glob
 - **Content**: `src/content/docs/{locale}/` — MDX collections per locale
-- **Routing**: URL-based (`/en/docs`, `/ru/docs`) with auto-detection
+- **Routing**: URL-based (`/en/docs`, `/ru/docs`, `/kk/docs`, etc.) with auto-detection
 
-Currently ships with English (`en`) and Russian (`ru`). Add more by following the steps above.
+Currently ships with 7 languages: English (`en`), Russian (`ru`), French (`fr`), Spanish (`es`), Japanese (`ja`), Chinese (`zh`), and Kazakh (`kk`). Add more by following the steps above.
 
 ## 🔍 Search
 

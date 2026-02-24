@@ -11,18 +11,30 @@ import { buildLuxuryNavLinks } from '../../../config/navigation';
 import ThemeSwitcher from '../../ui/ThemeSwitcher.astro';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 import SidebarStructureLuxury from './SidebarStructureLuxury.astro';
+import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildLuxuryNavLinks(t);
 const activeLink = Astro.url.pathname;
 
-// Language Logic: Preserve current path
+// Language Logic: Preserve current path — dynamic for all locales
 const currentPath = Astro.url.pathname;
-const cleanPath = currentPath.replace(/^\/(ru|en)/, '');
-const finalPath = cleanPath || '/';
-const enPath = finalPath;
-const ruPath = `/ru${finalPath === '/' ? '' : finalPath}`;
+const localeCodes = getEnabledLocaleCodes();
+const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
+const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
+
+const enabledLocales = getEnabledLocales();
+const localePaths = enabledLocales.map(loc => ({
+  code: loc.code,
+  label: loc.code.toUpperCase(),
+  nativeName: loc.nativeName,
+  href: getRelativeLocaleUrl(loc.code, cleanPath),
+  isActive: locale === loc.code,
+}));
+
+const currentLocaleConfig = enabledLocales.find(l => l.code === locale);
 
 import '../../../styles/components/header/HeaderLuxury.css';
 ---
@@ -104,16 +116,15 @@ import '../../../styles/components/header/HeaderLuxury.css';
         <div class="luxury-control-group items-end">
           <span class="luxury-control-label">{t('languageSwitcher.label') || 'Language'}</span>
           <button class="luxury-control-trigger" data-toggle-control="lang">
-            <span class="luxury-control-value">{locale === 'en' ? 'English' : 'Русский'}</span>
+            <span class="luxury-control-value">{currentLocaleConfig?.nativeName || locale.toUpperCase()}</span>
             <span class="text-xs opacity-50">↓</span>
           </button>
           <div class="luxury-control-list" id="lang-list">
-             <a href={enPath} class={`luxury-control-option ${locale === 'en' ? 'is-selected' : ''}`}>
-               English
-             </a>
-             <a href={ruPath} class={`luxury-control-option ${locale === 'ru' ? 'is-selected' : ''}`}>
-               Русский
-             </a>
+            {localePaths.map(loc => (
+              <a href={loc.href} class={`luxury-control-option ${loc.isActive ? 'is-selected' : ''}`}>
+                {loc.nativeName}
+              </a>
+            ))}
           </div>
         </div>
 

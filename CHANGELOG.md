@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Added
 
 - 6 themes: Liquid, Glass, Neo, Luxury, Minimal, Aurora
-- i18n support for English and Russian
+- i18n support for 7 languages (en, ru, fr, es, ja, zh, kk)
 - Fuse.js client-side search with custom indexing
 - Multi-provider deployment (Cloudflare, Vercel, Netlify)
 - Documentation site with MDX content collections

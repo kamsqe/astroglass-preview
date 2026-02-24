@@ -48,15 +48,46 @@ export const localesConfig: LocaleConfig[] = [
     direction: 'ltr',
     enabled: true,
   },
-  // Add new locales here:
-  // {
-  //   code: 'kk',
-  //   name: 'Kazakh',
-  //   nativeName: 'Қазақша',
-  //   flag: '🇰🇿',
-  //   direction: 'ltr',
-  //   enabled: false,
-  // },
+  {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+    flag: '🇫🇷',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'es',
+    name: 'Spanish',
+    nativeName: 'Español',
+    flag: '🇪🇸',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ja',
+    name: 'Japanese',
+    nativeName: '日本語',
+    flag: '🇯🇵',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'zh',
+    name: 'Chinese',
+    nativeName: '中文',
+    flag: '🇨🇳',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'kk',
+    name: 'Kazakh',
+    nativeName: 'Қазақша',
+    flag: '🇰🇿',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 
 /** Default locale code */

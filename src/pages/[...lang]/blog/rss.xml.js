@@ -19,7 +19,7 @@ export async function GET(context) {
   return rss({
     title: `Astro Glass Blog (${locale})`,
     description: 'Insights and updates.',
-    site: context.site || 'https://liquid-glass.netlify.app',
+    site: context.site || 'https://astroglass-preview.pages.dev',
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,

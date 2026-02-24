@@ -18,6 +18,9 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildDefaultNavLinks(t);
 import '../../../styles/components/header/HeaderNeo.css';
+import '../../../styles/components/header/NavOverflow.css';
+
+const moreLabel = t('nav.more', { silent: true }) || 'More';
 ---
 
 <!-- Desktop Header (Neo-style glass pill) -->
@@ -56,6 +59,17 @@ import '../../../styles/components/header/HeaderNeo.css';
             <LocalizedLink href={link.href} class="nav-neo-link">{link.label}</LocalizedLink>
           )
         ))}
+
+        {/* Overflow "More" dropdown */}
+        <div class="dropdown-neo" data-nav-more>
+          <button type="button" class="nav-neo-link nav-more-trigger" aria-expanded="false">
+            {moreLabel}
+            <svg class="nav-neo-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="dropdown-neo-menu nav-more-menu" data-nav-more-menu></div>
+        </div>
       </nav>
 
       <!-- Desktop Actions -->
@@ -225,6 +239,7 @@ import '../../../styles/components/header/HeaderNeo.css';
 </nav>
 
 <script>
+  import { initNavOverflow } from '../../../utils/navOverflow';
   let defaultController: AbortController | null = null;
 
   function initHeaderDefault() {
@@ -372,6 +387,15 @@ import '../../../styles/components/header/HeaderNeo.css';
         }
       }, 100);
     }, { signal });
+
+    // Nav overflow "More" menu
+    initNavOverflow({
+      navSelector: '#header-default .nav-neo',
+      itemSelector: ':scope > a, :scope > div:not([data-nav-more])',
+      moreSelector: '[data-nav-more]',
+      moreMenuSelector: '[data-nav-more-menu]',
+      signal,
+    });
   }
 
   initHeaderDefault();

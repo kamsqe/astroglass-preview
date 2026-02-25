@@ -30,7 +30,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
 
   // 2. Pick themes (multi-select)
   const themes = await p.multiselect({
-    message: 'Select themes to include:',
+    message: 'Select themes to include (Space to toggle, Enter to confirm):',
     options: AVAILABLE_THEMES.map(t => ({
       value: t.id,
       label: t.label,
@@ -47,7 +47,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
 
   // 3. Pick palettes (multi-select)
   const palettes = await p.multiselect({
-    message: 'Select color palettes:',
+    message: 'Select color palettes (Space to toggle, Enter to confirm):',
     options: AVAILABLE_PALETTES.map(pal => ({
       value: pal.id,
       label: pal.label,
@@ -66,7 +66,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   const defaultPalette = await p.select({
     message: 'Default palette (shown on first load):',
     options: (palettes as string[]).map(id => {
-      const info = AVAILABLE_PALETTES.find(p => p.id === id);
+      const info = AVAILABLE_PALETTES.find(pal => pal.id === id);
       return { value: id, label: info?.label ?? id };
     }),
   });
@@ -78,7 +78,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
 
   // 5. Languages
   const locales = await p.multiselect({
-    message: 'Select languages:',
+    message: 'Select languages (Space to toggle, Enter to confirm):',
     options: AVAILABLE_LOCALES.map(l => ({
       value: l.code,
       label: l.label,
@@ -92,21 +92,34 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
     process.exit(0);
   }
 
-  // 6. Features
-  const features = await p.multiselect({
-    message: 'Include extra features?',
-    options: AVAILABLE_FEATURES.map(f => ({
-      value: f.id,
-      label: f.label,
-      hint: f.hint,
-    })),
-    initialValues: [],
-    required: false,
+  // 6. Features — ask if they want any first
+  const wantFeatures = await p.confirm({
+    message: 'Include extra features (blog, docs, dashboard)?',
+    initialValue: false,
   });
 
-  if (p.isCancel(features)) {
+  if (p.isCancel(wantFeatures)) {
     p.cancel('Setup cancelled.');
     process.exit(0);
+  }
+
+  let features: string[] = [];
+  if (wantFeatures) {
+    const selected = await p.multiselect({
+      message: 'Select features (Space to toggle, Enter to confirm):',
+      options: AVAILABLE_FEATURES.map(f => ({
+        value: f.id,
+        label: f.label,
+        hint: f.hint,
+      })),
+      required: true,
+    });
+
+    if (p.isCancel(selected)) {
+      p.cancel('Setup cancelled.');
+      process.exit(0);
+    }
+    features = selected as string[];
   }
 
   // 7. Deploy target
@@ -124,7 +137,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
     process.exit(0);
   }
 
-  const resolvedFeatures = resolveFeatureDeps(features as string[]);
+  const resolvedFeatures = resolveFeatureDeps(features);
 
   return {
     projectDir: projectDir as string,

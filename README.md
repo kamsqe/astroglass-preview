@@ -1,151 +1,218 @@
-# AstroGlass
+<p align="center">
+  <!-- TODO: Replace with actual logo/banner -->
+  <img src="public/favicon.svg" width="80" alt="AstroGlass" />
+</p>
 
-[![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-![Node >= 20](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
-![pnpm >= 8](https://img.shields.io/badge/pnpm-%3E%3D8-orange)
+<h1 align="center">AstroGlass</h1>
 
-A premium, multi-theme Astro template with 6 design variants, 7 languages (i18n), Fuse.js search, and one-click deployment to Cloudflare, Vercel, or Netlify.
+<p align="center">
+  Multi-theme Astro template with 6 design systems, 10 palettes, 7 locales, and a CLI to scaffold exactly what you need.
+</p>
 
-[🔗 Live Demo](https://astroglass-preview.pages.dev)
+<p align="center">
+  <a href="https://astro.build"><img src="https://astro.badg.es/v2/built-with-astro/small.svg" alt="Built with Astro" /></a>
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Astro-5-BC52EE?logo=astro" alt="Astro 5" />
+  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss" alt="Tailwind 4" />
+  <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node >= 20" />
+</p>
 
-## ✨ Themes
+<p align="center">
+  <a href="https://astroglass-preview.pages.dev"><strong>Live Demo →</strong></a>
+</p>
 
-AstroGlass ships with **6 production-ready themes**, each with a complete set of sections:
+<!-- TODO: Replace with actual hero screenshot showing 2-3 themes side by side -->
+<!-- Example: a wide composite image showing Liquid, Glass, and Luxury themes at desktop width -->
+> **[Screenshot placeholder]** — Hero image: composite showing the Liquid (fluid/organic), Glass (glassmorphism), and Luxury (editorial) themes at 1440px, demonstrating the visual range across design systems.
 
-| Theme | Style | Type |
-|-------|-------|------|
-| 💧 **Liquid** | Fluid, organic animations | Free |
-| 🔮 **Glass** | Glassmorphism with depth | Free |
-| ⚡ **Neo** | Bold, energetic design | Free |
-| ○ **Minimal** | Clean, focused aesthetic | Free |
-| ✨ **Luxury** | Premium, sophisticated | Premium |
-| 🌌 **Aurora** | Gradient-mesh, geometric | Premium |
+---
 
-Every theme includes: Hero, About, Features, Portfolio, Pricing, Testimonials, FAQ, CTA, Contact, Header, and Footer sections.
+## Why AstroGlass?
 
-## 🚀 Quick Start
+Most Astro templates give you one design. AstroGlass gives you **six independent design systems** that share a common architecture — same components, same i18n, same routing — just different visual language.
+
+- **6 themes** — Liquid, Glass, Neo, Minimal, Luxury, Aurora. Each has a full section set (hero → footer).
+- **10 color palettes** — Hot-swap between light, dark, and colorful palettes at runtime. CSS-only, no JS.
+- **7 languages** — English, Russian, French, Spanish, Japanese, Chinese, Kazakh. Add more in minutes.
+- **CLI scaffolding** — Ship only the themes, palettes, and features you need. No manual pruning.
+
+---
+
+## Themes
+
+| Theme | Style | Sections |
+|-------|-------|----------|
+| 💧 **Liquid** | Fluid motion, organic shapes | Hero, About, Features, Portfolio, Pricing, Testimonials, FAQ, CTA, Contact, Footer |
+| 🔮 **Glass** | Glassmorphism, frosted layers, depth | ↑ same 10 sections |
+| ⚡ **Neo** | Bold brutalist, high energy | ↑ |
+| ○ **Minimal** | Clean typography, whitespace | ↑ |
+| ✨ **Luxury** | Editorial, sophisticated animations | ↑ |
+| 🌌 **Aurora** | Cosmic gradients, geometric | ↑ |
+
+Every theme includes a dedicated header, all 10 landing sections, and a footer. Themes are fully independent — include one or all six.
+
+<!-- TODO: Replace with actual theme screenshots — 2x3 grid showing each theme's hero section -->
+> **[Screenshot placeholder]** — 2×3 grid: each theme's hero section at 1280px width, showing Liquid (top-left) through Aurora (bottom-right).
+
+---
+
+## Quick Start
+
+### Via CLI (recommended)
 
 ```bash
-# Clone the repo
-npx degit kamsqee/astroglass-preview my-site
+npm create astroglass@latest ./my-site
 cd my-site
-
-# Install dependencies
 pnpm install
-
-# Start dev server
 pnpm dev
 ```
 
+The CLI walks you through theme, palette, locale, and feature selection interactively.
+
+### Non-interactive
+
+```bash
+npm create astroglass@latest ./my-site -- \
+  --theme liquid \
+  --palettes azure,abyss \
+  --deploy cloudflare \
+  --yes
+```
+
+### Manual setup
+
+<details>
+<summary>Clone without the CLI</summary>
+
+```bash
+npx degit kamsqee/astroglass-preview my-site
+cd my-site
+pnpm install
+pnpm dev
+```
+
+This gives you the full template with all themes, palettes, and locales. Remove what you don't need manually.
+
+</details>
+
 Open [http://localhost:4321](http://localhost:4321) to see your site.
 
-## 🛠️ Commands
+---
 
-| Command | Action |
-|---------|--------|
-| `pnpm dev` | Start dev server at `localhost:4321` |
-| `pnpm build` | Production build to `./dist/` |
-| `pnpm check` | Astro type checking |
-| `pnpm lint` | Run ESLint |
-| `pnpm format` | Format with Prettier |
-| `pnpm format:check` | Check formatting |
-| `pnpm preview` | Preview build locally |
+## Features
 
-## 📂 Project Structure
+| Feature | Description |
+|---------|-------------|
+| 🎨 **Multi-theme** | 6 design systems sharing a common component architecture |
+| 🎭 **10 Palettes** | CSS-only color switching — Azure, Solaris, Evergreen, Rosé, Monochrome, Nordic, Aquatica, Abyss, NeoNoir, Synthwave |
+| 🌍 **i18n** | 7 languages with URL-based routing (`/en/docs`, `/ru/docs`) and locale auto-detection |
+| 📝 **Blog** | MDX-powered blog with RSS feed support |
+| 📚 **Docs** | Documentation pages with Fuse.js full-text search, `Cmd+K` command palette |
+| 📊 **Dashboard** | Analytics demo with Recharts (React island) |
+| 🔍 **Search** | Client-side fuzzy search built on [Fuse.js](https://fusejs.io) — build-time indexing, match highlighting, "Did you mean?" |
+| 🚀 **Deploy** | One-file provider switch — Cloudflare Pages, Vercel, Netlify, or static |
+
+---
+
+## CLI Reference
+
+After scaffolding, you can manage your project with `astroglass` subcommands:
+
+```bash
+# Check what's installed
+npx astroglass status --validate
+
+# Add components
+npx astroglass add --theme luxury
+npx astroglass add --palette synthwave
+npx astroglass add --lang fr
+npx astroglass add --feature docs
+
+# Remove components (with safety checks)
+npx astroglass remove --theme neo
+npx astroglass remove --palette rose
+
+# Fix config/filesystem mismatches
+npx astroglass repair
+```
+
+All `add`/`remove` commands update `astroglass.config.json` and auto-commit if you're in a git repo.
+
+---
+
+## Project Structure
 
 ```
 src/
-├── components/         # UI components
-│   ├── sections/       # Theme-specific sections (hero, about, pricing, etc.)
-│   ├── ui/             # Shared primitives (button, card, tabs)
-│   └── layout/         # Headers and structural wrappers
-├── config/             # Central config (themes, locales, navigation, providers)
-├── content/            # MDX collections (docs, blog)
-├── layouts/            # Page layouts
-├── lib/                # Utilities (search, schemas, cn())
-├── locales/            # i18n translation JSON files (en, ru, fr, es, ja, zh, kk)
-├── pages/              # File-based routing
-├── styles/             # CSS (global + per-component)
-└── utils/              # Helpers (i18n, animations, form validation)
+├── components/
+│   ├── sections/themes/     # Barrel files per theme (liquid.ts, glass.ts, ...)
+│   ├── sections/hero/       # HeroLiquid.astro, HeroGlass.astro, ...
+│   ├── sections/[section]/  # about, features, portfolio, pricing, ...
+│   ├── ui/                  # Shared primitives (button, card, tabs)
+│   └── layout/header/       # Per-theme headers
+├── config/
+│   ├── themes.ts            # Theme definitions
+│   ├── palettes.ts          # Palette registry
+│   ├── locales.ts           # Locale config
+│   ├── navigation.ts        # Nav builder
+│   └── providers/           # Deploy target configs
+├── content/                 # MDX collections (docs, blog)
+├── locales/                 # Translation JSON per locale
+├── pages/
+│   └── [...lang]/[theme].astro  # Dynamic theme/locale routing
+├── styles/
+│   ├── palettes/            # Per-palette CSS (azure.css, abyss.css, ...)
+│   ├── tokens/              # Per-theme design tokens
+│   └── components/          # Per-section CSS
+└── utils/                   # i18n, animations, form validation
 ```
 
-## 🎨 Customization
+---
 
-### Adding a Theme
+## Customization
 
-1. Create a barrel file at `src/components/sections/themes/{theme}.ts`
-2. Add a preset in `src/config/themePresets.ts`
-3. Register the theme in `src/config/themes.ts`
-4. Add the module to `themeModules` in `src/pages/[...lang]/[theme].astro`
+### Themes
 
-### Adding a Locale
+Each theme is a self-contained set of section components. To add a new theme:
 
-1. Add an entry to `localesConfig` in `src/config/locales.ts`
-2. Create JSON files in `src/locales/{code}/` matching the existing structure
-3. The locale will be automatically available throughout the app
+1. Create section components in `src/components/sections/[section]/[Theme].astro`
+2. Create a barrel file at `src/components/sections/themes/[theme].ts`
+3. Register it in `src/config/themes.ts` and `src/config/themePresets.ts`
 
-### Reordering / Disabling Sections
+Or use the CLI: `npx astroglass add --theme [id]`
 
-Edit `src/config/themePresets.ts` — change the `landingSections[]` array for any theme.
+### Palettes
 
-### Switching Deployment Provider
+Palettes are pure CSS — a single file in `src/styles/palettes/` defining color variables under a `[data-palette="name"]` selector. Add a new `.css` file and import it in `_themes.css`.
 
-Change the import in `src/config/providers/active-provider.ts`:
+### Reorder / Disable Sections
 
-```typescript
-// Cloudflare (default)
-export { adapter, output, providerName, buildNotes } from './cloudflare.config';
+Edit `src/config/themePresets.ts` — the `landingSections[]` array controls section order for each theme.
 
-// Vercel
-export { adapter, output, providerName, buildNotes } from './vercel.config';
-
-// Netlify
-export { adapter, output, providerName, buildNotes } from './netlify.config';
-```
-
-## 🌍 Internationalization
-
-- **UI Strings**: `src/locales/{locale}/*.json` — auto-loaded via Vite glob
-- **Content**: `src/content/docs/{locale}/` — MDX collections per locale
-- **Routing**: URL-based (`/en/docs`, `/ru/docs`, `/kk/docs`, etc.) with auto-detection
-
-Currently ships with 7 languages: English (`en`), Russian (`ru`), French (`fr`), Spanish (`es`), Japanese (`ja`), Chinese (`zh`), and Kazakh (`kk`). Add more by following the steps above.
-
-## 🔍 Search
-
-Client-side fuzzy search powered by [Fuse.js](https://fusejs.io):
-
-- **Build-time indexing**: `scripts/generate-search-index.mjs` generates per-locale JSON indexes
-- **Keyboard shortcuts**: `Cmd+K` / `/` to open, arrow keys to navigate
-- **Features**: Recent searches, "Did you mean?" suggestions, match highlighting
-- **Customization**: Adjust weights, threshold, and styling in `src/components/docs/CommandPalette.astro`
-
-## 🚢 Deployment
-
-### Cloudflare Pages (default)
+### Switch Deploy Target
 
 ```bash
-pnpm deploy:cloudflare
+npx astroglass add --deploy vercel
 ```
 
-### Vercel
+Or manually change the import in `src/config/providers/active-provider.ts`.
 
-```bash
-pnpm add -D @astrojs/vercel
-# Update active-provider.ts to import from vercel.config
-pnpm deploy:vercel
-```
+---
 
-### Netlify
+## Commands
 
-```bash
-pnpm add -D @astrojs/netlify
-# Update active-provider.ts to import from netlify.config
-pnpm deploy:netlify
-```
+| Command | Action |
+|---------|--------|
+| `pnpm dev` | Dev server at `localhost:4321` |
+| `pnpm build` | Production build to `./dist/` |
+| `pnpm preview` | Preview production build |
+| `pnpm check` | Astro type checking |
+| `pnpm lint` | ESLint |
+| `pnpm format` | Prettier |
 
-## 🧱 Tech Stack
+---
+
+## Tech Stack
 
 | Category | Technology |
 |----------|-----------|
@@ -153,25 +220,19 @@ pnpm deploy:netlify
 | Styling | [Tailwind CSS 4](https://tailwindcss.com) |
 | Islands | [React 19](https://react.dev) |
 | Search | [Fuse.js](https://fusejs.io) |
-| Validation | [Valibot](https://valibot.dev) |
 | Code Blocks | [Expressive Code](https://expressive-code.com) |
+| Validation | [Valibot](https://valibot.dev) |
 | Animations | [Framer Motion](https://motion.dev) |
+| CLI | [citty](https://github.com/unjs/citty) + [@clack/prompts](https://github.com/natemoo-re/clack) |
 
-### Demo-Only Dependencies
+---
 
-These packages power demo/showcase components and can be safely removed if not needed:
+## Contributing
 
-| Package | Used For |
-|---------|----------|
-| `recharts` | Dashboard demo charts |
-| `@xyflow/react` | Flow diagram demo |
-| `cmdk` | Command palette search UI |
-| `lucide-react` | Icons in React components |
+Contributions are welcome — whether it's bug fixes, new themes, palette ideas, or documentation improvements. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and the PR process.
 
-## 🤝 Contributing
+> **Note on translations:** Most non-English localizations (Russian, French, Spanish, Japanese, Chinese, Kazakh) were generated with AI and may contain inaccuracies. Native speaker corrections are especially appreciated — even fixing a single string helps.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, coding standards, and the PR process.
-
-## 📄 License
+## License
 
 [MIT](LICENSE) © AstroGlass

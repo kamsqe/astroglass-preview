@@ -1,25 +1,30 @@
-<p align="center">
-  <!-- TODO: Replace with actual logo/banner -->
-  <img src="public/favicon.svg" width="80" alt="AstroGlass" />
-</p>
+<div align="center">
 
-<h1 align="center">AstroGlass</h1>
+  <a href="https://astroglass-preview.pages.dev">
+    <img src="public/favicon.svg" width="100" alt="AstroGlass Logo" />
+  </a>
 
-<p align="center">
-  Multi-theme Astro template with 6 design systems, 10 palettes, 7 locales, and a CLI to scaffold exactly what you need.
-</p>
+  <h1>AstroGlass</h1>
 
-<p align="center">
-  <a href="https://astro.build"><img src="https://astro.badg.es/v2/built-with-astro/small.svg" alt="Built with Astro" /></a>
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License" />
-  <img src="https://img.shields.io/badge/Astro-5-BC52EE?logo=astro" alt="Astro 5" />
-  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss" alt="Tailwind 4" />
-  <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node >= 20" />
-</p>
+  <p>
+    Multi-theme Astro template with 6 design systems, 10 palettes, 7 locales,<br/>
+    and a CLI to scaffold exactly what you need.
+  </p>
 
-<p align="center">
-  <a href="https://astroglass-preview.pages.dev"><strong>Live Demo →</strong></a>
-</p>
+  <p>
+    <a href="https://github.com/kamsqee/astroglass-preview/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT License" /></a>
+    <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro_5.0-BC52EE?style=flat-square&logo=astro&logoColor=white" alt="Built with Astro" /></a>
+    <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_4.0-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" /></a>
+    <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js_%3E%3D_20-43853D?style=flat-square&logo=node.js&logoColor=white" alt="Node.js >= 20" /></a>
+  </p>
+
+  <p>
+    <a href="https://astroglass-preview.pages.dev"><strong>View Live Demo</strong></a> ·
+    <a href="#quick-start"><strong>Quick Start</strong></a> ·
+    <a href="#features"><strong>Explore Features</strong></a>
+  </p>
+
+</div>
 
 <!-- TODO: Replace with actual hero screenshot showing 2-3 themes side by side -->
 <!-- Example: a wide composite image showing Liquid, Glass, and Luxury themes at desktop width -->

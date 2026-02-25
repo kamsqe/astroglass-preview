@@ -7,9 +7,11 @@
  * for on-page sections, plus page links for Blog and Docs.
  * 
  * Neo, Liquid, Glass, and Aurora additionally get a "Home" dropdown
- * listing all 6 landing pages. Liquid also gets a nested "Portfolio"
+ * listing all landing pages. Liquid also gets a nested "Portfolio"
  * dropdown under Home (for future per-theme portfolio pages).
  */
+
+import { getThemeIds } from './themeRegistry';
 
 export interface NavIcon {
   readonly paths: string[] | readonly string[];
@@ -52,18 +54,28 @@ export const navIcons = {
   },
 } as const;
 
+/** Theme display metadata for nav dropdowns (icons per theme) */
+const themeIcons: Record<string, string> = {
+  liquid: '💧',
+  glass: '🔮',
+  neo: '⚡',
+  luxury: '✨',
+  minimal: '○',
+  aurora: '🌌',
+};
+
 /**
- * All 6 landing page definitions.
- * Used for the Home dropdown on Neo, Liquid, Glass, Aurora.
+ * Build landing pages list dynamically from theme registry.
+ * The CLI modifies themeRegistry when themes are added/removed,
+ * and this list auto-adapts.
  */
-const landingPages = [
-  { id: 'liquid', labelKey: 'nav.themeLiquid', icon: '💧' },
-  { id: 'glass', labelKey: 'nav.themeGlass', icon: '🔮' },
-  { id: 'neo', labelKey: 'nav.themeNeo', icon: '⚡' },
-  { id: 'luxury', labelKey: 'nav.themeLuxury', icon: '✨' },
-  { id: 'minimal', labelKey: 'nav.themeMinimal', icon: '○' },
-  { id: 'aurora', labelKey: 'nav.themeAurora', icon: '🌌' },
-] as const;
+function getLandingPages() {
+  return getThemeIds().map(id => ({
+    id,
+    labelKey: `nav.theme${id.charAt(0).toUpperCase() + id.slice(1)}`,
+    icon: themeIcons[id] || '🎨',
+  }));
+}
 
 // ─── Resolved types (returned from build functions) ─────────────
 
@@ -95,7 +107,7 @@ export function buildThemeNavLinks(
   const themeBase = `/${theme}`;
 
   // Build landing page children for the Home dropdown
-  const homeChildren: ResolvedNavChild[] = landingPages.map((page) => {
+  const homeChildren: ResolvedNavChild[] = getLandingPages().map((page) => {
     const child: ResolvedNavChild = {
       href: `/${page.id}`,
       label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
@@ -200,7 +212,7 @@ export function buildDefaultNavLinks(
   
 
   // Build landing page children for the Home dropdown
-  const homeChildren: ResolvedNavChild[] = landingPages.map((page) => ({
+  const homeChildren: ResolvedNavChild[] = getLandingPages().map((page) => ({
     href: `/${page.id}`,
     label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
   }));

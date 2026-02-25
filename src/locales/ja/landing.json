@@ -28,7 +28,7 @@
     "perf": "パフォーマンス重視",
     "perfDesc": "デフォルトでゼロJS、画像の遅延読み込み、アセットの最適化により、Lighthouseスコア100を達成。",
     "colorThemes": "カラーテーマ",
-    "colorThemesDesc": "Tahoe、Nord、Rosé、Dracula、Monoなど10種類の組み込みパレットを1行で切り替え可能。",
+    "colorThemesDesc": "Azure、Nord、Rosé、Dracula、Monoなど10種類の組み込みパレットを1行で切り替え可能。",
     "explore": "探索する"
   },
   "stats": {

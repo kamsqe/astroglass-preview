@@ -9,6 +9,7 @@ import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { buildMinimalNavLinks } from '../../../config/navigation';
 import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
+import { palettes } from '../../../config/palettes';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -52,10 +53,9 @@ import '../../../styles/components/header/HeaderMinimal.css';
        <div class="minimal-settings-group">
           <span class="minimal-settings-label">{t('nav.preferences')}</span>
           <div class="minimal-theme-grid">
-             <button class="minimal-theme-btn" data-theme-minimal="tahoe" title={t('themeSwitcher.categories.light')}>☀️</button>
-             <button class="minimal-theme-btn" data-theme-minimal="abyss" title={t('themeSwitcher.categories.dark')}>🌙</button>
-             <button class="minimal-theme-btn" data-theme-minimal="synthwave" title={t('themeSwitcher.themes.synthwave')}>🎧</button>
-             <button class="minimal-theme-btn" data-theme-minimal="rose" title={t('themeSwitcher.themes.rose')}>🌸</button>
+             {palettes.map(p => (
+               <button class="minimal-theme-btn" data-theme-minimal={p.id} title={p.id.charAt(0).toUpperCase() + p.id.slice(1)}>{p.icon}</button>
+             ))}
           </div>
        </div>
        <div class="minimal-settings-group">

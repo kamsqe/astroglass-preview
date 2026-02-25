@@ -10,6 +10,8 @@ import LocalizedLink from '../../ui/LocalizedLink.astro';
 import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
+import { palettes } from '../../../config/palettes';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
@@ -27,13 +29,9 @@ const localePaths = enabledLocales.map(loc => ({
   isActive: locale === loc.code,
 }));
 
-const themes = [
-  { id: 'tahoe', label: 'Tahoe', color: '#3B82F6' },
-  { id: 'abyss', label: 'Abyss', color: '#6366F1' },
-  { id: 'solaris', label: 'Solaris', color: '#F59E0B' },
-  { id: 'neonoir', label: 'NeoNoir', color: '#EC4899' },
-  { id: 'synthwave', label: 'Synth', color: '#8B5CF6' },
-];
+const themes = palettes.map(p => ({
+  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex,
+}));
 ---
 
 <div class="luxury-desktop-controls">

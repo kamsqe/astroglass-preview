@@ -28,7 +28,7 @@
     "perf": "La Performance Avant Tout",
     "perfDesc": "Score Lighthouse de 100 avec zéro JS par défaut, chargement différé (lazy loading) et ressources optimisées.",
     "colorThemes": "Thèmes de Couleurs",
-    "colorThemesDesc": "10 palettes intégrées — Tahoe, Nord, Rosé, Dracula, Mono, et plus — changez avec une seule ligne de code.",
+    "colorThemesDesc": "10 palettes intégrées — Azure, Nord, Rosé, Dracula, Mono, et plus — changez avec une seule ligne de code.",
     "explore": "Explorer"
   },
   "stats": {

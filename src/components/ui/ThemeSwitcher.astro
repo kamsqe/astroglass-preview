@@ -4,6 +4,7 @@
  * Elegant theme selector - grid on mobile, dropdown on desktop
  */
 import { getLocaleFromUrl, useTranslations } from '../../utils/i18n';
+import { palettes, getPalettesByCategory, getPaletteIconMap } from '../../config/palettes';
 
 export interface Props {
   class?: string;
@@ -15,39 +16,18 @@ const { class: className, variant = 'default' } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Theme IDs with icons (labels come from translations)
-const themeData = {
-  tahoe: '☀️',
-  nordic: '❄️',
-  solaris: '🌅',
-  abyss: '🌙',
-  neonoir: '🌃',
-  synthwave: '🎧',
-  evergreen: '🌲',
-  rose: '🌸',
-  aquatica: '🌊',
-  monochrome: '◻️',
-};
+// Build theme lists from centralized config
+const lightThemes = getPalettesByCategory('light').map(p => ({
+  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+}));
 
-// Themes organized by category for better UX
-const lightThemes = [
-  { id: 'tahoe', icon: themeData.tahoe, label: t('themeSwitcher.themes.tahoe') },
-  { id: 'nordic', icon: themeData.nordic, label: t('themeSwitcher.themes.nordic') },
-  { id: 'solaris', icon: themeData.solaris, label: t('themeSwitcher.themes.solaris') },
-];
+const darkThemes = getPalettesByCategory('dark').map(p => ({
+  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+}));
 
-const darkThemes = [
-  { id: 'abyss', icon: themeData.abyss, label: t('themeSwitcher.themes.abyss') },
-  { id: 'neonoir', icon: themeData.neonoir, label: t('themeSwitcher.themes.neonoir') },
-  { id: 'synthwave', icon: themeData.synthwave, label: t('themeSwitcher.themes.synthwave') },
-];
-
-const colorThemes = [
-  { id: 'evergreen', icon: themeData.evergreen, label: t('themeSwitcher.themes.evergreen') },
-  { id: 'rose', icon: themeData.rose, label: t('themeSwitcher.themes.rose') },
-  { id: 'aquatica', icon: themeData.aquatica, label: t('themeSwitcher.themes.aquatica') },
-  { id: 'monochrome', icon: themeData.monochrome, label: t('themeSwitcher.themes.monochrome') },
-];
+const colorThemes = getPalettesByCategory('colorful').map(p => ({
+  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+}));
 
 // Category labels from translations
 const categoryLabels = {
@@ -58,7 +38,12 @@ const categoryLabels = {
 
 // Flat array for mobile
 const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
+
+// Serialize palette data for client-side JS
+const paletteIconMap = JSON.stringify(getPaletteIconMap());
 ---
+
+<script type="application/json" id="palette-icon-data" set:html={paletteIconMap} />
 
 {variant === 'mobile' ? (
   <!-- Mobile: Horizontal scrollable grid -->
@@ -176,18 +161,11 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
 )}
 
 <script>
-  const themeIcons: Record<string, string> = {
-    tahoe: '☀️',
-    abyss: '🌙',
-    solaris: '🌅',
-    nordic: '❄️',
-    neonoir: '🌃',
-    evergreen: '🌲',
-    rose: '🌸',
-    aquatica: '🌊',
-    monochrome: '◻️',
-    synthwave: '🎧',
-  };
+  // Read palette icon map from serialized data (sourced from palettes.ts)
+  const paletteDataEl = document.getElementById('palette-icon-data');
+  const themeIcons: Record<string, string> = paletteDataEl
+    ? JSON.parse(paletteDataEl.textContent || '{}')
+    : {};
 
   const themes = Object.keys(themeIcons);
   type Theme = keyof typeof themeIcons;
@@ -199,7 +177,7 @@ const allThemes = [...lightThemes, ...darkThemes, ...colorThemes];
         return stored as Theme;
       }
     }
-    return 'tahoe';
+    return 'azure';
   }
 
   function updateActiveStates(theme: Theme) {

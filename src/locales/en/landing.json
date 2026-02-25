@@ -28,7 +28,7 @@
     "perf": "Performance First",
     "perfDesc": "100 Lighthouse score with zero-JS by default, lazy loading, and optimized assets.",
     "colorThemes": "Color Themes",
-    "colorThemesDesc": "10 built-in palettes — Tahoe, Nord, Rosé, Dracula, Mono, and more — switch with one line.",
+    "colorThemesDesc": "10 built-in palettes — Azure, Nord, Rosé, Dracula, Mono, and more — switch with one line.",
     "explore": "Explore"
   },
   "stats": {

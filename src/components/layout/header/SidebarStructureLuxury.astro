@@ -12,6 +12,8 @@ import { buildLuxuryNavLinks } from '../../../config/navigation';
 import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
+import { palettes } from '../../../config/palettes';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildLuxuryNavLinks(t);
@@ -30,14 +32,10 @@ const localePaths = enabledLocales.map(loc => ({
   isActive: locale === loc.code,
 }));
 
-// Themes (Dual-Tone)
-const themes = [
-  { id: 'tahoe', label: 'Tahoe', color: '#3B82F6', bg: '#ffffff' },
-  { id: 'abyss', label: 'Abyss', color: '#6366F1', bg: '#0F172A' },
-  { id: 'solaris', label: 'Solaris', color: '#F59E0B', bg: '#FFF7ED' },
-  { id: 'neonoir', label: 'NeoNoir', color: '#EC4899', bg: '#18181B' },
-  { id: 'synthwave', label: 'Synth', color: '#8B5CF6', bg: '#2E1065' },
-];
+// Themes from centralized config
+const themes = palettes.map(p => ({
+  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex, bg: p.bgHex,
+}));
 ---
 
 <aside class="luxury-spine" id="luxury-spine">
@@ -279,12 +277,8 @@ const themes = [
     border-color: hsl(var(--bc));
   }
   
-  /* Active Theme Indicator */
-  :global([data-theme="tahoe"]) button[data-set-theme-spine="tahoe"],
-  :global([data-theme="abyss"]) button[data-set-theme-spine="abyss"],
-  :global([data-theme="solaris"]) button[data-set-theme-spine="solaris"],
-  :global([data-theme="neonoir"]) button[data-set-theme-spine="neonoir"],
-  :global([data-theme="synthwave"]) button[data-set-theme-spine="synthwave"] {
+  /* Active Theme Indicator — handled dynamically via JS is-active class */
+  button[data-set-theme-spine].is-active {
     border-color: hsl(var(--bc));
     transform: scale(1.15);
     box-shadow: 0 0 0 2px hsl(var(--bc) / 0.1);
@@ -300,16 +294,28 @@ const themes = [
 <script>
   function initLuxurySpine() {
     // 1. Theme Logic
+    const updateSpineActive = () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'azure';
+      document.querySelectorAll('[data-set-theme-spine]').forEach(btn => {
+        btn.classList.toggle('is-active', (btn as HTMLElement).dataset.setThemeSpine === current);
+      });
+    };
+
+    updateSpineActive();
+
     document.querySelectorAll('[data-set-theme-spine]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const theme = (e.currentTarget as HTMLElement).dataset.setThemeSpine;
         if (theme) {
           document.documentElement.setAttribute('data-theme', theme);
           localStorage.setItem('theme', theme);
+          updateSpineActive();
           window.dispatchEvent(new Event('theme-changed'));
         }
       });
     });
+
+    window.addEventListener('theme-changed', updateSpineActive);
 
     // 2. ScrollSpy (IntersectionObserver)
     const sectionLinks = document.querySelectorAll('a[data-nav-type="section"]');

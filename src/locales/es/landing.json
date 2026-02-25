@@ -28,7 +28,7 @@
     "perf": "El Rendimiento es lo Primero",
     "perfDesc": "Puntuación de 100 en Lighthouse con cero JS por defecto, carga diferida (lazy loading) y recursos optimizados.",
     "colorThemes": "Temas de Colores",
-    "colorThemesDesc": "10 paletas incorporadas — Tahoe, Nord, Rosé, Dracula, Mono, y más — cambia con una sola línea de código.",
+    "colorThemesDesc": "10 paletas incorporadas — Azure, Nord, Rosé, Dracula, Mono, y más — cambia con una sola línea de código.",
     "explore": "Explorar"
   },
   "stats": {

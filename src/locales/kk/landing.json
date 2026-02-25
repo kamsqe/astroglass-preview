@@ -28,7 +28,7 @@
     "perf": "Ең алдымен өнімділік",
     "perfDesc": "Әдепкі бойынша нөлдік JS, lazy loading және оңтайландырылған файлдар арқылы 100 Lighthouse ұпайы.",
     "colorThemes": "Түс тақырыптары",
-    "colorThemesDesc": "10 кіріктірілген палитра — Tahoe, Nord, Rosé, Dracula, Mono және т.б. — бір жолмен ауыстырылады.",
+    "colorThemesDesc": "10 кіріктірілген палитра — Azure, Nord, Rosé, Dracula, Mono және т.б. — бір жолмен ауыстырылады.",
     "explore": "Көру"
   },
   "stats": {

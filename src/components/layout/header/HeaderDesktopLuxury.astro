@@ -11,6 +11,8 @@ import { buildThemeNavLinks } from '../../../config/navigation';
 import { getEnabledLocales, getEnabledLocaleCodes, defaultLocale } from '../../../config/locales';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
+import { palettes, getPaletteIds } from '../../../config/palettes';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const navLinks = buildThemeNavLinks(t, 'luxury');
@@ -30,13 +32,9 @@ const localePaths = enabledLocales.map(loc => ({
   isActive: locale === loc.code,
 }));
 
-const themes = [
-  { id: 'tahoe', label: 'Tahoe', color: '#3B82F6' },
-  { id: 'abyss', label: 'Abyss', color: '#6366F1' },
-  { id: 'solaris', label: 'Solaris', color: '#F59E0B' },
-  { id: 'neonoir', label: 'NeoNoir', color: '#EC4899' },
-  { id: 'synthwave', label: 'Synth', color: '#8B5CF6' },
-];
+const themes = palettes.map(p => ({
+  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex,
+}));
 ---
 
 <header class="luxury-desktop-header hidden lg:grid">
@@ -193,11 +191,14 @@ const themes = [
 </style>
 
 <script>
-  // Simple Theme Cycler
-  const themes = ['tahoe', 'abyss', 'solaris', 'neonoir', 'synthwave'];
-  
+  // Theme Cycler — reads available palettes from rendered buttons
   document.getElementById('luxury-desktop-theme-btn')?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'tahoe';
+    // Collect all available palette IDs from the spine buttons
+    const spineButtons = document.querySelectorAll('[data-set-theme-spine]');
+    const themes = Array.from(spineButtons).map(b => (b as HTMLElement).dataset.setThemeSpine).filter(Boolean) as string[];
+    if (themes.length === 0) return;
+
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'azure';
     const currentIndex = themes.indexOf(currentTheme);
     const nextTheme = themes[(currentIndex + 1) % themes.length];
     

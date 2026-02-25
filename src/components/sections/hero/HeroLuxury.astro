@@ -10,15 +10,15 @@ import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
 import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
+import { palettes } from '../../../config/palettes';
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const themes = [
-  { id: 'tahoe', name: 'Tahoe', color: '#3B82F6' },
-  { id: 'rose', name: 'Rosé', color: '#F43F5E' },
-  { id: 'evergreen', name: 'Evergreen', color: '#10B981' },
-  { id: 'abyss', name: 'Abyss', color: '#6366F1' },
-];
+// Show first 4 palettes as interactive demo swatches
+const themes = palettes.slice(0, 4).map(p => ({
+  id: p.id, name: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex,
+}));
 ---
 
 

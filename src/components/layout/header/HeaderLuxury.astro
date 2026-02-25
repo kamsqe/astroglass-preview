@@ -13,6 +13,7 @@ import LanguageSwitcher from '../../ui/LanguageSwitcher.astro';
 import SidebarStructureLuxury from './SidebarStructureLuxury.astro';
 import { getEnabledLocales, getEnabledLocaleCodes } from '../../../config/locales';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { palettes } from '../../../config/palettes';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -103,12 +104,11 @@ import '../../../styles/components/header/HeaderLuxury.css';
             <span class="text-xs opacity-50">↓</span>
           </button>
           <div class="luxury-control-list" id="theme-list">
-             <button class="luxury-control-option" data-set-theme="tahoe">Tahoe</button>
-             <button class="luxury-control-option" data-set-theme="abyss">Abyss</button>
-             <button class="luxury-control-option" data-set-theme="solaris">Solaris</button>
-             <button class="luxury-control-option" data-set-theme="nordic">Nordic</button>
-             <button class="luxury-control-option" data-set-theme="neonoir">NeoNoir</button>
-             <button class="luxury-control-option" data-set-theme="synthwave">Synthwave</button>
+             {palettes.map(p => (
+               <button class="luxury-control-option" data-set-theme={p.id}>
+                 {p.id.charAt(0).toUpperCase() + p.id.slice(1)}
+               </button>
+             ))}
           </div>
         </div>
 
@@ -164,7 +164,7 @@ import '../../../styles/components/header/HeaderLuxury.css';
 
     // Initialize current label
     const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme') || 'tahoe';
+    const currentTheme = html.getAttribute('data-theme') || 'azure';
     updateControlLabel(currentTheme);
 
     // --- Core Open/Close Logic ---

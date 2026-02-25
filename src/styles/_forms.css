@@ -105,9 +105,9 @@ select:-webkit-autofill:active {
   background-color: hsl(var(--er) / 0.1);
 }
 
-/* "Corporate" Themes (Minimal, Tahoe, Nordic) */
+/* "Corporate" Themes (Minimal, Azure, Nordic) */
 [data-theme="minimal"] .input-error,
-[data-theme="tahoe"] .input-error,
+[data-theme="azure"] .input-error,
 [data-theme="nordic"] .input-error {
   border-width: 2px;
   background-color: transparent;

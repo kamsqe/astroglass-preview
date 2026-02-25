@@ -28,7 +28,7 @@
     "perf": "Производительность",
     "perfDesc": "100 баллов Lighthouse, ноль JS по умолчанию, ленивая загрузка и оптимизация ресурсов.",
     "colorThemes": "Цветовые темы",
-    "colorThemesDesc": "10 встроенных палитр — Tahoe, Nord, Rosé, Dracula, Mono и другие — переключение в одну строку.",
+    "colorThemesDesc": "10 встроенных палитр — Azure, Nord, Rosé, Dracula, Mono и другие — переключение в одну строку.",
     "explore": "Подробнее"
   },
   "stats": {

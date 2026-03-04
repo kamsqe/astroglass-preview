@@ -89,7 +89,7 @@ export const AnalyticsDashboard = () => {
                   <p className="text-sm font-medium text-[hsl(var(--bc)/0.5)]">{item.title}</p>
                   <p className="text-2xl sm:text-3xl font-black text-[hsl(var(--bc))] mt-1 tracking-tight">{item.metric}</p>
                 </div>
-                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 backdrop-blur-md">
+                <Badge variant="outline" className="shrink-0 whitespace-nowrap bg-emerald-500/10 text-emerald-500 border-emerald-500/20 backdrop-blur-md">
                   {item.delta}
                 </Badge>
               </div>

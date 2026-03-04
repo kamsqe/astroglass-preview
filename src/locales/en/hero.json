@@ -23,7 +23,7 @@
   "shippingVelocity": "10x shipping velocity",
   "readyToBuild": "Ready to build?",
   "askLeaders": "Ask Stripe, Linear, Vercel.",
-  "cloneCommand": "npx degit kamsqee/astroglass my-site",
+  "cloneCommand": "npx degit kamsqe/astroglass my-site",
   "readyIn": "Ready in 2 minutes",
   "terminal": {
     "label": "Terminal"

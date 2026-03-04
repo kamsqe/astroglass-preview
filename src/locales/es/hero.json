@@ -23,7 +23,7 @@
   "shippingVelocity": "Velocidad de lanzamiento 10x",
   "readyToBuild": "¿Listo para construir?",
   "askLeaders": "Pregúntale a Stripe, Linear, Vercel.",
-  "cloneCommand": "npx degit kamsqee/astroglass mi-sitio",
+  "cloneCommand": "npx degit kamsqe/astroglass mi-sitio",
   "readyIn": "Listo en 2 minutos",
   "terminal": {
     "label": "Terminal"

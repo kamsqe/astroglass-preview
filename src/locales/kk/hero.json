@@ -23,7 +23,7 @@
   "shippingVelocity": "Жобаны іске қосуды 10 есе жылдамдатады",
   "readyToBuild": "Жасауға дайынсыз ба?",
   "askLeaders": "Stripe, Linear, Vercel-ден сұрап көріңіз.",
-  "cloneCommand": "npx degit kamsqee/astroglass my-site",
+  "cloneCommand": "npx degit kamsqe/astroglass my-site",
   "readyIn": "2 минутта дайын болады",
   "terminal": {
     "label": "Терминал"

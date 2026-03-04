@@ -13,7 +13,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 
 ```bash
 # Clone the repo
-git clone https://github.com/kamsqee/astroglass-preview.git
+git clone https://github.com/kamsqe/astroglass-preview.git
 cd astroglass-preview
 
 # Install dependencies
@@ -101,7 +101,7 @@ src/
 
 ## Reporting Bugs
 
-Use the [Bug Report](https://github.com/kamsqee/astroglass-preview/issues/new?template=bug_report.md) issue template. Include:
+Use the [Bug Report](https://github.com/kamsqe/astroglass-preview/issues/new?template=bug_report.md) issue template. Include:
 
 - Steps to reproduce
 - Expected vs actual behavior
@@ -110,7 +110,7 @@ Use the [Bug Report](https://github.com/kamsqee/astroglass-preview/issues/new?te
 
 ## Requesting Features
 
-Use the [Feature Request](https://github.com/kamsqee/astroglass-preview/issues/new?template=feature_request.md) issue template. Describe:
+Use the [Feature Request](https://github.com/kamsqe/astroglass-preview/issues/new?template=feature_request.md) issue template. Describe:
 
 - The problem you're trying to solve
 - Your proposed solution

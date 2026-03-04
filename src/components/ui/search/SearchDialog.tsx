@@ -207,7 +207,7 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/getting-started`} icon="⚡" label={labels.gettingStarted} />
                       <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}`} icon="🧩" label={labels.components} />
-                      <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/themes`} icon="🎨" label={labels.themes} />
+                      <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/core-concepts/theming`} icon="🎨" label={labels.themes} />
                    </div>
                 </div>
               </>
@@ -279,9 +279,9 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
 
 function QuickLink({ href, icon, label }: { href: string, icon: string, label: string }) {
   return (
-    <a href={href} className="flex flex-col items-center gap-2 rounded-2xl border border-[hsl(var(--bc)/0.08)] bg-[hsl(var(--bc)/0.02)] p-4 text-center hover:border-[hsl(var(--a)/0.3)] hover:bg-[hsl(var(--a)/0.05)] hover:text-[hsl(var(--a))] transition-all group">
+    <a href={href} className="flex flex-col items-center gap-2 rounded-2xl border border-[hsl(var(--bc)/0.08)] bg-[hsl(var(--bc)/0.02)] p-4 text-center hover:border-[hsl(var(--bc)/0.2)] hover:bg-[hsl(var(--bc)/0.08)] hover:text-[hsl(var(--bc))] hover:shadow-md transition-all group">
        <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{icon}</span>
-       <span className="text-xs font-semibold text-[hsl(var(--bc)/0.7)] group-hover:text-[hsl(var(--a))]">{label}</span>
+       <span className="text-xs font-semibold text-[hsl(var(--bc)/0.7)] group-hover:text-[hsl(var(--bc))]">{label}</span>
     </a>
   );
 }

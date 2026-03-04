@@ -48,7 +48,7 @@
     "step1": "Cloner le dépôt",
     "step2": "Installer les dépendances",
     "step3": "Commencer le développement",
-    "step1cmd": "git clone https://github.com/kamsqee/astroglass.git",
+    "step1cmd": "git clone https://github.com/kamsqe/astroglass.git",
     "step2cmd": "cd astroglass && npm install",
     "step3cmd": "npm run dev",
     "ready": "✓ Prêt sur localhost:4321",

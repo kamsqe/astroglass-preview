@@ -207,7 +207,7 @@ export default function SearchDialog({ locale, labels, sectionLabels = {} }: Pro
                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/getting-started`} icon="⚡" label={labels.gettingStarted} />
                       <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}`} icon="🧩" label={labels.components} />
-                      <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/themes`} icon="🎨" label={labels.themes} />
+                      <QuickLink href={`/${locale === 'en' ? 'docs' : locale + '/docs'}/core-concepts/theming`} icon="🎨" label={labels.themes} />
                    </div>
                 </div>
               </>

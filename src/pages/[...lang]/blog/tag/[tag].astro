@@ -6,6 +6,7 @@ import BlogCard from '../../../../components/blog/BlogCard.astro';
 import TagFilter from '../../../../components/blog/TagFilter.astro';
 import FooterLiquid from '../../../../components/sections/footer/FooterLiquid.astro';
 import { useTranslations } from '../../../../utils/i18n';
+import LocalizedLink from '../../../../components/ui/LocalizedLink.astro';
 
 export const prerender = true;
 
@@ -49,9 +50,9 @@ const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 <BaseLayout title={`${t('blog.tags')}: ${tag}`} description={`${t('blog.filterByTag')}: ${tag}`}>
   <div class="max-w-6xl mx-auto pb-20 px-4 sm:px-6 overflow-x-hidden" style="padding-top: calc(var(--nav-offset, 5rem) + 2rem)">
     <div class="mb-8">
-      <a href="/blog" class="text-sm font-bold uppercase tracking-wider transition-colors" style={`color: hsl(var(--bc) / 0.4);`}>
+      <LocalizedLink href="/blog" class="text-sm font-bold uppercase tracking-wider transition-colors" style={`color: hsl(var(--bc) / 0.4);`}>
         {t('blog.backToBlog')}
-      </a>
+      </LocalizedLink>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black mt-3" style="overflow-wrap: break-word; word-break: break-word;">#{tag}</h1>
     </div>
 

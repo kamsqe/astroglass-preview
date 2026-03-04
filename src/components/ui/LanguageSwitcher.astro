@@ -42,7 +42,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
 ---
 
 {variant === 'mobile' ? (
-  <!-- Mobile: Inline button group -->
+  <!-- Mobile: Compact scrollable button group -->
   <div class="lang-switcher-mobile" data-lang-switcher-mobile>
     {locales.map((locale) => (
       <a
@@ -50,6 +50,7 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
         class:list={['lang-option-mobile', locale === currentLocale && 'is-active']}
         aria-current={locale === currentLocale ? 'page' : undefined}
         aria-label={localeData[locale].label}
+        title={localeData[locale].label}
       >
         <span class="lang-flag">{localeData[locale].flag}</span>
         <span class="lang-code">{localeData[locale].short}</span>

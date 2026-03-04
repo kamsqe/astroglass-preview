@@ -64,7 +64,7 @@ const themeCards = themes.filter(t => t.enabled).map((theme, i) => ({
           style={`animation-delay: ${i * 100}ms`}
           data-index={i}
         >
-          <div class="c-portfolio-neo__inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+          <div class="c-portfolio-neo__inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 will-change-transform [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
             <!-- Gradient accent top -->
             <div class={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color}`}></div>
             

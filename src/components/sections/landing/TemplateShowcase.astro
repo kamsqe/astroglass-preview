@@ -125,7 +125,7 @@ const cards = [
         <a
           href={card.href}
           class:list={[
-            "showcase-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/5 transition-all duration-700",
+            "showcase-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/5 transition-all duration-700 will-change-transform [backface-visibility:hidden] [-webkit-backface-visibility:hidden]",
             card.borderHover,
             card.span,
             card.large ? 'min-h-[320px] sm:min-h-[400px]' : 'min-h-[200px] sm:min-h-[240px]'

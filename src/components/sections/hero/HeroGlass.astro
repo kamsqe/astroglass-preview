@@ -75,16 +75,16 @@ const particles = Array.from({ length: 15 }).map((_, i) => ({
         <div class="absolute inset-0 c-hero-glass__sweep pointer-events-none mix-blend-overlay opacity-30 sm:opacity-50" style="animation-delay: 2s"></div>
 
         <!-- Badge -->
-        <SectionTag label={t('hero.digitalExperience')} class="mb-5 sm:mb-6 lg:mb-10 animate-fade-in relative z-10 scale-90 sm:scale-100" />
+        <SectionTag label={t('hero.digitalExperience')} class="mb-4 sm:mb-5 lg:mb-8 animate-fade-in relative z-10 scale-90 sm:scale-100" />
 
-        <SectionHeading tag="h1" size="xl" align="center" class="mb-4 sm:mb-6 lg:mb-8 leading-[1.05] sm:leading-[1.1] max-w-[95%] sm:max-w-4xl mx-auto drop-shadow-md text-balance relative z-10">
-          {remaining} 
+        <SectionHeading tag="h1" size="xl" align="center" class="mb-3 sm:mb-5 lg:mb-6 leading-[1.05] sm:leading-[1.1] max-w-[95%] sm:max-w-4xl mx-auto drop-shadow-md text-balance relative z-10">
+          {remaining}
           {lastTwo && (
             <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-base-content to-base-content/40 ml-1 sm:ml-2 drop-shadow-sm">{lastTwo}</span>
           )}
         </SectionHeading>
 
-        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-base-content/75 max-w-[95%] sm:max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed font-medium text-balance relative z-10">
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-base-content/75 max-w-[95%] sm:max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed font-medium text-balance relative z-10 line-clamp-3 sm:line-clamp-none">
           {t('hero.subtitle')}
         </p>
 

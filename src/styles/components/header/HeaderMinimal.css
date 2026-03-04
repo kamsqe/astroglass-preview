@@ -297,8 +297,8 @@
   border-top: 1px solid hsl(var(--bc) / 0.05);
 }
 
-@media (min-width: 768px) {
-  .panel-minimal-settings { grid-template-columns: 1fr 1fr; }
+@media (min-width: 900px) {
+  .panel-minimal-settings { grid-template-columns: 1fr auto; }
 }
 
 .minimal-settings-group {
@@ -317,14 +317,15 @@
 
 .minimal-theme-grid {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* Theme Button */
 .minimal-theme-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: hsl(var(--bc) / 0.04);
   border: 1px solid hsl(var(--bc) / 0.08);
   display: flex;

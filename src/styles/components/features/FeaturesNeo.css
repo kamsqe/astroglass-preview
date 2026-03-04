@@ -6,6 +6,7 @@
   transform: translateY(20px);
   /* Use global animation keyframes */
   animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .c-features-neo__tile:hover {

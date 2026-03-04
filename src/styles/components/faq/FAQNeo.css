@@ -88,6 +88,11 @@
   display: none;
 }
 
+/* Expanded category spans full grid width on mobile */
+.c-faq-neo__category-card.expanded {
+  grid-column: 1 / -1;
+}
+
 /* Accordion items */
 .c-faq-neo__accordion-item {
   transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);

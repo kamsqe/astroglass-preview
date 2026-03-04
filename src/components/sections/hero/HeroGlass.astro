@@ -69,13 +69,13 @@ const particles = Array.from({ length: 15 }).map((_, i) => ({
       </div>
       
       <!-- Layer 1 (Front focus layer) -->
-      <div class="absolute inset-0 z-20 border border-white/30 dark:border-white/20 border-t-white/50 dark:border-t-white/40 rounded-[3rem] sm:rounded-[4rem] bg-base-content/[0.04] backdrop-blur-2xl sm:backdrop-blur-3xl transform translate-z-0 flex flex-col items-center justify-center p-6 sm:p-12 md:p-16 lg:p-20 text-center shadow-[0_20px_40px_rgba(0,0,0,0.15),0_0_30px_rgba(255,255,255,0.1)_inset] sm:shadow-[0_30px_60px_rgba(0,0,0,0.2),0_0_40px_rgba(255,255,255,0.15)_inset] overflow-hidden">
+      <div class="absolute inset-0 z-20 border border-white/30 dark:border-white/20 border-t-white/50 dark:border-t-white/40 rounded-[3rem] sm:rounded-[4rem] bg-base-content/[0.04] backdrop-blur-2xl sm:backdrop-blur-3xl transform translate-z-0 flex flex-col items-center justify-center p-6 sm:p-10 md:p-12 lg:p-16 text-center shadow-[0_20px_40px_rgba(0,0,0,0.15),0_0_30px_rgba(255,255,255,0.1)_inset] sm:shadow-[0_30px_60px_rgba(0,0,0,0.2),0_0_40px_rgba(255,255,255,0.15)_inset] overflow-hidden">
         
         <!-- Front animated sweep -->
         <div class="absolute inset-0 c-hero-glass__sweep pointer-events-none mix-blend-overlay opacity-30 sm:opacity-50" style="animation-delay: 2s"></div>
 
         <!-- Badge -->
-        <SectionTag label={t('hero.digitalExperience')} class="mb-4 sm:mb-5 lg:mb-8 animate-fade-in relative z-10 scale-90 sm:scale-100" />
+        <SectionTag label={t('hero.digitalExperience')} class="mb-4 sm:mb-5 lg:mb-6 animate-fade-in relative z-10 scale-90 sm:scale-100" />
 
         <SectionHeading tag="h1" size="xl" align="center" class="mb-3 sm:mb-5 lg:mb-6 leading-[1.05] sm:leading-[1.1] max-w-[95%] sm:max-w-4xl mx-auto drop-shadow-md text-balance relative z-10">
           {remaining}
@@ -84,11 +84,11 @@ const particles = Array.from({ length: 15 }).map((_, i) => ({
           )}
         </SectionHeading>
 
-        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-base-content/75 max-w-[95%] sm:max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed font-medium text-balance relative z-10 line-clamp-3 sm:line-clamp-none">
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-base-content/75 max-w-[95%] sm:max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-medium text-balance relative z-10 line-clamp-3">
           {t('hero.subtitle')}
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center w-[90%] sm:w-auto mx-auto relative z-10">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center w-[90%] sm:w-auto mx-auto relative z-10 flex-shrink-0">
           <a class={cn(buttonVariants({ variant: "liquid", size: "liquid" }), "c-hero-glass__btn-liquid-glass w-full sm:w-auto overflow-hidden group")} href="#services">
             <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
             <!-- tiny sweep on button hover -->

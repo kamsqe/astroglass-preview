@@ -613,15 +613,13 @@ button.nav-aurora-link {
   background: hsl(var(--bc) / 0.03);
   border: 1px solid hsl(var(--bc) / 0.05);
   padding: 4px;
-  border-radius: 16px; /* Pill shape */
-  display: inline-flex;
+  border-radius: 14px;
 }
 
 .overlay-aurora-footer .lang-option-mobile {
-  padding: 8px 16px;
-  border-radius: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 0.9rem;
 }
 
 .overlay-aurora-footer .lang-option-mobile.is-active {

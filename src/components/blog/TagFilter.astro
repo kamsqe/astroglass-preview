@@ -17,14 +17,14 @@ const blogBase = basePath;
 
 <nav class="tag-filter" aria-label={t('blog.filterByTag')}>
   <div class="tag-filter__track scrollbar-hide">
-    <a
+    <LocalizedLink
       href={blogBase}
       class={`tag-filter__pill ${!activeTag ? 'tag-filter__pill--active' : ''}`}
     >
       {t('blog.allPosts')}
     </LocalizedLink>
     {tags.map(tag => (
-      <a
+      <LocalizedLink
         href={`${blogBase}/tag/${tag}/`}
         class={`tag-filter__pill ${activeTag === tag ? 'tag-filter__pill--active' : ''}`}
       >

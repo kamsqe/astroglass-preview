@@ -122,7 +122,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
       document.addEventListener('astro:after-swap', setSelectionTheme);
     </script>
   </head>
-  <body class="bg-base-100 text-base-content min-h-screen">
+  <body class="bg-base-100 text-base-content min-h-screen" style="overflow-x: hidden;">
     {showHeader && (
       currentHeader === 1 ? <Header /> :
       currentHeader === 2 ? <HeaderGlass /> :

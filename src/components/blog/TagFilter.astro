@@ -45,6 +45,12 @@ const blogBase = basePath;
     overflow-x: auto;
     padding-bottom: 0.25rem;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tag-filter__track::-webkit-scrollbar {
+    display: none;
   }
 
   .tag-filter__pill {
@@ -72,10 +78,20 @@ const blogBase = basePath;
     color: hsl(var(--b1));
     background: hsl(var(--a));
     border-color: hsl(var(--a));
+    text-shadow: 0 0 1px hsl(var(--b1) / 0.3);
   }
 
   .tag-filter__pill--active:hover {
     color: hsl(var(--b1));
-    opacity: 0.9;
+    background: hsl(var(--a) / 0.85);
+  }
+
+  .tag-filter__pill:focus-visible {
+    outline: 2px solid hsl(var(--a));
+    outline-offset: 2px;
+  }
+
+  .tag-filter__pill--active:focus-visible {
+    outline-color: hsl(var(--bc));
   }
 </style>

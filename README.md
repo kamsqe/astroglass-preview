@@ -12,7 +12,7 @@
   </p>
 
   <p>
-    <a href="https://github.com/kamsqee/astroglass-preview/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT License" /></a>
+    <a href="https://github.com/kamsqe/astroglass-preview/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT License" /></a>
     <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro_5.0-BC52EE?style=flat-square&logo=astro&logoColor=white" alt="Built with Astro" /></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_4.0-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" /></a>
     <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js_%3E%3D_20-43853D?style=flat-square&logo=node.js&logoColor=white" alt="Node.js >= 20" /></a>
@@ -90,7 +90,7 @@ npm create astroglass@latest ./my-site -- \
 <summary>Clone without the CLI</summary>
 
 ```bash
-npx degit kamsqee/astroglass-preview my-site
+npx degit kamsqe/astroglass-preview my-site
 cd my-site
 pnpm install
 pnpm dev

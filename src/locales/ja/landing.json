@@ -48,7 +48,7 @@
     "step1": "リポジトリをクローンする",
     "step2": "依存関係をインストールする",
     "step3": "開発を始める",
-    "step1cmd": "git clone https://github.com/kamsqee/astroglass.git",
+    "step1cmd": "git clone https://github.com/kamsqe/astroglass.git",
     "step2cmd": "cd astroglass && npm install",
     "step3cmd": "npm run dev",
     "ready": "✓ localhost:4321 で準備完了",

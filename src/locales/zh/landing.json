@@ -48,7 +48,7 @@
     "step1": "克隆代码库",
     "step2": "安装依赖",
     "step3": "开始开发",
-    "step1cmd": "git clone https://github.com/kamsqee/astroglass.git",
+    "step1cmd": "git clone https://github.com/kamsqe/astroglass.git",
     "step2cmd": "cd astroglass && npm install",
     "step3cmd": "npm run dev",
     "ready": "✓ 服务已在 localhost:4321 启动",

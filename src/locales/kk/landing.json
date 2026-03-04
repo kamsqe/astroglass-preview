@@ -48,7 +48,7 @@
     "step1": "Репозиторийді клондау",
     "step2": "Тәуелділіктерді орнату",
     "step3": "Әзірлеуді бастау",
-    "step1cmd": "git clone https://github.com/kamsqee/astroglass.git",
+    "step1cmd": "git clone https://github.com/kamsqe/astroglass.git",
     "step2cmd": "cd astroglass && npm install",
     "step3cmd": "npm run dev",
     "ready": "✓ localhost:4321 мекенжайында дайын",

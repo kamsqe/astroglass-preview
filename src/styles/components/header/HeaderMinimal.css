@@ -295,10 +295,38 @@
   margin-bottom: 48px;
   padding-top: 32px;
   border-top: 1px solid hsl(var(--bc) / 0.05);
+  overflow: hidden;
 }
 
 @media (min-width: 900px) {
   .panel-minimal-settings { grid-template-columns: 1fr auto; }
+}
+
+/* Constrain switchers inside minimal panel to prevent layout overflow */
+.panel-minimal-settings .lang-switcher-mobile {
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
+
+.panel-minimal-settings .theme-switcher-mobile {
+  margin: 0;
+}
+
+.panel-minimal-settings .theme-scroll-container {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.panel-minimal-settings .theme-option-mobile .theme-label {
+  display: none;
+}
+
+.panel-minimal-settings .theme-option-mobile {
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  justify-content: center;
 }
 
 .minimal-settings-group {

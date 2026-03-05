@@ -591,16 +591,23 @@ button.nav-aurora-link {
 }
 
 .overlay-aurora-footer .theme-scroll-container {
-  gap: 12px;
-  padding: 4px; /* breathing room for focus rings */
+  gap: 8px;
+  padding: 4px;
 }
 
 .overlay-aurora-footer .theme-option-mobile {
   background: hsl(var(--bc) / 0.03);
   border: 1px solid hsl(var(--bc) / 0.05);
   border-radius: 12px;
-  padding: 8px 16px;
-  min-width: auto; /* Allow shrink */
+  padding: 8px;
+  min-width: auto;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+}
+
+.overlay-aurora-footer .theme-option-mobile .theme-label {
+  display: none;
 }
 
 .overlay-aurora-footer .theme-option-mobile.is-active {

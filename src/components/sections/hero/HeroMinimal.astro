@@ -146,10 +146,10 @@ const t = useTranslations(locale);
 
   <!-- Progress indicator -->
   <div class="hero-minimal-progress fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-3">
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-accent transition-all duration-300" data-stage="1"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="2"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="3"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="4"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="1"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="2"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="3"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="4"></div>
   </div>
 </section>
 
@@ -176,9 +176,10 @@ const t = useTranslations(locale);
           
           progressDots.forEach(dot => {
             const dotStage = parseInt((dot as HTMLElement).dataset.stage || '0');
-            dot.classList.toggle('active', dotStage === stageNum);
-            dot.classList.toggle('bg-accent', dotStage <= stageNum);
-            dot.classList.toggle('bg-base-content/20', dotStage > stageNum);
+            const isActive = dotStage === stageNum;
+            const isPassed = dotStage < stageNum;
+            dot.classList.toggle('active', isActive);
+            dot.classList.toggle('passed', isPassed);
           });
 
           // Show sticky CTA on stage 4

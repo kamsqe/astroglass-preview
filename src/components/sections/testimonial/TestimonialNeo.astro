@@ -63,7 +63,7 @@ const testimonials = [
     <!-- Spotlight Stage -->
     <div class="c-testimonial-neo__stage relative" data-active="2">
        <!-- Cards Container -->
-       <div class="c-testimonial-neo__track relative h-[400px] lg:h-[450px]">
+       <div class="c-testimonial-neo__track relative h-[350px] sm:h-[400px] lg:h-[450px]">
           {testimonials.map((item, i) => (
              <div 
                class:list={[
@@ -107,7 +107,7 @@ const testimonials = [
        </div>
 
        <!-- Navigation Dots -->
-       <div class="flex justify-center gap-0 mt-4">
+       <div class="flex justify-center gap-0 mt-10 sm:mt-8 lg:mt-4">
           {testimonials.map((_, i) => (
              <button 
                class="c-testimonial-neo__dot-btn w-11 h-11 flex items-center justify-center group"

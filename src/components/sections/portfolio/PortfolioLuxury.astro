@@ -71,7 +71,7 @@ const projects = [
     <!-- Case Study Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <LuxuryCard class="group c-portfolio-page-luxury__card" spotlight={true} hover={false}>
+        <LuxuryCard class="group c-portfolio-page-luxury__card cursor-pointer" spotlight={true} hover={false} data-portfolio-link="/luxury/portfolio">
           <!-- Background gradient -->
           <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-luxury-slow`}></div>
           
@@ -132,6 +132,22 @@ const projects = [
 <script>
   import { registerAstroPage } from '../../../utils/lifecycle';
   import { initScrollReveal } from '../../../utils/animations';
+
+  // Card click navigation
+  function initLuxuryPortfolioClicks() {
+    document.querySelectorAll('.c-portfolio-page-luxury__card').forEach(card => {
+      const link = card.closest('[data-portfolio-link]') || card.querySelector('[data-portfolio-link]');
+      const href = (link as HTMLElement)?.dataset?.portfolioLink || (card as HTMLElement).dataset?.portfolioLink;
+      if (!href) return;
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('a')) return;
+        window.location.href = href;
+      });
+    });
+  }
+  initLuxuryPortfolioClicks();
+  document.addEventListener('astro:after-swap', initLuxuryPortfolioClicks);
 
   registerAstroPage((signal) => {
     initScrollReveal('.c-portfolio-page-luxury__card', {

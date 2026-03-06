@@ -80,7 +80,7 @@ const projects = [
   <!-- Grid -->
   <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="aurora-portfolio-grid">
     {projects.map((p) => (
-      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category}>
+      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category} data-portfolio-link="/aurora/portfolio">
         
         <div class="pp-aurora__visual" data-category={p.category}>
           <div class="pp-aurora__visual-mesh"></div>
@@ -126,6 +126,20 @@ const projects = [
   import { registerAstroPage } from '../../../utils/lifecycle';
   import { initScrollReveal } from '../../../utils/animations';
   import { initCategoryFilter } from '../../../utils/portfolio';
+
+  // Card click navigation
+  function initAuroraPortfolioClicks() {
+    document.querySelectorAll('.pp-aurora__card[data-portfolio-link]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('a')) return;
+        const href = (card as HTMLElement).dataset.portfolioLink;
+        if (href) window.location.href = href;
+      });
+    });
+  }
+  initAuroraPortfolioClicks();
+  document.addEventListener('astro:after-swap', initAuroraPortfolioClicks);
 
   registerAstroPage((signal) => {
     initScrollReveal('.pp-aurora__card', {

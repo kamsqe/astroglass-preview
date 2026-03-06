@@ -37,9 +37,10 @@ const { projects, viewDetailsLabel } = Astro.props;
     <div class="c-portfolio-page-glass__grid">
       {projects.map((p, i) => (
         <div
-          class="c-portfolio-page-glass__card group"
+          class="c-portfolio-page-glass__card group cursor-pointer"
           data-category={p.category}
           data-project-index={i}
+          data-card-modal={i}
         >
           <!-- Reflection streak -->
           <div class="c-portfolio-page-glass__reflection"></div>
@@ -109,5 +110,18 @@ const { projects, viewDetailsLabel } = Astro.props;
   </div>
 </section>
 
-
-
+<script>
+  function initGlassCardModalClicks() {
+    document.querySelectorAll<HTMLElement>('[data-card-modal]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('[data-open-modal]') || target.closest('a') || target.closest('button')) return;
+        const idx = card.dataset.cardModal;
+        const btn = card.querySelector<HTMLElement>(`[data-open-modal="${idx}"]`);
+        btn?.click();
+      });
+    });
+  }
+  initGlassCardModalClicks();
+  document.addEventListener('astro:after-swap', initGlassCardModalClicks);
+</script>

@@ -9,3 +9,11 @@
 .c-features-glass__row:hover {
   z-index: 2;
 }
+
+/* ── Mobile: show hover-only content by default ── */
+@media (hover: none) {
+  /* Make the "Learn More" label always visible */
+  .c-features-glass__row .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+}

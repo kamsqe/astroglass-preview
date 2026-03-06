@@ -10,9 +10,11 @@
   min-height: 48px;
   padding: 10px 16px;
   border-radius: 12px;
-  background: hsl(var(--bc) / 0.03);
-  border: 1px solid rgb(var(--glass-border, var(--bc) / 0.06));
-  color: hsl(var(--bc) / 0.7);
+  background: hsl(var(--bc) / 0.06);
+  border: 1px solid rgb(var(--glass-border, var(--bc) / 0.15));
+  color: hsl(var(--bc) / 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background-color var(--motion-quick), border-color var(--motion-quick), color var(--motion-quick), box-shadow var(--motion-quick), transform var(--motion-quick);
   cursor: pointer;
   overflow: hidden;
@@ -30,7 +32,7 @@
   opacity: 1;
 }
 .switcher-btn:hover {
-  background: hsl(var(--bc) / 0.06);
+  background: hsl(var(--bc) / 0.1);
   border-color: hsl(var(--glow-color, var(--a)) / 0.2);
   color: hsl(var(--bc));
   box-shadow: 0 2px 12px -2px hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.2));

@@ -379,6 +379,28 @@
   border-radius: 20% 80% 80% 20% / 50% 50% 50% 50%;
 }
 
+/* ── Mobile: show hover-only content by default ── */
+@media (hover: none) {
+  /* Disable lift on touch */
+  .c-portfolio-page-liquid__project-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-radius: 1rem;
+  }
+  .c-portfolio-page-liquid__featured-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Make the "View Project" link always visible in cards */
+  .c-portfolio-page-liquid__project-card .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+  .c-portfolio-page-liquid__project-card .group-hover\:translate-y-0 {
+    transform: translateY(0) !important;
+  }
+}
+
 /* -------------------------------------------------------------------------- */
 /*                         MONOCHROME THEME OVERRIDES                         */
 /* -------------------------------------------------------------------------- */

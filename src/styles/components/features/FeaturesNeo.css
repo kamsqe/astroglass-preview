@@ -7,10 +7,28 @@
   /* Use global animation keyframes */
   animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 }
 
 .c-features-neo__tile:hover {
   z-index: 2;
   transform: translateY(-4px);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Mobile: show hover-only content by default ── */
+@media (hover: none) {
+  /* Disable lift on touch */
+  .c-features-neo__tile:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Make the "Explore All" learn-more link always visible */
+  .c-features-neo__tile .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+  .c-features-neo__tile .group-hover\:translate-y-0 {
+    transform: translateY(0) !important;
+  }
 }

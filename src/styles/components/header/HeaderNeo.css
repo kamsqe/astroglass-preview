@@ -88,23 +88,14 @@
 .logo-neo-icon {
   width: 36px;
   height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, hsl(var(--a)), hsl(var(--a) / 0.7));
-  border-radius: 10px;
-  color: white;
+  object-fit: contain;
   transition: all 0.6s var(--ease-spring);
-  box-shadow: 0 4px 12px -2px hsl(var(--a) / 0.3);
 }
 
 .header-neo.is-scrolled .logo-neo-icon {
   width: 32px;
   height: 32px;
-  border-radius: 50%; /* Rounded icon in pill mode */
 }
-
-.logo-neo-icon svg { width: 18px; height: 18px; }
 
 /* Organic Text Collapse */
 .logo-neo-text {

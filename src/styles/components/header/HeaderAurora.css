@@ -87,27 +87,7 @@
 .logo-aurora-icon {
   width: 36px;
   height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: hsl(var(--a) / 0.1);
-  border: 1px solid hsl(var(--a) / 0.2);
-  border-radius: 10px;
-  color: hsl(var(--a));
-  transition: all 0.4s ease;
-}
-
-.logo-aurora:hover .logo-aurora-icon {
-  background: hsl(var(--a) / 0.2);
-  border-color: hsl(var(--a) / 0.4);
-  box-shadow:
-    0 0 20px hsl(var(--a) / 0.2),
-    0 0 40px hsl(var(--a) / 0.1);
-}
-
-.logo-aurora-icon svg {
-  width: 18px;
-  height: 18px;
+  object-fit: contain;
 }
 
 .logo-aurora-text {

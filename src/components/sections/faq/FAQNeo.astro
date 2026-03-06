@@ -93,7 +93,7 @@ const categories = [
     </div>
 
     <!-- Category Grid -->
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" id="faq-neo-grid">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 grid-flow-row-dense" id="faq-neo-grid">
        {categories.map((cat, i) => (
           <div class="c-faq-neo__category-card" data-category={cat.id} style={`animation-delay: ${i * 80}ms`}>
              <button class="c-faq-neo__cat-trigger w-full p-6 lg:p-8 rounded-2xl lg:rounded-[1.5rem] bg-base-content/[0.02] border border-base-content/10 text-left group relative overflow-hidden">
@@ -107,8 +107,9 @@ const categories = [
                 </div>
              </button>
              
-             <!-- Expanded accordion (hidden by default) -->
-             <div class="c-faq-neo__cat-expanded hidden mt-4 space-y-2">
+             <!-- Expanded accordion (managed by CSS grid-template transition) -->
+             <div class="c-faq-neo__cat-expanded">
+                <div class="space-y-2">
                 {cat.questions.map((q, qi) => (
                    <div class="c-faq-neo__accordion-item">
                       <button class="c-faq-neo__acc-trigger w-full flex items-center justify-between p-4 rounded-xl bg-base-content/[0.02] border border-base-content/5 text-left">
@@ -126,6 +127,7 @@ const categories = [
                 <button class="c-faq-neo__close-cat w-full p-3 rounded-xl border border-dashed border-base-content/10 text-xs text-base-content/75 hover:text-base-content/75 hover:border-base-content/20 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
                    ← {t('faq.backToCategories')}
                 </button>
+                </div>
              </div>
           </div>
        ))}
@@ -152,22 +154,21 @@ const categories = [
         document.querySelectorAll('.c-faq-neo__category-card').forEach(c => {
           if (c !== card) {
             c.classList.remove('expanded');
-            c.querySelector('.c-faq-neo__cat-expanded')?.classList.add('hidden');
           }
         });
         
         // Toggle this one
         card?.classList.toggle('expanded');
-        expanded?.classList.toggle('hidden');
       }, { signal });
     });
 
     // Back button clicks
     document.querySelectorAll('.c-faq-neo__close-cat').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        // Stop event from bubbling to category trigger
+        e.stopPropagation();
         const card = btn.closest('.c-faq-neo__category-card');
         card?.classList.remove('expanded');
-        card?.querySelector('.c-faq-neo__cat-expanded')?.classList.add('hidden');
       }, { signal });
     });
 

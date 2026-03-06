@@ -20,7 +20,7 @@
 
 @media (min-width: 768px) {
   .hero-aurora {
-    padding: calc(120px + var(--nav-offset, 0px)) 32px 160px;
+    padding: calc(60px + var(--nav-offset, 0px)) 32px 160px;
   }
 }
 

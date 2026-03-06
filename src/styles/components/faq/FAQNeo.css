@@ -2,17 +2,26 @@
 
 .c-faq-neo__category-card {
   opacity: 0;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
   animation: cardFadeInNeo 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  /* Prevent background/content bleed and lock paint bounds */
+  isolation: isolate;
+  contain: layout style;
+  z-index: 10;
 }
 
 @keyframes cardFadeInNeo {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translate3d(0, 20px, 0) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -84,13 +93,21 @@
   z-index: 1;
 }
 
-.c-faq-neo__category-card.expanded .c-faq-neo__cat-trigger {
-  display: none;
+@media (min-width: 1024px) {
+  .c-faq-neo__category-card.expanded .c-faq-neo__cat-trigger {
+    display: none;
+  }
 }
 
 /* Expanded category spans full grid width on mobile */
-.c-faq-neo__category-card.expanded {
-  grid-column: 1 / -1;
+@media (max-width: 1023px) {
+  .c-faq-neo__category-card.expanded {
+    grid-column: 1 / -1;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    overflow: visible;
+  }
 }
 
 /* Accordion items */
@@ -130,25 +147,29 @@
 @keyframes accordionExpandNeo {
   from {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translate3d(0, -12px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .c-faq-neo__cat-expanded {
-  animation: expandedFadeIn 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
-@keyframes expandedFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.c-faq-neo__cat-expanded > div {
+  overflow: hidden;
+}
+
+.c-faq-neo__category-card.expanded .c-faq-neo__cat-expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+  margin-top: 1rem;
 }

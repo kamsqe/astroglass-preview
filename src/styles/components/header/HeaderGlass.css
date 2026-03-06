@@ -62,17 +62,7 @@
 .logo-glass-icon {
   width: 36px;
   height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, hsl(var(--a)), hsl(var(--a) / 0.7));
-  border-radius: 10px;
-  color: white;
-}
-
-.logo-glass-icon svg {
-  width: 20px;
-  height: 20px;
+  object-fit: contain;
 }
 
 .logo-glass-text {

@@ -64,10 +64,12 @@ const features = [
       <!-- Progress dots -->
       <div class="flex items-center gap-2">
         {features.map((f, i) => (
-          <div 
-            class="progress-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-base-content/20 transition-all duration-500"
+          <button 
+            type="button"
+            class="progress-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-base-content/20 transition-all duration-500 cursor-pointer hover:bg-base-content/40 active:scale-95"
             data-feature-dot={i}
-          ></div>
+            aria-label={`Go to feature ${i + 1}`}
+          ></button>
         ))}
       </div>
     </div>
@@ -235,6 +237,16 @@ const features = [
     });
 
     sections.forEach(section => observer.observe(section));
+
+    // Handle clicks
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = dot.getAttribute('data-feature-dot');
+        if (index !== null && sections[parseInt(index)]) {
+          sections[parseInt(index)].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
   }
 
   // Initialize

@@ -12,10 +12,14 @@
   transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease;
   cursor: pointer;
   z-index: 1;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .c-testimonial-neo__content {
-  transition: border-color 600ms ease, background-color 600ms ease;
+  transition: border-color 600ms ease, background-color 600ms ease, box-shadow 600ms ease;
+  will-change: border-color, background-color, box-shadow;
 }
 
 /* Position based on offset from active */

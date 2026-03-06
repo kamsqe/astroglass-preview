@@ -73,7 +73,7 @@
 .footer-aurora-logo-icon {
   width: 24px;
   height: 24px;
-  color: hsl(var(--a));
+  object-fit: contain;
 }
 
 .footer-aurora-tagline {

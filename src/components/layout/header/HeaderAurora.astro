@@ -25,12 +25,7 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
   <div class="header-aurora-inner">
     <!-- Logo -->
     <LocalizedLink href="/" class="logo-aurora" aria-label={t('nav.home')}>
-      <div class="logo-aurora-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
-          <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
-        </svg>
-      </div>
+      <img src="/glass.svg" class="logo-aurora-icon" alt="Logo" aria-hidden="true" />
       <span class="logo-aurora-text">{t('siteName')}</span>
     </LocalizedLink>
 

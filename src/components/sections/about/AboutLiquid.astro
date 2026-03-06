@@ -8,8 +8,7 @@ import { getLocaleFromUrl } from '../../../utils/locale-utils';
 
 import '../../../styles/components/about/AboutLiquid.css';
 import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
-import { Image } from 'astro:assets';
-import liquidAboutImg from '../../../assets/themes/liquid/LiquidAbout.png';
+import liquidAboutVid from '../../../assets/themes/liquid/LiquidAbout.mp4';
 
 export interface Props {
   isFirst?: boolean;
@@ -79,14 +78,16 @@ const t = useTranslations(locale);
         <div class="absolute inset-0 bg-accent/20 rounded-[3rem] blur-3xl"></div>
         <div class="absolute inset-8 bg-primary/20 rounded-full blur-2xl"></div>
         
-        <!-- Clean Image render -->
+        <!-- Clean Video render -->
         <div class="relative z-10 w-full h-full">
-          <Image 
-            src={liquidAboutImg} 
-            alt="About Liquid Theme" 
-            width={800}
-            class="w-full h-full object-contain"
-          />
+          <video 
+            src={liquidAboutVid} 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="w-full h-full object-contain rounded-[2rem]"
+          ></video>
         </div>
       </div>
     </div>

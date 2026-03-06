@@ -11,12 +11,12 @@ const t = useTranslations(locale);
 import '../../../styles/components/testimonial/TestimonialAurora.css';
 
 const testimonials = [
-  { quote: t('testimonial.t3_quote1'), author: t('testimonial.t3_author1'), role: t('testimonial.t3_role1'), company: t('testimonial.t3_company1'), size: 'large' },
-  { quote: t('testimonial.t4_quote1'), author: t('testimonial.t4_author1'), role: t('testimonial.t4_role1'), company: '', size: 'small' },
-  { quote: t('testimonial.t3_quote2'), author: t('testimonial.t3_author2'), role: t('testimonial.t3_role2'), company: t('testimonial.t3_company2'), size: 'large' },
-  { quote: t('testimonial.t4_quote3'), author: t('testimonial.t4_author3'), role: t('testimonial.t4_role3'), company: '', size: 'small' },
-  { quote: t('testimonial.t3_quote4'), author: t('testimonial.t3_author4'), role: t('testimonial.t3_role4'), company: t('testimonial.t3_company4'), size: 'medium' },
-  { quote: t('testimonial.t3_quote5'), author: t('testimonial.t3_author5'), role: t('testimonial.t3_role5'), company: t('testimonial.t3_company5'), size: 'medium' },
+  { quote: t('testimonial.t3_quote1'), author: t('testimonial.t3_author1'), role: t('testimonial.t3_role1'), company: t('testimonial.t3_company1'), size: 'large', avatar: '/avatars/avatar_1.png' },
+  { quote: t('testimonial.t4_quote1'), author: t('testimonial.t4_author1'), role: t('testimonial.t4_role1'), company: '', size: 'small', avatar: '/avatars/avatar_2.png' },
+  { quote: t('testimonial.t3_quote2'), author: t('testimonial.t3_author2'), role: t('testimonial.t3_role2'), company: t('testimonial.t3_company2'), size: 'large', avatar: '/avatars/avatar_3.png' },
+  { quote: t('testimonial.t4_quote3'), author: t('testimonial.t4_author3'), role: t('testimonial.t4_role3'), company: '', size: 'small', avatar: '/avatars/avatar_4.png' },
+  { quote: t('testimonial.t3_quote4'), author: t('testimonial.t3_author4'), role: t('testimonial.t3_role4'), company: t('testimonial.t3_company4'), size: 'medium', avatar: '/avatars/avatar_5.png' },
+  { quote: t('testimonial.t3_quote5'), author: t('testimonial.t3_author5'), role: t('testimonial.t3_role5'), company: t('testimonial.t3_company5'), size: 'medium', avatar: '/avatars/avatar_1.png' },
 ];
 ---
 
@@ -57,9 +57,7 @@ const testimonials = [
         <blockquote class="testimonial-aurora-quote">"{t.quote}"</blockquote>
         <div class="testimonial-aurora-author">
           <div class="testimonial-aurora-avatar-ring">
-            <div class="testimonial-aurora-avatar">
-              {t.author.charAt(0)}
-            </div>
+            <img src={t.avatar} alt={t.author} class="w-full h-full object-cover rounded-full" />
           </div>
           <div class="testimonial-aurora-author-info">
             <span class="testimonial-aurora-author-name">{t.author}</span>

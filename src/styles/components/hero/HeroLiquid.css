@@ -22,12 +22,14 @@
 .c-hero-liquid__blob-path-1 {
   animation: heroLiquidBlobMorph1 12s ease-in-out infinite;
   fill: hsl(var(--a));
+  will-change: d;
 }
 
 .c-hero-liquid__blob-path-2 {
   animation: heroLiquidBlobMorph2 14s ease-in-out infinite;
   fill: hsl(var(--p, var(--a)));
   opacity: 0.6;
+  will-change: d;
 }
 
 @keyframes heroLiquidBlobMorph1 {

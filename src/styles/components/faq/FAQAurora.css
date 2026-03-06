@@ -30,7 +30,7 @@
 
   .faq-aurora-header {
     position: sticky;
-    top: 100px;
+    top: calc(var(--header-height, 64px) + 24px);
   }
 }
 
@@ -60,6 +60,12 @@
 @keyframes faq-cursor-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-aurora-terminal-label::after {
+    animation: none;
+  }
 }
 
 .faq-aurora-title {
@@ -178,7 +184,7 @@
 }
 
 .faq-aurora-item.is-open .faq-aurora-answer {
-  max-height: 300px;
+  max-height: 600px;
   padding-bottom: 20px;
 }
 

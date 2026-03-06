@@ -113,6 +113,7 @@
 .mobile-nav.is-open .mobile-nav-item:nth-child(6) { transition-delay: 350ms; }
 .mobile-nav.is-open .mobile-nav-item:nth-child(7) { transition-delay: 400ms; }
 .mobile-nav.is-open .mobile-nav-item:nth-child(8) { transition-delay: 450ms; }
+.mobile-nav.is-open .mobile-nav-item:nth-child(n+9) { transition-delay: 500ms; }
 .mobile-nav-item:active {
   background: hsl(var(--glow-color, var(--a)) / 0.08);
   transform: scale(0.985);

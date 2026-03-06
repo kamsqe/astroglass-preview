@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * Footer Glass — Frosted Glassmorphism
  * Translucent card-based footer with backdrop blur.
@@ -29,7 +30,7 @@ import '../../../styles/components/footer/FooterGlass.css';
         <!-- Brand -->
         <div class="col-span-2 sm:col-span-2 lg:col-span-1">
           <div class="flex items-center gap-2 mb-4">
-            <img src="/glass.svg" class="w-8 h-8" alt="Logo" aria-hidden="true" />
+            <img src={glassIcon.src} class="w-8 h-8" alt="Logo" aria-hidden="true" />
             <span class="text-lg font-black text-base-content">{t('footer.company')}</span>
           </div>
           <p class="text-sm text-base-content/70 leading-relaxed mb-6 max-w-xs">

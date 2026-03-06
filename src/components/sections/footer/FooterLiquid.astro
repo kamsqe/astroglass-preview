@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * Footer Liquid — The Default Footer
  * Fluid, organic design with smooth animations.
@@ -26,7 +27,7 @@ import '../../../styles/components/footer/FooterLiquid.css';
       <!-- Brand Column -->
       <div class="col-span-2 sm:col-span-2 lg:col-span-1">
         <LocalizedLink href="/" class="inline-flex items-center gap-2 text-xl font-black text-base-content mb-4 hover:!transform-none">
-          <img src="/glass.svg" class="w-8 h-8" alt="Logo" aria-hidden="true" />
+          <img src={glassIcon.src} class="w-8 h-8" alt="Logo" aria-hidden="true" />
           {t('footer.company')}
         </LocalizedLink>
         <p class="text-sm text-base-content/75 leading-relaxed max-w-xs">

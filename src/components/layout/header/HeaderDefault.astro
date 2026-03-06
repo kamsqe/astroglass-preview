@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * HeaderDefault — Default Navigation Bar for Index & Non-Theme Pages
  *
@@ -29,7 +30,7 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
     <div class="header-neo-inner">
       <!-- Logo -->
       <LocalizedLink href="/" class="logo-neo" aria-label={t('nav.home')}>
-        <img src="/glass.svg" class="logo-neo-icon" alt="Logo" aria-hidden="true" />
+        <img src={glassIcon.src} class="logo-neo-icon" alt="Logo" aria-hidden="true" />
         <span class="logo-neo-text">{t('siteName')}</span>
       </LocalizedLink>
 

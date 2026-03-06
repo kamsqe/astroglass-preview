@@ -1,4 +1,5 @@
 ---
+import favicon from '../assets/favicon.svg';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 import { getEnabledLocaleCodes } from '../config/locales';
 import { ClientRouter } from 'astro:transitions';
@@ -43,7 +44,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={favicon.src} />
     <link rel="canonical" href={canonicalURL.href} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>

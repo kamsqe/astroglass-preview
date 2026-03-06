@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../assets/glass.svg';
 /**
  * Logo Component
  * 
@@ -66,7 +67,7 @@ const sizeConfig = sizes[size];
     className,
   ]}
 >
-  <img src="/glass.svg" class={sizeConfig.icon} alt="Logo" aria-hidden="true" />
+  <img src={glassIcon.src} class={sizeConfig.icon} alt="Logo" aria-hidden="true" />
   {showText && (
     <span class="logo-text hidden sm:block">{t('siteName')}</span>
   )}

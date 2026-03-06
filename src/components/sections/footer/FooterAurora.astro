@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * Footer Aurora - Aurora Minimal Footer
  * Clean footer with link columns, gradient logo, and social links.
@@ -18,7 +19,7 @@ import '../../../styles/components/footer/FooterAurora.css';
       <!-- Logo -->
       <div class="footer-aurora-brand">
         <LocalizedLink href="/" class="footer-aurora-logo">
-          <img src="/glass.svg" class="footer-aurora-logo-icon" alt="Logo" aria-hidden="true" />
+          <img src={glassIcon.src} class="footer-aurora-logo-icon" alt="Logo" aria-hidden="true" />
           <span>{t('footer.company')}</span>
         </LocalizedLink>
         <p class="footer-aurora-tagline">{t('footer.tagline')}</p>

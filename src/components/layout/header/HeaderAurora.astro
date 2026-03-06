@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * HeaderAurora — Transparent Floating Bar with Gradient Accents
  *
@@ -25,7 +26,7 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
   <div class="header-aurora-inner">
     <!-- Logo -->
     <LocalizedLink href="/" class="logo-aurora" aria-label={t('nav.home')}>
-      <img src="/glass.svg" class="logo-aurora-icon" alt="Logo" aria-hidden="true" />
+      <img src={glassIcon.src} class="logo-aurora-icon" alt="Logo" aria-hidden="true" />
       <span class="logo-aurora-text">{t('siteName')}</span>
     </LocalizedLink>
 

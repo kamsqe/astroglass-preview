@@ -1,4 +1,9 @@
 ---
+import avatar1 from '../../../assets/avatars/avatar_1.png';
+import avatar2 from '../../../assets/avatars/avatar_2.png';
+import avatar3 from '../../../assets/avatars/avatar_3.png';
+import avatar4 from '../../../assets/avatars/avatar_4.png';
+import avatar5 from '../../../assets/avatars/avatar_5.png';
 /**
  * Testimonial Glass - The Conversation Thread
  * Chat-style testimonials with typing indicators and message bubbles.
@@ -23,7 +28,7 @@ const messages = [
     author: "Alex Turner",
     role: t('testimonial.roles.indie'),
     company: "",
-    avatar: "/avatars/avatar_1.png",
+    avatar: avatar1.src,
     time: t('testimonial.time.2m'),
     reactions: [{ emoji: "🔥", count: 24 }, { emoji: "💯", count: 12 }]
   },
@@ -32,7 +37,7 @@ const messages = [
     author: "Priya Sharma",
     role: t('testimonial.roles.lead'),
     company: t('testimonial.companies.stripe'),
-    avatar: "/avatars/avatar_2.png",
+    avatar: avatar2.src,
     time: t('testimonial.time.15m'),
     reactions: [{ emoji: "❤️", count: 47 }, { emoji: "🙌", count: 18 }],
     verified: true
@@ -42,7 +47,7 @@ const messages = [
     author: "James Wilson",
     role: t('testimonial.roles.senior'),
     company: t('testimonial.companies.shopify'),
-    avatar: "/avatars/avatar_3.png",
+    avatar: avatar3.src,
     time: t('testimonial.time.1h'),
     reactions: [{ emoji: "👏", count: 31 }]
   },
@@ -51,7 +56,7 @@ const messages = [
     author: "Maria Santos",
     role: t('testimonial.roles.founder'),
     company: t('testimonial.companies.launchpad'),
-    avatar: "/avatars/avatar_4.png",
+    avatar: avatar4.src,
     time: t('testimonial.time.3h'),
     reactions: [{ emoji: "🎉", count: 89 }, { emoji: "💪", count: 23 }]
   },
@@ -60,7 +65,7 @@ const messages = [
     author: "Chen Wei",
     role: t('testimonial.roles.cto'),
     company: t('testimonial.companies.techflow'),
-    avatar: "/avatars/avatar_5.png",
+    avatar: avatar5.src,
     time: t('testimonial.yesterday'),
     reactions: [{ emoji: "📈", count: 15 }],
     verified: true

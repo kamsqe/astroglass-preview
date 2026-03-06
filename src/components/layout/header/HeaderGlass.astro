@@ -1,4 +1,5 @@
 ---
+import glassIcon from '../../../assets/glass.svg';
 /**
  * HeaderGlass — Floating Glass Bar
  *
@@ -25,7 +26,7 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
   <div class="header-glass-container">
     <div class="header-glass-inner">
       <LocalizedLink href="/" class="logo-glass" aria-label={t('siteName')}>
-        <img src="/glass.svg" class="logo-glass-icon" alt="Logo" aria-hidden="true" />
+        <img src={glassIcon.src} class="logo-glass-icon" alt="Logo" aria-hidden="true" />
         <span class="logo-glass-text">{t('siteName')}</span>
       </LocalizedLink>
 

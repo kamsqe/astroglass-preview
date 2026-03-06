@@ -26,9 +26,10 @@ const remainingTitle = titleWords.join(' ');
 <section id="about" class:list={["relative px-4 sm:px-6 overflow-hidden bg-base-100", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-16 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-16 md:py-32"]}>
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     
-    <!-- Text Content (First on mobile) -->
-    <div class="w-full lg:w-[55%] order-2 lg:order-2">
-      <h2 class="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black text-base-content mb-8 lg:mb-12 tracking-tight leading-[1.1] lg:leading-[0.95]">
+    <!-- Left Column (Desktop) / Split on Mobile -->
+    <div class="w-full lg:w-[55%] flex flex-col order-1 lg:order-2">
+      <!-- Title: Always here, but appears at top on mobile -->
+      <h2 class="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black text-base-content mb-8 lg:mb-12 tracking-tight leading-[1.1] lg:leading-[0.95] order-1 lg:order-1">
         {remainingTitle}{' '}
         {accentWord && (
           <span class="text-accent relative">
@@ -37,11 +38,31 @@ const remainingTitle = titleWords.join(' ');
           </span>
         )}
       </h2>
+
+      <!-- Accent divider (Sits between title and video on mobile, title and text on desktop) -->
+      <div class="w-12 h-1 bg-accent rounded-full mb-8 lg:mb-10 order-2 lg:order-1"></div>
+
+      <!-- Visual Panel (Sits between title/divider and para on mobile, right side on desktop) -->
+      <div class="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[45%] lg:h-full order-3 lg:hidden mb-8 lg:mb-0">
+        <div class="c-about-neo__card relative aspect-square sm:aspect-[4/5] max-h-[300px] sm:max-h-none rounded-3xl lg:rounded-[3rem] overflow-hidden border border-base-content/10 group shadow-xl">
+          <!-- Video background -->
+          <video
+            src={neoAboutVid}
+            autoplay
+            loop
+            muted
+            playsinline
+            class="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-normal lg:opacity-40 lg:mix-blend-luminosity lg:group-hover:opacity-100 lg:group-hover:mix-blend-normal transition-all duration-700"
+          ></video>
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-base-content/5"></div>
+          <!-- Decorative orbs -->
+          <div class="absolute top-6 right-6 w-16 h-16 sm:w-24 sm:h-24 bg-accent/30 rounded-full blur-[40px] animate-pulse"></div>
+          <div class="absolute bottom-6 left-6 w-20 h-20 sm:w-28 sm:h-28 bg-primary/30 rounded-full blur-[50px] animate-pulse" style="animation-delay: -2s;"></div>
+        </div>
+      </div>
        
-      <div class="space-y-6 max-w-xl">
-        <!-- Accent divider -->
-        <div class="w-12 h-1 bg-accent rounded-full"></div>
-        
+      <div class="space-y-6 max-w-xl order-4 lg:order-2">
         <p class="text-xl sm:text-2xl font-medium text-base-content/70 leading-relaxed">
           {t('about.subtitle')}
         </p>
@@ -63,7 +84,8 @@ const remainingTitle = titleWords.join(' ');
     </div>
 
     <!-- Visual Panel (Second on mobile, smaller) -->
-    <div class="w-full lg:w-[45%] order-1 lg:order-1">
+    <!-- Visual Panel (Desktop only visually, duplicated from mobile inline for cleaner desktop flex) -->
+    <div class="hidden lg:block w-full lg:w-[45%] order-2 lg:order-1">
       <div class="c-about-neo__card relative aspect-square sm:aspect-[4/5] max-h-[300px] sm:max-h-none rounded-3xl lg:rounded-[3rem] overflow-hidden border border-base-content/10 group shadow-xl">
         <!-- Video background -->
         <video
@@ -72,7 +94,7 @@ const remainingTitle = titleWords.join(' ');
           loop
           muted
           playsinline
-          class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity"
+          class="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-normal lg:opacity-40 lg:mix-blend-luminosity lg:group-hover:opacity-100 lg:group-hover:mix-blend-normal transition-all duration-700"
         ></video>
         <!-- Gradient overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-base-content/5"></div>

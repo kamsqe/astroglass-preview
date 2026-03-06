@@ -23,19 +23,34 @@ const features = [
 <section id="services" class="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-base-100 overflow-hidden">
   <div class="max-w-7xl mx-auto">
     <!-- Header -->
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 sm:mb-16 md:mb-20 border-b border-base-content/5 pb-8 sm:pb-12">
-      <div class="max-w-2xl">
-        <NeoSectionTag label={t('features.badge')} class="mb-4" />
-        <h2 class="text-5xl sm:text-6xl md:text-8xl font-black text-base-content tracking-tighter leading-[0.9]">
-          {t('features.pureTitle')}<br/>
-          <span class="text-accent italic">{t('features.liquidTitle')}</span>
-        </h2>
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8 mb-12 sm:mb-16 md:mb-20 border-b border-base-content/5 pb-8 sm:pb-12">
+      <!-- Left side: Heading and Mobile CTA -->
+      <div class="max-w-2xl flex flex-row items-end justify-between gap-4 w-full lg:w-auto">
+        <div>
+          <NeoSectionTag label={t('features.badge')} class="mb-4" />
+          <h2 class="text-5xl sm:text-6xl md:text-8xl font-black text-base-content tracking-tighter leading-[0.9]">
+            {t('features.pureTitle')}<br/>
+            <span class="text-accent italic">{t('features.liquidTitle')}</span>
+          </h2>
+        </div>
+        
+        <!-- Mobile CTA (Visible only on small screens) -->
+        <a href="#feature-grid" class="group flex lg:hidden items-center gap-2 px-4 py-2 sm:px-5 sm:py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300 shrink-0 mb-1">
+          <span class="text-xs sm:text-sm font-bold text-base-content/75 group-hover:text-accent transition-colors duration-300">{t('features.explore')}</span>
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-base-content/75 group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+        </a>
       </div>
-      <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6">
+
+      <!-- Right side: Subtitle and Desktop CTA -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6 mt-4 lg:mt-0">
         <p class="text-base sm:text-lg text-base-content/75 font-medium max-w-xs">
           {t('features.subtitle')}
         </p>
-        <a href="#feature-grid" class="group flex items-center gap-3 px-5 py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300">
+        
+        <!-- Desktop CTA (Visible only on large screens) -->
+        <a href="#feature-grid" class="group hidden lg:flex items-center gap-3 px-5 py-3 rounded-full border border-base-content/10 hover:border-accent/30 hover:bg-accent/5 transition-all duration-300">
           <span class="text-sm font-bold text-base-content/75 group-hover:text-accent transition-colors duration-300">{t('features.explore')}</span>
           <svg class="w-5 h-5 text-base-content/75 group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>

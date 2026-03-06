@@ -11,6 +11,8 @@ import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
 import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 import { palettes } from '../../../config/palettes';
+import luxuryHeroBg from '../../../assets/themes/luxury/LuxuryHeroBg.jpg';
+import luxuryHeroSvg from '../../../assets/themes/luxury/LuxuryHero.svg?raw';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -23,74 +25,69 @@ const themes = palettes.slice(0, 4).map(p => ({
 
 
 
-<section class="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-[calc(80px+var(--nav-offset))] pb-16 lg:pb-24">
+<section class="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-[calc(40px+var(--nav-offset))] pb-16 lg:pb-24">
   <!-- Background -->
   <div class="absolute inset-0 z-0 pointer-events-none">
+    <img src={luxuryHeroBg.src} alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.08] mix-blend-luminosity" loading="eager" />
+    <div class="absolute inset-0 bg-base-100/70"></div>
     <div class="c-hero-luxury__glow js-parallax absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent opacity-10 blur-[150px] rounded-full transition-all duration-1000"></div>
   </div>
 
   <div class="relative z-10 w-full max-w-7xl mx-auto">
-    <!-- Mobile: Demo First -->
-    <div class="lg:hidden mb-10">
-      <!-- Interactive Demo Frame -->
-      <div class="hero-luxury-demo-frame relative mx-auto max-w-sm">
-        <div class="relative bg-gradient-to-br from-base-content/[0.08] to-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 rounded-3xl p-4 shadow-2xl overflow-hidden ring-1 ring-white/10 ring-inset">
-          <!-- Phone notch -->
-          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-base-100/80 backdrop-blur-md rounded-b-xl border-b border-r border-l border-base-content/5 z-20"></div>
-          
+    <!-- Mobile: Compact Demo -->
+    <div class="lg:hidden mb-8">
+      <div class="hero-luxury-demo-frame relative mx-auto max-w-xs">
+        <div class="relative bg-gradient-to-br from-base-content/[0.08] to-base-content/[0.02] backdrop-blur-3xl border border-base-content/10 rounded-2xl p-3 shadow-2xl overflow-hidden ring-1 ring-white/10 ring-inset">
           <!-- Demo content -->
-          <div class="hero-luxury-demo-content aspect-[9/16] bg-base-100 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-6 relative">
+          <div class="hero-luxury-demo-content aspect-[4/3] bg-base-100 rounded-xl overflow-hidden flex flex-col items-center justify-center p-4 relative">
             <!-- Interactive theme preview -->
-            <div class="c-hero-luxury__preview-card w-full aspect-video rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-6 transition-luxury">
-              <span class="text-4xl">✨</span>
+            <div class="c-hero-luxury__preview-card w-full aspect-video rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-4 transition-luxury">
+              <span class="text-3xl">✨</span>
             </div>
-            
+
             <!-- Theme switcher -->
             <div class="flex gap-2">
-                  {themes.map((theme, i) => (
-                    <button 
-                      class={`c-hero-luxury__theme-btn w-10 h-10 border transition-luxury rounded-xl ${i === 0 ? 'scale-110 border-base-content' : 'border-transparent opacity-60 hover:opacity-100 hover:border-base-content/20'}`}
-                      style={`background: ${theme.color}`}
-                      data-theme={theme.id}
-                      data-color={theme.color}
-                      aria-label={theme.name}
-                    ></button>
-                  ))}
-                </div>
-                
-                <p class="text-[10px] uppercase tracking-luxury-wide text-base-content/75 mt-6 font-bold">{t('hero.tryItNow')}</p>
-              </div>
-            </div>
-            
-            <!-- Floating reaction -->
-            <div class="absolute -right-2 top-1/4 px-3 py-1 bg-base-content text-base-100 border border-base-content/10 text-xs font-bold animate-bounce shadow-xl rounded-full">
-              🔥 Live
+              {themes.map((theme, i) => (
+                <button
+                  class={`c-hero-luxury__theme-btn w-8 h-8 border transition-luxury rounded-lg ${i === 0 ? 'scale-110 border-base-content' : 'border-transparent opacity-60 hover:opacity-100 hover:border-base-content/20'}`}
+                  style={`background: ${theme.color}`}
+                  data-theme={theme.id}
+                  data-color={theme.color}
+                  aria-label={theme.name}
+                ></button>
+              ))}
             </div>
           </div>
+
+          <!-- Floating reaction -->
+          <div class="absolute -right-2 top-1/4 px-2 py-1 bg-base-content text-base-100 border border-base-content/10 text-[10px] font-bold animate-bounce shadow-xl rounded-full">
+            Live
+          </div>
         </div>
+      </div>
+    </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <!-- Content (Already updated) -->
           <div class="text-center lg:text-left order-2 lg:order-1">
         <!-- Badge -->
-        <div class="mb-8 flex justify-center lg:justify-start">
+        <div class="mb-5 sm:mb-8 flex justify-center lg:justify-start">
           <LuxurySectionLabel text={t('hero.digitalExperience')} />
         </div>
 
         <!-- Headline -->
-        <!-- Headline -->
-        <h1 class="font-serif font-light text-base-content mb-12 max-w-5xl mx-auto lg:mx-0 flex flex-col gap-4 lg:gap-6">
-          <span class="text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-tight block">{t('hero.dontTakeOurWord')}</span>
-          <span class="text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-tight block text-accent italic">{t('hero.tryItNow')}</span>
+        <h1 class="font-serif font-light text-base-content mb-6 sm:mb-12 max-w-5xl mx-auto lg:mx-0 flex flex-col gap-2 sm:gap-4 lg:gap-6">
+          <span class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-tight block">{t('hero.dontTakeOurWord')}</span>
+          <span class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-tight block text-accent italic">{t('hero.tryItNow')}</span>
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-lg text-base-content/75 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed font-light">
+        <p class="text-base sm:text-lg text-base-content/75 max-w-md sm:max-w-lg mx-auto lg:mx-0 mb-8 sm:mb-10 leading-relaxed font-light">
           {t('hero.subtitle')}
         </p>
 
         <!-- CTAs -->
-        <div class="hero-luxury__actions flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
+        <div class="hero-luxury__actions flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-0 sm:px-4">
           <LuxuryButton href="#services" variant="primary">{t('hero.startBuilding')}</LuxuryButton>
           <LuxuryButton href={`/${locale}/docs`} variant="secondary">
             {t('hero.viewFullDemo')}
@@ -98,7 +95,7 @@ const themes = palettes.slice(0, 4).map(p => ({
         </div>
 
         <!-- Trust indicators -->
-        <div class="flex items-center justify-center lg:justify-start gap-4 mt-12 text-base-content/75">
+        <div class="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-8 sm:mt-12 text-base-content/75">
           <span class="text-[10px] uppercase tracking-widest font-bold">{t('hero.trustedBy')}</span>
           <div class="flex gap-4 text-sm font-medium opacity-70">
             <span>Vercel</span>
@@ -129,12 +126,9 @@ const themes = palettes.slice(0, 4).map(p => ({
 
                 <!-- Demo content -->
                 <div class="hero-luxury-demo-content aspect-video bg-base-100 p-8 flex flex-col items-center justify-center">
-                  <!-- Interactive preview card -->
-                  <div class="c-hero-luxury__preview-card w-full max-w-md aspect-video bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-luxury shadow-none rounded-2xl">
-                    <div class="text-center">
-                      <span class="text-6xl block mb-2 font-serif italic">Aa</span>
-                      <span class="text-base-content/75 text-xs uppercase tracking-luxury-wide">{t('hero.interactivePreview')}</span>
-                    </div>
+                  <!-- Interactive preview card with SVG visual -->
+                  <div class="c-hero-luxury__preview-card w-full max-w-md aspect-video bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center mb-8 transition-luxury shadow-none rounded-2xl overflow-hidden p-4">
+                    <div class="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:opacity-60 [&>svg_path]:stroke-[hsl(var(--bc))]" set:html={luxuryHeroSvg} />
                   </div>
 
                   <!-- Theme switcher -->

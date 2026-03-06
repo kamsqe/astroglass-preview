@@ -6,12 +6,26 @@
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import '../../../styles/components/hero/HeroAurora.css';
+import indexHeroVid from '../../../assets/themes/IndexHeroBg.mp4';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
 
 <section class="hero-aurora" id="hero-home-section">
+  <!-- Hero Background Video -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <video
+      src={indexHeroVid}
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover opacity-[0.12] mix-blend-luminosity"
+    ></video>
+    <div class="absolute inset-0 bg-base-100/60"></div>
+  </div>
+
   <!-- Mesh gradient background (mouse-reactive) -->
   <div class="hero-aurora-bg" id="hero-home-bg">
     <div class="hero-aurora-mesh"></div>

@@ -15,9 +15,17 @@
   transform: translateY(0);
 }
 
+.hero-minimal-progress-dot {
+  background: hsl(var(--bc) / 0.2);
+}
+
 .hero-minimal-progress-dot.active {
   background: hsl(var(--a));
   transform: scale(1.5);
+}
+
+.hero-minimal-progress-dot.passed {
+  background: hsl(var(--a) / 0.5);
 }
 
 /* Smooth scroll for the whole container */

@@ -8,8 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(100px + var(--nav-offset, 0px)) 24px 140px;
+  padding: calc(80px + var(--nav-offset, 0px)) 16px 100px;
   overflow: hidden;
+}
+
+@media (min-width: 480px) {
+  .hero-aurora {
+    padding: calc(90px + var(--nav-offset, 0px)) 24px 120px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -268,14 +274,24 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 14px 28px;
-  font-size: 0.9rem;
+  padding: 12px 24px;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
   border-radius: 14px;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   overflow: hidden;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .hero-aurora-btn {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+    width: auto;
+  }
 }
 
 /* Primary CTA */
@@ -404,7 +420,7 @@
 
 .hero-aurora-scroll {
   position: absolute;
-  bottom: 48px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -468,6 +484,12 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: hsl(var(--bc) / 0.25);
+}
+
+@media (min-width: 768px) {
+  .hero-aurora-scroll {
+    bottom: 48px;
+  }
 }
 
 /* -------------------------------------------------------------------------- */

@@ -41,18 +41,19 @@ const projects = [
     <!-- Stacked Cards -->
     <div class="c-portfolio-page-neo__section-container relative">
       {projects.map((p, i) => (
-        <div 
-          class="c-portfolio-page-neo__section-card group"
+        <div
+          class="c-portfolio-page-neo__section-card group cursor-pointer"
           style={`animation-delay: ${i * 100}ms`}
           data-index={i}
+          data-portfolio-link="/neo/portfolio"
         >
           <div class="c-portfolio-page-neo__section-inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
             <!-- Gradient accent top -->
             <div class={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color}`} data-neo-gradient="line"></div>
-            
+
             <!-- Background gradient -->
             <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700`} data-neo-gradient="bg"></div>
-            
+
             <div class="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
               <div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
                 <!-- Left: Number + Category -->
@@ -64,7 +65,7 @@ const projects = [
                     {p.category}
                   </span>
                 </div>
-                
+
                 <!-- Middle: Content -->
                 <div class="flex-1">
                   <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-base-content mb-3 tracking-tight group-hover:text-accent transition-colors duration-500">
@@ -74,10 +75,10 @@ const projects = [
                     {p.desc}
                   </p>
                 </div>
-                
+
                 <!-- Right: CTA -->
                 <div class="flex items-center gap-4">
-                  <LocalizedLink href="/neo/portfolio" class={`inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${p.color} text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group/btn`} data-neo-cta>
+                  <LocalizedLink href="/neo/portfolio" class={`inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-gradient-to-r ${p.color} text-white font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group/btn relative z-10`} data-neo-cta>
                     {t('portfolio.viewProject')}
                     <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -124,3 +125,18 @@ const projects = [
     color: hsl(var(--b1));
   }
 </style>
+
+<script>
+  function initPortfolioCardClicks() {
+    document.querySelectorAll('[data-portfolio-link]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('a')) return;
+        const href = (card as HTMLElement).dataset.portfolioLink;
+        if (href) window.location.href = href;
+      });
+    });
+  }
+  initPortfolioCardClicks();
+  document.addEventListener('astro:after-swap', initPortfolioCardClicks);
+</script>

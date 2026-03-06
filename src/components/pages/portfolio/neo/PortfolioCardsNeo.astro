@@ -37,9 +37,10 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
   <div class="max-w-5xl mx-auto flex flex-col gap-4 sm:gap-5">
     {projects.map((p, i) => (
       <div
-        class="c-portfolio-page-neo__card"
+        class="c-portfolio-page-neo__card cursor-pointer"
         data-category={p.category}
         data-project-id={p.id}
+        data-card-toggle={p.id}
       >
         <!-- Gradient accent bar -->
         <div class={`c-portfolio-page-neo__accent-bar bg-gradient-to-r ${p.color}`}></div>
@@ -143,5 +144,19 @@ const { projects, viewDetailsLabel, challengeLabel, solutionLabel, impactLabel, 
   </div>
 </section>
 
-
-
+<script>
+  function initNeoCardToggle() {
+    document.querySelectorAll<HTMLElement>('[data-card-toggle]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        // Don't trigger if clicking the toggle button itself, close button, or links
+        if (target.closest('[data-toggle-details]') || target.closest('[data-close-details]') || target.closest('a')) return;
+        const id = card.dataset.cardToggle;
+        const btn = card.querySelector<HTMLElement>(`[data-toggle-details="${id}"]`);
+        btn?.click();
+      });
+    });
+  }
+  initNeoCardToggle();
+  document.addEventListener('astro:after-swap', initNeoCardToggle);
+</script>

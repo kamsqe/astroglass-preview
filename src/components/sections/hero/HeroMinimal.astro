@@ -14,38 +14,40 @@ const t = useTranslations(locale);
 
 <section class="hero-minimal-container relative">
   <!-- Stage 1: The Hook -->
-  <div class="hero-minimal-stage stage-1 min-h-screen flex items-center justify-center px-4 relative">
+  <div class="hero-minimal-stage stage-1 min-h-screen flex items-center justify-center px-5 sm:px-6 relative">
     <div class="absolute inset-0 pointer-events-none">
-      <div class="hero-minimal-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-accent opacity-10 blur-[120px] rounded-full"></div>
+      <div class="hero-minimal-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-accent opacity-10 blur-[120px] rounded-full"></div>
     </div>
-    
+
     <div class="relative z-10 text-center">
-      <h1 class="hero-minimal-word text-7xl sm:text-9xl md:text-[12rem] lg:text-[16rem] font-black tracking-tighter text-base-content leading-none mb-8 px-4 py-2">
+      <h1 class="hero-minimal-word text-5xl sm:text-8xl md:text-[12rem] lg:text-[16rem] font-black tracking-tighter text-base-content leading-none mb-8 px-2 sm:px-4 py-2">
         {t('hero.faster')}
       </h1>
       
-      <a href="#about" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors mt-16 sm:mt-20 animate-pulse cursor-pointer">
-        <span class="text-xs uppercase tracking-widest">{t('hero.scrollToExplore')}</span>
-        <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-        </svg>
-      </a>
     </div>
+
+    <!-- Scroll indicator at bottom of viewport -->
+    <a href="#about" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors animate-pulse cursor-pointer z-10">
+      <span class="text-xs uppercase tracking-widest">{t('hero.scrollToExplore')}</span>
+      <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </a>
   </div>
 
   <!-- Stage 2: The Expansion -->
-  <div class="hero-minimal-stage stage-2 min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+  <div class="hero-minimal-stage stage-2 min-h-screen flex items-center justify-center px-5 sm:px-6 relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/20 blur-[150px] rounded-full"></div>
     </div>
     
     <div class="relative z-10 text-center max-w-4xl">
-      <h2 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight text-base-content mb-8 leading-tight">
+      <h2 class="text-3xl sm:text-6xl md:text-8xl font-black tracking-tight text-base-content mb-6 sm:mb-8 leading-tight">
         {t('hero.buildFaster')}
       </h2>
-      
-      <div class="inline-flex items-center gap-4 px-6 py-4 rounded-2xl bg-accent/10 border border-accent/20">
-        <span class="text-4xl sm:text-5xl md:text-6xl font-black text-accent">10×</span>
+
+      <div class="inline-flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl bg-accent/10 border border-accent/20">
+        <span class="text-3xl sm:text-5xl md:text-6xl font-black text-accent">10×</span>
         <div class="text-left">
           <p class="text-base sm:text-lg font-bold text-base-content">{t('hero.shippingVelocity')}</p>
           <p class="text-sm text-base-content/75">{t('cta.proof')}</p>
@@ -55,21 +57,21 @@ const t = useTranslations(locale);
   </div>
 
   <!-- Stage 3: Social Proof -->
-  <div class="hero-minimal-stage stage-3 min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+  <div class="hero-minimal-stage stage-3 min-h-screen flex items-center justify-center px-5 sm:px-6 relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-accent/10 blur-[100px] rounded-full"></div>
       <div class="absolute bottom-1/3 left-1/4 w-[250px] h-[250px] bg-accent/15 blur-[80px] rounded-full"></div>
     </div>
     
     <div class="relative z-10 text-center max-w-5xl">
-      <p class="text-lg sm:text-xl text-base-content/75 uppercase tracking-widest mb-8">{t('hero.askLeaders')}</p>
-      
+      <p class="text-base sm:text-xl text-base-content/75 uppercase tracking-widest mb-6 sm:mb-8">{t('hero.askLeaders')}</p>
+
       <!-- Logo cloud -->
-      <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 mb-12">
-        <div class="text-3xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Vercel</div>
-        <div class="text-3xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Linear</div>
-        <div class="text-3xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Stripe</div>
-        <div class="text-3xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Notion</div>
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
+        <div class="text-2xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Vercel</div>
+        <div class="text-2xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Linear</div>
+        <div class="text-2xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Stripe</div>
+        <div class="text-2xl sm:text-4xl font-black text-base-content/20 hover:text-base-content/75 transition-colors duration-500">Notion</div>
       </div>
 
       <!-- Mini testimonials -->
@@ -91,13 +93,13 @@ const t = useTranslations(locale);
   </div>
 
   <!-- Stage 4: The Ask -->
-  <div class="hero-minimal-stage stage-4 min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+  <div class="hero-minimal-stage stage-4 min-h-screen flex items-center justify-center px-5 sm:px-6 relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"></div>
     </div>
     
     <div class="relative z-10 text-center max-w-3xl">
-      <h2 class="text-5xl sm:text-7xl md:text-9xl font-black tracking-tight text-base-content mb-10 leading-none">
+      <h2 class="text-4xl sm:text-7xl md:text-9xl font-black tracking-tight text-base-content mb-8 sm:mb-10 leading-none">
         {t('hero.readyToBuild')}
       </h2>
       
@@ -144,10 +146,10 @@ const t = useTranslations(locale);
 
   <!-- Progress indicator -->
   <div class="hero-minimal-progress fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-3">
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-accent transition-all duration-300" data-stage="1"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="2"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="3"></div>
-    <div class="hero-minimal-progress-dot w-2 h-2 rounded-full bg-base-content/20 transition-all duration-300" data-stage="4"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="1"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="2"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="3"></div>
+    <div class="hero-minimal-progress-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer" data-stage="4"></div>
   </div>
 </section>
 
@@ -174,9 +176,10 @@ const t = useTranslations(locale);
           
           progressDots.forEach(dot => {
             const dotStage = parseInt((dot as HTMLElement).dataset.stage || '0');
-            dot.classList.toggle('active', dotStage === stageNum);
-            dot.classList.toggle('bg-accent', dotStage <= stageNum);
-            dot.classList.toggle('bg-base-content/20', dotStage > stageNum);
+            const isActive = dotStage === stageNum;
+            const isPassed = dotStage < stageNum;
+            dot.classList.toggle('active', isActive);
+            dot.classList.toggle('passed', isPassed);
           });
 
           // Show sticky CTA on stage 4

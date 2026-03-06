@@ -34,9 +34,10 @@ const { projects, viewDetailsLabel } = Astro.props;
   <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
     {projects.map((p, i) => (
       <LuxuryCard
-        class="group c-portfolio-page-luxury__card"
+        class="group c-portfolio-page-luxury__card cursor-pointer"
         data-category={p.category}
         data-project-id={p.id}
+        data-card-luxury-modal={i}
         spotlight={true}
         hover={true}
       >
@@ -91,3 +92,19 @@ const { projects, viewDetailsLabel } = Astro.props;
     ))}
   </div>
 </section>
+
+<script>
+  function initLuxuryCardModalClicks() {
+    document.querySelectorAll<HTMLElement>('[data-card-luxury-modal]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('[data-open-luxury-modal]') || target.closest('a') || target.closest('button')) return;
+        const idx = card.dataset.cardLuxuryModal;
+        const btn = card.querySelector<HTMLElement>(`[data-open-luxury-modal="${idx}"]`);
+        btn?.click();
+      });
+    });
+  }
+  initLuxuryCardModalClicks();
+  document.addEventListener('astro:after-swap', initLuxuryCardModalClicks);
+</script>

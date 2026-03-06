@@ -211,12 +211,15 @@ const plans = [
           ))}
        </div>
        <!-- Carousel indicators -->
-       <div class="flex justify-center gap-2 mt-4">
+       <div class="flex justify-center gap-2 mt-4" id="pricing-neo-dots">
           {plans.map((_, idx) => (
-             <div class:list={[
-                "w-2 h-2 rounded-full transition-all",
-                idx === 1 ? "bg-accent w-6" : "bg-base-content/20"
-             ]}></div>
+             <div
+               class:list={[
+                 "pricing-neo-dot w-2 h-2 rounded-full transition-all duration-300",
+                 idx === 1 ? "bg-accent w-6" : "bg-base-content/20"
+               ]}
+               data-dot-index={idx}
+             ></div>
           ))}
        </div>
     </div>
@@ -257,6 +260,48 @@ const plans = [
   // The original script called setActive(1) immediately.
   // We'll trust the original logic but update class selection.
 
+  function initMobileCarouselDots() {
+    const carousel = document.querySelector('.c-pricing-neo__mobile-carousel');
+    const dots = document.querySelectorAll<HTMLElement>('.pricing-neo-dot');
+    if (!carousel || !dots.length) return;
+
+    function updateDots() {
+      const cards = carousel!.querySelectorAll('.c-pricing-neo__mobile-card');
+      const scrollLeft = carousel!.scrollLeft;
+      const containerWidth = carousel!.clientWidth;
+
+      let activeIndex = 0;
+      let minDistance = Infinity;
+
+      cards.forEach((card, i) => {
+        const cardEl = card as HTMLElement;
+        const cardCenter = cardEl.offsetLeft + cardEl.offsetWidth / 2;
+        const viewCenter = scrollLeft + containerWidth / 2;
+        const distance = Math.abs(cardCenter - viewCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = i;
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === activeIndex) {
+          dot.classList.add('bg-accent', 'w-6');
+          dot.classList.remove('bg-base-content/20');
+        } else {
+          dot.classList.remove('bg-accent', 'w-6');
+          dot.classList.add('bg-base-content/20');
+        }
+      });
+    }
+
+    carousel.addEventListener('scroll', updateDots, { passive: true });
+  }
+
   initSpotlightNeo();
-  document.addEventListener('astro:after-swap', initSpotlightNeo);
+  initMobileCarouselDots();
+  document.addEventListener('astro:after-swap', () => {
+    initSpotlightNeo();
+    initMobileCarouselDots();
+  });
 </script>

@@ -28,9 +28,10 @@ const { projects } = Astro.props;
   <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="pp-aurora-grid">
     {projects.map((p) => (
       <div
-        class="pp-aurora__card"
+        class="pp-aurora__card cursor-pointer"
         data-category={p.category}
         data-project-id={p.id}
+        data-toggle-aurora={p.id}
         data-project-title={p.title}
         data-project-challenge={p.challenge}
         data-project-solution={p.solution}

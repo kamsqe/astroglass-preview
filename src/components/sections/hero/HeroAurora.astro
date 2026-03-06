@@ -5,6 +5,7 @@
  * geometric grid overlay, and stagger-animated typography.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
+import auroraHeroVid from '../../../assets/themes/aurora/AuroraHeroBg.mp4';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -12,6 +13,19 @@ import '../../../styles/components/hero/HeroAurora.css';
 ---
 
 <section class="hero-aurora" id="hero-aurora-section">
+  <!-- Hero Background Video -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <video
+      src={auroraHeroVid}
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover opacity-[0.15] mix-blend-screen"
+    ></video>
+    <div class="absolute inset-0 bg-base-100/50"></div>
+  </div>
+
   <!-- Mesh gradient background (mouse-reactive) -->
   <div class="hero-aurora-bg" id="hero-aurora-bg">
     <div class="hero-aurora-mesh"></div>

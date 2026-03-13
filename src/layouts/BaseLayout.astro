@@ -3,6 +3,7 @@ import favicon from '../assets/favicon.svg';
 import { getLocaleFromUrl } from '../utils/locale-utils';
 import { getEnabledLocaleCodes } from '../config/locales';
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/layout/header/HeaderLiquid.astro';
 import HeaderGlass from '../components/layout/header/HeaderGlass.astro';
@@ -63,7 +64,11 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
     <meta name="twitter:image" content={socialImageURL} />
 
     <ClientRouter />
+    <Font cssVariable="--font-inter" preload />
     <style is:global>
+      html {
+        font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
       /* Smooth Fade View Transitions */
       ::view-transition-group(root) {
         animation-duration: 0.4s;

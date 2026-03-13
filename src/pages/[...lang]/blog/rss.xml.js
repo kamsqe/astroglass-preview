@@ -14,19 +14,25 @@ export async function getStaticPaths() {
 
 export async function GET(context) {
   const locale = context.props.locale || defaultLocale;
-  const posts = await getCollection('blog', ({ slug, data }) => slug.startsWith(`${locale}/`) && !data.draft);
-  
+  const posts = await getCollection('blog', ({ id, data }) => id.startsWith(`${locale}/`) && !data.draft);
+
   return rss({
     title: `Astro Glass Blog (${locale})`,
     description: 'Insights and updates.',
     site: context.site || 'https://astroglass-preview.pages.dev',
-    items: posts.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.date,
-      description: post.data.description,
-      link: locale === defaultLocale 
-        ? `/blog/${post.slug.replace(`${locale}/`, '')}/` 
-        : `/${locale}/blog/${post.slug.replace(`${locale}/`, '')}/`,
-    })),
+    items: posts.map((post) => {
+      // Astro 6 Content Layer: id includes the file extension (e.g. "en/my-post.mdx").
+      // Strip extension and derive the locale-relative slug.
+      const idWithoutExt = post.id.replace(/\.(mdx?)$/, '').replace(/\/index$/, '');
+      const postSlug = idWithoutExt.replace(`${locale}/`, '');
+      return {
+        title: post.data.title,
+        pubDate: post.data.date,
+        description: post.data.description,
+        link: locale === defaultLocale
+          ? `/blog/${postSlug}/`
+          : `/${locale}/blog/${postSlug}/`,
+      };
+    }),
   });
 }

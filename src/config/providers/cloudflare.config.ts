@@ -10,7 +10,12 @@ import cloudflare from '@astrojs/cloudflare';
 
 /** Cloudflare adapter with image service */
 export const adapter = cloudflare({
-  imageService: 'compile',
+  // Site is fully static (output: 'static'), so all routes are prerendered.
+  // Use Node.js for prerendering to avoid CJS compatibility issues with workerd.
+  // imageService: 'compile' is omitted — the @cloudflare/vite-plugin@1.27.0 worker
+  // simulation has a bug resolving cloudflare:workers in build mode when image routes
+  // are registered; use Astro's default sharp service instead.
+  prerenderEnvironment: 'node',
 });
 
 /** Output mode for Cloudflare */

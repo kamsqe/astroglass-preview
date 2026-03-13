@@ -1,9 +1,45 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
+import { createRequire } from 'module';
+import { dirname } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import { defaultLocale, getEnabledLocaleCodes } from './src/config/locales';
 import { adapter, output } from './src/config/providers/active-provider';
+
+// The Cloudflare adapter (@astrojs/cloudflare@13.1.1 + @cloudflare/vite-plugin@1.27.0)
+// has a bug where its workerd build-time simulation routes ALL module requests (including
+// Node.js built-ins) through the Vite SSR module server, which can't serve them.
+// This causes build failures for cloudflare:workers, node:events, etc.
+// Since this project uses output:'static' (no SSR), the adapter is not needed for
+// production builds — Cloudflare Pages can serve static assets directly.
+// TODO: re-enable the adapter once @cloudflare/vite-plugin fixes the CustomModuleRunner.
+const isDev = process.env.npm_lifecycle_event === 'dev';
+const isBuild = process.env.npm_lifecycle_event === 'build';
+
+// Require function in the config's Node.js context — used by the CJS interop plugin below.
+const _require = createRequire(import.meta.url);
+
+// Node.js built-in module names (bare and node:-prefixed) that Vite's module runner
+// cannot externalize on its own. We pre-load them into globalThis here (where we have
+// a full Node.js context) and serve them via a virtual shim in the plugin below.
+const NODE_BUILTIN_NAMES = new Set([
+  'assert', 'async_hooks', 'buffer', 'child_process', 'cluster', 'console', 'constants',
+  'crypto', 'dgram', 'diagnostics_channel', 'dns', 'domain', 'events', 'fs', 'http',
+  'http2', 'https', 'inspector', 'module', 'net', 'os', 'path', 'perf_hooks', 'process',
+  'punycode', 'querystring', 'readline', 'repl', 'stream', 'string_decoder', 'sys',
+  'timers', 'tls', 'trace_events', 'tty', 'url', 'util', 'v8', 'vm', 'wasi',
+  'worker_threads', 'zlib',
+]);
+
+// @ts-ignore
+globalThis.__nodeBuiltinShims__ = /** @type {Record<string, unknown>} */ ({});
+for (const name of NODE_BUILTIN_NAMES) {
+  try {
+    // @ts-ignore
+    globalThis.__nodeBuiltinShims__[name] = name === 'process' ? process : _require(`node:${name}`);
+  } catch { /* ignore built-ins not available in this Node.js version */ }
+}
 
 import react from '@astrojs/react';
 
@@ -11,8 +47,10 @@ import expressiveCode from 'astro-expressive-code';
 
 // https://astro.build/config
 export default defineConfig({
-  output,
-  adapter,
+  output: 'static',
+  // Adapter disabled: see comment above about @cloudflare/vite-plugin@1.27.0 bug.
+  // Re-enable once the CustomModuleRunner bug is fixed upstream.
+  adapter: (isDev || isBuild) ? undefined : adapter,
   integrations: [
     expressiveCode({
       themes: ['dracula', 'github-light'],
@@ -42,15 +80,185 @@ export default defineConfig({
     mdx(), 
     react()
   ],
+  fonts: [
+    {
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      provider: fontProviders.google(),
+    },
+  ],
   vite: {
     // @ts-ignore
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      // Prevent native build-time packages from being scanned by esbuild during
+      // the Cloudflare worker's optimizeDeps phase. lightningcss and fsevents are
+      // transitive deps of Astro/Vite internals that have no place in a workerd bundle.
+      {
+        name: 'exclude-native-deps-from-worker',
+        configEnvironment(name, _opts) {
+          const isServer = ['astro', 'ssr', 'prerender'].includes(name);
+          if (isServer) {
+            return {
+              optimizeDeps: {
+                exclude: ['lightningcss', 'fsevents'],
+              },
+            };
+          }
+        },
+      },
+      // Vite 7's SSR module runner (used during both dev serving AND build-time sync/prerender)
+      // cannot externalize Node.js built-ins on its own — not even node:-prefixed ones.
+      // Provide virtual shims backed by the real modules (grabbed here in Node.js context)
+      // so the runner can load them. Also stubs cloudflare:* built-ins for the
+      // @cloudflare/vite-plugin@1.27.0 workerd simulation (which has the same issue).
+      // This plugin runs in BOTH serve and build modes (no `apply` restriction).
+      {
+        name: 'node-builtin-shims',
+        enforce: /** @type {'pre'} */ ('pre'),
+        resolveId(id) {
+          if (id.startsWith('node:')) {
+            return `\0virtual:node-builtin:${id.slice(5)}`;
+          }
+          if (NODE_BUILTIN_NAMES.has(id)) {
+            return `\0virtual:node-builtin:${id}`;
+          }
+          // Cloudflare built-in modules (needed for workerd simulation stubs)
+          if (id.startsWith('cloudflare:')) {
+            return `\0virtual:cloudflare-builtin:${id.slice(11)}`;
+          }
+          return null;
+        },
+        load(id) {
+          if (id.startsWith('\0virtual:node-builtin:')) {
+            const modName = id.slice('\0virtual:node-builtin:'.length);
+            // @ts-ignore
+            if (!globalThis.__nodeBuiltinShims__[modName]) {
+              try {
+                // @ts-ignore
+                globalThis.__nodeBuiltinShims__[modName] = _require(`node:${modName}`);
+              } catch {
+                try {
+                  // @ts-ignore
+                  globalThis.__nodeBuiltinShims__[modName] = _require(modName);
+                } catch { /* ignore if truly unavailable */ }
+              }
+            }
+            // @ts-ignore
+            const mod = globalThis.__nodeBuiltinShims__[modName];
+            if (mod == null) return `export default {};`;
+            const keys = Object.keys(mod).filter(k => /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k));
+            const namedExports = keys
+              .map(k => `export const ${k} = globalThis.__nodeBuiltinShims__['${modName}']['${k}'];`)
+              .join('\n');
+            return `${namedExports}\nexport default globalThis.__nodeBuiltinShims__['${modName}'];`;
+          }
+          if (id.startsWith('\0virtual:cloudflare-builtin:')) {
+            const modName = id.slice('\0virtual:cloudflare-builtin:'.length);
+            // Return minimal stubs for known cloudflare: built-ins
+            if (modName === 'workers') {
+              return `
+                export class WorkerEntrypoint {}
+                export class DurableObject {}
+                export class WorkflowEntrypoint {}
+                export const env = {};
+              `;
+            }
+            return `export default {};`;
+          }
+          return null;
+        },
+      },
+      // Vite 7's module runner evaluates CJS node_modules as ESM (no module/exports/require).
+      // This plugin injects those globals so CJS packages work in the module runner context,
+      // which is used during BOTH dev serving AND build-time sync/prerender steps.
+      // The transform is skipped for the Rollup client environment — Vite handles CJS there
+      // via its built-in @rollup/plugin-commonjs.
+      // TODO: remove once Astro/Vite properly handle CJS in the module runner.
+      {
+        name: 'cjs-esm-interop',
+        enforce: /** @type {'pre'} */ ('pre'),
+        resolveId(id) {
+          // Force react-dom/server to the browser (web streams) version.
+          // The default `node` condition resolves to server.node.js which requires
+          // Node.js built-ins (util, async_hooks, stream) not available in the module runner.
+          if (id === 'react-dom/server') {
+            return _require.resolve('react-dom/server.browser');
+          }
+          return null;
+        },
+        transform(code, id) {
+          // Skip Rollup's client bundle environment — @rollup/plugin-commonjs handles CJS there.
+          // We only need to shim CJS in module runner contexts (server, prerender, astro env).
+          const envName = /** @type {any} */ (this).environment?.name;
+          if (envName === 'client') return null;
+
+          const cleanId = id.split('?')[0];
+          if (!cleanId.includes('/node_modules/')) return null;
+          if (!/\.(js|cjs)$/.test(cleanId)) return null;
+          // Skip files that already have ESM syntax (export OR import statements)
+          if (/(?:^|\n)\s*(?:export|import)\s/.test(code)) return null;
+
+          const hasCJS =
+            /\bexports\.[a-zA-Z_$]/.test(code) || /\bmodule\.exports\b/.test(code);
+          if (!hasCJS) return null;
+
+          // Get named exports at transform time (in the real Node.js context) so
+          // we can re-export them as named ESM bindings for consumers.
+          let namedKeys = [];
+          try {
+            const mod = _require(cleanId);
+            if (typeof mod === 'object' && mod !== null) {
+              namedKeys = Object.keys(mod).filter(
+                k => k !== '__esModule' && k !== 'default' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k)
+              );
+            }
+          } catch { /* ignore – some packages can't be require()'d at transform time */ }
+
+          // Use unique binding names to avoid conflicts with identifiers in the module body.
+          // e.g. cookie exports `parseCookie` as both a function decl and a named export.
+          const namedExportLines = namedKeys.flatMap(k => [
+            `const __cjs_e_${k}__ = __cjs_m__.exports.${k};`,
+            `export { __cjs_e_${k}__ as ${k} };`,
+          ]);
+
+          // Inject all standard CJS globals (module, exports, require, __filename, __dirname).
+          // We provide `require` via createRequire(__filename) so both static and dynamic
+          // require() calls resolve correctly through Node.js's native module resolution —
+          // no need to transform require() calls to import() at all.
+          return {
+            code: [
+              'const __cjs_m__ = { exports: {} };',
+              'let exports = __cjs_m__.exports;',
+              'const module = __cjs_m__;',
+              `const __filename = ${JSON.stringify(cleanId)};`,
+              `const __dirname = ${JSON.stringify(dirname(cleanId))};`,
+              'const require = globalThis.__nodeBuiltinShims__[\'module\'].createRequire(__filename);',
+              code,
+              'export default __cjs_m__.exports;',
+              ...namedExportLines,
+            ].join('\n'),
+            map: null,
+          };
+        },
+      },
+    ],
     optimizeDeps: {
-      include: ['valibot']
-    }
+      include: ['valibot'],
+      // Prevent native build-time tools from entering esbuild's optimization scan —
+      // they contain .node files that esbuild/workerd cannot handle.
+      exclude: ['lightningcss', 'fsevents'],
+    },
+    // Keep them out of the Rollup SSR bundle as well.
+    ssr: {
+      external: ['lightningcss', 'fsevents'],
+    },
   },
   i18n: {
     defaultLocale,
     locales: getEnabledLocaleCodes(),
+  },
+  security: {
+    csp: true,
   },
 });

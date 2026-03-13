@@ -1,15 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import DocsLayout from '../../../components/docs/DocsLayout.astro';
 import Callout from '../../../components/mdx/Callout.astro';
-import CardGrid from '../../../components/mdx/CardGrid.astro';
-import LinkCard from '../../../components/mdx/LinkCard.astro';
-import PropsTable from '../../../components/docs/PropsTable.astro';
 import CodeTabs from '../../../components/mdx/CodeTabs.astro';
 import Steps from '../../../components/mdx/Steps.astro';
+import LinkCard from '../../../components/mdx/LinkCard.astro';
 import ApiMethod from '../../../components/mdx/ApiMethod.astro';
 import FileTree from '../../../components/mdx/FileTree.astro';
 import Badge from '../../../components/mdx/Badge.astro';
+import CardGrid from '../../../components/mdx/CardGrid.astro';
 
 export const prerender = true;
 
@@ -17,7 +16,10 @@ export async function getStaticPaths() {
   const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
   const docs = await getCollection('docs');
   return docs.map(doc => {
-    const [lang, ...slugParts] = doc.slug.split('/');
+    // In Astro 6 Content Layer API, id includes the file extension (e.g. "en/intro.mdx").
+    // Strip extension and trailing /index (mirrors Astro 5 behavior where index.mdx maps to its parent path).
+    const idWithoutExt = doc.id.replace(/\.(mdx?)$/, '').replace(/\/index$/, '');
+    const [lang, ...slugParts] = idWithoutExt.split('/');
     const slug = slugParts.join('/');
     return {
       params: { 
@@ -30,21 +32,9 @@ export async function getStaticPaths() {
 }
 
 const { doc, locale } = Astro.props;
-const { Content, headings } = await doc.render();
-
-const components = {
-  Callout,
-  CardGrid,
-  LinkCard,
-  PropsTable,
-  CodeTabs,
-  Steps,
-  ApiMethod,
-  FileTree,
-  Badge,
-};
+const { Content, headings } = await render(doc);
 ---
 
 <DocsLayout doc={doc} headings={headings} locale={locale as 'en' | 'ru'}>
-  <Content components={components} />
+  <Content components={{ Callout, CodeTabs, Steps, LinkCard, ApiMethod, FileTree, Badge, CardGrid }} />
 </DocsLayout>

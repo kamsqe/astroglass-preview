@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   const paths: { params: { lang: string | undefined; tag: string }; props: { tag: string; locale: string } }[] = [];
 
   for (const lang of langs) {
-    const langPosts = posts.filter(post => post.slug.startsWith(`${lang}/`));
+    const langPosts = posts.filter(post => post.id.startsWith(`${lang}/`));
     const tags = new Set<string>();
     langPosts.forEach(post => post.data.tags.forEach((tag: string) => tags.add(tag)));
     
@@ -37,8 +37,8 @@ export async function getStaticPaths() {
 const { tag, locale } = Astro.props;
 const t = useTranslations(locale);
 
-const allPosts = await getCollection('blog', ({ slug, data }) => {
-  return slug.startsWith(`${locale}/`) && !data.draft;
+const allPosts = await getCollection('blog', ({ id, data }) => {
+  return id.startsWith(`${locale}/`) && !data.draft;
 });
 const posts = allPosts
   .filter(p => p.data.tags.includes(tag))

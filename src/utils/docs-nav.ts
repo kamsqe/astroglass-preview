@@ -116,14 +116,14 @@ export async function buildDocsNav(locale: string) {
   // Fetch all docs
   const allDocs = await getCollection('docs');
   
-  // Filter for locale
-  const docs = allDocs.filter(d => d.slug.startsWith(`${locale}/`));
+  // Filter for locale (in Astro 6, id includes file extension e.g. "en/intro.mdx")
+  const docs = allDocs.filter(d => d.id.startsWith(`${locale}/`));
   
   // Group by folder
   const sections: Record<string, any[]> = {};
   
   docs.forEach(doc => {
-    const cleanSlug = doc.slug.replace(`${locale}/`, '');
+    const cleanSlug = doc.id.replace(/\.(mdx?)$/, '').replace(/\/index$/, '').replace(`${locale}/`, '');
     const parts = cleanSlug.split('/');
     
     // Determine section name

@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "packageManager": "pnpm@9.15.4",
   "engines": {
-    "node": ">=20",
+    "node": ">=22.12.0",
     "pnpm": ">=8"
   },
   "scripts": {
@@ -26,13 +26,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.15",
+    "@astrojs/mdx": "^5.0.0",
+    "@astrojs/react": "^5.0.0",
+    "@astrojs/rss": "^4.0.17",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-slot": "^1.2.4",
     "@xyflow/react": "^12.10.0",
-    "astro": "^5.16.9",
+    "astro": "^6.0.0",
     "astro-expressive-code": "^0.41.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -49,7 +49,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/cloudflare": "^13.1.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^25.2.1",
     "@types/react": "^19.2.13",

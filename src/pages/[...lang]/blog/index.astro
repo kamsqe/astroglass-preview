@@ -20,8 +20,8 @@ import { useTranslations } from '../../../utils/i18n';
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const posts = await getCollection('blog', ({ slug, data }) => {
-  return slug.startsWith(`${locale}/`) && !data.draft;
+const posts = await getCollection('blog', ({ id, data }) => {
+  return id.startsWith(`${locale}/`) && !data.draft;
 });
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 

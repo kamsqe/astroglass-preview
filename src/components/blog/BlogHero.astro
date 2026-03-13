@@ -12,7 +12,7 @@ const { post } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const slug = post.slug.replace(/^[a-z]{2}\//, '');
+const slug = post.id.replace(/\.(mdx?)$/, '').replace(/^[a-z]{2}\//, '');
 const href = `/blog/${slug}/`;
 const date = new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(post.data.date);
 

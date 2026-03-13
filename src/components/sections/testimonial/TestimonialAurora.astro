@@ -1,4 +1,9 @@
 ---
+import avatar1 from '../../../assets/avatars/avatar_1.png';
+import avatar2 from '../../../assets/avatars/avatar_2.png';
+import avatar3 from '../../../assets/avatars/avatar_3.png';
+import avatar4 from '../../../assets/avatars/avatar_4.png';
+import avatar5 from '../../../assets/avatars/avatar_5.png';
 /**
  * Testimonial Aurora - Aurora Wall of Love
  * Staggered masonry of quote cards with gradient accent borders,
@@ -11,12 +16,12 @@ const t = useTranslations(locale);
 import '../../../styles/components/testimonial/TestimonialAurora.css';
 
 const testimonials = [
-  { quote: t('testimonial.t3_quote1'), author: t('testimonial.t3_author1'), role: t('testimonial.t3_role1'), company: t('testimonial.t3_company1'), size: 'large', avatar: '/avatars/avatar_1.png' },
-  { quote: t('testimonial.t4_quote1'), author: t('testimonial.t4_author1'), role: t('testimonial.t4_role1'), company: '', size: 'small', avatar: '/avatars/avatar_2.png' },
-  { quote: t('testimonial.t3_quote2'), author: t('testimonial.t3_author2'), role: t('testimonial.t3_role2'), company: t('testimonial.t3_company2'), size: 'large', avatar: '/avatars/avatar_3.png' },
-  { quote: t('testimonial.t4_quote3'), author: t('testimonial.t4_author3'), role: t('testimonial.t4_role3'), company: '', size: 'small', avatar: '/avatars/avatar_4.png' },
-  { quote: t('testimonial.t3_quote4'), author: t('testimonial.t3_author4'), role: t('testimonial.t3_role4'), company: t('testimonial.t3_company4'), size: 'medium', avatar: '/avatars/avatar_5.png' },
-  { quote: t('testimonial.t3_quote5'), author: t('testimonial.t3_author5'), role: t('testimonial.t3_role5'), company: t('testimonial.t3_company5'), size: 'medium', avatar: '/avatars/avatar_1.png' },
+  { quote: t('testimonial.t3_quote1'), author: t('testimonial.t3_author1'), role: t('testimonial.t3_role1'), company: t('testimonial.t3_company1'), size: 'large', avatar: avatar1.src },
+  { quote: t('testimonial.t4_quote1'), author: t('testimonial.t4_author1'), role: t('testimonial.t4_role1'), company: '', size: 'small', avatar: avatar2.src },
+  { quote: t('testimonial.t3_quote2'), author: t('testimonial.t3_author2'), role: t('testimonial.t3_role2'), company: t('testimonial.t3_company2'), size: 'large', avatar: avatar3.src },
+  { quote: t('testimonial.t4_quote3'), author: t('testimonial.t4_author3'), role: t('testimonial.t4_role3'), company: '', size: 'small', avatar: avatar4.src },
+  { quote: t('testimonial.t3_quote4'), author: t('testimonial.t3_author4'), role: t('testimonial.t3_role4'), company: t('testimonial.t3_company4'), size: 'medium', avatar: avatar5.src },
+  { quote: t('testimonial.t3_quote5'), author: t('testimonial.t3_author5'), role: t('testimonial.t3_role5'), company: t('testimonial.t3_company5'), size: 'medium', avatar: avatar1.src },
 ];
 ---
 
@@ -51,18 +56,18 @@ const testimonials = [
 
   <!-- Card Grid with staggered reveal -->
   <div class="testimonial-aurora-grid">
-    {testimonials.map((t, idx) => (
-      <div class:list={['testimonial-aurora-card', `testimonial-aurora-card--${t.size}`]} style={`animation-delay: ${idx * 0.1}s`}>
+    {testimonials.map((item, idx) => (
+      <div class:list={['testimonial-aurora-card', `testimonial-aurora-card--${item.size}`]} style={`animation-delay: ${idx * 0.1}s`}>
         <div class="testimonial-aurora-card-bar"></div>
-        <blockquote class="testimonial-aurora-quote">"{t.quote}"</blockquote>
+        <blockquote class="testimonial-aurora-quote">"{item.quote}"</blockquote>
         <div class="testimonial-aurora-author">
           <div class="testimonial-aurora-avatar-ring">
-            <img src={t.avatar} alt={t.author} class="w-full h-full object-cover rounded-full" />
+            <img src={item.avatar} alt={item.author} class="testimonial-aurora-avatar" />
           </div>
           <div class="testimonial-aurora-author-info">
-            <span class="testimonial-aurora-author-name">{t.author}</span>
+            <span class="testimonial-aurora-author-name">{item.author}</span>
             <span class="testimonial-aurora-author-role">
-              {t.role}{t.company ? ` at ${t.company}` : ''}
+              {item.role}{item.company ? ` at ${item.company}` : ''}
             </span>
           </div>
         </div>

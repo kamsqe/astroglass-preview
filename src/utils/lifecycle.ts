@@ -16,13 +16,13 @@
  * - Passes an `AbortSignal` to the init payload for listeners.
  * - Triggers `.abort()` on navigation away (`astro:before-swap`).
  */
-export function registerAstroPage(initFn: (signal?: AbortSignal) => void): void {
+export function registerAstroPage(initFn: (_signal?: AbortSignal) => void): void {
   let controller: AbortController | null = null;
 
   document.addEventListener('astro:page-load', () => {
     // Ensure any stale controller is aborted
     if (controller) controller.abort();
-    
+
     controller = new AbortController();
     initFn(controller.signal);
   });

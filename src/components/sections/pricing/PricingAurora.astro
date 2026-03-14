@@ -83,8 +83,14 @@ const plans = [
 
     <!-- Toggle -->
     <div class="pricing-aurora-toggle" id="aurora-pricing-toggle">
-      <span class="pricing-aurora-toggle-label is-active" data-period="monthly">{t('pricing.monthly')}</span>
-      <button class="pricing-aurora-toggle-switch" id="aurora-pricing-switch" aria-label="Toggle billing period">
+      <span class="pricing-aurora-toggle-label is-active" data-period="monthly"
+        >{t('pricing.monthly')}</span
+      >
+      <button
+        class="pricing-aurora-toggle-switch"
+        id="aurora-pricing-switch"
+        aria-label="Toggle billing period"
+      >
         <span class="pricing-aurora-toggle-knob"></span>
       </button>
       <span class="pricing-aurora-toggle-label" data-period="yearly">
@@ -96,56 +102,75 @@ const plans = [
 
   <!-- Plans Grid -->
   <div class="pricing-aurora-grid">
-    {plans.map((plan) => (
-      <div class:list={['pricing-aurora-plan', plan.featured ? 'pricing-aurora-plan--featured' : '']}>
-        {plan.featured && (
-          <div class="pricing-aurora-plan-badge">{t('pricing.recommended')}</div>
-        )}
+    {
+      plans.map((plan) => (
+        <div
+          class:list={['pricing-aurora-plan', plan.featured ? 'pricing-aurora-plan--featured' : '']}
+        >
+          {plan.featured && <div class="pricing-aurora-plan-badge">{t('pricing.recommended')}</div>}
 
-        <div class="pricing-aurora-plan-header">
-          <h3 class="pricing-aurora-plan-name">{plan.name}</h3>
-          <p class="pricing-aurora-plan-tagline">{plan.tagline}</p>
-        </div>
+          <div class="pricing-aurora-plan-header">
+            <h3 class="pricing-aurora-plan-name">{plan.name}</h3>
+            <p class="pricing-aurora-plan-tagline">{plan.tagline}</p>
+          </div>
 
-        <div class="pricing-aurora-plan-price">
-          {plan.isFree ? (
-            <span class="pricing-aurora-price-free">{t('pricing.freeForever')}</span>
-          ) : (
-            <>
-              <span class="pricing-aurora-price-currency">$</span>
-              <span class="pricing-aurora-price-amount" data-monthly={plan.priceMonthly} data-yearly={plan.priceYearly}>{plan.priceMonthly}</span>
-              <span class="pricing-aurora-price-period">{t('pricing.perMonth')}</span>
-            </>
-          )}
-        </div>
+          <div class="pricing-aurora-plan-price">
+            {plan.isFree ? (
+              <span class="pricing-aurora-price-free">{t('pricing.freeForever')}</span>
+            ) : (
+              <>
+                <span class="pricing-aurora-price-currency">$</span>
+                <span
+                  class="pricing-aurora-price-amount"
+                  data-monthly={plan.priceMonthly}
+                  data-yearly={plan.priceYearly}
+                >
+                  {plan.priceMonthly}
+                </span>
+                <span class="pricing-aurora-price-period">{t('pricing.perMonth')}</span>
+              </>
+            )}
+          </div>
 
-        <p class="pricing-aurora-plan-desc">{plan.desc}</p>
+          <p class="pricing-aurora-plan-desc">{plan.desc}</p>
 
-        <a href="#contact" class:list={['pricing-aurora-plan-cta', plan.featured ? 'pricing-aurora-plan-cta--featured' : '']}>
-          {plan.cta}
-        </a>
+          <a
+            href="#contact"
+            class:list={[
+              'pricing-aurora-plan-cta',
+              plan.featured ? 'pricing-aurora-plan-cta--featured' : '',
+            ]}
+          >
+            {plan.cta}
+          </a>
 
-        <ul class="pricing-aurora-feature-list">
-          {plan.features.map((f) => (
-            <li class:list={['pricing-aurora-feature', typeof f.value === 'boolean' && !f.value ? 'is-disabled' : '']}>
-              {typeof f.value === 'boolean' ? (
-                f.value ? (
-                  <span class="pricing-aurora-check">✓</span>
+          <ul class="pricing-aurora-feature-list">
+            {plan.features.map((f) => (
+              <li
+                class:list={[
+                  'pricing-aurora-feature',
+                  typeof f.value === 'boolean' && !f.value ? 'is-disabled' : '',
+                ]}
+              >
+                {typeof f.value === 'boolean' ? (
+                  f.value ? (
+                    <span class="pricing-aurora-check">✓</span>
+                  ) : (
+                    <span class="pricing-aurora-cross">—</span>
+                  )
                 ) : (
-                  <span class="pricing-aurora-cross">—</span>
-                )
-              ) : (
-                <span class="pricing-aurora-check">✓</span>
-              )}
-              <span class="pricing-aurora-feature-name">{f.name}</span>
-              {typeof f.value === 'string' && (
-                <span class="pricing-aurora-feature-value">{f.value}</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+                  <span class="pricing-aurora-check">✓</span>
+                )}
+                <span class="pricing-aurora-feature-name">{f.name}</span>
+                {typeof f.value === 'string' && (
+                  <span class="pricing-aurora-feature-value">{f.value}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </div>
 </section>
 
@@ -163,29 +188,33 @@ const plans = [
 
     let isYearly = false;
 
-    toggle.addEventListener('click', () => {
-      isYearly = !isYearly;
-      toggle.classList.toggle('is-yearly', isYearly);
+    toggle.addEventListener(
+      'click',
+      () => {
+        isYearly = !isYearly;
+        toggle.classList.toggle('is-yearly', isYearly);
 
-      // Update labels
-      container.querySelectorAll('.pricing-aurora-toggle-label').forEach(label => {
-        const period = label.getAttribute('data-period');
-        label.classList.toggle('is-active', (period === 'yearly') === isYearly);
-      });
+        // Update labels
+        container.querySelectorAll('.pricing-aurora-toggle-label').forEach((label) => {
+          const period = label.getAttribute('data-period');
+          label.classList.toggle('is-active', (period === 'yearly') === isYearly);
+        });
 
-      // Update prices
-      document.querySelectorAll('.pricing-aurora-price-amount').forEach(el => {
-        const amount = el as HTMLElement;
-        amount.textContent = isYearly 
-          ? amount.getAttribute('data-yearly') || '' 
-          : amount.getAttribute('data-monthly') || '';
-      });
+        // Update prices
+        document.querySelectorAll('.pricing-aurora-price-amount').forEach((el) => {
+          const amount = el as HTMLElement;
+          amount.textContent = isYearly
+            ? amount.getAttribute('data-yearly') || ''
+            : amount.getAttribute('data-monthly') || '';
+        });
 
-      // Update period labels
-      document.querySelectorAll('.pricing-aurora-price-period').forEach(el => {
-        el.textContent = isYearly ? '/ mo (billed yearly)' : '/ month';
-      });
-    }, { signal });
+        // Update period labels
+        document.querySelectorAll('.pricing-aurora-price-period').forEach((el) => {
+          el.textContent = isYearly ? '/ mo (billed yearly)' : '/ month';
+        });
+      },
+      { signal },
+    );
   }
 
   initPricingAurora();

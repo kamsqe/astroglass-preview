@@ -20,13 +20,17 @@ const { categories, badgeLabel, pageTitle, pageSubtitle } = Astro.props;
 
   <div class="relative z-10 max-w-3xl mx-auto px-4">
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent mb-8">
+    <div
+      class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent mb-8"
+    >
       <span class="portfolio-aurora-label-frame">▮▯▮</span>
       <span>{badgeLabel}</span>
     </div>
 
     <!-- Title -->
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-base-content leading-tight mb-5">
+    <h1
+      class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-base-content leading-tight mb-5"
+    >
       {pageTitle}
     </h1>
 
@@ -37,17 +41,16 @@ const { categories, badgeLabel, pageTitle, pageSubtitle } = Astro.props;
 
     <!-- Category Filters (pill-shaped) -->
     <div class="flex flex-wrap gap-2 justify-center" id="pp-aurora-filters">
-      {categories.map((cat, i) => (
-        <button
-          class:list={[
-            'pp-aurora__filter',
-            i === 0 ? 'is-active' : ''
-          ]}
-          data-filter={cat.id}
-        >
-          {cat.label}
-        </button>
-      ))}
+      {
+        categories.map((cat, i) => (
+          <button
+            class:list={['pp-aurora__filter', i === 0 ? 'is-active' : '']}
+            data-filter={cat.id}
+          >
+            {cat.label}
+          </button>
+        ))
+      }
     </div>
   </div>
 </section>

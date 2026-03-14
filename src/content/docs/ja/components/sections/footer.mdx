@@ -1,6 +1,6 @@
 ---
-title: "フッター (Footer) セクション"
-description: "各テーマのサイト フッター セクション。"
+title: 'フッター (Footer) セクション'
+description: '各テーマのサイト フッター セクション。'
 order: 12
 ---
 
@@ -10,14 +10,14 @@ Footer (フッター) セクションは、すべてのテーマ ページの下
 
 ## テーマのバリアント
 
-| テーマ | コンポーネント | スタイル |
-|-------|-----------|-------|
-| **Liquid** | `FooterLiquid.astro` | 流動的なグラデーション フッター |
-| **Glass** | `FooterGlass.astro` | すりガラスのフッター |
-| **Neo** | `FooterNeo.astro` | 大胆でハイコントラストなフッター |
-| **Luxury** | `FooterLuxury.astro` | ゴールドのアクセントが効いたプレミアム フッター |
-| **Minimal** | `FooterMinimal.astro` | クリーンでシンプルなフッター |
-| **Aurora** | `FooterAurora.astro` | グラデーション メッシュ フッター |
+| テーマ      | コンポーネント        | スタイル                                        |
+| ----------- | --------------------- | ----------------------------------------------- |
+| **Liquid**  | `FooterLiquid.astro`  | 流動的なグラデーション フッター                 |
+| **Glass**   | `FooterGlass.astro`   | すりガラスのフッター                            |
+| **Neo**     | `FooterNeo.astro`     | 大胆でハイコントラストなフッター                |
+| **Luxury**  | `FooterLuxury.astro`  | ゴールドのアクセントが効いたプレミアム フッター |
+| **Minimal** | `FooterMinimal.astro` | クリーンでシンプルなフッター                    |
+| **Aurora**  | `FooterAurora.astro`  | グラデーション メッシュ フッター                |
 
 すべてのバリアントは `src/components/sections/footer/` に配置されています。
 
@@ -26,5 +26,7 @@ Footer (フッター) セクションは、すべてのテーマ ページの下
 フッターのテキストとリンクは、`useTranslations()` を介して `src/locales/{lang}/footer.json` と `src/locales/{lang}/nav.json` から読み込まれます。
 
 <Callout type="info" title="プロパティ (Props) なし">
-  Footer コンポーネントは外部からのプロパティ (Props) を受け取りません。フッターのリンクやテキストを編集するには、`src/locales/{lang}/footer.json` を更新してください。
+  Footer コンポーネントは外部からのプロパティ (Props)
+  を受け取りません。フッターのリンクやテキストを編集するには、`src/locales/{lang}/footer.json`
+  を更新してください。
 </Callout>

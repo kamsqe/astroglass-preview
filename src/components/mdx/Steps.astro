@@ -1,17 +1,17 @@
 ---
 /**
  * Steps Component
- * 
+ *
  * Numbered step-by-step instructions with visual indicators.
- * 
+ *
  * Usage in MDX:
  * <Steps>
  *   ### Install dependencies
  *   Run the install command...
- *   
+ *
  *   ### Configure the project
  *   Create a config file...
- *   
+ *
  *   ### Start development
  *   Run the dev server...
  * </Steps>
@@ -37,7 +37,7 @@ const { startFrom = 1 } = Astro.props;
       (container as HTMLElement).style.setProperty('--start-from', String(startFrom));
     });
   }
-  
+
   initSteps();
   document.addEventListener('astro:after-swap', initSteps);
 </script>

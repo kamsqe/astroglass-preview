@@ -1,10 +1,10 @@
 ---
-title: "El Arte del Glassmorphism: Construyendo Interfaces Modernas"
-description: "Una inmersión profunda en la tendencia del diseño glassmorphism — cómo combinar efectos de vidrio esmerilado, desenfoque y transparencia para crear interfaces visualmente impresionantes y accesibles que funcionen maravillosamente en todos los temas."
+title: 'El Arte del Glassmorphism: Construyendo Interfaces Modernas'
+description: 'Una inmersión profunda en la tendencia del diseño glassmorphism — cómo combinar efectos de vidrio esmerilado, desenfoque y transparencia para crear interfaces visualmente impresionantes y accesibles que funcionen maravillosamente en todos los temas.'
 date: 2026-02-11
-tags: ["design", "css", "ui", "glassmorphism"]
-author: "Design Team"
-category: "Design"
+tags: ['design', 'css', 'ui', 'glassmorphism']
+author: 'Design Team'
+category: 'Design'
 readingTime: 8
 featured: true
 draft: false
@@ -41,7 +41,7 @@ En su forma más simple, una tarjeta de vidrio se puede construir con solo unas 
 Sin embargo, el vidrio con calidad de producción requiere más matices. Necesitas manejar:
 
 1. **Respaldo para navegadores sin `backdrop-filter`** — usar un fondo sólido como base
-2. **Rendimiento** — el desenfoque consume mucha GPU; limitar el número de capas desenfocadas  
+2. **Rendimiento** — el desenfoque consume mucha GPU; limitar el número de capas desenfocadas
 3. **Contraste** — asegurar que el texto permanezca legible contra cualquier fondo
 4. **Adaptación de temas** — el vidrio debe funcionar en fondos tanto claros como oscuros
 
@@ -83,7 +83,7 @@ Las superficies de vidrio cobran vida con animaciones sutiles:
 
 ```css
 .glass-card {
-  transition: 
+  transition:
     transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.4s ease;
 }
@@ -104,12 +104,12 @@ Las superficies de vidrio cobran vida con animaciones sutiles:
 
 ### Mitigaciones
 
-| Estrategia | Impacto |
-|---|---|
-| Limite las capas de vidrio a 2-3 por ventana gráfica | Alto |
-| Use `will-change: transform` | Medio |
-| Reduzca el radio de desenfoque en móviles | Medio |
-| Elimine el desenfoque por completo mediante `prefers-reduced-motion` | Alto |
+| Estrategia                                                           | Impacto |
+| -------------------------------------------------------------------- | ------- |
+| Limite las capas de vidrio a 2-3 por ventana gráfica                 | Alto    |
+| Use `will-change: transform`                                         | Medio   |
+| Reduzca el radio de desenfoque en móviles                            | Medio   |
+| Elimine el desenfoque por completo mediante `prefers-reduced-motion` | Alto    |
 
 ## Construcción de una Biblioteca de Componentes de Vidrio
 

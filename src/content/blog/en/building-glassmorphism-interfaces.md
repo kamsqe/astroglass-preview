@@ -1,10 +1,10 @@
 ---
-title: "The Art of Glassmorphism: Building Modern Interfaces"
-description: "A deep dive into the glassmorphism design trend — how to combine frosted glass effects, blur, and transparency to create visually stunning, accessible interfaces that work beautifully across themes."
+title: 'The Art of Glassmorphism: Building Modern Interfaces'
+description: 'A deep dive into the glassmorphism design trend — how to combine frosted glass effects, blur, and transparency to create visually stunning, accessible interfaces that work beautifully across themes.'
 date: 2026-02-11
-tags: ["design", "css", "ui", "glassmorphism"]
-author: "Design Team"
-category: "Design"
+tags: ['design', 'css', 'ui', 'glassmorphism']
+author: 'Design Team'
+category: 'Design'
 readingTime: 8
 featured: true
 draft: false
@@ -41,7 +41,7 @@ At its simplest, a glass card can be built with just a few properties:
 However, production-quality glass requires more nuance. You need to handle:
 
 1. **Fallback for browsers without `backdrop-filter`** — use a solid background as the base
-2. **Performance** — blur is GPU-intensive; limit the number of blurred layers  
+2. **Performance** — blur is GPU-intensive; limit the number of blurred layers
 3. **Contrast** — ensure text remains readable against any background
 4. **Theme adaptation** — glass must work on both light and dark backgrounds
 
@@ -83,7 +83,7 @@ Glass surfaces come alive with subtle animations:
 
 ```css
 .glass-card {
-  transition: 
+  transition:
     transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.4s ease;
 }
@@ -104,12 +104,12 @@ Glass surfaces come alive with subtle animations:
 
 ### Mitigations
 
-| Strategy | Impact |
-|---|---|
-| Limit glass layers to 2–3 per viewport | High |
-| Use `will-change: transform` | Medium |
-| Reduce blur radius on mobile | Medium |
-| Remove blur entirely via `prefers-reduced-motion` | High |
+| Strategy                                          | Impact |
+| ------------------------------------------------- | ------ |
+| Limit glass layers to 2–3 per viewport            | High   |
+| Use `will-change: transform`                      | Medium |
+| Reduce blur radius on mobile                      | Medium |
+| Remove blur entirely via `prefers-reduced-motion` | High   |
 
 ## Building a Glass Component Library
 

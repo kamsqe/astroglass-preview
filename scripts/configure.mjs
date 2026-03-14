@@ -22,12 +22,18 @@ import {
 
 // ─── Theme metadata ──────────────────────────────────────────
 const themeChoices = [
-  { name: 'Liquid   \u{1F4A7}  \u2014 Fluid, organic design with smooth animations',       value: 'liquid' },
-  { name: 'Glass    \u{1F52E}  \u2014 Glassmorphism with depth and transparency',           value: 'glass' },
-  { name: 'Neo      \u26A1  \u2014 Bold, energetic design with dynamic elements',         value: 'neo' },
-  { name: 'Luxury   \u2728  \u2014 Premium, sophisticated aesthetic',                     value: 'luxury' },
-  { name: 'Minimal  \u25CB   \u2014 Clean, focused design with essential elements',        value: 'minimal' },
-  { name: 'Aurora   \u{1F30C}  \u2014 Immersive, gradient-mesh-rich design',                value: 'aurora' },
+  {
+    name: 'Liquid   \u{1F4A7}  \u2014 Fluid, organic design with smooth animations',
+    value: 'liquid',
+  },
+  { name: 'Glass    \u{1F52E}  \u2014 Glassmorphism with depth and transparency', value: 'glass' },
+  { name: 'Neo      \u26A1  \u2014 Bold, energetic design with dynamic elements', value: 'neo' },
+  { name: 'Luxury   \u2728  \u2014 Premium, sophisticated aesthetic', value: 'luxury' },
+  {
+    name: 'Minimal  \u25CB   \u2014 Clean, focused design with essential elements',
+    value: 'minimal',
+  },
+  { name: 'Aurora   \u{1F30C}  \u2014 Immersive, gradient-mesh-rich design', value: 'aurora' },
 ];
 
 // ─── Locale metadata ─────────────────────────────────────────
@@ -44,18 +50,18 @@ const localeChoices = [
 // ─── Palette metadata ────────────────────────────────────────
 const paletteChoices = [
   // Light
-  { name: '\u2600\uFE0F  Azure       (light, blue)',      value: 'azure',      checked: true },
-  { name: '\u2744\uFE0F  Nordic      (light, cool)',      value: 'nordic' },
-  { name: '\u{1F305}  Solaris     (light, warm)',      value: 'solaris' },
+  { name: '\u2600\uFE0F  Azure       (light, blue)', value: 'azure', checked: true },
+  { name: '\u2744\uFE0F  Nordic      (light, cool)', value: 'nordic' },
+  { name: '\u{1F305}  Solaris     (light, warm)', value: 'solaris' },
   // Dark
-  { name: '\u{1F319}  Abyss       (dark, indigo)',     value: 'abyss' },
-  { name: '\u{1F303}  Neonoir     (dark, pink)',       value: 'neonoir' },
-  { name: '\u{1F3A7}  Synthwave   (dark, purple)',     value: 'synthwave' },
+  { name: '\u{1F319}  Abyss       (dark, indigo)', value: 'abyss' },
+  { name: '\u{1F303}  Neonoir     (dark, pink)', value: 'neonoir' },
+  { name: '\u{1F3A7}  Synthwave   (dark, purple)', value: 'synthwave' },
   // Colorful
-  { name: '\u{1F332}  Evergreen   (green)',            value: 'evergreen' },
-  { name: '\u{1F338}  Rose        (pink)',             value: 'rose' },
-  { name: '\u{1F30A}  Aquatica    (teal)',             value: 'aquatica' },
-  { name: '\u25FB\uFE0F  Monochrome  (gray)',            value: 'monochrome' },
+  { name: '\u{1F332}  Evergreen   (green)', value: 'evergreen' },
+  { name: '\u{1F338}  Rose        (pink)', value: 'rose' },
+  { name: '\u{1F30A}  Aquatica    (teal)', value: 'aquatica' },
+  { name: '\u25FB\uFE0F  Monochrome  (gray)', value: 'monochrome' },
 ];
 
 // ─── Main ────────────────────────────────────────────────────
@@ -108,7 +114,9 @@ async function main() {
     console.log('    -> Palette switcher will be REMOVED from navbar');
   }
 
-  console.log(`\n    Will prune: ${themesRemoved} themes, ${localesRemoved} locales, ${palettesRemoved} palettes`);
+  console.log(
+    `\n    Will prune: ${themesRemoved} themes, ${localesRemoved} locales, ${palettesRemoved} palettes`,
+  );
 
   // ─── Confirm ─────────────────────────────────────────────
   const proceed = await confirm({

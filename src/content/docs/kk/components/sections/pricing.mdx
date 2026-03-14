@@ -1,6 +1,6 @@
 ---
-title: "Бағалау (Pricing) бөлімі"
-description: "Әрбір тақырыпқа арналған баға кестесінің бөлімдері."
+title: 'Бағалау (Pricing) бөлімі'
+description: 'Әрбір тақырыпқа арналған баға кестесінің бөлімдері.'
 order: 6
 ---
 
@@ -10,14 +10,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 
 ## Тақырып нұсқалары
 
-| Тақырып | Компонент | Стиль |
-|-------|-----------|-------|
-| **Liquid** | `PricingLiquid.astro` | Градиентті екпіндері бар сұйық карта макеті |
-| **Glass** | `PricingGlass.astro` | Аязды әйнек баға карталары |
-| **Neo** | `PricingNeo.astro` | Жоғары контрастты баға торы |
-| **Luxury** | `PricingLuxury.astro` | Премиум сезімі бар алтын екпінді баға |
-| **Minimal** | `PricingMinimal.astro` | Таза, қарапайым баға тізімі |
-| **Aurora** | `PricingAurora.astro` | Градиентті фондық баға карталары |
+| Тақырып     | Компонент              | Стиль                                       |
+| ----------- | ---------------------- | ------------------------------------------- |
+| **Liquid**  | `PricingLiquid.astro`  | Градиентті екпіндері бар сұйық карта макеті |
+| **Glass**   | `PricingGlass.astro`   | Аязды әйнек баға карталары                  |
+| **Neo**     | `PricingNeo.astro`     | Жоғары контрастты баға торы                 |
+| **Luxury**  | `PricingLuxury.astro`  | Премиум сезімі бар алтын екпінді баға       |
+| **Minimal** | `PricingMinimal.astro` | Таза, қарапайым баға тізімі                 |
+| **Aurora**  | `PricingAurora.astro`  | Градиентті фондық баға карталары            |
 
 Барлық нұсқалар `src/components/sections/pricing/` мекенжайында орналасқан.
 
@@ -40,12 +40,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 ```
 
 <Callout type="info" title="Props жоқ">
-  Баға компоненттері сыртқы props қабылдамайды. Жоспарларды, бағаларды немесе мүмкіндіктерді өзгерту үшін `src/locales/{lang}/pricing.json` файлын жаңартыңыз.
+  Баға компоненттері сыртқы props қабылдамайды. Жоспарларды, бағаларды немесе мүмкіндіктерді өзгерту
+  үшін `src/locales/{lang}/pricing.json` файлын жаңартыңыз.
 </Callout>
 
 ## Баптау
 
 Баптау үшін:
+
 1. `src/components/sections/pricing/Pricing{Theme}.astro` файлын өңдеңіз.
 2. `src/styles/components/pricing/` ішіндегі стильдерді реттеңіз.
 3. `src/locales/{lang}/pricing.json` файлындағы мазмұнды өзгертіңіз.

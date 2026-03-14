@@ -7,11 +7,13 @@ interface Props {
 const { text, class: className } = Astro.props;
 ---
 
-<div class:list={[
-  "inline-flex items-center justify-center px-4 py-1.5 rounded-full",
-  "bg-accent/10 border border-accent/20 text-accent",
-  "text-[10px] font-bold uppercase tracking-luxury-wide",
-  className
-]}>
+<div
+  class:list={[
+    'inline-flex items-center justify-center px-4 py-1.5 rounded-full',
+    'bg-accent/10 border border-accent/20 text-accent',
+    'text-[10px] font-bold uppercase tracking-luxury-wide',
+    className,
+  ]}
+>
   {text}
 </div>

@@ -1,6 +1,6 @@
 ---
-title: "お問い合わせ (Contact) セクション"
-description: "各テーマ用の Valibot バリデーションを備えたお問い合わせフォーム セクション。"
+title: 'お問い合わせ (Contact) セクション'
+description: '各テーマ用の Valibot バリデーションを備えたお問い合わせフォーム セクション。'
 order: 10
 ---
 
@@ -10,14 +10,14 @@ Contact (コンタクト) セクションは、バリデーション (検証) �
 
 ## テーマのバリアント
 
-| テーマ | コンポーネント | スタイル |
-|-------|-----------|-------|
-| **Liquid** | `ContactLiquid.astro` | グラデーションのアクセントを効かせた流動的なフォーム デザイン |
-| **Glass** | `ContactGlass.astro` | すりガラスのフォーム カード |
-| **Neo** | `ContactNeo.astro` | 大胆でハイコントラストなフォーム |
-| **Luxury** | `ContactLuxury.astro` | ゴールドのディテールを持つプレミアムなフォーム |
-| **Minimal** | `ContactMinimal.astro` | クリーンでシンプルなお問い合わせフォーム |
-| **Aurora** | `ContactAurora.astro` | グラデーション背景のフォーム |
+| テーマ      | コンポーネント         | スタイル                                                      |
+| ----------- | ---------------------- | ------------------------------------------------------------- |
+| **Liquid**  | `ContactLiquid.astro`  | グラデーションのアクセントを効かせた流動的なフォーム デザイン |
+| **Glass**   | `ContactGlass.astro`   | すりガラスのフォーム カード                                   |
+| **Neo**     | `ContactNeo.astro`     | 大胆でハイコントラストなフォーム                              |
+| **Luxury**  | `ContactLuxury.astro`  | ゴールドのディテールを持つプレミアムなフォーム                |
+| **Minimal** | `ContactMinimal.astro` | クリーンでシンプルなお問い合わせフォーム                      |
+| **Aurora**  | `ContactAurora.astro`  | グラデーション背景のフォーム                                  |
 
 すべてのバリアントは `src/components/sections/contact/` に配置されています。
 
@@ -36,5 +36,7 @@ Contact (コンタクト) セクションは、バリデーション (検証) �
 お問い合わせのコンテンツとバリデーション メッセージは、`src/locales/{lang}/contact.json` から読み込まれます。
 
 <Callout type="info" title="プロパティ (Props) なし">
-  Contact コンポーネントは外部からのプロパティ (Props) を受け取りません。フォームのラベルやバリデーション メッセージを編集するには、`src/locales/{lang}/contact.json` を更新してください。
+  Contact コンポーネントは外部からのプロパティ (Props)
+  を受け取りません。フォームのラベルやバリデーション メッセージを編集するには、`src/locales/{lang}
+  /contact.json` を更新してください。
 </Callout>

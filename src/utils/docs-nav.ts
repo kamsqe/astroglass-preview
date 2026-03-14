@@ -9,7 +9,7 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Secciones de Marketing',
     ja: 'マーケティングセクション',
     zh: '营销区块',
-    kk: 'Маркетинг бөлімдері'
+    kk: 'Маркетинг бөлімдері',
   },
   'components-ui': {
     en: 'UI Elements',
@@ -18,7 +18,7 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Elementos UI',
     ja: 'UI要素',
     zh: 'UI 组件',
-    kk: 'UI элементтері'
+    kk: 'UI элементтері',
   },
   'components-pages': {
     en: 'Pages',
@@ -27,7 +27,7 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Páginas',
     ja: 'ページ',
     zh: '页面',
-    kk: 'Беттер'
+    kk: 'Беттер',
   },
   'components-reference': {
     en: 'Reference',
@@ -36,7 +36,7 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Referencia',
     ja: 'リファレンス',
     zh: '参考',
-    kk: 'Анықтамалық'
+    kk: 'Анықтамалық',
   },
   'getting-started': {
     en: 'Getting Started',
@@ -45,7 +45,7 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Primeros pasos',
     ja: 'はじめに',
     zh: '快速开始',
-    kk: 'Бастау'
+    kk: 'Бастау',
   },
   'core-concepts': {
     en: 'Core Concepts',
@@ -54,93 +54,96 @@ export const SIDEBAR_LABELS: Record<string, Record<string, string>> = {
     es: 'Conceptos clave',
     ja: 'コアコンセプト',
     zh: '核心概念',
-    kk: 'Негізгі тұжырымдамалар'
+    kk: 'Негізгі тұжырымдамалар',
   },
-  'deployment': {
+  deployment: {
     en: 'Deployment',
     ru: 'Развертывание',
     fr: 'Déploiement',
     es: 'Despliegue',
     ja: 'デプロイ',
     zh: '部署',
-    kk: 'Орналастыру'
+    kk: 'Орналастыру',
   },
-  'components': {
+  components: {
     en: 'Components',
     ru: 'Компоненты',
     fr: 'Composants',
     es: 'Componentes',
     ja: 'コンポーネント',
     zh: '组件',
-    kk: 'Компоненттер'
+    kk: 'Компоненттер',
   },
-  'themes': {
+  themes: {
     en: 'Themes',
     ru: 'Темы',
     fr: 'Thèmes',
     es: 'Temas',
     ja: 'テーマ',
     zh: '主题',
-    kk: 'Тақырыптар'
+    kk: 'Тақырыптар',
   },
-  'guide': {
+  guide: {
     en: 'Guide',
     ru: 'Руководство',
     fr: 'Guide',
     es: 'Guía',
     ja: 'ガイド',
     zh: '指南',
-    kk: 'Нұсқаулық'
+    kk: 'Нұсқаулық',
   },
-  'guides': {
+  guides: {
     en: 'Guides',
     ru: 'Руководства',
     fr: 'Guides',
     es: 'Guías',
     ja: 'ガイド',
     zh: '指南',
-    kk: 'Нұсқаулықтар'
+    kk: 'Нұсқаулықтар',
   },
-  'General': {
+  General: {
     en: 'General',
     ru: 'Общее',
     fr: 'Général',
     es: 'General',
     ja: '一般',
     zh: '通用',
-    kk: 'Жалпы'
-  }
+    kk: 'Жалпы',
+  },
 };
 
 export async function buildDocsNav(locale: string) {
   // Fetch all docs
   const allDocs = await getCollection('docs');
-  
+
   // Filter for locale (in Astro 6, id includes file extension e.g. "en/intro.mdx")
-  const docs = allDocs.filter(d => d.id.startsWith(`${locale}/`));
-  
+  const docs = allDocs.filter((d) => d.id.startsWith(`${locale}/`));
+
   // Group by folder
   const sections: Record<string, any[]> = {};
-  
-  docs.forEach(doc => {
-    const cleanSlug = doc.id.replace(/\.(mdx?)$/, '').replace(/\/index$/, '').replace(`${locale}/`, '');
+
+  docs.forEach((doc) => {
+    const cleanSlug = doc.id
+      .replace(/\.(mdx?)$/, '')
+      .replace(/\/index$/, '')
+      .replace(`${locale}/`, '');
     const parts = cleanSlug.split('/');
-    
+
     // Determine section name
     // If it's in a subfolder, use folder name. If root, use 'General'
     let sectionKey = parts.length > 1 ? parts[0] : 'General';
-    
+
     // granular components
     if (sectionKey === 'components' && parts.length > 2) {
       sectionKey = `components-${parts[1]}`;
     }
-    
+
     if (!sections[sectionKey]) sections[sectionKey] = [];
-    
+
     sections[sectionKey].push({
       title: doc.data.title,
       href: locale === 'en' ? `/docs/${cleanSlug}/` : `/${locale}/docs/${cleanSlug}/`,
-      order: doc.data.order || 99
+      order: doc.data.order || 99,
     });
   });
 
@@ -152,30 +155,31 @@ export async function buildDocsNav(locale: string) {
     'components-ui': 4,
     'components-pages': 5,
     'components-reference': 6,
-    'guides': 7,
-    'deployment': 8,
-    'General': 0
+    guides: 7,
+    deployment: 8,
+    General: 0,
   };
 
   // Convert to array and sort
   const nav = Object.entries(sections).map(([key, items]) => {
     // Default formatting
-    let title = key === 'General' 
-      ? (SIDEBAR_LABELS['General']?.[locale] || 'General') : 
-      key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    let title =
+      key === 'General'
+        ? SIDEBAR_LABELS['General']?.[locale] || 'General'
+        : key.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
     // Use localized override if available
     if (SIDEBAR_LABELS[key] && SIDEBAR_LABELS[key][locale]) {
       title = SIDEBAR_LABELS[key][locale];
     }
-      
+
     // Get explicit order
     const sectionOrder = SECTION_ORDER[key] || 99;
 
     return {
       title,
       order: sectionOrder,
-      items: items.sort((a, b) => a.order - b.order)
+      items: items.sort((a, b) => a.order - b.order),
     };
   });
 

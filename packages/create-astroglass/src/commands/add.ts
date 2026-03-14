@@ -44,7 +44,10 @@ export async function addCommand(args: {
     if (p.isCancel(type)) return;
 
     // TODO: Show available options based on type
-    p.note('Interactive add coming soon — use flags for now:\n  npx astroglass add --theme luxury\n  npx astroglass add --palette abyss\n  npx astroglass add --lang fr\n  npx astroglass add --feature docs', 'Usage');
+    p.note(
+      'Interactive add coming soon — use flags for now:\n  npx astroglass add --theme luxury\n  npx astroglass add --palette abyss\n  npx astroglass add --lang fr\n  npx astroglass add --feature docs',
+      'Usage',
+    );
     return;
   }
 
@@ -54,10 +57,13 @@ export async function addCommand(args: {
 
     // Auto-commit if git repo
     if (isGitRepo(projectPath)) {
-      const what = args.theme ? `theme: ${args.theme}` :
-                   args.palette ? `palette: ${args.palette}` :
-                   args.lang ? `lang: ${args.lang}` :
-                   `feature: ${args.feature}`;
+      const what = args.theme
+        ? `theme: ${args.theme}`
+        : args.palette
+          ? `palette: ${args.palette}`
+          : args.lang
+            ? `lang: ${args.lang}`
+            : `feature: ${args.feature}`;
       autoCommit(projectPath, `astroglass: add ${what}`);
     }
   }
@@ -67,7 +73,7 @@ async function addTheme(
   projectPath: string,
   config: any,
   themeId: string,
-  dryRun?: boolean
+  dryRun?: boolean,
 ): Promise<void> {
   if (config.themes.includes(themeId)) {
     console.log(pc.yellow(`  Theme "${themeId}" is already installed.`));
@@ -96,7 +102,7 @@ async function addPalette(
   projectPath: string,
   config: any,
   paletteId: string,
-  dryRun?: boolean
+  dryRun?: boolean,
 ): Promise<void> {
   if (config.palettes.includes(paletteId)) {
     console.log(pc.yellow(`  Palette "${paletteId}" is already installed.`));
@@ -131,7 +137,7 @@ async function addLocale(
   projectPath: string,
   config: any,
   localeCode: string,
-  dryRun?: boolean
+  dryRun?: boolean,
 ): Promise<void> {
   if (config.locales.includes(localeCode)) {
     console.log(pc.yellow(`  Language "${localeCode}" is already installed.`));
@@ -151,10 +157,7 @@ async function addLocale(
   const localesFile = join(projectPath, 'src/config/locales.ts');
   if (existsSync(localesFile)) {
     let content = await readFile(localesFile, 'utf-8');
-    const pattern = new RegExp(
-      `(code:\\s*['"]${localeCode}['"][^}]*enabled:\\s*)false`,
-      'g'
-    );
+    const pattern = new RegExp(`(code:\\s*['"]${localeCode}['"][^}]*enabled:\\s*)false`, 'g');
     content = content.replace(pattern, '$1true');
     await writeFile(localesFile, content, 'utf-8');
   }
@@ -167,7 +170,7 @@ async function addFeature(
   projectPath: string,
   config: any,
   featureId: string,
-  dryRun?: boolean
+  dryRun?: boolean,
 ): Promise<void> {
   if (config.features.includes(featureId)) {
     console.log(pc.yellow(`  Feature "${featureId}" is already installed.`));

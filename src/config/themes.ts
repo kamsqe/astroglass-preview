@@ -1,9 +1,9 @@
 /**
  * Theme Configuration
- * 
+ *
  * Central registry for all available themes.
  * This is the single source of truth for theme metadata.
- * 
+ *
  * To add a new theme:
  * 1. Add an entry to the `themes` array
  * 2. Create the corresponding components in `src/components/{section}/{SectionThemeName}.astro`
@@ -31,7 +31,7 @@ export interface ThemeDefinition {
 
 /**
  * All available themes
- * 
+ *
  * Set `enabled: false` to disable a theme without deleting its files.
  */
 export const themes: ThemeDefinition[] = [
@@ -40,7 +40,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Fluid, organic design with smooth animations',
@@ -50,7 +62,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Glass',
     color: 'from-purple-500 to-pink-400',
     icon: '🔮',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Glassmorphism with depth and transparency',
@@ -60,7 +84,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Neo',
     color: 'from-green-500 to-emerald-400',
     icon: '⚡',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Bold, energetic design with dynamic elements',
@@ -70,7 +106,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Luxury',
     color: 'from-amber-500 to-orange-400',
     icon: '✨',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: true,
     description: 'Premium, sophisticated aesthetic',
@@ -80,7 +128,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Minimal',
     color: 'from-gray-500 to-slate-400',
     icon: '○',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Clean, focused design with essential elements',
@@ -90,7 +150,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Aurora',
     color: 'from-violet-500 to-teal-400',
     icon: '🌌',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: true,
     description: 'Immersive, gradient-mesh-rich design with geometric structure',
@@ -136,5 +208,5 @@ export function getFreeThemes(): ThemeDefinition[] {
  * Theme icons map (for backward compatibility)
  */
 export const themeIcons: Record<string, string> = Object.fromEntries(
-  themes.map((t) => [t.id, t.icon])
+  themes.map((t) => [t.id, t.icon]),
 );

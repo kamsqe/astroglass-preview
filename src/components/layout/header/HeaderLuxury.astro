@@ -27,7 +27,7 @@ const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
 const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
 
 const enabledLocales = getEnabledLocales();
-const localePaths = enabledLocales.map(loc => ({
+const localePaths = enabledLocales.map((loc) => ({
   code: loc.code,
   label: loc.code.toUpperCase(),
   nativeName: loc.nativeName,
@@ -35,7 +35,7 @@ const localePaths = enabledLocales.map(loc => ({
   isActive: locale === loc.code,
 }));
 
-const currentLocaleConfig = enabledLocales.find(l => l.code === locale);
+const currentLocaleConfig = enabledLocales.find((l) => l.code === locale);
 
 import '../../../styles/components/header/HeaderLuxury.css';
 ---
@@ -45,7 +45,7 @@ import '../../../styles/components/header/HeaderLuxury.css';
   <LocalizedLink href="/" class="luxury-logo">
     <span class="luxury-logo-inner">LG</span>
   </LocalizedLink>
-  
+
   <button type="button" class="hamburger-btn" id="menu-toggle-luxury" aria-label="Toggle menu">
     <div class="hamburger-icon">
       <span></span>
@@ -66,46 +66,56 @@ import '../../../styles/components/header/HeaderLuxury.css';
   <div class="luxury-backdrop" id="luxury-menu-backdrop"></div>
 
   <div class="luxury-sheet">
-    
     <div class="luxury-nav-container">
       <!-- Main Panel (Simplified for Luxury: Flat List) -->
       <div class="luxury-panel is-active" id="panel-main">
-        {navLinks.map((link) => (
-           <LocalizedLink 
-             href={link.href} 
-             class="luxury-big-link"
-           >
-             <span>{link.label}</span>
-             {link.type === 'page' && 
-             <span class="luxury-arrow">
-               <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                 <line x1="7" y1="17" x2="17" y2="7"></line>
-                 <polyline points="7 7 17 7 17 17"></polyline>
-               </svg>
-             </span>
-           }
-           </LocalizedLink>
-        ))}
+        {
+          navLinks.map((link) => (
+            <LocalizedLink href={link.href} class="luxury-big-link">
+              <span>{link.label}</span>
+              {link.type === 'page' && (
+                <span class="luxury-arrow">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </span>
+              )}
+            </LocalizedLink>
+          ))
+        }
       </div>
     </div>
 
     <!-- Editorial Context Controls -->
     <div class="luxury-sheet-footer">
       <div class="luxury-controls-row">
-        
         <!-- Theme Control -->
         <div class="luxury-control-group">
           <span class="luxury-control-label">{t('themeSwitcher.label') || 'Theme'}</span>
           <button class="luxury-control-trigger" data-toggle-control="theme">
-            <span class="luxury-control-value" id="current-theme-label">{t('themeSwitcher.themes.default') || 'Default'}</span>
+            <span class="luxury-control-value" id="current-theme-label"
+              >{t('themeSwitcher.themes.default') || 'Default'}</span
+            >
             <span class="text-xs opacity-50">↓</span>
           </button>
           <div class="luxury-control-list" id="theme-list">
-             {palettes.map(p => (
-               <button class="luxury-control-option" data-set-theme={p.id}>
-                 {p.id.charAt(0).toUpperCase() + p.id.slice(1)}
-               </button>
-             ))}
+            {
+              palettes.map((p) => (
+                <button class="luxury-control-option" data-set-theme={p.id}>
+                  {p.id.charAt(0).toUpperCase() + p.id.slice(1)}
+                </button>
+              ))
+            }
           </div>
         </div>
 
@@ -113,18 +123,24 @@ import '../../../styles/components/header/HeaderLuxury.css';
         <div class="luxury-control-group items-end">
           <span class="luxury-control-label">{t('languageSwitcher.label') || 'Language'}</span>
           <button class="luxury-control-trigger" data-toggle-control="lang">
-            <span class="luxury-control-value">{currentLocaleConfig?.nativeName || locale.toUpperCase()}</span>
+            <span class="luxury-control-value"
+              >{currentLocaleConfig?.nativeName || locale.toUpperCase()}</span
+            >
             <span class="text-xs opacity-50">↓</span>
           </button>
           <div class="luxury-control-list" id="lang-list">
-            {localePaths.map(loc => (
-              <a href={loc.href} class={`luxury-control-option ${loc.isActive ? 'is-selected' : ''}`}>
-                {loc.nativeName}
-              </a>
-            ))}
+            {
+              localePaths.map((loc) => (
+                <a
+                  href={loc.href}
+                  class={`luxury-control-option ${loc.isActive ? 'is-selected' : ''}`}
+                >
+                  {loc.nativeName}
+                </a>
+              ))
+            }
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -141,22 +157,22 @@ import '../../../styles/components/header/HeaderLuxury.css';
     const nav = document.getElementById('luxury-mobile-menu');
     const toggleBtn = document.getElementById('menu-toggle-luxury');
     const backdrop = document.getElementById('luxury-menu-backdrop');
-    
+
     if (!nav || !toggleBtn) return;
 
     // Helper to update labels
     const updateControlLabel = (theme: string) => {
-       const label = document.getElementById('current-theme-label');
-       if (label) {
-         label.innerText = theme.charAt(0).toUpperCase() + theme.slice(1);
-       }
-       document.querySelectorAll('[data-set-theme]').forEach(el => {
-          if (el.getAttribute('data-set-theme') === theme) {
-            el.classList.add('is-selected');
-          } else {
-            el.classList.remove('is-selected');
-          }
-       });
+      const label = document.getElementById('current-theme-label');
+      if (label) {
+        label.innerText = theme.charAt(0).toUpperCase() + theme.slice(1);
+      }
+      document.querySelectorAll('[data-set-theme]').forEach((el) => {
+        if (el.getAttribute('data-set-theme') === theme) {
+          el.classList.add('is-selected');
+        } else {
+          el.classList.remove('is-selected');
+        }
+      });
     };
 
     // Initialize current label
@@ -176,7 +192,9 @@ import '../../../styles/components/header/HeaderLuxury.css';
       nav.classList.remove('is-open');
       toggleBtn.classList.remove('is-active');
       document.body.style.overflow = '';
-      document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
+      document
+        .querySelectorAll('.luxury-control-group')
+        .forEach((g) => g.classList.remove('is-open'));
     };
 
     const toggleMenu = (e: Event) => {
@@ -185,61 +203,81 @@ import '../../../styles/components/header/HeaderLuxury.css';
     };
 
     // --- Event Listeners ---
-    
+
     toggleBtn.addEventListener('click', toggleMenu, { signal });
 
     if (backdrop) {
-       backdrop.addEventListener('click', closeMenu, { signal });
+      backdrop.addEventListener('click', closeMenu, { signal });
     }
 
-    nav.querySelectorAll('a').forEach(link => {
+    nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu, { signal });
     });
 
     // Escape Key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-        closeMenu();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+          closeMenu();
+        }
+      },
+      { signal },
+    );
 
     // --- Controls Logic (Theme/Lang) ---
-    nav.querySelectorAll('[data-toggle-control]').forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
+    nav.querySelectorAll('[data-toggle-control]').forEach((trigger) => {
+      trigger.addEventListener(
+        'click',
+        (e) => {
           e.stopPropagation();
           const group = trigger.closest('.luxury-control-group');
           const wasOpen = group?.classList.contains('is-open');
-          
-          document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
+
+          document
+            .querySelectorAll('.luxury-control-group')
+            .forEach((g) => g.classList.remove('is-open'));
 
           if (!wasOpen) {
             group?.classList.add('is-open');
           }
-        }, { signal });
+        },
+        { signal },
+      );
     });
-    
+
     // Close controls when clicking elsewhere in the sheet
     const sheet = nav.querySelector('.luxury-sheet');
     if (sheet) {
-        sheet.addEventListener('click', (e: Event) => {
-            const target = e.target as HTMLElement;
-            if (!target.closest('.luxury-control-group')) {
-                document.querySelectorAll('.luxury-control-group').forEach(g => g.classList.remove('is-open'));
-            }
-        }, { signal });
+      sheet.addEventListener(
+        'click',
+        (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (!target.closest('.luxury-control-group')) {
+            document
+              .querySelectorAll('.luxury-control-group')
+              .forEach((g) => g.classList.remove('is-open'));
+          }
+        },
+        { signal },
+      );
     }
 
     // --- Theme Selection Logic ---
-    nav.querySelectorAll('[data-set-theme]').forEach(option => {
-       option.addEventListener('click', (e) => {
-         const theme = (e.currentTarget as HTMLElement).dataset.setTheme;
-         if (theme) {
+    nav.querySelectorAll('[data-set-theme]').forEach((option) => {
+      option.addEventListener(
+        'click',
+        (e) => {
+          const theme = (e.currentTarget as HTMLElement).dataset.setTheme;
+          if (theme) {
             const html = document.documentElement;
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             updateControlLabel(theme);
-         }
-       }, { signal });
+          }
+        },
+        { signal },
+      );
     });
   }
 

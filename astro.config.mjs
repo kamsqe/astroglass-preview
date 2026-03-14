@@ -21,9 +21,8 @@ const isBuild = process.env.npm_lifecycle_event === 'build' || process.argv.incl
 // The adapter's @cloudflare/vite-plugin has side effects at import time that register
 // Vite environments, causing lightningcss/workerd resolution errors during static builds.
 // Since this project uses output:'static', Cloudflare Pages serves static assets directly.
-const adapter = (isDev || isBuild)
-  ? undefined
-  : (await import('./src/config/providers/active-provider')).adapter;
+const adapter =
+  isDev || isBuild ? undefined : (await import('./src/config/providers/active-provider')).adapter;
 
 // Require function in the config's Node.js context — used by the CJS interop plugin below.
 const _require = createRequire(import.meta.url);
@@ -32,12 +31,48 @@ const _require = createRequire(import.meta.url);
 // cannot externalize on its own. We pre-load them into globalThis here (where we have
 // a full Node.js context) and serve them via a virtual shim in the plugin below.
 const NODE_BUILTIN_NAMES = new Set([
-  'assert', 'async_hooks', 'buffer', 'child_process', 'cluster', 'console', 'constants',
-  'crypto', 'dgram', 'diagnostics_channel', 'dns', 'domain', 'events', 'fs', 'http',
-  'http2', 'https', 'inspector', 'module', 'net', 'os', 'path', 'perf_hooks', 'process',
-  'punycode', 'querystring', 'readline', 'repl', 'stream', 'string_decoder', 'sys',
-  'timers', 'tls', 'trace_events', 'tty', 'url', 'util', 'v8', 'vm', 'wasi',
-  'worker_threads', 'zlib',
+  'assert',
+  'async_hooks',
+  'buffer',
+  'child_process',
+  'cluster',
+  'console',
+  'constants',
+  'crypto',
+  'dgram',
+  'diagnostics_channel',
+  'dns',
+  'domain',
+  'events',
+  'fs',
+  'http',
+  'http2',
+  'https',
+  'inspector',
+  'module',
+  'net',
+  'os',
+  'path',
+  'perf_hooks',
+  'process',
+  'punycode',
+  'querystring',
+  'readline',
+  'repl',
+  'stream',
+  'string_decoder',
+  'sys',
+  'timers',
+  'tls',
+  'trace_events',
+  'tty',
+  'url',
+  'util',
+  'v8',
+  'vm',
+  'wasi',
+  'worker_threads',
+  'zlib',
 ]);
 
 // @ts-ignore
@@ -46,7 +81,9 @@ for (const name of NODE_BUILTIN_NAMES) {
   try {
     // @ts-ignore
     globalThis.__nodeBuiltinShims__[name] = name === 'process' ? process : _require(`node:${name}`);
-  } catch { /* ignore built-ins not available in this Node.js version */ }
+  } catch {
+    /* ignore built-ins not available in this Node.js version */
+  }
 }
 
 import react from '@astrojs/react';
@@ -85,8 +122,8 @@ export default defineConfig({
         uiFontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
       },
     }),
-    mdx(), 
-    react()
+    mdx(),
+    react(),
   ],
   fonts: [
     {
@@ -111,7 +148,11 @@ export default defineConfig({
           // in ALL environments (especially Cloudflare worker simulation).
           return {
             optimizeDeps: {
-              exclude: ['lightningcss', 'fsevents', ...[...NODE_BUILTIN_NAMES].map(n => `node:${n}`)],
+              exclude: [
+                'lightningcss',
+                'fsevents',
+                ...[...NODE_BUILTIN_NAMES].map((n) => `node:${n}`),
+              ],
             },
           };
         },
@@ -131,7 +172,7 @@ export default defineConfig({
       // This plugin runs in BOTH serve and build modes (no `apply` restriction).
       {
         name: 'node-builtin-shims',
-        enforce: ('pre'),
+        enforce: 'pre',
         resolveId(id, importer, options) {
           if (!options?.ssr) return null;
           if (id.startsWith('node:')) {
@@ -159,15 +200,17 @@ export default defineConfig({
                 try {
                   // @ts-ignore
                   globalThis.__nodeBuiltinShims__[modName] = _require(modName);
-                } catch { }
+                } catch {}
               }
             }
             // @ts-ignore
             const mod = globalThis.__nodeBuiltinShims__[modName];
             if (mod == null) return `export default {};`;
-            const keys = Object.keys(mod).filter(k => /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k));
+            const keys = Object.keys(mod).filter((k) => /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k));
             const namedExports = keys
-              .map(k => `export const ${k} = globalThis.__nodeBuiltinShims__['${modName}']['${k}'];`)
+              .map(
+                (k) => `export const ${k} = globalThis.__nodeBuiltinShims__['${modName}']['${k}'];`,
+              )
               .join('\n');
             return `${namedExports}\nexport default globalThis.__nodeBuiltinShims__['${modName}'];`;
           }
@@ -192,7 +235,7 @@ export default defineConfig({
       // which is used during BOTH dev serving AND build-time sync/prerender steps.
       {
         name: 'cjs-esm-interop',
-        enforce: ('pre'),
+        enforce: 'pre',
         resolveId(id, importer, options) {
           if (!options?.ssr) return null;
           // Force react-dom/server to the browser (web streams) version.
@@ -207,21 +250,27 @@ export default defineConfig({
           if (!options?.ssr) return null;
           // Skip Rollup's client bundle environment — @rollup/plugin-commonjs handles CJS there.
           // We only need to shim CJS in module runner contexts (server, prerender, astro env).
-          const envName = (this).environment?.name;
+          const envName = this.environment?.name;
           if (envName === 'client') return null;
 
           // Strip Vite's query parameters (e.g. ?v=abc123)
           const cleanId = id.replace(/[?#].*$/, '');
 
           // Only transform CJS files in node_modules
-          if (!cleanId.includes('node_modules') || cleanId.endsWith('.mjs') || cleanId.endsWith('.mts')) return null;
+          if (
+            !cleanId.includes('node_modules') ||
+            cleanId.endsWith('.mjs') ||
+            cleanId.endsWith('.mts')
+          )
+            return null;
 
           // Skip ESM files: check for import/export statements (but not inside strings).
           // Wrapping ESM files with CJS shims causes duplicate default export declarations.
           // Use a more precise check: look for `import ` or `export ` at start of line or after semicolons.
-          const hasESMSyntax = /(?:^|;)\s*(?:import\s|export\s)/m.test(code) ||
-                               /\bexport\s*\{/.test(code) ||
-                               /\bexport\s+default\b/.test(code);
+          const hasESMSyntax =
+            /(?:^|;)\s*(?:import\s|export\s)/m.test(code) ||
+            /\bexport\s*\{/.test(code) ||
+            /\bexport\s+default\b/.test(code);
           if (hasESMSyntax) return null;
 
           // Also skip if we can't require() the file (it might not be CJS)
@@ -229,7 +278,9 @@ export default defineConfig({
           try {
             _require(cleanId);
             requireSucceeded = true;
-          } catch { /* not requireable */ }
+          } catch {
+            /* not requireable */
+          }
           if (!requireSucceeded) return null;
 
           // Get named exports at transform time (in the real Node.js context) so
@@ -239,14 +290,17 @@ export default defineConfig({
             const mod = _require(cleanId);
             if (typeof mod === 'object' && mod !== null) {
               namedKeys = Object.keys(mod).filter(
-                k => k !== '__esModule' && k !== 'default' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k)
+                (k) =>
+                  k !== '__esModule' && k !== 'default' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k),
               );
             }
-          } catch { /* ignore – some packages can't be require()'d at transform time */ }
+          } catch {
+            /* ignore – some packages can't be require()'d at transform time */
+          }
 
           // Use unique binding names to avoid conflicts with identifiers in the module body.
           // e.g. cookie exports `parseCookie` as both a function decl and a named export.
-          const namedExportLines = namedKeys.flatMap(k => [
+          const namedExportLines = namedKeys.flatMap((k) => [
             `const __cjs_e_${k}__ = __cjs_m__.exports.${k};`,
             `export { __cjs_e_${k}__ as ${k} };`,
           ]);
@@ -262,7 +316,7 @@ export default defineConfig({
               'const module = __cjs_m__;',
               `const __filename = ${JSON.stringify(cleanId)};`,
               `const __dirname = ${JSON.stringify(dirname(cleanId))};`,
-              'const require = globalThis.__nodeBuiltinShims__[\'module\'].createRequire(__filename);',
+              "const require = globalThis.__nodeBuiltinShims__['module'].createRequire(__filename);",
               code,
               'export default __cjs_m__.exports;',
               ...namedExportLines,

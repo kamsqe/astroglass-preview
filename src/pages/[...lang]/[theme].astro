@@ -25,12 +25,12 @@ import { getThemeById } from '../../config/themes';
 import { themePresets } from '../../config/themePresets';
 
 // Theme barrel files (typed via src/types/theme-sections.d.ts)
-import * as LiquidSections  from '../../components/sections/themes/liquid';
-import * as GlassSections   from '../../components/sections/themes/glass';
-import * as NeoSections     from '../../components/sections/themes/neo';
-import * as LuxurySections  from '../../components/sections/themes/luxury';
+import * as LiquidSections from '../../components/sections/themes/liquid';
+import * as GlassSections from '../../components/sections/themes/glass';
+import * as NeoSections from '../../components/sections/themes/neo';
+import * as LuxurySections from '../../components/sections/themes/luxury';
 import * as MinimalSections from '../../components/sections/themes/minimal';
-import * as AuroraSections  from '../../components/sections/themes/aurora';
+import * as AuroraSections from '../../components/sections/themes/aurora';
 
 /** Shape of each theme module — keyed by section name, values are Astro components. */
 type ThemeModuleMap = Record<string, Record<string, unknown>>;
@@ -47,9 +47,9 @@ export async function getStaticPaths() {
       paths.push({
         params: {
           lang: lang === defaultLocale ? undefined : lang,
-          theme: theme.id
+          theme: theme.id,
         },
-        props: { themeId: theme.id }
+        props: { themeId: theme.id },
       });
     }
   }
@@ -68,12 +68,12 @@ const preset = themePresets[themeId] ?? themePresets['liquid'];
 
 // Map of all theme section modules — add a new entry here when adding a new theme.
 const themeModules: ThemeModuleMap = {
-  liquid:  LiquidSections,
-  glass:   GlassSections,
-  neo:     NeoSections,
-  luxury:  LuxurySections,
+  liquid: LiquidSections,
+  glass: GlassSections,
+  neo: NeoSections,
+  luxury: LuxurySections,
   minimal: MinimalSections,
-  aurora:  AuroraSections,
+  aurora: AuroraSections,
 };
 
 const sections = themeModules[themeId] ?? LiquidSections;

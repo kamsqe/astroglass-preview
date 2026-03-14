@@ -12,7 +12,7 @@ export const ALL_LOCALES = ['en', 'ru', 'fr', 'es', 'ja', 'zh', 'kk'];
  * @returns {{ deletedDirs: number }} Summary
  */
 export async function pruneLocales(selectedLocales) {
-  const localesToRemove = ALL_LOCALES.filter(l => !selectedLocales.includes(l));
+  const localesToRemove = ALL_LOCALES.filter((l) => !selectedLocales.includes(l));
   let deletedDirs = 0;
 
   // 1. Delete locale directories
@@ -33,10 +33,7 @@ export async function pruneLocales(selectedLocales) {
     for (const locale of localesToRemove) {
       // Remove the full object literal block for this locale.
       // Use [^}]* (not [\s\S]*?) to avoid matching across multiple blocks.
-      const blockRegex = new RegExp(
-        `\\s*\\{[^}]*code:\\s*'${locale}'[^}]*\\},?`,
-        ''
-      );
+      const blockRegex = new RegExp(`\\s*\\{[^}]*code:\\s*'${locale}'[^}]*\\},?`, '');
       localesConfig = localesConfig.replace(blockRegex, '');
     }
 
@@ -44,7 +41,7 @@ export async function pruneLocales(selectedLocales) {
     if (selectedLocales.length === 1) {
       localesConfig = localesConfig.replace(
         /export const defaultLocale = '[^']+'/,
-        `export const defaultLocale = '${selectedLocales[0]}'`
+        `export const defaultLocale = '${selectedLocales[0]}'`,
       );
     }
 

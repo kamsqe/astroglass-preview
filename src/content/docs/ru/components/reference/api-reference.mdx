@@ -1,6 +1,6 @@
 ---
-title: "Справочник API"
-description: "Техническая документация API компонентов и утилит AstroGlass."
+title: 'Справочник API'
+description: 'Техническая документация API компонентов и утилит AstroGlass.'
 order: 1
 ---
 
@@ -19,6 +19,7 @@ function useTranslations(locale: Locale): (key: string) => string;
 ```
 
 **Использование**:
+
 ```astro
 ---
 import { useTranslations } from '../utils/i18n';
@@ -27,6 +28,7 @@ import { getLocaleFromUrl } from '../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
+
 <h1>{t('hero.title')}</h1>
 ```
 
@@ -61,11 +63,11 @@ function getEnabledThemes(): ThemeDefinition[];
 
 ## Доступные темы
 
-| ID | Название | Иконка |
-|----|----------|--------|
-| `liquid` | Liquid | 💧 |
-| `glass` | Glass | 🪟 |
-| `neo` | Neo | ⚡ |
-| `luxury` | Luxury | 👑 |
-| `minimal` | Minimal | ✨ |
-| `aurora` | Aurora | 🌌 |
+| ID        | Название | Иконка |
+| --------- | -------- | ------ |
+| `liquid`  | Liquid   | 💧     |
+| `glass`   | Glass    | 🪟     |
+| `neo`     | Neo      | ⚡     |
+| `luxury`  | Luxury   | 👑     |
+| `minimal` | Minimal  | ✨     |
+| `aurora`  | Aurora   | 🌌     |

@@ -21,9 +21,9 @@ const ALL_FEATURES = ['blog', 'docs', 'dashboard'];
 export async function pruneFeatures(
   projectPath: string,
   selectedFeatures: string[],
-  dryRun: boolean
+  dryRun: boolean,
 ): Promise<{ removed: number }> {
-  const unselected = ALL_FEATURES.filter(f => !selectedFeatures.includes(f));
+  const unselected = ALL_FEATURES.filter((f) => !selectedFeatures.includes(f));
   let removed = 0;
 
   for (const feature of unselected) {
@@ -32,9 +32,7 @@ export async function pruneFeatures(
 
     if (!existsSync(manifestPath)) continue;
 
-    const manifest: ModuleManifest = JSON.parse(
-      await readFile(manifestPath, 'utf-8')
-    );
+    const manifest: ModuleManifest = JSON.parse(await readFile(manifestPath, 'utf-8'));
 
     // Remove listed files
     for (const file of manifest.files) {

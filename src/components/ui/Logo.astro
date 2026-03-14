@@ -2,7 +2,7 @@
 import glassIcon from '../../assets/glass.svg';
 /**
  * Logo Component
- * 
+ *
  * Reusable logo with icon and optional text.
  * Can be customized via props for different header variants.
  */
@@ -19,12 +19,7 @@ export interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const { 
-  class: className = '',
-  showText = true,
-  href: customHref,
-  size = 'md',
-} = Astro.props;
+const { class: className = '', showText = true, href: customHref, size = 'md' } = Astro.props;
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -58,8 +53,8 @@ const sizes = {
 const sizeConfig = sizes[size];
 ---
 
-<a 
-  href={href} 
+<a
+  href={href}
   aria-label={t('siteName')}
   class:list={[
     'logo-link group flex items-center gap-3 text-base-content font-bold',
@@ -68,8 +63,5 @@ const sizeConfig = sizes[size];
   ]}
 >
   <img src={glassIcon.src} class={sizeConfig.icon} alt="Logo" aria-hidden="true" />
-  {showText && (
-    <span class="logo-text hidden sm:block">{t('siteName')}</span>
-  )}
+  {showText && <span class="logo-text hidden sm:block">{t('siteName')}</span>}
 </a>
-

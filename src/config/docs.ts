@@ -1,6 +1,6 @@
 /**
  * Documentation Configuration
- * 
+ *
  * Central registry for docs navigation, versions, and metadata.
  * This is the single source of truth for documentation structure.
  */
@@ -79,14 +79,14 @@ export const docsCategories: DocsCategory[] = [
  * Get the current docs version
  */
 export function getCurrentVersion(): DocsVersion {
-  return docsVersions.find(v => v.current) ?? docsVersions[0];
+  return docsVersions.find((v) => v.current) ?? docsVersions[0];
 }
 
 /**
  * Get category by ID
  */
 export function getCategoryById(id: string): DocsCategory | undefined {
-  return docsCategories.find(c => c.id === id);
+  return docsCategories.find((c) => c.id === id);
 }
 
 /**

@@ -1,6 +1,6 @@
 ---
-title: "API 参考手册"
-description: "AstroGlass 组件与实用工具的技术 API 参考。"
+title: 'API 参考手册'
+description: 'AstroGlass 组件与实用工具的技术 API 参考。'
 order: 1
 ---
 
@@ -15,6 +15,7 @@ AstroGlass 中使用的核心函数、类型及配置对象的详细参考资料
 **模块**: `src/utils/i18n.ts`
 
 **签名**:
+
 ```typescript
 function useTranslations(locale: Locale): (key: string) => string;
 ```
@@ -27,6 +28,7 @@ function useTranslations(locale: Locale): (key: string) => string;
 **返回**: 一个 `t(key: string): string` 函数，它能将点号分隔格式的键（dot-notation key）解析为其对应的翻译值。如果未找到键，则在开发模式下记录一条警告（warning），并返回该键的字符串。
 
 **用法**:
+
 ```astro
 ---
 import { useTranslations } from '../utils/i18n';
@@ -35,11 +37,13 @@ import { getLocaleFromUrl } from '../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
+
 <h1>{t('hero.title')}</h1>
 <p>{t('hero.subtitle')}</p>
 ```
 
 **主要行为特点**:
+
 - 来自 `common.json` 的键分布在根级别（例如：`t('title')`）
 - 所有其他文件都是以文件名作为命名空间隔开的（例如：`t('hero.title')`, `t('pricing.plans.pro.name')`）
 - 缺失的键在生产环境中会返回键的原字符串，在开发环境中则记录警告信息
@@ -53,6 +57,7 @@ const t = useTranslations(locale);
 **模块**: `src/utils/locale-utils.ts`
 
 **签名**:
+
 ```typescript
 function getLocaleFromUrl(url: URL): Locale;
 ```
@@ -68,6 +73,7 @@ function getLocaleFromUrl(url: URL): Locale;
 **模块**: `src/utils/docs-nav.ts`
 
 **签名**:
+
 ```typescript
 function buildNavLinks(locale: string, section?: string): NavLink[];
 ```
@@ -83,6 +89,7 @@ function buildNavLinks(locale: string, section?: string): NavLink[];
 **模块**: `src/config/themes.ts`
 
 **签名**:
+
 ```typescript
 function getEnabledThemes(): ThemeDefinition[];
 ```
@@ -96,6 +103,7 @@ function getEnabledThemes(): ThemeDefinition[];
 **模块**: `src/config/themes.ts`
 
 **签名**:
+
 ```typescript
 function getThemeById(id: string): ThemeDefinition | undefined;
 ```
@@ -106,14 +114,14 @@ function getThemeById(id: string): ThemeDefinition | undefined;
 
 ```typescript
 interface ThemeDefinition {
-  id: string;              // URL 后缀（如 'liquid'，'aurora'）
-  name: string;            // 展示名称
-  color: string;           // Tailwind 渐变类名
-  icon: string;            // Emoji 字符图标
-  sections: string[];      // 已启用激活的区段
-  enabled: boolean;        // 主题是否处于活动状态
-  premium: boolean;        // 高级版标志
-  description: string;     // 单行描述文字
+  id: string; // URL 后缀（如 'liquid'，'aurora'）
+  name: string; // 展示名称
+  color: string; // Tailwind 渐变类名
+  icon: string; // Emoji 字符图标
+  sections: string[]; // 已启用激活的区段
+  enabled: boolean; // 主题是否处于活动状态
+  premium: boolean; // 高级版标志
+  description: string; // 单行描述文字
 }
 ```
 
@@ -121,22 +129,22 @@ interface ThemeDefinition {
 
 ```typescript
 interface LocaleConfig {
-  code: string;            // ISO 语言代码
-  name: string;            // 英文名称
-  nativeName: string;      // 本地语言名称
-  flag: string;            // 国旗 emoji 图标
+  code: string; // ISO 语言代码
+  name: string; // 英文名称
+  nativeName: string; // 本地语言名称
+  flag: string; // 国旗 emoji 图标
   direction: 'ltr' | 'rtl'; // 文本方向
-  enabled: boolean;        // 是否启用
+  enabled: boolean; // 是否启用
 }
 ```
 
 ## 可用主题
 
-| ID | 名称 | 图标 |
-|----|------|------|
-| `liquid` | Liquid | 💧 |
-| `glass` | Glass | 🪟 |
-| `neo` | Neo | ⚡ |
-| `luxury` | Luxury | 👑 |
-| `minimal` | Minimal | ✨ |
-| `aurora` | Aurora | 🌌 |
+| ID        | 名称    | 图标 |
+| --------- | ------- | ---- |
+| `liquid`  | Liquid  | 💧   |
+| `glass`   | Glass   | 🪟   |
+| `neo`     | Neo     | ⚡   |
+| `luxury`  | Luxury  | 👑   |
+| `minimal` | Minimal | ✨   |
+| `aurora`  | Aurora  | 🌌   |

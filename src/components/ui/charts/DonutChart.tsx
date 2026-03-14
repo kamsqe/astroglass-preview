@@ -38,14 +38,13 @@ const DonutChart = ({
   showAnimation = true,
   animationDuration = 1000,
 }: DonutChartProps) => {
-
   const parseData = data.map((item) => ({
     name: item[index],
     value: item[category],
   }));
 
   return (
-    <div className={cn("w-full h-full", className)}>
+    <div className={cn('w-full h-full', className)}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -61,16 +60,25 @@ const DonutChart = ({
             stroke="none"
           >
             {parseData.map((entry, i) => (
-              <Cell 
-                key={`cell-${i}`} 
-                fill={colors[i % colors.length] ? colorMap[colors[i % colors.length]] || colors[i % colors.length] : `hsl(var(--p))` } 
+              <Cell
+                key={`cell-${i}`}
+                fill={
+                  colors[i % colors.length]
+                    ? colorMap[colors[i % colors.length]] || colors[i % colors.length]
+                    : `hsl(var(--p))`
+                }
               />
             ))}
           </Pie>
-          <Tooltip 
-             formatter={(value: any) => [valueFormatter(value)]}
-             contentStyle={{ backgroundColor: 'hsl(var(--b1))', borderColor: 'hsl(var(--bc) / 0.1)', color: 'hsl(var(--bc))', borderRadius: '0.5rem' }}
-             itemStyle={{ color: 'hsl(var(--bc))' }}
+          <Tooltip
+            formatter={(value: any) => [valueFormatter(value)]}
+            contentStyle={{
+              backgroundColor: 'hsl(var(--b1))',
+              borderColor: 'hsl(var(--bc) / 0.1)',
+              color: 'hsl(var(--bc))',
+              borderRadius: '0.5rem',
+            }}
+            itemStyle={{ color: 'hsl(var(--bc))' }}
           />
         </PieChart>
       </ResponsiveContainer>

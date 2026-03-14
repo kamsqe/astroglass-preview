@@ -32,7 +32,9 @@
 @media (hover: hover) {
   .c-testimonial-luxury__card:hover > div {
     transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2), 0 0 15px hsl(var(--a) / 0.15);
+    box-shadow:
+      0 20px 40px -10px rgba(0, 0, 0, 0.2),
+      0 0 15px hsl(var(--a) / 0.15);
     border-color: hsl(var(--a) / 0.3);
   }
 

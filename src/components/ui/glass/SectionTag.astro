@@ -2,7 +2,7 @@
 /**
  * SectionTag — Glass Theme
  * Unified eyebrow / category label for section headers.
- * 
+ *
  * Consistent styling: accent-colored dash + uppercase text.
  * Clean and minimal — works in every context (hero, centered, left-aligned).
  *
@@ -19,7 +19,7 @@ interface Props {
 const { label, icon, class: className } = Astro.props;
 ---
 
-<div class:list={["section-tag", className]}>
+<div class:list={['section-tag', className]}>
   <span class="section-tag__dash" aria-hidden="true"></span>
   {icon && <span>{icon}</span>}
   {label}

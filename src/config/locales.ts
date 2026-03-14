@@ -1,9 +1,9 @@
 /**
  * Locale Configuration
- * 
+ *
  * Central configuration for all supported locales.
  * This is the single source of truth for locale metadata.
- * 
+ *
  * To add a new locale:
  * 1. Add an entry to the `localesConfig` array
  * 2. Create the corresponding JSON files in `src/locales/{code}/`
@@ -27,7 +27,7 @@ export interface LocaleConfig {
 
 /**
  * All supported locales
- * 
+ *
  * Set `enabled: false` to disable a locale without deleting its files.
  * This is useful for locales that are still being translated.
  */

@@ -31,40 +31,57 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
       </LocalizedLink>
 
       <nav class="nav-glass">
-        {navLinks.map((link) => (
-          link.children ? (
-            <div class="dropdown-glass" data-dropdown-glass>
-              <button 
-                type="button"
-                class="nav-glass-item" 
-                aria-expanded="false"
-              >
-                {link.label}
-                <svg class="nav-glass-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="dropdown-glass-menu">
-                {link.children.map((child) => (
-                  <LocalizedLink href={child.href} class="dropdown-glass-item">
-                    {child.label}
-                  </LocalizedLink>
-                ))}
+        {
+          navLinks.map((link) =>
+            link.children ? (
+              <div class="dropdown-glass" data-dropdown-glass>
+                <button type="button" class="nav-glass-item" aria-expanded="false">
+                  {link.label}
+                  <svg
+                    class="nav-glass-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="dropdown-glass-menu">
+                  {link.children.map((child) => (
+                    <LocalizedLink href={child.href} class="dropdown-glass-item">
+                      {child.label}
+                    </LocalizedLink>
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : (
-            <LocalizedLink href={link.href} class="nav-glass-item">
-              {link.label}
-            </LocalizedLink>
+            ) : (
+              <LocalizedLink href={link.href} class="nav-glass-item">
+                {link.label}
+              </LocalizedLink>
+            ),
           )
-        ))}
+        }
 
         {/* Overflow "More" dropdown — hidden by default, shown by JS */}
         <div class="dropdown-glass" data-nav-more>
           <button type="button" class="nav-glass-item nav-more-trigger" aria-expanded="false">
             {moreLabel}
-            <svg class="nav-glass-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <svg
+              class="nav-glass-chevron nav-more-chevron"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
           <div class="dropdown-glass-menu nav-more-menu" data-nav-more-menu></div>
@@ -89,42 +106,75 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
 <div class="panel-glass" id="panel-glass">
   <div class="panel-glass-content">
     <nav class="panel-glass-nav">
-      {navLinks.map((link) => (
-        link.children ? (
-          <div class="accordion-glass" data-accordion-glass>
-            <button type="button" class="accordion-glass-trigger">
-              <svg class="accordion-glass-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
-              </svg>
-              <span class="accordion-glass-label">{link.label}</span>
-              <svg class="accordion-glass-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="accordion-glass-panel">
-              <div class="accordion-glass-panel-inner">
-                {link.children.map((child) => (
-                  <LocalizedLink href={child.href} class="accordion-glass-link">{child.label}</LocalizedLink>
-                ))}
+      {
+        navLinks.map((link) =>
+          link.children ? (
+            <div class="accordion-glass" data-accordion-glass>
+              <button type="button" class="accordion-glass-trigger">
+                <svg
+                  class="accordion-glass-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {link.icon.paths.map((p) => (
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.75"
+                      d={p}
+                    />
+                  ))}
+                </svg>
+                <span class="accordion-glass-label">{link.label}</span>
+                <svg
+                  class="accordion-glass-chevron"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div class="accordion-glass-panel">
+                <div class="accordion-glass-panel-inner">
+                  {link.children.map((child) => (
+                    <LocalizedLink href={child.href} class="accordion-glass-link">
+                      {child.label}
+                    </LocalizedLink>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <LocalizedLink href={link.href} class="mobile-link-glass">
-            <svg class="accordion-glass-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
-            </svg>
-            <span>{link.label}</span>
-          </LocalizedLink>
+          ) : (
+            <LocalizedLink href={link.href} class="mobile-link-glass">
+              <svg
+                class="accordion-glass-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {link.icon.paths.map((p) => (
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />
+                ))}
+              </svg>
+              <span>{link.label}</span>
+            </LocalizedLink>
+          ),
         )
-      ))}
+      }
     </nav>
     <div class="panel-glass-footer">
       <!-- Theme Switcher: Full width, no label (self-explanatory) -->
       <div class="panel-glass-theme-row">
         <ThemeSwitcher variant="mobile" />
       </div>
-      
+
       <!-- Language Switcher: Compact row -->
       <div class="panel-glass-footer-row">
         <span class="panel-glass-label">{t('languageSwitcher.label')}</span>
@@ -145,7 +195,7 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
 
     const burger = document.getElementById('burger-glass');
     const panel = document.getElementById('panel-glass');
-    
+
     if (!burger || !panel) return;
 
     function closePanel() {
@@ -163,48 +213,70 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
       if (navigator.vibrate) navigator.vibrate(5);
     }
 
-    burger.addEventListener('click', () => {
-      panel.classList.contains('is-open') ? closePanel() : openPanel();
-    }, { signal });
+    burger.addEventListener(
+      'click',
+      () => {
+        panel.classList.contains('is-open') ? closePanel() : openPanel();
+      },
+      { signal },
+    );
 
-    panel.querySelectorAll('a').forEach(link => {
+    panel.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closePanel, { signal });
     });
 
     // Escape key handler
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && panel.classList.contains('is-open')) {
-        closePanel();
-        burger.focus();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && panel.classList.contains('is-open')) {
+          closePanel();
+          burger.focus();
+        }
+      },
+      { signal },
+    );
 
     // Desktop dropdowns
-    document.querySelectorAll('[data-dropdown-glass]').forEach(dropdown => {
+    document.querySelectorAll('[data-dropdown-glass]').forEach((dropdown) => {
       const trigger = dropdown.querySelector('.nav-glass-item');
       if (!trigger) return;
-      
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('[data-dropdown-glass].is-open').forEach(d => {
-          if (d !== dropdown) d.classList.remove('is-open');
-        });
-        dropdown.classList.toggle('is-open');
-      }, { signal });
+
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('[data-dropdown-glass].is-open').forEach((d) => {
+            if (d !== dropdown) d.classList.remove('is-open');
+          });
+          dropdown.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
-    document.addEventListener('click', () => {
-      document.querySelectorAll('[data-dropdown-glass].is-open').forEach(d => d.classList.remove('is-open'));
-    }, { signal });
+    document.addEventListener(
+      'click',
+      () => {
+        document
+          .querySelectorAll('[data-dropdown-glass].is-open')
+          .forEach((d) => d.classList.remove('is-open'));
+      },
+      { signal },
+    );
 
     // Mobile accordions
-    document.querySelectorAll('[data-accordion-glass]').forEach(accordion => {
+    document.querySelectorAll('[data-accordion-glass]').forEach((accordion) => {
       const trigger = accordion.querySelector('.accordion-glass-trigger');
       if (!trigger) return;
-      
-      trigger.addEventListener('click', () => {
-        accordion.classList.toggle('is-open');
-      }, { signal });
+
+      trigger.addEventListener(
+        'click',
+        () => {
+          accordion.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
     // Nav overflow "More" menu

@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   build-matrix:
-    name: "${{ matrix.theme }} / ${{ matrix.locales }} / ${{ matrix.palettes }}"
+    name: '${{ matrix.theme }} / ${{ matrix.locales }} / ${{ matrix.palettes }}'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,52 +21,52 @@ jobs:
         include:
           # ── Each theme with multiple locales & palettes ──
           - theme: liquid
-            locales: "en,fr"
-            palettes: "azure,neonoir,evergreen"
+            locales: 'en,fr'
+            palettes: 'azure,neonoir,evergreen'
           - theme: glass
-            locales: "en,es,ja"
-            palettes: "nordic,abyss"
+            locales: 'en,es,ja'
+            palettes: 'nordic,abyss'
           - theme: neo
-            locales: "en,ru,zh"
-            palettes: "solaris,synthwave,rose"
+            locales: 'en,ru,zh'
+            palettes: 'solaris,synthwave,rose'
           - theme: luxury
-            locales: "en,kk"
-            palettes: "azure,monochrome"
+            locales: 'en,kk'
+            palettes: 'azure,monochrome'
           - theme: minimal
-            locales: "en,fr,es,ru"
-            palettes: "aquatica"
+            locales: 'en,fr,es,ru'
+            palettes: 'aquatica'
           - theme: aurora
-            locales: "en,ja,zh,kk"
-            palettes: "neonoir,evergreen,solaris,abyss"
+            locales: 'en,ja,zh,kk'
+            palettes: 'neonoir,evergreen,solaris,abyss'
 
           # ── Single locale (language switcher removed) ──
           - theme: liquid
-            locales: "en"
-            palettes: "azure,nordic"
+            locales: 'en'
+            palettes: 'azure,nordic'
           - theme: neo
-            locales: "ja"
-            palettes: "synthwave"
+            locales: 'ja'
+            palettes: 'synthwave'
 
           # ── Single palette (palette switcher removed) ──
           - theme: glass
-            locales: "en,fr"
-            palettes: "azure"
+            locales: 'en,fr'
+            palettes: 'azure'
           - theme: minimal
-            locales: "en,ru"
-            palettes: "monochrome"
+            locales: 'en,ru'
+            palettes: 'monochrome'
 
           # ── Single locale + single palette (both switchers removed) ──
           - theme: luxury
-            locales: "en"
-            palettes: "abyss"
+            locales: 'en'
+            palettes: 'abyss'
           - theme: aurora
-            locales: "fr"
-            palettes: "rose"
+            locales: 'fr'
+            palettes: 'rose'
 
           # ── All locales / all palettes (no pruning edge case) ──
           - theme: liquid
-            locales: "en,ru,fr,es,ja,zh,kk"
-            palettes: "azure,nordic,solaris,abyss,neonoir,synthwave,evergreen,rose,aquatica,monochrome"
+            locales: 'en,ru,fr,es,ja,zh,kk'
+            palettes: 'azure,nordic,solaris,abyss,neonoir,synthwave,evergreen,rose,aquatica,monochrome'
 
     steps:
       - name: Checkout

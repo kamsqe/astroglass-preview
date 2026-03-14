@@ -1,8 +1,8 @@
 /**
  * Cloudflare Provider Configuration
- * 
+ *
  * Astro adapter configuration for Cloudflare Pages deployment.
- * 
+ *
  * @see https://docs.astro.build/en/guides/deploy/cloudflare/
  */
 

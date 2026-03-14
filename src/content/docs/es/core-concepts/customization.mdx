@@ -12,6 +12,7 @@ AstroGlass utiliza **Tailwind CSS v4** para el estilo a través del complemento 
 ## Descripción General de Estilos
 
 Los estilos globales y las variables CSS se definen en `src/styles/global.css`. Este archivo maneja:
+
 - Reinicios de la capa base (resets)
 - Fuentes personalizadas (Inter & JetBrains Mono)
 - Variables CSS para la tematización (valores de color HSL)
@@ -19,13 +20,10 @@ Los estilos globales y las variables CSS se definen en `src/styles/global.css`. 
 Las anulaciones específicas de cada tema se encuentran en `src/styles/_themes.css`.
 
 <FileTree>
-- src/
-  - styles/
-    - **global.css** — Estilos base, fuentes, variables CSS raíz
-    - **_themes.css** — Anulaciones de color por tema
-    - **_animations.css** — Fotogramas clave de animación compartidos
-    - **_forms.css** — Estilos para entradas de formularios
-    - components/ — Estilos específicos de componentes (hero, precios, etc.)
+  - src/ - styles/ - **global.css** — Estilos base, fuentes, variables CSS raíz - **_themes.css** —
+  Anulaciones de color por tema - **_animations.css** — Fotogramas clave de animación compartidos -
+  **_forms.css** — Estilos para entradas de formularios - components/ — Estilos específicos de
+  componentes (hero, precios, etc.)
 </FileTree>
 
 ## Sistema de Colores
@@ -35,14 +33,14 @@ El proyecto usa un sistema de color basado en variables CSS. Los colores se defi
 ```css title="global.css"
 /* src/styles/global.css */
 :root {
-  --p: 260 80% 60%;   /* Primario */
-  --s: 310 80% 60%;   /* Secundario */
-  --a: 190 90% 60%;   /* Acento */
-  --b1: 220 20% 10%;  /* Base 1 (Fondo) */
-  --b2: 220 18% 14%;  /* Base 2 (Superficie) */
-  --bc: 220 20% 90%;  /* Contenido Base (Texto) */
-  --er: 0 80% 60%;    /* Error */
-  --su: 150 80% 50%;  /* Éxito */
+  --p: 260 80% 60%; /* Primario */
+  --s: 310 80% 60%; /* Secundario */
+  --a: 190 90% 60%; /* Acento */
+  --b1: 220 20% 10%; /* Base 1 (Fondo) */
+  --b2: 220 18% 14%; /* Base 2 (Superficie) */
+  --bc: 220 20% 90%; /* Contenido Base (Texto) */
+  --er: 0 80% 60%; /* Error */
+  --su: 150 80% 50%; /* Éxito */
 }
 ```
 
@@ -55,7 +53,9 @@ Los componentes consumen estas variables a través de clases de utilidad Tailwin
 ```
 
 <Callout type="tip" title="Cambiando Colores">
-  Para cambiar el esquema de colores del sitio, actualice los valores HSL en `global.css`. Para anulaciones específicas del tema (modo claro/oscuro, colores por tema), use selectores `[data-theme="..."]` en `_themes.css`.
+  Para cambiar el esquema de colores del sitio, actualice los valores HSL en `global.css`. Para
+  anulaciones específicas del tema (modo claro/oscuro, colores por tema), use selectores
+  `[data-theme="..."]` en `_themes.css`.
 </Callout>
 
 ## Agregando Fuentes Personalizadas
@@ -73,5 +73,7 @@ Cada tema tiene sus propias variantes de componentes (por ejemplo, `HeroLiquid.a
 3.  El CSS específico del componente se encuentra en `src/styles/components/{section}/`.
 
 <Callout type="info" title="Sin Props Externas">
-  Los componentes de sección no aceptan props de texto. Todo el contenido es impulsado por claves de traducción mediante `useTranslations()`. Para cambiar el texto, edite los archivos JSON en `src/locales/{lang}/`.
+  Los componentes de sección no aceptan props de texto. Todo el contenido es impulsado por claves de
+  traducción mediante `useTranslations()`. Para cambiar el texto, edite los archivos JSON en
+  `src/locales/{lang}/`.
 </Callout>

@@ -10,8 +10,12 @@
 }
 
 @keyframes cta-marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Pause on hover */
@@ -25,16 +29,22 @@
 }
 
 @keyframes cta-watermark-float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.01); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
 }
 
 /* ---- Fade-in entrance ---- */
 .cta-minimal__fade-in {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity var(--duration-minimal) var(--ease-minimal),
-              transform var(--duration-minimal) var(--ease-minimal);
+  transition:
+    opacity var(--duration-minimal) var(--ease-minimal),
+    transform var(--duration-minimal) var(--ease-minimal);
 }
 
 .cta-minimal__fade-in.visible {
@@ -44,9 +54,10 @@
 
 /* ---- Headline — letter spacing tightens on hover ---- */
 .cta-minimal__headline {
-  transition: letter-spacing var(--duration-slow) var(--ease-minimal),
-              opacity var(--duration-minimal) var(--ease-minimal),
-              transform var(--duration-minimal) var(--ease-minimal);
+  transition:
+    letter-spacing var(--duration-slow) var(--ease-minimal),
+    opacity var(--duration-minimal) var(--ease-minimal),
+    transform var(--duration-minimal) var(--ease-minimal);
 }
 
 .cta-minimal:hover .cta-minimal__headline {
@@ -55,16 +66,18 @@
 
 /* ---- Action card ---- */
 .cta-minimal__card {
-  transition: border-color var(--duration-minimal-fast) ease,
-              box-shadow var(--duration-minimal-fast) ease,
-              opacity var(--duration-minimal) var(--ease-minimal),
-              transform var(--duration-minimal) var(--ease-minimal);
+  transition:
+    border-color var(--duration-minimal-fast) ease,
+    box-shadow var(--duration-minimal-fast) ease,
+    opacity var(--duration-minimal) var(--ease-minimal),
+    transform var(--duration-minimal) var(--ease-minimal);
 }
 
 .cta-minimal__card:hover {
   border-color: hsl(var(--a) / 0.12);
-  box-shadow: 0 20px 60px hsl(var(--a) / 0.06),
-              0 0 0 1px hsl(var(--a) / 0.05);
+  box-shadow:
+    0 20px 60px hsl(var(--a) / 0.06),
+    0 0 0 1px hsl(var(--a) / 0.05);
 }
 
 /* ---- Counter number ---- */

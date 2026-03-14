@@ -2,7 +2,7 @@
 import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
 
 export async function getStaticPaths() {
-  return getEnabledLocaleCodes().map(lang => {
+  return getEnabledLocaleCodes().map((lang) => {
     return { params: { lang: lang === defaultLocale ? undefined : lang } };
   });
 }
@@ -30,7 +30,7 @@ const t = useTranslations(locale);
 
 <BaseLayout title={t('title')} description={t('description')} showHeader={false}>
   <HeaderDefault />
-  
+
   <main class="min-h-screen">
     <HeroHome />
     <StatsStrip />
@@ -42,6 +42,6 @@ const t = useTranslations(locale);
     <FAQHome />
     <CTAHome />
   </main>
-  
+
   <FooterIndex />
 </BaseLayout>

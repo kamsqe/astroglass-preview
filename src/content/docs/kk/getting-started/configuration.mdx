@@ -1,6 +1,6 @@
 ---
-title: "Конфигурация (Параметрлерді реттеу)"
-description: "AstroGlass үлгісін брендіңізге сәйкестендіріп реттеңіз."
+title: 'Конфигурация (Параметрлерді реттеу)'
+description: 'AstroGlass үлгісін брендіңізге сәйкестендіріп реттеңіз.'
 order: 3
 ---
 
@@ -12,12 +12,10 @@ AstroGlass `src/config/` қалтасындағы файлдар және ста
 ## Конфигурация Файлдары
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — Тақырып (theme) анықтамалары (атауы, түстері, бөлімдері, премиум жалаушасы)
-    - **locales.ts** — Қолдау көрсетілетін тілдер және локализация метадеректері
-    - **navigation.ts** — Сайттың негізгі навигация (бағыттау) құрылымы
-    - **docs.ts** — Құжаттаманың бүйірлік тақтасы (sidebar) және нұсқасын реттеу
+  - src/ - config/ - **themes.ts** — Тақырып (theme) анықтамалары (атауы, түстері, бөлімдері,
+  премиум жалаушасы) - **locales.ts** — Қолдау көрсетілетін тілдер және локализация метадеректері -
+  **navigation.ts** — Сайттың негізгі навигация (бағыттау) құрылымы - **docs.ts** — Құжаттаманың
+  бүйірлік тақтасы (sidebar) және нұсқасын реттеу
 </FileTree>
 
 ## Tailwind CSS v4 көмегімен стильдеу (Styling)
@@ -28,16 +26,18 @@ AstroGlass `src/config/` қалтасындағы файлдар және ста
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* Негізгі - Primary (HSL) */
-  --s: 310 80% 60%;   /* Қосымша - Secondary */
-  --a: 190 90% 60%;   /* Акцент - Accent */
-  --b1: 220 20% 10%;  /* Базалық фон - Base background */
-  --bc: 220 20% 90%;  /* Базалық контент (мәтін) - Base content */
+  --p: 260 80% 60%; /* Негізгі - Primary (HSL) */
+  --s: 310 80% 60%; /* Қосымша - Secondary */
+  --a: 190 90% 60%; /* Акцент - Accent */
+  --b1: 220 20% 10%; /* Базалық фон - Base background */
+  --bc: 220 20% 90%; /* Базалық контент (мәтін) - Base content */
 }
 ```
 
 <Callout type="tip" title="Түстерді Өзгерту">
-  Сайттың түс схемасын (color scheme) өзгерту үшін, `src/styles/global.css` ішіндегі HSL мәндерін жаңартыңыз. Тақырыпқа тән қайта анықтаулар (overrides) `[data-theme="..."]` селекторларын пайдаланып `src/styles/_themes.css` ішінде орналасады.
+  Сайттың түс схемасын (color scheme) өзгерту үшін, `src/styles/global.css` ішіндегі HSL мәндерін
+  жаңартыңыз. Тақырыпқа тән қайта анықтаулар (overrides) `[data-theme="..."]` селекторларын
+  пайдаланып `src/styles/_themes.css` ішінде орналасады.
 </Callout>
 
 ## Тақырып Конфигурациясы
@@ -51,7 +51,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Тегіс анимациялары бар сұйық (fluid), органикалық дизайн',
@@ -66,7 +78,21 @@ export const themes: ThemeDefinition[] = [
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```

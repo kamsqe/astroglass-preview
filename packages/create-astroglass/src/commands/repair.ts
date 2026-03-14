@@ -7,10 +7,7 @@ import { dirname, join } from 'node:path';
 import { existsSync } from 'node:fs';
 import { readConfig, writeConfig, validateConfig } from '../utils/config.js';
 
-export async function repairCommand(options: {
-  fix?: boolean;
-  dryRun?: boolean;
-}): Promise<void> {
+export async function repairCommand(options: { fix?: boolean; dryRun?: boolean }): Promise<void> {
   try {
     const { config, configPath } = await readConfig();
     const projectPath = dirname(configPath);

@@ -1,6 +1,6 @@
 ---
-title: "Section Tarification (Pricing)"
-description: "Sections de tableau de prix pour chaque thème."
+title: 'Section Tarification (Pricing)'
+description: 'Sections de tableau de prix pour chaque thème.'
 order: 6
 ---
 
@@ -10,14 +10,14 @@ La section Tarification (Pricing) affiche les forfaits et les niveaux de produit
 
 ## Variantes de thème
 
-| Thème | Composant | Style |
-|-------|-----------|-------|
-| **Liquid** | `PricingLiquid.astro` | Disposition de cartes fluides avec des accents dégradés |
-| **Glass** | `PricingGlass.astro` | Cartes de tarification en verre givré |
-| **Neo** | `PricingNeo.astro` | Grille de tarification à fort contraste |
-| **Luxury** | `PricingLuxury.astro` | Tarification avec accents dorés et sensation premium |
-| **Minimal** | `PricingMinimal.astro` | Liste de prix simple et épurée |
-| **Aurora** | `PricingAurora.astro` | Cartes de tarification sur fond dégradé |
+| Thème       | Composant              | Style                                                   |
+| ----------- | ---------------------- | ------------------------------------------------------- |
+| **Liquid**  | `PricingLiquid.astro`  | Disposition de cartes fluides avec des accents dégradés |
+| **Glass**   | `PricingGlass.astro`   | Cartes de tarification en verre givré                   |
+| **Neo**     | `PricingNeo.astro`     | Grille de tarification à fort contraste                 |
+| **Luxury**  | `PricingLuxury.astro`  | Tarification avec accents dorés et sensation premium    |
+| **Minimal** | `PricingMinimal.astro` | Liste de prix simple et épurée                          |
+| **Aurora**  | `PricingAurora.astro`  | Cartes de tarification sur fond dégradé                 |
 
 Toutes les variantes se trouvent dans `src/components/sections/pricing/`.
 
@@ -40,12 +40,14 @@ Les données de tarification sont chargées à partir de `src/locales/{lang}/pri
 ```
 
 <Callout type="info" title="Pas de props">
-  Les composants de tarification n'acceptent aucune prop externe. Pour modifier les forfaits, les prix ou les fonctionnalités, mettez à jour `src/locales/{lang}/pricing.json`.
+  Les composants de tarification n'acceptent aucune prop externe. Pour modifier les forfaits, les
+  prix ou les fonctionnalités, mettez à jour `src/locales/{lang}/pricing.json`.
 </Callout>
 
 ## Personnalisation
 
 Pour personnaliser :
+
 1. Modifiez `src/components/sections/pricing/Pricing{Theme}.astro`.
 2. Ajustez les styles dans `src/styles/components/pricing/`.
 3. Modifiez le contenu dans `src/locales/{lang}/pricing.json`.

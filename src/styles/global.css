@@ -1,25 +1,25 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Import CSS partials */
-@import "./_themes.css";
-@import "./_animations.css";
-@import "./_luxury-interactions.css";
-@import "./_docs.css";
-@import "./_header.css";
-@import "./_hamburger.css";
-@import "./_mobile-menu.css";
-@import "./_dropdowns.css";
-@import "./_switcher-shared.css";
-@import "./_lang-switcher.css";
-@import "./_theme-switcher.css";
-@import "./_forms.css";
-@import "./_404.css";
+@import './_themes.css';
+@import './_animations.css';
+@import './_luxury-interactions.css';
+@import './_docs.css';
+@import './_header.css';
+@import './_hamburger.css';
+@import './_mobile-menu.css';
+@import './_dropdowns.css';
+@import './_switcher-shared.css';
+@import './_lang-switcher.css';
+@import './_theme-switcher.css';
+@import './_forms.css';
+@import './_404.css';
 
 /* Import per-theme design tokens */
-@import "./tokens/liquid.css";
-@import "./tokens/luxury.css";
-@import "./tokens/glass.css";
-@import "./tokens/minimal.css";
+@import './tokens/liquid.css';
+@import './tokens/luxury.css';
+@import './tokens/glass.css';
+@import './tokens/minimal.css';
 
 /* ============================================
    Tailwind Theme Configuration
@@ -35,8 +35,6 @@
   --color-base-content: hsl(var(--bc));
 }
 
-
-
 /* ============================================
    Layout Variables
    ============================================ */
@@ -44,7 +42,7 @@
   --header-height: 64px;
   --header-height-lg: 72px;
   --nav-offset: 0px;
-  --font-serif: "Playfair Display", "Times New Roman", Times, serif;
+  --font-serif: 'Playfair Display', 'Times New Roman', Times, serif;
 }
 
 html {
@@ -58,11 +56,13 @@ body {
 
 /* Fixed/Absolute headers need offset to prevent overlap */
 /* Mobile: Sticky headers (neo) don't need large offset, but Fixed (glass, minimal, aurora) do */
-[data-header="2"], [data-header="5"], [data-header="6"] {
+[data-header='2'],
+[data-header='5'],
+[data-header='6'] {
   --nav-offset: 96px;
 }
 
-[data-header="3"] {
+[data-header='3'] {
   --nav-offset: 0px;
 }
 
@@ -71,7 +71,10 @@ body {
     --header-height: var(--header-height-lg);
   }
   /* Desktop: Fixed headers need offset */
-  [data-header="2"], [data-header="3"], [data-header="5"], [data-header="6"] {
+  [data-header='2'],
+  [data-header='3'],
+  [data-header='5'],
+  [data-header='6'] {
     --nav-offset: 100px;
   }
 }
@@ -127,7 +130,8 @@ body {
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--scrollbar-thumb, var(--n) / 0.4)) hsl(var(--scrollbar-track, var(--b2)));
+  scrollbar-color: hsl(var(--scrollbar-thumb, var(--n) / 0.4))
+    hsl(var(--scrollbar-track, var(--b2)));
 }
 
 /* Focus rings (theme-aware) */
@@ -149,7 +153,9 @@ a:not([class]) {
   background-size: 0% 2px;
   background-position: 0 100%;
   background-repeat: no-repeat;
-  transition: background-size 0.3s cubic-bezier(0.32, 0.72, 0, 1), color 0.2s ease;
+  transition:
+    background-size 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+    color 0.2s ease;
 }
 
 a:not([class]):hover {
@@ -205,44 +211,44 @@ html {
    ============================================ */
 
 /* --- Dark themes: tinted backgrounds from --b2 --- */
-[data-theme="abyss"] .expressive-code .frame,
-[data-theme="neonoir"] .expressive-code .frame,
-[data-theme="synthwave"] .expressive-code .frame {
+[data-theme='abyss'] .expressive-code .frame,
+[data-theme='neonoir'] .expressive-code .frame,
+[data-theme='synthwave'] .expressive-code .frame {
   background-color: hsl(var(--b2)) !important;
 }
 
-[data-theme="abyss"] .expressive-code pre,
-[data-theme="neonoir"] .expressive-code pre,
-[data-theme="synthwave"] .expressive-code pre {
+[data-theme='abyss'] .expressive-code pre,
+[data-theme='neonoir'] .expressive-code pre,
+[data-theme='synthwave'] .expressive-code pre {
   background-color: hsl(var(--b2)) !important;
 }
 
-[data-theme="abyss"] .expressive-code .header,
-[data-theme="neonoir"] .expressive-code .header,
-[data-theme="synthwave"] .expressive-code .header {
+[data-theme='abyss'] .expressive-code .header,
+[data-theme='neonoir'] .expressive-code .header,
+[data-theme='synthwave'] .expressive-code .header {
   background-color: hsl(var(--b2)) !important;
 }
 
-[data-theme="abyss"] .expressive-code .ec-line .code,
-[data-theme="neonoir"] .expressive-code .ec-line .code,
-[data-theme="synthwave"] .expressive-code .ec-line .code {
+[data-theme='abyss'] .expressive-code .ec-line .code,
+[data-theme='neonoir'] .expressive-code .ec-line .code,
+[data-theme='synthwave'] .expressive-code .ec-line .code {
   background-color: transparent !important;
 }
 
-[data-theme="abyss"] .expressive-code .ec-line .gutter,
-[data-theme="neonoir"] .expressive-code .ec-line .gutter,
-[data-theme="synthwave"] .expressive-code .ec-line .gutter {
+[data-theme='abyss'] .expressive-code .ec-line .gutter,
+[data-theme='neonoir'] .expressive-code .ec-line .gutter,
+[data-theme='synthwave'] .expressive-code .ec-line .gutter {
   background-color: transparent !important;
 }
 
 /* --- Light themes: ensure code blocks blend nicely --- */
-[data-theme="azure"] .expressive-code .frame,
-[data-theme="solaris"] .expressive-code .frame,
-[data-theme="nordic"] .expressive-code .frame,
-[data-theme="evergreen"] .expressive-code .frame,
-[data-theme="rose"] .expressive-code .frame,
-[data-theme="aquatica"] .expressive-code .frame,
-[data-theme="monochrome"] .expressive-code .frame {
+[data-theme='azure'] .expressive-code .frame,
+[data-theme='solaris'] .expressive-code .frame,
+[data-theme='nordic'] .expressive-code .frame,
+[data-theme='evergreen'] .expressive-code .frame,
+[data-theme='rose'] .expressive-code .frame,
+[data-theme='aquatica'] .expressive-code .frame,
+[data-theme='monochrome'] .expressive-code .frame {
   /* Border handled by config to prevent double borders */
 }
 

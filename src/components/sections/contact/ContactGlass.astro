@@ -20,14 +20,14 @@ const topics = [
   { id: 'partnership', icon: '🤝', label: t('contact.intents.partnership') },
   { id: 'other', icon: '💬', label: t('contact.intents.other') },
 ];
-  // Validation config
-  const validationMessages = {
-    nameShort: t('contact.validation.nameShort'),
-    nameLong: t('contact.validation.nameLong'),
-    emailInvalid: t('contact.validation.emailInvalid'),
-    messageShort: t('contact.validation.messageShort'),
-    messageLong: t('contact.validation.messageLong')
-  };
+// Validation config
+const validationMessages = {
+  nameShort: t('contact.validation.nameShort'),
+  nameLong: t('contact.validation.nameLong'),
+  emailInvalid: t('contact.validation.emailInvalid'),
+  messageShort: t('contact.validation.messageShort'),
+  messageLong: t('contact.validation.messageLong'),
+};
 import '../../../styles/components/contact/ContactGlass.css';
 import SectionTag from '../../ui/glass/SectionTag.astro';
 import SectionHeading from '../../ui/glass/SectionHeading.astro';
@@ -36,7 +36,10 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 <section id="contact" class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
   <!-- Background -->
   <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[150px]"></div>
+    <div
+      class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[150px]"
+    >
+    </div>
   </div>
 
   <div class="max-w-lg mx-auto relative">
@@ -48,36 +51,44 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     </div>
 
     <!-- Form Container -->
-    <div class="contact-glass-form-container p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/10 backdrop-blur-sm" data-validation-messages={JSON.stringify(validationMessages)}>
-      
+    <div
+      class="contact-glass-form-container p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-base-content/[0.02] border border-base-content/10 backdrop-blur-sm"
+      data-validation-messages={JSON.stringify(validationMessages)}
+    >
       <form class="contact-glass-form space-y-5" novalidate>
         <!-- Topic Selection -->
         <div>
-          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-3">{t('contact.form.topic')}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-3"
+            >{t('contact.form.topic')}</label
+          >
           <div class="grid grid-cols-2 gap-2">
-            {topics.map((topic, i) => (
-              <label class="contact-glass-topic-label cursor-pointer">
-                <input 
-                  type="radio" 
-                  name="topic" 
-                  value={topic.id} 
-                  class="sr-only peer"
-                  checked={i === 0}
-                />
-                <div class="p-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-center transition-all duration-300 peer-checked:bg-accent/10 peer-checked:border-accent/30 peer-checked:text-accent hover:bg-base-content/[0.05]">
-                  <span class="text-lg block mb-1">{topic.icon}</span>
-                  <span class="text-xs font-medium">{topic.label}</span>
-                </div>
-              </label>
-            ))}
+            {
+              topics.map((topic, i) => (
+                <label class="contact-glass-topic-label cursor-pointer">
+                  <input
+                    type="radio"
+                    name="topic"
+                    value={topic.id}
+                    class="sr-only peer"
+                    checked={i === 0}
+                  />
+                  <div class="p-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-center transition-all duration-300 peer-checked:bg-accent/10 peer-checked:border-accent/30 peer-checked:text-accent hover:bg-base-content/[0.05]">
+                    <span class="text-lg block mb-1">{topic.icon}</span>
+                    <span class="text-xs font-medium">{topic.label}</span>
+                  </div>
+                </label>
+              ))
+            }
           </div>
         </div>
 
         <!-- Name -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
-          <Input 
-            type="text" 
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2"
+            >{t('contact.form.name')}</label
+          >
+          <Input
+            type="text"
             name="name"
             required
             className="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/80 focus:outline-none focus:border-accent/40 transition-all duration-300 shadow-none"
@@ -87,9 +98,11 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
         <!-- Email -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
-          <Input 
-            type="email" 
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2"
+            >{t('contact.form.email')}</label
+          >
+          <Input
+            type="email"
             name="email"
             required
             inputMode="email"
@@ -100,8 +113,10 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
         <!-- Message -->
         <div class="form-control">
-          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
-          <Textarea 
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2"
+            >{t('contact.form.message')}</label
+          >
+          <Textarea
             name="message"
             required
             rows={4}
@@ -111,13 +126,17 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
         </div>
 
         <!-- Submit -->
-        <Button 
+        <Button
           type="submit"
           className="contact-glass-submit w-full px-6 py-4 rounded-xl bg-accent text-base-100 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 hover:bg-accent/90"
         >
           <span>{t('contact.form.send')}</span>
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
           </svg>
         </Button>
       </form>
@@ -139,7 +158,6 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
     </p>
   </div>
 </section>
-
 
 <script>
   import { createContactSchema } from '../../../lib/schemas/contact';
@@ -165,48 +183,60 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
     // Field Validation Helper
     const validateField = (input: HTMLInputElement | HTMLTextAreaElement) => {
-       validateSingleField(input, { form, schema });
+      validateSingleField(input, { form, schema });
     };
 
     // Attach listeners
     const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       const el = input as HTMLInputElement;
-      
+
       // Validate on blur
       el.addEventListener('blur', () => validateField(el), { signal });
-      
+
       // Validate on input (if already erroneous, meant to be "live" feedback to fix it)
-      el.addEventListener('input', () => {
-        if (el.classList.contains('input-error')) validateField(el);
-      }, { signal });
+      el.addEventListener(
+        'input',
+        () => {
+          if (el.classList.contains('input-error')) validateField(el);
+        },
+        { signal },
+      );
     });
 
-    form?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const result = validateForm({ form, schema });
+    form?.addEventListener(
+      'submit',
+      (e) => {
+        e.preventDefault();
 
-      if (!result.success) {
-        return;
-      }
+        const result = validateForm({ form, schema });
 
+        if (!result.success) {
+          return;
+        }
 
+        // Show success
+        form.classList.add('hidden');
+        successEl?.classList.remove('hidden');
+      },
+      { signal },
+    );
 
-      // Show success
-      form.classList.add('hidden');
-      successEl?.classList.remove('hidden');
-    }, { signal });
+    resetBtn?.addEventListener(
+      'click',
+      () => {
+        form.reset();
+        // Remove all validation states
+        form
+          .querySelectorAll('.input-success, .input-error')
+          .forEach((el) => el.classList.remove('input-success', 'input-error'));
+        form.querySelectorAll('.error-message').forEach((el) => el.remove());
 
-    resetBtn?.addEventListener('click', () => {
-      form.reset();
-      // Remove all validation states
-      form.querySelectorAll('.input-success, .input-error').forEach(el => el.classList.remove('input-success', 'input-error'));
-      form.querySelectorAll('.error-message').forEach(el => el.remove());
-      
-      form.classList.remove('hidden');
-      successEl?.classList.add('hidden');
-    }, { signal });
+        form.classList.remove('hidden');
+        successEl?.classList.add('hidden');
+      },
+      { signal },
+    );
   }
 
   initContactGlass();

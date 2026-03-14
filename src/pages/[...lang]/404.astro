@@ -3,7 +3,7 @@ import NotFoundPage from '../../components/pages/NotFoundPage.astro';
 import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
 
 export async function getStaticPaths() {
-  const locales = getEnabledLocaleCodes().filter(l => l !== defaultLocale);
+  const locales = getEnabledLocaleCodes().filter((l) => l !== defaultLocale);
   return locales.map((lang) => ({
     params: { lang },
   }));

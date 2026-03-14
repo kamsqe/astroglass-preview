@@ -14,14 +14,16 @@ import {
 
 export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 1. Project directory
-  const projectDir = dirArg || await p.text({
-    message: 'Where should we create your project?',
-    placeholder: './my-astroglass',
-    defaultValue: './my-astroglass',
-    validate: (value) => {
-      if (!value) return 'Please enter a directory path';
-    },
-  });
+  const projectDir =
+    dirArg ||
+    (await p.text({
+      message: 'Where should we create your project?',
+      placeholder: './my-astroglass',
+      defaultValue: './my-astroglass',
+      validate: (value) => {
+        if (!value) return 'Please enter a directory path';
+      },
+    }));
 
   if (p.isCancel(projectDir)) {
     p.cancel('Setup cancelled.');
@@ -31,7 +33,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 2. Pick themes (multi-select)
   const themes = await p.multiselect({
     message: 'Select themes to include (Space to toggle, Enter to confirm):',
-    options: AVAILABLE_THEMES.map(t => ({
+    options: AVAILABLE_THEMES.map((t) => ({
       value: t.id,
       label: t.label,
       hint: t.hint,
@@ -48,7 +50,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 3. Pick palettes (multi-select)
   const palettes = await p.multiselect({
     message: 'Select color palettes (Space to toggle, Enter to confirm):',
-    options: AVAILABLE_PALETTES.map(pal => ({
+    options: AVAILABLE_PALETTES.map((pal) => ({
       value: pal.id,
       label: pal.label,
       hint: pal.category,
@@ -65,8 +67,8 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 4. Default palette
   const defaultPalette = await p.select({
     message: 'Default palette (shown on first load):',
-    options: (palettes as string[]).map(id => {
-      const info = AVAILABLE_PALETTES.find(pal => pal.id === id);
+    options: (palettes as string[]).map((id) => {
+      const info = AVAILABLE_PALETTES.find((pal) => pal.id === id);
       return { value: id, label: info?.label ?? id };
     }),
   });
@@ -79,7 +81,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 5. Languages
   const locales = await p.multiselect({
     message: 'Select languages (Space to toggle, Enter to confirm):',
-    options: AVAILABLE_LOCALES.map(l => ({
+    options: AVAILABLE_LOCALES.map((l) => ({
       value: l.code,
       label: l.label,
     })),
@@ -107,7 +109,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   if (wantFeatures) {
     const selected = await p.multiselect({
       message: 'Select features (Space to toggle, Enter to confirm):',
-      options: AVAILABLE_FEATURES.map(f => ({
+      options: AVAILABLE_FEATURES.map((f) => ({
         value: f.id,
         label: f.label,
         hint: f.hint,
@@ -125,7 +127,7 @@ export async function runCustomFlow(dirArg?: string): Promise<UserChoices> {
   // 7. Deploy target
   const deploy = await p.select({
     message: 'Deploy target:',
-    options: DEPLOY_TARGETS.map(d => ({
+    options: DEPLOY_TARGETS.map((d) => ({
       value: d.value,
       label: d.label,
       hint: d.hint,

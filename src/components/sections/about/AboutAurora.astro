@@ -45,7 +45,7 @@ import '../../../styles/components/about/AboutAurora.css';
       <a href="#features" class="about-aurora-cta">
         {t('about.learnMore')}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
     </div>
@@ -72,21 +72,19 @@ import '../../../styles/components/about/AboutAurora.css';
           <svg viewBox="0 0 300 80" preserveAspectRatio="none" class="about-aurora-sparkline-svg">
             <defs>
               <linearGradient id="aurora-spark-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" class="about-aurora-grad-start"/>
-                <stop offset="100%" class="about-aurora-grad-end"/>
+                <stop offset="0%" class="about-aurora-grad-start"></stop>
+                <stop offset="100%" class="about-aurora-grad-end"></stop>
               </linearGradient>
             </defs>
-            <path 
-              d="M0,60 C30,55 50,40 80,35 C110,30 130,50 160,25 C190,0 210,15 240,10 C270,5 290,20 300,8" 
-              fill="none" 
+            <path
+              d="M0,60 C30,55 50,40 80,35 C110,30 130,50 160,25 C190,0 210,15 240,10 C270,5 290,20 300,8"
+              fill="none"
               class="about-aurora-sparkline-path"
-              stroke-width="2"
-            />
-            <path 
-              d="M0,60 C30,55 50,40 80,35 C110,30 130,50 160,25 C190,0 210,15 240,10 C270,5 290,20 300,8 L300,80 L0,80 Z" 
-              fill="url(#aurora-spark-grad)" 
-              opacity="0.15"
-            />
+              stroke-width="2"></path>
+            <path
+              d="M0,60 C30,55 50,40 80,35 C110,30 130,50 160,25 C190,0 210,15 240,10 C270,5 290,20 300,8 L300,80 L0,80 Z"
+              fill="url(#aurora-spark-grad)"
+              opacity="0.15"></path>
           </svg>
           <div class="about-aurora-sparkline-label">
             <span class="about-aurora-sparkline-up">↑ 47%</span>
@@ -103,15 +101,13 @@ import '../../../styles/components/about/AboutAurora.css';
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   fill="none"
                   class="about-aurora-ring-bg"
-                  stroke-width="3"
-                />
+                  stroke-width="3"></path>
                 <path
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   fill="none"
                   class="about-aurora-ring-fill"
                   stroke-width="3"
-                  stroke-dasharray="100, 100"
-                />
+                  stroke-dasharray="100, 100"></path>
               </svg>
               <span class="about-aurora-ring-value">100</span>
             </div>
@@ -160,14 +156,17 @@ import '../../../styles/components/about/AboutAurora.css';
     const card = document.querySelector('.about-aurora-dash-card');
     if (!card) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          card.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            card.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
 
     observer.observe(card);
   }

@@ -141,7 +141,7 @@ if (firstArg && SUB_COMMANDS.includes(firstArg as any)) {
           defaultPalette: args.palettes?.split(',')[0] ?? 'azure',
         };
       } else {
-        p.intro('Let\'s create your Astroglass project!');
+        p.intro("Let's create your Astroglass project!");
 
         const mode = await p.select({
           message: 'How would you like to get started?',

@@ -17,7 +17,9 @@
     0 1px 0 0 hsl(var(--shadow-color, 0 0% 0%) / 0.03),
     0 4px 16px -4px hsl(var(--shadow-color, 0 0% 0%) / 0.1),
     inset 0 1px 0 0 rgb(var(--glass-border, 255 255 255 / 0.1));
-  transition: background var(--motion-natural) ease, backdrop-filter var(--motion-natural) ease;
+  transition:
+    background var(--motion-natural) ease,
+    backdrop-filter var(--motion-natural) ease;
 }
 
 /* Logo styles */
@@ -121,7 +123,6 @@
   transform: translateX(2px);
   opacity: 0.8;
 }
-
 
 /* Fixed header when menu is open (prevents scrolling away) */
 header.is-menu-open {

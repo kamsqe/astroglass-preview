@@ -7,11 +7,11 @@
   --tracking-badge-liquid: 0.2em;
   --tracking-section-liquid: 0.2em;
   --tracking-eyebrow-liquid: 0.3em;
-  
+
   /* Liquid easing curves for organic motion */
   --ease-liquid: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-liquid-slow: cubic-bezier(0.19, 1, 0.22, 1);
-  
+
   /* Blur values for glassmorphism */
   --blur-liquid-sm: 8px;
   --blur-liquid-md: 16px;

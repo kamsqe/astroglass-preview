@@ -15,7 +15,12 @@
   color: hsl(var(--bc) / 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: background-color var(--motion-quick), border-color var(--motion-quick), color var(--motion-quick), box-shadow var(--motion-quick), transform var(--motion-quick);
+  transition:
+    background-color var(--motion-quick),
+    border-color var(--motion-quick),
+    color var(--motion-quick),
+    box-shadow var(--motion-quick),
+    transform var(--motion-quick);
   cursor: pointer;
   overflow: hidden;
 }
@@ -24,7 +29,11 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 0.6)) 0%, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 0.6)) 0%,
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity var(--motion-quick) ease;
 }
@@ -35,7 +44,8 @@
   background: hsl(var(--bc) / 0.1);
   border-color: hsl(var(--glow-color, var(--a)) / 0.2);
   color: hsl(var(--bc));
-  box-shadow: 0 2px 12px -2px hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.2));
+  box-shadow: 0 2px 12px -2px
+    hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.2));
 }
 .switcher-btn:active {
   transform: scale(0.96);
@@ -47,7 +57,8 @@
   background: hsl(var(--a) / 0.1);
   border-color: hsl(var(--a) / 0.25);
   color: hsl(var(--a));
-  box-shadow: 0 0 16px -4px hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.5));
+  box-shadow: 0 0 16px -4px
+    hsl(var(--glow-color, var(--a)) / calc(var(--glow-intensity, 0.15) * 1.5));
 }
 
 .switcher-emoji {
@@ -65,7 +76,9 @@
   width: 11px;
   height: 11px;
   opacity: 0.3;
-  transition: opacity var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1), transform var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
+  transition:
+    opacity var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1),
+    transform var(--motion-quick) cubic-bezier(0.32, 0.72, 0, 1);
   position: relative;
   z-index: 1;
 }

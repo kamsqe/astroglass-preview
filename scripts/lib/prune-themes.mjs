@@ -3,7 +3,14 @@
  */
 import fs from 'fs/promises';
 import path from 'path';
-import { safeRemove, readFile, writeFile, removeRecordEntry, capitalize, resolve } from './utils.mjs';
+import {
+  safeRemove,
+  readFile,
+  writeFile,
+  removeRecordEntry,
+  capitalize,
+  resolve,
+} from './utils.mjs';
 
 // Mirrors src/config/themeRegistry.ts — we duplicate the data here
 // so the CLI can run as plain Node.js without TS compilation.
@@ -223,7 +230,7 @@ export const ALL_THEMES = Object.keys(themeRegistry);
  * @returns {{ deletedFiles: number }} Summary
  */
 export async function pruneThemes(selectedTheme) {
-  const themesToRemove = ALL_THEMES.filter(t => t !== selectedTheme);
+  const themesToRemove = ALL_THEMES.filter((t) => t !== selectedTheme);
   let deletedFiles = 0;
 
   // 1. Delete all files for unselected themes
@@ -255,10 +262,7 @@ export async function pruneThemes(selectedTheme) {
     for (const themeId of themesToRemove) {
       // Remove the object literal block for this theme.
       // Use [^}]* (not [\s\S]*?) to avoid matching across multiple blocks.
-      const blockRegex = new RegExp(
-        `\\s*\\{[^}]*id:\\s*'${themeId}'[^}]*\\},?`,
-        ''
-      );
+      const blockRegex = new RegExp(`\\s*\\{[^}]*id:\\s*'${themeId}'[^}]*\\},?`, '');
       themesConfig = themesConfig.replace(blockRegex, '');
     }
     await writeFile('src/config/themes.ts', themesConfig);
@@ -287,10 +291,7 @@ export async function pruneThemes(selectedTheme) {
   if (navConfig) {
     for (const themeId of themesToRemove) {
       // Remove lines like:  liquid: '💧',
-      navConfig = navConfig.replace(
-        new RegExp(`\\s*${themeId}:\\s*'[^']*',?\\n?`, 'g'),
-        '\n'
-      );
+      navConfig = navConfig.replace(new RegExp(`\\s*${themeId}:\\s*'[^']*',?\\n?`, 'g'), '\n');
     }
     await writeFile('src/config/navigation.ts', navConfig);
   }
@@ -320,12 +321,12 @@ export async function pruneThemes(selectedTheme) {
       // Remove import line
       themePage = themePage.replace(
         new RegExp(`\\s*import \\* as ${capName}Sections\\s+from[^;]+;\\n?`, 'g'),
-        '\n'
+        '\n',
       );
       // Remove themeModules entry
       themePage = themePage.replace(
         new RegExp(`\\s*${themeId}:\\s+${capName}Sections,?\\n?`, 'g'),
-        '\n'
+        '\n',
       );
     }
     await writeFile(pageFile, themePage);
@@ -337,7 +338,7 @@ export async function pruneThemes(selectedTheme) {
     for (const themeId of themesToRemove) {
       globalCss = globalCss.replace(
         new RegExp(`@import\\s+["']\\./tokens/${themeId}\\.css["'];?\\n?`, 'g'),
-        ''
+        '',
       );
     }
     await writeFile('src/styles/global.css', globalCss);
@@ -350,8 +351,11 @@ export async function pruneThemes(selectedTheme) {
       const capName = capitalize(themeId);
       // Remove import lines for headers of pruned themes
       baseLayout = baseLayout.replace(
-        new RegExp(`\\s*import\\s+\\w*Header${capName}?\\w*\\s+from[^;]*Header${capName}[^;]*;\\n?`, 'g'),
-        '\n'
+        new RegExp(
+          `\\s*import\\s+\\w*Header${capName}?\\w*\\s+from[^;]*Header${capName}[^;]*;\\n?`,
+          'g',
+        ),
+        '\n',
       );
     }
     await writeFile('src/layouts/BaseLayout.astro', baseLayout);
@@ -363,7 +367,7 @@ export async function pruneThemes(selectedTheme) {
     if (globalCssContent) {
       globalCssContent = globalCssContent.replace(
         /@import\s+["']\.\/\_luxury-interactions\.css["'];?\n?/g,
-        ''
+        '',
       );
       await writeFile('src/styles/global.css', globalCssContent);
     }
@@ -418,7 +422,7 @@ async function cleanDanglingImports(dir, deletedCssFiles) {
       for (const cssFile of deletedCssFiles) {
         const importRegex = new RegExp(
           `\\s*import\\s+['"][^'"]*/${cssFile.replace('.', '\\.')}['"];?\\n?`,
-          'g'
+          'g',
         );
         const newContent = content.replace(importRegex, '\n');
         if (newContent !== content) {

@@ -19,7 +19,7 @@ export interface AstroglassConfig {
 export async function generateConfig(
   projectPath: string,
   choices: UserChoices,
-  dryRun: boolean
+  dryRun: boolean,
 ): Promise<void> {
   const config: AstroglassConfig = {
     version: '1.0.0',

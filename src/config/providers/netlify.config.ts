@@ -1,19 +1,19 @@
 /**
  * Netlify Provider Configuration
- * 
+ *
  * Astro adapter configuration for Netlify deployment.
- * 
+ *
  * NOTE: To use this provider:
  * 1. Install the adapter: pnpm add @astrojs/netlify
  * 2. Update active-provider.ts to export from this file
- * 
+ *
  * @see https://docs.astro.build/en/guides/deploy/netlify/
  */
 
 // Uncomment after installing @astrojs/netlify
 // import netlify from '@astrojs/netlify';
 
-/** 
+/**
  * Netlify adapter
  * Uncomment after installing @astrojs/netlify
  */

@@ -5,9 +5,16 @@ import { safeRemove, readFile, writeFile } from './utils.mjs';
 
 /** All palette IDs available in the project */
 export const ALL_PALETTES = [
-  'azure', 'nordic', 'solaris',       // light
-  'abyss', 'neonoir', 'synthwave',    // dark
-  'evergreen', 'rose', 'aquatica', 'monochrome', // colorful
+  'azure',
+  'nordic',
+  'solaris', // light
+  'abyss',
+  'neonoir',
+  'synthwave', // dark
+  'evergreen',
+  'rose',
+  'aquatica',
+  'monochrome', // colorful
 ];
 
 /** Default palette */
@@ -19,7 +26,7 @@ export const DEFAULT_PALETTE = 'azure';
  * @returns {{ deletedFiles: number }} Summary
  */
 export async function prunePalettes(selectedPalettes) {
-  const palettesToRemove = ALL_PALETTES.filter(p => !selectedPalettes.includes(p));
+  const palettesToRemove = ALL_PALETTES.filter((p) => !selectedPalettes.includes(p));
   let deletedFiles = 0;
 
   // 1. Delete palette CSS files
@@ -33,7 +40,7 @@ export async function prunePalettes(selectedPalettes) {
     for (const paletteId of palettesToRemove) {
       themesCSS = themesCSS.replace(
         new RegExp(`@import\\s+["']\\./palettes/${paletteId}\\.css["'];?\\n?`, 'g'),
-        ''
+        '',
       );
     }
     await writeFile('src/styles/_themes.css', themesCSS);
@@ -46,7 +53,7 @@ export async function prunePalettes(selectedPalettes) {
       // Remove the single-line palette entry
       palettesConfig = palettesConfig.replace(
         new RegExp(`\\s*\\{[^}]*id:\\s*'${paletteId}'[^}]*\\},?\\n?`, 'g'),
-        '\n'
+        '\n',
       );
     }
 
@@ -54,7 +61,7 @@ export async function prunePalettes(selectedPalettes) {
     if (!selectedPalettes.includes(DEFAULT_PALETTE)) {
       palettesConfig = palettesConfig.replace(
         /export const defaultPalette = '[^']+'/,
-        `export const defaultPalette = '${selectedPalettes[0]}'`
+        `export const defaultPalette = '${selectedPalettes[0]}'`,
       );
     }
 
@@ -65,26 +72,26 @@ export async function prunePalettes(selectedPalettes) {
   let astroConfig = await readFile('astro.config.mjs');
   if (astroConfig) {
     // Build new CSS selectors from selected palettes
-    const selectedDark = selectedPalettes.filter(p =>
-      ['abyss', 'neonoir', 'synthwave'].includes(p)
+    const selectedDark = selectedPalettes.filter((p) =>
+      ['abyss', 'neonoir', 'synthwave'].includes(p),
     );
-    const selectedLight = selectedPalettes.filter(p =>
-      !['abyss', 'neonoir', 'synthwave'].includes(p)
+    const selectedLight = selectedPalettes.filter(
+      (p) => !['abyss', 'neonoir', 'synthwave'].includes(p),
     );
 
     if (selectedDark.length > 0) {
-      const darkSelector = selectedDark.map(p => `[data-theme="${p}"]`).join(', ');
+      const darkSelector = selectedDark.map((p) => `[data-theme="${p}"]`).join(', ');
       astroConfig = astroConfig.replace(
         /if \(theme\.name === 'dracula'\) \{[\s\S]*?return '[^']*';[\s\S]*?\}/,
-        `if (theme.name === 'dracula') {\n          return '${darkSelector}';\n        }`
+        `if (theme.name === 'dracula') {\n          return '${darkSelector}';\n        }`,
       );
     }
 
     if (selectedLight.length > 0) {
-      const lightSelector = selectedLight.map(p => `[data-theme="${p}"]`).join(', ');
+      const lightSelector = selectedLight.map((p) => `[data-theme="${p}"]`).join(', ');
       astroConfig = astroConfig.replace(
         /\/\/ Light themes[\s\S]*?return '[^']*';/,
-        `// Light themes\n        return '${lightSelector}';`
+        `// Light themes\n        return '${lightSelector}';`,
       );
     }
 
@@ -98,7 +105,7 @@ export async function prunePalettes(selectedPalettes) {
     // Update the activeTheme fallback
     baseLayout = baseLayout.replace(
       /const activeTheme = [^;]+;/,
-      `const activeTheme = '${newDefault}';`
+      `const activeTheme = '${newDefault}';`,
     );
     await writeFile('src/layouts/BaseLayout.astro', baseLayout);
   }

@@ -1,6 +1,6 @@
 ---
-title: "Project Structure"
-description: "Overview of the Astroglass project directory structure"
+title: 'Project Structure'
+description: 'Overview of the Astroglass project directory structure'
 ---
 
 # Project Structure
@@ -66,15 +66,19 @@ astroglass/
 ## Key Concepts
 
 ### Themes
+
 Each theme has its own set of section components, header, footer, and CSS. Themes are registered in `themePresets.ts` and their files are listed in `themeRegistry.ts`.
 
 ### Palettes
+
 Color palettes are defined in `palettes.ts` and their CSS variables live in `src/styles/palettes/`. Users can switch between palettes at runtime.
 
 ### Sections
+
 Landing page sections (Hero, About, Features, etc.) are theme-specific components. The order is controlled by `themePresets.ts`.
 
 > **Tip:** To add interactive project structure visualization, add React:
+>
 > ```bash
 > npx astroglass add --react
 > ```

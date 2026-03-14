@@ -62,14 +62,23 @@
   background: hsl(var(--bc) / 0.02);
   color: hsl(var(--bc) / 0.55);
   cursor: pointer;
-  transition: background-color var(--motion-quick), border-color var(--motion-quick), color var(--motion-quick), transform var(--motion-quick), box-shadow var(--motion-quick);
+  transition:
+    background-color var(--motion-quick),
+    border-color var(--motion-quick),
+    color var(--motion-quick),
+    transform var(--motion-quick),
+    box-shadow var(--motion-quick);
 }
 /* Inner glow effect - theme-aware */
 .theme-option-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at top, hsl(var(--glow-color, var(--a)) / 0) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at top,
+    hsl(var(--glow-color, var(--a)) / 0) 0%,
+    transparent 70%
+  );
   transition: background var(--motion-quick) ease;
   border-radius: inherit;
 }
@@ -84,7 +93,11 @@
     inset 0 1px 0 hsl(var(--a) / 0.1);
 }
 .theme-option-card:hover::before {
-  background: radial-gradient(ellipse at top, hsl(var(--glow-color, var(--a)) / 0.15) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at top,
+    hsl(var(--glow-color, var(--a)) / 0.15) 0%,
+    transparent 70%
+  );
 }
 .theme-option-card:hover .theme-card-emoji {
   /* Restraint: Removed rotation and scale */
@@ -106,7 +119,11 @@
     inset 0 1px 0 hsl(var(--a) / 0.12);
 }
 .theme-option-card.is-active::before {
-  background: radial-gradient(ellipse at top, hsl(var(--glow-color, var(--a)) / 0.12) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at top,
+    hsl(var(--glow-color, var(--a)) / 0.12) 0%,
+    transparent 70%
+  );
 }
 .theme-option-card.is-active .theme-card-check {
   opacity: 1;
@@ -141,7 +158,6 @@
   opacity: 1;
 }
 
-
 .theme-card-check {
   position: absolute;
   top: 3px;
@@ -150,7 +166,9 @@
   height: 12px;
   opacity: 0;
   transform: scale(0.5);
-  transition: opacity var(--motion-quick), transform var(--motion-quick);
+  transition:
+    opacity var(--motion-quick),
+    transform var(--motion-quick);
   color: hsl(var(--a));
 }
 
@@ -163,8 +181,20 @@
   /* Negative margin to allow full-width scroll but keep content aligned */
   margin: 0 -20px;
   /* Enhanced Mask for smoother fade at edges */
-  mask-image: linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
   /* Prevent scroll chaining */
   overscroll-behavior-x: contain;
 }
@@ -189,8 +219,6 @@
   display: none;
 }
 
-
-
 /* Mobile Theme Option - Pill Style */
 .theme-option-mobile {
   flex-shrink: 0;
@@ -200,13 +228,19 @@
   padding: 8px 16px;
   height: 48px;
   border-radius: 100px; /* Pill shape */
-  
+
   /* Glass Background */
   background: hsl(var(--bc) / 0.05);
   border: 1px solid hsl(var(--bc) / 0.08);
   color: hsl(var(--bc) / 0.6);
-  
-  transition: background var(--motion-quick), border-color var(--motion-quick), color var(--motion-quick), box-shadow var(--motion-quick), transform var(--motion-quick), padding-right var(--motion-quick);
+
+  transition:
+    background var(--motion-quick),
+    border-color var(--motion-quick),
+    color var(--motion-quick),
+    box-shadow var(--motion-quick),
+    transform var(--motion-quick),
+    padding-right var(--motion-quick);
   cursor: pointer;
   scroll-snap-align: center;
   user-select: none;
@@ -226,7 +260,7 @@
   background: hsl(var(--a) / 0.15);
   border-color: hsl(var(--a) / 0.3);
   color: hsl(var(--a));
-  box-shadow: 
+  box-shadow:
     0 4px 12px -2px hsl(var(--a) / 0.2),
     inset 0 0 0 1px hsl(var(--a) / 0.1);
   padding-right: 20px; /* Slightly wider when active */
@@ -237,7 +271,9 @@
   font-size: 18px;
   line-height: 1;
   filter: grayscale(0.5);
-  transition: filter var(--motion-quick) ease, transform var(--motion-quick) ease;
+  transition:
+    filter var(--motion-quick) ease,
+    transform var(--motion-quick) ease;
 }
 
 .theme-option-mobile.is-active .theme-emoji {
@@ -253,7 +289,6 @@
   white-space: nowrap;
   transition: font-weight var(--motion-instant) ease;
 }
-
 
 /* Animation: Staggered Entry */
 @keyframes slideInScale {
@@ -274,15 +309,37 @@
 }
 
 /* Stagger delays manually for the first 10 items */
-.panel-glass.is-open .theme-option-mobile:nth-child(1) { animation-delay: 100ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(2) { animation-delay: 140ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(3) { animation-delay: 180ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(4) { animation-delay: 220ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(5) { animation-delay: 260ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(6) { animation-delay: 300ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(7) { animation-delay: 340ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(8) { animation-delay: 380ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(9) { animation-delay: 420ms; }
-.panel-glass.is-open .theme-option-mobile:nth-child(10) { animation-delay: 460ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(1) {
+  animation-delay: 100ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(2) {
+  animation-delay: 140ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(3) {
+  animation-delay: 180ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(4) {
+  animation-delay: 220ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(5) {
+  animation-delay: 260ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(6) {
+  animation-delay: 300ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(7) {
+  animation-delay: 340ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(8) {
+  animation-delay: 380ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(9) {
+  animation-delay: 420ms;
+}
+.panel-glass.is-open .theme-option-mobile:nth-child(10) {
+  animation-delay: 460ms;
+}
 /* Generic delay for any beyond 10 */
-.panel-glass.is-open .theme-option-mobile:nth-child(n+11) { animation-delay: 500ms; }
+.panel-glass.is-open .theme-option-mobile:nth-child(n + 11) {
+  animation-delay: 500ms;
+}

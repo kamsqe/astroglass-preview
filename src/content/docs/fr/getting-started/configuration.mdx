@@ -1,6 +1,6 @@
 ---
-title: "Configuration"
-description: "Personnalisez AstroGlass pour correspondre à votre marque."
+title: 'Configuration'
+description: 'Personnalisez AstroGlass pour correspondre à votre marque.'
 order: 3
 ---
 
@@ -12,12 +12,10 @@ AstroGlass est configuré via des fichiers dans `src/config/` et des propriété
 ## Fichiers de Configuration
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — Définitions des thèmes (nom, couleurs, sections, indicateur premium)
-    - **locales.ts** — Langues prises en charge et métadonnées locales
-    - **navigation.ts** — Structure de navigation principale du site
-    - **docs.ts** — Configuration de la barre latérale de la documentation et de la version
+  - src/ - config/ - **themes.ts** — Définitions des thèmes (nom, couleurs, sections, indicateur
+  premium) - **locales.ts** — Langues prises en charge et métadonnées locales - **navigation.ts** —
+  Structure de navigation principale du site - **docs.ts** — Configuration de la barre latérale de
+  la documentation et de la version
 </FileTree>
 
 ## Stylisation avec Tailwind CSS v4
@@ -28,16 +26,18 @@ Les couleurs et les variables de thème sont définies comme des propriétés pe
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* Primaire (HSL) */
-  --s: 310 80% 60%;   /* Secondaire */
-  --a: 190 90% 60%;   /* Accent */
-  --b1: 220 20% 10%;  /* Arrière-plan de base */
-  --bc: 220 20% 90%;  /* Contenu de base (texte) */
+  --p: 260 80% 60%; /* Primaire (HSL) */
+  --s: 310 80% 60%; /* Secondaire */
+  --a: 190 90% 60%; /* Accent */
+  --b1: 220 20% 10%; /* Arrière-plan de base */
+  --bc: 220 20% 90%; /* Contenu de base (texte) */
 }
 ```
 
 <Callout type="tip" title="Changer les Couleurs">
-  Pour modifier la palette de couleurs du site, mettez à jour les valeurs HSL dans `src/styles/global.css`. Les surcharges spécifiques au thème se trouvent dans `src/styles/_themes.css` en utilisant les sélecteurs `[data-theme="..."]`.
+  Pour modifier la palette de couleurs du site, mettez à jour les valeurs HSL dans
+  `src/styles/global.css`. Les surcharges spécifiques au thème se trouvent dans
+  `src/styles/_themes.css` en utilisant les sélecteurs `[data-theme="..."]`.
 </Callout>
 
 ## Configuration du Thème
@@ -51,7 +51,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Design fluide, organique avec des animations douces',
@@ -66,7 +78,21 @@ Les langues sont gérées dans `src/config/locales.ts`. Pour ajouter une nouvell
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```

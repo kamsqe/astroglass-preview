@@ -1,10 +1,10 @@
 ---
 title: "L'art du Glassmorphism : Construire des Interfaces Modernes"
-description: "Une plongée en profondeur dans la tendance du design glassmorphism — comment combiner des effets de verre dépoli, de flou et de transparence pour créer des interfaces visuellement époustouflantes, accessibles et qui fonctionnent magnifiquement à travers les thèmes."
+description: 'Une plongée en profondeur dans la tendance du design glassmorphism — comment combiner des effets de verre dépoli, de flou et de transparence pour créer des interfaces visuellement époustouflantes, accessibles et qui fonctionnent magnifiquement à travers les thèmes.'
 date: 2026-02-11
-tags: ["design", "css", "ui", "glassmorphism"]
-author: "Design Team"
-category: "Design"
+tags: ['design', 'css', 'ui', 'glassmorphism']
+author: 'Design Team'
+category: 'Design'
 readingTime: 8
 featured: true
 draft: false
@@ -41,7 +41,7 @@ Dans sa forme la plus simple, une carte en verre peut être construite avec seul
 Cependant, un verre de qualité production nécessite plus de nuances. Vous devez gérer :
 
 1. **Solution de repli pour les navigateurs sans `backdrop-filter`** — utilisez un fond uni comme base
-2. **Performances** — le flou est gourmand en GPU ; limitez le nombre de couches floues  
+2. **Performances** — le flou est gourmand en GPU ; limitez le nombre de couches floues
 3. **Contraste** — assurez-vous que le texte reste lisible sur n'importe quel arrière-plan
 4. **Adaptation au thème** — le verre doit fonctionner sur des arrière-plans clairs et foncés
 
@@ -83,7 +83,7 @@ Les surfaces en verre prennent vie avec des animations subtiles :
 
 ```css
 .glass-card {
-  transition: 
+  transition:
     transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.4s ease;
 }
@@ -104,12 +104,12 @@ Les surfaces en verre prennent vie avec des animations subtiles :
 
 ### Atténuations
 
-| Stratégie | Impact |
-|---|---|
-| Limiter les couches de verre à 2–3 par fenêtre | Élevé |
-| Utiliser `will-change: transform` | Moyen |
-| Réduire le rayon de flou sur mobile | Moyen |
-| Supprimer entièrement le flou via `prefers-reduced-motion` | Élevé |
+| Stratégie                                                  | Impact |
+| ---------------------------------------------------------- | ------ |
+| Limiter les couches de verre à 2–3 par fenêtre             | Élevé  |
+| Utiliser `will-change: transform`                          | Moyen  |
+| Réduire le rayon de flou sur mobile                        | Moyen  |
+| Supprimer entièrement le flou via `prefers-reduced-motion` | Élevé  |
 
 ## Création d'une Bibliothèque de Composants en Verre
 

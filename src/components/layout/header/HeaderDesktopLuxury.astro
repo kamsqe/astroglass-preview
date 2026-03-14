@@ -1,7 +1,7 @@
 ---
 /**
  * LuxuryHeaderDesktop.astro
- * 
+ *
  * "The Studio Header" - A premium, horizontal, glassmorphic header.
  * Replaces the "Monolith" sidebar on Desktop.
  */
@@ -24,7 +24,7 @@ const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
 const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
 
 const enabledLocales = getEnabledLocales();
-const localePaths = enabledLocales.map(loc => ({
+const localePaths = enabledLocales.map((loc) => ({
   code: loc.code,
   label: loc.code.toUpperCase(),
   nativeName: loc.nativeName,
@@ -32,8 +32,10 @@ const localePaths = enabledLocales.map(loc => ({
   isActive: locale === loc.code,
 }));
 
-const themes = palettes.map(p => ({
-  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex,
+const themes = palettes.map((p) => ({
+  id: p.id,
+  label: p.id.charAt(0).toUpperCase() + p.id.slice(1),
+  color: p.accentHex,
 }));
 ---
 
@@ -47,23 +49,29 @@ const themes = palettes.map(p => ({
 
   <!-- Center: Navigation -->
   <nav class="luxury-header-center">
-    {navLinks.map((link) => (
-      <LocalizedLink href={link.href} class="luxury-nav-link">
-        {link.label}
-      </LocalizedLink>
-    ))}
+    {
+      navLinks.map((link) => (
+        <LocalizedLink href={link.href} class="luxury-nav-link">
+          {link.label}
+        </LocalizedLink>
+      ))
+    }
   </nav>
 
   <!-- Right: Controls -->
   <div class="luxury-header-right">
     <!-- Language -->
     <div class="luxury-control-group">
-      {localePaths.map((loc, i) => (
-        <>
-          {i > 0 && <span class="luxury-divider">/</span>}
-          <a href={loc.href} class={`luxury-action-link ${loc.isActive ? 'is-active' : ''}`}>{loc.label}</a>
-        </>
-      ))}
+      {
+        localePaths.map((loc, i) => (
+          <>
+            {i > 0 && <span class="luxury-divider">/</span>}
+            <a href={loc.href} class={`luxury-action-link ${loc.isActive ? 'is-active' : ''}`}>
+              {loc.label}
+            </a>
+          </>
+        ))
+      }
     </div>
 
     <div class="luxury-separator"></div>
@@ -84,12 +92,12 @@ const themes = palettes.map(p => ({
     right: 0;
     height: 80px;
     z-index: 100;
-    
+
     /* Grid Layout */
     grid-template-columns: auto 1fr auto;
     align-items: center;
     padding: 0 32px;
-    
+
     /* Glassmorphism */
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(24px) saturate(180%);
@@ -98,7 +106,7 @@ const themes = palettes.map(p => ({
   }
 
   /* Dark mode adjustment */
-  :global([data-theme="abyss"] .luxury-desktop-header) {
+  :global([data-theme='abyss'] .luxury-desktop-header) {
     background: rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   }
@@ -124,7 +132,7 @@ const themes = palettes.map(p => ({
   }
 
   .luxury-nav-link {
-    font-family: var(--font-sans); 
+    font-family: var(--font-sans);
     /* Ideally we'd use a clean sans here, assuming global sans is available */
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -134,7 +142,7 @@ const themes = palettes.map(p => ({
     transition: color 0.3s ease;
     font-weight: 500;
   }
-  
+
   .luxury-nav-link:hover {
     color: hsl(var(--bc));
   }
@@ -163,8 +171,9 @@ const themes = palettes.map(p => ({
     text-decoration: none;
     transition: color 0.3s ease;
   }
-  
-  .luxury-action-link:hover, .luxury-action-link.is-active {
+
+  .luxury-action-link:hover,
+  .luxury-action-link.is-active {
     color: hsl(var(--bc));
   }
 
@@ -195,13 +204,15 @@ const themes = palettes.map(p => ({
   document.getElementById('luxury-desktop-theme-btn')?.addEventListener('click', () => {
     // Collect all available palette IDs from the spine buttons
     const spineButtons = document.querySelectorAll('[data-set-theme-spine]');
-    const themes = Array.from(spineButtons).map(b => (b as HTMLElement).dataset.setThemeSpine).filter(Boolean) as string[];
+    const themes = Array.from(spineButtons)
+      .map((b) => (b as HTMLElement).dataset.setThemeSpine)
+      .filter(Boolean) as string[];
     if (themes.length === 0) return;
 
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'azure';
     const currentIndex = themes.indexOf(currentTheme);
     const nextTheme = themes[(currentIndex + 1) % themes.length];
-    
+
     document.documentElement.setAttribute('data-theme', nextTheme);
     localStorage.setItem('theme', nextTheme);
     window.dispatchEvent(new Event('theme-changed'));

@@ -1,7 +1,7 @@
 ---
 /**
  * Portfolio Page — Luxury Theme (Composition Layer)
- * 
+ *
  * Wires data ↔ sub-components:
  *   - PortfolioHeroLuxury  → serif hero + diamond dividers + filters
  *   - PortfolioGridLuxury  → glass cards with number watermarks
@@ -138,10 +138,7 @@ const projects = [
   pageSubtitle={t('portfolioPage.pageSubtitle')}
 />
 
-<PortfolioGridLuxury
-  projects={projects}
-  viewDetailsLabel={t('portfolioPage.viewDetails')}
-/>
+<PortfolioGridLuxury projects={projects} viewDetailsLabel={t('portfolioPage.viewDetails')} />
 
 <PortfolioModalLuxury
   projects={projects}
@@ -182,7 +179,7 @@ const projects = [
 
     function openModal(index: number) {
       const tpl = document.querySelector<HTMLTemplateElement>(
-        `template[data-luxury-modal-index="${index}"]`
+        `template[data-luxury-modal-index="${index}"]`,
       );
       if (!tpl) return;
 
@@ -202,18 +199,32 @@ const projects = [
 
     // Close handlers
     if (modalClose) modalClose.addEventListener('click', closeModal, { signal });
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); }, { signal });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal!.classList.contains('is-open')) closeModal();
-    }, { signal });
+    modal.addEventListener(
+      'click',
+      (e) => {
+        if (e.target === modal) closeModal();
+      },
+      { signal },
+    );
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && modal!.classList.contains('is-open')) closeModal();
+      },
+      { signal },
+    );
 
     // Card "View Details" button click
     document.querySelectorAll<HTMLElement>('[data-open-luxury-modal]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const index = parseInt(btn.getAttribute('data-open-luxury-modal') || '0', 10);
-        openModal(index);
-      }, { signal });
+      btn.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          const index = parseInt(btn.getAttribute('data-open-luxury-modal') || '0', 10);
+          openModal(index);
+        },
+        { signal },
+      );
     });
 
     // Scroll-based card reveal with stagger

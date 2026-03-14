@@ -10,17 +10,17 @@ import { getLocaleFromUrl } from '../../../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-  const validationMessages = {
-    emailInvalid: t('contact.validation.emailInvalid'),
-    required: t('contact.validation.required')
-  };
+const validationMessages = {
+  emailInvalid: t('contact.validation.emailInvalid'),
+  required: t('contact.validation.required'),
+};
 
-  const chatData = JSON.stringify({
-    askName: t('contact.chat.askName'),
-    askEmail: t('contact.chat.askEmail'),
-    askMessage: t('contact.chat.askMessage'),
-    thanks: t('contact.chat.thanks')
-  });
+const chatData = JSON.stringify({
+  askName: t('contact.chat.askName'),
+  askEmail: t('contact.chat.askEmail'),
+  askMessage: t('contact.chat.askMessage'),
+  thanks: t('contact.chat.thanks'),
+});
 import '../../../styles/components/contact/ContactLiquid.css';
 import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 ---
@@ -28,23 +28,39 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 <section id="contact" class="relative py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-base-100">
   <!-- Background -->
   <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"></div>
+    <div
+      class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"
+    >
+    </div>
   </div>
 
   <div class="max-w-lg mx-auto relative">
     <!-- Header -->
     <div class="text-center mb-6 sm:mb-8">
       <LiquidSectionTag label={t('contact.eyebrow')} class="mb-4" />
-      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">{t('contact.title')}</h2>
+      <h2 class="text-2xl sm:text-3xl font-black text-base-content tracking-tight">
+        {t('contact.title')}
+      </h2>
     </div>
 
     <!-- Chat Container -->
-    <div class="contact-liquid-chat relative bg-base-content/[0.02] border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm" data-chat={chatData} data-validation-messages={JSON.stringify(validationMessages)}>
-      
+    <div
+      class="contact-liquid-chat relative bg-base-content/[0.02] border border-base-content/10 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-sm"
+      data-chat={chatData}
+      data-validation-messages={JSON.stringify(validationMessages)}
+    >
       <!-- Chat Header -->
-      <div class="flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-base-content/[0.03] border-b border-base-content/5">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 overflow-hidden bg-accent/10">
-          <img src="/images/liquid/support-icon.png" alt="Support" class="w-full h-full object-cover" />
+      <div
+        class="flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-base-content/[0.03] border-b border-base-content/5"
+      >
+        <div
+          class="w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 overflow-hidden bg-accent/10"
+        >
+          <img
+            src="/images/liquid/support-icon.png"
+            alt="Support"
+            class="w-full h-full object-cover"
+          />
         </div>
         <div>
           <p class="text-sm font-bold text-base-content">{t('contact.supportTeam')}</p>
@@ -56,11 +72,19 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       </div>
 
       <!-- Messages Container -->
-      <div class="contact-liquid-messages p-4 sm:p-6 space-y-4 min-h-[300px] max-h-[400px] overflow-y-auto">
+      <div
+        class="contact-liquid-messages p-4 sm:p-6 space-y-4 min-h-[300px] max-h-[400px] overflow-y-auto"
+      >
         <!-- Initial bot message -->
         <div class="contact-liquid-msg bot flex gap-3">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 overflow-hidden bg-accent/10">
-            <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover" />
+          <div
+            class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 overflow-hidden bg-accent/10"
+          >
+            <img
+              src="/images/liquid/support-icon.png"
+              alt="Bot"
+              class="w-full h-full object-cover"
+            />
           </div>
           <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
             <p class="text-sm text-base-content">{t('contact.botWelcome')}</p>
@@ -69,19 +93,33 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       </div>
 
       <!-- Quick Replies / Input Area -->
-      <div class="contact-liquid-input-area border-t border-base-content/5 p-4 sm:p-5 bg-base-content/[0.02]">
+      <div
+        class="contact-liquid-input-area border-t border-base-content/5 p-4 sm:p-5 bg-base-content/[0.02]"
+      >
         <!-- Quick Reply Chips (Step 0) -->
         <div class="contact-liquid-chips flex flex-wrap gap-2" data-step="0">
-          <button class="contact-liquid-chip px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm font-medium text-accent hover:bg-accent hover:text-base-100 transition-all duration-500" data-value="sales">
+          <button
+            class="contact-liquid-chip px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm font-medium text-accent hover:bg-accent hover:text-base-100 transition-all duration-500"
+            data-value="sales"
+          >
             💼 {t('contact.intents.sales')}
           </button>
-          <button class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="support">
+          <button
+            class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500"
+            data-value="support"
+          >
             🛠 {t('contact.intents.support')}
           </button>
-          <button class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="partnership">
+          <button
+            class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500"
+            data-value="partnership"
+          >
             🤝 {t('contact.intents.partnership')}
           </button>
-          <button class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500" data-value="other">
+          <button
+            class="contact-liquid-chip px-4 py-2 rounded-full bg-base-content/5 border border-base-content/10 text-sm font-medium text-base-content/70 hover:bg-base-content/10 transition-all duration-500"
+            data-value="other"
+          >
             💭 {t('contact.intents.other')}
           </button>
         </div>
@@ -89,14 +127,20 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
         <!-- Text Input (hidden initially) -->
         <div class="contact-liquid-text-input hidden">
           <div class="flex gap-3 relative">
-            <input 
-              type="text" 
+            <input
+              type="text"
               class="contact-liquid-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/80 focus:outline-none focus:border-accent/30 transition-all duration-300"
               placeholder={t('contact.placeholders.typeMessage')}
             />
-            <button class="contact-liquid-send w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+            <button
+              class="contact-liquid-send w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300"
+            >
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
               </svg>
             </button>
           </div>
@@ -105,15 +149,21 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
         <!-- Email Input (hidden) -->
         <div class="contact-liquid-email-input hidden">
           <div class="flex gap-3 relative">
-            <input 
-              type="email" 
+            <input
+              type="email"
               class="contact-liquid-input flex-1 px-4 py-3 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/80 focus:outline-none focus:border-accent/30 transition-all duration-300"
               placeholder={t('contact.placeholders.yourEmail')}
               inputmode="email"
             />
-            <button class="contact-liquid-send-email w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+            <button
+              class="contact-liquid-send-email w-12 h-12 rounded-xl bg-accent text-base-100 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300"
+            >
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
               </svg>
             </button>
           </div>
@@ -134,11 +184,9 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
   </div>
 </section>
 
-</style>
-
 <script>
   import { safeParse, email, string, pipe } from 'valibot';
-  
+
   let contactLiquidController: AbortController | null = null;
 
   function initContactLiquid() {
@@ -166,26 +214,29 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       { key: 'intent', botMsg: null },
       { key: 'name', botMsg: chatData.askName || "Nice! What's your name?" },
       { key: 'email', botMsg: chatData.askEmail || "Great to meet you! What's the best email?" },
-      { key: 'message', botMsg: chatData.askMessage || "Perfect! Now tell me what you need help with." },
+      {
+        key: 'message',
+        botMsg: chatData.askMessage || 'Perfect! Now tell me what you need help with.',
+      },
     ];
 
     function showError(input: HTMLInputElement, message?: string) {
-       input.classList.add('input-error');
-       input.parentElement?.classList.add('animate-shake');
-       setTimeout(() => input.parentElement?.classList.remove('animate-shake'), 300);
-       // Optional: Show toast or bot message?
-       // For chat, user expects bot to say it using chat bubble, but that interrupts flow.
-       // Red border + shake is enough feedback for "wrong format".
+      input.classList.add('input-error');
+      input.parentElement?.classList.add('animate-shake');
+      setTimeout(() => input.parentElement?.classList.remove('animate-shake'), 300);
+      // Optional: Show toast or bot message?
+      // For chat, user expects bot to say it using chat bubble, but that interrupts flow.
+      // Red border + shake is enough feedback for "wrong format".
     }
 
     function clearError(input: HTMLInputElement) {
-       input.classList.remove('input-error');
+      input.classList.remove('input-error');
     }
 
     function addMessage(text: string, isUser: boolean) {
       const msgDiv = document.createElement('div');
       msgDiv.className = `contact-liquid-msg ${isUser ? 'user' : 'bot'} flex gap-3`;
-      
+
       if (isUser) {
         msgDiv.innerHTML = `
           <div class="bg-accent text-base-100 rounded-2xl rounded-tr-md px-4 py-3 max-w-[85%] ml-auto">
@@ -202,7 +253,7 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
           </div>
         `;
       }
-      
+
       messages?.appendChild(msgDiv);
       messages?.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
     }
@@ -245,7 +296,7 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
       const q = questions[step];
       let msg = q.botMsg || '';
-      Object.keys(formData).forEach(key => {
+      Object.keys(formData).forEach((key) => {
         msg = msg.replace(`{${key}}`, formData[key]);
       });
 
@@ -268,28 +319,32 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
     }
 
     // Chip click handler
-    chipsContainer?.querySelectorAll('.contact-liquid-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        const value = (chip as HTMLElement).dataset.value || '';
-        const label = chip.textContent?.trim() || value;
-        formData['intent'] = value;
-        addMessage(label, true);
-        nextStep();
-      }, { signal });
+    chipsContainer?.querySelectorAll('.contact-liquid-chip').forEach((chip) => {
+      chip.addEventListener(
+        'click',
+        () => {
+          const value = (chip as HTMLElement).dataset.value || '';
+          const label = chip.textContent?.trim() || value;
+          formData['intent'] = value;
+          addMessage(label, true);
+          nextStep();
+        },
+        { signal },
+      );
     });
 
     // Text input handler
     const textInput = textInputContainer?.querySelector('input');
     const textSend = textInputContainer?.querySelector('.contact-liquid-send');
-    
+
     function submitText() {
       const value = textInput?.value.trim();
       if (!value) {
-         showError(textInput as HTMLInputElement);
-         return;
+        showError(textInput as HTMLInputElement);
+        return;
       }
       clearError(textInput as HTMLInputElement);
-      
+
       formData[questions[step].key] = value;
       addMessage(value, true);
       if (textInput) textInput.value = '';
@@ -297,28 +352,32 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
     }
 
     textSend?.addEventListener('click', submitText, { signal });
-    textInput?.addEventListener('keydown', (e) => {
-      clearError(textInput as HTMLInputElement);
-      if (e.key === 'Enter') submitText();
-    }, { signal });
+    textInput?.addEventListener(
+      'keydown',
+      (e) => {
+        clearError(textInput as HTMLInputElement);
+        if (e.key === 'Enter') submitText();
+      },
+      { signal },
+    );
 
     // Email input handler
     const emailInput = emailInputContainer?.querySelector('input');
     const emailSend = emailInputContainer?.querySelector('.contact-liquid-send-email');
-    
+
     function submitEmail() {
       const value = emailInput?.value.trim();
-      
+
       // Valibot Email Check
       const EmailSchema = pipe(string(), email());
       const result = safeParse(EmailSchema, value || '');
-      
+
       if (!value || !result.success) {
-         showError(emailInput as HTMLInputElement);
-         return;
+        showError(emailInput as HTMLInputElement);
+        return;
       }
       clearError(emailInput as HTMLInputElement);
-      
+
       formData['email'] = value;
       addMessage(value, true);
       if (emailInput) emailInput.value = '';
@@ -326,10 +385,14 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
     }
 
     emailSend?.addEventListener('click', submitEmail, { signal });
-    emailInput?.addEventListener('keydown', (e) => {
-      clearError(emailInput as HTMLInputElement);
-      if (e.key === 'Enter') submitEmail();
-    }, { signal });
+    emailInput?.addEventListener(
+      'keydown',
+      (e) => {
+        clearError(emailInput as HTMLInputElement);
+        if (e.key === 'Enter') submitEmail();
+      },
+      { signal },
+    );
   }
 
   initContactLiquid();

@@ -1,9 +1,9 @@
 /**
  * Nav Overflow Utility
- * 
+ *
  * Automatically moves nav items that don't fit into a "More ▼" dropdown.
  * Works with any header theme by accepting CSS selectors via config.
- * 
+ *
  * The approach:
  * 1. Make all items visible + un-shrinkable (flex-shrink: 0)
  * 2. Measure the total width of all items
@@ -37,7 +37,7 @@ export function initNavOverflow(config: NavOverflowConfig) {
 
   function getNavItems(): HTMLElement[] {
     return Array.from(nav!.querySelectorAll(config.itemSelector)).filter(
-      (el) => el !== moreWrapper && !moreWrapper!.contains(el)
+      (el) => el !== moreWrapper && !moreWrapper!.contains(el),
     ) as HTMLElement[];
   }
 
@@ -52,7 +52,7 @@ export function initNavOverflow(config: NavOverflowConfig) {
       item.style.whiteSpace = 'nowrap';
       item.removeAttribute('data-overflow-hidden');
     });
-    moreWrapper!.style.display = 'none';  // Inline none
+    moreWrapper!.style.display = 'none'; // Inline none
     moreMenu!.innerHTML = '';
 
     // 2. Force the nav to not wrap and measure
@@ -65,11 +65,11 @@ export function initNavOverflow(config: NavOverflowConfig) {
     const navWidth = nav!.clientWidth;
 
     // 4. Measure the More button width
-    moreWrapper!.style.display = 'flex';  // Override CSS display:none
+    moreWrapper!.style.display = 'flex'; // Override CSS display:none
     moreWrapper!.style.flexShrink = '0';
     moreWrapper!.style.whiteSpace = 'nowrap';
     const moreWidth = moreWrapper!.offsetWidth;
-    moreWrapper!.style.display = 'none';  // Re-hide after measuring
+    moreWrapper!.style.display = 'none'; // Re-hide after measuring
 
     // 5. Get gap
     const gap = parseFloat(getComputedStyle(nav!).gap) || 0;
@@ -128,16 +128,22 @@ export function initNavOverflow(config: NavOverflowConfig) {
     }
 
     // 10. Hide overflowed items and show More
-    moreWrapper!.style.display = 'flex';  // Override CSS display:none
+    moreWrapper!.style.display = 'flex'; // Override CSS display:none
 
     for (let i = overflowStartIndex; i < items.length; i++) {
       items[i].style.display = 'none';
       items[i].setAttribute('data-overflow-hidden', 'true');
 
       // Clone into More menu
-      if (items[i].tagName === 'A' || (items[i].querySelector(':scope > a') && !items[i].querySelector('button'))) {
+      if (
+        items[i].tagName === 'A' ||
+        (items[i].querySelector(':scope > a') && !items[i].querySelector('button'))
+      ) {
         // Simple link item
-        const link = items[i].tagName === 'A' ? items[i] as HTMLAnchorElement : items[i].querySelector('a') as HTMLAnchorElement;
+        const link =
+          items[i].tagName === 'A'
+            ? (items[i] as HTMLAnchorElement)
+            : (items[i].querySelector('a') as HTMLAnchorElement);
         if (link) {
           const menuItem = document.createElement('a');
           menuItem.href = link.getAttribute('href') || '#';
@@ -148,15 +154,20 @@ export function initNavOverflow(config: NavOverflowConfig) {
       } else if (items[i].querySelector('button')) {
         // Dropdown item — add heading + child links
         const trigger = items[i].querySelector('button');
-        const dropdownMenu = items[i].querySelector('[class*="dropdown-"][class*="-menu"]') ||
-                             items[i].querySelector('.dropdown-menu');
-        
+        const dropdownMenu =
+          items[i].querySelector('[class*="dropdown-"][class*="-menu"]') ||
+          items[i].querySelector('.dropdown-menu');
+
         if (trigger) {
           const childLinks = dropdownMenu?.querySelectorAll('a') || [];
           if (childLinks.length > 0) {
             const divider = document.createElement('div');
             divider.className = 'nav-more-menu-divider';
-            divider.textContent = trigger.textContent?.trim().replace(/[\n\r]/g, '').replace(/\s+/g, ' ') || '';
+            divider.textContent =
+              trigger.textContent
+                ?.trim()
+                .replace(/[\n\r]/g, '')
+                .replace(/\s+/g, ' ') || '';
             moreMenu!.appendChild(divider);
 
             childLinks.forEach((childLink) => {
@@ -169,7 +180,11 @@ export function initNavOverflow(config: NavOverflowConfig) {
           } else {
             // Dropdown with no children links — just add trigger text
             const menuItem = document.createElement('span');
-            menuItem.textContent = trigger.textContent?.trim().replace(/[\n\r]/g, '').replace(/\s+/g, ' ') || '';
+            menuItem.textContent =
+              trigger.textContent
+                ?.trim()
+                .replace(/[\n\r]/g, '')
+                .replace(/\s+/g, ' ') || '';
             menuItem.className = 'nav-more-menu-item';
             moreMenu!.appendChild(menuItem);
           }
@@ -184,24 +199,36 @@ export function initNavOverflow(config: NavOverflowConfig) {
 
   // Toggle the More dropdown open/close
   if (moreTrigger) {
-    moreTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      moreWrapper!.classList.toggle('is-open');
-    }, { signal: config.signal });
+    moreTrigger.addEventListener(
+      'click',
+      (e) => {
+        e.stopPropagation();
+        moreWrapper!.classList.toggle('is-open');
+      },
+      { signal: config.signal },
+    );
   }
 
   // Close on outside click
-  document.addEventListener('click', () => {
-    moreWrapper!.classList.remove('is-open');
-  }, { signal: config.signal });
+  document.addEventListener(
+    'click',
+    () => {
+      moreWrapper!.classList.remove('is-open');
+    },
+    { signal: config.signal },
+  );
 
   // Run on init
   recalculate();
 
   // Re-run on resize (debounced)
   let resizeTimer: ReturnType<typeof setTimeout>;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(recalculate, 80);
-  }, { signal: config.signal });
+  window.addEventListener(
+    'resize',
+    () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(recalculate, 80);
+    },
+    { signal: config.signal },
+  );
 }

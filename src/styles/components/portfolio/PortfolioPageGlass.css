@@ -38,8 +38,15 @@
 }
 
 @keyframes ppGlassGlowPulse {
-  0%, 100% { transform: scale(1); opacity: 0.08; }
-  50% { transform: scale(1.15); opacity: 0.12; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.08;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.12;
+  }
 }
 
 /* ── Bento Grid ── */
@@ -91,7 +98,7 @@
 
 .c-portfolio-page-glass__card:hover {
   border-color: hsl(var(--a) / 0.2);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px hsl(var(--a) / 0.05),
     var(--shadow-xl),
     inset 0 1px 0 0 hsl(var(--bc) / 0.05);
@@ -164,11 +171,11 @@
 }
 
 /* Monochrome theme overrides for inline card colors */
-[data-theme="monochrome"] .c-portfolio-page-glass__visual > div.bg-gradient-to-br {
+[data-theme='monochrome'] .c-portfolio-page-glass__visual > div.bg-gradient-to-br {
   background: linear-gradient(to bottom right, hsl(var(--bc) / 0.05), hsl(var(--bc) / 0.1));
 }
 
-[data-theme="monochrome"] .c-portfolio-page-glass__inner-glow {
+[data-theme='monochrome'] .c-portfolio-page-glass__inner-glow {
   background: hsl(var(--bc) / 0.15);
 }
 
@@ -315,12 +322,12 @@
 }
 
 .c-portfolio-glass__container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .c-portfolio-glass__container {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .c-portfolio-glass__item {
@@ -340,4 +347,3 @@
     transform: translateX(0);
   }
 }
-

@@ -14,9 +14,7 @@
     "src/styles/components/blog/ShareBar.css",
     "src/styles/components/blog/TableOfContents.css"
   ],
-  "packages": [
-    "@astrojs/mdx"
-  ],
+  "packages": ["@astrojs/mdx"],
   "configPatches": {
     "astro.config.mjs": ["mdx() integration"]
   },

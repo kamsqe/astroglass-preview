@@ -16,7 +16,10 @@
   border-radius: 12px;
   color: hsl(var(--bc) / 0.6);
   text-decoration: none;
-  transition: color var(--motion-quick), transform var(--motion-quick), background-color var(--motion-quick);
+  transition:
+    color var(--motion-quick),
+    transform var(--motion-quick),
+    background-color var(--motion-quick);
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
@@ -76,7 +79,9 @@
   color: hsl(var(--a));
   opacity: 0;
   transform: scale(0.8);
-  transition: opacity var(--motion-instant) ease, transform var(--motion-instant) ease;
+  transition:
+    opacity var(--motion-instant) ease,
+    transform var(--motion-instant) ease;
   position: relative;
   z-index: 1;
 }
@@ -109,7 +114,12 @@
   border: 1px solid hsl(var(--bc) / 0.05);
   color: hsl(var(--bc) / 0.5);
   text-decoration: none;
-  transition: background-color var(--motion-quick), border-color var(--motion-quick), color var(--motion-quick), transform var(--motion-quick), box-shadow var(--motion-quick);
+  transition:
+    background-color var(--motion-quick),
+    border-color var(--motion-quick),
+    color var(--motion-quick),
+    transform var(--motion-quick),
+    box-shadow var(--motion-quick);
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;

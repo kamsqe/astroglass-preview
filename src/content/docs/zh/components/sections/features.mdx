@@ -1,6 +1,6 @@
 ---
-title: "核心功能 (Features) 区块"
-description: "各主题的核心功能展示区块。"
+title: '核心功能 (Features) 区块'
+description: '各主题的核心功能展示区块。'
 order: 4
 ---
 
@@ -10,14 +10,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 
 ## 主题变体
 
-| 主题风格 | 对应组件 | 排版布局 |
-|-------|-----------|--------|
-| **Liquid** | `FeaturesLiquid.astro` | 带有流体悬停动画效果的动态特征卡片 |
-| **Glass** | `FeaturesGlass.astro` | 毛玻璃质感的功能卡片 |
-| **Neo** | `FeaturesNeo.astro` | 采用锋利边缘的大胆粗犷网格布局 |
-| **Luxury** | `FeaturesLuxury.astro` | 缀以金色装饰的高雅网格布局 |
-| **Minimal** | `FeaturesMinimal.astro` | 干净、简约的列表格式 |
-| **Aurora** | `FeaturesAurora.astro` | 基于渐变网格底色背景的卡片展现形式 |
+| 主题风格    | 对应组件                | 排版布局                           |
+| ----------- | ----------------------- | ---------------------------------- |
+| **Liquid**  | `FeaturesLiquid.astro`  | 带有流体悬停动画效果的动态特征卡片 |
+| **Glass**   | `FeaturesGlass.astro`   | 毛玻璃质感的功能卡片               |
+| **Neo**     | `FeaturesNeo.astro`     | 采用锋利边缘的大胆粗犷网格布局     |
+| **Luxury**  | `FeaturesLuxury.astro`  | 缀以金色装饰的高雅网格布局         |
+| **Minimal** | `FeaturesMinimal.astro` | 干净、简约的列表格式               |
+| **Aurora**  | `FeaturesAurora.astro`  | 基于渐变网格底色背景的卡片展现形式 |
 
 所有这些变体组件均位于 `src/components/sections/features/` 目录中。
 
@@ -39,12 +39,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 ```
 
 <Callout type="info" title="无 Props 传参">
-  Features 组件不接收任何外部传递的 props 属性。要想修改功能项、标题或描述，请更新配置 `src/locales/{lang}/features.json`。
+  Features 组件不接收任何外部传递的 props 属性。要想修改功能项、标题或描述，请更新配置 `src/locales/
+  {lang}/features.json`。
 </Callout>
 
 ## 自定义
 
 如需自定义修改：
+
 1. 编辑 `src/components/sections/features/Features{Theme}.astro` 中对应主题的组件情况。
 2. 可以在 `src/styles/components/features/` 中调整其视觉样式。
 3. 请在 `src/locales/{lang}/features.json` 里调整呈现相关的文字等内容。

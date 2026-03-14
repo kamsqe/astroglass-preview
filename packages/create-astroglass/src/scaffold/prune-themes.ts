@@ -180,9 +180,9 @@ const ALL_THEMES = Object.keys(THEME_FILES);
 export async function pruneThemes(
   projectPath: string,
   selectedThemes: string[],
-  dryRun: boolean
+  dryRun: boolean,
 ): Promise<{ removed: number }> {
-  const unselected = ALL_THEMES.filter(t => !selectedThemes.includes(t));
+  const unselected = ALL_THEMES.filter((t) => !selectedThemes.includes(t));
   let removed = 0;
 
   for (const theme of unselected) {

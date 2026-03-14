@@ -21,22 +21,21 @@ const stats = [
 
 <section id="stats" class="stats-strip">
   <div class="stats-strip-inner">
-    {stats.map((stat, i) => (
-      <div class="stats-strip-item" style={`animation-delay: ${i * 0.1}s`}>
-        <span
-          class:list={["stats-strip-value", stat.accent && "stats-strip-value--accent"]}
-          {...(stat.value.match(/^\d/) ? { 'data-count': stat.value } : {})}
-        >
-          {stat.value.match(/^\d/) ? '0' : stat.value}
-        </span>
-        <span class="stats-strip-label">{stat.label}</span>
-      </div>
-    ))}
+    {
+      stats.map((stat, i) => (
+        <div class="stats-strip-item" style={`animation-delay: ${i * 0.1}s`}>
+          <span
+            class:list={['stats-strip-value', stat.accent && 'stats-strip-value--accent']}
+            {...(stat.value.match(/^\d/) ? { 'data-count': stat.value } : {})}
+          >
+            {stat.value.match(/^\d/) ? '0' : stat.value}
+          </span>
+          <span class="stats-strip-label">{stat.label}</span>
+        </div>
+      ))
+    }
   </div>
 </section>
-
-
-
 
 <script>
   function initStatsCountUp() {
@@ -73,7 +72,7 @@ const stats = [
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     observer.observe(strip);
@@ -82,4 +81,3 @@ const stats = [
   initStatsCountUp();
   document.addEventListener('astro:after-swap', initStatsCountUp);
 </script>
-

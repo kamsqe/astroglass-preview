@@ -5,12 +5,12 @@
 }
 
 .c-portfolio-glass__container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .c-portfolio-glass__container {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .c-portfolio-glass__item {

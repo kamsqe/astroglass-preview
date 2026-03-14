@@ -18,8 +18,8 @@
 }
 
 @media (min-width: 1024px) {
-  .header-neo { 
-    padding: 24px 40px; 
+  .header-neo {
+    padding: 24px 40px;
     position: fixed;
   }
 }
@@ -30,7 +30,9 @@
 }
 
 @media (min-width: 1024px) {
-  .header-neo.is-scrolled { padding: 10px 40px; }
+  .header-neo.is-scrolled {
+    padding: 10px 40px;
+  }
 }
 
 /* Inner container */
@@ -42,28 +44,31 @@
   justify-content: space-between;
   gap: 16px;
   padding: 14px 24px;
-  
+
   /* Initial Glass State */
   background: hsl(var(--b1) / 0.6);
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid hsl(var(--bc) / 0.08);
   border-radius: 20px;
-  
+
   transition: all 0.8s var(--ease-spring);
 }
 
 .header-neo.is-scrolled .header-neo-inner {
-  max-width: var(--scrolled-max-width, 960px); /* Wider pill to fit all nav links + actions dynamically */
+  max-width: var(
+    --scrolled-max-width,
+    960px
+  ); /* Wider pill to fit all nav links + actions dynamically */
   padding: 8px 18px;
   border-radius: 999px;
-  
+
   /* Deep Glass Evolution */
   background: hsl(var(--b1) / 0.8);
   backdrop-filter: blur(50px) saturate(180%); /* Increased blur */
   -webkit-backdrop-filter: blur(50px) saturate(180%);
-  box-shadow: 
-    0 4px 6px -1px hsl(var(--shadow-color, 0 0% 0%) / 0.1), 
+  box-shadow:
+    0 4px 6px -1px hsl(var(--shadow-color, 0 0% 0%) / 0.1),
     0 12px 30px -10px hsl(var(--shadow-color, 0 0% 0%) / 0.2);
   border-color: hsl(var(--bc) / 0.12);
 }
@@ -109,7 +114,7 @@
   letter-spacing: -0.02em;
 }
 
-.header-neo.is-scrolled .logo-neo-text { 
+.header-neo.is-scrolled .logo-neo-text {
   max-width: 0;
   opacity: 0;
   transform: translateX(-10px);
@@ -128,7 +133,9 @@
 }
 
 @media (min-width: 1024px) {
-  .nav-neo { display: flex; }
+  .nav-neo {
+    display: flex;
+  }
 }
 
 .header-neo.is-scrolled .nav-neo {
@@ -196,7 +203,7 @@ button.nav-neo-link {
   backdrop-filter: blur(25px);
   border: 1px solid hsl(var(--bc) / 0.08);
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 4px 6px -1px hsl(var(--shadow-color, 0 0% 0%) / 0.05),
     0 12px 30px -8px hsl(var(--shadow-color, 0 0% 0%) / 0.15);
   opacity: 0;
@@ -242,7 +249,9 @@ button.nav-neo-link {
 }
 
 @media (min-width: 1024px) {
-  .header-neo-actions { display: flex; }
+  .header-neo-actions {
+    display: flex;
+  }
 }
 
 .header-neo.is-scrolled .header-neo-actions {
@@ -254,7 +263,9 @@ button.nav-neo-link {
   height: 20px;
   background: hsl(var(--bc) / 0.1);
   margin: 0 4px;
-  transition: height 0.6s var(--ease-spring), opacity 0.6s ease;
+  transition:
+    height 0.6s var(--ease-spring),
+    opacity 0.6s ease;
 }
 
 .header-neo.is-scrolled .header-neo-divider {
@@ -283,7 +294,10 @@ button.nav-neo-link {
   color: hsl(var(--a));
 }
 
-.search-neo svg { width: 18px; height: 18px; }
+.search-neo svg {
+  width: 18px;
+  height: 18px;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                BURGER                                      */
@@ -305,7 +319,9 @@ button.nav-neo-link {
 }
 
 @media (min-width: 1024px) {
-  .burger-neo { display: none; }
+  .burger-neo {
+    display: none;
+  }
 }
 
 .burger-neo:hover {
@@ -395,7 +411,9 @@ button.nav-neo-link {
 }
 
 @media (min-width: 640px) {
-  .overlay-neo-link { font-size: 2.2rem; }
+  .overlay-neo-link {
+    font-size: 2.2rem;
+  }
 }
 
 .overlay-neo-link:hover {
@@ -442,7 +460,9 @@ button.nav-neo-link {
 }
 
 @media (min-width: 640px) {
-  .overlay-neo-group-trigger { font-size: 2.2rem; }
+  .overlay-neo-group-trigger {
+    font-size: 2.2rem;
+  }
 }
 
 .overlay-neo-group-trigger:hover {

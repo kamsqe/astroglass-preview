@@ -1,6 +1,6 @@
 ---
-title: "Sección de Pie de Página (Footer)"
-description: "Secciones del pie de página del sitio para cada tema."
+title: 'Sección de Pie de Página (Footer)'
+description: 'Secciones del pie de página del sitio para cada tema.'
 order: 12
 ---
 
@@ -10,14 +10,14 @@ La sección del Pie de Página (Footer) aparece en la parte inferior de cada pá
 
 ## Variantes del Tema
 
-| Tema | Componente | Estilo |
-|-------|-----------|-------|
-| **Liquid** | `FooterLiquid.astro` | Pie de página con degradado fluido |
-| **Glass** | `FooterGlass.astro` | Pie de página de cristal esmerilado |
-| **Neo** | `FooterNeo.astro` | Pie de página llamativo, de alto contraste |
-| **Luxury** | `FooterLuxury.astro` | Pie de página premium con detalles dorados |
-| **Minimal** | `FooterMinimal.astro` | Pie de página limpio y sencillo |
-| **Aurora** | `FooterAurora.astro` | Pie de página con malla de degradado |
+| Tema        | Componente            | Estilo                                     |
+| ----------- | --------------------- | ------------------------------------------ |
+| **Liquid**  | `FooterLiquid.astro`  | Pie de página con degradado fluido         |
+| **Glass**   | `FooterGlass.astro`   | Pie de página de cristal esmerilado        |
+| **Neo**     | `FooterNeo.astro`     | Pie de página llamativo, de alto contraste |
+| **Luxury**  | `FooterLuxury.astro`  | Pie de página premium con detalles dorados |
+| **Minimal** | `FooterMinimal.astro` | Pie de página limpio y sencillo            |
+| **Aurora**  | `FooterAurora.astro`  | Pie de página con malla de degradado       |
 
 Todas las variantes se encuentran en `src/components/sections/footer/`.
 
@@ -26,5 +26,6 @@ Todas las variantes se encuentran en `src/components/sections/footer/`.
 El texto y los enlaces del pie de página se cargan desde `src/locales/{lang}/footer.json` y `src/locales/{lang}/nav.json` a través de `useTranslations()`.
 
 <Callout type="info" title="Sin Propiedades (Props)">
-  Los componentes Footer no reciben propiedades externas. Para editar los enlaces del pie de página o su texto, actualiza `src/locales/{lang}/footer.json`.
+  Los componentes Footer no reciben propiedades externas. Para editar los enlaces del pie de página
+  o su texto, actualiza `src/locales/{lang}/footer.json`.
 </Callout>

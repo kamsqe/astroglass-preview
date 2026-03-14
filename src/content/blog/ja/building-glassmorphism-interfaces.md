@@ -1,10 +1,10 @@
 ---
-title: "グラスモーフィズムの技術：モダンなインターフェースの構築"
-description: "グラスモーフィズム（Glassmorphism）デザインのトレンドを深掘りします。すりガラス効果、ぼかし、透明度を組み合わせて、視覚的に見事で、アクセシビリティが高く、どのテーマでも美しく機能するインターフェースを作成する方法について説明します。"
+title: 'グラスモーフィズムの技術：モダンなインターフェースの構築'
+description: 'グラスモーフィズム（Glassmorphism）デザインのトレンドを深掘りします。すりガラス効果、ぼかし、透明度を組み合わせて、視覚的に見事で、アクセシビリティが高く、どのテーマでも美しく機能するインターフェースを作成する方法について説明します。'
 date: 2026-02-11
-tags: ["design", "css", "ui", "glassmorphism"]
-author: "Design Team"
-category: "Design"
+tags: ['design', 'css', 'ui', 'glassmorphism']
+author: 'Design Team'
+category: 'Design'
 readingTime: 8
 featured: true
 draft: false
@@ -83,7 +83,7 @@ draft: false
 
 ```css
 .glass-card {
-  transition: 
+  transition:
     transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.4s ease;
 }
@@ -104,12 +104,12 @@ draft: false
 
 ### 緩和策
 
-| 戦略 | 影響 |
-|---|---|
-| ビューポートあたりのガラスレイヤーを2〜3に制限する | 大 |
-| `will-change: transform`を使用する | 中 |
-| モバイルではぼかしの半径を小さくする | 中 |
-| `prefers-reduced-motion`を使ってぼかしを完全に取り除く | 大 |
+| 戦略                                                   | 影響 |
+| ------------------------------------------------------ | ---- |
+| ビューポートあたりのガラスレイヤーを2〜3に制限する     | 大   |
+| `will-change: transform`を使用する                     | 中   |
+| モバイルではぼかしの半径を小さくする                   | 中   |
+| `prefers-reduced-motion`を使ってぼかしを完全に取り除く | 大   |
 
 ## ガラスコンポーネントライブラリの構築
 

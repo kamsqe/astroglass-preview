@@ -13,7 +13,8 @@ interface Props {
   homeHref: string;
 }
 
-const { startProjectLabel, startProjectSubLabel, backToHomeLabel, contactHref, homeHref } = Astro.props;
+const { startProjectLabel, startProjectSubLabel, backToHomeLabel, contactHref, homeHref } =
+  Astro.props;
 ---
 
 <section class="relative py-20 sm:py-28 px-4 overflow-hidden">
@@ -25,7 +26,9 @@ const { startProjectLabel, startProjectSubLabel, backToHomeLabel, contactHref, h
       <span class="text-accent/70 text-sm">◆</span>
     </div>
 
-    <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif font-normal text-base-content mb-4 tracking-tight">
+    <h2
+      class="text-3xl sm:text-4xl md:text-6xl font-serif font-normal text-base-content mb-4 tracking-tight"
+    >
       {startProjectLabel}
     </h2>
     <p class="text-base-content/75 text-lg mb-10 font-light">
@@ -33,15 +36,20 @@ const { startProjectLabel, startProjectSubLabel, backToHomeLabel, contactHref, h
     </p>
 
     <div class="flex flex-col items-center gap-6">
-    <div class="flex flex-col items-center gap-6">
-      <LuxuryButton href={contactHref} variant="primary" class="shadow-xl px-12 py-4">
-        {startProjectLabel}
-      </LuxuryButton>
-      
-      <LuxuryButton href={homeHref} variant="text" icon={true} class="text-base-content/80 hover:text-accent font-light">
-        {backToHomeLabel}
-      </LuxuryButton>
-    </div>
+      <div class="flex flex-col items-center gap-6">
+        <LuxuryButton href={contactHref} variant="primary" class="shadow-xl px-12 py-4">
+          {startProjectLabel}
+        </LuxuryButton>
+
+        <LuxuryButton
+          href={homeHref}
+          variant="text"
+          icon={true}
+          class="text-base-content/80 hover:text-accent font-light"
+        >
+          {backToHomeLabel}
+        </LuxuryButton>
+      </div>
     </div>
   </div>
 </section>

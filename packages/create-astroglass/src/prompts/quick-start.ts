@@ -14,14 +14,16 @@ import {
 
 export async function runQuickStart(dirArg?: string): Promise<UserChoices> {
   // 1. Project directory
-  const projectDir = dirArg || await p.text({
-    message: 'Where should we create your project?',
-    placeholder: './my-astroglass',
-    defaultValue: './my-astroglass',
-    validate: (value) => {
-      if (!value) return 'Please enter a directory path';
-    },
-  });
+  const projectDir =
+    dirArg ||
+    (await p.text({
+      message: 'Where should we create your project?',
+      placeholder: './my-astroglass',
+      defaultValue: './my-astroglass',
+      validate: (value) => {
+        if (!value) return 'Please enter a directory path';
+      },
+    }));
 
   if (p.isCancel(projectDir)) {
     p.cancel('Setup cancelled.');
@@ -31,7 +33,7 @@ export async function runQuickStart(dirArg?: string): Promise<UserChoices> {
   // 2. Pick a theme
   const theme = await p.select({
     message: 'Choose a theme:',
-    options: AVAILABLE_THEMES.map(t => ({
+    options: AVAILABLE_THEMES.map((t) => ({
       value: t.id,
       label: t.label,
       hint: t.hint,
@@ -46,7 +48,7 @@ export async function runQuickStart(dirArg?: string): Promise<UserChoices> {
   // 3. Pick palettes (multi-select)
   const palettes = await p.multiselect({
     message: 'Select color palettes (Space to toggle, Enter to confirm):',
-    options: AVAILABLE_PALETTES.map(pal => ({
+    options: AVAILABLE_PALETTES.map((pal) => ({
       value: pal.id,
       label: pal.label,
       hint: pal.category,
@@ -75,7 +77,7 @@ export async function runQuickStart(dirArg?: string): Promise<UserChoices> {
   if (wantFeatures) {
     const selected = await p.multiselect({
       message: 'Select features (Space to toggle, Enter to confirm):',
-      options: AVAILABLE_FEATURES.map(f => ({
+      options: AVAILABLE_FEATURES.map((f) => ({
         value: f.id,
         label: f.label,
         hint: f.hint,
@@ -93,7 +95,7 @@ export async function runQuickStart(dirArg?: string): Promise<UserChoices> {
   // 5. Deploy target
   const deploy = await p.select({
     message: 'Deploy target:',
-    options: DEPLOY_TARGETS.map(d => ({
+    options: DEPLOY_TARGETS.map((d) => ({
       value: d.value,
       label: d.label,
       hint: d.hint,

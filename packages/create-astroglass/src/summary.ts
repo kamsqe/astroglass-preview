@@ -5,10 +5,7 @@ import pc from 'picocolors';
 import type { UserChoices } from './index.js';
 import type { ScaffoldResult } from './scaffold/index.js';
 
-export function showSummary(
-  choices: UserChoices,
-  result: ScaffoldResult
-): void {
+export function showSummary(choices: UserChoices, result: ScaffoldResult): void {
   const seconds = (result.duration / 1000).toFixed(1);
 
   console.log('');
@@ -24,7 +21,9 @@ export function showSummary(
     `${pc.bold('Features:')}    ${choices.features.length > 0 ? choices.features.join(', ') : 'none'}`,
     `${pc.bold('Deploy:')}      ${choices.deployTarget}`,
     '',
-    pc.dim(`${result.filesRemoved} files pruned · ${result.filesGenerated} files generated · ${seconds}s`),
+    pc.dim(
+      `${result.filesRemoved} files pruned · ${result.filesGenerated} files generated · ${seconds}s`,
+    ),
   ];
 
   const maxLen = 60;

@@ -1,6 +1,6 @@
 ---
-title: "Sección de Preguntas Frecuentes (FAQ)"
-description: "Secciones de preguntas frecuentes con interfaz en formato acordeón para cada tema."
+title: 'Sección de Preguntas Frecuentes (FAQ)'
+description: 'Secciones de preguntas frecuentes con interfaz en formato acordeón para cada tema.'
 order: 8
 ---
 
@@ -10,14 +10,14 @@ La sección de Preguntas Frecuentes (FAQ) muestra preguntas y respuestas comunes
 
 ## Variantes del Tema
 
-| Tema | Componente | Estilo |
-|-------|-----------|-------|
-| **Liquid** | `FAQLiquid.astro` | Acordeones fluidos y animados |
-| **Glass** | `FAQGlass.astro` | Acordeones de cristal esmerilado |
-| **Neo** | `FAQNeo.astro` | Preguntas y respuestas llamativas, de alto contraste |
-| **Luxury** | `FAQLuxury.astro` | Acordeones elegantes con detalles dorados |
-| **Minimal** | `FAQMinimal.astro` | Acordeones limpios y sencillos |
-| **Aurora** | `FAQAurora.astro` | Tarjetas FAQ con fondo degradado |
+| Tema        | Componente         | Estilo                                               |
+| ----------- | ------------------ | ---------------------------------------------------- |
+| **Liquid**  | `FAQLiquid.astro`  | Acordeones fluidos y animados                        |
+| **Glass**   | `FAQGlass.astro`   | Acordeones de cristal esmerilado                     |
+| **Neo**     | `FAQNeo.astro`     | Preguntas y respuestas llamativas, de alto contraste |
+| **Luxury**  | `FAQLuxury.astro`  | Acordeones elegantes con detalles dorados            |
+| **Minimal** | `FAQMinimal.astro` | Acordeones limpios y sencillos                       |
+| **Aurora**  | `FAQAurora.astro`  | Tarjetas FAQ con fondo degradado                     |
 
 Todas las variantes se encuentran en `src/components/sections/faq/`.
 
@@ -26,12 +26,14 @@ Todas las variantes se encuentran en `src/components/sections/faq/`.
 Los elementos de las FAQ se cargan desde `src/locales/{lang}/faq.json` a través de `useTranslations()`. La estructura JSON por lo general contiene un arreglo (array) de pares de pregunta-respuesta.
 
 <Callout type="info" title="Sin Propiedades (Props)">
-  Los componentes FAQ no reciben propiedades externas. Para añadir, eliminar o editar elementos de las preguntas frecuentes, actualiza `src/locales/{lang}/faq.json`.
+  Los componentes FAQ no reciben propiedades externas. Para añadir, eliminar o editar elementos de
+  las preguntas frecuentes, actualiza `src/locales/{lang}/faq.json`.
 </Callout>
 
 ## Personalización
 
 Para personalizar:
+
 1. Edita `src/components/sections/faq/FAQ{Theme}.astro`.
 2. Ajusta los estilos en `src/styles/components/faq/`.
 3. Cambia el contenido en `src/locales/{lang}/faq.json`.

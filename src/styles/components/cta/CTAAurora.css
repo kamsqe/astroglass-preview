@@ -132,13 +132,24 @@
 
 .cta-aurora-btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px hsl(var(--a) / 0.3), 0 0 60px hsl(var(--a) / 0.15);
+  box-shadow:
+    0 8px 30px hsl(var(--a) / 0.3),
+    0 0 60px hsl(var(--a) / 0.15);
   animation: cta-aurora-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes cta-aurora-pulse {
-  0%, 100% { box-shadow: 0 8px 30px hsl(var(--a) / 0.3), 0 0 60px hsl(var(--a) / 0.15); }
-  50% { box-shadow: 0 8px 40px hsl(var(--a) / 0.5), 0 0 80px hsl(var(--a) / 0.25); }
+  0%,
+  100% {
+    box-shadow:
+      0 8px 30px hsl(var(--a) / 0.3),
+      0 0 60px hsl(var(--a) / 0.15);
+  }
+  50% {
+    box-shadow:
+      0 8px 40px hsl(var(--a) / 0.5),
+      0 0 80px hsl(var(--a) / 0.25);
+  }
 }
 
 .cta-aurora-btn-glow {

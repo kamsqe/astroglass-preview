@@ -27,7 +27,7 @@
 
 .contact-minimal-intent:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -44,8 +44,8 @@
 }
 
 .contact-minimal-step.completed > div:first-child {
-  background: hsl(var(--bc)); 
-  color: hsl(var(--b1));  
+  background: hsl(var(--bc));
+  color: hsl(var(--b1));
 }
 
 .contact-minimal-connector.active {

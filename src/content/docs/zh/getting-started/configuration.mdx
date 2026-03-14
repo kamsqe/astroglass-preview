@@ -1,6 +1,6 @@
 ---
-title: "配置"
-description: "自定义 AstroGlass 以匹配您的品牌。"
+title: '配置'
+description: '自定义 AstroGlass 以匹配您的品牌。'
 order: 3
 ---
 
@@ -12,12 +12,8 @@ AstroGlass 通过 `src/config/` 中的文件和标准 CSS 自定义属性进行�
 ## 配置文件
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — 主题定义（名称、颜色、区块、高级标记）
-    - **locales.ts** — 支持的语言和语言环境元数据
-    - **navigation.ts** — 主站导航结构
-    - **docs.ts** — 文档侧边栏和版本配置
+  - src/ - config/ - **themes.ts** — 主题定义（名称、颜色、区块、高级标记） - **locales.ts** —
+  支持的语言和语言环境元数据 - **navigation.ts** — 主站导航结构 - **docs.ts** — 文档侧边栏和版本配置
 </FileTree>
 
 ## 使用 Tailwind CSS v4 设置样式
@@ -28,16 +24,17 @@ AstroGlass 通过 `src/config/` 中的文件和标准 CSS 自定义属性进行�
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* 主色（HSL） */
-  --s: 310 80% 60%;   /* 次要色 */
-  --a: 190 90% 60%;   /* 强调色 */
-  --b1: 220 20% 10%;  /* 基础背景 */
-  --bc: 220 20% 90%;  /* 基础内容（文字） */
+  --p: 260 80% 60%; /* 主色（HSL） */
+  --s: 310 80% 60%; /* 次要色 */
+  --a: 190 90% 60%; /* 强调色 */
+  --b1: 220 20% 10%; /* 基础背景 */
+  --bc: 220 20% 90%; /* 基础内容（文字） */
 }
 ```
 
 <Callout type="tip" title="更改颜色">
-  要更改站点的配色方案，请更新 `src/styles/global.css` 中的 HSL 值。主题特定的覆盖在 `src/styles/_themes.css` 中，使用 `[data-theme="..."]` 选择器。
+  要更改站点的配色方案，请更新 `src/styles/global.css` 中的 HSL 值。主题特定的覆盖在
+  `src/styles/_themes.css` 中，使用 `[data-theme="..."]` 选择器。
 </Callout>
 
 ## 主题配置
@@ -51,7 +48,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Fluid, organic design with smooth animations',
@@ -66,7 +75,21 @@ export const themes: ThemeDefinition[] = [
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```

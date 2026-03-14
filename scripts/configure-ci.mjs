@@ -24,9 +24,15 @@ function parseArgs() {
     if (args[i] === '--theme' && args[i + 1]) {
       opts.theme = args[++i];
     } else if (args[i] === '--locales' && args[i + 1]) {
-      opts.locales = args[++i].split(',').map(s => s.trim()).filter(Boolean);
+      opts.locales = args[++i]
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (args[i] === '--palettes' && args[i + 1]) {
-      opts.palettes = args[++i].split(',').map(s => s.trim()).filter(Boolean);
+      opts.palettes = args[++i]
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     }
   }
 
@@ -38,7 +44,9 @@ async function main() {
 
   // Validate
   if (!theme || !locales?.length || !palettes?.length) {
-    console.error('Usage: node scripts/configure-ci.mjs --theme <theme> --locales <a,b> --palettes <a,b>');
+    console.error(
+      'Usage: node scripts/configure-ci.mjs --theme <theme> --locales <a,b> --palettes <a,b>',
+    );
     process.exit(1);
   }
 
@@ -61,7 +69,9 @@ async function main() {
     }
   }
 
-  console.log(`Configuring: theme=${theme} locales=${locales.join(',')} palettes=${palettes.join(',')}`);
+  console.log(
+    `Configuring: theme=${theme} locales=${locales.join(',')} palettes=${palettes.join(',')}`,
+  );
 
   // Prune themes
   process.stdout.write('  Pruning themes... ');

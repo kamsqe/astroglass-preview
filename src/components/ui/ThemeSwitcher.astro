@@ -17,16 +17,22 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 // Build theme lists from centralized config
-const lightThemes = getPalettesByCategory('light').map(p => ({
-  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+const lightThemes = getPalettesByCategory('light').map((p) => ({
+  id: p.id,
+  icon: p.icon,
+  label: t(`themeSwitcher.themes.${p.id}`),
 }));
 
-const darkThemes = getPalettesByCategory('dark').map(p => ({
-  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+const darkThemes = getPalettesByCategory('dark').map((p) => ({
+  id: p.id,
+  icon: p.icon,
+  label: t(`themeSwitcher.themes.${p.id}`),
 }));
 
-const colorThemes = getPalettesByCategory('colorful').map(p => ({
-  id: p.id, icon: p.icon, label: t(`themeSwitcher.themes.${p.id}`),
+const colorThemes = getPalettesByCategory('colorful').map((p) => ({
+  id: p.id,
+  icon: p.icon,
+  label: t(`themeSwitcher.themes.${p.id}`),
 }));
 
 // Category labels from translations
@@ -45,120 +51,108 @@ const paletteIconMap = JSON.stringify(getPaletteIconMap());
 
 <script type="application/json" id="palette-icon-data" set:html={paletteIconMap} />
 
-{variant === 'mobile' ? (
-  <!-- Mobile: Horizontal scrollable grid -->
-  <!-- Mobile: Horizontal scrollable list -->
-  <div class="theme-switcher-mobile" data-theme-switcher-mobile>
-    <div class="theme-scroll-container">
-      {allThemes.map((theme) => (
-        <button
-          type="button"
-          data-theme-option={theme.id}
-          class="theme-option theme-option-mobile"
-          aria-label={theme.label}
-        >
-          <span class="theme-emoji">{theme.icon}</span>
-          <span class="theme-label">{theme.label}</span>
-        </button>
-      ))}
+{
+  variant === 'mobile' ? (
+    <div class="theme-switcher-mobile" data-theme-switcher-mobile>
+      <div class="theme-scroll-container">
+        {allThemes.map((theme) => (
+          <button
+            type="button"
+            data-theme-option={theme.id}
+            class="theme-option theme-option-mobile"
+            aria-label={theme.label}
+          >
+            <span class="theme-emoji">{theme.icon}</span>
+            <span class="theme-label">{theme.label}</span>
+          </button>
+        ))}
+      </div>
+      <div class="scroll-fade-left" />
+      <div class="scroll-fade-right" />
     </div>
-    <!-- Fade gradients for scroll indication -->
-    <div class="scroll-fade-left"></div>
-    <div class="scroll-fade-right"></div>
-  </div>
-) : (
-  <!-- Desktop: Categorized Dropdown -->
-  <div class:list={['theme-switcher relative', className]} data-theme-switcher>
-    <button
-      type="button"
-      class="theme-trigger switcher-btn"
-      aria-label="Select theme"
-      aria-expanded="false"
-    >
-      <span class="theme-icon switcher-emoji">☀️</span>
-      <svg class="switcher-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
+  ) : (
+    <div class:list={['theme-switcher relative', className]} data-theme-switcher>
+      <button
+        type="button"
+        class="theme-trigger switcher-btn"
+        aria-label="Select theme"
+        aria-expanded="false"
+      >
+        <span class="theme-icon switcher-emoji">☀️</span>
+        <svg class="switcher-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
 
-    <div class="theme-menu switcher-menu">
-      <!-- Light Themes -->
-      <div class="theme-category">
-        <div class="theme-category-header">
-          <span class="theme-category-icon">☀️</span>
-          <span class="theme-category-label">{categoryLabels.light}</span>
+      <div class="theme-menu switcher-menu">
+        <div class="theme-category">
+          <div class="theme-category-header">
+            <span class="theme-category-icon">☀️</span>
+            <span class="theme-category-label">{categoryLabels.light}</span>
+          </div>
+          <div class="theme-category-grid">
+            {lightThemes.map((theme) => (
+              <button type="button" data-theme-option={theme.id} class="theme-option-card">
+                <span class="theme-card-emoji">{theme.icon}</span>
+                <span class="theme-card-label">{theme.label}</span>
+                <span class="theme-card-check">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
-        <div class="theme-category-grid">
-          {lightThemes.map((theme) => (
-            <button
-              type="button"
-              data-theme-option={theme.id}
-              class="theme-option-card"
-            >
-              <span class="theme-card-emoji">{theme.icon}</span>
-              <span class="theme-card-label">{theme.label}</span>
-              <span class="theme-card-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
 
-      <!-- Dark Themes -->
-      <div class="theme-category">
-        <div class="theme-category-header">
-          <span class="theme-category-icon">🌙</span>
-          <span class="theme-category-label">{categoryLabels.dark}</span>
+        <div class="theme-category">
+          <div class="theme-category-header">
+            <span class="theme-category-icon">🌙</span>
+            <span class="theme-category-label">{categoryLabels.dark}</span>
+          </div>
+          <div class="theme-category-grid">
+            {darkThemes.map((theme) => (
+              <button type="button" data-theme-option={theme.id} class="theme-option-card">
+                <span class="theme-card-emoji">{theme.icon}</span>
+                <span class="theme-card-label">{theme.label}</span>
+                <span class="theme-card-check">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
-        <div class="theme-category-grid">
-          {darkThemes.map((theme) => (
-            <button
-              type="button"
-              data-theme-option={theme.id}
-              class="theme-option-card"
-            >
-              <span class="theme-card-emoji">{theme.icon}</span>
-              <span class="theme-card-label">{theme.label}</span>
-              <span class="theme-card-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
 
-      <!-- Colorful Themes -->
-      <div class="theme-category">
-        <div class="theme-category-header">
-          <span class="theme-category-icon">🎨</span>
-          <span class="theme-category-label">{categoryLabels.colorful}</span>
-        </div>
-        <div class="theme-category-grid theme-category-grid-4">
-          {colorThemes.map((theme) => (
-            <button
-              type="button"
-              data-theme-option={theme.id}
-              class="theme-option-card"
-            >
-              <span class="theme-card-emoji">{theme.icon}</span>
-              <span class="theme-card-label">{theme.label}</span>
-              <span class="theme-card-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-            </button>
-          ))}
+        <div class="theme-category">
+          <div class="theme-category-header">
+            <span class="theme-category-icon">🎨</span>
+            <span class="theme-category-label">{categoryLabels.colorful}</span>
+          </div>
+          <div class="theme-category-grid theme-category-grid-4">
+            {colorThemes.map((theme) => (
+              <button type="button" data-theme-option={theme.id} class="theme-option-card">
+                <span class="theme-card-emoji">{theme.icon}</span>
+                <span class="theme-card-label">{theme.label}</span>
+                <span class="theme-card-check">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-)}
+  )
+}
 
 <script>
   // Read palette icon map from serialized data (sourced from palettes.ts)
@@ -214,49 +208,70 @@ const paletteIconMap = JSON.stringify(getPaletteIconMap());
     setTheme(currentTheme);
 
     // Desktop dropdown switchers
-    document.querySelectorAll('[data-theme-switcher]').forEach(switcher => {
+    document.querySelectorAll('[data-theme-switcher]').forEach((switcher) => {
       const trigger = switcher.querySelector('.theme-trigger');
       if (!trigger) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = switcher.classList.contains('is-open');
-        // Close all switchers (theme and language)
-        document.querySelectorAll('[data-theme-switcher].is-open, [data-lang-switcher].is-open').forEach(s => {
-          s.classList.remove('is-open');
-          s.querySelector('.theme-trigger, .lang-trigger')?.setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
-          switcher.classList.add('is-open');
-          trigger.setAttribute('aria-expanded', 'true');
-        } else {
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      }, { signal });
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          const isOpen = switcher.classList.contains('is-open');
+          // Close all switchers (theme and language)
+          document
+            .querySelectorAll('[data-theme-switcher].is-open, [data-lang-switcher].is-open')
+            .forEach((s) => {
+              s.classList.remove('is-open');
+              s.querySelector('.theme-trigger, .lang-trigger')?.setAttribute(
+                'aria-expanded',
+                'false',
+              );
+            });
+          if (!isOpen) {
+            switcher.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          } else {
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        },
+        { signal },
+      );
 
       // Desktop card buttons
-      switcher.querySelectorAll('.theme-option-card').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const theme = btn.getAttribute('data-theme-option') as Theme;
-          setTheme(theme);
-          switcher.classList.remove('is-open');
-        }, { signal });
+      switcher.querySelectorAll('.theme-option-card').forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          (e) => {
+            e.stopPropagation();
+            const theme = btn.getAttribute('data-theme-option') as Theme;
+            setTheme(theme);
+            switcher.classList.remove('is-open');
+          },
+          { signal },
+        );
       });
     });
 
     // Mobile horizontal switchers
-    document.querySelectorAll('[data-theme-switcher-mobile]').forEach(switcher => {
+    document.querySelectorAll('[data-theme-switcher-mobile]').forEach((switcher) => {
       const scrollContainer = switcher.querySelector('.theme-scroll-container');
-      
-      switcher.querySelectorAll('.theme-option-mobile').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const theme = btn.getAttribute('data-theme-option') as Theme;
-          if (navigator.vibrate) navigator.vibrate(10);
-          setTheme(theme);
-          (btn as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }, { signal });
+
+      switcher.querySelectorAll('.theme-option-mobile').forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          (e) => {
+            e.stopPropagation();
+            const theme = btn.getAttribute('data-theme-option') as Theme;
+            if (navigator.vibrate) navigator.vibrate(10);
+            setTheme(theme);
+            (btn as HTMLElement).scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'center',
+            });
+          },
+          { signal },
+        );
       });
 
       // Initial scroll to active item
@@ -266,10 +281,10 @@ const paletteIconMap = JSON.stringify(getPaletteIconMap());
           const containerWidth = scrollContainer.clientWidth;
           const btnLeft = (activeBtn as HTMLElement).offsetLeft;
           const btnWidth = (activeBtn as HTMLElement).offsetWidth;
-          
+
           scrollContainer.scrollTo({
             left: btnLeft - containerWidth / 2 + btnWidth / 2,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }, 300);
       }
@@ -279,17 +294,25 @@ const paletteIconMap = JSON.stringify(getPaletteIconMap());
     updateActiveStates(getStoredTheme());
 
     // Listen for external theme changes
-    window.addEventListener('theme-changed', (e: any) => {
-      updateActiveStates(e.detail.theme);
-    }, { signal });
+    window.addEventListener(
+      'theme-changed',
+      (e: any) => {
+        updateActiveStates(e.detail.theme);
+      },
+      { signal },
+    );
 
     // Close on outside click
-    document.addEventListener('click', () => {
-      document.querySelectorAll('[data-theme-switcher].is-open').forEach(s => {
-        s.classList.remove('is-open');
-        s.querySelector('.theme-trigger')?.setAttribute('aria-expanded', 'false');
-      });
-    }, { signal });
+    document.addEventListener(
+      'click',
+      () => {
+        document.querySelectorAll('[data-theme-switcher].is-open').forEach((s) => {
+          s.classList.remove('is-open');
+          s.querySelector('.theme-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+      },
+      { signal },
+    );
   }
 
   initThemeSwitchers();

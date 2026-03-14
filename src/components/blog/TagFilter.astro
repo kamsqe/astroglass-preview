@@ -23,14 +23,16 @@ const blogBase = basePath;
     >
       {t('blog.allPosts')}
     </LocalizedLink>
-    {tags.map(tag => (
-      <LocalizedLink
-        href={`${blogBase}/tag/${tag}/`}
-        class={`tag-filter__pill ${activeTag === tag ? 'tag-filter__pill--active' : ''}`}
-      >
-        {tag}
-      </LocalizedLink>
-    ))}
+    {
+      tags.map((tag) => (
+        <LocalizedLink
+          href={`${blogBase}/tag/${tag}/`}
+          class={`tag-filter__pill ${activeTag === tag ? 'tag-filter__pill--active' : ''}`}
+        >
+          {tag}
+        </LocalizedLink>
+      ))
+    }
   </div>
 </nav>
 

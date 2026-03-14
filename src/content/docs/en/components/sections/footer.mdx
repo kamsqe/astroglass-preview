@@ -1,6 +1,6 @@
 ---
-title: "Footer Section"
-description: "Site footer sections for each theme."
+title: 'Footer Section'
+description: 'Site footer sections for each theme.'
 order: 12
 ---
 
@@ -10,14 +10,14 @@ The Footer section appears at the bottom of every theme page. Each theme provide
 
 ## Theme Variants
 
-| Theme | Component | Style |
-|-------|-----------|-------|
-| **Liquid** | `FooterLiquid.astro` | Fluid gradient footer |
-| **Glass** | `FooterGlass.astro` | Frosted glass footer |
-| **Neo** | `FooterNeo.astro` | Bold, high-contrast footer |
-| **Luxury** | `FooterLuxury.astro` | Premium footer with gold accents |
-| **Minimal** | `FooterMinimal.astro` | Clean, simple footer |
-| **Aurora** | `FooterAurora.astro` | Gradient mesh footer |
+| Theme       | Component             | Style                            |
+| ----------- | --------------------- | -------------------------------- |
+| **Liquid**  | `FooterLiquid.astro`  | Fluid gradient footer            |
+| **Glass**   | `FooterGlass.astro`   | Frosted glass footer             |
+| **Neo**     | `FooterNeo.astro`     | Bold, high-contrast footer       |
+| **Luxury**  | `FooterLuxury.astro`  | Premium footer with gold accents |
+| **Minimal** | `FooterMinimal.astro` | Clean, simple footer             |
+| **Aurora**  | `FooterAurora.astro`  | Gradient mesh footer             |
 
 All variants are located at `src/components/sections/footer/`.
 
@@ -26,5 +26,6 @@ All variants are located at `src/components/sections/footer/`.
 Footer text and links are loaded from `src/locales/{lang}/footer.json` and `src/locales/{lang}/nav.json` via `useTranslations()`.
 
 <Callout type="info" title="No Props">
-  Footer components take no external props. To edit footer links or text, update `src/locales/{lang}/footer.json`.
+  Footer components take no external props. To edit footer links or text, update `src/locales/{lang}
+  /footer.json`.
 </Callout>

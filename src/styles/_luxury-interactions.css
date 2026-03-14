@@ -9,12 +9,12 @@
   /* Easing - "Liquid" feel */
   --ease-luxury: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-luxury-out: cubic-bezier(0.23, 1, 0.32, 1);
-  
+
   /* Durations - Slower for premium feel */
   --duration-luxury-fast: 0.4s;
   --duration-luxury-medium: 0.6s;
   --duration-luxury-slow: 0.8s;
-  
+
   /* Transforms - Subtle, not jumpy */
   --scale-luxury-hover: 1.02;
   --lift-luxury-hover: -4px;
@@ -43,7 +43,7 @@
   @media (hover: hover) {
     .hover-luxury-card:hover {
       transform: translateY(var(--lift-luxury-hover)) scale(var(--scale-luxury-hover));
-      box-shadow: 
+      box-shadow:
         0 20px 40px -4px rgba(0, 0, 0, 0.1),
         0 10px 20px -4px rgba(0, 0, 0, 0.04);
     }
@@ -62,7 +62,7 @@
       transform: scale(1.03); /* Slightly more tactile than cards */
       filter: brightness(1.1);
     }
-    
+
     .hover-luxury-btn:active {
       transform: scale(0.98);
       transition-duration: 0.1s;
@@ -75,7 +75,9 @@
   */
   .hover-luxury-text {
     display: inline-block;
-    transition: color var(--duration-luxury-fast) var(--ease-luxury), transform var(--duration-luxury-fast) var(--ease-luxury-out);
+    transition:
+      color var(--duration-luxury-fast) var(--ease-luxury),
+      transform var(--duration-luxury-fast) var(--ease-luxury-out);
   }
 
   @media (hover: hover) {
@@ -93,7 +95,7 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .hover-luxury-nav::before {
     content: '';
     position: absolute;

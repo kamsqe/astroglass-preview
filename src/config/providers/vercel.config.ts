@@ -1,19 +1,19 @@
 /**
  * Vercel Provider Configuration
- * 
+ *
  * Astro adapter configuration for Vercel deployment.
- * 
+ *
  * NOTE: To use this provider:
  * 1. Install the adapter: pnpm add @astrojs/vercel
  * 2. Update active-provider.ts to export from this file
- * 
+ *
  * @see https://docs.astro.build/en/guides/deploy/vercel/
  */
 
 // Uncomment after installing @astrojs/vercel
 // import vercel from '@astrojs/vercel';
 
-/** 
+/**
  * Vercel adapter
  * Uncomment after installing @astrojs/vercel
  */

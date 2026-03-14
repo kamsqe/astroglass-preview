@@ -44,8 +44,13 @@
 }
 
 @keyframes pricing-icon-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 .pricing-aurora-title {
@@ -202,7 +207,9 @@
 }
 
 @keyframes aurora-border-rotate {
-  to { --pricing-border-angle: 360deg; }
+  to {
+    --pricing-border-angle: 360deg;
+  }
 }
 
 @property --pricing-border-angle {

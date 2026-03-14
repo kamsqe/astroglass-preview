@@ -12,19 +12,16 @@ export function canRemoveReact(currentFeatures: string[]): {
   safe: boolean;
   blockers: string[];
 } {
-  const blockers = currentFeatures.filter(f => REACT_DEPENDENTS.includes(f));
+  const blockers = currentFeatures.filter((f) => REACT_DEPENDENTS.includes(f));
   return { safe: blockers.length === 0, blockers };
 }
 
 /**
  * Get features that would be cascade-removed with a given feature
  */
-export function getCascadeRemovals(
-  feature: string,
-  currentFeatures: string[]
-): string[] {
+export function getCascadeRemovals(feature: string, currentFeatures: string[]): string[] {
   if (feature === 'react') {
-    return currentFeatures.filter(f => REACT_DEPENDENTS.includes(f));
+    return currentFeatures.filter((f) => REACT_DEPENDENTS.includes(f));
   }
   return [];
 }

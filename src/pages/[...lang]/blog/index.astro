@@ -2,9 +2,9 @@
 import { getEnabledLocaleCodes, defaultLocale } from '../../../config/locales';
 
 export async function getStaticPaths() {
-  return getEnabledLocaleCodes().map(lang => ({
+  return getEnabledLocaleCodes().map((lang) => ({
     params: { lang: lang === defaultLocale ? undefined : lang },
-    props: { locale: lang }
+    props: { locale: lang },
   }));
 }
 
@@ -26,11 +26,11 @@ const posts = await getCollection('blog', ({ id, data }) => {
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // Featured post: first featured post, or fall back to most recent
-const featuredPost = sortedPosts.find(p => p.data.featured) || sortedPosts[0];
-const gridPosts = sortedPosts.filter(p => p !== featuredPost);
+const featuredPost = sortedPosts.find((p) => p.data.featured) || sortedPosts[0];
+const gridPosts = sortedPosts.filter((p) => p !== featuredPost);
 
 // Collect all unique tags
-const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
+const allTags = [...new Set(sortedPosts.flatMap((p) => p.data.tags))].sort();
 ---
 
 <BaseLayout title={t('blog.title')} description={t('blog.description')}>
@@ -46,29 +46,39 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
     </header>
 
     {/* Featured post hero */}
-    {featuredPost && (
-      <section class="blog-index__hero" aria-label={t('blog.featuredBadge')}>
-        <BlogHero post={featuredPost} />
-      </section>
-    )}
+    {
+      featuredPost && (
+        <section class="blog-index__hero" aria-label={t('blog.featuredBadge')}>
+          <BlogHero post={featuredPost} />
+        </section>
+      )
+    }
 
     {/* Tag filter */}
-    {allTags.length > 0 && (
-      <section class="blog-index__filter">
-        <TagFilter tags={allTags} />
-      </section>
-    )}
+    {
+      allTags.length > 0 && (
+        <section class="blog-index__filter">
+          <TagFilter tags={allTags} />
+        </section>
+      )
+    }
 
     {/* Post grid */}
     <section class="blog-index__grid-section">
-      {gridPosts.length > 0 && (
-        <div class="blog-index__grid">
-          {gridPosts.map(post => <BlogCard post={post} />)}
-        </div>
-      )}
-      {gridPosts.length === 0 && sortedPosts.length <= 1 && (
-        <p class="blog-index__empty">{t('blog.noPosts')}</p>
-      )}
+      {
+        gridPosts.length > 0 && (
+          <div class="blog-index__grid">
+            {gridPosts.map((post) => (
+              <BlogCard post={post} />
+            ))}
+          </div>
+        )
+      }
+      {
+        gridPosts.length === 0 && sortedPosts.length < 2 && (
+          <p class="blog-index__empty">{t('blog.noPosts')}</p>
+        )
+      }
     </section>
 
     {/* Newsletter CTA */}
@@ -112,8 +122,15 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
   }
 
   @keyframes blog-dot-pulse {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.3); }
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.3);
+    }
   }
 
   .blog-index__title {

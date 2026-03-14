@@ -1,6 +1,6 @@
 ---
-title: "API анықтамалығы (Reference)"
-description: "AstroGlass компоненттері мен утилиталарына арналған техникалық API анықтамалығы."
+title: 'API анықтамалығы (Reference)'
+description: 'AstroGlass компоненттері мен утилиталарына арналған техникалық API анықтамалығы.'
 order: 1
 ---
 
@@ -15,6 +15,7 @@ AstroGlass-те қолданылатын негізгі функцияларға
 **Модуль**: `src/utils/i18n.ts`
 
 **Қолтаңбасы (Signature)**:
+
 ```typescript
 function useTranslations(locale: Locale): (key: string) => string;
 ```
@@ -27,6 +28,7 @@ function useTranslations(locale: Locale): (key: string) => string;
 **Қайтарады**: Аударылған мәнге нүкте арқылы жазылған (dot-notation) кілтті шешетін `t(key: string): string` функциясын қайтарады. Егер кілт табылмаса, ол кілттің өзін қайтарады және әзірлеу (development) режимінде ескертуді тіркейді (logs a warning).
 
 **Қолданылуы**:
+
 ```astro
 ---
 import { useTranslations } from '../utils/i18n';
@@ -35,11 +37,13 @@ import { getLocaleFromUrl } from '../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
+
 <h1>{t('hero.title')}</h1>
 <p>{t('hero.subtitle')}</p>
 ```
 
 **Негізгі әрекет (Key Behavior)**:
+
 - `common.json` файлынан алынған кілттер түбірлік деңгейде орналасады (мысалы, `t('title')`)
 - Барлық басқа файлдар файл атауы бойынша кеңістікке бөлінеді (мысалы, `t('hero.title')`, `t('pricing.plans.pro.name')`)
 - Табылмаған кілттер өндіріс (production) режимінде кілт жолын (string) қайтарады, ал әзірлеу режимінде ескерту тіркейді
@@ -53,6 +57,7 @@ const t = useTranslations(locale);
 **Модуль**: `src/utils/locale-utils.ts`
 
 **Қолтаңбасы**:
+
 ```typescript
 function getLocaleFromUrl(url: URL): Locale;
 ```
@@ -68,6 +73,7 @@ URL жолынан локаль префиксін қайтарады, еште�
 **Модуль**: `src/utils/docs-nav.ts`
 
 **Қолтаңбасы**:
+
 ```typescript
 function buildNavLinks(locale: string, section?: string): NavLink[];
 ```
@@ -83,6 +89,7 @@ function buildNavLinks(locale: string, section?: string): NavLink[];
 **Модуль**: `src/config/themes.ts`
 
 **Қолтаңбасы**:
+
 ```typescript
 function getEnabledThemes(): ThemeDefinition[];
 ```
@@ -96,6 +103,7 @@ function getEnabledThemes(): ThemeDefinition[];
 **Модуль**: `src/config/themes.ts`
 
 **Қолтаңбасы**:
+
 ```typescript
 function getThemeById(id: string): ThemeDefinition | undefined;
 ```
@@ -106,14 +114,14 @@ function getThemeById(id: string): ThemeDefinition | undefined;
 
 ```typescript
 interface ThemeDefinition {
-  id: string;              // URL slug (мысалы, 'liquid', 'aurora')
-  name: string;            // Көрсетілетін атау
-  color: string;           // Tailwind градиент кластары
-  icon: string;            // Эмодзи белгішесі (icon)
-  sections: string[];      // Іске қосылған бөлімдер
-  enabled: boolean;        // Тақырып белсенді ме
-  premium: boolean;        // Премиум жалаушасы (flag)
-  description: string;     // Бір жолдық сипаттама
+  id: string; // URL slug (мысалы, 'liquid', 'aurora')
+  name: string; // Көрсетілетін атау
+  color: string; // Tailwind градиент кластары
+  icon: string; // Эмодзи белгішесі (icon)
+  sections: string[]; // Іске қосылған бөлімдер
+  enabled: boolean; // Тақырып белсенді ме
+  premium: boolean; // Премиум жалаушасы (flag)
+  description: string; // Бір жолдық сипаттама
 }
 ```
 
@@ -121,10 +129,10 @@ interface ThemeDefinition {
 
 ```typescript
 interface LocaleConfig {
-  code: string;            // ISO тіл коды
-  name: string;            // Ағылшынша атауы
-  nativeName: string;      // Ана тіліндегі атауы
-  flag: string;            // Жалау эмодзиі
+  code: string; // ISO тіл коды
+  name: string; // Ағылшынша атауы
+  nativeName: string; // Ана тіліндегі атауы
+  flag: string; // Жалау эмодзиі
   direction: 'ltr' | 'rtl';
   enabled: boolean;
 }
@@ -132,11 +140,11 @@ interface LocaleConfig {
 
 ## Қолжетімді тақырыптар
 
-| ID | Атауы | Белгішесі |
-|----|--------|-------|
-| `liquid` | Liquid | 💧 |
-| `glass` | Glass | 🪟 |
-| `neo` | Neo | ⚡ |
-| `luxury` | Luxury | 👑 |
-| `minimal` | Minimal | ✨ |
-| `aurora` | Aurora | 🌌 |
+| ID        | Атауы   | Белгішесі |
+| --------- | ------- | --------- |
+| `liquid`  | Liquid  | 💧        |
+| `glass`   | Glass   | 🪟        |
+| `neo`     | Neo     | ⚡        |
+| `luxury`  | Luxury  | 👑        |
+| `minimal` | Minimal | ✨        |
+| `aurora`  | Aurora  | 🌌        |

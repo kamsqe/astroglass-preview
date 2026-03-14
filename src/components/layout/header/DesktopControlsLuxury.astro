@@ -1,7 +1,7 @@
 ---
 /**
  * Luxury Desktop Controls
- * 
+ *
  * Vertical control cluster for the "Monolith" sidebar.
  * Features hover-expandable menus for Theme and Language.
  */
@@ -22,15 +22,17 @@ const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
 const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
 
 const enabledLocales = getEnabledLocales();
-const localePaths = enabledLocales.map(loc => ({
+const localePaths = enabledLocales.map((loc) => ({
   code: loc.code,
   nativeName: loc.nativeName,
   href: getRelativeLocaleUrl(loc.code, cleanPath),
   isActive: locale === loc.code,
 }));
 
-const themes = palettes.map(p => ({
-  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex,
+const themes = palettes.map((p) => ({
+  id: p.id,
+  label: p.id.charAt(0).toUpperCase() + p.id.slice(1),
+  color: p.accentHex,
 }));
 ---
 
@@ -43,15 +45,18 @@ const themes = palettes.map(p => ({
       </div>
       <span class="luxury-label">{t('languageSwitcher.label')}</span>
       <svg class="luxury-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"
+        ></path>
       </svg>
     </button>
     <div class="luxury-accordion-content">
-      {localePaths.map(loc => (
-        <a href={loc.href} class={`luxury-accordion-item ${loc.isActive ? 'is-active' : ''}`}>
-          {loc.nativeName}
-        </a>
-      ))}
+      {
+        localePaths.map((loc) => (
+          <a href={loc.href} class={`luxury-accordion-item ${loc.isActive ? 'is-active' : ''}`}>
+            {loc.nativeName}
+          </a>
+        ))
+      }
     </div>
   </div>
 
@@ -63,16 +68,19 @@ const themes = palettes.map(p => ({
       </div>
       <span class="luxury-label">{t('themeSwitcher.label')}</span>
       <svg class="luxury-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"
+        ></path>
       </svg>
     </button>
     <div class="luxury-accordion-content">
-      {themes.map(theme => (
-        <button class="luxury-accordion-item" data-set-theme-desktop={theme.id}>
-          <span class="w-2 h-2 rounded-full mr-3" style={`background: ${theme.color}`}></span>
-          {theme.label}
-        </button>
-      ))}
+      {
+        themes.map((theme) => (
+          <button class="luxury-accordion-item" data-set-theme-desktop={theme.id}>
+            <span class="w-2 h-2 rounded-full mr-3" style={`background: ${theme.color}`} />
+            {theme.label}
+          </button>
+        ))
+      }
     </div>
   </div>
 </div>
@@ -98,7 +106,9 @@ const themes = palettes.map(p => ({
     color: hsl(var(--bc) / 0.4);
     cursor: pointer;
     cursor: pointer;
-    transition: color var(--duration-luxury-fast) var(--ease-luxury), background var(--duration-luxury-fast) var(--ease-luxury);
+    transition:
+      color var(--duration-luxury-fast) var(--ease-luxury),
+      background var(--duration-luxury-fast) var(--ease-luxury);
     text-align: left;
     overflow: hidden; /* Hide label when collapsed sidebar */
   }
@@ -128,7 +138,9 @@ const themes = palettes.map(p => ({
     opacity: 0;
     transform: translateX(10px);
     transform: translateX(10px);
-    transition: opacity var(--duration-luxury-fast) var(--ease-luxury) 0.1s, transform var(--duration-luxury-fast) var(--ease-luxury) 0.1s;
+    transition:
+      opacity var(--duration-luxury-fast) var(--ease-luxury) 0.1s,
+      transform var(--duration-luxury-fast) var(--ease-luxury) 0.1s;
     flex: 1;
   }
 
@@ -146,7 +158,7 @@ const themes = palettes.map(p => ({
     transform: translateX(-10px);
     transition: all var(--duration-luxury-medium) var(--ease-luxury) 0.1s;
   }
-  
+
   /* Reveal on sidebar hover */
   :global(.luxury-container:hover) .luxury-label,
   :global(.luxury-container:hover) .luxury-chevron {
@@ -168,7 +180,7 @@ const themes = palettes.map(p => ({
   .luxury-accordion-group.is-open .luxury-accordion-content {
     grid-template-rows: 1fr;
   }
-  
+
   .luxury-accordion-group.is-open .luxury-chevron {
     transform: rotate(180deg);
   }
@@ -182,7 +194,9 @@ const themes = palettes.map(p => ({
     text-decoration: none;
     font-size: 0.95rem;
     font-size: 0.95rem;
-    transition: color var(--duration-luxury-fast) var(--ease-luxury), background var(--duration-luxury-fast) var(--ease-luxury);
+    transition:
+      color var(--duration-luxury-fast) var(--ease-luxury),
+      background var(--duration-luxury-fast) var(--ease-luxury);
     border: none;
     background: transparent;
     cursor: pointer;
@@ -206,17 +220,17 @@ const themes = palettes.map(p => ({
 <script>
   function initLuxuryDesktop() {
     // Accordion Logic
-    document.querySelectorAll('[data-accordion-group]').forEach(group => {
+    document.querySelectorAll('[data-accordion-group]').forEach((group) => {
       const trigger = group.querySelector('.luxury-accordion-trigger');
-      
+
       trigger?.addEventListener('click', (e) => {
         e.stopPropagation();
-        
+
         const isOpen = group.classList.contains('is-open');
-        
+
         // Close others? Optional. Let's keep them independent or auto-close?
         // User wants "clean", usually implies auto-close others.
-        document.querySelectorAll('[data-accordion-group]').forEach(g => {
+        document.querySelectorAll('[data-accordion-group]').forEach((g) => {
           if (g !== group) {
             g.classList.remove('is-open');
             g.querySelector('.luxury-accordion-trigger')?.setAttribute('aria-expanded', 'false');
@@ -229,18 +243,20 @@ const themes = palettes.map(p => ({
     });
 
     // Theme Selection Logic
-    document.querySelectorAll('[data-set-theme-desktop]').forEach(btn => {
+    document.querySelectorAll('[data-set-theme-desktop]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent closing accordion immediately
         const theme = (e.currentTarget as HTMLElement).dataset.setThemeDesktop;
         if (theme) {
           document.documentElement.setAttribute('data-theme', theme);
           localStorage.setItem('theme', theme);
-          
+
           // Visual feedback
-          document.querySelectorAll('[data-set-theme-desktop]').forEach(b => b.classList.remove('is-active'));
+          document
+            .querySelectorAll('[data-set-theme-desktop]')
+            .forEach((b) => b.classList.remove('is-active'));
           (e.currentTarget as HTMLElement).classList.add('is-active');
-          
+
           window.dispatchEvent(new Event('theme-changed'));
         }
       });

@@ -37,7 +37,9 @@
 .hero-minimal-stage > div {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
 }
 
 .hero-minimal-stage.in-view > div {

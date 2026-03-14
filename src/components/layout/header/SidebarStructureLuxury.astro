@@ -1,7 +1,7 @@
 ---
 /**
  * LuxurySidebarStructure.astro
- * 
+ *
  * "The Architectural Spine"
  * A static, permanent vertical sidebar that defines the page layout.
  * No shrinking, no floating, just rock-solid structure.
@@ -25,7 +25,7 @@ const localePattern = new RegExp(`^/(${localeCodes.join('|')})(/|$)`);
 const cleanPath = currentPath.replace(localePattern, '/$2').replace(/^\/\//, '/') || '/';
 
 const enabledLocales = getEnabledLocales();
-const localePaths = enabledLocales.map(loc => ({
+const localePaths = enabledLocales.map((loc) => ({
   code: loc.code,
   label: loc.code.toUpperCase(),
   href: getRelativeLocaleUrl(loc.code, cleanPath),
@@ -33,8 +33,11 @@ const localePaths = enabledLocales.map(loc => ({
 }));
 
 // Themes from centralized config
-const themes = palettes.map(p => ({
-  id: p.id, label: p.id.charAt(0).toUpperCase() + p.id.slice(1), color: p.accentHex, bg: p.bgHex,
+const themes = palettes.map((p) => ({
+  id: p.id,
+  label: p.id.charAt(0).toUpperCase() + p.id.slice(1),
+  color: p.accentHex,
+  bg: p.bgHex,
 }));
 ---
 
@@ -51,58 +54,68 @@ const themes = palettes.map(p => ({
   <nav class="luxury-spine-nav">
     <div class="luxury-nav-title">{t('nav.menu')}</div>
     <ul class="luxury-nav-list">
-      {navLinks.map((link) => {
-        // Active Logic:
-        // For 'page' type: exact match or startsWith
-        // For 'section' type: handled by client-side Observer, but we set initial active if hash matches? 
-        // SSR can't know hash. So only 'page' is active initially here.
-        const isActive = link.type === 'page' && (currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)));
-        
-        return (
-          <li>
-            <LocalizedLink 
-              href={link.href} 
-              class={`luxury-nav-link ${isActive ? 'is-active' : ''}`}
-              data-nav-type={link.type}
-              data-nav-target={link.type === 'section' ? link.href.substring(1) : undefined}
-            >
-              {link.label}
-            </LocalizedLink>
-          </li>
-        );
-      })}
+      {
+        navLinks.map((link) => {
+          // Active Logic:
+          // For 'page' type: exact match or startsWith
+          // For 'section' type: handled by client-side Observer, but we set initial active if hash matches?
+          // SSR can't know hash. So only 'page' is active initially here.
+          const isActive =
+            link.type === 'page' &&
+            (currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)));
+
+          return (
+            <li>
+              <LocalizedLink
+                href={link.href}
+                class={`luxury-nav-link ${isActive ? 'is-active' : ''}`}
+                data-nav-type={link.type}
+                data-nav-target={link.type === 'section' ? link.href.substring(1) : undefined}
+              >
+                {link.label}
+              </LocalizedLink>
+            </li>
+          );
+        })
+      }
     </ul>
   </nav>
 
   <!-- 3. Bottom: System -->
   <div class="luxury-spine-footer">
     <div class="luxury-system-label">{t('nav.system')}</div>
-    
+
     <!-- Controls -->
     <div class="luxury-controls">
       <!-- Language -->
       <div class="luxury-lang-switch">
-        {localePaths.map((loc, i) => (
-          <>
-            {i > 0 && <span class="luxury-sep">/</span>}
-            <a href={loc.href} class={`luxury-lang-opt ${loc.isActive ? 'is-active' : ''}`}>{loc.label}</a>
-          </>
-        ))}
+        {
+          localePaths.map((loc, i) => (
+            <>
+              {i > 0 && <span class="luxury-sep">/</span>}
+              <a href={loc.href} class={`luxury-lang-opt ${loc.isActive ? 'is-active' : ''}`}>
+                {loc.label}
+              </a>
+            </>
+          ))
+        }
       </div>
 
       <!-- Themes -->
       <div class="luxury-theme-row">
-        {themes.map(theme => (
-          <button 
-            class="luxury-theme-btn"
-            aria-label={`Theme: ${theme.label}`}
-            data-set-theme-spine={theme.id}
-            title={theme.label}
-            style={`background-color: ${theme.bg};`}
-          >
-            <span class="luxury-theme-dot" style={`background-color: ${theme.color}`}></span>
-          </button>
-        ))}
+        {
+          themes.map((theme) => (
+            <button
+              class="luxury-theme-btn"
+              aria-label={`Theme: ${theme.label}`}
+              data-set-theme-spine={theme.id}
+              title={theme.label}
+              style={`background-color: ${theme.bg};`}
+            >
+              <span class="luxury-theme-dot" style={`background-color: ${theme.color}`} />
+            </button>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -118,13 +131,13 @@ const themes = palettes.map(p => ({
     :root {
       --luxury-spine-width: 280px;
     }
-    
+
     body:has(#luxury-spine) main {
       margin-left: var(--luxury-spine-width);
       width: calc(100% - var(--luxury-spine-width));
       max-width: none;
     }
-    
+
     body:has(#luxury-spine) footer {
       margin-left: var(--luxury-spine-width);
       width: calc(100% - var(--luxury-spine-width));
@@ -228,7 +241,7 @@ const themes = palettes.map(p => ({
     color: hsl(var(--bc));
     transform: translateX(4px);
   }
-  
+
   /* ACTIVE STATE */
   .luxury-nav-link.is-active {
     /* font-family: var(--font-serif); Removed per user request */
@@ -253,7 +266,7 @@ const themes = palettes.map(p => ({
     letter-spacing: 0.15em;
     color: hsl(var(--bc) / 0.4);
   }
-  
+
   .luxury-controls {
     display: flex;
     flex-direction: column;
@@ -270,10 +283,22 @@ const themes = palettes.map(p => ({
     font-size: 0.8rem;
     color: hsl(var(--bc) / 0.4);
   }
-  .luxury-lang-opt { text-decoration: none; color: inherit; transition: color var(--duration-luxury-fast) var(--ease-luxury); }
-  .luxury-lang-opt:hover { color: hsl(var(--bc)); }
-  .luxury-lang-opt.is-active { color: hsl(var(--bc)); font-weight: 600; border-bottom: 1px solid hsl(var(--bc)); }
-  .luxury-sep { opacity: 0.3; }
+  .luxury-lang-opt {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--duration-luxury-fast) var(--ease-luxury);
+  }
+  .luxury-lang-opt:hover {
+    color: hsl(var(--bc));
+  }
+  .luxury-lang-opt.is-active {
+    color: hsl(var(--bc));
+    font-weight: 600;
+    border-bottom: 1px solid hsl(var(--bc));
+  }
+  .luxury-sep {
+    opacity: 0.3;
+  }
 
   /* Theme Row */
   .luxury-theme-row {
@@ -290,14 +315,16 @@ const themes = palettes.map(p => ({
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform var(--duration-luxury-fast) var(--ease-luxury-out), border-color var(--duration-luxury-fast) var(--ease-luxury);
+    transition:
+      transform var(--duration-luxury-fast) var(--ease-luxury-out),
+      border-color var(--duration-luxury-fast) var(--ease-luxury);
     padding: 0;
   }
   .luxury-theme-btn:hover {
     transform: scale(1.1);
     border-color: hsl(var(--bc));
   }
-  
+
   /* Active Theme Indicator — handled dynamically via JS is-active class */
   button[data-set-theme-spine].is-active {
     border-color: hsl(var(--bc));
@@ -317,14 +344,14 @@ const themes = palettes.map(p => ({
     // 1. Theme Logic
     const updateSpineActive = () => {
       const current = document.documentElement.getAttribute('data-theme') || 'azure';
-      document.querySelectorAll('[data-set-theme-spine]').forEach(btn => {
+      document.querySelectorAll('[data-set-theme-spine]').forEach((btn) => {
         btn.classList.toggle('is-active', (btn as HTMLElement).dataset.setThemeSpine === current);
       });
     };
 
     updateSpineActive();
 
-    document.querySelectorAll('[data-set-theme-spine]').forEach(btn => {
+    document.querySelectorAll('[data-set-theme-spine]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const theme = (e.currentTarget as HTMLElement).dataset.setThemeSpine;
         if (theme) {
@@ -340,10 +367,12 @@ const themes = palettes.map(p => ({
 
     // 2. ScrollSpy (IntersectionObserver)
     const sectionLinks = document.querySelectorAll('a[data-nav-type="section"]');
-    const sections = Array.from(sectionLinks).map(link => {
-      const id = (link as HTMLElement).dataset.navTarget;
-      return document.getElementById(id || '');
-    }).filter(s => s !== null) as HTMLElement[];
+    const sections = Array.from(sectionLinks)
+      .map((link) => {
+        const id = (link as HTMLElement).dataset.navTarget;
+        return document.getElementById(id || '');
+      })
+      .filter((s) => s !== null) as HTMLElement[];
 
     if (sections.length > 0) {
       const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -351,7 +380,7 @@ const themes = palettes.map(p => ({
         let bestCandidate: HTMLElement | null = null;
         let maxRatio = 0;
 
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
             maxRatio = entry.intersectionRatio;
             bestCandidate = entry.target as HTMLElement;
@@ -360,8 +389,8 @@ const themes = palettes.map(p => ({
 
         // Also check if we are scrolled to top -> first section
         if (window.scrollY < 100) {
-            // Usually Hero, or first section
-            // Reset active to none or first? Usually first if it's "About" etc.
+          // Usually Hero, or first section
+          // Reset active to none or first? Usually first if it's "About" etc.
         }
 
         // We need to determine the *currently* most active section on screen
@@ -371,23 +400,28 @@ const themes = palettes.map(p => ({
       // Better ScrollSpy: Observe all sections, keeping track of which one is "most" visible
       // A simplier approach: Use entry.isIntersecting to toggle.
       // But multiple can be intersecting.
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-             // Activate this link
-             const id = entry.target.id;
-             document.querySelectorAll('.luxury-nav-link').forEach(l => l.classList.remove('is-active'));
-             const activeLink = document.querySelector(`a[data-nav-target="${id}"]`);
-             if (activeLink) activeLink.classList.add('is-active');
-          }
-        });
-      }, {
-        rootMargin: '-20% 0px -50% 0px', // Active when section is in top half
-        threshold: 0 // Trigger as soon as one pixel enters the margin zone
-      });
 
-      sections.forEach(s => observer.observe(s));
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Activate this link
+              const id = entry.target.id;
+              document
+                .querySelectorAll('.luxury-nav-link')
+                .forEach((l) => l.classList.remove('is-active'));
+              const activeLink = document.querySelector(`a[data-nav-target="${id}"]`);
+              if (activeLink) activeLink.classList.add('is-active');
+            }
+          });
+        },
+        {
+          rootMargin: '-20% 0px -50% 0px', // Active when section is in top half
+          threshold: 0, // Trigger as soon as one pixel enters the margin zone
+        },
+      );
+
+      sections.forEach((s) => observer.observe(s));
     }
   }
 

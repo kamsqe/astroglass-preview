@@ -93,8 +93,8 @@
   .pp-aurora__card:hover {
     border-color: hsl(var(--a) / 0.25);
     transform: translateY(-4px);
-    box-shadow: 
-      0 20px 60px hsl(var(--bc) / 0.06), 
+    box-shadow:
+      0 20px 60px hsl(var(--bc) / 0.06),
       0 0 0 1px hsl(var(--a) / 0.1);
   }
 }
@@ -125,7 +125,7 @@
 .pp-aurora__visual-mesh {
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(ellipse at 80% 0%, hsl(var(--a) / 0.4) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 100%, hsl(260 80% 60% / 0.3) 0%, transparent 60%);
   opacity: 0.8;
@@ -136,46 +136,46 @@
   opacity: 1;
 }
 
-.pp-aurora__visual[data-category="webapp"] .pp-aurora__visual-mesh {
-  background: 
+.pp-aurora__visual[data-category='webapp'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 10% 20%, hsl(160 80% 50% / 0.45) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 80%, hsl(210 90% 60% / 0.35) 0%, transparent 50%);
 }
-[data-theme="monochrome"] .pp-aurora__visual[data-category="webapp"] .pp-aurora__visual-mesh {
-  background: 
+[data-theme='monochrome'] .pp-aurora__visual[data-category='webapp'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 10% 20%, hsl(var(--bc) / 0.15) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 80%, hsl(var(--bc) / 0.08) 0%, transparent 50%);
 }
 
-.pp-aurora__visual[data-category="dashboard"] .pp-aurora__visual-mesh {
-  background: 
+.pp-aurora__visual[data-category='dashboard'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 70% 30%, hsl(280 80% 60% / 0.4) 0%, transparent 70%),
     radial-gradient(ellipse at 30% 70%, hsl(320 80% 55% / 0.3) 0%, transparent 60%);
 }
-[data-theme="monochrome"] .pp-aurora__visual[data-category="dashboard"] .pp-aurora__visual-mesh {
-  background: 
+[data-theme='monochrome'] .pp-aurora__visual[data-category='dashboard'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 70% 30%, hsl(var(--bc) / 0.12) 0%, transparent 70%),
     radial-gradient(ellipse at 30% 70%, hsl(var(--bc) / 0.08) 0%, transparent 60%);
 }
 
-.pp-aurora__visual[data-category="mobile"] .pp-aurora__visual-mesh {
-  background: 
+.pp-aurora__visual[data-category='mobile'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 40% 60%, hsl(var(--a) / 0.5) 0%, transparent 65%),
     radial-gradient(ellipse at 80% 20%, hsl(190 80% 50% / 0.3) 0%, transparent 55%);
 }
-[data-theme="monochrome"] .pp-aurora__visual[data-category="mobile"] .pp-aurora__visual-mesh {
-  background: 
+[data-theme='monochrome'] .pp-aurora__visual[data-category='mobile'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 40% 60%, hsl(var(--bc) / 0.15) 0%, transparent 65%),
     radial-gradient(ellipse at 80% 20%, hsl(var(--bc) / 0.08) 0%, transparent 55%);
 }
 
-.pp-aurora__visual[data-category="branding"] .pp-aurora__visual-mesh {
-  background: 
+.pp-aurora__visual[data-category='branding'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 20% 80%, hsl(30 90% 60% / 0.4) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 30%, hsl(340 80% 60% / 0.35) 0%, transparent 65%);
 }
-[data-theme="monochrome"] .pp-aurora__visual[data-category="branding"] .pp-aurora__visual-mesh {
-  background: 
+[data-theme='monochrome'] .pp-aurora__visual[data-category='branding'] .pp-aurora__visual-mesh {
+  background:
     radial-gradient(ellipse at 20% 80%, hsl(var(--bc) / 0.15) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 30%, hsl(var(--bc) / 0.08) 0%, transparent 65%);
 }
@@ -183,7 +183,7 @@
 .pp-aurora__visual-grid {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(hsl(var(--bc) / 0.03) 1px, transparent 1px),
     linear-gradient(90deg, hsl(var(--bc) / 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
@@ -322,8 +322,6 @@
 .portfolio-aurora-overlay-link:hover svg {
   transform: translateX(4px) scale(1.1);
 }
-
-
 
 /* ── Filter Pills ── */
 .portfolio-aurora-filter {

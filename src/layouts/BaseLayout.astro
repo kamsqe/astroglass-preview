@@ -19,16 +19,12 @@ export interface Props {
   ogImage?: string;
 }
 
-const { 
-  title, 
-  description, 
-  showHeader = true, 
-  headerVersion = 3, 
-  ogImage,
-} = Astro.props;
+const { title, description, showHeader = true, headerVersion = 3, ogImage } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
-const socialImageURL = ogImage ? new URL(ogImage, Astro.url.origin).href : new URL('/favicon.svg', Astro.url.origin).href;
+const socialImageURL = ogImage
+  ? new URL(ogImage, Astro.url.origin).href
+  : new URL('/favicon.svg', Astro.url.origin).href;
 const locale = getLocaleFromUrl(Astro.url);
 const enabledLocales = getEnabledLocaleCodes();
 
@@ -67,7 +63,13 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
     <Font cssVariable="--font-inter" preload />
     <style is:global>
       html {
-        font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family:
+          var(--font-inter),
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
       }
       /* Smooth Fade View Transitions */
       ::view-transition-group(root) {
@@ -84,13 +86,21 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
       }
 
       @keyframes fade-out-smooth {
-        0% { opacity: 1; }
-        100% { opacity: 0; }
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
 
       @keyframes fade-in-smooth {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
 
       /* Reduce motion preference */
@@ -120,23 +130,32 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
           if (stored) document.documentElement.setAttribute('data-theme', stored);
         }
         // Emit custom event so ThemeSwitchers can update their UI
-        window.dispatchEvent(new CustomEvent('theme-changed', { 
-            detail: { theme: document.documentElement.getAttribute('data-theme') } 
-        }));
+        window.dispatchEvent(
+          new CustomEvent('theme-changed', {
+            detail: { theme: document.documentElement.getAttribute('data-theme') },
+          }),
+        );
       };
       setSelectionTheme();
       document.addEventListener('astro:after-swap', setSelectionTheme);
     </script>
   </head>
   <body class="bg-base-100 text-base-content min-h-screen" style="overflow-x: hidden;">
-    {showHeader && (
-      currentHeader === 1 ? <Header /> :
-      currentHeader === 2 ? <HeaderGlass /> :
-      currentHeader === 3 ? <HeaderDefault /> :
-      currentHeader === 4 ? <HeaderLuxury /> :
-      <HeaderMinimal />
-    )}
-    
+    {
+      showHeader &&
+        (currentHeader === 1 ? (
+          <Header />
+        ) : currentHeader === 2 ? (
+          <HeaderGlass />
+        ) : currentHeader === 3 ? (
+          <HeaderDefault />
+        ) : currentHeader === 4 ? (
+          <HeaderLuxury />
+        ) : (
+          <HeaderMinimal />
+        ))
+    }
+
     <div style="overflow-x: clip;">
       <slot />
     </div>
@@ -146,32 +165,42 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
       function applyLocalePreference() {
         const preferredLocale = localStorage.getItem('preferred-locale');
         if (!preferredLocale || preferredLocale === 'en') return;
-        
+
         const pathname = window.location.pathname;
-        
+
         // Only apply to navigation links on non-locale-prefixed pages
         if (pathname.startsWith('/' + preferredLocale)) return;
-        
+
         // Build locale regex dynamically from config
         const localePattern = new RegExp('^/(' + enabledLocales.join('|') + ')/');
-        
+
         // Update navigation links to include locale prefix
-        document.querySelectorAll('nav a, .nav-glass a, .panel-glass a, .mobile-nav a, .header-neo a, .overlay-neo a, .overlay-aurora a, [data-mobile-dropdown] a').forEach(link => {
-          const href = link.getAttribute('href');
-          if (!href) return;
-          
-          // Skip external links, anchors-only, and already localized links
-          if (href.startsWith('http') || href === '#' || href.startsWith('/' + preferredLocale) || localePattern.test(href)) return;
-          
-          // Add locale prefix to all internal links (including theme pages and hash links)
-          if (href === '/') {
-            link.setAttribute('href', '/' + preferredLocale + '/');
-          } else if (href.startsWith('/')) {
-            link.setAttribute('href', '/' + preferredLocale + href);
-          }
-        });
+        document
+          .querySelectorAll(
+            'nav a, .nav-glass a, .panel-glass a, .mobile-nav a, .header-neo a, .overlay-neo a, .overlay-aurora a, [data-mobile-dropdown] a',
+          )
+          .forEach((link) => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip external links, anchors-only, and already localized links
+            if (
+              href.startsWith('http') ||
+              href === '#' ||
+              href.startsWith('/' + preferredLocale) ||
+              localePattern.test(href)
+            )
+              return;
+
+            // Add locale prefix to all internal links (including theme pages and hash links)
+            if (href === '/') {
+              link.setAttribute('href', '/' + preferredLocale + '/');
+            } else if (href.startsWith('/')) {
+              link.setAttribute('href', '/' + preferredLocale + href);
+            }
+          });
       }
-      
+
       applyLocalePreference();
       document.addEventListener('astro:after-swap', applyLocalePreference);
     </script>

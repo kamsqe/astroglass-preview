@@ -49,9 +49,15 @@ const t = useTranslations(locale);
 
     <!-- Headline — per-word gradient reveal -->
     <h1 class="hero-aurora-title" style="font-size: clamp(2.2rem, 6.5vw, 4.5rem);">
-      {t('hero.title').split(' ').map((word: string, i: number) => (
-        <span class="hero-aurora-word" style={`animation-delay: ${0.1 + i * 0.08}s`}>{word}&nbsp;</span>
-      ))}
+      {
+        t('hero.title')
+          .split(' ')
+          .map((word: string, i: number) => (
+            <span class="hero-aurora-word" style={`animation-delay: ${0.1 + i * 0.08}s`}>
+              {word}&nbsp;
+            </span>
+          ))
+      }
     </h1>
 
     <!-- Subtitle -->
@@ -86,26 +92,42 @@ const t = useTranslations(locale);
       </a>
       <LocalizedLink href="/docs" class="hero-aurora-btn hero-aurora-btn--secondary">
         <span class="hero-aurora-btn-text">{t('hero.secondaryCta')}</span>
-        <svg class="hero-aurora-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
+        <svg
+          class="hero-aurora-btn-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </LocalizedLink>
     </div>
-
   </div>
 
   <!-- Scroll indicator -->
-  <a href="#stats" class="hero-aurora-scroll cursor-pointer hover:text-accent transition-colors duration-300 group">
+  <a
+    href="#stats"
+    class="hero-aurora-scroll cursor-pointer hover:text-accent transition-colors duration-300 group"
+  >
     <div class="hero-aurora-scroll-ring">
       <svg viewBox="0 0 40 40">
-        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-track"/>
-        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-glow"/>
+        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-track"></circle>
+        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-glow"></circle>
       </svg>
-      <svg class="hero-aurora-scroll-chevron group-hover:text-accent transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M7 10l5 5 5-5"/>
+      <svg
+        class="hero-aurora-scroll-chevron group-hover:text-accent transition-colors duration-300"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M7 10l5 5 5-5"></path>
       </svg>
     </div>
-    <span class="hero-aurora-scroll-text group-hover:text-accent transition-colors duration-300">{t('hero.scrollToExplore')}</span>
+    <span class="hero-aurora-scroll-text group-hover:text-accent transition-colors duration-300"
+      >{t('hero.scrollToExplore')}</span
+    >
   </a>
 </section>
 
@@ -143,9 +165,15 @@ const t = useTranslations(locale);
     border-radius: 50%;
   }
 
-  .hero-home-code-dot--red { background: #ff5f57; }
-  .hero-home-code-dot--yellow { background: #ffbd2e; }
-  .hero-home-code-dot--green { background: #28ca42; }
+  .hero-home-code-dot--red {
+    background: #ff5f57;
+  }
+  .hero-home-code-dot--yellow {
+    background: #ffbd2e;
+  }
+  .hero-home-code-dot--green {
+    background: #28ca42;
+  }
 
   .hero-home-code-tab {
     font-size: 0.7rem;
@@ -183,8 +211,14 @@ const t = useTranslations(locale);
   }
 
   @keyframes cursor-blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
   }
 
   @media (max-width: 640px) {

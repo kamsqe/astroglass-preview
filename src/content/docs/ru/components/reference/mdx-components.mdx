@@ -1,6 +1,6 @@
 ---
-title: "MDX-компоненты"
-description: "Кастомные MDX-компоненты для документации."
+title: 'MDX-компоненты'
+description: 'Кастомные MDX-компоненты для документации.'
 order: 2
 ---
 
@@ -39,10 +39,7 @@ import Badge from '../../../../../components/mdx/Badge.astro';
 Обёртка для пошаговых инструкций:
 
 ```mdx
-<Steps>
-1. **Первый шаг** — описание.
-2. **Второй шаг** — описание.
-</Steps>
+<Steps>1. **Первый шаг** — описание. 2. **Второй шаг** — описание.</Steps>
 ```
 
 ---
@@ -52,12 +49,7 @@ import Badge from '../../../../../components/mdx/Badge.astro';
 Отображение структуры файлов:
 
 ```mdx
-<FileTree>
-- src/
-  - components/
-  - pages/
-    - **[theme].astro**
-</FileTree>
+<FileTree>- src/ - components/ - pages/ - **[theme].astro**</FileTree>
 ```
 
 ---
@@ -68,7 +60,11 @@ import Badge from '../../../../../components/mdx/Badge.astro';
 
 ```mdx
 <CardGrid>
-  <LinkCard title="Начало работы" description="Настройте проект за минуты." href="/ru/docs/getting-started/installation" />
+  <LinkCard
+    title="Начало работы"
+    description="Настройте проект за минуты."
+    href="/ru/docs/getting-started/installation"
+  />
 </CardGrid>
 ```
 
@@ -78,13 +74,8 @@ import Badge from '../../../../../components/mdx/Badge.astro';
 
 Табы с блоками кода:
 
-```mdx
+````mdx
 <CodeTabs labels={['pnpm', 'npm', 'yarn']}>
-```bash
-pnpm install
-​```
-```bash
-npm install
-​```
+  ```bash pnpm install ​``` ```bash npm install ​```
 </CodeTabs>
-```
+````

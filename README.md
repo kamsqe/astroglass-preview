@@ -28,6 +28,7 @@
 
 <!-- TODO: Replace with actual hero screenshot showing 2-3 themes side by side -->
 <!-- Example: a wide composite image showing Liquid, Glass, and Luxury themes at desktop width -->
+
 > **[Screenshot placeholder]** — Hero image: composite showing the Liquid (fluid/organic), Glass (glassmorphism), and Luxury (editorial) themes at 1440px, demonstrating the visual range across design systems.
 
 ---
@@ -45,18 +46,19 @@ Most Astro templates give you one design. AstroGlass gives you **six independent
 
 ## Themes
 
-| Theme | Style | Sections |
-|-------|-------|----------|
-| 💧 **Liquid** | Fluid motion, organic shapes | Hero, About, Features, Portfolio, Pricing, Testimonials, FAQ, CTA, Contact, Footer |
-| 🔮 **Glass** | Glassmorphism, frosted layers, depth | ↑ same 10 sections |
-| ⚡ **Neo** | Bold brutalist, high energy | ↑ |
-| ○ **Minimal** | Clean typography, whitespace | ↑ |
-| ✨ **Luxury** | Editorial, sophisticated animations | ↑ |
-| 🌌 **Aurora** | Cosmic gradients, geometric | ↑ |
+| Theme         | Style                                | Sections                                                                           |
+| ------------- | ------------------------------------ | ---------------------------------------------------------------------------------- |
+| 💧 **Liquid** | Fluid motion, organic shapes         | Hero, About, Features, Portfolio, Pricing, Testimonials, FAQ, CTA, Contact, Footer |
+| 🔮 **Glass**  | Glassmorphism, frosted layers, depth | ↑ same 10 sections                                                                 |
+| ⚡ **Neo**    | Bold brutalist, high energy          | ↑                                                                                  |
+| ○ **Minimal** | Clean typography, whitespace         | ↑                                                                                  |
+| ✨ **Luxury** | Editorial, sophisticated animations  | ↑                                                                                  |
+| 🌌 **Aurora** | Cosmic gradients, geometric          | ↑                                                                                  |
 
 Every theme includes a dedicated header, all 10 landing sections, and a footer. Themes are fully independent — include one or all six.
 
 <!-- TODO: Replace with actual theme screenshots — 2x3 grid showing each theme's hero section -->
+
 > **[Screenshot placeholder]** — 2×3 grid: each theme's hero section at 1280px width, showing Liquid (top-left) through Aurora (bottom-right).
 
 ---
@@ -106,16 +108,16 @@ Open [http://localhost:4321](http://localhost:4321) to see your site.
 
 ## Features
 
-| Feature | Description |
-|---------|-------------|
-| 🎨 **Multi-theme** | 6 design systems sharing a common component architecture |
-| 🎭 **10 Palettes** | CSS-only color switching — Azure, Solaris, Evergreen, Rosé, Monochrome, Nordic, Aquatica, Abyss, NeoNoir, Synthwave |
-| 🌍 **i18n** | 7 languages with URL-based routing (`/en/docs`, `/ru/docs`) and locale auto-detection |
-| 📝 **Blog** | MDX-powered blog with RSS feed support |
-| 📚 **Docs** | Documentation pages with Fuse.js full-text search, `Cmd+K` command palette |
-| 📊 **Dashboard** | Analytics demo with Recharts (React island) |
-| 🔍 **Search** | Client-side fuzzy search built on [Fuse.js](https://fusejs.io) — build-time indexing, match highlighting, "Did you mean?" |
-| 🚀 **Deploy** | One-file provider switch — Cloudflare Pages, Vercel, Netlify, or static |
+| Feature            | Description                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| 🎨 **Multi-theme** | 6 design systems sharing a common component architecture                                                                  |
+| 🎭 **10 Palettes** | CSS-only color switching — Azure, Solaris, Evergreen, Rosé, Monochrome, Nordic, Aquatica, Abyss, NeoNoir, Synthwave       |
+| 🌍 **i18n**        | 7 languages with URL-based routing (`/en/docs`, `/ru/docs`) and locale auto-detection                                     |
+| 📝 **Blog**        | MDX-powered blog with RSS feed support                                                                                    |
+| 📚 **Docs**        | Documentation pages with Fuse.js full-text search, `Cmd+K` command palette                                                |
+| 📊 **Dashboard**   | Analytics demo with Recharts (React island)                                                                               |
+| 🔍 **Search**      | Client-side fuzzy search built on [Fuse.js](https://fusejs.io) — build-time indexing, match highlighting, "Did you mean?" |
+| 🚀 **Deploy**      | One-file provider switch — Cloudflare Pages, Vercel, Netlify, or static                                                   |
 
 ---
 
@@ -206,29 +208,29 @@ Or manually change the import in `src/config/providers/active-provider.ts`.
 
 ## Commands
 
-| Command | Action |
-|---------|--------|
-| `pnpm dev` | Dev server at `localhost:4321` |
-| `pnpm build` | Production build to `./dist/` |
-| `pnpm preview` | Preview production build |
-| `pnpm check` | Astro type checking |
-| `pnpm lint` | ESLint |
-| `pnpm format` | Prettier |
+| Command        | Action                         |
+| -------------- | ------------------------------ |
+| `pnpm dev`     | Dev server at `localhost:4321` |
+| `pnpm build`   | Production build to `./dist/`  |
+| `pnpm preview` | Preview production build       |
+| `pnpm check`   | Astro type checking            |
+| `pnpm lint`    | ESLint                         |
+| `pnpm format`  | Prettier                       |
 
 ---
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Framework | [Astro 5](https://astro.build) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com) |
-| Islands | [React 19](https://react.dev) |
-| Search | [Fuse.js](https://fusejs.io) |
-| Code Blocks | [Expressive Code](https://expressive-code.com) |
-| Validation | [Valibot](https://valibot.dev) |
-| Animations | [Framer Motion](https://motion.dev) |
-| CLI | [citty](https://github.com/unjs/citty) + [@clack/prompts](https://github.com/natemoo-re/clack) |
+| Category    | Technology                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------- |
+| Framework   | [Astro 5](https://astro.build)                                                                 |
+| Styling     | [Tailwind CSS 4](https://tailwindcss.com)                                                      |
+| Islands     | [React 19](https://react.dev)                                                                  |
+| Search      | [Fuse.js](https://fusejs.io)                                                                   |
+| Code Blocks | [Expressive Code](https://expressive-code.com)                                                 |
+| Validation  | [Valibot](https://valibot.dev)                                                                 |
+| Animations  | [Framer Motion](https://motion.dev)                                                            |
+| CLI         | [citty](https://github.com/unjs/citty) + [@clack/prompts](https://github.com/natemoo-re/clack) |
 
 ---
 

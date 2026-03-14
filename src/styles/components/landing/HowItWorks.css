@@ -25,7 +25,7 @@
 }
 
 /* Monochrome visual overrides */
-[data-theme="monochrome"] .hiw-card [data-hiw-bg] {
+[data-theme='monochrome'] .hiw-card [data-hiw-bg] {
   background-image: none;
   background-color: hsl(var(--bc) / 0.05);
 }

@@ -1,6 +1,6 @@
 ---
-title: "Configuration"
-description: "Customize AstroGlass to match your brand."
+title: 'Configuration'
+description: 'Customize AstroGlass to match your brand.'
 order: 3
 ---
 
@@ -18,6 +18,7 @@ pnpm configure
 ```
 
 It lets you:
+
 - **Pick a theme** — one of 6 (Liquid, Glass, Neo, Luxury, Minimal, Aurora)
 - **Pick languages** — any combination of 7 supported languages
 - **Pick color palettes** — any combination of 10 built-in palettes
@@ -25,20 +26,17 @@ It lets you:
 The CLI then prunes all unused themes, locale files, and palette CSS from the project. If you select a single language or palette, it also removes the corresponding switcher component from the navbar.
 
 <Callout type="warning" title="Run once on a fresh clone">
-  The configurator permanently deletes unused files. Run it once after cloning, before you start customizing content.
+  The configurator permanently deletes unused files. Run it once after cloning, before you start
+  customizing content.
 </Callout>
 
 ## Configuration Files
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — Theme definitions (name, colors, sections, premium flag)
-    - **palettes.ts** — Color palette definitions and default palette
-    - **locales.ts** — Supported languages and locale metadata
-    - **navigation.ts** — Main site navigation structure
-    - **docs.ts** — Documentation sidebar and version config
-    - **themeRegistry.ts** — File manifests for CLI pruning
+  - src/ - config/ - **themes.ts** — Theme definitions (name, colors, sections, premium flag) -
+  **palettes.ts** — Color palette definitions and default palette - **locales.ts** — Supported
+  languages and locale metadata - **navigation.ts** — Main site navigation structure - **docs.ts** —
+  Documentation sidebar and version config - **themeRegistry.ts** — File manifests for CLI pruning
 </FileTree>
 
 ## Styling with Tailwind CSS v4
@@ -49,16 +47,18 @@ Colors and theme variables are defined as CSS custom properties in `src/styles/g
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* Primary (HSL) */
-  --s: 310 80% 60%;   /* Secondary */
-  --a: 190 90% 60%;   /* Accent */
-  --b1: 220 20% 10%;  /* Base background */
-  --bc: 220 20% 90%;  /* Base content (text) */
+  --p: 260 80% 60%; /* Primary (HSL) */
+  --s: 310 80% 60%; /* Secondary */
+  --a: 190 90% 60%; /* Accent */
+  --b1: 220 20% 10%; /* Base background */
+  --bc: 220 20% 90%; /* Base content (text) */
 }
 ```
 
 <Callout type="tip" title="Changing Colors">
-  To change the site's color scheme, update the HSL values in `src/styles/global.css`. Theme-specific overrides live in `src/styles/_themes.css` using `[data-theme="..."]` selectors. Each palette has its own CSS file in `src/styles/palettes/`.
+  To change the site's color scheme, update the HSL values in `src/styles/global.css`.
+  Theme-specific overrides live in `src/styles/_themes.css` using `[data-theme="..."]` selectors.
+  Each palette has its own CSS file in `src/styles/palettes/`.
 </Callout>
 
 ## Theme Configuration
@@ -72,7 +72,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Fluid, organic design with smooth animations',
@@ -87,8 +99,22 @@ Languages are managed in `src/config/locales.ts`. To add a new language, add an 
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```
 
@@ -96,10 +122,10 @@ export const localesConfig: LocaleConfig[] = [
 
 Color palettes are defined in `src/config/palettes.ts` and each palette's CSS lives in `src/styles/palettes/`:
 
-| Category | Palettes |
-|----------|----------|
-| **Light** | Azure, Nordic, Solaris |
-| **Dark** | Abyss, Neonoir, Synthwave |
+| Category     | Palettes                              |
+| ------------ | ------------------------------------- |
+| **Light**    | Azure, Nordic, Solaris                |
+| **Dark**     | Abyss, Neonoir, Synthwave             |
 | **Colorful** | Evergreen, Rose, Aquatica, Monochrome |
 
 Switch palettes at runtime by setting the `data-theme` attribute on `<html>`.

@@ -21,11 +21,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
 }) => {
   return (
     <Avatar className={className}>
-      <AvatarImage 
-        src={src} 
-        alt={alt} 
-        className={cn("object-cover", imageClassName)} 
-      />
+      <AvatarImage src={src} alt={alt} className={cn('object-cover', imageClassName)} />
       <AvatarFallback className={fallbackClassName}>
         {fallback || alt?.charAt(0) || '?'}
       </AvatarFallback>

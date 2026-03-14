@@ -12,6 +12,7 @@ AstroGlass 使用 **Tailwind CSS v4** 进行样式设计，并通过 `@tailwindc
 ## 样式概览
 
 全局样式和 CSS 变量定义在 `src/styles/global.css` 中。该文件负责处理：
+
 - 基础层重置 (Base layer resets)
 - 自定义字体 (Inter & JetBrains Mono)
 - 用于主题控制的 CSS 变量 (HSL 颜色值)
@@ -19,13 +20,9 @@ AstroGlass 使用 **Tailwind CSS v4** 进行样式设计，并通过 `@tailwindc
 特定主题的覆盖样式位于 `src/styles/_themes.css`。
 
 <FileTree>
-- src/
-  - styles/
-    - **global.css** — 基础样式、字体、根 CSS 变量
-    - **_themes.css** — 各主题颜色覆盖
-    - **_animations.css** — 共享的动画关键帧
-    - **_forms.css** — 表单输入样式
-    - components/ — 特定组件的样式（例如 hero, pricing 等）
+  - src/ - styles/ - **global.css** — 基础样式、字体、根 CSS 变量 - **_themes.css** — 各主题颜色覆盖
+  - **_animations.css** — 共享的动画关键帧 - **_forms.css** — 表单输入样式 - components/ —
+  特定组件的样式（例如 hero, pricing 等）
 </FileTree>
 
 ## 色彩系统
@@ -35,14 +32,14 @@ AstroGlass 使用 **Tailwind CSS v4** 进行样式设计，并通过 `@tailwindc
 ```css title="global.css"
 /* src/styles/global.css */
 :root {
-  --p: 260 80% 60%;   /* 主色 (Primary) */
-  --s: 310 80% 60%;   /* 辅色 (Secondary) */
-  --a: 190 90% 60%;   /* 点缀色 (Accent) */
-  --b1: 220 20% 10%;  /* 基础 1 (背景) */
-  --b2: 220 18% 14%;  /* 基础 2 (表面) */
-  --bc: 220 20% 90%;  /* 基础内容 (文本) */
-  --er: 0 80% 60%;    /* 错误 (Error) */
-  --su: 150 80% 50%;  /* 成功 (Success) */
+  --p: 260 80% 60%; /* 主色 (Primary) */
+  --s: 310 80% 60%; /* 辅色 (Secondary) */
+  --a: 190 90% 60%; /* 点缀色 (Accent) */
+  --b1: 220 20% 10%; /* 基础 1 (背景) */
+  --b2: 220 18% 14%; /* 基础 2 (表面) */
+  --bc: 220 20% 90%; /* 基础内容 (文本) */
+  --er: 0 80% 60%; /* 错误 (Error) */
+  --su: 150 80% 50%; /* 成功 (Success) */
 }
 ```
 
@@ -55,7 +52,9 @@ AstroGlass 使用 **Tailwind CSS v4** 进行样式设计，并通过 `@tailwindc
 ```
 
 <Callout type="tip" title="修改颜色">
-  要更改网站的配色方案，请更新 `global.css` 中的 HSL 值。对于特定主题的覆盖（浅色/深色模式，每种主题的颜色），请在 `_themes.css` 中使用 `[data-theme="..."]` 选择器。
+  要更改网站的配色方案，请更新 `global.css` 中的 HSL
+  值。对于特定主题的覆盖（浅色/深色模式，每种主题的颜色），请在 `_themes.css` 中使用
+  `[data-theme="..."]` 选择器。
 </Callout>
 
 ## 添加自定义字体
@@ -73,5 +72,6 @@ AstroGlass 使用 **Tailwind CSS v4** 进行样式设计，并通过 `@tailwindc
 3.  特定于组件的 CSS 位于 `src/styles/components/{section}/` 中。
 
 <Callout type="info" title="没有外部 Props">
-  区块组件不接受文本 props。所有内容都由翻译键通过 `useTranslations()` 驱动。如果要更改文本，请编辑 `src/locales/{lang}/` 中的 JSON 文件。
+  区块组件不接受文本 props。所有内容都由翻译键通过 `useTranslations()` 驱动。如果要更改文本，请编辑
+  `src/locales/{lang}/` 中的 JSON 文件。
 </Callout>

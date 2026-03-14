@@ -1,7 +1,7 @@
 ---
 /**
  * Portfolio Page — Glass Theme (Frosted Gallery)
- * 
+ *
  * Composition layer that wires data ↔ sub-components.
  * All visual HTML lives in the glass/ sub-components:
  *   - PortfolioHeroGlass  → hero + filters
@@ -139,9 +139,7 @@ const projects = [
 ];
 ---
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- HERO                                        -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ --><!-- HERO                                        --><!-- ═══════════════════════════════════════════ -->
 <PortfolioHeroGlass
   categories={categories}
   galleryLabel={t('portfolio.gallery')}
@@ -152,10 +150,7 @@ const projects = [
 <!-- ═══════════════════════════════════════════ -->
 <!-- BENTO GRID                                  -->
 <!-- ═══════════════════════════════════════════ -->
-<PortfolioGridGlass
-  projects={projects}
-  viewDetailsLabel={t('portfolioPage.viewDetails')}
-/>
+<PortfolioGridGlass projects={projects} viewDetailsLabel={t('portfolioPage.viewDetails')} />
 
 <!-- ═══════════════════════════════════════════ -->
 <!-- OVERLAY MODAL                               -->
@@ -215,7 +210,7 @@ const projects = [
     function openModal(index: number) {
       if (!modal || !modalContent) return;
       const tpl = document.querySelector<HTMLTemplateElement>(
-        `template[data-modal-index="${index}"]`
+        `template[data-modal-index="${index}"]`,
       );
       if (!tpl) return;
 
@@ -233,19 +228,27 @@ const projects = [
     }
 
     document.querySelectorAll<HTMLElement>('[data-open-modal]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.getAttribute('data-open-modal') || '0', 10);
-        openModal(index);
-      }, { signal });
+      btn.addEventListener(
+        'click',
+        () => {
+          const index = parseInt(btn.getAttribute('data-open-modal') || '0', 10);
+          openModal(index);
+        },
+        { signal },
+      );
     });
 
     document.querySelectorAll('[data-close-modal]').forEach((btn) => {
       btn.addEventListener('click', closeModal, { signal });
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape') closeModal();
+      },
+      { signal },
+    );
   }
 
   registerAstroPage(initPortfolioPageGlass);

@@ -19,20 +19,12 @@
 .pp-aurora__hero-mesh {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 30% 40%,
-    hsl(var(--a) / 0.12) 0%,
-    transparent 60%
-  );
+  background: radial-gradient(ellipse at 30% 40%, hsl(var(--a) / 0.12) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .pp-aurora__hero-mesh--2 {
-  background: radial-gradient(
-    ellipse at 70% 60%,
-    hsl(var(--a) / 0.06) 0%,
-    transparent 50%
-  );
+  background: radial-gradient(ellipse at 70% 60%, hsl(var(--a) / 0.06) 0%, transparent 50%);
 }
 
 .pp-aurora__hero-band {
@@ -90,14 +82,10 @@
 .pp-aurora__visual-mesh {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 30% 40%,
-    hsl(var(--a) / 0.08) 0%,
-    transparent 60%
-  );
+  background: radial-gradient(ellipse at 30% 40%, hsl(var(--a) / 0.08) 0%, transparent 60%);
 }
 
-.pp-aurora__card[data-category="webapp"] .pp-aurora__visual-mesh {
+.pp-aurora__card[data-category='webapp'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 25% 35%,
     hsl(var(--a) / 0.1) 0%,
@@ -106,7 +94,7 @@
   );
 }
 
-[data-theme="monochrome"] .pp-aurora__card[data-category="webapp"] .pp-aurora__visual-mesh {
+[data-theme='monochrome'] .pp-aurora__card[data-category='webapp'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 25% 35%,
     hsl(var(--a) / 0.1) 0%,
@@ -115,7 +103,7 @@
   );
 }
 
-.pp-aurora__card[data-category="dashboard"] .pp-aurora__visual-mesh {
+.pp-aurora__card[data-category='dashboard'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 60% 30%,
     hsl(var(--a) / 0.08) 0%,
@@ -124,7 +112,7 @@
   );
 }
 
-[data-theme="monochrome"] .pp-aurora__card[data-category="dashboard"] .pp-aurora__visual-mesh {
+[data-theme='monochrome'] .pp-aurora__card[data-category='dashboard'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 60% 30%,
     hsl(var(--a) / 0.08) 0%,
@@ -133,7 +121,7 @@
   );
 }
 
-.pp-aurora__card[data-category="mobile"] .pp-aurora__visual-mesh {
+.pp-aurora__card[data-category='mobile'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 40% 60%,
     hsl(var(--a) / 0.09) 0%,
@@ -142,7 +130,7 @@
   );
 }
 
-[data-theme="monochrome"] .pp-aurora__card[data-category="mobile"] .pp-aurora__visual-mesh {
+[data-theme='monochrome'] .pp-aurora__card[data-category='mobile'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 40% 60%,
     hsl(var(--a) / 0.09) 0%,
@@ -151,7 +139,7 @@
   );
 }
 
-.pp-aurora__card[data-category="branding"] .pp-aurora__visual-mesh {
+.pp-aurora__card[data-category='branding'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 55% 45%,
     hsl(var(--a) / 0.1) 0%,
@@ -160,7 +148,7 @@
   );
 }
 
-[data-theme="monochrome"] .pp-aurora__card[data-category="branding"] .pp-aurora__visual-mesh {
+[data-theme='monochrome'] .pp-aurora__card[data-category='branding'] .pp-aurora__visual-mesh {
   background: radial-gradient(
     ellipse at 55% 45%,
     hsl(var(--a) / 0.1) 0%,

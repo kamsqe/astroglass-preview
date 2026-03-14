@@ -4,7 +4,7 @@ import glassIcon from '../../../assets/glass.svg';
  * HeaderAurora — Transparent Floating Bar with Gradient Accents
  *
  * Desktop: full-width transparent header with inline nav + dropdowns.
- * Bottom gradient border fades in on scroll. 
+ * Bottom gradient border fades in on scroll.
  * Mobile: fullscreen mesh overlay with expandable children.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
@@ -32,32 +32,54 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
 
     <!-- Desktop Navigation -->
     <nav class="nav-aurora">
-      {navLinks.map((link) => (
-        link.children ? (
-          <div class="dropdown-aurora" data-dropdown-aurora>
-            <button type="button" class="nav-aurora-link" aria-expanded="false">
-              {link.label}
-              <svg class="nav-aurora-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="dropdown-aurora-menu">
-              {link.children.map((child) => (
-                <LocalizedLink href={child.href} class="dropdown-aurora-item">{child.label}</LocalizedLink>
-              ))}
+      {
+        navLinks.map((link) =>
+          link.children ? (
+            <div class="dropdown-aurora" data-dropdown-aurora>
+              <button type="button" class="nav-aurora-link" aria-expanded="false">
+                {link.label}
+                <svg
+                  class="nav-aurora-chevron"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div class="dropdown-aurora-menu">
+                {link.children.map((child) => (
+                  <LocalizedLink href={child.href} class="dropdown-aurora-item">
+                    {child.label}
+                  </LocalizedLink>
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <LocalizedLink href={link.href} class="nav-aurora-link">{link.label}</LocalizedLink>
+          ) : (
+            <LocalizedLink href={link.href} class="nav-aurora-link">
+              {link.label}
+            </LocalizedLink>
+          ),
         )
-      ))}
+      }
 
       {/* Overflow "More" dropdown */}
       <div class="dropdown-aurora" data-nav-more>
         <button type="button" class="nav-aurora-link nav-more-trigger" aria-expanded="false">
           {moreLabel}
-          <svg class="nav-aurora-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          <svg
+            class="nav-aurora-chevron nav-more-chevron"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+            ></path>
           </svg>
         </button>
         <div class="dropdown-aurora-menu nav-more-menu" data-nav-more-menu></div>
@@ -88,38 +110,60 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
   <div class="overlay-aurora-mesh"></div>
   <div class="overlay-aurora-content">
     <nav class="overlay-aurora-nav">
-      {navLinks.map((link, i) => (
-        link.children ? (
-          <div class="overlay-aurora-group" data-aurora-group>
-            <button type="button" class="overlay-aurora-group-trigger" style={`animation-delay: ${i * 0.08}s`}>
-              <span class="overlay-aurora-num">0{i + 1}</span>
-              <span class="overlay-aurora-text">{link.label}</span>
-              <svg class="overlay-aurora-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="overlay-aurora-group-children">
-              <div class="overlay-aurora-group-children-inner">
-                {link.children.map((child) => (
-                  <LocalizedLink href={child.href} class="overlay-aurora-child-link">{child.label}</LocalizedLink>
-                ))}
+      {
+        navLinks.map((link, i) =>
+          link.children ? (
+            <div class="overlay-aurora-group" data-aurora-group>
+              <button
+                type="button"
+                class="overlay-aurora-group-trigger"
+                style={`animation-delay: ${i * 0.08}s`}
+              >
+                <span class="overlay-aurora-num">0{i + 1}</span>
+                <span class="overlay-aurora-text">{link.label}</span>
+                <svg
+                  class="overlay-aurora-group-chevron"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div class="overlay-aurora-group-children">
+                <div class="overlay-aurora-group-children-inner">
+                  {link.children.map((child) => (
+                    <LocalizedLink href={child.href} class="overlay-aurora-child-link">
+                      {child.label}
+                    </LocalizedLink>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <LocalizedLink href={link.href} class="overlay-aurora-link" style={`animation-delay: ${i * 0.08}s`}>
-            <span class="overlay-aurora-num">0{i + 1}</span>
-            <span class="overlay-aurora-text">{link.label}</span>
-          </LocalizedLink>
+          ) : (
+            <LocalizedLink
+              href={link.href}
+              class="overlay-aurora-link"
+              style={`animation-delay: ${i * 0.08}s`}
+            >
+              <span class="overlay-aurora-num">0{i + 1}</span>
+              <span class="overlay-aurora-text">{link.label}</span>
+            </LocalizedLink>
+          ),
         )
-      ))}
+      }
     </nav>
     <div class="overlay-aurora-footer">
       <div class="w-full">
-         <ThemeSwitcher variant="mobile" />
+        <ThemeSwitcher variant="mobile" />
       </div>
       <div class="w-full flex justify-center pt-6 border-t border-base-content/5">
-         <LanguageSwitcher variant="mobile" />
+        <LanguageSwitcher variant="mobile" />
       </div>
     </div>
   </div>
@@ -161,49 +205,71 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
       document.body.style.overflow = '';
     };
 
-    burger.addEventListener('click', () => {
-      const isOpen = overlay.classList.toggle('is-open');
-      burger.classList.toggle('is-active');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    }, { signal });
+    burger.addEventListener(
+      'click',
+      () => {
+        const isOpen = overlay.classList.toggle('is-open');
+        burger.classList.toggle('is-active');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      },
+      { signal },
+    );
 
-    overlay.querySelectorAll('a').forEach(link => {
+    overlay.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeOverlay, { signal });
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-        closeOverlay();
-        burger.focus();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          closeOverlay();
+          burger.focus();
+        }
+      },
+      { signal },
+    );
 
     // Desktop dropdowns
-    document.querySelectorAll('[data-dropdown-aurora]').forEach(dropdown => {
+    document.querySelectorAll('[data-dropdown-aurora]').forEach((dropdown) => {
       const trigger = dropdown.querySelector('.nav-aurora-link');
       if (!trigger) return;
-      
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('[data-dropdown-aurora].is-open').forEach(d => {
-          if (d !== dropdown) d.classList.remove('is-open');
-        });
-        dropdown.classList.toggle('is-open');
-      }, { signal });
+
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('[data-dropdown-aurora].is-open').forEach((d) => {
+            if (d !== dropdown) d.classList.remove('is-open');
+          });
+          dropdown.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
-    document.addEventListener('click', () => {
-      document.querySelectorAll('[data-dropdown-aurora].is-open').forEach(d => d.classList.remove('is-open'));
-    }, { signal });
+    document.addEventListener(
+      'click',
+      () => {
+        document
+          .querySelectorAll('[data-dropdown-aurora].is-open')
+          .forEach((d) => d.classList.remove('is-open'));
+      },
+      { signal },
+    );
 
     // Mobile overlay expandable groups
-    overlay.querySelectorAll('[data-aurora-group]').forEach(group => {
+    overlay.querySelectorAll('[data-aurora-group]').forEach((group) => {
       const groupTrigger = group.querySelector('.overlay-aurora-group-trigger');
       if (!groupTrigger) return;
 
-      groupTrigger.addEventListener('click', () => {
-        group.classList.toggle('is-open');
-      }, { signal });
+      groupTrigger.addEventListener(
+        'click',
+        () => {
+          group.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
     // Nav overflow "More" menu

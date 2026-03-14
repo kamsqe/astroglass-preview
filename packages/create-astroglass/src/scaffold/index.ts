@@ -25,7 +25,7 @@ export interface ScaffoldResult {
 
 export async function scaffold(
   choices: UserChoices,
-  options: ScaffoldOptions
+  options: ScaffoldOptions,
 ): Promise<ScaffoldResult> {
   const start = Date.now();
   let filesRemoved = 0;

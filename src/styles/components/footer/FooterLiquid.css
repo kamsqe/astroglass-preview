@@ -21,8 +21,12 @@
 }
 
 @keyframes footerLiquidWaveScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ── Glow ── */
@@ -40,7 +44,11 @@
   transform: translateX(-50%);
   width: 600px;
   height: 400px;
-  background: radial-gradient(ellipse, var(--color-accent, oklch(0.7 0.15 250)) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse,
+    var(--color-accent, oklch(0.7 0.15 250)) 0%,
+    transparent 70%
+  );
   opacity: 0.06;
   filter: blur(80px);
 }
@@ -48,7 +56,9 @@
 /* ── Links — Ripple Hover Effect ── */
 .footer-liquid a {
   position: relative;
-  transition: color 0.4s ease, transform 0.3s ease;
+  transition:
+    color 0.4s ease,
+    transform 0.3s ease;
   overflow: hidden;
 }
 
@@ -108,7 +118,8 @@
 }
 
 @keyframes footerLiquidDrip {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(1);
   }
   30% {
@@ -126,6 +137,11 @@
 }
 
 @keyframes footer-liquid-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }

@@ -1,6 +1,6 @@
 ---
-title: "Конфигурация"
-description: "Настройка AstroGlass под ваш бренд."
+title: 'Конфигурация'
+description: 'Настройка AstroGlass под ваш бренд.'
 order: 3
 ---
 
@@ -12,12 +12,9 @@ AstroGlass настраивается через файлы в `src/config/` и 
 ## Файлы конфигурации
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — Определения тем (имя, цвета, секции, флаг premium)
-    - **locales.ts** — Поддерживаемые языки и метаданные локалей
-    - **navigation.ts** — Структура навигации сайта
-    - **docs.ts** — Боковая панель документации и версии
+  - src/ - config/ - **themes.ts** — Определения тем (имя, цвета, секции, флаг premium) -
+  **locales.ts** — Поддерживаемые языки и метаданные локалей - **navigation.ts** — Структура
+  навигации сайта - **docs.ts** — Боковая панель документации и версии
 </FileTree>
 
 ## Стилизация с Tailwind CSS v4
@@ -28,16 +25,18 @@ AstroGlass настраивается через файлы в `src/config/` и 
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* Primary (HSL) */
-  --s: 310 80% 60%;   /* Secondary */
-  --a: 190 90% 60%;   /* Accent */
-  --b1: 220 20% 10%;  /* Фон */
-  --bc: 220 20% 90%;  /* Текст */
+  --p: 260 80% 60%; /* Primary (HSL) */
+  --s: 310 80% 60%; /* Secondary */
+  --a: 190 90% 60%; /* Accent */
+  --b1: 220 20% 10%; /* Фон */
+  --bc: 220 20% 90%; /* Текст */
 }
 ```
 
 <Callout type="tip" title="Изменение цветов">
-  Чтобы изменить цветовую схему сайта, обновите значения HSL в `src/styles/global.css`. Тематические переопределения находятся в `src/styles/_themes.css` с использованием селекторов `[data-theme="..."]`.
+  Чтобы изменить цветовую схему сайта, обновите значения HSL в `src/styles/global.css`. Тематические
+  переопределения находятся в `src/styles/_themes.css` с использованием селекторов
+  `[data-theme="..."]`.
 </Callout>
 
 ## Конфигурация тем
@@ -51,7 +50,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Fluid, organic design with smooth animations',
@@ -66,7 +77,21 @@ export const themes: ThemeDefinition[] = [
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```

@@ -34,7 +34,7 @@
 .c-faq-minimal__accordion-item.open {
   background: hsl(var(--bc) / 0.03);
   border-color: hsl(var(--bc) / 0.1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .c-faq-minimal__accordion-item.open .c-faq-minimal__acc-icon {

@@ -1,6 +1,6 @@
 ---
-title: "Referencia de la API"
-description: "Referencia técnica de la API para los componentes y utilidades de AstroGlass."
+title: 'Referencia de la API'
+description: 'Referencia técnica de la API para los componentes y utilidades de AstroGlass.'
 order: 1
 ---
 
@@ -15,6 +15,7 @@ Devuelve una función para obtener traducciones para el idioma (locale) dado.
 **Módulo**: `src/utils/i18n.ts`
 
 **Firma**:
+
 ```typescript
 function useTranslations(locale: Locale): (key: string) => string;
 ```
@@ -27,6 +28,7 @@ function useTranslations(locale: Locale): (key: string) => string;
 **Devuelve**: Una función `t(key: string): string` que resuelve una clave en notación de puntos hacia su valor traducido. Si la clave no se encuentra, devuelve la propia clave y registra una advertencia en modo de desarrollo.
 
 **Uso**:
+
 ```astro
 ---
 import { useTranslations } from '../utils/i18n';
@@ -35,11 +37,13 @@ import { getLocaleFromUrl } from '../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
+
 <h1>{t('hero.title')}</h1>
 <p>{t('hero.subtitle')}</p>
 ```
 
 **Comportamiento Clave**:
+
 - Las claves de `common.json` se reparten en el nivel raíz (ej., `t('title')`)
 - Todos los demás archivos usan su nombre de archivo como espacio de nombres (ej., `t('hero.title')`, `t('pricing.plans.pro.name')`)
 - Las claves faltantes devuelven la cadena de la clave en producción, y registran advertencias en desarrollo
@@ -53,6 +57,7 @@ Extrae el código de idioma a partir de la URL actual.
 **Módulo**: `src/utils/locale-utils.ts`
 
 **Firma**:
+
 ```typescript
 function getLocaleFromUrl(url: URL): Locale;
 ```
@@ -68,6 +73,7 @@ Genera enlaces de navegación para la barra lateral de la documentación.
 **Módulo**: `src/utils/docs-nav.ts`
 
 **Firma**:
+
 ```typescript
 function buildNavLinks(locale: string, section?: string): NavLink[];
 ```
@@ -83,6 +89,7 @@ Devuelve todas las definiciones de temas habilitados.
 **Módulo**: `src/config/themes.ts`
 
 **Firma**:
+
 ```typescript
 function getEnabledThemes(): ThemeDefinition[];
 ```
@@ -96,6 +103,7 @@ Devuelve una definición de tema específica por su identificador (ID).
 **Módulo**: `src/config/themes.ts`
 
 **Firma**:
+
 ```typescript
 function getThemeById(id: string): ThemeDefinition | undefined;
 ```
@@ -106,14 +114,14 @@ function getThemeById(id: string): ThemeDefinition | undefined;
 
 ```typescript
 interface ThemeDefinition {
-  id: string;              // Slug de URL (ej., 'liquid', 'aurora')
-  name: string;            // Nombre a mostrar
-  color: string;           // Clases de gradiente de Tailwind
-  icon: string;            // Ícono Emoji
-  sections: string[];      // Secciones habilitadas
-  enabled: boolean;        // Si el tema está activo
-  premium: boolean;        // Indicador Premium
-  description: string;     // Descripción en una línea
+  id: string; // Slug de URL (ej., 'liquid', 'aurora')
+  name: string; // Nombre a mostrar
+  color: string; // Clases de gradiente de Tailwind
+  icon: string; // Ícono Emoji
+  sections: string[]; // Secciones habilitadas
+  enabled: boolean; // Si el tema está activo
+  premium: boolean; // Indicador Premium
+  description: string; // Descripción en una línea
 }
 ```
 
@@ -121,10 +129,10 @@ interface ThemeDefinition {
 
 ```typescript
 interface LocaleConfig {
-  code: string;            // Código de idioma ISO
-  name: string;            // Nombre en inglés
-  nativeName: string;      // Nombre nativo
-  flag: string;            // Emoji de bandera
+  code: string; // Código de idioma ISO
+  name: string; // Nombre en inglés
+  nativeName: string; // Nombre nativo
+  flag: string; // Emoji de bandera
   direction: 'ltr' | 'rtl';
   enabled: boolean;
 }
@@ -132,11 +140,11 @@ interface LocaleConfig {
 
 ## Temas Disponibles
 
-| ID | Nombre | Ícono |
-|----|--------|-------|
-| `liquid` | Liquid | 💧 |
-| `glass` | Glass | 🪟 |
-| `neo` | Neo | ⚡ |
-| `luxury` | Luxury | 👑 |
-| `minimal` | Minimal | ✨ |
-| `aurora` | Aurora | 🌌 |
+| ID        | Nombre  | Ícono |
+| --------- | ------- | ----- |
+| `liquid`  | Liquid  | 💧    |
+| `glass`   | Glass   | 🪟    |
+| `neo`     | Neo     | ⚡    |
+| `luxury`  | Luxury  | 👑    |
+| `minimal` | Minimal | ✨    |
+| `aurora`  | Aurora  | 🌌    |

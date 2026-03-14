@@ -214,11 +214,21 @@
 }
 
 /* Per-card aurora hue colors */
-.features-aurora-card[data-aurora-hue="0"] { --card-hue: var(--a); }
-.features-aurora-card[data-aurora-hue="1"] { --card-hue: 280 80% 65%; }
-.features-aurora-card[data-aurora-hue="2"] { --card-hue: 200 90% 60%; }
-.features-aurora-card[data-aurora-hue="3"] { --card-hue: 340 85% 65%; }
-.features-aurora-card[data-aurora-hue="4"] { --card-hue: 160 70% 55%; }
+.features-aurora-card[data-aurora-hue='0'] {
+  --card-hue: var(--a);
+}
+.features-aurora-card[data-aurora-hue='1'] {
+  --card-hue: 280 80% 65%;
+}
+.features-aurora-card[data-aurora-hue='2'] {
+  --card-hue: 200 90% 60%;
+}
+.features-aurora-card[data-aurora-hue='3'] {
+  --card-hue: 340 85% 65%;
+}
+.features-aurora-card[data-aurora-hue='4'] {
+  --card-hue: 160 70% 55%;
+}
 
 .features-aurora-card:hover {
   border-color: hsl(var(--a) / 0.15);
@@ -334,7 +344,8 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg,
+  background: linear-gradient(
+    90deg,
     hsl(var(--card-hue, var(--a)) / 0.5),
     hsl(var(--card-hue, var(--a))),
     hsl(var(--card-hue, var(--a)) / 0.5)
@@ -410,6 +421,6 @@
 /* -------------------------------------------------------------------------- */
 /*                         MONOCHROME THEME OVERRIDES                         */
 /* -------------------------------------------------------------------------- */
-[data-theme="monochrome"] .features-aurora-card[data-aurora-hue] {
+[data-theme='monochrome'] .features-aurora-card[data-aurora-hue] {
   --card-hue: var(--bc);
 }

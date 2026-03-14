@@ -1,6 +1,6 @@
 ---
-title: "Обзор секций"
-description: "Обзор всех компонентов секций в AstroGlass."
+title: 'Обзор секций'
+description: 'Обзор всех компонентов секций в AstroGlass.'
 order: 1
 ---
 
@@ -13,16 +13,52 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 ## Доступные секции
 
 <CardGrid>
-  <LinkCard title="Hero" description="Полноэкранные лендинг-секции." href="/ru/docs/components/sections/hero" />
-  <LinkCard title="About" description="Секции представления компании." href="/ru/docs/components/sections/about" />
-  <LinkCard title="Features" description="Витрины функций продукта." href="/ru/docs/components/sections/features" />
-  <LinkCard title="Portfolio" description="Галереи проектов." href="/ru/docs/components/sections/portfolio" />
-  <LinkCard title="Pricing" description="Таблицы тарифов." href="/ru/docs/components/sections/pricing" />
-  <LinkCard title="Testimonials" description="Отзывы клиентов." href="/ru/docs/components/sections/testimonials" />
-  <LinkCard title="FAQ" description="Частые вопросы с аккордеоном." href="/ru/docs/components/sections/faq" />
+  <LinkCard
+    title="Hero"
+    description="Полноэкранные лендинг-секции."
+    href="/ru/docs/components/sections/hero"
+  />
+  <LinkCard
+    title="About"
+    description="Секции представления компании."
+    href="/ru/docs/components/sections/about"
+  />
+  <LinkCard
+    title="Features"
+    description="Витрины функций продукта."
+    href="/ru/docs/components/sections/features"
+  />
+  <LinkCard
+    title="Portfolio"
+    description="Галереи проектов."
+    href="/ru/docs/components/sections/portfolio"
+  />
+  <LinkCard
+    title="Pricing"
+    description="Таблицы тарифов."
+    href="/ru/docs/components/sections/pricing"
+  />
+  <LinkCard
+    title="Testimonials"
+    description="Отзывы клиентов."
+    href="/ru/docs/components/sections/testimonials"
+  />
+  <LinkCard
+    title="FAQ"
+    description="Частые вопросы с аккордеоном."
+    href="/ru/docs/components/sections/faq"
+  />
   <LinkCard title="CTA" description="Призывы к действию." href="/ru/docs/components/sections/cta" />
-  <LinkCard title="Contact" description="Контактные формы с валидацией." href="/ru/docs/components/sections/contact" />
-  <LinkCard title="Navbar" description="Тематические навигационные панели." href="/ru/docs/components/sections/navbar" />
+  <LinkCard
+    title="Contact"
+    description="Контактные формы с валидацией."
+    href="/ru/docs/components/sections/contact"
+  />
+  <LinkCard
+    title="Navbar"
+    description="Тематические навигационные панели."
+    href="/ru/docs/components/sections/navbar"
+  />
   <LinkCard title="Footer" description="Подвал сайта." href="/ru/docs/components/sections/footer" />
 </CardGrid>
 
@@ -31,7 +67,8 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 Каждая секция имеет **6 тематических вариантов** (Liquid, Glass, Neo, Luxury, Minimal, Aurora). Страница `src/pages/[theme].astro` использует карту компонентов для отображения нужного варианта.
 
 <Callout type="info" title="Без внешних пропсов">
-  Секции не принимают пропсов. Весь контент загружается через `useTranslations()` из `src/locales/{lang}/{section}.json`.
+  Секции не принимают пропсов. Весь контент загружается через `useTranslations()` из `src/locales/
+  {lang}/{section}.json`.
 </Callout>
 
 ## Структура файлов

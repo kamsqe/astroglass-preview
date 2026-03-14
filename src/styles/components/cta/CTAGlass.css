@@ -8,7 +8,7 @@
 
 .c-cta-glass__option:hover {
   transform: translateY(var(--lift-amount));
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .c-cta-glass__option.selected {
@@ -80,8 +80,11 @@
 }
 
 @keyframes breathe {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--a) / 0.2); }
-  50% { box-shadow: 0 0 20px 5px hsl(var(--a) / 0.15); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(var(--a) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px hsl(var(--a) / 0.15);
+  }
 }
-
-

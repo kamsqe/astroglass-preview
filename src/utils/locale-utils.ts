@@ -1,8 +1,4 @@
-import { 
-  defaultLocale, 
-  getEnabledLocaleCodes,
-  type Locale 
-} from '../config/locales';
+import { defaultLocale, getEnabledLocaleCodes, type Locale } from '../config/locales';
 
 export const locales = getEnabledLocaleCodes() as unknown as readonly Locale[];
 
@@ -16,4 +12,3 @@ export function getLocaleFromUrl(url: URL): Locale {
   }
   return defaultLocale as Locale;
 }
-

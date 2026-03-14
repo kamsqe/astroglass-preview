@@ -4,10 +4,7 @@
 import { downloadTemplate as gigetDownload } from 'giget';
 import { resolve } from 'node:path';
 
-export async function downloadTemplate(
-  projectDir: string,
-  dryRun: boolean
-): Promise<string> {
+export async function downloadTemplate(projectDir: string, dryRun: boolean): Promise<string> {
   const targetPath = resolve(process.cwd(), projectDir);
 
   if (dryRun) {

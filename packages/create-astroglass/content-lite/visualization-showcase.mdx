@@ -1,6 +1,6 @@
 ---
-title: "Visualization Showcase"
-description: "Data visualization examples using static charts and code snippets"
+title: 'Visualization Showcase'
+description: 'Data visualization examples using static charts and code snippets'
 ---
 
 # Visualization Showcase
@@ -11,12 +11,12 @@ This page showcases data visualization techniques using static examples.
 
 The following demonstrates a sample analytics layout:
 
-| Metric        | Value   | Change |
-|---------------|---------|--------|
-| Page Views    | 12,450  | +12%   |
-| Unique Users  | 8,230   | +8%    |
-| Avg. Duration | 2m 45s  | +15%   |
-| Bounce Rate   | 32%     | -5%    |
+| Metric        | Value  | Change |
+| ------------- | ------ | ------ |
+| Page Views    | 12,450 | +12%   |
+| Unique Users  | 8,230  | +8%    |
+| Avg. Duration | 2m 45s | +15%   |
+| Bounce Rate   | 32%    | -5%    |
 
 ## Code Snippet
 
@@ -28,12 +28,14 @@ const chartConfig = {
   type: 'line',
   data: {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Revenue',
-      data: [1200, 1900, 3000, 5000, 4200],
-      borderColor: 'hsl(var(--p))',
-      tension: 0.4,
-    }],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [1200, 1900, 3000, 5000, 4200],
+        borderColor: 'hsl(var(--p))',
+        tension: 0.4,
+      },
+    ],
   },
 };
 ```
@@ -52,6 +54,7 @@ const chartConfig = {
 ```
 
 > **Note:** For interactive charts, add the dashboard module:
+>
 > ```bash
 > npx astroglass add dashboard
 > ```

@@ -20,13 +20,20 @@ const validationMessages = {
 };
 ---
 
-<section class="contact-aurora" id="contact" data-validation-messages={JSON.stringify(validationMessages)}>
+<section
+  class="contact-aurora"
+  id="contact"
+  data-validation-messages={JSON.stringify(validationMessages)}
+>
   <div class="contact-aurora-inner">
     <!-- Left panel -->
     <div class="contact-aurora-info">
       <div class="contact-aurora-label">
         <span class="contact-aurora-label-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+            ></path><path d="M22 6l-10 7L2 6"></path></svg
+          >
         </span>
         <span>{t('contact.eyebrow')}</span>
       </div>
@@ -70,13 +77,31 @@ const validationMessages = {
         <div class="contact-aurora-row">
           <div class="contact-aurora-field">
             <label for="aurora-name">{t('contact.form.name')}</label>
-            <input type="text" id="aurora-name" name="name" placeholder={t('contact.placeholders.johnSmith')} required minlength="2" maxlength="100" autocomplete="name" />
-            <span class="contact-aurora-error" data-error-for="aurora-name" aria-live="polite"></span>
+            <input
+              type="text"
+              id="aurora-name"
+              name="name"
+              placeholder={t('contact.placeholders.johnSmith')}
+              required
+              minlength="2"
+              maxlength="100"
+              autocomplete="name"
+            />
+            <span class="contact-aurora-error" data-error-for="aurora-name" aria-live="polite"
+            ></span>
           </div>
           <div class="contact-aurora-field">
             <label for="aurora-email">{t('contact.form.email')}</label>
-            <input type="email" id="aurora-email" name="email" placeholder={t('contact.placeholders.yourEmail')} required autocomplete="email" />
-            <span class="contact-aurora-error" data-error-for="aurora-email" aria-live="polite"></span>
+            <input
+              type="email"
+              id="aurora-email"
+              name="email"
+              placeholder={t('contact.placeholders.yourEmail')}
+              required
+              autocomplete="email"
+            />
+            <span class="contact-aurora-error" data-error-for="aurora-email" aria-live="polite"
+            ></span>
           </div>
         </div>
         <div class="contact-aurora-field">
@@ -91,14 +116,26 @@ const validationMessages = {
         </div>
         <div class="contact-aurora-field">
           <label for="aurora-message">{t('contact.form.message')}</label>
-          <textarea id="aurora-message" name="message" rows="4" placeholder={t('contact.placeholders.tellUs')} required minlength="10" maxlength="2000"></textarea>
-          <span class="contact-aurora-error" data-error-for="aurora-message" aria-live="polite"></span>
+          <textarea
+            id="aurora-message"
+            name="message"
+            rows="4"
+            placeholder={t('contact.placeholders.tellUs')}
+            required
+            minlength="10"
+            maxlength="2000"></textarea>
+          <span class="contact-aurora-error" data-error-for="aurora-message" aria-live="polite"
+          ></span>
         </div>
         <button type="submit" class="contact-aurora-submit" id="aurora-submit-btn">
           <span class="contact-aurora-submit-text">{t('contact.form.send')}</span>
-          <span class="contact-aurora-submit-loading" style="display:none;">{t('contact.form.sending')}</span>
+          <span class="contact-aurora-submit-loading" style="display:none;"
+            >{t('contact.form.sending')}</span
+          >
         </button>
-        <p class="contact-aurora-success" id="aurora-success" style="display:none;">{t('contact.form.success')}</p>
+        <p class="contact-aurora-success" id="aurora-success" style="display:none;">
+          {t('contact.form.success')}
+        </p>
         <p class="contact-aurora-privacy">{t('contact.secureInfo')}</p>
       </form>
     </div>
@@ -118,11 +155,13 @@ const validationMessages = {
 
     const container = document.querySelector('.contact-aurora');
     if (!container) return;
-    
+
     const form = document.getElementById('aurora-contact-form') as HTMLFormElement;
     if (!form) return;
 
-    const validationMessages = JSON.parse((container as HTMLElement).dataset.validationMessages || '{}');
+    const validationMessages = JSON.parse(
+      (container as HTMLElement).dataset.validationMessages || '{}',
+    );
     const t = (key: string) => validationMessages[key.split('.').pop() || ''] || key;
     const schema = createContactSchema(t);
 
@@ -141,50 +180,67 @@ const validationMessages = {
     };
 
     // Real-time validation
-    form.querySelectorAll('input, select, textarea').forEach(input => {
+    form.querySelectorAll('input, select, textarea').forEach((input) => {
       const el = input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-      el.addEventListener('blur', () => {
-         validateSingleField(el, { form, schema, renderError, clearError });
-      }, { signal });
-      el.addEventListener('input', () => {
-        if (el.classList.contains('contact-aurora-input--error')) {
-           validateSingleField(el, { form, schema, renderError, clearError });
-        }
-      }, { signal });
+      el.addEventListener(
+        'blur',
+        () => {
+          validateSingleField(el, { form, schema, renderError, clearError });
+        },
+        { signal },
+      );
+      el.addEventListener(
+        'input',
+        () => {
+          if (el.classList.contains('contact-aurora-input--error')) {
+            validateSingleField(el, { form, schema, renderError, clearError });
+          }
+        },
+        { signal },
+      );
     });
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    form.addEventListener(
+      'submit',
+      (e) => {
+        e.preventDefault();
 
-      const result = validateForm({ form, schema, renderError, clearError });
+        const result = validateForm({ form, schema, renderError, clearError });
 
-      if (!result.success) {
-        return;
-      }
+        if (!result.success) {
+          return;
+        }
 
-      // Simulate form submission
-      const submitBtn = document.getElementById('aurora-submit-btn') as HTMLButtonElement | null;
-      const textEl = submitBtn?.querySelector('.contact-aurora-submit-text') as HTMLElement | null;
-      const loadingEl = submitBtn?.querySelector('.contact-aurora-submit-loading') as HTMLElement | null;
-      
-      if (textEl) textEl.style.display = 'none';
-      if (loadingEl) loadingEl.style.display = 'inline';
-      if (submitBtn) submitBtn.disabled = true;
+        // Simulate form submission
+        const submitBtn = document.getElementById('aurora-submit-btn') as HTMLButtonElement | null;
+        const textEl = submitBtn?.querySelector(
+          '.contact-aurora-submit-text',
+        ) as HTMLElement | null;
+        const loadingEl = submitBtn?.querySelector(
+          '.contact-aurora-submit-loading',
+        ) as HTMLElement | null;
 
-      setTimeout(() => {
+        if (textEl) textEl.style.display = 'none';
+        if (loadingEl) loadingEl.style.display = 'inline';
+        if (submitBtn) submitBtn.disabled = true;
 
-        if (textEl) textEl.style.display = 'inline';
-        if (loadingEl) loadingEl.style.display = 'none';
-        if (submitBtn) submitBtn.disabled = false;
-        
-        const success = document.getElementById('aurora-success');
-        if (success) success.style.display = 'block';
-        
-        form.reset();
-        
-        setTimeout(() => { if (success) success.style.display = 'none'; }, 5000);
-      }, 1500);
-    }, { signal });
+        setTimeout(() => {
+          if (textEl) textEl.style.display = 'inline';
+          if (loadingEl) loadingEl.style.display = 'none';
+          if (submitBtn) submitBtn.disabled = false;
+
+          const success = document.getElementById('aurora-success');
+          if (success) success.style.display = 'block';
+
+          form.reset();
+
+          setTimeout(() => {
+            if (success) success.style.display = 'none';
+          }, 5000);
+        }, 1500);
+      },
+      { signal },
+    );
   }
 
   initAuroraForm();

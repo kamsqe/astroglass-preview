@@ -1,5 +1,13 @@
 import React from 'react';
-import { AreaChart as RechartsAreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  AreaChart as RechartsAreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import { cn } from '../../../lib/utils'; // Adjust path based on location
 
 const colorMap: Record<string, string> = {
@@ -37,7 +45,7 @@ const AreaChart = ({
   showAnimation = true,
 }: AreaChartProps) => {
   return (
-    <div className={cn("w-full", className)}>
+    <div className={cn('w-full', className)}>
       <ResponsiveContainer width="100%" height="100%">
         <RechartsAreaChart
           data={data}
@@ -49,24 +57,29 @@ const AreaChart = ({
           }}
         >
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--bc) / 0.1)" />
-          <XAxis 
-            dataKey={index} 
-            stroke="hsl(var(--bc) / 0.4)" 
-            fontSize={12} 
-            tickLine={false} 
-            axisLine={false} 
+          <XAxis
+            dataKey={index}
+            stroke="hsl(var(--bc) / 0.4)"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
             dy={10}
           />
-          <YAxis 
-            width={yAxisWidth} 
-            stroke="hsl(var(--bc) / 0.4)" 
-            fontSize={12} 
-            tickLine={false} 
-            axisLine={false} 
-            tickFormatter={valueFormatter} 
+          <YAxis
+            width={yAxisWidth}
+            stroke="hsl(var(--bc) / 0.4)"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={valueFormatter}
           />
-          <Tooltip 
-            contentStyle={{ backgroundColor: 'hsl(var(--b1))', borderColor: 'hsl(var(--bc) / 0.1)', color: 'hsl(var(--bc))', borderRadius: '0.5rem' }}
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'hsl(var(--b1))',
+              borderColor: 'hsl(var(--bc) / 0.1)',
+              color: 'hsl(var(--bc))',
+              borderRadius: '0.5rem',
+            }}
             itemStyle={{ color: 'hsl(var(--bc))' }}
             formatter={(value: any) => [valueFormatter(value)]}
             labelStyle={{ color: 'hsl(var(--bc) / 0.6)', marginBottom: '0.25rem' }}
@@ -77,8 +90,8 @@ const AreaChart = ({
               type="monotone"
               dataKey={category}
               stackId="1"
-              stroke={colors[i] ? colorMap[colors[i]] || colors[i] : `hsl(var(--p))` }
-              fill={colors[i] ? colorMap[colors[i]] || colors[i] : `hsl(var(--p))` }
+              stroke={colors[i] ? colorMap[colors[i]] || colors[i] : `hsl(var(--p))`}
+              fill={colors[i] ? colorMap[colors[i]] || colors[i] : `hsl(var(--p))`}
               fillOpacity={0.2}
               isAnimationActive={showAnimation}
               animationDuration={1500}

@@ -33,7 +33,7 @@
   transition: transform 0.25s ease;
 }
 
-.toc[data-open="true"] .toc__toggle-icon {
+.toc[data-open='true'] .toc__toggle-icon {
   transform: rotate(180deg);
 }
 
@@ -43,7 +43,7 @@
   transition: max-height 0.3s ease;
 }
 
-.toc[data-open="true"] .toc__list-wrap {
+.toc[data-open='true'] .toc__list-wrap {
   max-height: 60vh;
 }
 
@@ -63,7 +63,9 @@
   border-radius: 0.5rem;
   color: hsl(var(--bc) / 0.5);
   text-decoration: none;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
   border-left: 2px solid transparent;
 }
 

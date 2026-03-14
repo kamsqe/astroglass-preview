@@ -1,6 +1,6 @@
 /* Synthwave - Retro, vibrant, energetic
    80s arcade, neon lights, and chrome */
-[data-theme="synthwave"] {
+[data-theme='synthwave'] {
   --p: 270 55% 12%;
   --s: 280 50% 18%;
   --a: 320 100% 60%;
@@ -18,7 +18,8 @@
   --selection-bg: 320 100% 60% / 0.4;
   --scrollbar-thumb: 320 70% 45%;
   --scrollbar-track: 270 55% 10%;
-  --ambient-glow: radial-gradient(ellipse 60% 50% at 0% 50%, hsl(320 100% 50% / 0.12), transparent),
-                  radial-gradient(ellipse 60% 50% at 100% 50%, hsl(180 100% 50% / 0.08), transparent),
-                  linear-gradient(to bottom, hsl(280 60% 20% / 0.3) 0%, transparent 30%);
+  --ambient-glow:
+    radial-gradient(ellipse 60% 50% at 0% 50%, hsl(320 100% 50% / 0.12), transparent),
+    radial-gradient(ellipse 60% 50% at 100% 50%, hsl(180 100% 50% / 0.08), transparent),
+    linear-gradient(to bottom, hsl(280 60% 20% / 0.3) 0%, transparent 30%);
 }

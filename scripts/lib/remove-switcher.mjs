@@ -17,7 +17,7 @@ async function getHeaderFiles() {
   const dir = resolve(HEADER_DIR);
   try {
     const entries = await fs.readdir(dir);
-    return entries.filter(f => f.endsWith('.astro')).map(f => path.join(HEADER_DIR, f));
+    return entries.filter((f) => f.endsWith('.astro')).map((f) => path.join(HEADER_DIR, f));
   } catch {
     return [];
   }
@@ -37,19 +37,16 @@ function removeComponentUsage(content, componentName) {
   // Remove import line: import X from '...';
   result = result.replace(
     new RegExp(`\\s*import\\s+${componentName}\\s+from\\s+['\"][^'\"]+['\"];?\\s*\\n`, 'g'),
-    '\n'
+    '\n',
   );
 
   // Remove JSX self-closing tags: <ThemeSwitcher ... />
-  result = result.replace(
-    new RegExp(`\\s*<${componentName}[^/>]*/>\\s*\\n?`, 'g'),
-    '\n'
-  );
+  result = result.replace(new RegExp(`\\s*<${componentName}[^/>]*/>\\s*\\n?`, 'g'), '\n');
 
   // Remove JSX open+close tags: <ThemeSwitcher ...>...</ThemeSwitcher>
   result = result.replace(
     new RegExp(`\\s*<${componentName}[^>]*>[\\s\\S]*?</${componentName}>\\s*\\n?`, 'g'),
-    '\n'
+    '\n',
   );
 
   return result;
@@ -78,7 +75,7 @@ export async function removeThemeSwitcher() {
   if (docsLayout && docsLayout.includes('ThemeSwitcher')) {
     await writeFile(
       'src/components/docs/DocsLayout.astro',
-      removeComponentUsage(docsLayout, 'ThemeSwitcher')
+      removeComponentUsage(docsLayout, 'ThemeSwitcher'),
     );
   }
 
@@ -137,7 +134,7 @@ export async function removeLanguageSwitcher() {
     // Remove the applyLocalePreference script block
     baseLayout = baseLayout.replace(
       /\s*<script is:inline define:vars=\{\{ enabledLocales \}\}>[\s\S]*?<\/script>/,
-      ''
+      '',
     );
     await writeFile('src/layouts/BaseLayout.astro', baseLayout);
   }

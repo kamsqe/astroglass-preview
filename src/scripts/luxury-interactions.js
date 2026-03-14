@@ -11,7 +11,7 @@ export class Spotlight {
   }
 
   init() {
-    this.targets.forEach(el => {
+    this.targets.forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -35,12 +35,12 @@ export class Magnetic {
     // Only enable on desktop
     if (window.matchMedia('(hover: none)').matches) return;
 
-    this.targets.forEach(el => {
+    this.targets.forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
+
         el.style.transform = `translate(${x / this.strength}px, ${y / this.strength}px)`;
       });
 
@@ -55,10 +55,10 @@ export class Magnetic {
 export class ScrollReveal {
   constructor(selector = '.js-reveal', options = {}) {
     this.targets = document.querySelectorAll(selector);
-    this.options = { 
-      threshold: 0.1, 
+    this.options = {
+      threshold: 0.1,
       rootMargin: '0px 0px -50px 0px',
-      ...options 
+      ...options,
     };
     this.init();
   }
@@ -83,7 +83,7 @@ export class ScrollReveal {
     }
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
@@ -91,7 +91,7 @@ export class ScrollReveal {
       });
     }, this.options);
 
-    this.targets.forEach(target => {
+    this.targets.forEach((target) => {
       // Add base styles if not present
       if (!target.classList.contains('reveal-base')) {
         target.classList.add('reveal-base');
@@ -114,7 +114,7 @@ export class Parallax {
 
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
-      this.targets.forEach(el => {
+      this.targets.forEach((el) => {
         // Calculate relative movement
         const yPos = -(scrolled * this.speed);
         el.style.transform = `translate3d(0, ${yPos}px, 0)`;
@@ -152,7 +152,7 @@ export class TextReveal {
     }
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-revealed');
           observer.unobserve(entry.target);
@@ -160,7 +160,7 @@ export class TextReveal {
       });
     }, this.options);
 
-    this.targets.forEach(el => {
+    this.targets.forEach((el) => {
       const text = el.textContent.trim();
       el.innerHTML = '';
       el.style.opacity = '1'; // Ensure container is visible

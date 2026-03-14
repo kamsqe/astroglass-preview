@@ -3,13 +3,25 @@
 .c-faq-glass__typing-dot {
   animation: typingBounce 1.4s infinite ease-in-out;
 }
-.c-faq-glass__typing-dot:nth-child(1) { animation-delay: 0ms; }
-.c-faq-glass__typing-dot:nth-child(2) { animation-delay: 200ms; }
-.c-faq-glass__typing-dot:nth-child(3) { animation-delay: 400ms; }
+.c-faq-glass__typing-dot:nth-child(1) {
+  animation-delay: 0ms;
+}
+.c-faq-glass__typing-dot:nth-child(2) {
+  animation-delay: 200ms;
+}
+.c-faq-glass__typing-dot:nth-child(3) {
+  animation-delay: 400ms;
+}
 
 @keyframes typingBounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-4px); }
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
 }
 
 .c-faq-glass__msg {
@@ -34,7 +46,7 @@
 
 .c-faq-glass__suggest-btn:hover {
   transform: translateY(-3px) translateZ(0);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Ask button shine effect */
@@ -58,10 +70,12 @@
 }
 
 @keyframes askButtonShine {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-100%);
   }
-  15%, 85% {
+  15%,
+  85% {
     transform: translateX(100%);
   }
 }

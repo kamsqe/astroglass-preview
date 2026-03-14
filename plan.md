@@ -53,6 +53,7 @@ Done! Run `pnpm dev` to start.
 ## Dependencies
 
 Use `@inquirer/prompts` (modern, ESM-native, small) for interactive prompts:
+
 - `select` — single theme choice
 - `checkbox` — multi-select for languages and palettes
 - `confirm` — final confirmation
@@ -68,11 +69,13 @@ Entry point with three prompt stages + confirmation + execution.
 ### Step 2: Theme Pruning
 
 **What to delete** (for each unselected theme):
+
 - All files from `themeRegistry[theme]` (barrel, sections, CSS, headers, footers, UI, scripts, tokens)
 - Portfolio page: `src/pages/[...lang]/[theme]/portfolio.astro` (if theme-specific)
 - Theme card background images in `src/assets/` (e.g., `LiquidCardBg.png`)
 
 **What to update:**
+
 - `src/config/themes.ts` — remove unselected theme entries from the `themes` array
 - `src/config/themePresets.ts` — remove unselected theme presets
 - `src/config/themeRegistry.ts` — remove unselected theme manifests
@@ -85,15 +88,18 @@ Entry point with three prompt stages + confirmation + execution.
 ### Step 3: Locale Pruning
 
 **What to delete** (for each unselected locale):
+
 - `src/locales/{code}/` — entire translation directory
 - `src/content/blog/{code}/` — blog content for that locale
 - `src/content/docs/{code}/` — docs content for that locale
 - `public/search/{code}.json` — search index for that locale
 
 **What to update:**
+
 - `src/config/locales.ts` — set `enabled: false` on unselected locales (or remove entries entirely)
 
 **If only 1 locale selected → remove LanguageSwitcher:**
+
 - Delete `src/components/ui/LanguageSwitcher.astro`
 - Delete `src/styles/_lang-switcher.css`
 - Remove `<LanguageSwitcher>` usage from all header components (grep for `LanguageSwitcher`)
@@ -103,14 +109,17 @@ Entry point with three prompt stages + confirmation + execution.
 ### Step 4: Palette Pruning
 
 **What to delete** (for each unselected palette):
+
 - `src/styles/palettes/{id}.css` — palette CSS file
 
 **What to update:**
+
 - `src/styles/_themes.css` — remove `@import` lines for unselected palettes
 - `src/config/palettes.ts` — remove unselected palette entries from the `palettes` array
 - Expressive code config in `astro.config.mjs` — update `themeCssSelector` to only reference selected palette data-theme attributes
 
 **If only 1 palette selected → remove ThemeSwitcher:**
+
 - Delete `src/components/ui/ThemeSwitcher.astro`
 - Delete `src/styles/_theme-switcher.css`
 - Remove `<ThemeSwitcher>` usage from all header components (grep for `ThemeSwitcher`)
@@ -118,6 +127,7 @@ Entry point with three prompt stages + confirmation + execution.
 - Set the single palette as default in `<html data-theme="...">` in BaseLayout
 
 **If 2-10 palettes selected → resize ThemeSwitcher popup:**
+
 - Update ThemeSwitcher.astro: if a category has 0 palettes, hide that category section
 - If total palettes <= 4: use a single-row compact layout instead of categorized grid
 - Adjust the desktop dropdown max-width based on palette count
@@ -125,6 +135,7 @@ Entry point with three prompt stages + confirmation + execution.
 ### Step 5: Config File Updates (shared)
 
 Files that always need updating regardless of choices:
+
 - `src/config/themes.ts` — filter to selected theme only
 - `src/config/locales.ts` — filter to selected locales
 - `src/config/palettes.ts` — filter to selected palettes
@@ -135,6 +146,7 @@ Files that always need updating regardless of choices:
 ### Step 6: Post-Pruning
 
 After all deletions and config updates:
+
 1. Run `pnpm run build` to verify nothing is broken
 2. Print summary of changes
 
@@ -168,6 +180,7 @@ scripts/
 ## npm script
 
 Add to `package.json`:
+
 ```json
 "configure": "node scripts/configure.mjs"
 ```

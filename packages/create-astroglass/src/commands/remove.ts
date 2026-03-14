@@ -35,7 +35,10 @@ export async function removeCommand(args: {
   } else if (args.feature) {
     await removeFeature(projectPath, config, configPath, args.feature, args);
   } else {
-    p.note('Use flags to specify what to remove:\n  npx astroglass remove --theme luxury\n  npx astroglass remove --palette abyss\n  npx astroglass remove --lang fr\n  npx astroglass remove --feature docs', 'Usage');
+    p.note(
+      'Use flags to specify what to remove:\n  npx astroglass remove --theme luxury\n  npx astroglass remove --palette abyss\n  npx astroglass remove --lang fr\n  npx astroglass remove --feature docs',
+      'Usage',
+    );
     return;
   }
 }
@@ -45,7 +48,7 @@ async function removeTheme(
   config: any,
   configPath: string,
   themeId: string,
-  opts: { dryRun?: boolean; force?: boolean }
+  opts: { dryRun?: boolean; force?: boolean },
 ): Promise<void> {
   // Boundary check
   if (!config.themes.includes(themeId)) {
@@ -114,7 +117,7 @@ async function removePalette(
   config: any,
   configPath: string,
   paletteId: string,
-  opts: { dryRun?: boolean; force?: boolean }
+  opts: { dryRun?: boolean; force?: boolean },
 ): Promise<void> {
   if (!config.palettes.includes(paletteId)) {
     console.log(pc.yellow(`  Palette "${paletteId}" is not installed.`));
@@ -151,7 +154,10 @@ async function removePalette(
   const themesPath = join(projectPath, 'src/styles/_themes.css');
   if (existsSync(themesPath)) {
     let content = await readFile(themesPath, 'utf-8');
-    content = content.replace(new RegExp(`@import\\s+["']\\./palettes/${paletteId}\\.css["'];?\\n?`, 'g'), '');
+    content = content.replace(
+      new RegExp(`@import\\s+["']\\./palettes/${paletteId}\\.css["'];?\\n?`, 'g'),
+      '',
+    );
     await writeFile(themesPath, content, 'utf-8');
   }
 
@@ -175,7 +181,7 @@ async function removeLocale(
   config: any,
   configPath: string,
   localeCode: string,
-  opts: { dryRun?: boolean; force?: boolean }
+  opts: { dryRun?: boolean; force?: boolean },
 ): Promise<void> {
   if (!config.locales.includes(localeCode)) {
     console.log(pc.yellow(`  Language "${localeCode}" is not installed.`));
@@ -217,10 +223,7 @@ async function removeLocale(
   const localesFile = join(projectPath, 'src/config/locales.ts');
   if (existsSync(localesFile)) {
     let content = await readFile(localesFile, 'utf-8');
-    const pattern = new RegExp(
-      `(code:\\s*['"]${localeCode}['"][^}]*enabled:\\s*)true`,
-      'g'
-    );
+    const pattern = new RegExp(`(code:\\s*['"]${localeCode}['"][^}]*enabled:\\s*)true`, 'g');
     content = content.replace(pattern, '$1false');
     await writeFile(localesFile, content, 'utf-8');
   }
@@ -240,7 +243,7 @@ async function removeFeature(
   config: any,
   configPath: string,
   featureId: string,
-  opts: { dryRun?: boolean; force?: boolean }
+  opts: { dryRun?: boolean; force?: boolean },
 ): Promise<void> {
   if (!config.features.includes(featureId)) {
     console.log(pc.yellow(`  Feature "${featureId}" is not installed.`));

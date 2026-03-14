@@ -34,34 +34,44 @@ import '../../../styles/components/header/HeaderMinimal.css';
     <div class="minimal-blob"></div>
     <div class="minimal-blob"></div>
   </div>
-  
+
   <div class="panel-minimal-content">
     <div class="panel-minimal-header">
-       <div class="panel-minimal-label">{t('nav.explore')}</div>
+      <div class="panel-minimal-label">{t('nav.explore')}</div>
     </div>
 
     <nav class="panel-minimal-nav">
-      {navLinks.map((link, index) => (
-        <LocalizedLink href={link.href} class="panel-minimal-link" data-index={index}>
-          <span class="panel-minimal-link-text">{link.label}</span>
-          {link.label}
-        </LocalizedLink>
-      ))}
+      {
+        navLinks.map((link, index) => (
+          <LocalizedLink href={link.href} class="panel-minimal-link" data-index={index}>
+            <span class="panel-minimal-link-text">{link.label}</span>
+            {link.label}
+          </LocalizedLink>
+        ))
+      }
     </nav>
 
     <div class="panel-minimal-settings">
-       <div class="minimal-settings-group">
-          <span class="minimal-settings-label">{t('nav.preferences')}</span>
-          <div class="minimal-theme-grid">
-             {palettes.map(p => (
-               <button class="minimal-theme-btn" data-theme-minimal={p.id} title={p.id.charAt(0).toUpperCase() + p.id.slice(1)}>{p.icon}</button>
-             ))}
-          </div>
-       </div>
-       <div class="minimal-settings-group">
-          <span class="minimal-settings-label">{t('languageSwitcher.label')}</span>
-          <LanguageSwitcher variant="mobile" />
-       </div>
+      <div class="minimal-settings-group">
+        <span class="minimal-settings-label">{t('nav.preferences')}</span>
+        <div class="minimal-theme-grid">
+          {
+            palettes.map((p) => (
+              <button
+                class="minimal-theme-btn"
+                data-theme-minimal={p.id}
+                title={p.id.charAt(0).toUpperCase() + p.id.slice(1)}
+              >
+                {p.icon}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <div class="minimal-settings-group">
+        <span class="minimal-settings-label">{t('languageSwitcher.label')}</span>
+        <LanguageSwitcher variant="mobile" />
+      </div>
     </div>
 
     <div class="panel-minimal-footer">
@@ -70,8 +80,18 @@ import '../../../styles/components/header/HeaderMinimal.css';
       </div>
       <div class="panel-minimal-socials">
         <!-- Replace with your social links -->
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label={t('nav.socials.twitter')}>TW</a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label={t('nav.socials.github')}>GH</a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t('nav.socials.twitter')}>TW</a
+        >
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t('nav.socials.github')}>GH</a
+        >
       </div>
     </div>
   </div>
@@ -81,7 +101,7 @@ import '../../../styles/components/header/HeaderMinimal.css';
   function initHeaderMinimal() {
     const trigger = document.getElementById('trigger-minimal');
     const panel = document.getElementById('panel-minimal');
-    
+
     if (!trigger || !panel) return;
 
     // Reset state
@@ -105,7 +125,7 @@ import '../../../styles/components/header/HeaderMinimal.css';
     });
 
     // Close on nav link click (not group triggers)
-    panel.querySelectorAll('.panel-minimal-link, .panel-minimal-child-link').forEach(link => {
+    panel.querySelectorAll('.panel-minimal-link, .panel-minimal-child-link').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
 
@@ -118,7 +138,7 @@ import '../../../styles/components/header/HeaderMinimal.css';
     });
 
     // Theme buttons
-    panel.querySelectorAll('[data-theme-minimal]').forEach(btn => {
+    panel.querySelectorAll('[data-theme-minimal]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const theme = btn.getAttribute('data-theme-minimal');
         if (theme) {
@@ -129,7 +149,7 @@ import '../../../styles/components/header/HeaderMinimal.css';
     });
 
     // Expandable groups
-    panel.querySelectorAll('[data-minimal-group]').forEach(group => {
+    panel.querySelectorAll('[data-minimal-group]').forEach((group) => {
       const groupTrigger = group.querySelector('.panel-minimal-group-trigger');
       if (!groupTrigger) return;
 

@@ -73,39 +73,67 @@ const navLinks = buildThemeNavLinks(t, 'liquid');
 <div class="overlay-neo" id="overlay-liquid">
   <div class="overlay-neo-content">
     <nav class="overlay-neo-nav">
-      {navLinks.map((link) => (
-        link.children ? (
-          <div class="overlay-neo-group" data-neo-group-liquid>
-            <button type="button" class="overlay-neo-group-trigger">
+      {
+        navLinks.map((link) =>
+          link.children ? (
+            <div class="overlay-neo-group" data-neo-group-liquid>
+              <button type="button" class="overlay-neo-group-trigger">
+                <span class="overlay-neo-link-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {link.icon.paths.map((p) => (
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.75"
+                        d={p}
+                      />
+                    ))}
+                  </svg>
+                </span>
+                {link.label}
+                <svg
+                  class="overlay-neo-group-chevron"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div class="overlay-neo-group-children">
+                <div class="overlay-neo-group-children-inner">
+                  {link.children.map((child) => (
+                    <LocalizedLink href={child.href} class="overlay-neo-child-link">
+                      {child.label}
+                    </LocalizedLink>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <LocalizedLink href={link.href} class="overlay-neo-link">
               <span class="overlay-neo-link-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
+                  {link.icon.paths.map((p) => (
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.75"
+                      d={p}
+                    />
+                  ))}
                 </svg>
               </span>
               {link.label}
-              <svg class="overlay-neo-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="overlay-neo-group-children">
-              <div class="overlay-neo-group-children-inner">
-                {link.children.map((child) => (
-                  <LocalizedLink href={child.href} class="overlay-neo-child-link">{child.label}</LocalizedLink>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <LocalizedLink href={link.href} class="overlay-neo-link">
-            <span class="overlay-neo-link-icon">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {link.icon.paths.map((p) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={p} />)}
-              </svg>
-            </span>
-            {link.label}
-          </LocalizedLink>
+            </LocalizedLink>
+          ),
         )
-      ))}
+      }
     </nav>
 
     <div class="overlay-neo-footer">
@@ -145,47 +173,62 @@ const navLinks = buildThemeNavLinks(t, 'liquid');
     };
 
     // ---- Mobile overlay ----
-    burger.addEventListener('click', () => {
-      const isOpen = overlay.classList.toggle('is-open');
-      burger.classList.toggle('is-active');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    }, { signal });
+    burger.addEventListener(
+      'click',
+      () => {
+        const isOpen = overlay.classList.toggle('is-open');
+        burger.classList.toggle('is-active');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      },
+      { signal },
+    );
 
-    overlay.querySelectorAll('a').forEach(link => {
+    overlay.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeOverlay, { signal });
     });
 
     // ---- Mobile expandable groups ----
-    overlay.querySelectorAll('[data-neo-group-liquid]').forEach(group => {
+    overlay.querySelectorAll('[data-neo-group-liquid]').forEach((group) => {
       const groupTrigger = group.querySelector('.overlay-neo-group-trigger');
       if (!groupTrigger) return;
 
-      groupTrigger.addEventListener('click', () => {
-        group.classList.toggle('is-open');
-      }, { signal });
+      groupTrigger.addEventListener(
+        'click',
+        () => {
+          group.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
     // Handle keyboard escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-        closeOverlay();
-        burger.focus();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          closeOverlay();
+          burger.focus();
+        }
+      },
+      { signal },
+    );
 
     // Handle window resize
     let resizeTimer: ReturnType<typeof setTimeout>;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (window.innerWidth >= 1024 && overlay.classList.contains('is-open')) {
-          closeOverlay();
-        }
-      }, 100);
-    }, { signal });
+    window.addEventListener(
+      'resize',
+      () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (window.innerWidth >= 1024 && overlay.classList.contains('is-open')) {
+            closeOverlay();
+          }
+        }, 100);
+      },
+      { signal },
+    );
   }
 
   initHeaderLiquid();
   document.addEventListener('astro:after-swap', initHeaderLiquid);
 </script>
-

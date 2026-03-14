@@ -20,10 +20,7 @@
     "src/styles/_docs.css",
     "scripts/generate-search-index.mjs"
   ],
-  "packages": [
-    "fuse.js",
-    "astro-expressive-code"
-  ],
+  "packages": ["fuse.js", "astro-expressive-code"],
   "configPatches": {
     "astro.config.mjs": ["expressiveCode integration"],
     "global.css": ["@import './_docs.css'"],

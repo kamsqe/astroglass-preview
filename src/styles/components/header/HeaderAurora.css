@@ -59,8 +59,12 @@
 }
 
 @keyframes header-aurora-shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .header-aurora.is-scrolled .header-aurora-border {
@@ -147,11 +151,7 @@
   left: 16px;
   right: 16px;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--a)),
-    hsl(var(--a) / 0.4)
-  );
+  background: linear-gradient(90deg, hsl(var(--a)), hsl(var(--a) / 0.4));
   border-radius: 1px;
   transform: scaleX(0);
   transform-origin: left;
@@ -370,14 +370,20 @@ button.nav-aurora-link {
 
 @keyframes aurora-mesh-shift {
   0% {
-    background-position: 0% 0%, 100% 100%, 50% 50%;
+    background-position:
+      0% 0%,
+      100% 100%,
+      50% 50%;
     opacity: 0.6;
   }
   50% {
     opacity: 1;
   }
   100% {
-    background-position: 100% 0%, 0% 100%, 50% 50%;
+    background-position:
+      100% 0%,
+      0% 100%,
+      50% 50%;
     opacity: 0.6;
   }
 }
@@ -612,5 +618,5 @@ button.nav-aurora-link {
 .overlay-aurora-footer .lang-option-mobile.is-active {
   background: hsl(var(--bc));
   color: hsl(var(--b1));
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

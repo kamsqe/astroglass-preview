@@ -58,8 +58,13 @@
 }
 
 @keyframes faq-cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -162,7 +167,9 @@
   height: 20px;
   color: hsl(var(--bc) / 0.3);
   flex-shrink: 0;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 .faq-aurora-q-icon svg {
@@ -179,7 +186,9 @@
 .faq-aurora-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1), padding 0.3s ease;
+  transition:
+    max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    padding 0.3s ease;
   position: relative;
 }
 

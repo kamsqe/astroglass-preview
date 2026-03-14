@@ -65,19 +65,11 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${STYLES}/contact/ContactLiquid.css`,
       `${STYLES}/footer/FooterLiquid.css`,
     ],
-    header: [
-      `${HEADER}/HeaderLiquid.astro`,
-    ],
-    footer: [
-      `${SECTIONS}/footer/FooterLiquid.astro`,
-    ],
-    ui: [
-      `${UI}/liquid/LiquidSectionTag.astro`,
-    ],
+    header: [`${HEADER}/HeaderLiquid.astro`],
+    footer: [`${SECTIONS}/footer/FooterLiquid.astro`],
+    ui: [`${UI}/liquid/LiquidSectionTag.astro`],
     scripts: [],
-    tokens: [
-      'src/styles/tokens/liquid.css',
-    ],
+    tokens: ['src/styles/tokens/liquid.css'],
     npmDeps: [],
   },
 
@@ -107,20 +99,11 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${STYLES}/footer/FooterGlass.css`,
       `${STYLES}/header/HeaderGlass.css`,
     ],
-    header: [
-      `${HEADER}/HeaderGlass.astro`,
-    ],
-    footer: [
-      `${SECTIONS}/footer/FooterGlass.astro`,
-    ],
-    ui: [
-      `${UI}/glass/SectionHeading.astro`,
-      `${UI}/glass/SectionTag.astro`,
-    ],
+    header: [`${HEADER}/HeaderGlass.astro`],
+    footer: [`${SECTIONS}/footer/FooterGlass.astro`],
+    ui: [`${UI}/glass/SectionHeading.astro`, `${UI}/glass/SectionTag.astro`],
     scripts: [],
-    tokens: [
-      'src/styles/tokens/glass.css',
-    ],
+    tokens: ['src/styles/tokens/glass.css'],
     npmDeps: [],
   },
 
@@ -150,15 +133,9 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${STYLES}/footer/FooterNeo.css`,
       `${STYLES}/header/HeaderNeo.css`,
     ],
-    header: [
-      `${HEADER}/HeaderNeo.astro`,
-    ],
-    footer: [
-      `${SECTIONS}/footer/FooterNeo.astro`,
-    ],
-    ui: [
-      `${UI}/neo/NeoSectionTag.astro`,
-    ],
+    header: [`${HEADER}/HeaderNeo.astro`],
+    footer: [`${SECTIONS}/footer/FooterNeo.astro`],
+    ui: [`${UI}/neo/NeoSectionTag.astro`],
     scripts: [],
     tokens: [],
     npmDeps: [],
@@ -196,20 +173,14 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${HEADER}/SidebarStructureLuxury.astro`,
       `${HEADER}/DesktopControlsLuxury.astro`,
     ],
-    footer: [
-      `${SECTIONS}/footer/FooterLuxury.astro`,
-    ],
+    footer: [`${SECTIONS}/footer/FooterLuxury.astro`],
     ui: [
       `${UI}/luxury/LuxuryButton.astro`,
       `${UI}/luxury/LuxuryCard.astro`,
       `${UI}/luxury/LuxurySectionLabel.astro`,
     ],
-    scripts: [
-      'src/scripts/luxury-interactions.js',
-    ],
-    tokens: [
-      'src/styles/tokens/luxury.css',
-    ],
+    scripts: ['src/scripts/luxury-interactions.js'],
+    tokens: ['src/styles/tokens/luxury.css'],
     npmDeps: [],
   },
 
@@ -238,17 +209,11 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${STYLES}/footer/FooterMinimal.css`,
       `${STYLES}/header/HeaderMinimal.css`,
     ],
-    header: [
-      `${HEADER}/HeaderMinimal.astro`,
-    ],
-    footer: [
-      `${SECTIONS}/footer/FooterMinimal.astro`,
-    ],
+    header: [`${HEADER}/HeaderMinimal.astro`],
+    footer: [`${SECTIONS}/footer/FooterMinimal.astro`],
     ui: [],
     scripts: [],
-    tokens: [
-      'src/styles/tokens/minimal.css',
-    ],
+    tokens: ['src/styles/tokens/minimal.css'],
     npmDeps: [],
   },
 
@@ -278,12 +243,8 @@ export const themeRegistry: Record<string, ThemeManifest> = {
       `${STYLES}/footer/FooterAurora.css`,
       `${STYLES}/header/HeaderAurora.css`,
     ],
-    header: [
-      `${HEADER}/HeaderAurora.astro`,
-    ],
-    footer: [
-      `${SECTIONS}/footer/FooterAurora.astro`,
-    ],
+    header: [`${HEADER}/HeaderAurora.astro`],
+    footer: [`${SECTIONS}/footer/FooterAurora.astro`],
     ui: [],
     scripts: [],
     tokens: [],
@@ -331,5 +292,5 @@ export function getExclusiveNpmDeps(selectedThemes: string[]): string[] {
   }
 
   // Return deps that are NOT needed by selected themes
-  return [...allDeps].filter(d => !selectedDeps.has(d));
+  return [...allDeps].filter((d) => !selectedDeps.has(d));
 }

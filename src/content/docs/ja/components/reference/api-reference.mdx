@@ -1,6 +1,6 @@
 ---
-title: "API リファレンス"
-description: "AstroGlass のコンポーネントおよびユーティリティに関する技術的な API リファレンスです。"
+title: 'API リファレンス'
+description: 'AstroGlass のコンポーネントおよびユーティリティに関する技術的な API リファレンスです。'
 order: 1
 ---
 
@@ -15,6 +15,7 @@ AstroGlass で使用される主要な関数、型、および構成オブジェ
 **モジュール**: `src/utils/i18n.ts`
 
 **シグネチャ**:
+
 ```typescript
 function useTranslations(locale: Locale): (key: string) => string;
 ```
@@ -27,6 +28,7 @@ function useTranslations(locale: Locale): (key: string) => string;
 **戻り値**: ドット記法のキーを翻訳された値に解決する関数 `t(key: string): string` を返します。キーが見つからない場合、キー自身をそのまま返し、開発 (development) モードでは警告 (warning) をログに出力します。
 
 **使用法**:
+
 ```astro
 ---
 import { useTranslations } from '../utils/i18n';
@@ -35,11 +37,13 @@ import { getLocaleFromUrl } from '../utils/locale-utils';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
+
 <h1>{t('hero.title')}</h1>
 <p>{t('hero.subtitle')}</p>
 ```
 
 **主な動作 (Behavior)**:
+
 - `common.json` のキーはルート レベルで展開されます (例: `t('title')`)
 - その他すべてのファイルはファイル名で名前空間が分けられます (例: `t('hero.title')`、`t('pricing.plans.pro.name')`)
 - 欠落しているキーは、本番環境ではキーの文字列を返し、開発環境では警告をログに記録します
@@ -53,6 +57,7 @@ const t = useTranslations(locale);
 **モジュール**: `src/utils/locale-utils.ts`
 
 **シグネチャ**:
+
 ```typescript
 function getLocaleFromUrl(url: URL): Locale;
 ```
@@ -68,6 +73,7 @@ URL パスからロケールのプレフィックスを返します。見つか�
 **モジュール**: `src/utils/docs-nav.ts`
 
 **シグネチャ**:
+
 ```typescript
 function buildNavLinks(locale: string, section?: string): NavLink[];
 ```
@@ -83,6 +89,7 @@ function buildNavLinks(locale: string, section?: string): NavLink[];
 **モジュール**: `src/config/themes.ts`
 
 **シグネチャ**:
+
 ```typescript
 function getEnabledThemes(): ThemeDefinition[];
 ```
@@ -96,6 +103,7 @@ ID によって特定のテーマ定義を返します。
 **モジュール**: `src/config/themes.ts`
 
 **シグネチャ**:
+
 ```typescript
 function getThemeById(id: string): ThemeDefinition | undefined;
 ```
@@ -106,14 +114,14 @@ function getThemeById(id: string): ThemeDefinition | undefined;
 
 ```typescript
 interface ThemeDefinition {
-  id: string;              // URL スラッグ (例: 'liquid', 'aurora')
-  name: string;            // 表示名
-  color: string;           // Tailwind のグラデーション クラス
-  icon: string;            // 絵文字アイコン
-  sections: string[];      // 有効なセクション
-  enabled: boolean;        // テーマがアクティブかどうか
-  premium: boolean;        // プレミアム フラグ
-  description: string;     // 一行での説明
+  id: string; // URL スラッグ (例: 'liquid', 'aurora')
+  name: string; // 表示名
+  color: string; // Tailwind のグラデーション クラス
+  icon: string; // 絵文字アイコン
+  sections: string[]; // 有効なセクション
+  enabled: boolean; // テーマがアクティブかどうか
+  premium: boolean; // プレミアム フラグ
+  description: string; // 一行での説明
 }
 ```
 
@@ -121,10 +129,10 @@ interface ThemeDefinition {
 
 ```typescript
 interface LocaleConfig {
-  code: string;            // ISO 言語コード
-  name: string;            // 英語での名称
-  nativeName: string;      // ネイティブ言語での名称
-  flag: string;            // 国旗の絵文字
+  code: string; // ISO 言語コード
+  name: string; // 英語での名称
+  nativeName: string; // ネイティブ言語での名称
+  flag: string; // 国旗の絵文字
   direction: 'ltr' | 'rtl';
   enabled: boolean;
 }
@@ -132,11 +140,11 @@ interface LocaleConfig {
 
 ## 利用可能なテーマ
 
-| ID | 名前 | アイコン |
-|----|------|------|
-| `liquid` | Liquid | 💧 |
-| `glass` | Glass | 🪟 |
-| `neo` | Neo | ⚡ |
-| `luxury` | Luxury | 👑 |
-| `minimal` | Minimal | ✨ |
-| `aurora` | Aurora | 🌌 |
+| ID        | 名前    | アイコン |
+| --------- | ------- | -------- |
+| `liquid`  | Liquid  | 💧       |
+| `glass`   | Glass   | 🪟       |
+| `neo`     | Neo     | ⚡       |
+| `luxury`  | Luxury  | 👑       |
+| `minimal` | Minimal | ✨       |
+| `aurora`  | Aurora  | 🌌       |

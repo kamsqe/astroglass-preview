@@ -150,8 +150,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, hsl(var(--bc) / 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, hsl(var(--bc) / 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
   pointer-events: none;
 }
@@ -210,7 +209,9 @@
 .contact-aurora-field input:-webkit-autofill:active,
 .contact-aurora-field textarea:-webkit-autofill,
 .contact-aurora-field select:-webkit-autofill {
-  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+  transition:
+    background-color 5000s ease-in-out 0s,
+    color 5000s ease-in-out 0s;
   -webkit-text-fill-color: hsl(var(--bc)) !important;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
   background-color: transparent !important;

@@ -1,6 +1,6 @@
 ---
-title: "Sección Precios (Pricing)"
-description: "Secciones de tablas de precios para cada tema."
+title: 'Sección Precios (Pricing)'
+description: 'Secciones de tablas de precios para cada tema.'
 order: 6
 ---
 
@@ -10,14 +10,14 @@ La sección Precios (Pricing) muestra los planes y niveles de los productos. Cad
 
 ## Variantes de tema
 
-| Tema | Componente | Estilo |
-|-------|-----------|-------|
-| **Liquid** | `PricingLiquid.astro` | Diseño de tarjetas fluidas con acentos degradados |
-| **Glass** | `PricingGlass.astro` | Tarjetas de precios de vidrio esmerilado |
-| **Neo** | `PricingNeo.astro` | Cuadrícula de precios de alto contraste |
-| **Luxury** | `PricingLuxury.astro` | Precios con acentos dorados y sensación premium |
-| **Minimal** | `PricingMinimal.astro` | Lista de precios limpia y sencilla |
-| **Aurora** | `PricingAurora.astro` | Tarjetas de precios con fondo degradado |
+| Tema        | Componente             | Estilo                                            |
+| ----------- | ---------------------- | ------------------------------------------------- |
+| **Liquid**  | `PricingLiquid.astro`  | Diseño de tarjetas fluidas con acentos degradados |
+| **Glass**   | `PricingGlass.astro`   | Tarjetas de precios de vidrio esmerilado          |
+| **Neo**     | `PricingNeo.astro`     | Cuadrícula de precios de alto contraste           |
+| **Luxury**  | `PricingLuxury.astro`  | Precios con acentos dorados y sensación premium   |
+| **Minimal** | `PricingMinimal.astro` | Lista de precios limpia y sencilla                |
+| **Aurora**  | `PricingAurora.astro`  | Tarjetas de precios con fondo degradado           |
 
 Todas las variantes se encuentran en `src/components/sections/pricing/`.
 
@@ -40,12 +40,14 @@ Los datos de precios se cargan desde `src/locales/{lang}/pricing.json` a través
 ```
 
 <Callout type="info" title="Sin propiedades">
-  Los componentes de precios no toman propiedades externas. Para cambiar los planes, precios o características, actualice `src/locales/{lang}/pricing.json`.
+  Los componentes de precios no toman propiedades externas. Para cambiar los planes, precios o
+  características, actualice `src/locales/{lang}/pricing.json`.
 </Callout>
 
 ## Personalización
 
 Para personalizar:
+
 1. Edite `src/components/sections/pricing/Pricing{Theme}.astro`.
 2. Ajuste los estilos en `src/styles/components/pricing/`.
 3. Cambie el contenido en `src/locales/{lang}/pricing.json`.

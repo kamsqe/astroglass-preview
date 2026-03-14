@@ -75,18 +75,32 @@
 }
 
 @keyframes aurora-float-1 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(5%, 8%) scale(1.15); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(5%, 8%) scale(1.15);
+  }
 }
 
 @keyframes aurora-float-2 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-8%, -5%) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-8%, -5%) scale(1.1);
+  }
 }
 
 @keyframes aurora-float-3 {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-  100% { transform: translate(10%, -10%) scale(1.2); opacity: 0.4; }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(10%, -10%) scale(1.2);
+    opacity: 0.4;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -132,9 +146,17 @@
 }
 
 @keyframes aurora-band-undulate {
-  0% { transform: rotate(-5deg) translateY(0); opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { transform: rotate(-3deg) translateY(30px); opacity: 0.6; }
+  0% {
+    transform: rotate(-5deg) translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-3deg) translateY(30px);
+    opacity: 0.6;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -188,8 +210,15 @@
 }
 
 @keyframes aurora-dot-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 hsl(var(--a) / 0.4); }
-  50% { opacity: 0.6; box-shadow: 0 0 0 6px hsl(var(--a) / 0); }
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 hsl(var(--a) / 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px hsl(var(--a) / 0);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -213,12 +242,7 @@
   opacity: 0.01;
   transform: translateY(24px);
   animation: aurora-word-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--bc)) 0%,
-    hsl(var(--bc)) 50%,
-    hsl(var(--a)) 100%
-  );
+  background: linear-gradient(135deg, hsl(var(--bc)) 0%, hsl(var(--bc)) 50%, hsl(var(--a)) 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -312,12 +336,7 @@
   inset: 0;
   border-radius: inherit;
   opacity: 0;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--a)) 0%,
-    transparent 50%,
-    hsl(var(--a)) 100%
-  );
+  background: linear-gradient(135deg, hsl(var(--a)) 0%, transparent 50%, hsl(var(--a)) 100%);
   transition: opacity 0.4s ease;
 }
 
@@ -327,8 +346,12 @@
 }
 
 @keyframes aurora-btn-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .hero-aurora-btn-text {
@@ -459,7 +482,9 @@
 }
 
 @keyframes aurora-ring-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hero-aurora-scroll-chevron {
@@ -474,8 +499,13 @@
 }
 
 @keyframes aurora-chevron-bob {
-  0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, -40%); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -40%);
+  }
 }
 
 .hero-aurora-scroll-text {
@@ -497,8 +527,12 @@
 /* -------------------------------------------------------------------------- */
 
 @keyframes aurora-fade-in {
-  from { opacity: 0.01; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes aurora-slide-up {

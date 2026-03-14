@@ -1,6 +1,6 @@
 ---
-title: "Hero 区块"
-description: "各主题的全屏首图区块。"
+title: 'Hero 区块'
+description: '各主题的全屏首图区块。'
 order: 2
 ---
 
@@ -10,14 +10,14 @@ Hero 区块是访客进入站点时看到的第一个内容。每个主题都有
 
 ## 主题变体
 
-| 主题 | 组件 | 设计风格 |
-|-------|-----------|--------|
-| **Liquid** | `HeroLiquid.astro` | 动态 SVG 流体形变、渐变文字 |
-| **Glass** | `HeroGlass.astro` | 毛玻璃卡片、模糊背景 |
-| **Neo** | `HeroNeo.astro` | 粗体排版、高对比度 |
-| **Luxury** | `HeroLuxury.astro` | 金色点缀、高端布局 |
-| **Minimal** | `HeroMinimal.astro` | 简洁居中、无干扰 |
-| **Aurora** | `HeroAurora.astro` | 渐变网格、几何元素 |
+| 主题        | 组件                | 设计风格                    |
+| ----------- | ------------------- | --------------------------- |
+| **Liquid**  | `HeroLiquid.astro`  | 动态 SVG 流体形变、渐变文字 |
+| **Glass**   | `HeroGlass.astro`   | 毛玻璃卡片、模糊背景        |
+| **Neo**     | `HeroNeo.astro`     | 粗体排版、高对比度          |
+| **Luxury**  | `HeroLuxury.astro`  | 金色点缀、高端布局          |
+| **Minimal** | `HeroMinimal.astro` | 简洁居中、无干扰            |
+| **Aurora**  | `HeroAurora.astro`  | 渐变网格、几何元素          |
 
 所有变体位于 `src/components/sections/hero/`。
 
@@ -46,7 +46,8 @@ const t = useTranslations(locale);
 ```
 
 <Callout type="info" title="无需 Props">
-  Hero 组件不接受外部 props。要更改标题、副标题或 CTA 文本，请编辑 `src/locales/en/hero.json`（或对应的语言环境文件）。
+  Hero 组件不接受外部 props。要更改标题、副标题或 CTA 文本，请编辑
+  `src/locales/en/hero.json`（或对应的语言环境文件）。
 </Callout>
 
 ## 自定义 Hero

@@ -73,7 +73,7 @@ export async function removeLinesMatching(relPath, pattern) {
 
   const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern);
   const lines = content.split('\n');
-  const filtered = lines.filter(line => !regex.test(line));
+  const filtered = lines.filter((line) => !regex.test(line));
   const removed = lines.length - filtered.length;
 
   if (removed > 0) {
@@ -91,10 +91,7 @@ export function removeArrayEntry(content, idField, idValue) {
   // Match object literal with the given id field value, including surrounding braces and trailing comma.
   // Uses [^}]* to avoid matching across multiple blocks (works for both single-line and multi-line
   // entries as long as field values don't contain '}').
-  const pattern = new RegExp(
-    `\\s*\\{[^}]*${idField}:\\s*'${idValue}'[^}]*\\},?`,
-    'g'
-  );
+  const pattern = new RegExp(`\\s*\\{[^}]*${idField}:\\s*'${idValue}'[^}]*\\},?`, 'g');
   return content.replace(pattern, '');
 }
 

@@ -6,15 +6,18 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const langs = getEnabledLocaleCodes();
-  return langs.map(lang => ({
+  return langs.map((lang) => ({
     params: { lang: lang === defaultLocale ? undefined : lang },
-    props: { locale: lang }
+    props: { locale: lang },
   }));
 }
 
 export async function GET(context) {
   const locale = context.props.locale || defaultLocale;
-  const posts = await getCollection('blog', ({ id, data }) => id.startsWith(`${locale}/`) && !data.draft);
+  const posts = await getCollection(
+    'blog',
+    ({ id, data }) => id.startsWith(`${locale}/`) && !data.draft,
+  );
 
   return rss({
     title: `Astro Glass Blog (${locale})`,
@@ -29,9 +32,7 @@ export async function GET(context) {
         title: post.data.title,
         pubDate: post.data.date,
         description: post.data.description,
-        link: locale === defaultLocale
-          ? `/blog/${postSlug}/`
-          : `/${locale}/blog/${postSlug}/`,
+        link: locale === defaultLocale ? `/blog/${postSlug}/` : `/${locale}/blog/${postSlug}/`,
       };
     }),
   });

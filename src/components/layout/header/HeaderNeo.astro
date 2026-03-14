@@ -36,32 +36,57 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
 
       <!-- Desktop Navigation -->
       <nav class="nav-neo">
-        {navLinks.map((link) => (
-          link.children ? (
-            <div class="dropdown-neo" data-dropdown-neo>
-              <button type="button" class="nav-neo-link" aria-expanded="false">
-                {link.label}
-                <svg class="nav-neo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="dropdown-neo-menu">
-                {link.children.map((child) => (
-                  <LocalizedLink href={child.href} class="dropdown-neo-item">{child.label}</LocalizedLink>
-                ))}
+        {
+          navLinks.map((link) =>
+            link.children ? (
+              <div class="dropdown-neo" data-dropdown-neo>
+                <button type="button" class="nav-neo-link" aria-expanded="false">
+                  {link.label}
+                  <svg
+                    class="nav-neo-chevron"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="dropdown-neo-menu">
+                  {link.children.map((child) => (
+                    <LocalizedLink href={child.href} class="dropdown-neo-item">
+                      {child.label}
+                    </LocalizedLink>
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : (
-            <LocalizedLink href={link.href} class="nav-neo-link">{link.label}</LocalizedLink>
+            ) : (
+              <LocalizedLink href={link.href} class="nav-neo-link">
+                {link.label}
+              </LocalizedLink>
+            ),
           )
-        ))}
+        }
 
         {/* Overflow "More" dropdown */}
         <div class="dropdown-neo" data-nav-more>
           <button type="button" class="nav-neo-link nav-more-trigger" aria-expanded="false">
             {moreLabel}
-            <svg class="nav-neo-chevron nav-more-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <svg
+              class="nav-neo-chevron nav-more-chevron"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
           <div class="dropdown-neo-menu nav-more-menu" data-nav-more-menu></div>
@@ -111,88 +136,123 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
           <span>{t('nav.menu') || 'Menu'}</span>
         </div>
         <div class="mobile-nav-links">
-          {navLinks.map((link) => (
-            link.children ? (
-              <div class="mobile-dropdown" data-mobile-dropdown>
-                <button
-                  type="button"
-                  class="mobile-dropdown-trigger mobile-nav-item group flex items-center justify-between w-full h-auto p-0 hover:bg-transparent"
-                >
-                  <div class="flex items-center gap-3.5">
-                    <span class="mobile-nav-icon">
-                      <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {link.icon.paths.map((path) => (
-                          <path 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
-                            stroke-width={link.icon.strokeWidth || 1.75} 
-                            d={path} 
-                          />
-                        ))}
+          {
+            navLinks.map((link) =>
+              link.children ? (
+                <div class="mobile-dropdown" data-mobile-dropdown>
+                  <button
+                    type="button"
+                    class="mobile-dropdown-trigger mobile-nav-item group flex items-center justify-between w-full h-auto p-0 hover:bg-transparent"
+                  >
+                    <div class="flex items-center gap-3.5">
+                      <span class="mobile-nav-icon">
+                        <svg
+                          class="w-[18px] h-[18px]"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          {link.icon.paths.map((path) => (
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width={link.icon.strokeWidth || 1.75}
+                              d={path}
+                            />
+                          ))}
+                        </svg>
+                      </span>
+                      <span class="text-[15px] font-semibold">{link.label}</span>
+                    </div>
+                    <span class="mobile-nav-chevron">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </span>
-                    <span class="text-[15px] font-semibold">{link.label}</span>
-                  </div>
-                  <span class="mobile-nav-chevron">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </button>
-                <div class="mobile-dropdown-menu">
-                  <div class="py-1.5 pl-[52px] pr-3 space-y-0.5">
-                    {link.children.map((child) => (
-                      child.children ? (
-                        <!-- Nested mobile dropdown -->
-                        <div class="mobile-nested-dropdown" data-mobile-nested>
-                          <button
-                            type="button"
-                            class="mobile-nested-trigger mobile-subnav-item w-full justify-between h-auto p-0 hover:bg-transparent"
-                          >
-                            <span class="flex items-center gap-2.5">
-                              <span>{child.label}</span>
-                            </span>
-                            <svg class="w-3.5 h-3.5 opacity-40 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                          <div class="mobile-nested-menu">
-                            <div class="py-1 pl-6 space-y-0.5">
-                              {child.children.map((subChild) => (
-                                <LocalizedLink href={subChild.href} class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                                  <span>{subChild.label}</span>
-                                </LocalizedLink>
-                              ))}
+                  </button>
+                  <div class="mobile-dropdown-menu">
+                    <div class="py-1.5 pl-[52px] pr-3 space-y-0.5">
+                      {link.children.map((child) =>
+                        child.children ? (
+                          <div class="mobile-nested-dropdown" data-mobile-nested>
+                            <button
+                              type="button"
+                              class="mobile-nested-trigger mobile-subnav-item w-full justify-between h-auto p-0 hover:bg-transparent"
+                            >
+                              <span class="flex items-center gap-2.5">
+                                <span>{child.label}</span>
+                              </span>
+                              <svg
+                                class="w-3.5 h-3.5 opacity-40 transition-transform duration-200"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </button>
+                            <div class="mobile-nested-menu">
+                              <div class="py-1 pl-6 space-y-0.5">
+                                {child.children.map((subChild) => (
+                                  <LocalizedLink
+                                    href={subChild.href}
+                                    class="mobile-subnav-item text-[13px] justify-start w-full h-auto p-0 hover:bg-transparent font-normal"
+                                  >
+                                    <span>{subChild.label}</span>
+                                  </LocalizedLink>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ) : (
-                        <LocalizedLink href={child.href} class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                          <span>{child.label}</span>
-                        </LocalizedLink>
-                      )
-                    ))}
+                        ) : (
+                          <LocalizedLink
+                            href={child.href}
+                            class="mobile-subnav-item justify-start w-full h-auto p-0 hover:bg-transparent font-normal"
+                          >
+                            <span>{child.label}</span>
+                          </LocalizedLink>
+                        ),
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <LocalizedLink href={link.href} class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal">
-                <span class="mobile-nav-icon">
-                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {link.icon.paths.map((path) => (
-                      <path 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round" 
-                        stroke-width={link.icon.strokeWidth || 1.75} 
-                        d={path} 
-                      />
-                    ))}
-                  </svg>
-                </span>
-                <span class="text-[15px] font-semibold">{link.label}</span>
-              </LocalizedLink>
+              ) : (
+                <LocalizedLink
+                  href={link.href}
+                  class="mobile-nav-item group justify-start w-full h-auto p-0 hover:bg-transparent font-normal"
+                >
+                  <span class="mobile-nav-icon">
+                    <svg
+                      class="w-[18px] h-[18px]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      {link.icon.paths.map((path) => (
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width={link.icon.strokeWidth || 1.75}
+                          d={path}
+                        />
+                      ))}
+                    </svg>
+                  </span>
+                  <span class="text-[15px] font-semibold">{link.label}</span>
+                </LocalizedLink>
+              ),
             )
-          ))}
+          }
         </div>
       </div>
 
@@ -251,22 +311,22 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
     const calculateDynamicWidth = () => {
       // Only needed for desktop
       if (window.innerWidth < 1024) return;
-      
+
       const inner = header.querySelector('.header-neo-inner') as HTMLElement;
       if (!inner) return;
 
       // Measure natural fit-content
       inner.style.maxWidth = 'max-content';
-      
+
       // Get the bounding width
       const naturalWidth = inner.offsetWidth;
-      
+
       // Clean up inline style
       inner.style.maxWidth = '';
-      
+
       // Add a tiny buffer (~2px) for subpixel rounding issues
       const finalWidth = naturalWidth + 2;
-      
+
       // Set the CSS variable
       header.style.setProperty('--scrolled-max-width', `${finalWidth}px`);
     };
@@ -282,22 +342,32 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
     onScroll();
 
     // ---- Desktop dropdowns ----
-    document.querySelectorAll('[data-dropdown-neo]').forEach(dropdown => {
+    document.querySelectorAll('[data-dropdown-neo]').forEach((dropdown) => {
       const trigger = dropdown.querySelector('.nav-neo-link');
       if (!trigger) return;
-      
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => {
-          if (d !== dropdown) d.classList.remove('is-open');
-        });
-        dropdown.classList.toggle('is-open');
-      }, { signal });
+
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('[data-dropdown-neo].is-open').forEach((d) => {
+            if (d !== dropdown) d.classList.remove('is-open');
+          });
+          dropdown.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
-    document.addEventListener('click', () => {
-      document.querySelectorAll('[data-dropdown-neo].is-open').forEach(d => d.classList.remove('is-open'));
-    }, { signal });
+    document.addEventListener(
+      'click',
+      () => {
+        document
+          .querySelectorAll('[data-dropdown-neo].is-open')
+          .forEach((d) => d.classList.remove('is-open'));
+      },
+      { signal },
+    );
 
     // ---- Mobile menu (Liquid-style) ----
     const btn = document.getElementById('menu-toggle-neo');
@@ -312,8 +382,12 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
       const mobileHeader = document.getElementById('mobile-header-neo');
       if (mobileHeader) mobileHeader.classList.remove('is-menu-open');
       document.body.style.overflow = '';
-      nav.querySelectorAll('.mobile-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-      nav.querySelectorAll('.mobile-nested-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      nav
+        .querySelectorAll('.mobile-dropdown.is-open')
+        .forEach((d) => d.classList.remove('is-open'));
+      nav
+        .querySelectorAll('.mobile-nested-dropdown.is-open')
+        .forEach((d) => d.classList.remove('is-open'));
     }
 
     function openMenu() {
@@ -327,58 +401,78 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
 
     closeMenu();
 
-    btn.addEventListener('click', () => {
-      nav.classList.contains('is-open') ? closeMenu() : openMenu();
-    }, { signal });
+    btn.addEventListener(
+      'click',
+      () => {
+        nav.classList.contains('is-open') ? closeMenu() : openMenu();
+      },
+      { signal },
+    );
 
     // Close on link click
-    nav.querySelectorAll('a').forEach(link => {
+    nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu, { signal });
     });
 
     // Mobile dropdown toggles
-    nav.querySelectorAll('[data-mobile-dropdown]').forEach(dropdown => {
+    nav.querySelectorAll('[data-mobile-dropdown]').forEach((dropdown) => {
       const trigger = dropdown.querySelector('.mobile-dropdown-trigger');
       if (!trigger) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdown.classList.toggle('is-open');
-      }, { signal });
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropdown.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
     // Mobile nested dropdown toggles
-    nav.querySelectorAll('[data-mobile-nested]').forEach(nestedDropdown => {
+    nav.querySelectorAll('[data-mobile-nested]').forEach((nestedDropdown) => {
       const trigger = nestedDropdown.querySelector('.mobile-nested-trigger');
       if (!trigger) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        nestedDropdown.classList.toggle('is-open');
-      }, { signal });
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          nestedDropdown.classList.toggle('is-open');
+        },
+        { signal },
+      );
     });
 
     // Handle keyboard escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-        closeMenu();
-        btn.focus();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+          closeMenu();
+          btn.focus();
+        }
+      },
+      { signal },
+    );
 
     // Handle window resize
     let resizeTimer: ReturnType<typeof setTimeout>;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        calculateDynamicWidth();
-        if (window.innerWidth >= 1024 && nav.classList.contains('is-open')) {
-          closeMenu();
-        }
-      }, 100);
-    }, { signal });
+    window.addEventListener(
+      'resize',
+      () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          calculateDynamicWidth();
+          if (window.innerWidth >= 1024 && nav.classList.contains('is-open')) {
+            closeMenu();
+          }
+        }, 100);
+      },
+      { signal },
+    );
 
     // Nav overflow "More" menu
     initNavOverflow({
@@ -393,4 +487,3 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
   initHeaderNeo();
   document.addEventListener('astro:after-swap', initHeaderNeo);
 </script>
-

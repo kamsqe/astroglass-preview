@@ -91,8 +91,13 @@
 }
 
 @keyframes cta-handle-pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 /* ── Primary Button — Ripple + Blob ── */
@@ -113,7 +118,9 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   transform: translate(-50%, -50%);
-  transition: width 0.8s ease, height 0.8s ease;
+  transition:
+    width 0.8s ease,
+    height 0.8s ease;
 }
 
 .cta-liquid-primary:hover::before {
@@ -142,8 +149,13 @@
 }
 
 @keyframes ctaLiquidProofMorph {
-  0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-  50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+  0%,
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -159,7 +171,8 @@
     transform: none !important;
     filter: none !important;
   }
-  .cta-liquid-handle, .cta-liquid-proof-drop {
+  .cta-liquid-handle,
+  .cta-liquid-proof-drop {
     animation: none !important;
   }
 }

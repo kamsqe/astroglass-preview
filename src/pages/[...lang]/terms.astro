@@ -2,8 +2,8 @@
 import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
 
 export async function getStaticPaths() {
-  return getEnabledLocaleCodes().map(lang => ({
-    params: { lang: lang === defaultLocale ? undefined : lang }
+  return getEnabledLocaleCodes().map((lang) => ({
+    params: { lang: lang === defaultLocale ? undefined : lang },
   }));
 }
 
@@ -27,7 +27,7 @@ const sections = [
   'indemnification',
   'severability',
   'variation',
-  'governing'
+  'governing',
 ];
 ---
 
@@ -44,17 +44,20 @@ const sections = [
       </div>
 
       <ArticleProse>
-        {sections.map((section) => (
-          <div class="mb-12">
-            {t(`terms.sections.${section}.title`, { silent: true }) !== `terms.sections.${section}.title` && (
-              <h2>{t(`terms.sections.${section}.title`)}</h2>
-            )}
-            <p>{t(`terms.sections.${section}.content`)}</p>
-          </div>
-        ))}
+        {
+          sections.map((section) => (
+            <div class="mb-12">
+              {t(`terms.sections.${section}.title`, { silent: true }) !==
+                `terms.sections.${section}.title` && (
+                <h2>{t(`terms.sections.${section}.title`)}</h2>
+              )}
+              <p>{t(`terms.sections.${section}.content`)}</p>
+            </div>
+          ))
+        }
       </ArticleProse>
     </div>
   </main>
-  
+
   <FooterLiquid />
 </BaseLayout>

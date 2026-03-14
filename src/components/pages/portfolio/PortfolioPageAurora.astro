@@ -1,7 +1,7 @@
 ---
 /**
  * Portfolio Page — Aurora Theme (Composition Layer)
- * 
+ *
  * Wires data ↔ sub-components. All visual HTML lives in aurora/:
  *   - PortfolioHeroAurora  → hero + filters
  *   - PortfolioGridAurora  → card grid
@@ -160,7 +160,7 @@ const projects = [
 
     function openModal(index: number) {
       const tpl = document.querySelector<HTMLTemplateElement>(
-        `template[data-aurora-modal-index="${index}"]`
+        `template[data-aurora-modal-index="${index}"]`,
       );
       if (!tpl) return;
 
@@ -182,23 +182,35 @@ const projects = [
     if (modalClose) modalClose.addEventListener('click', closeModal, { signal });
 
     // Backdrop click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    }, { signal });
+    modal.addEventListener(
+      'click',
+      (e) => {
+        if (e.target === modal) closeModal();
+      },
+      { signal },
+    );
 
     // Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal!.classList.contains('is-open')) {
-        closeModal();
-      }
-    }, { signal });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && modal!.classList.contains('is-open')) {
+          closeModal();
+        }
+      },
+      { signal },
+    );
 
     // Card click handlers — open modal by index
     document.querySelectorAll<HTMLElement>('.pp-aurora__card').forEach((card, i) => {
       card.style.cursor = 'pointer';
-      card.addEventListener('click', () => {
-        openModal(i);
-      }, { signal });
+      card.addEventListener(
+        'click',
+        () => {
+          openModal(i);
+        },
+        { signal },
+      );
     });
 
     // Scroll reveal with stagger

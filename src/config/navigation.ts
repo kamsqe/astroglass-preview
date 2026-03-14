@@ -1,11 +1,11 @@
 /**
  * Navigation Configuration
- * 
+ *
  * This file contains the navigation structure for the site.
- * 
+ *
  * All theme pages use scroll-to-section links (#about, #services, etc.)
  * for on-page sections, plus page links for Blog and Docs.
- * 
+ *
  * Neo, Liquid, Glass, and Aurora additionally get a "Home" dropdown
  * listing all landing pages. Liquid also gets a nested "Portfolio"
  * dropdown under Home (for future per-theme portfolio pages).
@@ -21,7 +21,9 @@ export interface NavIcon {
 // Default icons for common nav items
 export const navIcons = {
   home: {
-    paths: ['M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
+    paths: [
+      'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    ],
     strokeWidth: 1.75,
   },
   about: {
@@ -29,27 +31,39 @@ export const navIcons = {
     strokeWidth: 1.75,
   },
   services: {
-    paths: ['M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172L8 4z'],
+    paths: [
+      'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172L8 4z',
+    ],
     strokeWidth: 1.75,
   },
   resources: {
-    paths: ['M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
+    paths: [
+      'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    ],
     strokeWidth: 1.75,
   },
   contact: {
-    paths: ['M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
+    paths: [
+      'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    ],
     strokeWidth: 1.75,
   },
   pricing: {
-    paths: ['M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+    paths: [
+      'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    ],
     strokeWidth: 1.75,
   },
   portfolio: {
-    paths: ['M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
+    paths: [
+      'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+    ],
     strokeWidth: 1.75,
   },
   faq: {
-    paths: ['M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+    paths: [
+      'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    ],
     strokeWidth: 1.75,
   },
 } as const;
@@ -70,7 +84,7 @@ const themeIcons: Record<string, string> = {
  * and this list auto-adapts.
  */
 function getLandingPages() {
-  return getThemeIds().map(id => ({
+  return getThemeIds().map((id) => ({
     id,
     labelKey: `nav.theme${id.charAt(0).toUpperCase() + id.slice(1)}`,
     icon: themeIcons[id] || '🎨',
@@ -94,16 +108,12 @@ export interface ResolvedNavLink {
 
 /**
  * Build nav links for themes with a Home dropdown (Neo, Liquid, Glass, Aurora).
- * 
+ *
  * @param locale - Current locale ('en' | 'ru')
  * @param t - Translation function
  * @param theme - Current theme id (used for special handling, e.g. Liquid gets Portfolio nested dropdown)
  */
-export function buildThemeNavLinks(
-  t: (key: string) => string,
-  theme: string
-): ResolvedNavLink[] {
-  
+export function buildThemeNavLinks(t: (key: string) => string, theme: string): ResolvedNavLink[] {
   const themeBase = `/${theme}`;
 
   // Build landing page children for the Home dropdown
@@ -119,7 +129,7 @@ export function buildThemeNavLinks(
         {
           href: `/${page.id}/portfolio`,
           label: t('nav.portfolio'),
-        }
+        },
       ];
     }
 
@@ -182,10 +192,7 @@ export function buildThemeNavLinks(
  * Build simple nav links for Minimal theme (no Home dropdown).
  * Just scroll-to-section links + Blog/Docs.
  */
-export function buildMinimalNavLinks(
-  t: (key: string) => string
-): ResolvedNavLink[] {
-  
+export function buildMinimalNavLinks(t: (key: string) => string): ResolvedNavLink[] {
   const themeBase = `/minimal`;
 
   return [
@@ -206,11 +213,7 @@ export function buildMinimalNavLinks(
  * scroll-to-section links for index page sections,
  * and page links for Blog and Docs.
  */
-export function buildDefaultNavLinks(
-  t: (key: string) => string
-): ResolvedNavLink[] {
-  
-
+export function buildDefaultNavLinks(t: (key: string) => string): ResolvedNavLink[] {
   // Build landing page children for the Home dropdown
   const homeChildren: ResolvedNavChild[] = getLandingPages().map((page) => ({
     href: `/${page.id}`,
@@ -263,10 +266,7 @@ export interface LuxuryNavLink {
   icon?: NavIcon; // Optional icon for mobile
 }
 
-export function buildLuxuryNavLinks(
-  t: (key: string) => string
-): LuxuryNavLink[] {
-  
+export function buildLuxuryNavLinks(t: (key: string) => string): LuxuryNavLink[] {
   const themeBase = `/luxury`;
 
   return [

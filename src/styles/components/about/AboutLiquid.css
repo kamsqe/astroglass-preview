@@ -31,29 +31,44 @@
 }
 
 @keyframes aboutLiquidOrbMorph1 {
-  0%, 100% {
-    d: path("M250,180Q310,100,380,160Q450,220,400,300Q350,380,260,360Q170,340,140,280Q110,220,180,160Q250,100,250,180Z");
+  0%,
+  100% {
+    d: path(
+      'M250,180Q310,100,380,160Q450,220,400,300Q350,380,260,360Q170,340,140,280Q110,220,180,160Q250,100,250,180Z'
+    );
   }
   50% {
-    d: path("M260,160Q330,80,400,150Q470,220,420,310Q370,400,270,380Q170,360,130,290Q90,220,170,150Q250,80,260,160Z");
+    d: path(
+      'M260,160Q330,80,400,150Q470,220,420,310Q370,400,270,380Q170,360,130,290Q90,220,170,150Q250,80,260,160Z'
+    );
   }
 }
 
 @keyframes aboutLiquidOrbMorph2 {
-  0%, 100% {
-    d: path("M240,200Q300,130,360,180Q420,230,390,310Q360,390,270,370Q180,350,150,290Q120,230,170,180Q220,130,240,200Z");
+  0%,
+  100% {
+    d: path(
+      'M240,200Q300,130,360,180Q420,230,390,310Q360,390,270,370Q180,350,150,290Q120,230,170,180Q220,130,240,200Z'
+    );
   }
   50% {
-    d: path("M250,190Q320,110,380,170Q440,230,410,320Q380,410,280,390Q180,370,140,300Q100,230,160,170Q220,110,250,190Z");
+    d: path(
+      'M250,190Q320,110,380,170Q440,230,410,320Q380,410,280,390Q180,370,140,300Q100,230,160,170Q220,110,250,190Z'
+    );
   }
 }
 
 @keyframes aboutLiquidOrbMorph3 {
-  0%, 100% {
-    d: path("M260,220Q300,170,340,210Q380,250,360,300Q340,350,280,340Q220,330,200,290Q180,250,210,220Q240,190,260,220Z");
+  0%,
+  100% {
+    d: path(
+      'M260,220Q300,170,340,210Q380,250,360,300Q340,350,280,340Q220,330,200,290Q180,250,210,220Q240,190,260,220Z'
+    );
   }
   50% {
-    d: path("M270,210Q310,160,350,200Q390,240,370,290Q350,340,290,330Q230,320,210,280Q190,240,220,210Q250,180,270,210Z");
+    d: path(
+      'M270,210Q310,160,350,200Q390,240,370,290Q350,340,290,330Q230,320,210,280Q190,240,220,210Q250,180,270,210Z'
+    );
   }
 }
 
@@ -67,14 +82,27 @@
 }
 
 @keyframes aboutLiquidOrbPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
 }
 
 /* Orb container hover */
-.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-1 { animation-duration: 6s; }
-.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-2 { animation-duration: 8s; }
-.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-3 { animation-duration: 5s; }
+.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-1 {
+  animation-duration: 6s;
+}
+.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-2 {
+  animation-duration: 8s;
+}
+.c-about-liquid__orb-container:hover .c-about-liquid__orb-blob-3 {
+  animation-duration: 5s;
+}
 
 /* ── Wave Divider ── */
 .c-about-liquid__wave-divider {
@@ -92,8 +120,12 @@
 }
 
 @keyframes aboutLiquidWaveScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ── Stats ── */

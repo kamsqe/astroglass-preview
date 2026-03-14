@@ -20,7 +20,7 @@ export interface CategoryFilterConfig {
   /** Classes to add to inactive filter buttons */
   inactiveClasses: string[];
   /** Optional callback after a filter is applied */
-  onFilter?: (filter: string) => void;
+  onFilter?: (_filter: string) => void;
   /**
    * Transform applied to cards when hiding (default: 'translateY(20px)').
    * Set to a custom value like 'scale(0.95)' for different themes.
@@ -66,24 +66,23 @@ function setElementTimeout(el: HTMLElement, fn: () => void, ms: number) {
 }
 
 /**
- * Filter DOM items based on category. Will use document.startViewTransition 
+ * Filter DOM items based on category. Will use document.startViewTransition
  * for layout morphing if supported, otherwise degrades gracefully.
  */
-function applyFilterLogic(
-  filter: string,
-  config: CategoryFilterConfig
-) {
+function applyFilterLogic(filter: string, config: CategoryFilterConfig) {
   const {
     cardSelector,
     hideTransform = 'translateY(20px)',
     twoStepAnimation = false,
     animateChildSelector,
   } = config;
-  
+
   // Attempt to fetch from CSS vars, fallback to config or 400
   let fadeOutMs = config.fadeOutMs;
   if (!fadeOutMs) {
-    const rawVal = getComputedStyle(document.documentElement).getPropertyValue('--duration-normal').trim();
+    const rawVal = getComputedStyle(document.documentElement)
+      .getPropertyValue('--duration-normal')
+      .trim();
     fadeOutMs = parseInt(rawVal.replace('ms', '')) || 400;
   }
 
@@ -102,33 +101,36 @@ function applyFilterLogic(
     });
 
     // Step 2: After fade-out, swap display and reveal matching
-    setTimeout(() => {
-      cards.forEach((card) => {
-        const category = card.getAttribute('data-category');
-        const target = animateChildSelector
-          ? card.querySelector<HTMLElement>(animateChildSelector)
-          : card;
+    setTimeout(
+      () => {
+        cards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          const target = animateChildSelector
+            ? card.querySelector<HTMLElement>(animateChildSelector)
+            : card;
 
-        if (filter === 'all' || category === filter) {
-          card.style.display = '';
-          if (target) {
-            requestAnimationFrame(() => {
+          if (filter === 'all' || category === filter) {
+            card.style.display = '';
+            if (target) {
               requestAnimationFrame(() => {
-                target.style.opacity = '1';
-                target.style.transform = '';
+                requestAnimationFrame(() => {
+                  target.style.opacity = '1';
+                  target.style.transform = '';
+                });
               });
-            });
+            }
+          } else {
+            card.style.display = 'none';
           }
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }, fadeOutMs < 400 ? fadeOutMs : 300);
+        });
+      },
+      fadeOutMs < 400 ? fadeOutMs : 300,
+    );
   } else {
     // Simple show/hide with transition fallback (no startViewTransition)
     cards.forEach((card) => {
       clearElementTimeout(card);
-      
+
       const category = card.getAttribute('data-category');
       const isMatch = filter === 'all' || category === filter;
 
@@ -141,13 +143,13 @@ function applyFilterLogic(
       } else {
         card.style.opacity = '0';
         card.style.transform = hideTransform;
-        
+
         setElementTimeout(
           card,
           () => {
             card.style.display = 'none';
           },
-          fadeOutMs
+          fadeOutMs,
         );
       }
     });
@@ -158,13 +160,7 @@ function applyFilterLogic(
  * Wire up category filter buttons to show/hide project cards.
  */
 export function initCategoryFilter(config: CategoryFilterConfig): void {
-  const {
-    filtersId,
-    activeClasses,
-    inactiveClasses,
-    onFilter,
-    signal,
-  } = config;
+  const { filtersId, activeClasses, inactiveClasses, onFilter, signal } = config;
 
   const filters = document.getElementById(filtersId);
   if (!filters) return;
@@ -178,7 +174,7 @@ export function initCategoryFilter(config: CategoryFilterConfig): void {
       [...activeClasses, ...inactiveClasses].forEach((cls) => b.classList.remove(cls));
       inactiveClasses.forEach((cls) => b.classList.add(cls));
     });
-    
+
     // Mark clicked button as active
     inactiveClasses.forEach((cls) => btn.classList.remove(cls));
     activeClasses.forEach((cls) => btn.classList.add(cls));
@@ -195,9 +191,9 @@ export function initCategoryFilter(config: CategoryFilterConfig): void {
       if (container) {
         // Isolate the view transition purely to the portfolio grid instead of whole page
         container.style.viewTransitionName = 'portfolio-grid';
-        
+
         const transition = document.startViewTransition(() => {
-          applyFilterLogic(filter, { ...config, fadeOutMs: 0 }); 
+          applyFilterLogic(filter, { ...config, fadeOutMs: 0 });
         });
 
         // Cleanup constraint after transition completes
@@ -206,7 +202,7 @@ export function initCategoryFilter(config: CategoryFilterConfig): void {
         });
       } else {
         document.startViewTransition(() => {
-          applyFilterLogic(filter, { ...config, fadeOutMs: 0 }); 
+          applyFilterLogic(filter, { ...config, fadeOutMs: 0 });
         });
       }
     } else {
@@ -275,7 +271,7 @@ export function initDetailPanels(config: DetailPanelConfig): void {
           }, 100);
         }
       },
-      { signal }
+      { signal },
     );
   });
 
@@ -296,7 +292,7 @@ export function initDetailPanels(config: DetailPanelConfig): void {
           }
         }
       },
-      { signal }
+      { signal },
     );
   });
 }

@@ -1,6 +1,6 @@
 ---
-title: "Ерекшеліктер (Features) бөлімі"
-description: "Әрбір тақырыпқа арналған мүмкіндіктерді көрсету бөлімдері."
+title: 'Ерекшеліктер (Features) бөлімі'
+description: 'Әрбір тақырыпқа арналған мүмкіндіктерді көрсету бөлімдері.'
 order: 4
 ---
 
@@ -10,14 +10,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 
 ## Тақырып нұсқалары
 
-| Тақырып | Компонент | Макет (Layout) |
-|-------|-----------|--------|
-| **Liquid** | `FeaturesLiquid.astro` | Сұйық меңзерді апару (hover) әсерлері бар анимациялық мүмкіндік карталары |
-| **Glass** | `FeaturesGlass.astro` | Аязды әйнек мүмкіндіктері карталары |
-| **Neo** | `FeaturesNeo.astro` | Өткір жиектері бар қалың тордың орналасуы |
-| **Luxury** | `FeaturesLuxury.astro` | Алтын реңктері бар талғампаз тор |
-| **Minimal** | `FeaturesMinimal.astro` | Таза, қарапайым тізім пішімі |
-| **Aurora** | `FeaturesAurora.astro` | Карта торы бар градиенттік торлы фон |
+| Тақырып     | Компонент               | Макет (Layout)                                                            |
+| ----------- | ----------------------- | ------------------------------------------------------------------------- |
+| **Liquid**  | `FeaturesLiquid.astro`  | Сұйық меңзерді апару (hover) әсерлері бар анимациялық мүмкіндік карталары |
+| **Glass**   | `FeaturesGlass.astro`   | Аязды әйнек мүмкіндіктері карталары                                       |
+| **Neo**     | `FeaturesNeo.astro`     | Өткір жиектері бар қалың тордың орналасуы                                 |
+| **Luxury**  | `FeaturesLuxury.astro`  | Алтын реңктері бар талғампаз тор                                          |
+| **Minimal** | `FeaturesMinimal.astro` | Таза, қарапайым тізім пішімі                                              |
+| **Aurora**  | `FeaturesAurora.astro`  | Карта торы бар градиенттік торлы фон                                      |
 
 Барлық нұсқалар `src/components/sections/features/` мекенжайында орналасқан.
 
@@ -39,12 +39,14 @@ import Callout from '../../../../../components/mdx/Callout.astro';
 ```
 
 <Callout type="info" title="Қосымша параметрлер (Props) жоқ">
-  Features компоненттері сыртқы props қабылдамайды. Мүмкіндік элементтерін, тақырыптарды немесе сипаттамаларды өңдеу үшін `src/locales/{lang}/features.json` файлын жаңартыңыз.
+  Features компоненттері сыртқы props қабылдамайды. Мүмкіндік элементтерін, тақырыптарды немесе
+  сипаттамаларды өңдеу үшін `src/locales/{lang}/features.json` файлын жаңартыңыз.
 </Callout>
 
 ## Баптау
 
 Баптау үшін:
+
 1. `src/components/sections/features/Features{Theme}.astro` файлындағы тақырып нұсқасын өңдеңіз.
 2. `src/styles/components/features/` ішіндегі стильдерді реттеңіз.
 3. `src/locales/{lang}/features.json` файлындағы мазмұнды өзгертіңіз.

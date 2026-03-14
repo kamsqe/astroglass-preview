@@ -15,16 +15,16 @@ export const prerender = true;
 export async function getStaticPaths() {
   const { getEnabledLocaleCodes, defaultLocale } = await import('../../../config/locales');
   const docs = await getCollection('docs');
-  return docs.map(doc => {
+  return docs.map((doc) => {
     // In Astro 6 Content Layer API, id includes the file extension (e.g. "en/intro.mdx").
     // Strip extension and trailing /index (mirrors Astro 5 behavior where index.mdx maps to its parent path).
     const idWithoutExt = doc.id.replace(/\.(mdx?)$/, '').replace(/\/index$/, '');
     const [lang, ...slugParts] = idWithoutExt.split('/');
     const slug = slugParts.join('/');
     return {
-      params: { 
+      params: {
         lang: lang === defaultLocale ? undefined : lang,
-        slug 
+        slug,
       },
       props: { doc, locale: lang },
     };
@@ -36,5 +36,7 @@ const { Content, headings } = await render(doc);
 ---
 
 <DocsLayout doc={doc} headings={headings} locale={locale as 'en' | 'ru'}>
-  <Content components={{ Callout, CodeTabs, Steps, LinkCard, ApiMethod, FileTree, Badge, CardGrid }} />
+  <Content
+    components={{ Callout, CodeTabs, Steps, LinkCard, ApiMethod, FileTree, Badge, CardGrid }}
+  />
 </DocsLayout>

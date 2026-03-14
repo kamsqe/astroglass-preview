@@ -20,18 +20,18 @@ export function useRecentSearches() {
 
   const addRecentSearch = (query: string) => {
     if (!query || query.length < 2) return;
-    
-    setRecentSearches(prev => {
+
+    setRecentSearches((prev) => {
       // Remove if exists, then add to front
-      const filtered = prev.filter(q => q !== query);
+      const filtered = prev.filter((q) => q !== query);
       const updated = [query, ...filtered].slice(0, MAX_RECENT);
-      
+
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       } catch (e) {
         // Ignore storage errors
       }
-      
+
       return updated;
     });
   };
@@ -42,8 +42,8 @@ export function useRecentSearches() {
   };
 
   const removeRecentSearch = (query: string) => {
-    setRecentSearches(prev => {
-      const updated = prev.filter(q => q !== query);
+    setRecentSearches((prev) => {
+      const updated = prev.filter((q) => q !== query);
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       } catch (e) {
@@ -57,6 +57,6 @@ export function useRecentSearches() {
     recentSearches,
     addRecentSearch,
     removeRecentSearch,
-    clearRecentSearches
+    clearRecentSearches,
   };
 }

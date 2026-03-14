@@ -66,60 +66,84 @@ const projects = [
     <p class="portfolio-aurora-subtitle">{t('portfolio.subtitle')}</p>
   </div>
 
-  <div class="portfolio-aurora-filters mb-10 md:mb-12 flex justify-center flex-wrap gap-2" id="aurora-portfolio-filters">
-    {categories.map((cat, i) => (
-      <button
-        class:list={['portfolio-aurora-filter', i === 0 ? 'is-active' : '']}
-        data-filter={cat.id}
-      >
-        {cat.label}
-      </button>
-    ))}
+  <div
+    class="portfolio-aurora-filters mb-10 md:mb-12 flex justify-center flex-wrap gap-2"
+    id="aurora-portfolio-filters"
+  >
+    {
+      categories.map((cat, i) => (
+        <button
+          class:list={['portfolio-aurora-filter', i === 0 ? 'is-active' : '']}
+          data-filter={cat.id}
+        >
+          {cat.label}
+        </button>
+      ))
+    }
   </div>
 
   <!-- Grid -->
-  <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="aurora-portfolio-grid">
-    {projects.map((p, i) => (
-      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category} data-portfolio-link="/aurora/portfolio">
-        
-        <div class="pp-aurora__visual relative overflow-hidden bg-transparent" data-category={p.category}>
-          <div class={`absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity duration-500 mix-blend-luminosity ${i % 2 === 0 ? "bg-[url('/images/glass/portfolio-1.png')]" : "bg-[url('/images/glass/portfolio-2.png')]"}`}></div>
-          <div class="pp-aurora__visual-mesh mix-blend-overlay"></div>
-          <div class="pp-aurora__visual-grid z-10"></div>
-          <span class="pp-aurora__visual-icon group-hover:scale-110 transition-transform duration-300">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z"/>
-              <path d="M8.5 14L12 8L15.5 14L12 18Z"/>
-            </svg>
-          </span>
-
-          <div class="pp-aurora__badge">
-            {categories.find(c => c.id === p.category)?.label}
-          </div>
-
-          <div class="pp-aurora__float-metric">
-            <span class="pp-aurora__float-metric-value">{p.metric}</span>
-            <span class="pp-aurora__float-metric-label">{p.metricLabel}</span>
-          </div>
-        </div>
-
-        <!-- Overlay on hover (Desktop) / Normal content (Mobile) -->
-        <div class="portfolio-aurora-overlay">
-          <div class="portfolio-aurora-overlay-content">
-            <span class="portfolio-aurora-overlay-cat">{categories.find(c => c.id === p.category)?.label}</span>
-            <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
-            <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
-            
-            <LocalizedLink href="/aurora/portfolio" class="portfolio-aurora-overlay-link">
-              {t('portfolio.viewProject')}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+  <div
+    class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
+    id="aurora-portfolio-grid"
+  >
+    {
+      projects.map((p, i) => (
+        <div
+          class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]}
+          data-category={p.category}
+          data-portfolio-link="/aurora/portfolio"
+        >
+          <div
+            class="pp-aurora__visual relative overflow-hidden bg-transparent"
+            data-category={p.category}
+          >
+            <div
+              class={`absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity duration-500 mix-blend-luminosity ${i % 2 === 0 ? "bg-[url('/images/glass/portfolio-1.png')]" : "bg-[url('/images/glass/portfolio-2.png')]"}`}
+            />
+            <div class="pp-aurora__visual-mesh mix-blend-overlay" />
+            <div class="pp-aurora__visual-grid z-10" />
+            <span class="pp-aurora__visual-icon group-hover:scale-110 transition-transform duration-300">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2.5C12 2.5 4 10 4 14.5C4 18.92 7.58 22.5 12 22.5C16.42 22.5 20 18.92 20 14.5C20 10 12 2.5 12 2.5Z" />
+                <path d="M8.5 14L12 8L15.5 14L12 18Z" />
               </svg>
-            </LocalizedLink>
+            </span>
+
+            <div class="pp-aurora__badge">{categories.find((c) => c.id === p.category)?.label}</div>
+
+            <div class="pp-aurora__float-metric">
+              <span class="pp-aurora__float-metric-value">{p.metric}</span>
+              <span class="pp-aurora__float-metric-label">{p.metricLabel}</span>
+            </div>
+          </div>
+
+          <div class="portfolio-aurora-overlay">
+            <div class="portfolio-aurora-overlay-content">
+              <span class="portfolio-aurora-overlay-cat">
+                {categories.find((c) => c.id === p.category)?.label}
+              </span>
+              <h3 class="portfolio-aurora-overlay-title">{p.title}</h3>
+              <p class="portfolio-aurora-overlay-desc">{p.desc}</p>
+
+              <LocalizedLink href="/aurora/portfolio" class="portfolio-aurora-overlay-link">
+                {t('portfolio.viewProject')}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </LocalizedLink>
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </section>
 
@@ -130,7 +154,7 @@ const projects = [
 
   // Card click navigation
   function initAuroraPortfolioClicks() {
-    document.querySelectorAll('.pp-aurora__card[data-portfolio-link]').forEach(card => {
+    document.querySelectorAll('.pp-aurora__card[data-portfolio-link]').forEach((card) => {
       card.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         if (target.closest('a')) return;

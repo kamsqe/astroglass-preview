@@ -22,7 +22,7 @@ const localeData = Object.fromEntries(
   enabledLocales.map((l) => [
     l.code,
     { flag: l.flag, label: l.nativeName, short: l.code.toUpperCase() },
-  ])
+  ]),
 ) as Record<Locale, { flag: string; label: string; short: string }>;
 
 const pathname = Astro.url.pathname;
@@ -41,55 +41,65 @@ function getSwitchPath(targetLocale: Locale) {
 const locales = enabledLocales.map((l) => l.code) as Locale[];
 ---
 
-{variant === 'mobile' ? (
-  <!-- Mobile: Compact scrollable button group -->
-  <div class="lang-switcher-mobile" data-lang-switcher-mobile>
-    {locales.map((locale) => (
-      <a
-          href={getSwitchPath(locale)}
-        class:list={['lang-option-mobile', locale === currentLocale && 'is-active']}
-        aria-current={locale === currentLocale ? 'page' : undefined}
-        aria-label={localeData[locale].label}
-        title={localeData[locale].label}
-      >
-        <span class="lang-flag">{localeData[locale].flag}</span>
-        <span class="lang-code">{localeData[locale].short}</span>
-      </a>
-    ))}
-  </div>
-) : (
-  <!-- Desktop: Dropdown -->
-  <div class:list={['lang-switcher relative', className]} data-lang-switcher>
-    <button
-      type="button"
-      class="lang-trigger switcher-btn"
-      aria-label="Select language"
-      aria-expanded="false"
-    >
-      <span class="switcher-emoji">{localeData[currentLocale].flag}</span>
-      <svg class="switcher-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
-
-    <div class="lang-menu switcher-menu">
+{
+  variant === 'mobile' ? (
+    <div class="lang-switcher-mobile" data-lang-switcher-mobile>
       {locales.map((locale) => (
         <a
-            href={getSwitchPath(locale)}
-          class:list={['lang-option-desktop', locale === currentLocale && 'is-active']}
+          href={getSwitchPath(locale)}
+          class:list={['lang-option-mobile', locale === currentLocale && 'is-active']}
           aria-current={locale === currentLocale ? 'page' : undefined}
           aria-label={localeData[locale].label}
+          title={localeData[locale].label}
         >
           <span class="lang-flag">{localeData[locale].flag}</span>
-          <span class="lang-name">{localeData[locale].label}</span>
-          <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-          </svg>
+          <span class="lang-code">{localeData[locale].short}</span>
         </a>
       ))}
     </div>
-  </div>
-)}
+  ) : (
+    <div class:list={['lang-switcher relative', className]} data-lang-switcher>
+      <button
+        type="button"
+        class="lang-trigger switcher-btn"
+        aria-label="Select language"
+        aria-expanded="false"
+      >
+        <span class="switcher-emoji">{localeData[currentLocale].flag}</span>
+        <svg class="switcher-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      <div class="lang-menu switcher-menu">
+        {locales.map((locale) => (
+          <a
+            href={getSwitchPath(locale)}
+            class:list={['lang-option-desktop', locale === currentLocale && 'is-active']}
+            aria-current={locale === currentLocale ? 'page' : undefined}
+            aria-label={localeData[locale].label}
+          >
+            <span class="lang-flag">{localeData[locale].flag}</span>
+            <span class="lang-name">{localeData[locale].label}</span>
+            <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 <script>
   let langSwitcherController: AbortController | null = null;
@@ -100,46 +110,63 @@ const locales = enabledLocales.map((l) => l.code) as Locale[];
     const { signal } = langSwitcherController;
 
     // Store language preference when user clicks a language link
-    document.querySelectorAll('.lang-option-desktop, .lang-option-mobile').forEach(link => {
-      link.addEventListener('click', () => {
-        const href = link.getAttribute('href');
-        if (href) {
+    document.querySelectorAll('.lang-option-desktop, .lang-option-mobile').forEach((link) => {
+      link.addEventListener(
+        'click',
+        () => {
+          const href = link.getAttribute('href');
+          if (href) {
             if (navigator.vibrate) navigator.vibrate(10);
             const match = href.match(/^\/([a-z]{2})(\/|$)/);
             const locale = match ? match[1] : 'en';
             localStorage.setItem('preferred-locale', locale);
-        }
-      }, { signal });
+          }
+        },
+        { signal },
+      );
     });
 
-    document.querySelectorAll('[data-lang-switcher]').forEach(switcher => {
+    document.querySelectorAll('[data-lang-switcher]').forEach((switcher) => {
       const trigger = switcher.querySelector('.lang-trigger');
       if (!trigger) return;
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = switcher.classList.contains('is-open');
-        // Close all switchers (theme and language)
-        document.querySelectorAll('[data-theme-switcher].is-open, [data-lang-switcher].is-open').forEach(s => {
-          s.classList.remove('is-open');
-          s.querySelector('.theme-trigger, .lang-trigger')?.setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
-          switcher.classList.add('is-open');
-          trigger.setAttribute('aria-expanded', 'true');
-        } else {
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      }, { signal });
+      trigger.addEventListener(
+        'click',
+        (e) => {
+          e.stopPropagation();
+          const isOpen = switcher.classList.contains('is-open');
+          // Close all switchers (theme and language)
+          document
+            .querySelectorAll('[data-theme-switcher].is-open, [data-lang-switcher].is-open')
+            .forEach((s) => {
+              s.classList.remove('is-open');
+              s.querySelector('.theme-trigger, .lang-trigger')?.setAttribute(
+                'aria-expanded',
+                'false',
+              );
+            });
+          if (!isOpen) {
+            switcher.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          } else {
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        },
+        { signal },
+      );
     });
 
     // Close on outside click
-    document.addEventListener('click', () => {
-      document.querySelectorAll('[data-lang-switcher].is-open').forEach(s => {
-        s.classList.remove('is-open');
-        s.querySelector('.lang-trigger')?.setAttribute('aria-expanded', 'false');
-      });
-    }, { signal });
+    document.addEventListener(
+      'click',
+      () => {
+        document.querySelectorAll('[data-lang-switcher].is-open').forEach((s) => {
+          s.classList.remove('is-open');
+          s.querySelector('.lang-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+      },
+      { signal },
+    );
   }
 
   initLangSwitcher();

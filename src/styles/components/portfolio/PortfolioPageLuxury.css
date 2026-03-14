@@ -26,8 +26,13 @@
 }
 
 @keyframes ppLuxuryGlowPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.15); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
 }
 
 /* ── Diamond Divider ── */
@@ -266,13 +271,13 @@
 /* -------------------------------------------------------------------------- */
 /*                         MONOCHROME THEME OVERRIDES                         */
 /* -------------------------------------------------------------------------- */
-[data-theme="monochrome"] .c-portfolio-page-luxury__card > div.bg-gradient-to-br,
-[data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-br {
+[data-theme='monochrome'] .c-portfolio-page-luxury__card > div.bg-gradient-to-br,
+[data-theme='monochrome'] .c-portfolio-page-luxury__card div.bg-gradient-to-br {
   background: none;
   background-color: hsl(var(--bc) / 0.1);
 }
 
-[data-theme="monochrome"] .c-portfolio-page-luxury__card div.bg-gradient-to-r {
+[data-theme='monochrome'] .c-portfolio-page-luxury__card div.bg-gradient-to-r {
   background: none;
   color: hsl(var(--bc));
   -webkit-text-fill-color: hsl(var(--bc));

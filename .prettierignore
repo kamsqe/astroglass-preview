@@ -5,3 +5,6 @@ node_modules
 .netlify
 pnpm-lock.yaml
 public/search
+
+# MDX files use Astro-specific JSX (client:load, etc.) that Prettier can't parse
+**/*.mdx

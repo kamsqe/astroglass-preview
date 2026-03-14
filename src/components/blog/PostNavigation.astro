@@ -23,24 +23,30 @@ function postHref(slug: string) {
 }
 ---
 
-{(prevPost || nextPost) && (
-  <nav class="post-nav" aria-label="Post navigation">
-    <div class="post-nav__inner">
-      {prevPost ? (
-        <LocalizedLink href={postHref(prevPost.slug)} class="post-nav__link post-nav__link--prev">
-          <span class="post-nav__label">{t('blog.prevPost')}</span>
-          <span class="post-nav__title">{prevPost.title}</span>
-        </LocalizedLink>
-      ) : <div />}
-      {nextPost ? (
-        <LocalizedLink href={postHref(nextPost.slug)} class="post-nav__link post-nav__link--next">
-          <span class="post-nav__label">{t('blog.nextPost')}</span>
-          <span class="post-nav__title">{nextPost.title}</span>
-        </LocalizedLink>
-      ) : <div />}
-    </div>
-  </nav>
-)}
+{
+  (prevPost || nextPost) && (
+    <nav class="post-nav" aria-label="Post navigation">
+      <div class="post-nav__inner">
+        {prevPost ? (
+          <LocalizedLink href={postHref(prevPost.slug)} class="post-nav__link post-nav__link--prev">
+            <span class="post-nav__label">{t('blog.prevPost')}</span>
+            <span class="post-nav__title">{prevPost.title}</span>
+          </LocalizedLink>
+        ) : (
+          <div />
+        )}
+        {nextPost ? (
+          <LocalizedLink href={postHref(nextPost.slug)} class="post-nav__link post-nav__link--next">
+            <span class="post-nav__label">{t('blog.nextPost')}</span>
+            <span class="post-nav__title">{nextPost.title}</span>
+          </LocalizedLink>
+        ) : (
+          <div />
+        )}
+      </div>
+    </nav>
+  )
+}
 
 <style>
   .post-nav {

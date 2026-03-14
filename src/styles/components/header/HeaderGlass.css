@@ -42,7 +42,7 @@
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid hsl(var(--bc) / 0.1);
   border-radius: 18px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
 /* Logo */
@@ -57,7 +57,9 @@
   flex-shrink: 0;
 }
 
-.logo-glass:hover { opacity: 0.8; }
+.logo-glass:hover {
+  opacity: 0.8;
+}
 
 .logo-glass-icon {
   width: 36px;
@@ -70,7 +72,9 @@
 }
 
 @media (min-width: 480px) {
-  .logo-glass-text { display: block; }
+  .logo-glass-text {
+    display: block;
+  }
 }
 
 /* Desktop Nav - hidden on mobile */
@@ -81,7 +85,9 @@
 }
 
 @media (min-width: 1024px) {
-  .nav-glass { display: flex; }
+  .nav-glass {
+    display: flex;
+  }
 }
 
 .nav-glass-item {
@@ -171,7 +177,9 @@
 }
 
 @media (min-width: 1024px) {
-  .header-glass-actions { display: flex; }
+  .header-glass-actions {
+    display: flex;
+  }
 }
 
 /* Mobile actions - shown only on mobile */
@@ -182,7 +190,9 @@
 }
 
 @media (min-width: 1024px) {
-  .header-glass-mobile-actions { display: none; }
+  .header-glass-mobile-actions {
+    display: none;
+  }
 }
 
 /* Hamburger Button */

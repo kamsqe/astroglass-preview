@@ -1,6 +1,6 @@
 /* Abyss (Default Dark) - Focused, futuristic, elegant
    Deep ocean depths with warm amber glow */
-[data-theme="abyss"] {
+[data-theme='abyss'] {
   --p: 225 25% 12%;
   --s: 225 20% 18%;
   --a: 35 100% 55%;
@@ -18,5 +18,9 @@
   --selection-bg: 35 100% 55% / 0.3;
   --scrollbar-thumb: 225 20% 25%;
   --scrollbar-track: 230 25% 10%;
-  --ambient-glow: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(35 100% 55% / 0.08), transparent);
+  --ambient-glow: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    hsl(35 100% 55% / 0.08),
+    transparent
+  );
 }

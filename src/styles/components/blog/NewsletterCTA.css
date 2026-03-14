@@ -7,11 +7,7 @@
   overflow: hidden;
   border-radius: 1.5rem;
   border: 1px solid hsl(var(--a) / 0.12);
-  background: linear-gradient(
-    135deg,
-    hsl(var(--b2) / 0.6) 0%,
-    hsl(var(--b1) / 0.4) 100%
-  );
+  background: linear-gradient(135deg, hsl(var(--b2) / 0.6) 0%, hsl(var(--b1) / 0.4) 100%);
   backdrop-filter: blur(20px);
   padding: 2.5rem 1.5rem;
   text-align: center;
@@ -36,8 +32,15 @@
 }
 
 @keyframes newsletter-glow-pulse {
-  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08);
+  }
 }
 
 .newsletter-cta__title {
@@ -80,7 +83,9 @@
   color: hsl(var(--bc));
   font-size: 0.9375rem;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .newsletter-cta__input::placeholder {
@@ -153,7 +158,9 @@
   margin-top: 0.75rem;
   opacity: 0;
   transform: translateY(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   position: relative;
 }
 

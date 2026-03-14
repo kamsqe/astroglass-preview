@@ -29,11 +29,7 @@
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--bc) / 0.03) 0%,
-    hsl(var(--a) / 0.02) 100%
-  );
+  background: linear-gradient(135deg, hsl(var(--bc) / 0.03) 0%, hsl(var(--a) / 0.02) 100%);
 }
 
 .blog-card__image-wrap img {
@@ -52,12 +48,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    hsl(var(--bc) / 0.02) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(135deg, transparent 0%, hsl(var(--bc) / 0.02) 50%, transparent 100%);
   pointer-events: none;
 }
 

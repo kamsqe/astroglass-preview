@@ -27,7 +27,7 @@ export interface ScrollRevealOptions {
  */
 export function initScrollReveal(
   selector: string,
-  options: ScrollRevealOptions = {}
+  options: ScrollRevealOptions = {},
 ): IntersectionObserver {
   const {
     threshold = 0.1,
@@ -47,7 +47,7 @@ export function initScrollReveal(
         }
       });
     },
-    { threshold, rootMargin }
+    { threshold, rootMargin },
   );
 
   elements.forEach((el, i) => {

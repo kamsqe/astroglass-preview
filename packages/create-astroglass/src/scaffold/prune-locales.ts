@@ -10,9 +10,9 @@ const ALL_LOCALES = ['en', 'ru', 'es', 'fr', 'zh', 'ja', 'kk'];
 export async function pruneLocales(
   projectPath: string,
   selectedLocales: string[],
-  dryRun: boolean
+  dryRun: boolean,
 ): Promise<{ removed: number }> {
-  const unselected = ALL_LOCALES.filter(l => !selectedLocales.includes(l));
+  const unselected = ALL_LOCALES.filter((l) => !selectedLocales.includes(l));
   let removed = 0;
 
   // Remove unselected locale translation directories
@@ -35,10 +35,7 @@ export async function pruneLocales(
     }
 
     // Also remove locale-specific content directories
-    const contentDirs = [
-      `src/content/blog/${locale}`,
-      `src/content/docs/${locale}`,
-    ];
+    const contentDirs = [`src/content/blog/${locale}`, `src/content/docs/${locale}`];
 
     for (const dir of contentDirs) {
       const fullPath = join(projectPath, dir);
@@ -65,10 +62,7 @@ export async function pruneLocales(
     // Disable unselected locales by setting enabled: false
     for (const locale of unselected) {
       // Match patterns like: { code: 'ru', ..., enabled: true }
-      const pattern = new RegExp(
-        `(code:\\s*['"]${locale}['"][^}]*enabled:\\s*)true`,
-        'g'
-      );
+      const pattern = new RegExp(`(code:\\s*['"]${locale}['"][^}]*enabled:\\s*)true`, 'g');
       content = content.replace(pattern, '$1false');
     }
 

@@ -64,8 +64,12 @@
 }
 
 /* Hide zones at edges */
-[data-active="0"] .c-pricing-luxury__nav-zone--left { display: none; }
-[data-active="2"] .c-pricing-luxury__nav-zone--right { display: none; }
+[data-active='0'] .c-pricing-luxury__nav-zone--left {
+  display: none;
+}
+[data-active='2'] .c-pricing-luxury__nav-zone--right {
+  display: none;
+}
 
 .c-pricing-luxury__card {
   position: absolute;
@@ -73,8 +77,9 @@
   height: 680px;
   height: 680px;
   transform-style: preserve-3d;
-  transition: transform var(--duration-luxury-slow) var(--ease-luxury),
-              opacity var(--duration-luxury-medium) ease-out;
+  transition:
+    transform var(--duration-luxury-slow) var(--ease-luxury),
+    opacity var(--duration-luxury-medium) ease-out;
   cursor: pointer;
   pointer-events: auto;
   will-change: transform, opacity;
@@ -111,8 +116,13 @@
 
 /* Border Beam for Popular Card */
 @keyframes borderBeam {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .c-pricing-luxury__card-inner::after {
@@ -121,17 +131,26 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(90deg, transparent 0%, transparent 40%, hsl(var(--a)/0.5) 50%, transparent 60%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    hsl(var(--a) / 0.5) 50%,
+    transparent 60%,
+    transparent 100%
+  );
   background-size: 200% 100%;
   animation: borderBeam 4s linear infinite;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
-[data-popular="true"] .c-pricing-luxury__card-inner::after {
+[data-popular='true'] .c-pricing-luxury__card-inner::after {
   opacity: 1;
 }
 
@@ -143,8 +162,8 @@
   -webkit-backdrop-filter: blur(40px);
   border: 1px solid hsl(var(--bc) / 0.1);
   /* Refined shadow for depth */
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
     0 20px 40px -10px rgba(0, 0, 0, 0.3);
   border-radius: 1.5rem;
   padding: 3rem;
@@ -154,7 +173,7 @@
   position: relative;
   overflow: hidden;
   /* KEY FIX: Added transform, box-shadow, and border-color to transition for smoothness */
-  transition: 
+  transition:
     transform var(--duration-luxury-medium) var(--ease-luxury),
     box-shadow var(--duration-luxury-medium) var(--ease-luxury),
     border-color var(--duration-luxury-medium) ease-out;
@@ -169,12 +188,7 @@
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
   transform: skewX(-20deg);
   transition: left 0.6s ease;
   pointer-events: none;
@@ -192,70 +206,70 @@
 /* Position states controlled by parent data-active attribute */
 
 /* When card 0 (Starter) is active */
-[data-active="0"] .c-pricing-luxury__card[data-index="0"] {
+[data-active='0'] .c-pricing-luxury__card[data-index='0'] {
   transform: translateZ(40px) rotateY(0deg);
   opacity: 1;
   z-index: 30;
 }
-[data-active="0"] .c-pricing-luxury__card[data-index="0"] .c-pricing-luxury__card-inner {
+[data-active='0'] .c-pricing-luxury__card[data-index='0'] .c-pricing-luxury__card-inner {
   border-color: hsl(var(--a) / 0.3);
 }
-[data-active="0"] .c-pricing-luxury__card[data-index="1"] {
+[data-active='0'] .c-pricing-luxury__card[data-index='1'] {
   transform: translateX(380px) translateZ(-200px) rotateY(-15deg);
   opacity: 0.5;
   z-index: 20;
 }
-[data-active="0"] .c-pricing-luxury__card[data-index="2"] {
+[data-active='0'] .c-pricing-luxury__card[data-index='2'] {
   transform: translateX(700px) translateZ(-400px) rotateY(-25deg);
   opacity: 0.3;
   z-index: 10;
 }
 
 /* When card 1 (Pro) is active - DEFAULT */
-[data-active="1"] .c-pricing-luxury__card[data-index="0"] {
+[data-active='1'] .c-pricing-luxury__card[data-index='0'] {
   transform: translateX(-380px) translateZ(-200px) rotateY(15deg);
   opacity: 0.5;
   z-index: 20;
 }
-[data-active="1"] .c-pricing-luxury__card[data-index="1"] {
+[data-active='1'] .c-pricing-luxury__card[data-index='1'] {
   transform: translateZ(40px) rotateY(0deg);
   opacity: 1;
   z-index: 30;
 }
-[data-active="1"] .c-pricing-luxury__card[data-index="1"] .c-pricing-luxury__card-inner {
+[data-active='1'] .c-pricing-luxury__card[data-index='1'] .c-pricing-luxury__card-inner {
   border-color: hsl(var(--a) / 0.3);
 }
-[data-active="1"] .c-pricing-luxury__card[data-index="2"] {
+[data-active='1'] .c-pricing-luxury__card[data-index='2'] {
   transform: translateX(380px) translateZ(-200px) rotateY(-15deg);
   opacity: 0.5;
   z-index: 20;
 }
 
 /* When card 2 (Enterprise) is active */
-[data-active="2"] .c-pricing-luxury__card[data-index="0"] {
+[data-active='2'] .c-pricing-luxury__card[data-index='0'] {
   transform: translateX(-700px) translateZ(-400px) rotateY(25deg);
   opacity: 0.3;
   z-index: 10;
 }
-[data-active="2"] .c-pricing-luxury__card[data-index="1"] {
+[data-active='2'] .c-pricing-luxury__card[data-index='1'] {
   transform: translateX(-380px) translateZ(-200px) rotateY(15deg);
   opacity: 0.5;
   z-index: 20;
 }
-[data-active="2"] .c-pricing-luxury__card[data-index="2"] {
+[data-active='2'] .c-pricing-luxury__card[data-index='2'] {
   transform: translateZ(40px) rotateY(0deg);
   opacity: 1;
   z-index: 30;
 }
-[data-active="2"] .c-pricing-luxury__card[data-index="2"] .c-pricing-luxury__card-inner {
+[data-active='2'] .c-pricing-luxury__card[data-index='2'] .c-pricing-luxury__card-inner {
   border-color: hsl(var(--a) / 0.3);
 }
 
 /* Hover on inactive cards */
 .c-pricing-luxury__card:not([data-index]) .c-pricing-luxury__card-inner:hover,
-[data-active="0"] .c-pricing-luxury__card:not([data-index="0"]):hover,
-[data-active="1"] .c-pricing-luxury__card:not([data-index="1"]):hover,
-[data-active="2"] .c-pricing-luxury__card:not([data-index="2"]):hover {
+[data-active='0'] .c-pricing-luxury__card:not([data-index='0']):hover,
+[data-active='1'] .c-pricing-luxury__card:not([data-index='1']):hover,
+[data-active='2'] .c-pricing-luxury__card:not([data-index='2']):hover {
   border-color: hsl(var(--bc) / 0.2);
 }
 

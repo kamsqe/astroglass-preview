@@ -29,13 +29,13 @@ The site will be available at `http://localhost:4321`.
 
 ### Available Scripts
 
-| Script | Purpose |
-|--------|---------|
-| `pnpm dev` | Start dev server |
-| `pnpm build` | Production build + search index |
-| `pnpm check` | Astro type checking |
-| `pnpm lint` | Run ESLint |
-| `pnpm format` | Format code with Prettier |
+| Script              | Purpose                          |
+| ------------------- | -------------------------------- |
+| `pnpm dev`          | Start dev server                 |
+| `pnpm build`        | Production build + search index  |
+| `pnpm check`        | Astro type checking              |
+| `pnpm lint`         | Run ESLint                       |
+| `pnpm format`       | Format code with Prettier        |
 | `pnpm format:check` | Check formatting without writing |
 
 ### Before Submitting a PR

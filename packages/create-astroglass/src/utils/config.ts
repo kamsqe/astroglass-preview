@@ -21,14 +21,14 @@ const CONFIG_FILENAME = 'astroglass.config.json';
 /**
  * Find and read the project config, searching upward from cwd
  */
-export async function readConfig(cwd?: string): Promise<{ config: AstroglassConfig; configPath: string }> {
+export async function readConfig(
+  cwd?: string,
+): Promise<{ config: AstroglassConfig; configPath: string }> {
   const dir = cwd || process.cwd();
   const configPath = join(dir, CONFIG_FILENAME);
 
   if (!existsSync(configPath)) {
-    throw new Error(
-      `No ${CONFIG_FILENAME} found in ${dir}. Are you in an Astroglass project?`
-    );
+    throw new Error(`No ${CONFIG_FILENAME} found in ${dir}. Are you in an Astroglass project?`);
   }
 
   const raw = await readFile(configPath, 'utf-8');
@@ -40,10 +40,7 @@ export async function readConfig(cwd?: string): Promise<{ config: AstroglassConf
 /**
  * Write updated config back to disk
  */
-export async function writeConfig(
-  configPath: string,
-  config: AstroglassConfig
-): Promise<void> {
+export async function writeConfig(configPath: string, config: AstroglassConfig): Promise<void> {
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n', 'utf-8');
 }
 
@@ -52,7 +49,7 @@ export async function writeConfig(
  */
 export function validateConfig(
   projectPath: string,
-  config: AstroglassConfig
+  config: AstroglassConfig,
 ): { valid: boolean; issues: string[] } {
   const issues: string[] = [];
 

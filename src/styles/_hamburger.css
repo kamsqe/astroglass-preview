@@ -67,6 +67,8 @@
 }
 
 @media (min-width: 1024px) {
-  button.hamburger-btn, .hamburger-btn { display: none; }
+  button.hamburger-btn,
+  .hamburger-btn {
+    display: none;
+  }
 }
-

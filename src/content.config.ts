@@ -42,4 +42,3 @@ export const collections = {
   blog: blogCollection,
   docs: docsCollection,
 };
-

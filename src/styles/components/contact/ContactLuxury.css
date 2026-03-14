@@ -1,10 +1,6 @@
-
-
 /* -------------------------------------------------------------------------- */
 /*                                CARD & LAYOUT                               */
 /* -------------------------------------------------------------------------- */
-
-
 
 /* -------------------------------------------------------------------------- */
 /*                               FORM ELEMENTS                                */
@@ -21,7 +17,7 @@
 .contact-luxury-form .input-group {
   position: relative;
   /* 2.5rem (40px) total space: 8px visual gap + 32px for footer content (2 lines) */
-  padding-bottom: 2.5rem; 
+  padding-bottom: 2.5rem;
   margin-bottom: 0.5rem; /* Gap between groups */
 }
 
@@ -66,10 +62,23 @@
 }
 
 @keyframes shake {
-  10%, 90% { transform: translate3d(-1px, 0, 0); }
-  20%, 80% { transform: translate3d(2px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-  40%, 60% { transform: translate3d(4px, 0, 0); }
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .contact-luxury-form input:focus,
@@ -84,8 +93,6 @@
 /*                                 STATES                                     */
 /* -------------------------------------------------------------------------- */
 
-
-
 /* Readonly / Submitting */
 .state-readonly {
   opacity: 0.8;
@@ -96,8 +103,6 @@
 /* -------------------------------------------------------------------------- */
 /*                               SUBMIT BUTTON                                */
 /* -------------------------------------------------------------------------- */
-
-
 
 /* -------------------------------------------------------------------------- */
 /*                               SUCCESS STATE                                */

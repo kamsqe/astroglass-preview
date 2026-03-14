@@ -8,17 +8,19 @@ import { PRESETS, resolveFeatureDeps } from './shared.js';
 export async function runPresetFlow(
   dirArg?: string,
   presetArg?: string,
-  args?: Record<string, unknown>
+  args?: Record<string, unknown>,
 ): Promise<UserChoices> {
   // 1. Project directory
-  const projectDir = dirArg || await p.text({
-    message: 'Where should we create your project?',
-    placeholder: './my-astroglass',
-    defaultValue: './my-astroglass',
-    validate: (value) => {
-      if (!value) return 'Please enter a directory path';
-    },
-  });
+  const projectDir =
+    dirArg ||
+    (await p.text({
+      message: 'Where should we create your project?',
+      placeholder: './my-astroglass',
+      defaultValue: './my-astroglass',
+      validate: (value) => {
+        if (!value) return 'Please enter a directory path';
+      },
+    }));
 
   if (p.isCancel(projectDir)) {
     p.cancel('Setup cancelled.');
@@ -57,7 +59,7 @@ export async function runPresetFlow(
       `Features: ${preset.features.length > 0 ? preset.features.join(', ') : 'none'}`,
       `Deploy:   ${preset.deployTarget}`,
     ].join('\n'),
-    `📦 ${preset.name} Preset`
+    `📦 ${preset.name} Preset`,
   );
 
   // 3. Ask if they want to customize
@@ -97,9 +99,9 @@ export async function runPresetFlow(
       message: 'Deploy target:',
       options: [
         { value: 'cloudflare', label: '☁️ Cloudflare Pages' },
-        { value: 'vercel',     label: '▲ Vercel' },
-        { value: 'netlify',    label: '◈ Netlify' },
-        { value: 'static',     label: '📁 Static' },
+        { value: 'vercel', label: '▲ Vercel' },
+        { value: 'netlify', label: '◈ Netlify' },
+        { value: 'static', label: '📁 Static' },
       ],
     });
 

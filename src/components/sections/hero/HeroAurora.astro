@@ -1,7 +1,7 @@
 ---
 /**
  * Hero Aurora - Aurora Canvas
- * Full-screen hero with animated mesh gradient background, 
+ * Full-screen hero with animated mesh gradient background,
  * geometric grid overlay, and stagger-animated typography.
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
@@ -21,8 +21,7 @@ import '../../../styles/components/hero/HeroAurora.css';
       loop
       muted
       playsinline
-      class="absolute inset-0 w-full h-full object-cover opacity-[0.15] mix-blend-screen"
-    ></video>
+      class="absolute inset-0 w-full h-full object-cover opacity-[0.15] mix-blend-screen"></video>
     <div class="absolute inset-0 bg-base-100/50"></div>
   </div>
 
@@ -49,9 +48,15 @@ import '../../../styles/components/hero/HeroAurora.css';
 
     <!-- Headline — per-word gradient reveal -->
     <h1 class="hero-aurora-title">
-      {t('hero.title').split(' ').map((word: string, i: number) => (
-        <span class="hero-aurora-word" style={`animation-delay: ${0.1 + i * 0.08}s`}>{word}&nbsp;</span>
-      ))}
+      {
+        t('hero.title')
+          .split(' ')
+          .map((word: string, i: number) => (
+            <span class="hero-aurora-word" style={`animation-delay: ${0.1 + i * 0.08}s`}>
+              {word}&nbsp;
+            </span>
+          ))
+      }
     </h1>
 
     <!-- Subtitle -->
@@ -67,8 +72,14 @@ import '../../../styles/components/hero/HeroAurora.css';
       </a>
       <a href="#about" class="hero-aurora-btn hero-aurora-btn--secondary">
         <span class="hero-aurora-btn-text">{t('hero.secondaryCta')}</span>
-        <svg class="hero-aurora-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
+        <svg
+          class="hero-aurora-btn-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
     </div>
@@ -89,11 +100,17 @@ import '../../../styles/components/hero/HeroAurora.css';
   <a href="#about" class="hero-aurora-scroll hover:scale-110 transition-transform duration-300">
     <div class="hero-aurora-scroll-ring">
       <svg viewBox="0 0 40 40">
-        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-track"/>
-        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-glow"/>
+        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-track"></circle>
+        <circle cx="20" cy="20" r="18" class="hero-aurora-ring-glow"></circle>
       </svg>
-      <svg class="hero-aurora-scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M7 10l5 5 5-5"/>
+      <svg
+        class="hero-aurora-scroll-chevron"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M7 10l5 5 5-5"></path>
       </svg>
     </div>
     <span class="hero-aurora-scroll-text">{t('hero.scrollToExplore')}</span>

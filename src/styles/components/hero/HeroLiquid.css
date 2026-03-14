@@ -33,35 +33,39 @@
 }
 
 @keyframes heroLiquidBlobMorph1 {
-  0%, 100% {
-    d: path("M420,300Q380,500,200,480Q20,460,60,300Q100,140,260,100Q420,60,420,300Z");
+  0%,
+  100% {
+    d: path('M420,300Q380,500,200,480Q20,460,60,300Q100,140,260,100Q420,60,420,300Z');
   }
   25% {
-    d: path("M440,320Q400,520,220,500Q40,480,40,300Q40,120,240,80Q440,40,440,320Z");
+    d: path('M440,320Q400,520,220,500Q40,480,40,300Q40,120,240,80Q440,40,440,320Z');
   }
   50% {
-    d: path("M400,340Q360,540,180,500Q0,460,40,280Q80,100,260,60Q440,20,400,340Z");
+    d: path('M400,340Q360,540,180,500Q0,460,40,280Q80,100,260,60Q440,20,400,340Z');
   }
   75% {
-    d: path("M460,280Q420,480,240,500Q60,520,80,320Q100,120,280,80Q460,40,460,280Z");
+    d: path('M460,280Q420,480,240,500Q60,520,80,320Q100,120,280,80Q460,40,460,280Z');
   }
 }
 
 @keyframes heroLiquidBlobMorph2 {
-  0%, 100% {
-    d: path("M380,320Q340,500,180,460Q20,420,60,260Q100,100,280,120Q460,140,380,320Z");
+  0%,
+  100% {
+    d: path('M380,320Q340,500,180,460Q20,420,60,260Q100,100,280,120Q460,140,380,320Z');
   }
   33% {
-    d: path("M400,280Q360,460,200,480Q40,500,80,300Q120,100,300,80Q480,60,400,280Z");
+    d: path('M400,280Q360,460,200,480Q40,500,80,300Q120,100,300,80Q480,60,400,280Z');
   }
   66% {
-    d: path("M360,340Q320,520,160,480Q0,440,40,280Q80,120,260,100Q440,80,360,340Z");
+    d: path('M360,340Q320,520,160,480Q0,440,40,280Q80,120,260,100Q440,80,360,340Z');
   }
 }
 
 /* ── Primary Button — Ripple CTA ── */
 .c-hero-liquid__btn-primary {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
@@ -76,7 +80,9 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   transform: translate(-50%, -50%);
-  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    width 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .c-hero-liquid__btn-primary:hover::before {
@@ -153,7 +159,8 @@
 }
 
 @keyframes heroLiquidDrip {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 0.3;
   }
@@ -166,4 +173,3 @@
     opacity: 0.2;
   }
 }
-

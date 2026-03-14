@@ -6,10 +6,7 @@ import { rm, readdir } from 'node:fs/promises';
 import { existsSync, statSync } from 'node:fs';
 import fg from 'fast-glob';
 
-export async function cleanup(
-  projectPath: string,
-  dryRun: boolean
-): Promise<void> {
+export async function cleanup(projectPath: string, dryRun: boolean): Promise<void> {
   // 1. Remove .DS_Store files
   const dsStoreFiles = await fg('**/.DS_Store', {
     cwd: projectPath,
@@ -27,9 +24,7 @@ export async function cleanup(
 
   // 2. Remove the CLI templates/modules from the scaffolded project
   // (they came from the downloaded repo but aren't needed in the user's project)
-  const cliDirs = [
-    'packages/create-astroglass',
-  ];
+  const cliDirs = ['packages/create-astroglass'];
 
   for (const dir of cliDirs) {
     const fullPath = join(projectPath, dir);

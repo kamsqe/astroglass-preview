@@ -1,6 +1,6 @@
 ---
-title: "Configuración"
-description: "Personalice AstroGlass para que coincida con su marca."
+title: 'Configuración'
+description: 'Personalice AstroGlass para que coincida con su marca.'
 order: 3
 ---
 
@@ -12,12 +12,10 @@ AstroGlass se configura a través de archivos en `src/config/` y propiedades per
 ## Archivos de Configuración
 
 <FileTree>
-- src/
-  - config/
-    - **themes.ts** — Definiciones de los temas (nombre, colores, secciones, indicador premium)
-    - **locales.ts** — Idiomas compatibles y metadatos regionales
-    - **navigation.ts** — Estructura de navegación principal del sitio
-    - **docs.ts** — Configuración de la barra lateral de documentación y de la versión
+  - src/ - config/ - **themes.ts** — Definiciones de los temas (nombre, colores, secciones,
+  indicador premium) - **locales.ts** — Idiomas compatibles y metadatos regionales -
+  **navigation.ts** — Estructura de navegación principal del sitio - **docs.ts** — Configuración de
+  la barra lateral de documentación y de la versión
 </FileTree>
 
 ## Estilos con Tailwind CSS v4
@@ -28,16 +26,18 @@ Los colores y las variables de tema se definen como propiedades personalizadas d
 
 ```css title="global.css"
 :root {
-  --p: 260 80% 60%;   /* Primario (HSL) */
-  --s: 310 80% 60%;   /* Secundario */
-  --a: 190 90% 60%;   /* Acento */
-  --b1: 220 20% 10%;  /* Fondo base */
-  --bc: 220 20% 90%;  /* Contenido base (texto) */
+  --p: 260 80% 60%; /* Primario (HSL) */
+  --s: 310 80% 60%; /* Secundario */
+  --a: 190 90% 60%; /* Acento */
+  --b1: 220 20% 10%; /* Fondo base */
+  --bc: 220 20% 90%; /* Contenido base (texto) */
 }
 ```
 
 <Callout type="tip" title="Cambiando Colores">
-  Para cambiar el esquema de colores del sitio, actualice los valores HSL en `src/styles/global.css`. Las anulaciones específicas del tema se encuentran en `src/styles/_themes.css` utilizando selectores `[data-theme="..."]`.
+  Para cambiar el esquema de colores del sitio, actualice los valores HSL en
+  `src/styles/global.css`. Las anulaciones específicas del tema se encuentran en
+  `src/styles/_themes.css` utilizando selectores `[data-theme="..."]`.
 </Callout>
 
 ## Configuración del Tema
@@ -51,7 +51,19 @@ export const themes: ThemeDefinition[] = [
     name: 'Liquid',
     color: 'from-blue-500 to-cyan-400',
     icon: '💧',
-    sections: ['Header', 'Hero', 'About', 'Features', 'Portfolio', 'Pricing', 'Testimonial', 'FAQ', 'CTA', 'Contact', 'Footer'],
+    sections: [
+      'Header',
+      'Hero',
+      'About',
+      'Features',
+      'Portfolio',
+      'Pricing',
+      'Testimonial',
+      'FAQ',
+      'CTA',
+      'Contact',
+      'Footer',
+    ],
     enabled: true,
     premium: false,
     description: 'Diseño fluido y orgánico con animaciones suaves',
@@ -66,7 +78,21 @@ Los idiomas se gestionan en `src/config/locales.ts`. Para agregar un nuevo idiom
 
 ```typescript title="locales.ts"
 export const localesConfig: LocaleConfig[] = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', direction: 'ltr', enabled: true },
-  { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    direction: 'ltr',
+    enabled: true,
+  },
+  {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    direction: 'ltr',
+    enabled: true,
+  },
 ];
 ```

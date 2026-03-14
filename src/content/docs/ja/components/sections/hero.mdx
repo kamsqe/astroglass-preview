@@ -1,6 +1,6 @@
 ---
-title: "ヒーロー (Hero) セクション"
-description: "各テーマのフルスクリーン ヒーロー セクション。"
+title: 'ヒーロー (Hero) セクション'
+description: '各テーマのフルスクリーン ヒーロー セクション。'
 order: 2
 ---
 
@@ -10,14 +10,14 @@ Hero (ヒーロー) セクションは、訪問者が最初に目にする場所
 
 ## テーマのバリアント
 
-| テーマ | コンポーネント | デザイン |
-|-------|-----------|--------|
-| **Liquid** | `HeroLiquid.astro` | アニメーションする液体のような SVG ブロブ、グラデーションのテキスト |
-| **Glass** | `HeroGlass.astro` | ぼかし背景を持つすりガラスのヒーロー カード |
-| **Neo** | `HeroNeo.astro` | 大胆なタイポグラフィ、ハイコントラスト |
-| **Luxury** | `HeroLuxury.astro` | ゴールドのアクセント、プレミアムなレイアウト |
-| **Minimal** | `HeroMinimal.astro` | クリーンで中央に配置され、気を散らさないデザイン |
-| **Aurora** | `HeroAurora.astro` | グラデーション メッシュ、幾何学的な要素 |
+| テーマ      | コンポーネント      | デザイン                                                            |
+| ----------- | ------------------- | ------------------------------------------------------------------- |
+| **Liquid**  | `HeroLiquid.astro`  | アニメーションする液体のような SVG ブロブ、グラデーションのテキスト |
+| **Glass**   | `HeroGlass.astro`   | ぼかし背景を持つすりガラスのヒーロー カード                         |
+| **Neo**     | `HeroNeo.astro`     | 大胆なタイポグラフィ、ハイコントラスト                              |
+| **Luxury**  | `HeroLuxury.astro`  | ゴールドのアクセント、プレミアムなレイアウト                        |
+| **Minimal** | `HeroMinimal.astro` | クリーンで中央に配置され、気を散らさないデザイン                    |
+| **Aurora**  | `HeroAurora.astro`  | グラデーション メッシュ、幾何学的な要素                             |
 
 すべてのバリアントは `src/components/sections/hero/` に配置されています。
 
@@ -46,7 +46,9 @@ const t = useTranslations(locale);
 ```
 
 <Callout type="info" title="プロパティ (Props) なし">
-  Hero コンポーネントは外部からのプロパティ (Props) を受け取りません。見出し、サブタイトル、または CTA (コール トゥ アクション) テキストを変更するには、`src/locales/ja/hero.json` (または適切なロケール ファイル) を編集してください。
+  Hero コンポーネントは外部からのプロパティ (Props) を受け取りません。見出し、サブタイトル、または
+  CTA (コール トゥ アクション) テキストを変更するには、`src/locales/ja/hero.json`
+  (または適切なロケール ファイル) を編集してください。
 </Callout>
 
 ## ヒーローのカスタマイズ

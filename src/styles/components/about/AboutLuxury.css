@@ -32,11 +32,21 @@
   animation: aboutLuxuryCardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.c-about-luxury__wrapper:nth-child(1) .c-about-luxury__card { animation-delay: 0ms; }
-.c-about-luxury__wrapper:nth-child(2) .c-about-luxury__card { animation-delay: 150ms; }
-.c-about-luxury__wrapper:nth-child(3) .c-about-luxury__card { animation-delay: 300ms; }
-.c-about-luxury__wrapper:nth-child(4) .c-about-luxury__card { animation-delay: 450ms; }
-.c-about-luxury__wrapper:nth-child(5) .c-about-luxury__card { animation-delay: 600ms; }
+.c-about-luxury__wrapper:nth-child(1) .c-about-luxury__card {
+  animation-delay: 0ms;
+}
+.c-about-luxury__wrapper:nth-child(2) .c-about-luxury__card {
+  animation-delay: 150ms;
+}
+.c-about-luxury__wrapper:nth-child(3) .c-about-luxury__card {
+  animation-delay: 300ms;
+}
+.c-about-luxury__wrapper:nth-child(4) .c-about-luxury__card {
+  animation-delay: 450ms;
+}
+.c-about-luxury__wrapper:nth-child(5) .c-about-luxury__card {
+  animation-delay: 600ms;
+}
 
 @keyframes aboutLuxuryCardReveal {
   to {
@@ -59,8 +69,13 @@
 }
 
 @keyframes aboutLuxuryGlowPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 /* Desktop alternating layout */
@@ -68,7 +83,7 @@
   .c-about-luxury__wrapper:nth-child(odd) .c-about-luxury__card {
     animation-name: aboutLuxuryCardRevealLeft;
   }
-  
+
   .c-about-luxury__wrapper:nth-child(even) .c-about-luxury__card {
     animation-name: aboutLuxuryCardRevealRight;
   }
@@ -99,20 +114,20 @@
 /* -------------------------------------------------------------------------- */
 /*                         MONOCHROME THEME OVERRIDES                         */
 /* -------------------------------------------------------------------------- */
-[data-theme="monochrome"] .c-about-luxury__node-inner.bg-gradient-to-br,
-[data-theme="monochrome"] .c-about-luxury__node-outer > .bg-gradient-to-br.animate-ping,
-[data-theme="monochrome"] .c-about-luxury__card-inner > .bg-gradient-to-b {
+[data-theme='monochrome'] .c-about-luxury__node-inner.bg-gradient-to-br,
+[data-theme='monochrome'] .c-about-luxury__node-outer > .bg-gradient-to-br.animate-ping,
+[data-theme='monochrome'] .c-about-luxury__card-inner > .bg-gradient-to-b {
   background: none;
   background-color: hsl(var(--bc) / 0.15);
 }
 
-[data-theme="monochrome"] .c-about-luxury__node span.bg-gradient-to-r {
+[data-theme='monochrome'] .c-about-luxury__node span.bg-gradient-to-r {
   background: none;
   background-color: hsl(var(--bc));
   color: hsl(var(--b1));
 }
 
-[data-theme="monochrome"] .c-about-luxury__card a.bg-gradient-to-r {
+[data-theme='monochrome'] .c-about-luxury__card a.bg-gradient-to-r {
   background: none;
   background-color: hsl(var(--bc));
   color: hsl(var(--b1));

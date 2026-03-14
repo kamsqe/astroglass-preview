@@ -13,12 +13,14 @@
 import NotFoundPage from '../components/pages/NotFoundPage.astro';
 import { getEnabledLocaleCodes, defaultLocale } from '../config/locales';
 
-const locales = getEnabledLocaleCodes().filter(l => l !== defaultLocale);
+const locales = getEnabledLocaleCodes().filter((l) => l !== defaultLocale);
 ---
 
 <style is:global>
   /* Hide body until locale redirect check completes */
-  body.locale-checking { opacity: 0; }
+  body.locale-checking {
+    opacity: 0;
+  }
 </style>
 
 <script is:inline define:vars={{ locales }}>

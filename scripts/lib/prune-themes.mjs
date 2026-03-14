@@ -163,7 +163,6 @@ const themeRegistry = {
     css: [
       `${STYLES}/hero/HeroMinimal.css`,
       `${STYLES}/about/AboutMinimal.css`,
-      `${STYLES}/features/FeaturesMinimal.css`,
       `${STYLES}/portfolio/PortfolioMinimal.css`,
       `${STYLES}/pricing/PricingMinimal.css`,
       `${STYLES}/testimonial/TestimonialMinimal.css`,
@@ -252,9 +251,10 @@ export async function pruneThemes(selectedTheme) {
   let themesConfig = await readFile('src/config/themes.ts');
   if (themesConfig) {
     for (const themeId of themesToRemove) {
-      // Remove the object literal block for this theme
+      // Remove the object literal block for this theme.
+      // Use [^}]* (not [\s\S]*?) to avoid matching across multiple blocks.
       const blockRegex = new RegExp(
-        `\\s*\\{[\\s\\S]*?id:\\s*'${themeId}'[\\s\\S]*?\\},`,
+        `\\s*\\{[^}]*id:\\s*'${themeId}'[^}]*\\},?`,
         ''
       );
       themesConfig = themesConfig.replace(blockRegex, '');

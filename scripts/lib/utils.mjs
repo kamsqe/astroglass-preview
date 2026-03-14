@@ -88,30 +88,14 @@ export async function removeLinesMatching(relPath, pattern) {
  * Works for themes.ts, palettes.ts, locales.ts patterns.
  */
 export function removeArrayEntry(content, idField, idValue) {
-  // Match object literal with the given id field value, including surrounding braces and trailing comma
-  // This handles multi-line object literals in arrays
-  const patterns = [
-    // Pattern: { ... id: 'value', ... },
-    new RegExp(
-      `\\s*\\{[^}]*${idField}:\\s*'${idValue}'[^}]*\\},?`,
-      'g'
-    ),
-    // Pattern with code: 'value' (for locales)
-    new RegExp(
-      `\\s*\\{[^}]*${idField}:\\s*'${idValue}'[\\s\\S]*?\\},`,
-      'g'
-    ),
-  ];
-
-  let result = content;
-  for (const pattern of patterns) {
-    const newResult = result.replace(pattern, '');
-    if (newResult !== result) {
-      result = newResult;
-      break;
-    }
-  }
-  return result;
+  // Match object literal with the given id field value, including surrounding braces and trailing comma.
+  // Uses [^}]* to avoid matching across multiple blocks (works for both single-line and multi-line
+  // entries as long as field values don't contain '}').
+  const pattern = new RegExp(
+    `\\s*\\{[^}]*${idField}:\\s*'${idValue}'[^}]*\\},?`,
+    'g'
+  );
+  return content.replace(pattern, '');
 }
 
 /**

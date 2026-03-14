@@ -31,10 +31,10 @@ export async function pruneLocales(selectedLocales) {
   let localesConfig = await readFile('src/config/locales.ts');
   if (localesConfig) {
     for (const locale of localesToRemove) {
-      // Remove the full object literal block for this locale
-      // Match from the opening { before code: 'xx' through the closing },
+      // Remove the full object literal block for this locale.
+      // Use [^}]* (not [\s\S]*?) to avoid matching across multiple blocks.
       const blockRegex = new RegExp(
-        `\\s*\\{[\\s\\S]*?code:\\s*'${locale}'[\\s\\S]*?\\},`,
+        `\\s*\\{[^}]*code:\\s*'${locale}'[^}]*\\},?`,
         ''
       );
       localesConfig = localesConfig.replace(blockRegex, '');

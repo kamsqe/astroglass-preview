@@ -229,7 +229,6 @@ export const themeRegistry: Record<string, ThemeManifest> = {
     css: [
       `${STYLES}/hero/HeroMinimal.css`,
       `${STYLES}/about/AboutMinimal.css`,
-      `${STYLES}/features/FeaturesMinimal.css`,
       `${STYLES}/portfolio/PortfolioMinimal.css`,
       `${STYLES}/pricing/PricingMinimal.css`,
       `${STYLES}/testimonial/TestimonialMinimal.css`,

@@ -23,6 +23,7 @@ const THEME_FILES: Record<string, string[]> = {
     'src/components/sections/cta/CTALiquid.astro',
     'src/components/sections/contact/ContactLiquid.astro',
     'src/components/sections/footer/FooterLiquid.astro',
+    'src/components/sections/footer/FooterIndex.astro',
     'src/components/layout/header/HeaderLiquid.astro',
     'src/components/ui/liquid/',
     'src/styles/components/hero/HeroLiquid.css',

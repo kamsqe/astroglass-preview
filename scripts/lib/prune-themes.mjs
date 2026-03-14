@@ -46,7 +46,10 @@ const themeRegistry = {
       `${STYLES}/footer/FooterLiquid.css`,
     ],
     header: [`${HEADER}/HeaderLiquid.astro`],
-    footer: [`${SECTIONS}/footer/FooterLiquid.astro`],
+    footer: [
+      `${SECTIONS}/footer/FooterLiquid.astro`,
+      `${SECTIONS}/footer/FooterIndex.astro`,
+    ],
     ui: [`${UI}/liquid/LiquidSectionTag.astro`],
     scripts: [],
     tokens: ['src/styles/tokens/liquid.css'],
@@ -344,20 +347,44 @@ export async function pruneThemes(selectedTheme) {
     await writeFile('src/styles/global.css', globalCss);
   }
 
-  // 8. Update BaseLayout.astro — remove unused header imports
+  // 8. Update BaseLayout.astro — replace header imports and header selection logic.
+  //    Remove all pruned theme header imports and simplify the header ternary chain
+  //    to only use the selected theme's header.
   let baseLayout = await readFile('src/layouts/BaseLayout.astro');
   if (baseLayout) {
-    for (const themeId of themesToRemove) {
+    const selectedCapName = capitalize(selectedTheme);
+    const selectedHeaderFile = `Header${selectedCapName}.astro`;
+
+    // Remove ALL theme-specific header imports (we'll add back the selected one)
+    for (const themeId of ALL_THEMES) {
       const capName = capitalize(themeId);
-      // Remove import lines for headers of pruned themes
+      // Match imports whose path contains Header<Theme> (regardless of local name)
       baseLayout = baseLayout.replace(
         new RegExp(
-          `\\s*import\\s+\\w*Header${capName}?\\w*\\s+from[^;]*Header${capName}[^;]*;\\n?`,
+          `\\s*import\\s+\\w+\\s+from[^;]*Header${capName}\\.astro[^;]*;\\n?`,
           'g',
         ),
         '\n',
       );
     }
+
+    // Ensure the selected theme's header is imported (add after the last remaining import)
+    const headerImportLine = `import SelectedHeader from '../components/layout/header/${selectedHeaderFile}';\n`;
+    // Insert before the closing --- of the frontmatter
+    if (!baseLayout.includes(selectedHeaderFile)) {
+      baseLayout = baseLayout.replace(
+        /^(import\s+HeaderDefault\s+from[^;]*;\n)/m,
+        `$1${headerImportLine}`,
+      );
+    }
+
+    // Replace the entire header ternary chain with just the selected header
+    // The pattern: showHeader && (currentHeader === 1 ? ... : ... )
+    baseLayout = baseLayout.replace(
+      /\{\s*\n?\s*showHeader\s*&&\s*\n?\s*\(currentHeader[\s\S]*?\)\s*\n?\s*\}/,
+      `{showHeader && <SelectedHeader />}`,
+    );
+
     await writeFile('src/layouts/BaseLayout.astro', baseLayout);
   }
 
@@ -373,7 +400,27 @@ export async function pruneThemes(selectedTheme) {
     }
   }
 
-  // 10. Clean up dangling CSS imports in surviving components.
+  // 10. Replace hardcoded footer imports from pruned themes with the selected theme's footer.
+  //     Pages like dashboard-demo.astro, terms.astro, etc. hardcode FooterLiquid imports.
+  //     When liquid is pruned, these break. Replace them with the selected theme's footer.
+  //     Also handles FooterIndex (liquid-specific index page footer).
+  const selectedFooterName = `Footer${capitalize(selectedTheme)}`;
+  const footerNamesToReplace = [];
+  for (const themeId of themesToRemove) {
+    footerNamesToReplace.push(`Footer${capitalize(themeId)}`);
+  }
+  // FooterIndex is a liquid-specific footer; replace it when liquid is pruned
+  if (themesToRemove.includes('liquid')) {
+    footerNamesToReplace.push('FooterIndex');
+  }
+  const pagesDir = resolve('src/pages');
+  try {
+    await replaceFooterImports(pagesDir, footerNamesToReplace, selectedFooterName);
+  } catch {
+    // src/pages may not exist
+  }
+
+  // 11. Clean up dangling CSS imports in surviving components.
   //     When a theme is pruned, its CSS files are deleted. But surviving
   //     components may still import those deleted CSS files (cross-theme deps).
   //     Scan all surviving .astro files and remove those broken imports.
@@ -400,6 +447,52 @@ export async function pruneThemes(selectedTheme) {
   }
 
   return { deletedFiles };
+}
+
+/**
+ * Recursively scan .astro page files and replace footer imports/usages from pruned themes
+ * with the selected theme's footer.
+ * @param {string} dir - Directory to scan
+ * @param {string[]} footerNamesToReplace - Footer component names to replace (e.g. ['FooterLiquid', 'FooterIndex'])
+ * @param {string} selectedFooterName - The footer name to replace with (e.g. 'FooterGlass')
+ */
+async function replaceFooterImports(dir, footerNamesToReplace, selectedFooterName) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await replaceFooterImports(fullPath, footerNamesToReplace, selectedFooterName);
+    } else if (entry.name.endsWith('.astro')) {
+      let content;
+      try {
+        content = await fs.readFile(fullPath, 'utf-8');
+      } catch {
+        continue;
+      }
+      let changed = false;
+      for (const prunedFooterName of footerNamesToReplace) {
+        // Replace import path: import Footer<Pruned> from '.../Footer<Pruned>.astro'
+        const importRegex = new RegExp(
+          `(import\\s+)${prunedFooterName}(\\s+from\\s+['"][^'"]*/)${prunedFooterName}(\\.astro['"];?)`,
+          'g',
+        );
+        let newContent = content.replace(
+          importRegex,
+          `$1${selectedFooterName}$2${selectedFooterName}$3`,
+        );
+        // Replace JSX usage: <FooterPruned /> or <FooterPruned>...</FooterPruned>
+        newContent = newContent.replace(new RegExp(`<${prunedFooterName}(\\s|\\/>|>)`, 'g'), `<${selectedFooterName}$1`);
+        newContent = newContent.replace(new RegExp(`</${prunedFooterName}>`, 'g'), `</${selectedFooterName}>`);
+        if (newContent !== content) {
+          content = newContent;
+          changed = true;
+        }
+      }
+      if (changed) {
+        await fs.writeFile(fullPath, content, 'utf-8');
+      }
+    }
+  }
 }
 
 /**

@@ -1,7 +1,9 @@
 /**
  * Theme pruning — deletes files for unselected themes and updates configs.
  */
-import { safeRemove, readFile, writeFile, removeRecordEntry, capitalize } from './utils.mjs';
+import fs from 'fs/promises';
+import path from 'path';
+import { safeRemove, readFile, writeFile, removeRecordEntry, capitalize, resolve } from './utils.mjs';
 
 // Mirrors src/config/themeRegistry.ts — we duplicate the data here
 // so the CLI can run as plain Node.js without TS compilation.
@@ -293,9 +295,26 @@ export async function pruneThemes(selectedTheme) {
     await writeFile('src/config/navigation.ts', navConfig);
   }
 
-  // 6. Update [theme].astro — remove unused imports and themeModules entries
-  let themePage = await readFile('src/pages/[...lang]/[theme].astro');
-  if (themePage) {
+  // 6. Update [theme].astro and [theme]/*.astro — remove unused imports and themeModules entries
+  const themePageFiles = ['src/pages/[...lang]/[theme].astro'];
+
+  // Also process any subpages under [theme]/
+  try {
+    const subDir = resolve('src/pages/[...lang]/[theme]');
+    const subEntries = await fs.readdir(subDir, { withFileTypes: true });
+    for (const entry of subEntries) {
+      if (entry.name.endsWith('.astro')) {
+        themePageFiles.push(`src/pages/[...lang]/[theme]/${entry.name}`);
+      }
+    }
+  } catch {
+    // [theme]/ subdirectory may not exist
+  }
+
+  for (const pageFile of themePageFiles) {
+    let themePage = await readFile(pageFile);
+    if (!themePage) continue;
+
     for (const themeId of themesToRemove) {
       const capName = capitalize(themeId);
       // Remove import line
@@ -309,7 +328,7 @@ export async function pruneThemes(selectedTheme) {
         '\n'
       );
     }
-    await writeFile('src/pages/[...lang]/[theme].astro', themePage);
+    await writeFile(pageFile, themePage);
   }
 
   // 7. Update global.css — remove token imports for pruned themes
@@ -350,5 +369,66 @@ export async function pruneThemes(selectedTheme) {
     }
   }
 
+  // 10. Clean up dangling CSS imports in surviving components.
+  //     When a theme is pruned, its CSS files are deleted. But surviving
+  //     components may still import those deleted CSS files (cross-theme deps).
+  //     Scan all surviving .astro files and remove those broken imports.
+  const deletedCssFiles = new Set();
+  for (const themeId of themesToRemove) {
+    const manifest = themeRegistry[themeId];
+    for (const cssFile of manifest.css) {
+      // Normalize to just the filename for matching
+      deletedCssFiles.add(path.basename(cssFile));
+    }
+  }
+
+  if (deletedCssFiles.size > 0) {
+    // Scan all surviving .astro files in src/components and src/pages
+    const dirsToScan = ['src/components', 'src/pages'];
+    for (const dir of dirsToScan) {
+      const absDir = resolve(dir);
+      try {
+        await cleanDanglingImports(absDir, deletedCssFiles);
+      } catch {
+        // Directory may not exist
+      }
+    }
+  }
+
   return { deletedFiles };
+}
+
+/**
+ * Recursively scan .astro files and remove import lines referencing deleted CSS files.
+ */
+async function cleanDanglingImports(dir, deletedCssFiles) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await cleanDanglingImports(fullPath, deletedCssFiles);
+    } else if (entry.name.endsWith('.astro')) {
+      let content;
+      try {
+        content = await fs.readFile(fullPath, 'utf-8');
+      } catch {
+        continue;
+      }
+      let changed = false;
+      for (const cssFile of deletedCssFiles) {
+        const importRegex = new RegExp(
+          `\\s*import\\s+['"][^'"]*/${cssFile.replace('.', '\\.')}['"];?\\n?`,
+          'g'
+        );
+        const newContent = content.replace(importRegex, '\n');
+        if (newContent !== content) {
+          content = newContent;
+          changed = true;
+        }
+      }
+      if (changed) {
+        await fs.writeFile(fullPath, content, 'utf-8');
+      }
+    }
+  }
 }

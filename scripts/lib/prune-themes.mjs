@@ -110,7 +110,9 @@ const themeRegistry = {
       `${STYLES}/cta/CTANeo.css`,
       `${STYLES}/contact/ContactNeo.css`,
       `${STYLES}/footer/FooterNeo.css`,
-      `${STYLES}/header/HeaderNeo.css`,
+      // NOTE: HeaderNeo.css is NOT listed here because it is a shared CSS file
+      // used by HeaderDefault, HeaderLiquid, and HeaderNeo. Deleting it would
+      // break headers on all pages when non-neo themes are selected.
     ],
     header: [`${HEADER}/HeaderNeo.astro`],
     footer: [`${SECTIONS}/footer/FooterNeo.astro`],
@@ -383,6 +385,15 @@ export async function pruneThemes(selectedTheme) {
     baseLayout = baseLayout.replace(
       /\{\s*\n?\s*showHeader\s*&&\s*\n?\s*\(currentHeader[\s\S]*?\)\s*\n?\s*\}/,
       `{showHeader && <SelectedHeader />}`,
+    );
+
+    // Update the default headerVersion to match the selected theme's header.
+    // This ensures data-header is correct for --nav-offset CSS calculations.
+    const headerVersionMap = { liquid: 1, glass: 2, neo: 3, luxury: 4, minimal: 5, aurora: 3 };
+    const selectedVersion = headerVersionMap[selectedTheme] ?? 3;
+    baseLayout = baseLayout.replace(
+      /headerVersion\s*=\s*\d+/,
+      `headerVersion = ${selectedVersion}`,
     );
 
     await writeFile('src/layouts/BaseLayout.astro', baseLayout);

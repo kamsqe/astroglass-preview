@@ -37,8 +37,9 @@ export async function pruneLocales(selectedLocales) {
       localesConfig = localesConfig.replace(blockRegex, '');
     }
 
-    // If only 1 locale remains, update the defaultLocale
-    if (selectedLocales.length === 1) {
+    // Update defaultLocale if the current default was removed
+    const currentDefault = localesConfig.match(/export const defaultLocale = '([^']+)'/)?.[1];
+    if (currentDefault && !selectedLocales.includes(currentDefault)) {
       localesConfig = localesConfig.replace(
         /export const defaultLocale = '[^']+'/,
         `export const defaultLocale = '${selectedLocales[0]}'`,

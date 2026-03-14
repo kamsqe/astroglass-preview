@@ -19,7 +19,7 @@ const t = useTranslations(locale);
   type="button"
   class="c-docs-search__trigger group"
   aria-label="Search documentation"
-  onclick="window.__SEARCH_OPEN__ = true; window.dispatchEvent(new CustomEvent('open-search'));"
+  id="docs-search-trigger"
 >
   <svg class="c-docs-search__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -27,4 +27,18 @@ const t = useTranslations(locale);
   <span class="c-docs-search__text">{t('docs.searchDocs') || 'Search...'}</span>
   <kbd class="c-docs-search__kbd">⌘K</kbd>
 </button>
+
+<script>
+  function initSearchTrigger() {
+    const btn = document.getElementById('docs-search-trigger');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        window.__SEARCH_OPEN__ = true;
+        window.dispatchEvent(new CustomEvent('open-search'));
+      });
+    }
+  }
+  initSearchTrigger();
+  document.addEventListener('astro:after-swap', initSearchTrigger);
+</script>
 

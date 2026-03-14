@@ -1,0 +1,32 @@
+/* PortfolioGlass.css */
+
+.c-portfolio-glass__container {
+  -webkit-overflow-scrolling: touch;
+}
+
+.c-portfolio-glass__container::-webkit-scrollbar {
+  display: none;
+}
+
+.c-portfolio-glass__container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.c-portfolio-glass__item {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: portfolioGlassSlideIn 0.6s var(--ease-glass) forwards;
+}
+
+/* Fix Safari rounded-corner clipping during hover transforms */
+.c-portfolio-glass__item > div {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+@keyframes portfolioGlassSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

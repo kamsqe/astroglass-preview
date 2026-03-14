@@ -97,15 +97,15 @@ export default defineConfig({
       {
         name: 'exclude-native-deps-from-worker',
         configEnvironment(name, _opts) {
-          const isServer = ['astro', 'ssr', 'prerender'].includes(name);
-          if (isServer) {
-            return {
-              optimizeDeps: {
-                exclude: ['lightningcss', 'fsevents'],
-              },
-            };
+        enforce: 'pre',
+        apply: 'build',
+        resolveId(source) {
+          // Tell the module runner to externalize these built-ins,
+          // rather than trying to resolve and bundle them for workerd.
+          if (source.startsWith('node:') || NODE_BUILTIN_NAMES.has(source)) {
+            return { id: source, external: true };
           }
-        },
+        }
       },
       // Vite 7's SSR module runner (used during both dev serving AND build-time sync/prerender)
       // cannot externalize Node.js built-ins on its own — not even node:-prefixed ones.
@@ -115,8 +115,9 @@ export default defineConfig({
       // This plugin runs in BOTH serve and build modes (no `apply` restriction).
       {
         name: 'node-builtin-shims',
-        enforce: /** @type {'pre'} */ ('pre'),
-        resolveId(id) {
+        enforce: ('pre'),
+        resolveId(id, importer, options) {
+          if (!options?.ssr) return null;
           if (id.startsWith('node:')) {
             return `\0virtual:node-builtin:${id.slice(5)}`;
           }
@@ -129,7 +130,8 @@ export default defineConfig({
           }
           return null;
         },
-        load(id) {
+        load(id, options) {
+          if (!options?.ssr) return null;
           if (id.startsWith('\0virtual:node-builtin:')) {
             const modName = id.slice('\0virtual:node-builtin:'.length);
             // @ts-ignore
@@ -141,7 +143,7 @@ export default defineConfig({
                 try {
                   // @ts-ignore
                   globalThis.__nodeBuiltinShims__[modName] = _require(modName);
-                } catch { /* ignore if truly unavailable */ }
+                } catch { }
               }
             }
             // @ts-ignore
@@ -172,13 +174,11 @@ export default defineConfig({
       // Vite 7's module runner evaluates CJS node_modules as ESM (no module/exports/require).
       // This plugin injects those globals so CJS packages work in the module runner context,
       // which is used during BOTH dev serving AND build-time sync/prerender steps.
-      // The transform is skipped for the Rollup client environment — Vite handles CJS there
-      // via its built-in @rollup/plugin-commonjs.
-      // TODO: remove once Astro/Vite properly handle CJS in the module runner.
       {
         name: 'cjs-esm-interop',
-        enforce: /** @type {'pre'} */ ('pre'),
-        resolveId(id) {
+        enforce: ('pre'),
+        resolveId(id, importer, options) {
+          if (!options?.ssr) return null;
           // Force react-dom/server to the browser (web streams) version.
           // The default `node` condition resolves to server.node.js which requires
           // Node.js built-ins (util, async_hooks, stream) not available in the module runner.
@@ -187,21 +187,13 @@ export default defineConfig({
           }
           return null;
         },
-        transform(code, id) {
+        transform(code, id, options) {
+          if (!options?.ssr) return null;
           // Skip Rollup's client bundle environment — @rollup/plugin-commonjs handles CJS there.
           // We only need to shim CJS in module runner contexts (server, prerender, astro env).
-          const envName = /** @type {any} */ (this).environment?.name;
+          const envName = (this).environment?.name;
           if (envName === 'client') return null;
 
-          const cleanId = id.split('?')[0];
-          if (!cleanId.includes('/node_modules/')) return null;
-          if (!/\.(js|cjs)$/.test(cleanId)) return null;
-          // Skip files that already have ESM syntax (export OR import statements)
-          if (/(?:^|\n)\s*(?:export|import)\s/.test(code)) return null;
-
-          const hasCJS =
-            /\bexports\.[a-zA-Z_$]/.test(code) || /\bmodule\.exports\b/.test(code);
-          if (!hasCJS) return null;
 
           // Get named exports at transform time (in the real Node.js context) so
           // we can re-export them as named ESM bindings for consumers.

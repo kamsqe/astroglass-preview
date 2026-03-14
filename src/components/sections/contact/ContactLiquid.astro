@@ -43,7 +43,9 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       
       <!-- Chat Header -->
       <div class="flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-base-content/[0.03] border-b border-base-content/5">
-        <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-lg">💬</div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 overflow-hidden bg-accent/10">
+          <img src="/images/liquid/support-icon.png" alt="Support" class="w-full h-full object-cover" />
+        </div>
         <div>
           <p class="text-sm font-bold text-base-content">{t('contact.supportTeam')}</p>
           <p class="text-xs text-base-content/75 flex items-center gap-1.5">
@@ -57,7 +59,9 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       <div class="contact-liquid-messages p-4 sm:p-6 space-y-4 min-h-[300px] max-h-[400px] overflow-y-auto">
         <!-- Initial bot message -->
         <div class="contact-liquid-msg bot flex gap-3">
-          <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 overflow-hidden bg-accent/10">
+            <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover" />
+          </div>
           <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
             <p class="text-sm text-base-content">{t('contact.botWelcome')}</p>
           </div>
@@ -190,7 +194,9 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
         `;
       } else {
         msgDiv.innerHTML = `
-          <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 overflow-hidden bg-accent/10">
+            <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover" />
+          </div>
           <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
             <p class="text-sm text-base-content">${text}</p>
           </div>
@@ -205,7 +211,9 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       const typingDiv = document.createElement('div');
       typingDiv.className = 'contact-liquid-msg bot flex gap-3 typing-indicator';
       typingDiv.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-sm shrink-0">💬</div>
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 overflow-hidden bg-accent/10">
+          <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover" />
+        </div>
         <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md">
           <div class="contact-liquid-typing">
             <span></span><span></span><span></span>

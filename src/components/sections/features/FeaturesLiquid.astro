@@ -61,7 +61,8 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
               </div>
             )}
             
-            <!-- Glow on hover -->
+            <!-- Glow and background image on hover -->
+            <div class="absolute inset-0 bg-[url('/images/liquid/feature-cards-bg.png')] bg-cover bg-center opacity-10 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none z-0 mix-blend-overlay"></div>
             <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-accent/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             
             <!-- Liquid SVG Icon (organic blob shape) -->

@@ -41,10 +41,12 @@ const navLinks = buildThemeNavLinks(t, 'liquid');
       <Logo />
 
       <!-- Desktop Navigation -->
-      <DesktopNav links={navLinks} />
+      <div class="flex-1 min-w-0 flex justify-center px-2 lg:px-6">
+        <DesktopNav links={navLinks} class="min-w-0" />
+      </div>
 
       <!-- Desktop Switchers -->
-      <div class="hidden lg:flex items-center gap-1.5">
+      <div class="hidden lg:flex items-center gap-1.5 shrink-0">
         <ThemeSwitcher />
         <div class="switcher-separator"></div>
         <LanguageSwitcher />

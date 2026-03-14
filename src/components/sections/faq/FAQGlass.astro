@@ -16,6 +16,7 @@ import SectionHeading from '../../ui/glass/SectionHeading.astro';
 
 import { Input } from '../../ui/input';
 import { Button } from '../../ui/button';
+import avatar1 from '../../../assets/avatars/avatar_1.png';
 
 const faqs = [
   { q: t('faq.q1'), a: t('faq.a1'), category: "basics" },
@@ -33,7 +34,9 @@ const i18nData = JSON.stringify({
   botFallback: t('faq.botFallback'),
   justNow: t('testimonial.justNow'),
   helpful: t('faq.helpful'),
-  thanks: t('faq.thanks')
+  thanks: t('faq.thanks'),
+  botIcon: '/images/liquid/support-icon.png',
+  userIcon: avatar1.src
 });
 ---
 
@@ -52,8 +55,8 @@ const i18nData = JSON.stringify({
        <div class="c-faq-glass__messages space-y-4 mb-6 min-h-[200px] max-h-[min(400px,50vh)] overflow-y-auto c-faq-glass__scrollbar py-3 px-1" id="faq-glass-messages">
           <!-- Welcome message -->
           <div class="c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start">
-             <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
-                <span class="text-xl leading-none">🤖</span>
+             <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100 overflow-hidden">
+                <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover mix-blend-multiply" />
              </div>
              <div class="flex-1">
                 <div class="inline-block p-4 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5 backdrop-blur-sm">
@@ -117,6 +120,8 @@ const i18nData = JSON.stringify({
     const justNow = i18nData.justNow || "Just now";
     const helpful = i18nData.helpful || "Helpful";
     const thanks = i18nData.thanks || "Thanks!";
+    const botIcon = i18nData.botIcon || "/images/liquid/support-icon.png";
+    const userIcon = i18nData.userIcon || "";
     
     const messagesContainer = document.getElementById('faq-glass-messages');
     const suggestionsContainer = document.getElementById('faq-glass-suggestions');
@@ -128,8 +133,8 @@ const i18nData = JSON.stringify({
       const typing = document.createElement('div');
       typing.className = 'faq-glass-typing c-faq-glass__msg flex gap-3 items-start';
       typing.innerHTML = `
-        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-          <span class="text-xl leading-none">🤖</span>
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <img src="${botIcon}" alt="Bot" class="w-full h-full object-cover mix-blend-multiply" />
         </div>
         <div class="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5">
           <div class="c-faq-glass__typing-dot w-2 h-2 rounded-full bg-base-content/30"></div>
@@ -156,8 +161,8 @@ const i18nData = JSON.stringify({
           </div>
           <p class="text-[10px] text-base-content/60 mt-1 mr-2">${justNow}</p>
         </div>
-        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-base-content/10 flex items-center justify-center flex-shrink-0">
-          <span class="text-xl leading-none">👤</span>
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-base-content/10 flex items-center justify-center flex-shrink-0 border border-base-content/10 overflow-hidden">
+          <img src="${userIcon}" alt="User" class="w-full h-full object-cover" />
         </div>
       `;
       messagesContainer?.appendChild(msg);
@@ -169,8 +174,8 @@ const i18nData = JSON.stringify({
       const msg = document.createElement('div');
       msg.className = 'c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start';
       msg.innerHTML = `
-        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100">
-          <span class="text-xl leading-none">🤖</span>
+        <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100 overflow-hidden">
+          <img src="${botIcon}" alt="Bot" class="w-full h-full object-cover mix-blend-multiply" />
         </div>
         <div class="flex-1">
           <div class="inline-block p-4 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5 backdrop-blur-sm">

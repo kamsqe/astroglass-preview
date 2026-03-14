@@ -121,39 +121,63 @@
   }
 }
 
-/* Mesh Gradients */
+/* Mesh Gradients - Enhanced for vibrant abstract backgrounds */
 .pp-aurora__visual-mesh {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 40%, hsl(var(--a) / 0.08) 0%, transparent 60%);
+  background: 
+    radial-gradient(ellipse at 80% 0%, hsl(var(--a) / 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 100%, hsl(260 80% 60% / 0.3) 0%, transparent 60%);
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+}
+
+.pp-aurora__card:hover .pp-aurora__visual-mesh {
+  opacity: 1;
 }
 
 .pp-aurora__visual[data-category="webapp"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 25% 35%, hsl(var(--a) / 0.1) 0%, hsl(210 80% 60% / 0.05) 40%, transparent 65%);
+  background: 
+    radial-gradient(ellipse at 10% 20%, hsl(160 80% 50% / 0.45) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, hsl(210 90% 60% / 0.35) 0%, transparent 50%);
 }
 [data-theme="monochrome"] .pp-aurora__visual[data-category="webapp"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 25% 35%, hsl(var(--a) / 0.1) 0%, hsl(var(--bc) / 0.05) 40%, transparent 65%);
+  background: 
+    radial-gradient(ellipse at 10% 20%, hsl(var(--bc) / 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, hsl(var(--bc) / 0.08) 0%, transparent 50%);
 }
 
 .pp-aurora__visual[data-category="dashboard"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 60% 30%, hsl(var(--a) / 0.08) 0%, hsl(280 70% 60% / 0.06) 45%, transparent 70%);
+  background: 
+    radial-gradient(ellipse at 70% 30%, hsl(280 80% 60% / 0.4) 0%, transparent 70%),
+    radial-gradient(ellipse at 30% 70%, hsl(320 80% 55% / 0.3) 0%, transparent 60%);
 }
 [data-theme="monochrome"] .pp-aurora__visual[data-category="dashboard"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 60% 30%, hsl(var(--a) / 0.08) 0%, hsl(var(--bc) / 0.06) 45%, transparent 70%);
+  background: 
+    radial-gradient(ellipse at 70% 30%, hsl(var(--bc) / 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse at 30% 70%, hsl(var(--bc) / 0.08) 0%, transparent 60%);
 }
 
 .pp-aurora__visual[data-category="mobile"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 40% 60%, hsl(var(--a) / 0.09) 0%, hsl(160 70% 50% / 0.05) 40%, transparent 65%);
+  background: 
+    radial-gradient(ellipse at 40% 60%, hsl(var(--a) / 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 20%, hsl(190 80% 50% / 0.3) 0%, transparent 55%);
 }
 [data-theme="monochrome"] .pp-aurora__visual[data-category="mobile"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 40% 60%, hsl(var(--a) / 0.09) 0%, hsl(var(--bc) / 0.05) 40%, transparent 65%);
+  background: 
+    radial-gradient(ellipse at 40% 60%, hsl(var(--bc) / 0.15) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 20%, hsl(var(--bc) / 0.08) 0%, transparent 55%);
 }
 
 .pp-aurora__visual[data-category="branding"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 55% 45%, hsl(var(--a) / 0.1) 0%, hsl(30 80% 55% / 0.06) 40%, transparent 60%);
+  background: 
+    radial-gradient(ellipse at 20% 80%, hsl(30 90% 60% / 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, hsl(340 80% 60% / 0.35) 0%, transparent 65%);
 }
 [data-theme="monochrome"] .pp-aurora__visual[data-category="branding"] .pp-aurora__visual-mesh {
-  background: radial-gradient(ellipse at 55% 45%, hsl(var(--a) / 0.1) 0%, hsl(var(--bc) / 0.06) 40%, transparent 60%);
+  background: 
+    radial-gradient(ellipse at 20% 80%, hsl(var(--bc) / 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, hsl(var(--bc) / 0.08) 0%, transparent 65%);
 }
 
 .pp-aurora__visual-grid {

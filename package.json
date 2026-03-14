@@ -8,7 +8,7 @@
     "pnpm": ">=8"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "pnpm run index:content && astro dev",
     "build": "astro build && pnpm run index:content",
     "index:content": "node scripts/generate-search-index.mjs",
     "check": "astro check",

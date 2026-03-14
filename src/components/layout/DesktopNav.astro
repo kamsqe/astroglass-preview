@@ -40,13 +40,13 @@ const { links, class: className = '' } = Astro.props;
 ---
 
 <nav class:list={['hidden lg:flex items-center', className]}>
-  <div class="nav-pills flex items-center gap-0.5 p-1 rounded-2xl bg-base-200/30 border border-white/5">
+  <div class="nav-pills flex items-center lg:gap-0 xl:gap-0.5 p-1 rounded-2xl bg-base-200/30 border border-white/5 text-[15px] xl:text-base">
     {links.map((link) => (
       link.children ? (
         <div class="dropdown relative group">
           <button 
             type="button"
-            class="dropdown-trigger nav-item flex items-center gap-1.5 px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium"
+            class="dropdown-trigger nav-item flex items-center gap-1.5 px-2.5 lg:px-3 xl:px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium whitespace-nowrap"
           >
             {link.label}
             <svg class="w-3.5 h-3.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@ const { links, class: className = '' } = Astro.props;
       ) : (
         <LocalizedLink 
           href={link.href}
-          class="nav-item px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium"
+          class="nav-item px-2.5 lg:px-3 xl:px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium whitespace-nowrap"
         >
           {link.label}
         </LocalizedLink>
@@ -112,7 +112,7 @@ const { links, class: className = '' } = Astro.props;
     <div class="dropdown relative group" data-nav-more>
       <button
         type="button"
-        class="nav-more-trigger nav-item flex items-center gap-1.5 px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium"
+        class="nav-more-trigger nav-item flex items-center gap-1.5 px-2.5 lg:px-3 xl:px-4 py-2 rounded-xl text-base-content/70 hover:text-base-content transition-colors font-medium whitespace-nowrap"
       >
         {moreLabel}
         <svg class="w-3.5 h-3.5 opacity-50 nav-more-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">

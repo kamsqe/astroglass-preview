@@ -23,7 +23,8 @@
     "deploy:cloudflare": "pnpm run deploy",
     "deploy:vercel": "pnpm run build && vercel deploy",
     "deploy:netlify": "pnpm run build && netlify deploy --prod",
-    "astro": "astro"
+    "astro": "astro",
+    "configure": "node scripts/configure.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.0",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/cloudflare": "^13.1.0",
+    "@inquirer/prompts": "^8.3.0",
     "@rollup/plugin-commonjs": "^29.0.2",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^25.2.1",

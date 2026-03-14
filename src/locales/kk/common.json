@@ -1,7 +1,7 @@
 {
   "greeting": "Сәлем, Әлем!",
   "title": "AstroGlass",
-  "description": "Astro-glass дизайны бар заманауи Astro үлгісі",
+  "description": "Glassmorphism дизайны, 10 түсті палитра және CLI конфигураторы бар мульти-тақырыпты Astro шаблоны",
   "siteName": "AstroGlass",
   "learnMore": "Толығырақ білу",
   "back": "Артқа",

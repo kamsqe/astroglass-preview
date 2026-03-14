@@ -1,7 +1,7 @@
 {
   "greeting": "Bonjour le monde !",
   "title": "AstroGlass",
-  "description": "Un modèle Astro moderne avec un design astro-glass",
+  "description": "Un template Astro multi-thème avec design glassmorphism, 10 palettes de couleurs et un configurateur CLI",
   "siteName": "AstroGlass",
   "learnMore": "En savoir plus",
   "back": "Retour",

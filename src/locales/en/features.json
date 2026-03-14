@@ -14,7 +14,7 @@
   "minimalCtaDesc": "Start building with the complete Astro Glass toolkit today.",
   "f1Title": "Ultra Performance",
   "f1Desc": "Zero-JS by default architecture ensures your site loads in the blink of an eye.",
-  "f1LongDesc": "Built on Astro 5.0's island architecture, only the JavaScript you need is shipped. This means sub-second load times and perfect Core Web Vitals scores out of the box.",
+  "f1LongDesc": "Built on Astro 6's island architecture, only the JavaScript you need is shipped. This means sub-second load times and perfect Core Web Vitals scores out of the box.",
   "f2Title": "Deep Glass Effects",
   "f2Desc": "Multi-layered blur and refraction effects for a truly premium aesthetic.",
   "f2LongDesc": "Our glassmorphism system uses carefully calibrated backdrop filters, layered transparencies, and subtle gradients to create depth without sacrificing performance.",
@@ -23,7 +23,7 @@
   "f3LongDesc": "Mobile-first responsive design with fluid typography, adaptive spacing, and context-aware layouts that work beautifully from watch to ultrawide.",
   "f4Title": "Limitless Themes",
   "f4Desc": "10+ color palettes or create your own signature look in seconds.",
-  "f4LongDesc": "Powered by CSS custom properties and DaisyUI, switch themes instantly or create custom palettes. Dark mode, light mode, and everything in between.",
+  "f4LongDesc": "Powered by CSS custom properties and 10 built-in palettes, switch themes instantly or create custom palettes. Dark mode, light mode, and everything in between.",
   "f5Title": "Edge Ready",
   "f5Desc": "Deploy globally with Cloudflare Workers for instant access anywhere.",
   "useCases": {
@@ -45,7 +45,7 @@
     "desc": "A complete toolkit for building stunning, high-performance websites without the hassle.",
     "list": [
       {
-        "title": "Astro 5.0",
+        "title": "Astro 6",
         "desc": "Latest Server Islands & Content Layer architecture for ultimate speed."
       },
       {
@@ -70,7 +70,7 @@
       },
       {
         "title": "Type-Safe",
-        "desc": "Full TypeScript support & Zod content validation schemas."
+        "desc": "Full TypeScript support & Valibot form validation schemas."
       },
       {
         "title": "SEO Optimized",

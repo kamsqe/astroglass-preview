@@ -5,19 +5,20 @@ order: 2
 ---
 
 import Steps from '../../../../components/mdx/Steps.astro';
+import Callout from '../../../../components/mdx/Callout.astro';
 
-Getting started is easy. Clone the repository and install dependencies.
+Getting started is easy. Clone the repository, install dependencies, and run the interactive configurator.
 
 ## Prerequisites
 
-- Node.js v20.0.0 or higher
+- Node.js v22.12.0 or higher
 - pnpm v8+ (recommended) or npm/yarn
 
 ## Quick Start
 
 <Steps>
 1. **Clone the repository**
-   
+
    ```bash frame="terminal"
    git clone https://github.com/kamsqe/astroglass.git my-project
    ```
@@ -34,7 +35,15 @@ Getting started is easy. Clone the repository and install dependencies.
    pnpm install
    ```
 
-4. **Start development server**
+4. **Run the configurator**
+
+   ```bash frame="terminal"
+   pnpm configure
+   ```
+
+   The interactive CLI walks you through selecting your theme, languages, and color palettes. It then removes all unused code, keeping your project lean.
+
+5. **Start development server**
 
    ```bash frame="terminal"
    pnpm dev
@@ -43,3 +52,7 @@ Getting started is easy. Clone the repository and install dependencies.
 </Steps>
 
 Visit `http://localhost:4321` to see your new site.
+
+<Callout type="tip" title="Skipping the configurator">
+  You can skip `pnpm configure` and keep all 6 themes, 7 languages, and 10 palettes. The configurator is optional — it just prunes what you don't need.
+</Callout>

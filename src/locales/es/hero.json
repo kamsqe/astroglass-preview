@@ -3,7 +3,7 @@
   "subtitle": "6 temas, 66+ componentes, 7 idiomas, docs. Gratis & Open Source.",
   "cta": "Explorar Temas",
   "secondaryCta": "Leer la Documentación",
-  "liveBadge": "Gratis & Open Source · Astro 5.0",
+  "liveBadge": "Gratis & Open Source · Astro 6",
   "digitalExperience": "Experiencia Digital",
   "watchReel": "Ver en Acción",
   "glassCard": {
@@ -23,7 +23,7 @@
   "shippingVelocity": "Velocidad de lanzamiento 10x",
   "readyToBuild": "¿Listo para construir?",
   "askLeaders": "Pregúntale a Stripe, Linear, Vercel.",
-  "cloneCommand": "npx degit kamsqe/astroglass mi-sitio",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git my-site && cd my-site && pnpm configure",
   "readyIn": "Listo en 2 minutos",
   "terminal": {
     "label": "Terminal"

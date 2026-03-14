@@ -3,7 +3,7 @@
   "subtitle": "6 тақырып, 66+ компонент, 7 тіл, құжаттама. Тегін және ашық көзді.",
   "cta": "Тақырыптарды көру",
   "secondaryCta": "Құжаттарды оқу",
-  "liveBadge": "Тегін & Ашық көзді · Astro 5.0",
+  "liveBadge": "Тегін & Ашық көзді · Astro 6",
   "digitalExperience": "Цифрлық тәжірибе",
   "watchReel": "Іс жүзінде көру",
   "glassCard": {
@@ -23,7 +23,7 @@
   "shippingVelocity": "Жобаны іске қосуды 10 есе жылдамдатады",
   "readyToBuild": "Жасауға дайынсыз ба?",
   "askLeaders": "Stripe, Linear, Vercel-ден сұрап көріңіз.",
-  "cloneCommand": "npx degit kamsqe/astroglass my-site",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git my-site && cd my-site && pnpm configure",
   "readyIn": "2 минутта дайын болады",
   "terminal": {
     "label": "Терминал"

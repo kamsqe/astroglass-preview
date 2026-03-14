@@ -1,7 +1,7 @@
 {
   "title": "Pionniers de l'Avenir du Glassmorphism",
   "subtitle": "Nous pensons que les logiciels doivent être aussi clairs et fluides que les idées qu'ils concrétisent.",
-  "description": "Astro Glass est né du désir d'allier l'excellence technique à la poésie visuelle. Notre système repose sur les fondations récentes d'Astro 5.0 et Tailwind 4.0, garantissant que vos projets ne sont pas seulement beaux — ils sont exceptionnellement rapides à l'épreuve du futur.",
+  "description": "AstroGlass est né du désir d'allier l'excellence technique à la poésie visuelle. Notre système repose sur les fondations récentes d'Astro 6 et Tailwind CSS 4, garantissant que vos projets ne sont pas seulement beaux — ils sont exceptionnellement rapides à l'épreuve du futur.",
   "stat1": "Vitesse fulgurante",
   "stat1Sub": "Score Lighthouse de 100",
   "stat1Desc": "Optimisé pour les Core Web Vitals et des chargements instantanés.",
@@ -56,9 +56,9 @@
     "featuredRole": "Fondateur & PDG"
   },
   "feature1Title": "Performances",
-  "feature1Desc": "Basé sur Astro 5.0 pour des temps de chargement quasi-instantanés.",
+  "feature1Desc": "Basé sur Astro 6 pour des temps de chargement quasi-instantanés.",
   "feature2Title": "Modernité",
-  "feature2Desc": "CSS de pointe avec Tailwind 4.0 et des variables natives.",
+  "feature2Desc": "CSS de pointe avec Tailwind CSS 4 et des variables natives.",
   "feature3Title": "Accessibilité",
   "feature3Desc": "Entièrement localisé avec prise en charge i18n et focus sur l'inclusion.",
   "meetTeam": "Rencontrez l'équipe"

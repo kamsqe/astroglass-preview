@@ -1,7 +1,7 @@
 {
   "greeting": "你好，世界！",
   "title": "AstroGlass",
-  "description": "具有 astro-glass 设计的现代 Astro 模板",
+  "description": "多主题Astro模板，玻璃拟态设计，10种配色方案，CLI配置工具",
   "siteName": "AstroGlass",
   "learnMore": "了解更多",
   "back": "返回",

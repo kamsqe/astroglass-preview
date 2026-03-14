@@ -14,7 +14,7 @@
   "minimalCtaDesc": "Commencez à créer avec la boîte à outils complète Astro Glass dès aujourd'hui.",
   "f1Title": "Performances Ultra",
   "f1Desc": "L'architecture zéro-JS par défaut garantit que votre site se charge en un clin d'œil.",
-  "f1LongDesc": "Basé sur l'architecture en îles d'Astro 5.0, seul le JavaScript dont vous avez besoin est envoyé. Cela signifie des temps de chargement inférieurs à la seconde et d'excellents scores Core Web Vitals (Signaux Web essentiels) dès le départ.",
+  "f1LongDesc": "Basé sur l'architecture en îles d'Astro 6, seul le JavaScript dont vous avez besoin est envoyé. Cela signifie des temps de chargement inférieurs à la seconde et d'excellents scores Core Web Vitals (Signaux Web essentiels) dès le départ.",
   "f2Title": "Effets de Verre Profonds",
   "f2Desc": "Effets de flou multicouches et de réfraction pour une esthétique vraiment premium.",
   "f2LongDesc": "Notre système de glassmorphism (effet verre) utilise des filtres d'arrière-plan soigneusement calibrés, des transparences superposées et des dégradés subtils pour créer de la profondeur sans sacrifier les performances.",
@@ -23,7 +23,7 @@
   "f3LongDesc": "Design adaptatif pensé pour le mobile (mobile-first) avec une typographie fluide, un espacement adaptatif et des mises en page contextuelles qui fonctionnent parfaitement, de la montre connectée à l'écran ultra-large.",
   "f4Title": "Thèmes Illimités",
   "f4Desc": "Plus de 10 palettes de couleurs ou créez votre propre look unique en quelques secondes.",
-  "f4LongDesc": "Propulsé par les propriétés personnalisées CSS et DaisyUI, changez de thème instantanément ou créez des palettes personnalisées. Mode sombre, mode clair et tout ce qui se trouve entre les deux.",
+  "f4LongDesc": "Propulsé par les propriétés personnalisées CSS et 10 palettes intégrées, changez de thème instantanément ou créez des palettes personnalisées. Mode sombre, mode clair et tout ce qui se trouve entre les deux.",
   "f5Title": "Prêt pour l'Edge",
   "f5Desc": "Déployez de manière globale avec les Cloudflare Workers pour un accès instantané partout.",
   "useCases": {
@@ -45,11 +45,11 @@
     "desc": "Une boîte à outils complète pour créer facilement des sites web superbes et ultra-performants.",
     "list": [
       {
-        "title": "Astro 5.0",
+        "title": "Astro 6",
         "desc": "La dernière architecture de Server Islands & Content Layer pour une vitesse ultime."
       },
       {
-        "title": "Tailwind CSS 4.0",
+        "title": "Tailwind CSS 4",
         "desc": "Le moteur utilitaire nouvelle génération. Zéro config, builds instantanés."
       },
       {
@@ -70,7 +70,7 @@
       },
       {
         "title": "Type-Safe",
-        "desc": "Prise en charge complète de TypeScript et schémas de validation de contenu Zod."
+        "desc": "Prise en charge complète de TypeScript et schémas de validation de contenu Valibot."
       },
       {
         "title": "Optimisé pour le SEO",

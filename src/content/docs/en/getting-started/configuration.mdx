@@ -9,15 +9,36 @@ import FileTree from '../../../../components/mdx/FileTree.astro';
 
 AstroGlass is configured via files in `src/config/` and standard CSS custom properties.
 
+## Interactive CLI Configurator
+
+The fastest way to configure your project is the interactive CLI:
+
+```bash frame="terminal"
+pnpm configure
+```
+
+It lets you:
+- **Pick a theme** — one of 6 (Liquid, Glass, Neo, Luxury, Minimal, Aurora)
+- **Pick languages** — any combination of 7 supported languages
+- **Pick color palettes** — any combination of 10 built-in palettes
+
+The CLI then prunes all unused themes, locale files, and palette CSS from the project. If you select a single language or palette, it also removes the corresponding switcher component from the navbar.
+
+<Callout type="warning" title="Run once on a fresh clone">
+  The configurator permanently deletes unused files. Run it once after cloning, before you start customizing content.
+</Callout>
+
 ## Configuration Files
 
 <FileTree>
 - src/
   - config/
     - **themes.ts** — Theme definitions (name, colors, sections, premium flag)
+    - **palettes.ts** — Color palette definitions and default palette
     - **locales.ts** — Supported languages and locale metadata
     - **navigation.ts** — Main site navigation structure
     - **docs.ts** — Documentation sidebar and version config
+    - **themeRegistry.ts** — File manifests for CLI pruning
 </FileTree>
 
 ## Styling with Tailwind CSS v4
@@ -37,7 +58,7 @@ Colors and theme variables are defined as CSS custom properties in `src/styles/g
 ```
 
 <Callout type="tip" title="Changing Colors">
-  To change the site's color scheme, update the HSL values in `src/styles/global.css`. Theme-specific overrides live in `src/styles/_themes.css` using `[data-theme="..."]` selectors.
+  To change the site's color scheme, update the HSL values in `src/styles/global.css`. Theme-specific overrides live in `src/styles/_themes.css` using `[data-theme="..."]` selectors. Each palette has its own CSS file in `src/styles/palettes/`.
 </Callout>
 
 ## Theme Configuration
@@ -70,3 +91,15 @@ export const localesConfig: LocaleConfig[] = [
   { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', direction: 'ltr', enabled: true },
 ];
 ```
+
+## Palette Configuration
+
+Color palettes are defined in `src/config/palettes.ts` and each palette's CSS lives in `src/styles/palettes/`:
+
+| Category | Palettes |
+|----------|----------|
+| **Light** | Azure, Nordic, Solaris |
+| **Dark** | Abyss, Neonoir, Synthwave |
+| **Colorful** | Evergreen, Rose, Aquatica, Monochrome |
+
+Switch palettes at runtime by setting the `data-theme` attribute on `<html>`.

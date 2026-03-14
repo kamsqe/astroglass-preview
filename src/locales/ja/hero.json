@@ -3,7 +3,7 @@
   "subtitle": "6つのテーマ、66以上のコンポーネント、7つの言語、ドキュメント。無料でオープンソース。",
   "cta": "テーマを見る",
   "secondaryCta": "ドキュメントを読む",
-  "liveBadge": "無料 & オープンソース · Astro 5.0",
+  "liveBadge": "無料 & オープンソース · Astro 6",
   "digitalExperience": "デジタル体験",
   "watchReel": "動画を見る",
   "glassCard": {
@@ -23,7 +23,7 @@
   "shippingVelocity": "リリース速度が10倍に",
   "readyToBuild": "準備はいいですか？",
   "askLeaders": "Stripe、Linear、Vercelも認める。",
-  "cloneCommand": "npx degit kamsqe/astroglass my-site",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git my-site && cd my-site && pnpm configure",
   "readyIn": "2分で準備完了",
   "terminal": {
     "label": "ターミナル"

@@ -1,7 +1,7 @@
 {
   "title": "Pioneros del Futuro del Glassmorphism",
   "subtitle": "Creemos que el software debe ser tan claro y fluido como las ideas a las que da vida.",
-  "description": "Astro Glass nació del deseo de fusionar la excelencia técnica con la poesía visual. Nuestro sistema se basa en Astro 5.0 y Tailwind 4.0, garantizando que tus proyectos no solo sean hermosos, sino excepcionalmente rápidos y preparados para el futuro.",
+  "description": "AstroGlass nació del deseo de fusionar la excelencia técnica con la poesía visual. Nuestro sistema se basa en Astro 6 y Tailwind CSS 4, garantizando que tus proyectos no solo sean hermosos, sino excepcionalmente rápidos y preparados para el futuro.",
   "stat1": "Increíblemente Rápido",
   "stat1Sub": "Puntuación de 100 en Lighthouse",
   "stat1Desc": "Optimizado para Core Web Vitals y cargas de página instantáneas.",
@@ -30,7 +30,7 @@
     "m2Desc": "Construimos nuestra primera biblioteca de componentes en un hackathon de fin de semana.",
     "m3Title": "1,000 Usuarios",
     "m3Desc": "Cruzamos nuestro primer gran hito. La comunidad empezó a crecer orgánicamente.",
-    "m4Title": "Lanzamiento de Astro Glass",
+    "m4Title": "Lanzamiento de AstroGlass",
     "m4Desc": "Rediseño completo. Más rápido, más limpio, más potente que nunca.",
     "m5Title": "Tu Turno",
     "m5Desc": "Ahora tú escribes la historia. Construyamos algo increíble juntos."
@@ -56,9 +56,9 @@
     "featuredRole": "Fundador y CEO"
   },
   "feature1Title": "Rendimiento",
-  "feature1Desc": "Construido en Astro 5.0 para tiempos de carga casi instantáneos.",
+  "feature1Desc": "Construido en Astro 6 para tiempos de carga casi instantáneos.",
   "feature2Title": "Modernidad",
-  "feature2Desc": "CSS avanzado de Tailwind 4.0 con variables nativas para personalización infinita.",
+  "feature2Desc": "CSS avanzado de Tailwind CSS 4 con variables nativas para personalización infinita.",
   "feature3Title": "Accesibilidad",
   "feature3Desc": "Totalmente localizado con soporte i18n y enfoque inclusivo.",
   "meetTeam": "Conoce al Equipo"

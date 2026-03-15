@@ -246,24 +246,14 @@ html {
   /* Border handled by config to prevent double borders */
 }
 
-/* --- Copy button: icon-only (no border/background) --- */
+/* --- Copy button: remove border chrome, keep icon visible --- */
 .expressive-code .copy button {
   border: none !important;
-  background: transparent !important;
   box-shadow: none !important;
   outline: none !important;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-}
-
-.expressive-code .copy button::before,
-.expressive-code .copy button::after {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
 }
 
 .expressive-code .copy button:hover {
-  opacity: 1;
-  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }

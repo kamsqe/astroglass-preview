@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "pnpm run index:content && astro dev",
-    "build": "astro build && pnpm run index:content",
+    "build": "pnpm run index:content && astro build",
     "index:content": "node scripts/generate-search-index.mjs",
     "check": "astro check",
     "lint": "eslint .",

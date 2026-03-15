@@ -23,7 +23,7 @@
   "shippingVelocity": "10倍的发布速度",
   "readyToBuild": "准备好开始了吗？",
   "askLeaders": "问问 Stripe、Linear、Vercel 就知道了。",
-  "cloneCommand": "npx degit kamsqe/astroglass my-site",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git",
   "readyIn": "只需2分钟即可就绪",
   "terminal": {
     "label": "终端"

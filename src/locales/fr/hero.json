@@ -23,7 +23,7 @@
   "shippingVelocity": "Vitesse d'expédition multipliée par 10",
   "readyToBuild": "Prêt à créer ?",
   "askLeaders": "Demandez à Stripe, Linear, Vercel.",
-  "cloneCommand": "npx degit kamsqe/astroglass mon-site",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git",
   "readyIn": "Prêt en 2 minutes",
   "terminal": {
     "label": "Terminal"

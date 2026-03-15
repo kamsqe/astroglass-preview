@@ -104,7 +104,7 @@ export function validateForm(config: FormValidationConfig): { success: boolean; 
     
     result.issues.forEach(issue => {
       const fieldName = issue.path?.[0].key as string;
-      const input = config.form.querySelector(`[name="${fieldName}"]`) as HTMLElement;
+      const input = config.form.querySelector(`[name="${CSS.escape(fieldName)}"]`) as HTMLElement;
       if (input) {
          if (!firstInvalid) firstInvalid = input;
          render(input, issue.message);

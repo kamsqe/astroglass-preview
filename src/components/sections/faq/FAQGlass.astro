@@ -103,6 +103,8 @@ const i18nData = JSON.stringify({
 </section>
 
 <script>
+  import { escapeHtml } from '../../../utils/escapeHtml';
+
   let faqGlassController: AbortController | null = null;
 
   function initFAQGlassChat() {
@@ -154,15 +156,16 @@ const i18nData = JSON.stringify({
     function addUserMessage(text: string) {
       const msg = document.createElement('div');
       msg.className = 'c-faq-glass__msg c-faq-glass__msg-user flex gap-3 justify-end items-start';
+      const safe = escapeHtml(text);
       msg.innerHTML = `
         <div class="flex-1 text-right">
           <div class="inline-block p-4 rounded-2xl rounded-tr-md bg-accent text-base-100">
-            <p class="text-sm">${text}</p>
+            <p class="text-sm">${safe}</p>
           </div>
-          <p class="text-[10px] text-base-content/60 mt-1 mr-2">${justNow}</p>
+          <p class="text-[10px] text-base-content/60 mt-1 mr-2">${escapeHtml(justNow)}</p>
         </div>
         <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-base-content/10 flex items-center justify-center flex-shrink-0 border border-base-content/10 overflow-hidden">
-          <img src="${userIcon}" alt="User" class="w-full h-full object-cover" />
+          <img src="${escapeHtml(userIcon)}" alt="User" class="w-full h-full object-cover" />
         </div>
       `;
       messagesContainer?.appendChild(msg);
@@ -173,22 +176,23 @@ const i18nData = JSON.stringify({
       const msgId = 'msg-' + Date.now();
       const msg = document.createElement('div');
       msg.className = 'c-faq-glass__msg c-faq-glass__msg-bot flex gap-3 items-start';
+      const safe = escapeHtml(text);
       msg.innerHTML = `
         <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 ring-2 ring-accent/20 ring-offset-2 ring-offset-base-100 overflow-hidden">
-          <img src="${botIcon}" alt="Bot" class="w-full h-full object-cover mix-blend-multiply" />
+          <img src="${escapeHtml(botIcon)}" alt="Bot" class="w-full h-full object-cover mix-blend-multiply" />
         </div>
         <div class="flex-1">
           <div class="inline-block p-4 rounded-2xl rounded-tl-md bg-base-content/[0.04] border border-base-content/5 backdrop-blur-sm">
-            <p class="text-sm text-base-content/70">${text}</p>
+            <p class="text-sm text-base-content/70">${safe}</p>
           </div>
           ${showFeedback ? `
             <div class="c-faq-glass__feedback flex gap-3 mt-2 ml-2 items-center" data-msg="${msgId}">
-              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-yes text-xs text-base-content/75 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${helpful}</button>
+              <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-yes text-xs text-base-content/75 hover:text-accent hover:scale-110 transition-all duration-500" data-vote="yes">👍 ${escapeHtml(helpful)}</button>
               <button class="c-faq-glass__helpful-btn c-faq-glass__helpful-no text-xs text-base-content/75 hover:text-base-content/70 hover:scale-110 transition-all duration-500" data-vote="no">👎</button>
-              <span class="c-faq-glass__thanks hidden text-xs text-accent ml-1">${thanks}</span>
+              <span class="c-faq-glass__thanks hidden text-xs text-accent ml-1">${escapeHtml(thanks)}</span>
             </div>
           ` : ''}
-          <p class="text-[10px] text-base-content/60 mt-1 ml-2">${justNow}</p>
+          <p class="text-[10px] text-base-content/60 mt-1 ml-2">${escapeHtml(justNow)}</p>
         </div>
       `;
       messagesContainer?.appendChild(msg);
@@ -247,12 +251,12 @@ const i18nData = JSON.stringify({
       const suggestionsDiv = suggestionsContainer?.querySelector('.flex.flex-wrap');
       if (suggestionsDiv && remaining.length > 0) {
         suggestionsDiv.innerHTML = remaining.map((faq: any) => `
-          <button 
+          <button
             class="c-faq-glass__suggest-btn px-4 py-2.5 rounded-full bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content/75 hover:bg-base-content/[0.08] hover:border-base-content/20 hover:text-base-content transition-all duration-[1200ms]"
-            data-question="${faq.q}"
-            data-answer="${faq.a}"
+            data-question="${escapeHtml(faq.q)}"
+            data-answer="${escapeHtml(faq.a)}"
           >
-            ${faq.q}
+            ${escapeHtml(faq.q)}
           </button>
         `).join('');
         bindSuggestionClicks();

@@ -457,6 +457,70 @@ export async function pruneThemes(selectedTheme) {
     }
   }
 
+  // 12. Replace index.astro with the selected theme's landing page.
+  //     The generic landing page (HeroHome, StatsStrip, TemplateShowcase, etc.)
+  //     is replaced by the selected theme's section-based page.
+  const selectedCapName2 = capitalize(selectedTheme);
+  const newIndexContent = `---
+import { getEnabledLocaleCodes, defaultLocale } from '../../config/locales';
+
+export async function getStaticPaths() {
+  return getEnabledLocaleCodes().map((lang) => {
+    return { params: { lang: lang === defaultLocale ? undefined : lang } };
+  });
+}
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../utils/i18n';
+import { getLocaleFromUrl } from '../../utils/locale-utils';
+import { getThemeById } from '../../config/themes';
+import { themePresets } from '../../config/themePresets';
+import * as ThemeSections from '../../components/sections/themes/${selectedTheme}';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const theme = getThemeById('${selectedTheme}');
+const preset = themePresets['${selectedTheme}'];
+
+const sections = ThemeSections as Record<string, any>;
+const Header = sections['Header'];
+const Footer = sections['Footer'];
+const mainSections = preset.landingSections
+  .map((key: string) => sections[key] ?? null)
+  .filter((C: any): C is NonNullable<typeof C> => C !== null);
+---
+
+<BaseLayout
+  title={t('title')}
+  description={t('description')}
+  showHeader={false}
+>
+  <Header />
+  <main>
+    {mainSections.map((Section: any) => <Section />)}
+  </main>
+  <Footer />
+</BaseLayout>
+`;
+  await writeFile('src/pages/[...lang]/index.astro', newIndexContent);
+
+  // 13. Delete generic landing page components and their CSS.
+  //     These were only used by the old index.astro and are no longer needed.
+  const landingFiles = [
+    'src/components/sections/hero/HeroHome.astro',
+    'src/components/sections/features/FeaturesHome.astro',
+    'src/components/sections/portfolio/ThemeGallery.astro',
+    'src/components/sections/testimonial/TestimonialHome.astro',
+    'src/components/sections/cta/CTAHome.astro',
+    'src/styles/components/cta/CTAHome.css',
+  ];
+  for (const file of landingFiles) {
+    if (await safeRemove(file)) deletedFiles++;
+  }
+  // Remove entire landing directories
+  await safeRemove('src/components/sections/landing');
+  await safeRemove('src/styles/components/landing');
+
   return { deletedFiles };
 }
 

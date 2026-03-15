@@ -40,28 +40,26 @@
   border-bottom: 2px solid var(--color-accent, #3b82f6);
 }
 
-.c-code-tabs__panels :global(pre) {
+.c-code-tabs__panels pre {
   margin: 0 !important;
   border-radius: 0 !important;
 }
 
 /* Expressive Code Compatibility: Hide the inner frame header/border */
-.c-code-tabs__panels :global(.expressive-code .frame) {
+.c-code-tabs__panels .expressive-code .frame {
   box-shadow: none !important;
   border: none !important;
 }
 
-.c-code-tabs__panels :global(.expressive-code .header) {
-  /* display: none !important; - Unhide to show copy button */
+.c-code-tabs__panels .expressive-code .header {
+  display: none !important;
+}
+
+.c-code-tabs__panels .expressive-code pre {
   border: none !important;
   background: transparent !important;
 }
 
-.c-code-tabs__panels :global(.expressive-code pre) {
-  border: none !important;
-  background: transparent !important;
-}
-
-.c-code-tabs__panels :global(> *:not(.is-active)) {
+.c-code-tabs__panels > *:not(.is-active) {
   display: none;
 }

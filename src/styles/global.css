@@ -252,13 +252,15 @@ html {
   background: transparent !important;
   box-shadow: none !important;
   outline: none !important;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: opacity 0.2s;
 }
 
 .expressive-code .copy button::before,
 .expressive-code .copy button::after {
-  display: none !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .expressive-code .copy button:hover {

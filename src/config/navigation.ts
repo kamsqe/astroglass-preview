@@ -116,33 +116,34 @@ export interface ResolvedNavLink {
 export function buildThemeNavLinks(t: (key: string) => string, theme: string): ResolvedNavLink[] {
   const themeBase = `/${theme}`;
 
-  // Build landing page children for the Home dropdown
-  const homeChildren: ResolvedNavChild[] = getLandingPages().map((page) => {
-    const child: ResolvedNavChild = {
-      href: `/${page.id}`,
-      label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
-    };
+  const landingPages = getLandingPages();
 
-    // For Liquid theme: add portfolio sub-pages under each landing page
-    if (theme === 'liquid') {
-      child.children = [
-        {
-          href: `/${page.id}/portfolio`,
-          label: t('nav.portfolio'),
-        },
-      ];
-    }
-
-    return child;
-  });
+  // Build the Home nav item: dropdown only when multiple themes exist,
+  // otherwise a direct link to the current theme's landing page.
+  const homeNavItem: ResolvedNavLink =
+    landingPages.length > 1
+      ? {
+          label: t('nav.home'),
+          icon: navIcons.home,
+          children: landingPages.map((page) => {
+            const child: ResolvedNavChild = {
+              href: `/${page.id}`,
+              label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
+            };
+            if (theme === 'liquid') {
+              child.children = [{ href: `/${page.id}/portfolio`, label: t('nav.portfolio') }];
+            }
+            return child;
+          }),
+        }
+      : {
+          href: themeBase,
+          label: t('nav.home'),
+          icon: navIcons.home,
+        };
 
   return [
-    // Home dropdown with all landing pages
-    {
-      label: t('nav.home'),
-      icon: navIcons.home,
-      children: homeChildren,
-    },
+    homeNavItem,
     // Section scroll links (absolute paths so they work from child pages)
     {
       href: `${themeBase}#about`,
@@ -214,19 +215,27 @@ export function buildMinimalNavLinks(t: (key: string) => string): ResolvedNavLin
  * and page links for Blog and Docs.
  */
 export function buildDefaultNavLinks(t: (key: string) => string): ResolvedNavLink[] {
-  // Build landing page children for the Home dropdown
-  const homeChildren: ResolvedNavChild[] = getLandingPages().map((page) => ({
-    href: `/${page.id}`,
-    label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
-  }));
+  const landingPages = getLandingPages();
+
+  // When only one theme exists, link directly to it; otherwise show dropdown
+  const homeNavItem: ResolvedNavLink =
+    landingPages.length > 1
+      ? {
+          label: t('nav.home'),
+          icon: navIcons.home,
+          children: landingPages.map((page) => ({
+            href: `/${page.id}`,
+            label: t(page.labelKey) || page.id.charAt(0).toUpperCase() + page.id.slice(1),
+          })),
+        }
+      : {
+          href: landingPages.length === 1 ? `/${landingPages[0].id}` : '/',
+          label: t('nav.home'),
+          icon: navIcons.home,
+        };
 
   return [
-    // Home dropdown with all landing pages
-    {
-      label: t('nav.home'),
-      icon: navIcons.home,
-      children: homeChildren,
-    },
+    homeNavItem,
     // Index page scroll sections (absolute paths so they work from any page)
     {
       href: `/#showcase`,

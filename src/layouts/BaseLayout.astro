@@ -156,9 +156,7 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
         ))
     }
 
-    <div style="overflow-x: clip;">
-      <slot />
-    </div>
+    <slot />
 
     <script is:inline define:vars={{ enabledLocales }}>
       // Apply stored locale preference to navigation links

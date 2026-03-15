@@ -37,7 +37,7 @@ const t = useTranslations(locale);
       <div
         class="backdrop-blur-xl bg-black/40 border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl"
       >
-        <AnalyticsDashboard client:load />
+        <AnalyticsDashboard client:only="react" />
       </div>
     </div>
   </div>

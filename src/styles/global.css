@@ -247,9 +247,7 @@ html {
 }
 
 /* --- Copy button: icon-only (no border/background) --- */
-.expressive-code .copy button,
-.expressive-code .copy button::before,
-.expressive-code .copy button::after {
+.expressive-code .copy button {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -258,15 +256,12 @@ html {
   transition: opacity 0.2s;
 }
 
-.expressive-code .copy button svg {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+.expressive-code .copy button::before,
+.expressive-code .copy button::after {
+  display: none !important;
 }
 
-.expressive-code .copy button:hover,
-.expressive-code .copy button:hover::before,
-.expressive-code .copy button:hover::after {
+.expressive-code .copy button:hover {
   opacity: 1;
   background: transparent !important;
 }

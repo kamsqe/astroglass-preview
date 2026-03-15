@@ -1,7 +1,7 @@
 {
   "title": "Pioneering the Glassmorphic Future",
   "subtitle": "We believe that software should be as clear and fluid as the ideas it brings to life.",
-  "description": "Astro Glass was born from a desire to merge technical excellence with visual poetry. Our system is built on the latest Astro 5.0 and Tailwind 4.0 foundations, ensuring that your projects aren't just beautiful—they're exceptionally fast and future-proof.",
+  "description": "Astro Glass was born from a desire to merge technical excellence with visual poetry. Our system is built on the latest Astro 6 and Tailwind CSS 4 foundations, ensuring that your projects aren't just beautiful—they're exceptionally fast and future-proof.",
   "stat1": "Blazing Fast",
   "stat1Sub": "100 Lighthouse score",
   "stat1Desc": "Optimized for Core Web Vitals and instant page loads.",
@@ -56,9 +56,9 @@
     "featuredRole": "Founder & CEO"
   },
   "feature1Title": "Performance",
-  "feature1Desc": "Built on Astro 5.0 for near-instant load times and 100 Lighthouse scores.",
+  "feature1Desc": "Built on Astro 6 for near-instant load times and 100 Lighthouse scores.",
   "feature2Title": "Modernity",
-  "feature2Desc": "Cutting-edge Tailwind 4.0 CSS with native variables for infinite theming.",
+  "feature2Desc": "Cutting-edge Tailwind CSS 4 with native variables for infinite theming.",
   "feature3Title": "Accessibility",
   "feature3Desc": "Fully localized with i18n support and focus on inclusive glassmorphism.",
   "meetTeam": "Meet the Team"

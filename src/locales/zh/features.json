@@ -14,7 +14,7 @@
   "minimalCtaDesc": "今天就开始使用完整的 Astro Glass 工具包进行构建。",
   "f1Title": "极致性能",
   "f1Desc": "默认情况下的“零JS”架构确保您的网站在眨眼之间加载完毕。",
-  "f1LongDesc": "基于 Astro 5.0 的群岛架构构建，仅传输您需要的 JavaScript。这意味着不到一秒的加载时间和开箱即用满分的 Web 核心性能指标 (Core Web Vitals)。",
+  "f1LongDesc": "基于 Astro 6 的群岛架构构建，仅传输您需要的 JavaScript。这意味着不到一秒的加载时间和开箱即用满分的 Web 核心性能指标 (Core Web Vitals)。",
   "f2Title": "深度玻璃拟物风格",
   "f2Desc": "多层模糊和折射效果，打造真正的奢华视觉美学。",
   "f2LongDesc": "我们的玻璃拟物系统使用经过精心校准的背景过滤器、分层透明度和微妙的渐变，在不牺牲性能的情况下创造出视觉深度。",
@@ -23,7 +23,7 @@
   "f3LongDesc": "移动优先的响应式设计，具有流体排版、自适应间距和上下文感知布局，从智能手表到超宽屏幕都能完美显示。",
   "f4Title": "无限主题可能",
   "f4Desc": "10+ 款内置调色板，或在几秒钟内创建您自己的标志性主题外观。",
-  "f4LongDesc": "由 CSS 自定义属性和 DaisyUI 提供支持，瞬间切换主题或创建专属调色板。深色模式、浅色模式，以及其间的一切可能。",
+  "f4LongDesc": "由 CSS 自定义属性和 Tailwind CSS 4 提供支持，瞬间切换主题或创建专属调色板。深色模式、浅色模式，以及其间的一切可能。",
   "f5Title": "边缘网络就绪",
   "f5Desc": "使用 Cloudflare Workers 在全球范围内进行部署，以实现随时随地的即时访问。",
   "useCases": {
@@ -41,15 +41,15 @@
   "cta": "探索开发文档",
   "home": {
     "title": "为什么选择 AstroGlass？",
-    "subtitle": "纯粹的性能表现。水流般的灵动设计。",
+    "subtitle": "纯粹的性能表现。流畅的设计体验。",
     "desc": "一个完整的工具包，轻松为您构建令人惊艳的高性能网站。",
     "list": [
       {
-        "title": "Astro 5.0",
-        "desc": "采用最先进的服务器端岛屿 (Server Islands) 和内容层 (Content Layer) 架构带来不凡的速度。"
+        "title": "Astro 6",
+        "desc": "采用最新的 Content Layer API 和岛屿架构带来不凡的速度。"
       },
       {
-        "title": "Tailwind CSS 4.0",
+        "title": "Tailwind CSS 4",
         "desc": "次时代原子化 CSS 引擎，零配置开箱即用，即时编译。"
       },
       {

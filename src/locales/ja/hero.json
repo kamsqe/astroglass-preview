@@ -23,7 +23,7 @@
   "shippingVelocity": "リリース速度が10倍に",
   "readyToBuild": "準備はいいですか？",
   "askLeaders": "Stripe、Linear、Vercelも認める。",
-  "cloneCommand": "npx degit kamsqe/astroglass my-site",
+  "cloneCommand": "git clone https://github.com/kamsqe/astroglass.git",
   "readyIn": "2分で準備完了",
   "terminal": {
     "label": "ターミナル"

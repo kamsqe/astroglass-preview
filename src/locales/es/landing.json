@@ -29,6 +29,8 @@
     "perfDesc": "Puntuación de 100 en Lighthouse con cero JS por defecto, carga diferida (lazy loading) y recursos optimizados.",
     "colorThemes": "Temas de Colores",
     "colorThemesDesc": "10 paletas incorporadas — Azure, Nord, Rosé, Dracula, Mono, y más — cambia con una sola línea de código.",
+    "aiTooling": "Listo para IA",
+    "aiToolingDesc": "CLAUDE.md + comandos slash permiten a los agentes de IA eliminar temas, mezclar secciones, agregar idiomas y desplegar.",
     "explore": "Explorar"
   },
   "stats": {

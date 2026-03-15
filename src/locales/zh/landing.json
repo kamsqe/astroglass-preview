@@ -29,6 +29,8 @@
     "perfDesc": "Lighthouse 100 分满分，默认零 JS，支持懒加载和资源优化。",
     "colorThemes": "颜色主题",
     "colorThemesDesc": "10 款内置调色板 — 包含 Azure、Nord、Rosé、Dracula、Mono 等 — 一行代码轻松切换。",
+    "aiTooling": "AI 就绪",
+    "aiToolingDesc": "CLAUDE.md + 斜杠命令让 AI 代理能够裁剪主题、混合区块、添加语言和部署。",
     "explore": "探索"
   },
   "stats": {

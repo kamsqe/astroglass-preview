@@ -29,6 +29,8 @@
     "perfDesc": "100 Lighthouse score with zero-JS by default, lazy loading, and optimized assets.",
     "colorThemes": "Color Themes",
     "colorThemesDesc": "10 built-in palettes — Azure, Nord, Rosé, Dracula, Mono, and more — switch with one line.",
+    "aiTooling": "AI-Ready",
+    "aiToolingDesc": "CLAUDE.md + slash commands let AI agents prune themes, mix sections, add locales, and deploy.",
     "explore": "Explore"
   },
   "stats": {

@@ -29,6 +29,8 @@
     "perfDesc": "デフォルトでゼロJS、画像の遅延読み込み、アセットの最適化により、Lighthouseスコア100を達成。",
     "colorThemes": "カラーテーマ",
     "colorThemesDesc": "Azure、Nord、Rosé、Dracula、Monoなど10種類の組み込みパレットを1行で切り替え可能。",
+    "aiTooling": "AI対応",
+    "aiToolingDesc": "CLAUDE.md + スラッシュコマンドでAIエージェントがテーマ削除、セクション混合、言語追加、デプロイを実行。",
     "explore": "探索する"
   },
   "stats": {

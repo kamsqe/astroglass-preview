@@ -1,0 +1,152 @@
+---
+title: AI開発ツール
+description: Claude Code、Cursor、その他のAIエージェントを使用して、組み込みのスラッシュコマンドとプロジェクトインテリジェンスでAstroGlassプロジェクトをカスタマイズ、拡張、デプロイできます。
+category: guide
+tags: ["ai", "claude", "自動化", "開発ツール"]
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+AstroGlassは、AIを活用した開発ワークフローをネイティブサポートしています。**Claude Code**、**Cursor**、**GitHub Copilot**、その他のAIコーディングアシスタントを使用する場合でも、プロジェクトにはエージェントにアーキテクチャの深い理解を与える設定ファイルが含まれています。
+
+## 含まれるもの
+
+<FileTree>
+```
+.claude/
+  commands/
+    prune-themes.md      # 不要なテーマを外科的に削除
+    add-locale.md        # 新しい言語を作成
+    switch-provider.md   # デプロイプロバイダーを変更
+    mix-theme.md         # セクションからハイブリッドテーマを作成
+    deploy.md            # ビルドとデプロイ
+CLAUDE.md                # AIのためのプロジェクトインテリジェンスファイル
+```
+</FileTree>
+
+### CLAUDE.md — プロジェクトインテリジェンス
+
+プロジェクトルートの`CLAUDE.md`ファイルは、AIエージェントのためのナレッジベースとして機能します。以下を含みます：
+
+- **アーキテクチャ概要** — テーマシステム、コンポーネント構造、ルーティング
+- **主要設定ファイルの場所** — テーマ、ロケール、パレット、プロバイダーの所在
+- **一般的なレシピ** — 頻繁な操作のステップバイステップ手順
+- **ファイル構造マップ** — 注釈付きの完全なディレクトリツリー
+- **重要な注意事項** — 「Zodではなく、Valibotを使用」などの特記事項
+
+`CLAUDE.md`を読んだAIエージェントは、プロジェクトの構成をすぐに理解し、安全に変更を行うことができます。
+
+<Callout type="tip" title="どこでも動作">
+  `CLAUDE.md`はClaude Codeでネイティブに認識されますが、Markdownフォーマットのため、あらゆるAIツールで有用です。Cursor、Windsurf、Copilotもリポジトリルートにこのファイルがあることで恩恵を受けます。
+</Callout>
+
+## スラッシュコマンド
+
+`.claude/commands/`ディレクトリには、Claude Codeで**スラッシュコマンド**として機能するプロンプトテンプレートが含まれています。各コマンドはAIを複数ステップの操作に導きます。
+
+### /prune-themes — 不要なテーマを削除
+
+最も強力なコマンドです。`themeRegistry.ts`マニフェストを使用して、不要なテーマに属するすべてのファイルを外科的に削除します。
+
+**例**: 「Liquidテーマだけが必要」→ コマンドは他の5テーマの約200ファイルを削除し、すべての設定ファイルを更新し、ビルドが正常に通ることを確認します。
+
+テーマごとに削除されるもの：
+- セクションコンポーネント（`.astro`ファイル）
+- コンポーネントCSSファイル
+- ヘッダーとフッターのバリアント
+- テーマ固有のUIプリミティブ
+- スクリプトとデザイントークン
+- バレルファイルと設定エントリ
+
+<Callout type="info" title="設計による安全性">
+  コマンドは`src/config/themeRegistry.ts`を唯一の信頼源として使用します。このファイルには各テーマの正確なファイルマニフェストが含まれているため、見落としがなく、共有リソースが削除されることもありません。
+</Callout>
+
+### /add-locale — 新しい言語を追加
+
+新しい言語に必要なすべてを生成します：
+
+<Steps>
+1. `src/config/locales.ts`にロケールエントリを作成
+2. 英語からすべての翻訳JSONファイルを新しいロケールディレクトリにコピー
+3. すべての文字列値を翻訳
+4. 翻訳されたコンテンツでブログとドキュメントのコンテンツディレクトリを作成
+5. `src/utils/docs-nav.ts`にサイドバーナビゲーションラベルを追加
+</Steps>
+
+### /mix-theme — ハイブリッドテーマを作成
+
+異なるテーマからセクションを選んで独自の組み合わせを作成：
+
+```
+Hero        → Liquid    (流れるようなアニメーション)
+About       → Glass     (グラスモーフィズムカード)
+Features    → Aurora    (グラデーションメッシュ背景)
+Pricing     → Neo       (大胆でエネルギッシュなスタイル)
+Testimonial → Minimal   (クリーンでフォーカスされた)
+```
+
+コマンドはカスタムバレルファイルを作成し、テーマを登録し、必要なCSSファイルのみを含めます。
+
+### /switch-provider — デプロイプロバイダーを変更
+
+1つのコマンドでCloudflare Pages、Vercel、Netlifyを切り替え：
+- 正しいAstroアダプターのインストール
+- アクティブプロバイダー設定の更新
+- ビルドスクリプトの調整
+- ビルド成功の確認
+
+### /deploy — ビルドとデプロイ
+
+デプロイ前の完全なパイプラインを実行：
+1. TypeScript診断（`pnpm check`）
+2. リンティング（`pnpm lint`）
+3. フォーマット検証（`pnpm format:check`）
+4. プロダクションビルド（`pnpm build`）
+5. アクティブプロバイダーへのデプロイ
+
+## 仕組み
+
+### テーマレジストリ — 安全な操作の鍵
+
+`src/config/themeRegistry.ts`ファイルが、AIによるテーマ操作を安全にする要です。各テーマに属するすべてのファイルの完全なマニフェストを含みます：
+
+```typescript
+export const themeRegistry: Record<string, ThemeManifest> = {
+  liquid: {
+    barrel: 'src/components/sections/themes/liquid.ts',
+    sections: [
+      'src/components/sections/hero/HeroLiquid.astro',
+      'src/components/sections/about/AboutLiquid.astro',
+      // ... すべてのセクションコンポーネント
+    ],
+    css: [...],
+    header: [...],
+    footer: [...],
+    ui: [...],
+    scripts: [],
+    tokens: ['src/styles/tokens/liquid.css'],
+    npmDeps: [],
+  },
+};
+```
+
+### 設定駆動アーキテクチャ
+
+| 設定 | 制御対象 |
+|------|---------|
+| `themes.ts` | どのテーマが存在し有効か |
+| `themePresets.ts` | 各テーマのランディングページのセクション順序 |
+| `locales.ts` | どの言語がアクティブか |
+| `palettes.ts` | 利用可能なカラーパレット |
+| `active-provider.ts` | デプロイターゲット |
+
+## AIエージェントと作業するためのヒント
+
+1. **CLAUDE.mdから始める** — コンテキストのためにエージェントに最初に読ませる
+2. **複雑な操作にはスラッシュコマンドを使用** — マルチステップ手順を正しくエンコード
+3. **テーマレジストリを信頼する** — テーマファイルの所属の権威あるソース
+4. **変更後に`pnpm check`を実行** — TypeScriptエラーと不足インポートを検出
+5. **ZodではなくValibot** — エージェントがバリデーションにZodを提案したら、Valibotに誘導

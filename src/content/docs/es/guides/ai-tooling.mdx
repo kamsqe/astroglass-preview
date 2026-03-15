@@ -1,0 +1,152 @@
+---
+title: Herramientas de IA para desarrollo
+description: Usa Claude Code, Cursor y otros agentes de IA para personalizar, extender y desplegar tu proyecto AstroGlass con comandos slash integrados e inteligencia de proyecto.
+category: guide
+tags: ["ia", "claude", "automatización", "herramientas-desarrollo"]
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+AstroGlass incluye soporte nativo para flujos de trabajo de desarrollo impulsados por IA. Ya sea que uses **Claude Code**, **Cursor**, **GitHub Copilot** o cualquier otro asistente de codificación con IA, el proyecto incluye archivos de configuración que proporcionan a los agentes una comprensión profunda de la arquitectura.
+
+## Qué está incluido
+
+<FileTree>
+```
+.claude/
+  commands/
+    prune-themes.md      # Eliminar temas no deseados quirúrgicamente
+    add-locale.md        # Crear un nuevo idioma
+    switch-provider.md   # Cambiar proveedor de despliegue
+    mix-theme.md         # Crear tema híbrido a partir de secciones
+    deploy.md            # Compilar y desplegar
+CLAUDE.md                # Archivo de inteligencia de proyecto para IA
+```
+</FileTree>
+
+### CLAUDE.md — Inteligencia de Proyecto
+
+El archivo `CLAUDE.md` en la raíz del proyecto actúa como base de conocimiento para agentes de IA. Contiene:
+
+- **Visión general de la arquitectura** — Sistema de temas, estructura de componentes, enrutamiento
+- **Ubicación de archivos de configuración clave** — Dónde encontrar temas, locales, paletas, proveedores
+- **Recetas comunes** — Instrucciones paso a paso para operaciones frecuentes
+- **Mapa de estructura de archivos** — Árbol de directorios completo con anotaciones
+- **Notas importantes** — Particularidades como "usa Valibot, no Zod"
+
+Cualquier agente de IA que lea `CLAUDE.md` comprenderá inmediatamente la organización del proyecto y podrá realizar cambios de forma segura.
+
+<Callout type="tip" title="Funciona en todas partes">
+  `CLAUDE.md` es reconocido nativamente por Claude Code, pero su formato Markdown lo hace útil para cualquier herramienta de IA. Cursor, Windsurf y Copilot también se benefician de tener este archivo en la raíz del repositorio.
+</Callout>
+
+## Comandos Slash
+
+El directorio `.claude/commands/` contiene plantillas de prompts que funcionan como **comandos slash** en Claude Code. Cada comando guía a la IA a través de una operación de múltiples pasos.
+
+### /prune-themes — Eliminar temas no deseados
+
+El comando más poderoso. Utiliza el manifiesto `themeRegistry.ts` para eliminar quirúrgicamente todos los archivos pertenecientes a los temas que no necesitas.
+
+**Ejemplo**: "Solo quiero el tema Liquid" → el comando elimina ~200 archivos de los otros 5 temas, actualiza todos los archivos de configuración y verifica que la compilación siga funcionando.
+
+Qué se elimina por tema:
+- Componentes de secciones (archivos `.astro`)
+- Archivos CSS de componentes
+- Variantes de encabezado y pie de página
+- Primitivas UI específicas del tema
+- Scripts y tokens de diseño
+- Archivo barrel y entradas de configuración
+
+<Callout type="info" title="Seguro por diseño">
+  El comando usa `src/config/themeRegistry.ts` como fuente única de verdad. Este archivo contiene el manifiesto exacto de archivos para cada tema, así que nada se omite y nada compartido se elimina.
+</Callout>
+
+### /add-locale — Agregar un nuevo idioma
+
+Genera todo lo necesario para un nuevo idioma:
+
+<Steps>
+1. Crea la entrada de locale en `src/config/locales.ts`
+2. Copia todos los archivos JSON de traducción del inglés al directorio del nuevo locale
+3. Traduce todos los valores de cadena
+4. Crea directorios de contenido de blog y documentación con contenido traducido
+5. Agrega etiquetas de navegación lateral en `src/utils/docs-nav.ts`
+</Steps>
+
+### /mix-theme — Crear un tema híbrido
+
+Elige secciones de diferentes temas para crear tu propia combinación:
+
+```
+Hero        → Liquid    (animaciones fluidas)
+About       → Glass     (tarjetas con glassmorfismo)
+Features    → Aurora    (fondos de gradiente mesh)
+Pricing     → Neo       (estilo audaz y energético)
+Testimonial → Minimal   (diseño limpio y enfocado)
+```
+
+El comando crea un archivo barrel personalizado, registra el tema e incluye solo los archivos CSS necesarios.
+
+### /switch-provider — Cambiar proveedor de despliegue
+
+Cambia entre Cloudflare Pages, Vercel y Netlify con un solo comando:
+- Instalación del adaptador Astro correcto
+- Actualización de la configuración del proveedor activo
+- Ajuste de scripts de compilación
+- Verificación del éxito de la compilación
+
+### /deploy — Compilar y desplegar
+
+Ejecuta el pipeline completo de pre-despliegue:
+1. Diagnósticos TypeScript (`pnpm check`)
+2. Linting (`pnpm lint`)
+3. Verificación de formato (`pnpm format:check`)
+4. Compilación de producción (`pnpm build`)
+5. Despliegue al proveedor activo
+
+## Cómo funciona
+
+### Registro de temas — La clave para operaciones seguras
+
+El archivo `src/config/themeRegistry.ts` es lo que hace que las operaciones de IA sobre temas sean seguras. Contiene un manifiesto completo de cada archivo perteneciente a cada tema:
+
+```typescript
+export const themeRegistry: Record<string, ThemeManifest> = {
+  liquid: {
+    barrel: 'src/components/sections/themes/liquid.ts',
+    sections: [
+      'src/components/sections/hero/HeroLiquid.astro',
+      'src/components/sections/about/AboutLiquid.astro',
+      // ... todos los componentes de secciones
+    ],
+    css: [...],
+    header: [...],
+    footer: [...],
+    ui: [...],
+    scripts: [],
+    tokens: ['src/styles/tokens/liquid.css'],
+    npmDeps: [],
+  },
+};
+```
+
+### Arquitectura basada en configuración
+
+| Configuración | Controla |
+|--------------|----------|
+| `themes.ts` | Qué temas existen y están habilitados |
+| `themePresets.ts` | Orden de secciones en la página de inicio de cada tema |
+| `locales.ts` | Qué idiomas están activos |
+| `palettes.ts` | Paletas de colores disponibles |
+| `active-provider.ts` | Objetivo de despliegue |
+
+## Consejos para trabajar con agentes de IA
+
+1. **Empieza con CLAUDE.md** — Dirige a tu agente para que lo lea primero
+2. **Usa comandos slash para operaciones complejas** — Codifican correctamente los procedimientos de múltiples pasos
+3. **Confía en el registro de temas** — Es la fuente autoritativa para la propiedad de archivos de temas
+4. **Ejecuta `pnpm check` después de los cambios** — Detecta errores de TypeScript e imports faltantes
+5. **Valibot, no Zod** — Si el agente sugiere Zod para validación, redirige a Valibot

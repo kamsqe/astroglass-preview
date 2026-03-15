@@ -204,6 +204,7 @@ import '../../../styles/components/tag/TagMinimal.css';
   import { safeParse } from 'valibot';
   import { createContactSchema } from '../../../lib/schemas/contact';
   import { validateForm } from '../../../utils/form-validation';
+  import { escapeHtml } from '../../../utils/escapeHtml';
 
   let contactMinimalController: AbortController | null = null;
 
@@ -273,7 +274,19 @@ import '../../../styles/components/tag/TagMinimal.css';
             parent?.querySelector('.error-message')?.remove();
             const errorMsg = document.createElement('p');
             errorMsg.className = 'error-message';
-            errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${validationMessages?.required || 'Required'}`;
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'w-3 h-3');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('stroke', 'currentColor');
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('stroke-linejoin', 'round');
+            path.setAttribute('stroke-width', '2');
+            path.setAttribute('d', 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z');
+            svg.appendChild(path);
+            errorMsg.appendChild(svg);
+            errorMsg.appendChild(document.createTextNode(` ${validationMessages?.required || 'Required'}`));
             parent?.appendChild(errorMsg);
           } else {
             input.classList.remove('input-error');
@@ -320,19 +333,23 @@ import '../../../styles/components/tag/TagMinimal.css';
 
       fields.forEach(field => {
         const div = document.createElement('div');
+        const safeLabel = escapeHtml(field.label);
+        const safeName = escapeHtml(field.name);
+        const safePlaceholder = escapeHtml(field.placeholder);
+        const safeType = escapeHtml(field.type);
         div.innerHTML = `
-          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">${field.label}</label>
+          <label class="block text-xs font-bold text-base-content/75 uppercase tracking-wider mb-2">${safeLabel}</label>
           ${field.type === 'select' ? `
-            <select name="${field.name}" class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-300">
-              <option value="">${i18n.placeholders.select}</option>
-              ${field.placeholder.split('|').map(opt => `<option value="${opt.toLowerCase()}">${opt}</option>`).join('')}
+            <select name="${safeName}" class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content focus:outline-none focus:border-accent/40 transition-all duration-300">
+              <option value="">${escapeHtml(i18n.placeholders.select)}</option>
+              ${field.placeholder.split('|').map((opt: string) => `<option value="${escapeHtml(opt.toLowerCase())}">${escapeHtml(opt)}</option>`).join('')}
             </select>
           ` : `
-            <input 
-              type="${field.type}" 
-              name="${field.name}"
+            <input
+              type="${safeType}"
+              name="${safeName}"
               class="w-full px-4 py-3.5 rounded-xl bg-base-content/[0.03] border border-base-content/10 text-sm text-base-content placeholder:text-base-content/80 focus:outline-none focus:border-accent/40 transition-all duration-300"
-              placeholder="${field.placeholder}"
+              placeholder="${safePlaceholder}"
               ${field.type === 'email' ? 'inputmode="email"' : ''}
             />
           `}

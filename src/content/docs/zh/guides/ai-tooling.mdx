@@ -1,0 +1,152 @@
+---
+title: AI 开发工具
+description: 使用 Claude Code、Cursor 和其他 AI 代理，通过内置的斜杠命令和项目智能文件来定制、扩展和部署你的 AstroGlass 项目。
+category: guide
+tags: ["ai", "claude", "自动化", "开发工具"]
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+AstroGlass 内置了对 AI 驱动开发工作流的支持。无论你使用 **Claude Code**、**Cursor**、**GitHub Copilot** 还是任何其他 AI 编码助手，项目都包含了能让代理深入理解架构的配置文件。
+
+## 包含内容
+
+<FileTree>
+```
+.claude/
+  commands/
+    prune-themes.md      # 精确删除不需要的主题
+    add-locale.md        # 创建新语言
+    switch-provider.md   # 切换部署提供商
+    mix-theme.md         # 从不同主题的区块创建混合主题
+    deploy.md            # 构建和部署
+CLAUDE.md                # AI 项目智能文件
+```
+</FileTree>
+
+### CLAUDE.md — 项目智能
+
+项目根目录的 `CLAUDE.md` 文件充当 AI 代理的知识库。它包含：
+
+- **架构概览** — 主题系统、组件结构、路由
+- **关键配置文件位置** — 在哪里找到主题、语言环境、调色板、提供商
+- **常用方案** — 频繁操作的分步说明
+- **文件结构图** — 带注释的完整目录树
+- **重要说明** — 如"使用 Valibot 而非 Zod"等注意事项
+
+任何读取 `CLAUDE.md` 的 AI 代理都会立即理解项目的组织方式，并能安全地进行修改。
+
+<Callout type="tip" title="随处可用">
+  `CLAUDE.md` 被 Claude Code 原生识别，但其 Markdown 格式使其对任何 AI 工具都有用。Cursor、Windsurf 和 Copilot 都能从仓库根目录中的此文件获益。
+</Callout>
+
+## 斜杠命令
+
+`.claude/commands/` 目录包含作为 Claude Code **斜杠命令**的提示模板。每个命令引导 AI 完成多步骤操作。
+
+### /prune-themes — 删除不需要的主题
+
+最强大的命令。它使用 `themeRegistry.ts` 清单来精确删除不需要的主题的所有文件。
+
+**示例**："我只要 Liquid 主题" → 命令删除其他 5 个主题的约 200 个文件，更新所有配置文件，并验证构建仍然通过。
+
+每个主题删除的内容：
+- 区块组件（`.astro` 文件）
+- 组件 CSS 文件
+- 页头和页脚变体
+- 主题特定的 UI 原语
+- 脚本和设计令牌
+- Barrel 文件和配置条目
+
+<Callout type="info" title="设计安全">
+  命令使用 `src/config/themeRegistry.ts` 作为唯一的事实来源。该文件包含每个主题的精确文件清单，因此不会遗漏任何内容，也不会删除共享资源。
+</Callout>
+
+### /add-locale — 添加新语言
+
+为新语言生成所需的一切：
+
+<Steps>
+1. 在 `src/config/locales.ts` 中创建语言环境条目
+2. 将所有翻译 JSON 文件从英语复制到新语言环境目录
+3. 翻译所有字符串值
+4. 使用翻译内容创建博客和文档内容目录
+5. 在 `src/utils/docs-nav.ts` 中添加侧边栏导航标签
+</Steps>
+
+### /mix-theme — 创建混合主题
+
+从不同主题中选择区块来创建自己的组合：
+
+```
+Hero        → Liquid    (流畅动画)
+About       → Glass     (玻璃拟态卡片)
+Features    → Aurora    (渐变网格背景)
+Pricing     → Neo       (大胆、充满活力的风格)
+Testimonial → Minimal   (简洁、专注的设计)
+```
+
+命令创建自定义 barrel 文件，注册主题，并仅包含所需的 CSS 文件。
+
+### /switch-provider — 切换部署提供商
+
+一个命令在 Cloudflare Pages、Vercel 和 Netlify 之间切换：
+- 安装正确的 Astro 适配器
+- 更新活动提供商配置
+- 调整构建脚本
+- 验证构建成功
+
+### /deploy — 构建和部署
+
+运行完整的部署前管道：
+1. TypeScript 诊断（`pnpm check`）
+2. 代码检查（`pnpm lint`）
+3. 格式验证（`pnpm format:check`）
+4. 生产构建（`pnpm build`）
+5. 部署到活动提供商
+
+## 工作原理
+
+### 主题注册表 — 安全操作的关键
+
+`src/config/themeRegistry.ts` 文件使 AI 主题操作变得安全。它包含属于每个主题的所有文件的完整清单：
+
+```typescript
+export const themeRegistry: Record<string, ThemeManifest> = {
+  liquid: {
+    barrel: 'src/components/sections/themes/liquid.ts',
+    sections: [
+      'src/components/sections/hero/HeroLiquid.astro',
+      'src/components/sections/about/AboutLiquid.astro',
+      // ... 所有区块组件
+    ],
+    css: [...],
+    header: [...],
+    footer: [...],
+    ui: [...],
+    scripts: [],
+    tokens: ['src/styles/tokens/liquid.css'],
+    npmDeps: [],
+  },
+};
+```
+
+### 配置驱动架构
+
+| 配置 | 控制 |
+|------|------|
+| `themes.ts` | 哪些主题存在且已启用 |
+| `themePresets.ts` | 每个主题着陆页的区块顺序 |
+| `locales.ts` | 哪些语言处于活动状态 |
+| `palettes.ts` | 可用的调色板 |
+| `active-provider.ts` | 部署目标 |
+
+## 与 AI 代理合作的技巧
+
+1. **从 CLAUDE.md 开始** — 引导代理首先阅读它以获取上下文
+2. **对复杂操作使用斜杠命令** — 它们正确编码了多步骤过程
+3. **信任主题注册表** — 它是主题文件归属的权威来源
+4. **修改后运行 `pnpm check`** — 检测 TypeScript 错误和缺失的导入
+5. **Valibot 而非 Zod** — 如果代理建议使用 Zod 进行验证，请将其重定向到 Valibot

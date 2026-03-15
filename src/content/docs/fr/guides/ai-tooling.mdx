@@ -1,0 +1,152 @@
+---
+title: Outils IA pour le développement
+description: Utilisez Claude Code, Cursor et d'autres agents IA pour personnaliser, étendre et déployer votre projet AstroGlass grâce aux commandes slash et au fichier d'intelligence projet intégrés.
+category: guide
+tags: ["ia", "claude", "automatisation", "outils-développeur"]
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+AstroGlass intègre nativement le support des workflows de développement assistés par IA. Que vous utilisiez **Claude Code**, **Cursor**, **GitHub Copilot** ou tout autre assistant de codage IA, le projet inclut des fichiers de configuration qui donnent aux agents une compréhension approfondie de l'architecture.
+
+## Ce qui est inclus
+
+<FileTree>
+```
+.claude/
+  commands/
+    prune-themes.md      # Supprimer chirurgicalement les thèmes inutiles
+    add-locale.md        # Créer une nouvelle langue
+    switch-provider.md   # Changer de fournisseur de déploiement
+    mix-theme.md         # Créer un thème hybride à partir de sections
+    deploy.md            # Construire et déployer
+CLAUDE.md                # Fichier d'intelligence projet pour l'IA
+```
+</FileTree>
+
+### CLAUDE.md — Intelligence Projet
+
+Le fichier `CLAUDE.md` à la racine du projet sert de base de connaissances pour les agents IA. Il contient :
+
+- **Vue d'ensemble de l'architecture** — Système de thèmes, structure des composants, routage
+- **Emplacements des fichiers de configuration clés** — Où trouver les thèmes, locales, palettes, fournisseurs
+- **Recettes courantes** — Instructions étape par étape pour les opérations fréquentes
+- **Carte de la structure des fichiers** — Arborescence complète avec annotations
+- **Notes importantes** — Particularités comme « utilise Valibot, pas Zod »
+
+Tout agent IA qui lit `CLAUDE.md` comprendra immédiatement l'organisation du projet et pourra effectuer des modifications en toute sécurité.
+
+<Callout type="tip" title="Fonctionne partout">
+  `CLAUDE.md` est reconnu nativement par Claude Code, mais son format Markdown le rend utile pour tout outil IA. Cursor, Windsurf et Copilot bénéficient tous de la présence de ce fichier à la racine du dépôt.
+</Callout>
+
+## Commandes Slash
+
+Le répertoire `.claude/commands/` contient des modèles de prompts qui fonctionnent comme des **commandes slash** dans Claude Code. Chaque commande guide l'IA à travers une opération multi-étapes.
+
+### /prune-themes — Supprimer les thèmes inutiles
+
+La commande la plus puissante. Elle utilise le manifeste `themeRegistry.ts` pour supprimer chirurgicalement tous les fichiers appartenant aux thèmes dont vous n'avez pas besoin.
+
+**Exemple** : « Je veux uniquement le thème Liquid » → la commande supprime ~200 fichiers pour les 5 autres thèmes, met à jour tous les fichiers de configuration et vérifie que la construction fonctionne toujours.
+
+Ce qui est supprimé par thème :
+- Composants de sections (fichiers `.astro`)
+- Fichiers CSS des composants
+- Variantes d'en-tête et de pied de page
+- Primitives UI spécifiques au thème
+- Scripts et jetons de design
+- Fichier barrel et entrées de configuration
+
+<Callout type="info" title="Sécurisé par conception">
+  La commande utilise `src/config/themeRegistry.ts` comme source de vérité unique. Ce fichier contient le manifeste exact des fichiers pour chaque thème, donc rien n'est oublié et rien de partagé n'est supprimé.
+</Callout>
+
+### /add-locale — Ajouter une nouvelle langue
+
+Génère tout le nécessaire pour une nouvelle langue :
+
+<Steps>
+1. Crée l'entrée de locale dans `src/config/locales.ts`
+2. Copie tous les fichiers JSON de traduction depuis l'anglais vers le répertoire de la nouvelle locale
+3. Traduit toutes les valeurs de chaînes
+4. Crée les répertoires de contenu blog et docs avec le contenu traduit
+5. Ajoute les libellés de navigation latérale dans `src/utils/docs-nav.ts`
+</Steps>
+
+### /mix-theme — Créer un thème hybride
+
+Choisissez des sections de différents thèmes pour créer votre propre combinaison :
+
+```
+Hero        → Liquid    (animations fluides)
+About       → Glass     (cartes en glassmorphisme)
+Features    → Aurora    (arrière-plans en dégradé mesh)
+Pricing     → Neo       (style audacieux et énergique)
+Testimonial → Minimal   (design épuré et concentré)
+```
+
+La commande crée un fichier barrel personnalisé, enregistre le thème et n'inclut que les fichiers CSS nécessaires.
+
+### /switch-provider — Changer de fournisseur de déploiement
+
+Basculez entre Cloudflare Pages, Vercel et Netlify en une seule commande :
+- Installation du bon adaptateur Astro
+- Mise à jour de la configuration du fournisseur actif
+- Ajustement des scripts de construction
+- Vérification du succès de la construction
+
+### /deploy — Construire et déployer
+
+Exécute le pipeline complet de pré-déploiement :
+1. Diagnostics TypeScript (`pnpm check`)
+2. Linting (`pnpm lint`)
+3. Vérification du formatage (`pnpm format:check`)
+4. Construction production (`pnpm build`)
+5. Déploiement vers le fournisseur actif
+
+## Comment ça fonctionne
+
+### Le registre de thèmes — La clé des opérations sûres
+
+Le fichier `src/config/themeRegistry.ts` est ce qui rend les opérations IA sur les thèmes sûres. Il contient un manifeste complet de chaque fichier appartenant à chaque thème :
+
+```typescript
+export const themeRegistry: Record<string, ThemeManifest> = {
+  liquid: {
+    barrel: 'src/components/sections/themes/liquid.ts',
+    sections: [
+      'src/components/sections/hero/HeroLiquid.astro',
+      'src/components/sections/about/AboutLiquid.astro',
+      // ... tous les composants de sections
+    ],
+    css: [...],
+    header: [...],
+    footer: [...],
+    ui: [...],
+    scripts: [],
+    tokens: ['src/styles/tokens/liquid.css'],
+    npmDeps: [],
+  },
+};
+```
+
+### Architecture pilotée par la configuration
+
+| Configuration | Contrôle |
+|--------------|----------|
+| `themes.ts` | Quels thèmes existent et sont activés |
+| `themePresets.ts` | Ordre des sections sur la page d'accueil de chaque thème |
+| `locales.ts` | Quelles langues sont actives |
+| `palettes.ts` | Palettes de couleurs disponibles |
+| `active-provider.ts` | Cible de déploiement |
+
+## Conseils pour travailler avec les agents IA
+
+1. **Commencez par CLAUDE.md** — Orientez votre agent pour le lire en premier
+2. **Utilisez les commandes slash pour les opérations complexes** — Elles encodent correctement les procédures multi-étapes
+3. **Faites confiance au registre de thèmes** — C'est la source autoritaire pour l'appartenance des fichiers aux thèmes
+4. **Exécutez `pnpm check` après les modifications** — Cela détecte les erreurs TypeScript et les imports manquants
+5. **Valibot, pas Zod** — Si l'agent suggère Zod pour la validation, redirigez-le vers Valibot

@@ -234,6 +234,7 @@ export default defineConfig({
 
           // Get named exports at transform time (in the real Node.js context) so
           // we can re-export them as named ESM bindings for consumers.
+          /** @type {string[]} */
           let namedKeys = [];
           try {
             const mod = _require(cleanId);

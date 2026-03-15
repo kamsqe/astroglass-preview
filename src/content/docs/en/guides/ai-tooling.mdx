@@ -1,0 +1,162 @@
+---
+title: AI Agent Tooling
+description: Use Claude Code, Cursor, and other AI agents to customize, extend, and deploy your AstroGlass project with built-in slash commands and project intelligence.
+category: guide
+tags: ["ai", "claude", "automation", "developer-tools"]
+---
+
+import Callout from '../../../../components/mdx/Callout.astro';
+import Steps from '../../../../components/mdx/Steps.astro';
+import FileTree from '../../../../components/mdx/FileTree.astro';
+
+AstroGlass ships with built-in support for AI-powered development workflows. Whether you use **Claude Code**, **Cursor**, **GitHub Copilot**, or any AI coding assistant, the project includes configuration files that give agents deep understanding of the architecture.
+
+## What's Included
+
+<FileTree>
+```
+.claude/
+  commands/
+    prune-themes.md      # Remove unwanted themes surgically
+    add-locale.md        # Scaffold a new language
+    switch-provider.md   # Switch deployment target
+    mix-theme.md         # Create hybrid theme from sections
+    deploy.md            # Build and deploy
+CLAUDE.md                # Project intelligence file
+```
+</FileTree>
+
+### CLAUDE.md — Project Intelligence
+
+The `CLAUDE.md` file at the project root acts as a knowledge base for AI agents. It contains:
+
+- **Architecture overview** — Theme system, component structure, routing
+- **Key config file locations** — Where to find themes, locales, palettes, providers
+- **Common recipes** — Step-by-step instructions for frequent operations
+- **File structure map** — Complete directory tree with annotations
+- **Important notes** — Gotchas like "uses Valibot, not Zod"
+
+Any AI agent that reads `CLAUDE.md` will immediately understand how the project is organized and how to make changes safely.
+
+<Callout type="tip" title="Works Everywhere">
+  `CLAUDE.md` is recognized by Claude Code natively, but its markdown format makes it useful for any AI tool. Cursor, Windsurf, and Copilot all benefit from having this file in the repo root.
+</Callout>
+
+## Slash Commands
+
+The `.claude/commands/` directory contains prompt templates that act as **slash commands** in Claude Code. Each command guides the AI through a multi-step operation.
+
+### /prune-themes — Remove Unwanted Themes
+
+The most powerful command. It uses the `themeRegistry.ts` manifest to surgically remove all files belonging to themes you don't need.
+
+**Example**: "I only want the Liquid theme" → the command removes ~200 files for the other 5 themes, updates all config files, and verifies the build still passes.
+
+What gets removed per theme:
+- Section components (`.astro` files)
+- Component CSS files
+- Header and footer variants
+- Theme-specific UI primitives
+- Scripts and design tokens
+- Barrel file and config entries
+
+<Callout type="info" title="Safe by Design">
+  The command uses `src/config/themeRegistry.ts` as its source of truth. This file contains the exact file manifest for every theme, so nothing gets missed and nothing shared gets deleted.
+</Callout>
+
+### /add-locale — Add a New Language
+
+Scaffolds everything needed for a new language:
+
+<Steps>
+1. Creates the locale entry in `src/config/locales.ts`
+2. Copies all translation JSON files from English to the new locale directory
+3. Translates all string values
+4. Creates blog and docs content directories with translated content
+5. Adds sidebar navigation labels in `src/utils/docs-nav.ts`
+</Steps>
+
+### /mix-theme — Create a Hybrid Theme
+
+Cherry-pick sections from different themes to create your own combination:
+
+```
+Hero        → Liquid    (fluid animations)
+About       → Glass     (glassmorphism cards)
+Features    → Aurora    (gradient mesh backgrounds)
+Pricing     → Neo       (bold, energetic style)
+Testimonial → Minimal   (clean, focused)
+```
+
+The command creates a custom barrel file, registers the theme, and includes only the CSS files needed for your specific mix.
+
+### /switch-provider — Change Deployment Target
+
+Switch between Cloudflare Pages, Vercel, and Netlify with one command. It handles:
+- Installing the correct Astro adapter
+- Updating the active provider config
+- Adjusting build scripts
+- Verifying the build passes
+
+### /deploy — Build and Deploy
+
+Runs the full pre-deploy pipeline:
+1. TypeScript diagnostics (`pnpm check`)
+2. Linting (`pnpm lint`)
+3. Format check (`pnpm format:check`)
+4. Production build (`pnpm build`)
+5. Deployment to the active provider
+
+## How It Works Under the Hood
+
+### Theme Registry — The Key to Safe Operations
+
+The file `src/config/themeRegistry.ts` is what makes AI-powered theme operations safe. It contains a complete manifest of every file belonging to each theme:
+
+```typescript
+export const themeRegistry: Record<string, ThemeManifest> = {
+  liquid: {
+    barrel: 'src/components/sections/themes/liquid.ts',
+    sections: [
+      'src/components/sections/hero/HeroLiquid.astro',
+      'src/components/sections/about/AboutLiquid.astro',
+      // ... all section components
+    ],
+    css: [
+      'src/styles/components/hero/HeroLiquid.css',
+      // ... all CSS files
+    ],
+    header: ['src/components/layout/header/HeaderLiquid.astro'],
+    footer: ['src/components/sections/footer/FooterLiquid.astro'],
+    ui: ['src/components/ui/liquid/LiquidSectionTag.astro'],
+    scripts: [],
+    tokens: ['src/styles/tokens/liquid.css'],
+    npmDeps: [],
+  },
+  // ... other themes
+};
+```
+
+This means an AI agent doesn't need to guess or search — it can read the exact list of files to modify for any theme operation.
+
+### Config-Driven Architecture
+
+The project uses configuration files as single sources of truth:
+
+| Config | Controls |
+|--------|----------|
+| `themes.ts` | Which themes exist and are enabled |
+| `themePresets.ts` | Section order on each theme's landing page |
+| `locales.ts` | Which languages are active |
+| `palettes.ts` | Available color palettes |
+| `active-provider.ts` | Deployment target |
+
+AI agents can modify behavior by editing these configs rather than touching component code.
+
+## Tips for Working with AI Agents
+
+1. **Start with CLAUDE.md** — Point your agent to read it first for context
+2. **Use slash commands for complex operations** — They encode the multi-step procedures correctly
+3. **Trust the theme registry** — It's the authoritative source for theme file ownership
+4. **Run `pnpm check` after changes** — It catches TypeScript errors and missing imports
+5. **Valibot, not Zod** — If the agent suggests Zod for validation, redirect it to Valibot

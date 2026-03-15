@@ -21,7 +21,19 @@ export const defaultRenderError = (input: HTMLElement, message: string) => {
     
     const errorMsg = document.createElement('p');
     errorMsg.className = 'error-message';
-    errorMsg.innerHTML = `<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${message}`;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'w-3 h-3');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('stroke', 'currentColor');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('d', 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z');
+    svg.appendChild(path);
+    errorMsg.appendChild(svg);
+    errorMsg.appendChild(document.createTextNode(` ${message}`));
     parent.appendChild(errorMsg);
 };
 
@@ -92,7 +104,7 @@ export function validateForm(config: FormValidationConfig): { success: boolean; 
     
     result.issues.forEach(issue => {
       const fieldName = issue.path?.[0].key as string;
-      const input = config.form.querySelector(`[name="${fieldName}"]`) as HTMLElement;
+      const input = config.form.querySelector(`[name="${CSS.escape(fieldName)}"]`) as HTMLElement;
       if (input) {
          if (!firstInvalid) firstInvalid = input;
          render(input, issue.message);

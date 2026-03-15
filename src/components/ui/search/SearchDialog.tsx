@@ -37,15 +37,11 @@ interface Props {
 }
 
 export default function SearchDialog({ locale, labels, sectionLabels = {} }: Props) {
-  console.log('SearchDialog mounting...');
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const { status, results, suggestions, search, initSearch } = useSearch({ locale });
   const { recentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } = useRecentSearches();
 
-  useEffect(() => {
-    console.log('SearchDialog mounted, listening for open-search');
-  }, []);
 
   // Helper to get localized section label
   const getSectionLabel = (original: string) => {

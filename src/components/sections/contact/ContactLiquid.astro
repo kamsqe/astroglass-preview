@@ -138,6 +138,7 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 
 <script>
   import { safeParse, email, string, pipe } from 'valibot';
+  import { escapeHtml } from '../../../utils/escapeHtml';
   
   let contactLiquidController: AbortController | null = null;
 
@@ -186,10 +187,11 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
       const msgDiv = document.createElement('div');
       msgDiv.className = `contact-liquid-msg ${isUser ? 'user' : 'bot'} flex gap-3`;
       
+      const safe = escapeHtml(text);
       if (isUser) {
         msgDiv.innerHTML = `
           <div class="bg-accent text-base-100 rounded-2xl rounded-tr-md px-4 py-3 max-w-[85%] ml-auto">
-            <p class="text-sm">${text}</p>
+            <p class="text-sm">${safe}</p>
           </div>
         `;
       } else {
@@ -198,7 +200,7 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
             <img src="/images/liquid/support-icon.png" alt="Bot" class="w-full h-full object-cover" />
           </div>
           <div class="bg-base-content/[0.05] rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
-            <p class="text-sm text-base-content">${text}</p>
+            <p class="text-sm text-base-content">${safe}</p>
           </div>
         `;
       }

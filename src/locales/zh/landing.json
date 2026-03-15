@@ -63,7 +63,7 @@
     "clone": "克隆",
     "cloneDesc": "仅需一条命令即可获取该模板。包含了所有主题、组件和配置参数。",
     "customize": "自定义",
-    "customizeDesc": "挑选主题，编辑内容，调整颜色。所有模块都设计得灵活且文档齐全。",
+    "customizeDesc": "挑选主题，编辑内容，调整颜色。使用 CLAUDE.md 和 MCP 实现 AI 驱动的定制。",
     "deploy": "部署",
     "deployDesc": "一键推送到 Cloudflare Pages、Vercel 或 Netlify。开箱即用的边缘网络部署体验。"
   },

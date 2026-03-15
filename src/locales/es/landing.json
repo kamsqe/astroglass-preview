@@ -63,7 +63,7 @@
     "clone": "Clonar",
     "cloneDesc": "Obtén la plantilla con un solo comando. Se incluyen todos los temas, componentes y configuraciones.",
     "customize": "Personalizar",
-    "customizeDesc": "Elige un tema, edita tu contenido, ajusta los colores. Todo es modular y está bien documentado.",
+    "customizeDesc": "Elige un tema, edita tu contenido, ajusta los colores. Usa CLAUDE.md y MCP para personalización impulsada por IA.",
     "deploy": "Implementar",
     "deployDesc": "Despliega en Cloudflare Pages, Vercel o Netlify. Listo para el borde (Edge) desde el primer momento."
   },

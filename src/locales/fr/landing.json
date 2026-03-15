@@ -63,7 +63,7 @@
     "clone": "Cloner",
     "cloneDesc": "Saisissez le modèle avec une seule commande. Tous les thèmes, composants et configurations inclus.",
     "customize": "Personnaliser",
-    "customizeDesc": "Choisissez un thème, modifiez votre contenu, ajustez les couleurs. Tout est modulaire et bien documenté.",
+    "customizeDesc": "Choisissez un thème, modifiez votre contenu, ajustez les couleurs. Utilisez CLAUDE.md et MCP pour une personnalisation assistée par l'IA.",
     "deploy": "Déployer",
     "deployDesc": "Poussez vers Cloudflare Pages, Vercel ou Netlify. Prêt pour l'Edge d'emblée."
   },

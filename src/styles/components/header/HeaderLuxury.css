@@ -319,9 +319,19 @@
   transform: rotate(180deg);
 }
 
-/* When a control group is open, hide the other group */
+/* When a control group is open, hide the other group and expand footer */
 .luxury-controls-row:has(.luxury-control-group.is-open) .luxury-control-group:not(.is-open) {
   display: none;
+}
+
+/* When a dropdown is open, hide nav links so footer fills the sheet */
+.luxury-sheet:has(.luxury-control-group.is-open) .luxury-nav-container {
+  display: none;
+}
+
+.luxury-sheet:has(.luxury-control-group.is-open) .luxury-sheet-footer {
+  flex: 1;
+  justify-content: center;
 }
 
 .luxury-control-option {

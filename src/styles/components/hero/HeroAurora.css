@@ -6,16 +6,15 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: calc(80px + var(--nav-offset, 0px)) 16px 40px;
+  padding: calc(80px + var(--nav-offset, 0px)) 16px 100px;
   overflow: hidden;
 }
 
 @media (min-width: 480px) {
   .hero-aurora {
-    padding: calc(90px + var(--nav-offset, 0px)) 24px 40px;
+    padding: calc(90px + var(--nav-offset, 0px)) 24px 120px;
   }
 }
 
@@ -420,13 +419,16 @@
 /* -------------------------------------------------------------------------- */
 
 .hero-aurora-scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   z-index: 10;
   animation: aurora-fade-in 1s ease 1s both;
-  margin-top: 24px;
 }
 
 .hero-aurora-scroll-ring {
@@ -488,11 +490,7 @@
 
 @media (min-width: 768px) {
   .hero-aurora-scroll {
-    position: absolute;
     bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 0;
   }
 }
 

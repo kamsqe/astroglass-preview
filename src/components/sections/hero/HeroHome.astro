@@ -68,6 +68,15 @@ const t = useTranslations(locale);
           <span class="hero-home-code-dot hero-home-code-dot--green"></span>
         </div>
         <span class="hero-home-code-tab">{t('hero.terminal.label')}</span>
+        <button class="hero-home-code-copy" id="hero-copy-btn" aria-label="Copy command" data-cmd={t('hero.cloneCommand')}>
+          <svg class="hero-home-copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          <svg class="hero-home-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
       </div>
       <div class="hero-home-code-body">
         <code>
@@ -154,6 +163,35 @@ const t = useTranslations(locale);
     letter-spacing: 0.02em;
   }
 
+  .hero-home-code-copy {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    color: hsl(var(--bc) / 0.3);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-home-code-copy:hover {
+    color: hsl(var(--bc) / 0.7);
+    background: hsl(var(--bc) / 0.05);
+  }
+
+  .hero-home-copy-icon,
+  .hero-home-check-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hero-home-code-copy.copied {
+    color: hsl(var(--a));
+  }
+
   .hero-home-code-body {
     padding: 16px 20px;
     font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
@@ -236,4 +274,28 @@ const t = useTranslations(locale);
 
   initHeroHomeParallax();
   document.addEventListener('astro:after-swap', initHeroHomeParallax);
+
+  function initHeroCopy() {
+    const btn = document.getElementById('hero-copy-btn');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const cmd = btn.getAttribute('data-cmd') || '';
+      await navigator.clipboard.writeText(cmd);
+      const copyIcon = btn.querySelector('.hero-home-copy-icon') as HTMLElement;
+      const checkIcon = btn.querySelector('.hero-home-check-icon') as HTMLElement;
+      if (copyIcon && checkIcon) {
+        copyIcon.style.display = 'none';
+        checkIcon.style.display = 'block';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          copyIcon.style.display = 'block';
+          checkIcon.style.display = 'none';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
+    });
+  }
+
+  initHeroCopy();
+  document.addEventListener('astro:after-swap', initHeroCopy);
 </script>

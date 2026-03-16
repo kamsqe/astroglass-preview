@@ -275,12 +275,16 @@ const moreLabel = t('nav.more', { silent: true }) || 'More';
     calculateDynamicWidth();
 
     // ---- Shrink-on-scroll (desktop only) ----
+    const wasScrolled = header.classList.contains('is-scrolled');
     const onScroll = () => {
       header.classList.toggle('is-scrolled', window.scrollY > 60);
     };
     window.addEventListener('scroll', onScroll, { passive: true, signal });
-    // Delay initial check so scroll position is restored after view transitions
-    requestAnimationFrame(() => requestAnimationFrame(onScroll));
+    // On re-init (view transitions), preserve existing scroll state to prevent flicker.
+    // Only run initial check on fresh page load when there's no prior state.
+    if (!wasScrolled) {
+      onScroll();
+    }
 
     // ---- Desktop dropdowns ----
     document.querySelectorAll('[data-dropdown-neo]').forEach(dropdown => {

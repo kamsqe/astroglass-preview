@@ -491,6 +491,23 @@
     "order": 3
   },
   {
+    "url": "/es/docs/guides/ai-tooling",
+    "locale": "es",
+    "title": "Herramientas de IA para desarrollo",
+    "description": "Usa Claude Code, Cursor y otros agentes de IA para personalizar, extender y desplegar tu proyecto AstroGlass con comandos slash integrados e inteligencia de proyecto.",
+    "section": "Documentation",
+    "sectionIcon": "📄",
+    "sectionOrder": 99,
+    "headings": [
+      "Qué está incluido",
+      "Comandos Slash",
+      "Cómo funciona",
+      "Consejos para trabajar con agentes de IA"
+    ],
+    "content": "AstroGlass incluye soporte nativo para flujos de trabajo de desarrollo impulsados por IA. Ya sea que uses Claude Code, Cursor, GitHub Copilot o cualquier otro asistente de codificación con IA, el proyecto incluye archivos de configuración que proporcionan a los agentes una comprensión profunda de la arquitectura. Qué está incluido CLAUDE.md — Inteligencia de Proyecto El archivo en la raíz del proyecto actúa como base de conocimiento para agentes de IA. Contiene: - Visión general de la arquitectura — Sistema de temas, estructura de componentes, enrutamiento - Ubicación de archivos de configuración clave — Dónde encontrar temas, locales, paletas, proveedores - Recetas comunes — Instrucciones paso a paso para operaciones frecuentes - Mapa de estructura de archivos — Árbol de directorios completo con anotaciones - Notas importantes — Particularidades como \"usa Valibot, no Zod\" Cualquier agente de IA que lea comprenderá inmediatamente la organización del proyecto y podrá realizar cambios de forma segura. es reconocido nativamente por Claude Code, pero su formato Markdown lo hace útil para cualquier herramienta de IA. Cursor, Windsurf y Copilot también se benefician de tener este archivo en la raíz del repositorio. Comandos Slash El directorio contiene plantillas de prompts que funcionan como comandos slash en Claude Code. Cada comando guía a la IA a través de una operación de múltiples pasos. /prune-themes — Eliminar temas no deseados El comando más poderoso. Utiliza el manifiesto para eliminar quirúrgicamente todos los archivos pertenecientes a los temas que no necesitas. Ejemplo: \"Solo quiero el tema Liquid\" → el comando elimina ~200 archivos de los otros 5 temas, actualiza todos los archivos de configuración y verifica que la compilación siga funcionando. Qué se elimina por tema: - Componentes de secciones (archivos ) - Archivos CSS de componentes - Variantes de encabezado y pie de página - Primitivas UI específicas del tema - Scripts y tokens de diseño - Archivo barr",
+    "order": 99
+  },
+  {
     "url": "/es/docs/guides/forms-and-validation",
     "locale": "es",
     "title": "Formularios y Validación",

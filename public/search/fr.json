@@ -491,6 +491,23 @@
     "order": 3
   },
   {
+    "url": "/fr/docs/guides/ai-tooling",
+    "locale": "fr",
+    "title": "Outils IA pour le développement",
+    "description": "Utilisez Claude Code, Cursor et d'autres agents IA pour personnaliser, étendre et déployer votre projet AstroGlass grâce aux commandes slash et au fichier d'intelligence projet intégrés.",
+    "section": "Documentation",
+    "sectionIcon": "📄",
+    "sectionOrder": 99,
+    "headings": [
+      "Ce qui est inclus",
+      "Commandes Slash",
+      "Comment ça fonctionne",
+      "Conseils pour travailler avec les agents IA"
+    ],
+    "content": "AstroGlass intègre nativement le support des workflows de développement assistés par IA. Que vous utilisiez Claude Code, Cursor, GitHub Copilot ou tout autre assistant de codage IA, le projet inclut des fichiers de configuration qui donnent aux agents une compréhension approfondie de l'architecture. Ce qui est inclus CLAUDE.md — Intelligence Projet Le fichier à la racine du projet sert de base de connaissances pour les agents IA. Il contient : - Vue d'ensemble de l'architecture — Système de thèmes, structure des composants, routage - Emplacements des fichiers de configuration clés — Où trouver les thèmes, locales, palettes, fournisseurs - Recettes courantes — Instructions étape par étape pour les opérations fréquentes - Carte de la structure des fichiers — Arborescence complète avec annotations - Notes importantes — Particularités comme « utilise Valibot, pas Zod » Tout agent IA qui lit comprendra immédiatement l'organisation du projet et pourra effectuer des modifications en toute sécurité. est reconnu nativement par Claude Code, mais son format Markdown le rend utile pour tout outil IA. Cursor, Windsurf et Copilot bénéficient tous de la présence de ce fichier à la racine du dépôt. Commandes Slash Le répertoire contient des modèles de prompts qui fonctionnent comme des commandes slash dans Claude Code. Chaque commande guide l'IA à travers une opération multi-étapes. /prune-themes — Supprimer les thèmes inutiles La commande la plus puissante. Elle utilise le manifeste pour supprimer chirurgicalement tous les fichiers appartenant aux thèmes dont vous n'avez pas besoin. Exemple : « Je veux uniquement le thème Liquid » → la commande supprime ~200 fichiers pour les 5 autres thèmes, met à jour tous les fichiers de configuration et vérifie que la construction fonctionne toujours. Ce qui est supprimé par thème : - Composants de sections (fichiers ) - Fichiers CSS des composants - Variantes d'en-tête et de pied de page - Primitives UI spécifiques au thème - Scripts et jeton",
+    "order": 99
+  },
+  {
     "url": "/fr/docs/guides/forms-and-validation",
     "locale": "fr",
     "title": "Formulaires & Validation",

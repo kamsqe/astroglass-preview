@@ -345,7 +345,10 @@
   padding: 4px 0;
   transition: color var(--duration-luxury-fast) var(--ease-luxury);
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  width: 100%;
+  gap: 0.5em;
 }
 .luxury-control-option:hover, .luxury-control-option.is-selected {
   color: hsl(var(--bc));

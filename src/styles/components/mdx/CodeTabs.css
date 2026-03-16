@@ -4,14 +4,14 @@
   margin: 1.5rem 0;
   border-radius: 0.75rem;
   overflow: hidden;
-  background: var(--code-bg, #1e1e1e);
+  border: 1px solid hsl(var(--bc) / 0.1);
 }
 
 .c-code-tabs__header {
   display: flex;
   gap: 0;
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: hsl(var(--bc) / 0.05);
+  border-bottom: 1px solid hsl(var(--bc) / 0.1);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -20,7 +20,7 @@
   padding: 0.75rem 1rem;
   font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: hsl(var(--bc) / 0.5);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -30,14 +30,14 @@
 }
 
 .c-code-tabs__tab:hover {
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.05);
+  color: hsl(var(--bc) / 0.8);
+  background: hsl(var(--bc) / 0.05);
 }
 
 .c-code-tabs__tab.is-active {
-  color: var(--color-accent, #3b82f6);
-  background: rgba(59, 130, 246, 0.1);
-  border-bottom: 2px solid var(--color-accent, #3b82f6);
+  color: hsl(var(--a));
+  background: hsl(var(--a) / 0.1);
+  border-bottom: 2px solid hsl(var(--a));
 }
 
 .c-code-tabs__panels pre {
@@ -49,15 +49,11 @@
 .c-code-tabs__panels .expressive-code .frame {
   box-shadow: none !important;
   border: none !important;
+  border-radius: 0 !important;
 }
 
 .c-code-tabs__panels .expressive-code .header {
   display: none !important;
-}
-
-.c-code-tabs__panels .expressive-code pre {
-  border: none !important;
-  background: transparent !important;
 }
 
 .c-code-tabs__panels > *:not(.is-active) {

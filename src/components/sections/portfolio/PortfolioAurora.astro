@@ -6,9 +6,11 @@
  */
 import { getLocaleFromUrl, useTranslations } from '../../../utils/i18n';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
+import { defaultLocale } from '../../../config/locales';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const localePrefix = locale === defaultLocale ? '' : `/${locale}`;
 import '../../../styles/components/portfolio/PortfolioAurora.css';
 
 const categories = [
@@ -80,7 +82,7 @@ const projects = [
   <!-- Grid -->
   <div class="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="aurora-portfolio-grid">
     {projects.map((p, i) => (
-      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category} data-portfolio-link="/aurora/portfolio">
+      <div class:list={['pp-aurora__card group cursor-pointer', `portfolio-aurora-item--${p.span}`]} data-category={p.category} data-portfolio-link={`${localePrefix}/aurora/portfolio`}>
         
         <div class="pp-aurora__visual relative overflow-hidden bg-transparent" data-category={p.category}>
           <div class={`absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity duration-500 mix-blend-luminosity ${i % 2 === 0 ? "bg-[url('/images/glass/portfolio-1.png')]" : "bg-[url('/images/glass/portfolio-2.png')]"}`}></div>

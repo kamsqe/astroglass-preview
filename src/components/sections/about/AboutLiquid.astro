@@ -22,14 +22,25 @@ const t = useTranslations(locale);
 <section id="about" class:list={["relative px-4 sm:px-6 overflow-hidden", isFirst ? "pt-[calc(40px+var(--nav-offset))] pb-16 md:pb-32 md:pt-[calc(80px+var(--nav-offset))]" : "py-16 md:py-32"]}>
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
     <!-- Content -->
-    <div class="order-2 lg:order-1">
+    <div>
       <!-- Badge -->
       <LiquidSectionTag label={t('about.ourStory')} class="mb-6" />
 
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 leading-tight text-base-content">
         {t('about.title')}
       </h2>
-      
+
+      <!-- Mobile video: between heading and content -->
+      <div class="lg:hidden mb-8">
+        <div class="relative w-full aspect-square max-w-xs mx-auto flex items-center justify-center p-4">
+          <div class="absolute inset-0 bg-accent/20 rounded-[3rem] blur-3xl"></div>
+          <div class="absolute inset-8 bg-primary/20 rounded-full blur-2xl"></div>
+          <div class="relative z-10 w-full h-full">
+            <video src={liquidAboutVid} autoplay loop muted playsinline class="w-full h-full object-contain rounded-[2rem]"></video>
+          </div>
+        </div>
+      </div>
+
       <p class="text-lg sm:text-xl text-base-content/75 leading-relaxed mb-8 max-w-xl">
         {t('about.description')}
       </p>
@@ -71,21 +82,21 @@ const t = useTranslations(locale);
       </div>
     </div>
 
-    <!-- Image Container (Simplified) -->
-    <div class="relative flex justify-center order-1 lg:order-2">
+    <!-- Desktop video (side-by-side) -->
+    <div class="relative hidden lg:flex justify-center">
       <div class="relative w-full aspect-square max-w-lg mx-auto flex items-center justify-center p-4 sm:p-8">
         <!-- Ambient glow -->
         <div class="absolute inset-0 bg-accent/20 rounded-[3rem] blur-3xl"></div>
         <div class="absolute inset-8 bg-primary/20 rounded-full blur-2xl"></div>
-        
+
         <!-- Clean Video render -->
         <div class="relative z-10 w-full h-full">
-          <video 
-            src={liquidAboutVid} 
-            autoplay 
-            loop 
-            muted 
-            playsinline 
+          <video
+            src={liquidAboutVid}
+            autoplay
+            loop
+            muted
+            playsinline
             class="w-full h-full object-contain rounded-[2rem]"
           ></video>
         </div>

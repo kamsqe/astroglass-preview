@@ -8,9 +8,11 @@ import NeoSectionTag from '../../ui/neo/NeoSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
+import { defaultLocale } from '../../../config/locales';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const localePrefix = locale === defaultLocale ? '' : `/${locale}`;
 const projects = [
   { id: 1, title: t('portfolio.p1Title'), desc: t('portfolio.p1Desc'), category: t('portfolio.categories.webapp'), color: 'from-violet-500 to-purple-600' },
   { id: 2, title: t('portfolio.p2Title'), desc: t('portfolio.p2Desc'), category: t('portfolio.categories.dashboard'), color: 'from-cyan-500 to-blue-600' },
@@ -45,7 +47,7 @@ const projects = [
           class="c-portfolio-page-neo__section-card group cursor-pointer"
           style={`animation-delay: ${i * 100}ms`}
           data-index={i}
-          data-portfolio-link="/neo/portfolio"
+          data-portfolio-link={`${localePrefix}/neo/portfolio`}
         >
           <div class="c-portfolio-page-neo__section-inner relative rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-100 backdrop-blur-xl shadow-2xl">
             <!-- Gradient accent top -->

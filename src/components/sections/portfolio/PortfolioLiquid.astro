@@ -8,9 +8,11 @@ import LiquidSectionTag from '../../ui/liquid/LiquidSectionTag.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
+import { defaultLocale } from '../../../config/locales';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const localePrefix = locale === defaultLocale ? '' : `/${locale}`;
 const featured = {
   title: t('portfolio.p1Title'),
   desc: t('portfolio.p1Desc'),
@@ -44,7 +46,7 @@ const projects = [
     </div>
 
     <!-- Featured Project -->
-    <div class="c-portfolio-page-liquid__featured-card group relative mb-6 sm:mb-8 rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] backdrop-blur-xl cursor-pointer" data-portfolio-link="/liquid/portfolio">
+    <div class="c-portfolio-page-liquid__featured-card group relative mb-6 sm:mb-8 rounded-2xl sm:rounded-3xl overflow-hidden border border-base-content/10 bg-base-content/[0.02] backdrop-blur-xl cursor-pointer" data-portfolio-link={`${localePrefix}/liquid/portfolio`}>
       <div class="grid grid-cols-1 lg:grid-cols-5 min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]">
         <!-- Visual Side with Blob Shape -->
         <div class="c-portfolio-page-liquid__blob-visual lg:col-span-3 relative overflow-hidden">
@@ -89,7 +91,7 @@ const projects = [
     <!-- Supporting Projects Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <div class="c-portfolio-page-liquid__project-card group relative overflow-hidden border border-base-content/5 bg-base-content/[0.02] backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 cursor-pointer" style={`animation-delay: ${i * 100}ms`} data-portfolio-link="/liquid/portfolio">
+        <div class="c-portfolio-page-liquid__project-card group relative overflow-hidden border border-base-content/5 bg-base-content/[0.02] backdrop-blur-sm hover:bg-base-content/[0.04] hover:border-base-content/10 cursor-pointer" style={`animation-delay: ${i * 100}ms`} data-portfolio-link={`${localePrefix}/liquid/portfolio`}>
           <!-- Gradient accent (organic line) -->
           <div class={`c-portfolio-page-liquid__accent-line absolute top-0 left-0 right-0 bg-gradient-to-r ${p.color} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} data-liquid-bg></div>
           

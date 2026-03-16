@@ -188,14 +188,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.2s;
-}
 
 /* ============================================
    Expressive Code — Theme Integration
@@ -246,16 +238,14 @@ html {
   /* Border handled by config to prevent double borders */
 }
 
-/* --- Copy button: icon-only (no border/background) --- */
+/* --- Copy button: remove border chrome, keep icon visible --- */
 .expressive-code .copy button {
   border: none !important;
-  background: transparent !important;
   box-shadow: none !important;
-  opacity: 0.4;
-  transition: opacity 0.2s;
+  outline: none !important;
 }
 
 .expressive-code .copy button:hover {
-  opacity: 1;
-  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }

@@ -63,7 +63,7 @@
     "clone": "Clone",
     "cloneDesc": "Grab the template with a single command. All themes, components, and configs included.",
     "customize": "Customize",
-    "customizeDesc": "Pick a theme, edit your content, tweak colors. Everything is modular and well-documented.",
+    "customizeDesc": "Pick a theme, edit your content, tweak colors. Use CLAUDE.md and MCP for AI-powered customization.",
     "deploy": "Deploy",
     "deployDesc": "Push to Cloudflare Pages, Vercel, or Netlify. Edge-ready out of the box."
   },

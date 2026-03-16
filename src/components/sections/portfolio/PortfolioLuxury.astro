@@ -6,6 +6,7 @@
 import '../../../styles/components/portfolio/PortfolioPageLuxury.css';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
+import { defaultLocale } from '../../../config/locales';
 import LocalizedLink from '../../ui/LocalizedLink.astro';
 import LuxuryButton from '../../ui/luxury/LuxuryButton.astro';
 import LuxuryCard from '../../ui/luxury/LuxuryCard.astro';
@@ -13,6 +14,7 @@ import LuxurySectionLabel from '../../ui/luxury/LuxurySectionLabel.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
+const localePrefix = locale === defaultLocale ? '' : `/${locale}`;
 const projects = [
   { 
     id: 1, 
@@ -71,7 +73,7 @@ const projects = [
     <!-- Case Study Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {projects.map((p, i) => (
-        <LuxuryCard class="group c-portfolio-page-luxury__card cursor-pointer" spotlight={true} hover={false} data-portfolio-link="/luxury/portfolio">
+        <LuxuryCard class="group c-portfolio-page-luxury__card cursor-pointer" spotlight={true} hover={false} data-portfolio-link={`${localePrefix}/luxury/portfolio`}>
           <!-- Background gradient -->
           <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-luxury-slow`}></div>
           

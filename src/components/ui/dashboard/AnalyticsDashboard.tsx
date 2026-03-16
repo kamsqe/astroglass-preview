@@ -84,8 +84,8 @@ export const AnalyticsDashboard = () => {
         {kpiData.map((item) => (
           <Card key={item.title} variant="glass" className="border-[hsl(var(--bc)/0.05)] bg-[hsl(var(--b1)/0.4)] hover:bg-[hsl(var(--b1)/0.6)] transition-colors shadow-none">
             <CardContent className="p-4 sm:p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
+              <div className="flex items-start justify-between gap-2 mb-4">
+                <div className="min-w-0">
                   <p className="text-sm font-medium text-[hsl(var(--bc)/0.5)]">{item.title}</p>
                   <p className="text-2xl sm:text-3xl font-black text-[hsl(var(--bc))] mt-1 tracking-tight">{item.metric}</p>
                 </div>

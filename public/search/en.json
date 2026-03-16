@@ -491,6 +491,23 @@
     "order": 99
   },
   {
+    "url": "/docs/guides/ai-tooling",
+    "locale": "en",
+    "title": "AI Agent Tooling",
+    "description": "Use Claude Code, Cursor, and other AI agents to customize, extend, and deploy your AstroGlass project with built-in slash commands and project intelligence.",
+    "section": "Documentation",
+    "sectionIcon": "📄",
+    "sectionOrder": 99,
+    "headings": [
+      "What's Included",
+      "Slash Commands",
+      "How It Works Under the Hood",
+      "Tips for Working with AI Agents"
+    ],
+    "content": "AstroGlass ships with built-in support for AI-powered development workflows. Whether you use Claude Code, Cursor, GitHub Copilot, or any AI coding assistant, the project includes configuration files that give agents deep understanding of the architecture. What's Included CLAUDE.md — Project Intelligence The file at the project root acts as a knowledge base for AI agents. It contains: - Architecture overview — Theme system, component structure, routing - Key config file locations — Where to find themes, locales, palettes, providers - Common recipes — Step-by-step instructions for frequent operations - File structure map — Complete directory tree with annotations - Important notes — Gotchas like \"uses Valibot, not Zod\" Any AI agent that reads will immediately understand how the project is organized and how to make changes safely. is recognized by Claude Code natively, but its markdown format makes it useful for any AI tool. Cursor, Windsurf, and Copilot all benefit from having this file in the repo root. Slash Commands The directory contains prompt templates that act as slash commands in Claude Code. Each command guides the AI through a multi-step operation. /prune-themes — Remove Unwanted Themes The most powerful command. It uses the manifest to surgically remove all files belonging to themes you don't need. Example: \"I only want the Liquid theme\" → the command removes ~200 files for the other 5 themes, updates all config files, and verifies the build still passes. What gets removed per theme: - Section components ( files) - Component CSS files - Header and footer variants - Theme-specific UI primitives - Scripts and design tokens - Barrel file and config entries The command uses as its source of truth. This file contains the exact file manifest for every theme, so nothing gets missed and nothing shared gets deleted. /add-locale — Add a New Language Scaffolds everything needed for a new language: 1. Creates the locale entry in 2. Copies all translation JSON files fro",
+    "order": 99
+  },
+  {
     "url": "/docs/guides/forms-and-validation",
     "locale": "en",
     "title": "Forms & Validation",

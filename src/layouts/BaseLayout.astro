@@ -103,8 +103,21 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
       }
     </style>
     <script is:inline>
-      // Disable view transition animations on Safari to prevent page flash/break
+      // Apply stored theme to new document BEFORE swap to prevent flash on dark palettes.
+      // Without this, the new page arrives with data-theme="azure" (light) and only gets
+      // corrected after swap, causing a brief visible flash on dark palettes.
       document.addEventListener('astro:before-swap', (e) => {
+        const stored = localStorage.getItem('theme');
+        if (stored && e.newDocument) {
+          e.newDocument.documentElement.setAttribute('data-theme', stored);
+        }
+        // Carry over is-scrolled state to the new header so it doesn't flicker
+        const oldHeader = document.getElementById('header-neo');
+        if (oldHeader && oldHeader.classList.contains('is-scrolled') && e.newDocument) {
+          const newHeader = e.newDocument.getElementById('header-neo');
+          if (newHeader) newHeader.classList.add('is-scrolled');
+        }
+        // Disable view transition animations on Safari to prevent page flash/break
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         if (isSafari && e.viewTransition) {
           e.viewTransition.skipTransition();

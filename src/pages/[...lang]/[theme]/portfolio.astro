@@ -14,6 +14,7 @@
  * to a "coming soon" placeholder — no build errors, no broken routes.
  */
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LocalizedLink from '../../../components/ui/LocalizedLink.astro';
 import { useTranslations } from '../../../utils/i18n';
 import { getLocaleFromUrl } from '../../../utils/locale-utils';
 import { getThemeById } from '../../../config/themes';
@@ -88,12 +89,12 @@ const Footer       = sections['Footer']       as (_props: Record<string, unknown
         <div class="text-center">
           <h1 class="text-4xl font-black text-base-content mb-4">{t('portfolioPage.pageTitle')}</h1>
           <p class="text-base-content/50 mb-8">{t('portfolioPage.comingSoon')}</p>
-          <a
+          <LocalizedLink
             href={`/${themeId}`}
             class="inline-flex items-center gap-2 text-accent font-bold hover:gap-4 transition-all duration-300"
           >
             ← {t('portfolioPage.backToHome')}
-          </a>
+          </LocalizedLink>
         </div>
       </section>
     )}

@@ -190,6 +190,27 @@ html {
 
 
 /* ============================================
+   Touch Device: Show hover-hidden content always
+   On touch devices, elements hidden with opacity-0 and
+   revealed via group-hover:opacity-100 should be visible.
+   ============================================ */
+@media (hover: none) {
+  /* Show text/links hidden behind hover */
+  [class*="group-hover\:opacity-100"][class*="opacity-0"] {
+    opacity: 0.9 !important;
+  }
+  /* Remove translate-y offset on hover-revealed elements */
+  [class*="group-hover\:translate-y-0"][class*="translate-y-"] {
+    --tw-translate-y: 0px !important;
+  }
+  /* Disable card hover transforms */
+  [class*="group-hover\:scale-"] {
+    --tw-scale-x: 1 !important;
+    --tw-scale-y: 1 !important;
+  }
+}
+
+/* ============================================
    Expressive Code — Theme Integration
 
    github-light's default white bg is correct for

@@ -139,6 +139,10 @@
   justify-content: center;
 }
 
+.about-aurora-dashboard {
+  overflow: hidden;
+}
+
 .about-aurora-dash-card {
   position: relative;
   width: 100%;
@@ -148,6 +152,7 @@
   border-radius: 20px;
   padding: 24px;
   overflow: hidden;
+  margin: 0 auto;
   box-shadow:
     0 20px 60px hsl(var(--bc) / 0.05),
     inset 0 1px 0 hsl(var(--bc) / 0.05);
@@ -281,11 +286,21 @@
   z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr 1fr;
-  gap: 20px;
+  gap: 12px;
   align-items: end;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid hsl(var(--bc) / 0.06);
+  min-width: 0;
+}
+
+.about-aurora-metric {
+  min-width: 0;
+}
+
+.about-aurora-metric-label {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Radial ring */

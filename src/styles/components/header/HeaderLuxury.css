@@ -310,6 +310,26 @@
   opacity: 1;
 }
 
+/* Rotate chevron when open */
+.luxury-chevron {
+  display: inline-flex;
+  transition: transform 0.3s ease;
+}
+.luxury-control-group.is-open .luxury-chevron {
+  transform: rotate(180deg);
+}
+
+/* When a control group is open, it takes full width */
+.luxury-control-group.is-open {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+}
+.luxury-controls-row {
+  position: relative;
+}
+
 .luxury-control-option {
   font-size: 1rem;
   color: hsl(var(--bc) / 0.6);

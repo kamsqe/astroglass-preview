@@ -164,9 +164,11 @@
   transition: all 0.2s ease;
 }
 
-.pricing-aurora-plan:hover {
-  border-color: hsl(var(--bc) / 0.12);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .pricing-aurora-plan:hover {
+    border-color: hsl(var(--bc) / 0.12);
+    transform: translateY(-2px);
+  }
 }
 
 /* Featured plan */
@@ -177,11 +179,13 @@
     0 20px 60px hsl(var(--a) / 0.08);
 }
 
-.pricing-aurora-plan--featured:hover {
-  border-color: hsl(var(--a) / 0.4);
-  box-shadow:
-    0 0 0 1px hsl(var(--a) / 0.15),
-    0 20px 60px hsl(var(--a) / 0.12);
+@media (hover: hover) {
+  .pricing-aurora-plan--featured:hover {
+    border-color: hsl(var(--a) / 0.4);
+    box-shadow:
+      0 0 0 1px hsl(var(--a) / 0.15),
+      0 20px 60px hsl(var(--a) / 0.12);
+  }
 }
 
 /* Animated rotating gradient border on featured */
@@ -387,6 +391,9 @@
   font-weight: 700;
   color: hsl(var(--bc) / 0.75);
   font-size: 0.78rem;
+  text-align: right;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .pricing-aurora-feature.is-disabled .pricing-aurora-feature-value {

@@ -103,6 +103,32 @@ const activeTheme = currentHeader === 2 ? 'nordic' : 'azure';
       }
     </style>
     <script is:inline>
+      // Intercept same-page hash links to bypass ClientRouter View Transitions.
+      // Without this, clicking mobile nav hash links (#about, #contact) triggers
+      // a full View Transition that makes the link appear unresponsive.
+      function handleHashLinks() {
+        document.addEventListener('click', (e) => {
+          const link = e.target.closest('a[href]');
+          if (!link) return;
+          const href = link.getAttribute('href');
+          if (!href || href.startsWith('http') || href.startsWith('mailto:')) return;
+          try {
+            const url = new URL(href, window.location.origin);
+            if (url.pathname === window.location.pathname && url.hash) {
+              e.preventDefault();
+              // Close any open mobile menus by restoring body scroll
+              document.body.style.overflow = '';
+              const target = document.querySelector(url.hash);
+              if (target) {
+                setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 50);
+              }
+              history.pushState(null, '', url.hash);
+            }
+          } catch {}
+        }, true); // Use capture to run before ClientRouter
+      }
+      handleHashLinks();
+
       // Apply stored theme to new document BEFORE swap to prevent flash on dark palettes.
       // Without this, the new page arrives with data-theme="azure" (light) and only gets
       // corrected after swap, causing a brief visible flash on dark palettes.

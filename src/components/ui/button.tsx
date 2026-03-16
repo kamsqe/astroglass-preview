@@ -32,7 +32,7 @@ const buttonVariants = cva(
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
         // Liquid sizes
-        liquid: "px-8 lg:px-10 py-4 lg:py-5 text-sm",
+        liquid: "px-5 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 text-xs sm:text-sm",
       },
     },
     defaultVariants: {

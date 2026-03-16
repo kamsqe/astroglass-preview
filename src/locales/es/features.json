@@ -70,7 +70,7 @@
       },
       {
         "title": "Tipo Seguro",
-        "desc": "Total compatibilidad con TypeScript y esquemas de validación con Zod."
+        "desc": "Total compatibilidad con TypeScript y esquemas de validación con Valibot."
       },
       {
         "title": "Optimización SEO",

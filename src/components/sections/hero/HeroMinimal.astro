@@ -27,8 +27,8 @@ const t = useTranslations(locale);
     </div>
 
     <!-- Scroll indicator at bottom of viewport -->
-    <a href="#about" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors animate-pulse cursor-pointer z-10">
-      <span class="text-xs uppercase tracking-widest text-center">{t('hero.scrollToExplore')}</span>
+    <a href="#about" aria-hidden="true" tabindex="-1" class="hero-minimal-scroll-hint mt-8 sm:absolute sm:bottom-8 sm:left-1/2 sm:-translate-x-1/2 flex flex-col items-center gap-3 text-base-content hover:text-base-content/80 transition-colors animate-pulse cursor-pointer z-10">
+      <span class="text-xs uppercase tracking-widest text-center max-w-[200px]">{t('hero.scrollToExplore')}</span>
       <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
       </svg>
@@ -103,11 +103,11 @@ const t = useTranslations(locale);
         {t('hero.readyToBuild')}
       </h2>
       
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-        <a href="#about" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent text-base-100 font-black text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl text-center">
+      <div class="flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8">
+        <a href="#about" class="px-6 py-3 sm:px-10 sm:py-5 rounded-2xl bg-accent text-base-100 font-black text-sm sm:text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl text-center">
           {t('hero.startBuilding')}
         </a>
-        <a href={`/${locale}/docs`} class="w-full sm:w-auto px-10 py-5 rounded-2xl border border-base-content/10 bg-base-content/5 text-base-content font-bold hover:bg-base-content hover:text-base-100 transition-all duration-300 text-center">
+        <a href={`/${locale}/docs`} class="px-6 py-3 sm:px-10 sm:py-5 rounded-2xl border border-base-content/10 bg-base-content/5 text-base-content font-bold text-sm sm:text-base hover:bg-base-content hover:text-base-100 transition-all duration-300 text-center">
           {t('hero.viewFullDemo')}
         </a>
       </div>

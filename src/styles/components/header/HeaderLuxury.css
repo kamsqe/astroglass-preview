@@ -319,15 +319,9 @@
   transform: rotate(180deg);
 }
 
-/* When a control group is open, it takes full width */
-.luxury-control-group.is-open {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: 0 24px;
-}
-.luxury-controls-row {
-  position: relative;
+/* When a control group is open, hide the other group */
+.luxury-controls-row:has(.luxury-control-group.is-open) .luxury-control-group:not(.is-open) {
+  display: none;
 }
 
 .luxury-control-option {

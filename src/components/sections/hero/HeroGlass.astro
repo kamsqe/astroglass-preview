@@ -84,14 +84,14 @@ const remaining = titleParts.length > 2 ? titleParts.slice(0, -2).join(' ') : t(
           {t('hero.subtitle')}
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center w-[90%] sm:w-auto mx-auto relative z-10 flex-shrink-0">
-          <a class={cn(buttonVariants({ variant: "liquid", size: "liquid" }), "c-hero-glass__btn-liquid-glass w-full sm:w-auto overflow-hidden group")} href="#services">
+        <div class="flex flex-row flex-wrap gap-3 sm:gap-6 justify-center w-[90%] sm:w-auto mx-auto relative z-10 flex-shrink-0">
+          <a class={cn(buttonVariants({ variant: "liquid", size: "liquid" }), "c-hero-glass__btn-liquid-glass overflow-hidden group")} href="#services">
             <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
             <!-- tiny sweep on button hover -->
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] skew-x-[-30deg] group-hover:animate-[sweep_1.5s_ease-out_0.5s]"></div>
             <span class="relative z-10 text-sm sm:text-base">{t('hero.cta')}</span>
           </a>
-          <a class={cn(buttonVariants({ variant: "liquid-secondary", size: "liquid" }), "c-hero-glass__btn-liquid-secondary-glass w-full sm:w-auto")} href="#portfolio">
+          <a class={cn(buttonVariants({ variant: "liquid-secondary", size: "liquid" }), "c-hero-glass__btn-liquid-secondary-glass")} href="#portfolio">
             <span class="text-sm sm:text-base">{t('hero.watchReel')}</span>
             <div class="c-hero-glass__play-icon w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-base-content/5 flex items-center justify-center group-hover:bg-accent group-hover:text-base-100 transition-all duration-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>

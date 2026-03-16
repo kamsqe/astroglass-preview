@@ -22,7 +22,7 @@
     "docs": "Documentation",
     "docsDesc": "Full docs system with sidebar navigation, search, and code examples.",
     "edge": "Edge Deployed",
-    "edgeDesc": "Cloudflare-ready with adapter config, SSR support, and global CDN.",
+    "edgeDesc": "Cloudflare, Vercel & Netlify adapters included — deploy anywhere.",
     "perf": "Performance First",
     "perfDesc": "100 Lighthouse score with zero-JS by default, lazy loading, and optimized assets.",
     "colorThemes": "Color Themes",

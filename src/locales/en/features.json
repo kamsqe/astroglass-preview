@@ -25,7 +25,7 @@
   "f4Desc": "10+ color palettes or create your own signature look in seconds.",
   "f4LongDesc": "Powered by CSS custom properties and Tailwind CSS 4, switch themes instantly or create custom palettes. Dark mode, light mode, and everything in between.",
   "f5Title": "Edge Ready",
-  "f5Desc": "Deploy globally with Cloudflare Workers for instant access anywhere.",
+  "f5Desc": "Deploy globally on Cloudflare, Vercel, or Netlify — adapters included.",
   "useCases": {
     "speed": "Build Fast",
     "speedHeadline": "Ship production-ready sites in hours, not weeks.",
@@ -53,8 +53,8 @@
         "desc": "Next-gen utility engine. Zero config, instant builds."
       },
       {
-        "title": "Cloudflare Edge",
-        "desc": "Deploy globally with edge-ready config and adapters included."
+        "title": "Edge Deploy",
+        "desc": "Cloudflare, Vercel & Netlify adapters — deploy anywhere with one command."
       },
       {
         "title": "Premium Search",
@@ -70,7 +70,7 @@
       },
       {
         "title": "Type-Safe",
-        "desc": "Full TypeScript support & Zod content validation schemas."
+        "desc": "Full TypeScript support & Valibot content validation schemas."
       },
       {
         "title": "SEO Optimized",

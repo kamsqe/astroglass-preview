@@ -70,7 +70,7 @@
       },
       {
         "title": "Type-Safe",
-        "desc": "Prise en charge complète de TypeScript et schémas de validation de contenu Zod."
+        "desc": "Prise en charge complète de TypeScript et schémas de validation de contenu Valibot."
       },
       {
         "title": "Optimisé pour le SEO",

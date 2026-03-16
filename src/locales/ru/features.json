@@ -70,7 +70,7 @@
       },
       {
         "title": "Type-Safe",
-        "desc": "Полная поддержка TypeScript и валидация контента через Zod."
+        "desc": "Полная поддержка TypeScript и валидация контента через Valibot."
       },
       {
         "title": "SEO-оптимизация",

@@ -8,13 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(80px + var(--nav-offset, 0px)) 16px 100px;
+  padding: calc(80px + var(--nav-offset, 0px)) 16px 160px;
   overflow: hidden;
 }
 
 @media (min-width: 480px) {
   .hero-aurora {
-    padding: calc(90px + var(--nav-offset, 0px)) 24px 120px;
+    padding: calc(90px + var(--nav-offset, 0px)) 24px 160px;
   }
 }
 

@@ -306,7 +306,7 @@
 }
 
 .luxury-control-group.is-open .luxury-control-list {
-  max-height: 300px;
+  max-height: 500px;
   opacity: 1;
 }
 
@@ -332,6 +332,7 @@
 .luxury-sheet:has(.luxury-control-group.is-open) .luxury-sheet-footer {
   flex: 1;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .luxury-control-option {

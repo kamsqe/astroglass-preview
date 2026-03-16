@@ -56,6 +56,16 @@
   display: none !important;
 }
 
+/* Hide the copy button inside CodeTabs (redundant with tab header) */
+.c-code-tabs__panels .expressive-code .copy {
+  display: none !important;
+}
+
+/* Remove bottom border/separator inside CodeTabs */
+.c-code-tabs__panels .expressive-code pre {
+  border-bottom: none !important;
+}
+
 .c-code-tabs__panels > *:not(.is-active) {
   display: none;
 }
